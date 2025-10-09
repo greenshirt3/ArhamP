@@ -1459,7 +1459,25 @@
                 historyList.innerHTML = '<p>No calculations yet</p>';
                 return;
             }
-            
+            // Add to your main calculator
+function exportCustomerData() {
+    const customerData = {
+        categories: data.categories,
+        items: data.items,
+        sizes: data.sizes,
+        colors: data.colors,
+        settings: data.settings,
+        lastUpdated: new Date().toISOString()
+    };
+    
+    const blob = new Blob([JSON.stringify(customerData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'data.json';
+    link.click();
+    URL.revokeObjectURL(url);
+}
             historyList.innerHTML = calculationHistory.map(calc => `
                 <div class="history-item">
                     <div class="history-header">
@@ -1494,6 +1512,7 @@
             document.getElementById('result').style.display = 'none';
             document.getElementById('priceBreakdown').style.display = 'none';
         }
+        
 
         // Export to Excel
         function exportToExcel() {
