@@ -6,19 +6,34 @@
     <title>Arham Printers - Complete Cloud Calculator</title>
     
     <!-- PWA Meta Tags -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Arham Printers">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#2c3e50">
-    <meta name="msapplication-TileColor" content="#2c3e50">
-    
-    <!-- Icons -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
-    
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Arham Printers">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#2c3e50">
+
+<!-- Icons for different devices -->
+<link rel="icon" type="image/x-icon" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/svgs/solid/calculator.svg">
+<link rel="apple-touch-icon" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/svgs/solid/calculator.svg">
+
+<!-- Manifest for PWA -->
+<link rel="manifest" href="data:application/manifest+json,{
+  \"name\": \"Arham Printers Calculator\",
+  \"short_name\": \"ArhamPrinters\",
+  \"description\": \"Complete printing price calculator with cloud sync\",
+  \"start_url\": \"/ArhamP/\",
+  \"display\": \"standalone\",
+  \"background_color\": \"#ffffff\",
+  \"theme_color\": \"#2c3e50\",
+  \"orientation\": \"portrait\",
+  \"icons\": [
+    {
+      \"src\": \"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/svgs/solid/calculator.svg\",
+      \"sizes\": \"192x192\",
+      \"type\": \"image/svg+xml\"
+    }
+  ]
+}">
     <script type="text/javascript" src="https://alcdn.msauth.net/browser/2.24.0/js/msal-browser.min.js"></script>
     <style>
         :root {
