@@ -1,40 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-     <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arham Printers - Complete Cloud Calculator</title>
     
     <!-- PWA Meta Tags -->
-   <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Arham Printers">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#2c3e50">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Arham Printers">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#2c3e50">
 
-<!-- Icons for different devices -->
-<link rel="icon" type="image/x-icon" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/svgs/solid/calculator.svg">
-<link rel="apple-touch-icon" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/svgs/solid/calculator.svg">
+    <!-- Icons -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
 
-<!-- Manifest for PWA -->
-<link rel="manifest" href="data:application/manifest+json,{
-  \"name\": \"Arham Printers Calculator\",
-  \"short_name\": \"ArhamPrinters\",
-  \"description\": \"Complete printing price calculator with cloud sync\",
-  \"start_url\": \"/ArhamP/\",
-  \"display\": \"standalone\",
-  \"background_color\": \"#ffffff\",
-  \"theme_color\": \"#2c3e50\",
-  \"orientation\": \"portrait\",
-  \"icons\": [
-    {
-      \"src\": \"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/svgs/solid/calculator.svg\",
-      \"sizes\": \"192x192\",
-      \"type\": \"image/svg+xml\"
-    }
-  ]
-}">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script type="text/javascript" src="https://alcdn.msauth.net/browser/2.24.0/js/msal-browser.min.js"></script>
+    
     <style>
         :root {
             --primary: #2c3e50;
@@ -831,13 +816,6 @@
             </div>
             
             <!-- Import/Export Tab -->
-			<div class="import-export-section">
-    <h4>Testing</h4>
-    <p>Download a sample CSV file to test the import feature:</p>
-    <button class="btn btn-warning" onclick="createSampleCSV()">
-        <i class="fas fa-download"></i> Download Sample CSV
-    </button>
-</div>
             <div class="tab-content" id="import-export-tab">
                 <h3>Import/Export Data</h3>
                 
@@ -854,31 +832,30 @@
                     </div>
                 </div>
                 
-               <div class="import-export-section">
-    <h4>Import Data from CSV</h4>
-    <p><strong>Step 1:</strong> Download the sample CSV file to see the correct format</p>
-    <p><strong>Step 2:</strong> Open the CSV in Excel, modify the data, and save as CSV</p>
-    <p><strong>Step 3:</strong> Import your modified CSV file below</p>
-    
-    <div class="actions">
-        <button class="btn btn-warning" onclick="createSampleCSV()">
-            <i class="fas fa-download"></i> Download Sample CSV Template
-        </button>
-    </div>
-    
-    <div class="file-input" style="margin-top: 15px;">
-        <label for="csvFile" style="display: block; margin-bottom: 8px; font-weight: bold;">
-            <i class="fas fa-file-import"></i> Select CSV File to Import:
-        </label>
-        <input type="file" id="csvFile" accept=".csv" style="display: block; margin-bottom: 10px;">
-    </div>
-    
-    <div class="actions">
-        <button class="btn btn-primary" onclick="importData()">
-            <i class="fas fa-file-import"></i> Import Data from CSV
-        </button>
-    </div>
-</div>
+                <div class="import-export-section">
+                    <h4>Import Data from CSV</h4>
+                    <p><strong>Step 1:</strong> Download the sample CSV file to see the correct format</p>
+                    <p><strong>Step 2:</strong> Open the CSV in Excel, modify the data, and save as CSV</p>
+                    <p><strong>Step 3:</strong> Import your modified CSV file below</p>
+                    
+                    <div class="actions">
+                        <button class="btn btn-warning" onclick="createSampleCSV()">
+                            <i class="fas fa-download"></i> Download Sample CSV Template
+                        </button>
+                    </div>
+                    
+                    <div class="file-input" style="margin-top: 15px;">
+                        <label for="csvFile" style="display: block; margin-bottom: 8px; font-weight: bold;">
+                            <i class="fas fa-file-import"></i> Select CSV File to Import:
+                        </label>
+                        <input type="file" id="csvFile" accept=".csv" style="display: block; margin-bottom: 10px;">
+                    </div>
+                    
+                    <div class="actions">
+                        <button class="btn btn-primary" onclick="importData()">
+                            <i class="fas fa-file-import"></i> Import Data from CSV
+                        </button>
+                    </div>
                 </div>
                 
                 <div class="admin-section">
@@ -916,7 +893,7 @@
                 clientId: AZURE_CLIENT_ID,
                 authority: "https://login.microsoftonline.com/common",
                 redirectUri: "https://greenshirt3.github.io/ArhamP/",
-				knownAuthorities: ["https://login.microsoftonline.com/common/"]
+                knownAuthorities: ["https://login.microsoftonline.com/common/"]
             },
             cache: {
                 cacheLocation: "localStorage",
@@ -1001,7 +978,10 @@
         let calculationHistory = [];
         const ADMIN_PASSWORD = "admin123";
 
-        // OneDrive Functions
+        // =============================================
+        // ONEDRIVE CLOUD SYNC FUNCTIONS
+        // =============================================
+
         async function loginToOneDrive() {
             try {
                 const loginRequest = {
@@ -1193,6 +1173,10 @@
                 alert('❌ Failed to sync data from OneDrive: ' + error.message);
             }
         }
+
+        // =============================================
+        // CORE APPLICATION FUNCTIONS
+        // =============================================
 
         // Auto-save function with cloud sync
         function saveAllData() {
@@ -1544,7 +1528,10 @@
             document.body.removeChild(link);
         }
 
-        // Admin functions
+        // =============================================
+        // ADMIN PANEL FUNCTIONS
+        // =============================================
+
         function toggleAdmin() {
             const input = document.getElementById('adminPassword').value;
             if (input === ADMIN_PASSWORD) {
@@ -1764,231 +1751,244 @@
             }
         }
 
-        // Import/Export Functions
-   // Import/Export Functions - FIXED VERSION
-function exportAllData() {
-    try {
-        let csvContent = 'data:text/csv;charset=utf-8,';
-        
-        // Export Items
-        csvContent += 'ITEMS DATA\r\n';
-        csvContent += 'mainCategory,subcategory,itemName,price,type,designCharges,paperCost,bindingCost,colorCost\r\n';
-        data.items.forEach(item => {
-            csvContent += `"${item.mainCategory}","${item.subcategory}","${item.itemName}",${item.price},${item.type},${item.designCharges},${item.paperCost},${item.bindingCost},${item.colorCost}\r\n`;
-        });
-        
-        // Export Sizes
-        csvContent += '\r\nSIZES DATA\r\n';
-        csvContent += 'sizeName,paperCost\r\n';
-        for (let sizeName in data.sizes) {
-            csvContent += `"${sizeName}",${data.sizes[sizeName]}\r\n`;
-        }
-        
-        // Export Colors
-        csvContent += '\r\nCOLORS DATA\r\n';
-        csvContent += 'colorName,colorCost\r\n';
-        for (let colorName in data.colors) {
-            csvContent += `"${colorName}",${data.colors[colorName]}\r\n`;
-        }
-        
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement('a');
-        link.setAttribute('href', encodedUri);
-        link.setAttribute('download', 'arham_printers_all_data.csv');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        
-        alert('Data exported successfully!');
-    } catch (error) {
-        console.error('Export error:', error);
-        alert('Error exporting data: ' + error.message);
-    }
-}
+        // =============================================
+        // IMPORT/EXPORT FUNCTIONS
+        // =============================================
 
-function exportItemsData() {
-    try {
-        let csvContent = 'data:text/csv;charset=utf-8,';
-        csvContent += 'mainCategory,subcategory,itemName,price,type,designCharges,paperCost,bindingCost,colorCost\r\n';
-        
-        data.items.forEach(item => {
-            csvContent += `"${item.mainCategory}","${item.subcategory}","${item.itemName}",${item.price},${item.type},${item.designCharges},${item.paperCost},${item.bindingCost},${item.colorCost}\r\n`;
-        });
-        
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement('a');
-        link.setAttribute('href', encodedUri);
-        link.setAttribute('download', 'arham_printers_items.csv');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        
-        alert('Items exported successfully!');
-    } catch (error) {
-        console.error('Export error:', error);
-        alert('Error exporting items: ' + error.message);
-    }
-}
-
-function importData() {
-    const fileInput = document.getElementById('csvFile');
-    const file = fileInput.files[0];
-    
-    if (!file) {
-        alert('Please select a CSV file to import');
-        return;
-    }
-    
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        try {
-            const csvData = e.target.result;
-            processCSVData(csvData);
-        } catch (error) {
-            console.error('Import error:', error);
-            alert('Error importing data: ' + error.message);
-        }
-    };
-    
-    reader.onerror = function() {
-        alert('Error reading file. Please try again.');
-    };
-    
-    reader.readAsText(file);
-}
-
-function processCSVData(csvData) {
-    try {
-        const lines = csvData.split('\n').filter(line => line.trim() !== '');
-        let currentSection = '';
-        let itemsImported = 0;
-        let sizesImported = 0;
-        let colorsImported = 0;
-        
-        // Ask user if they want to replace or merge data
-        const replaceData = confirm('Do you want to REPLACE all existing data with imported data? Click OK to replace, Cancel to merge with existing data.');
-        
-        if (replaceData) {
-            data.items = [];
-            data.sizes = {};
-            data.colors = {};
-            data.categories = [];
-        }
-        
-        for (let i = 0; i < lines.length; i++) {
-            const line = lines[i].trim();
-            
-            // Skip empty lines
-            if (line === '') continue;
-            
-            // Detect sections
-            if (line === 'ITEMS DATA') {
-                currentSection = 'items';
-                continue;
-            } else if (line === 'SIZES DATA') {
-                currentSection = 'sizes';
-                continue;
-            } else if (line === 'COLORS DATA') {
-                currentSection = 'colors';
-                continue;
-            }
-            
-            // Skip header rows
-            if (line.includes('mainCategory,subcategory') || 
-                line.includes('sizeName,paperCost') || 
-                line.includes('colorName,colorCost')) {
-                continue;
-            }
-            
-            // Parse CSV line (simple comma separation)
-            const values = line.split(',').map(value => {
-                // Remove quotes if present and trim
-                return value.replace(/^"(.*)"$/, '$1').trim();
-            });
-            
-            if (currentSection === 'items' && values.length >= 3) {
-                const item = {
-                    mainCategory: values[0] || '',
-                    subcategory: values[1] || '',
-                    itemName: values[2] || '',
-                    price: parseFloat(values[3]) || 0,
-                    type: values[4] || 'fixed',
-                    designCharges: parseFloat(values[5]) || 0,
-                    paperCost: parseFloat(values[6]) || 0,
-                    bindingCost: parseFloat(values[7]) || 0,
-                    colorCost: parseFloat(values[8]) || 0
-                };
+        function exportAllData() {
+            try {
+                let csvContent = 'data:text/csv;charset=utf-8,';
                 
-                // Add category if it doesn't exist
-                if (item.mainCategory && item.subcategory) {
-                    const categoryExists = data.categories.some(
-                        cat => cat.mainCategory === item.mainCategory && cat.subcategory === item.subcategory
-                    );
+                // Export Items
+                csvContent += 'ITEMS DATA\r\n';
+                csvContent += 'mainCategory,subcategory,itemName,price,type,designCharges,paperCost,bindingCost,colorCost\r\n';
+                data.items.forEach(item => {
+                    csvContent += `"${item.mainCategory}","${item.subcategory}","${item.itemName}",${item.price},${item.type},${item.designCharges},${item.paperCost},${item.bindingCost},${item.colorCost}\r\n`;
+                });
+                
+                // Export Sizes
+                csvContent += '\r\nSIZES DATA\r\n';
+                csvContent += 'sizeName,paperCost\r\n';
+                for (let sizeName in data.sizes) {
+                    csvContent += `"${sizeName}",${data.sizes[sizeName]}\r\n`;
+                }
+                
+                // Export Colors
+                csvContent += '\r\nCOLORS DATA\r\n';
+                csvContent += 'colorName,colorCost\r\n';
+                for (let colorName in data.colors) {
+                    csvContent += `"${colorName}",${data.colors[colorName]}\r\n`;
+                }
+                
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement('a');
+                link.setAttribute('href', encodedUri);
+                link.setAttribute('download', 'arham_printers_all_data.csv');
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                alert('Data exported successfully!');
+            } catch (error) {
+                console.error('Export error:', error);
+                alert('Error exporting data: ' + error.message);
+            }
+        }
+
+        function exportItemsData() {
+            try {
+                let csvContent = 'data:text/csv;charset=utf-8,';
+                csvContent += 'mainCategory,subcategory,itemName,price,type,designCharges,paperCost,bindingCost,colorCost\r\n';
+                
+                data.items.forEach(item => {
+                    csvContent += `"${item.mainCategory}","${item.subcategory}","${item.itemName}",${item.price},${item.type},${item.designCharges},${item.paperCost},${item.bindingCost},${item.colorCost}\r\n`;
+                });
+                
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement('a');
+                link.setAttribute('href', encodedUri);
+                link.setAttribute('download', 'arham_printers_items.csv');
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                alert('Items exported successfully!');
+            } catch (error) {
+                console.error('Export error:', error);
+                alert('Error exporting items: ' + error.message);
+            }
+        }
+
+        function importData() {
+            const fileInput = document.getElementById('csvFile');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                alert('Please select a CSV file to import');
+                return;
+            }
+            
+            // Check file type
+            if (!file.name.toLowerCase().endsWith('.csv')) {
+                alert('Please select a CSV file (.csv extension)');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    let csvData = e.target.result;
                     
-                    if (!categoryExists) {
-                        data.categories.push({
-                            mainCategory: item.mainCategory,
-                            subcategory: item.subcategory
-                        });
+                    // Remove BOM if present (common in Excel exports)
+                    if (csvData.charCodeAt(0) === 0xFEFF) {
+                        csvData = csvData.substring(1);
+                    }
+                    
+                    processCSVData(csvData);
+                } catch (error) {
+                    console.error('Import error:', error);
+                    alert('Error importing data: ' + error.message + '\n\nPlease make sure your CSV file follows the correct format.');
+                }
+            };
+            
+            reader.onerror = function() {
+                alert('Error reading file. Please try again with a different file.');
+            };
+            
+            reader.readAsText(file, 'UTF-8');
+        }
+
+        function processCSVData(csvData) {
+            try {
+                const lines = csvData.split('\n').filter(line => line.trim() !== '');
+                let currentSection = '';
+                let itemsImported = 0;
+                let sizesImported = 0;
+                let colorsImported = 0;
+                
+                // Ask user if they want to replace or merge data
+                const replaceData = confirm('Do you want to REPLACE all existing data with imported data? Click OK to replace, Cancel to merge with existing data.');
+                
+                if (replaceData) {
+                    data.items = [];
+                    data.sizes = {};
+                    data.colors = {};
+                    data.categories = [];
+                }
+                
+                for (let i = 0; i < lines.length; i++) {
+                    const line = lines[i].trim();
+                    
+                    // Skip empty lines
+                    if (line === '') continue;
+                    
+                    // Detect sections
+                    if (line === 'ITEMS DATA') {
+                        currentSection = 'items';
+                        continue;
+                    } else if (line === 'SIZES DATA') {
+                        currentSection = 'sizes';
+                        continue;
+                    } else if (line === 'COLORS DATA') {
+                        currentSection = 'colors';
+                        continue;
+                    }
+                    
+                    // Skip header rows
+                    if (line.includes('mainCategory,subcategory') || 
+                        line.includes('sizeName,paperCost') || 
+                        line.includes('colorName,colorCost')) {
+                        continue;
+                    }
+                    
+                    // Parse CSV line (simple comma separation)
+                    const values = line.split(',').map(value => {
+                        // Remove quotes if present and trim
+                        return value.replace(/^"(.*)"$/, '$1').trim();
+                    });
+                    
+                    if (currentSection === 'items' && values.length >= 3) {
+                        const item = {
+                            mainCategory: values[0] || '',
+                            subcategory: values[1] || '',
+                            itemName: values[2] || '',
+                            price: parseFloat(values[3]) || 0,
+                            type: values[4] || 'fixed',
+                            designCharges: parseFloat(values[5]) || 0,
+                            paperCost: parseFloat(values[6]) || 0,
+                            bindingCost: parseFloat(values[7]) || 0,
+                            colorCost: parseFloat(values[8]) || 0
+                        };
+                        
+                        // Add category if it doesn't exist
+                        if (item.mainCategory && item.subcategory) {
+                            const categoryExists = data.categories.some(
+                                cat => cat.mainCategory === item.mainCategory && cat.subcategory === item.subcategory
+                            );
+                            
+                            if (!categoryExists) {
+                                data.categories.push({
+                                    mainCategory: item.mainCategory,
+                                    subcategory: item.subcategory
+                                });
+                            }
+                        }
+                        
+                        // Check if item already exists
+                        const existingItemIndex = data.items.findIndex(
+                            existing => existing.mainCategory === item.mainCategory && 
+                                       existing.subcategory === item.subcategory && 
+                                       existing.itemName === item.itemName
+                        );
+                        
+                        if (existingItemIndex !== -1) {
+                            // Update existing item
+                            data.items[existingItemIndex] = item;
+                        } else {
+                            // Add new item
+                            data.items.push(item);
+                        }
+                        
+                        itemsImported++;
+                        
+                    } else if (currentSection === 'sizes' && values.length >= 2) {
+                        const sizeName = values[0];
+                        const paperCost = parseFloat(values[1]) || 0;
+                        
+                        if (sizeName) {
+                            data.sizes[sizeName] = paperCost;
+                            sizesImported++;
+                        }
+                        
+                    } else if (currentSection === 'colors' && values.length >= 2) {
+                        const colorName = values[0];
+                        const colorCost = parseFloat(values[1]) || 0;
+                        
+                        if (colorName) {
+                            data.colors[colorName] = colorCost;
+                            colorsImported++;
+                        }
                     }
                 }
                 
-                // Check if item already exists
-                const existingItemIndex = data.items.findIndex(
-                    existing => existing.mainCategory === item.mainCategory && 
-                               existing.subcategory === item.subcategory && 
-                               existing.itemName === item.itemName
-                );
+                saveAllData();
+                refreshAllDisplays();
+                refreshDataTables();
                 
-                if (existingItemIndex !== -1) {
-                    // Update existing item
-                    data.items[existingItemIndex] = item;
-                } else {
-                    // Add new item
-                    data.items.push(item);
-                }
+                alert(`Data imported successfully!\n\nItems: ${itemsImported}\nSizes: ${sizesImported}\nColors: ${colorsImported}\n\nTotal categories: ${data.categories.length}`);
                 
-                itemsImported++;
+                // Clear file input
+                document.getElementById('csvFile').value = '';
                 
-            } else if (currentSection === 'sizes' && values.length >= 2) {
-                const sizeName = values[0];
-                const paperCost = parseFloat(values[1]) || 0;
-                
-                if (sizeName) {
-                    data.sizes[sizeName] = paperCost;
-                    sizesImported++;
-                }
-                
-            } else if (currentSection === 'colors' && values.length >= 2) {
-                const colorName = values[0];
-                const colorCost = parseFloat(values[1]) || 0;
-                
-                if (colorName) {
-                    data.colors[colorName] = colorCost;
-                    colorsImported++;
-                }
+            } catch (error) {
+                console.error('Process CSV error:', error);
+                alert('Error processing CSV file: ' + error.message);
             }
         }
-        
-        saveAllData();
-        refreshAllDisplays();
-        refreshDataTables();
-        
-        alert(`Data imported successfully!\n\nItems: ${itemsImported}\nSizes: ${sizesImported}\nColors: ${colorsImported}\n\nTotal categories: ${data.categories.length}`);
-        
-        // Clear file input
-        document.getElementById('csvFile').value = '';
-        
-    } catch (error) {
-        console.error('Process CSV error:', error);
-        alert('Error processing CSV file: ' + error.message);
-    }
-}
 
-// Simple CSV export for testing
-// Create proper CSV file for Excel
-function createSampleCSV() {
-    const sampleCSV = `ITEMS DATA
+        // Create proper CSV file for Excel
+        function createSampleCSV() {
+            const sampleCSV = `ITEMS DATA
 mainCategory,subcategory,itemName,price,type,designCharges,paperCost,bindingCost,colorCost
 "Offset Paper Printing","Visiting Cards","Premium Glossy Cards",2500,fixed,500,0,0,0
 "Offset Paper Printing","Visiting Cards","Matte Finish Cards",2200,fixed,500,0,0,0
@@ -2011,26 +2011,38 @@ colorName,colorCost
 "3 Colors",2100
 "4 Colors",2800
 "Blue Only",850`;
-    
-    // Create proper CSV file with BOM for Excel
-    const BOM = '\uFEFF';
-    const blob = new Blob([BOM + sampleCSV], { 
-        type: 'text/csv;charset=utf-8;' 
-    });
-    
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'arham_printers_sample_data.csv';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    // Clean up
-    setTimeout(() => URL.revokeObjectURL(url), 100);
-    
-    alert('Sample CSV file downloaded! You can open this in Excel to see the format, then modify it and import back.');
-}
+            
+            // Create proper CSV file with BOM for Excel
+            const BOM = '\uFEFF';
+            const blob = new Blob([BOM + sampleCSV], { 
+                type: 'text/csv;charset=utf-8;' 
+            });
+            
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'arham_printers_sample_data.csv';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Clean up
+            setTimeout(() => URL.revokeObjectURL(url), 100);
+            
+            alert('Sample CSV file downloaded! You can open this in Excel to see the format, then modify it and import back.');
+        }
+
+        function resetToDefault() {
+            if (confirm('Are you sure you want to reset all data to default? This cannot be undone.')) {
+                data = JSON.parse(JSON.stringify(defaultData));
+                calculationHistory = [];
+                saveAllData();
+                refreshAllDisplays();
+                refreshDataTables();
+                alert('Data reset to default values!');
+            }
+        }
+
         // Initialize the application
         window.onload = function() {
             console.log('Arham Printers Complete Calculator loaded successfully!');
