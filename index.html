@@ -854,23 +854,31 @@
                     </div>
                 </div>
                 
-                <div class="import-export-section">
-                    <h4>Import Data from CSV</h4>
-                    <p>Import data from a CSV file. The file should have the following columns:</p>
-                    <ul>
-                        <li><strong>For Items:</strong> mainCategory, subcategory, itemName, price, type, designCharges, paperCost, bindingCost, colorCost</li>
-                        <li><strong>For Sizes:</strong> sizeName, paperCost</li>
-                        <li><strong>For Colors:</strong> colorName, colorCost</li>
-                    </ul>
-                    <div class="file-input">
-                        <label for="csvFile">Select CSV File:</label>
-                        <input type="file" id="csvFile" accept=".csv">
-                    </div>
-                    <div class="actions">
-                        <button class="btn btn-primary" onclick="importData()">
-                            <i class="fas fa-file-import"></i> Import Data from CSV
-                        </button>
-                    </div>
+               <div class="import-export-section">
+    <h4>Import Data from CSV</h4>
+    <p><strong>Step 1:</strong> Download the sample CSV file to see the correct format</p>
+    <p><strong>Step 2:</strong> Open the CSV in Excel, modify the data, and save as CSV</p>
+    <p><strong>Step 3:</strong> Import your modified CSV file below</p>
+    
+    <div class="actions">
+        <button class="btn btn-warning" onclick="createSampleCSV()">
+            <i class="fas fa-download"></i> Download Sample CSV Template
+        </button>
+    </div>
+    
+    <div class="file-input" style="margin-top: 15px;">
+        <label for="csvFile" style="display: block; margin-bottom: 8px; font-weight: bold;">
+            <i class="fas fa-file-import"></i> Select CSV File to Import:
+        </label>
+        <input type="file" id="csvFile" accept=".csv" style="display: block; margin-bottom: 10px;">
+    </div>
+    
+    <div class="actions">
+        <button class="btn btn-primary" onclick="importData()">
+            <i class="fas fa-file-import"></i> Import Data from CSV
+        </button>
+    </div>
+</div>
                 </div>
                 
                 <div class="admin-section">
@@ -1978,31 +1986,51 @@ function processCSVData(csvData) {
 }
 
 // Simple CSV export for testing
+// Create proper CSV file for Excel
 function createSampleCSV() {
     const sampleCSV = `ITEMS DATA
 mainCategory,subcategory,itemName,price,type,designCharges,paperCost,bindingCost,colorCost
-"Offset Paper Printing","Visiting Cards","Sample Card",2000,fixed,500,0,0,0
-"Panaflex","China","2x2 Sample",140,fixed,0,0,0,0
+"Offset Paper Printing","Visiting Cards","Premium Glossy Cards",2500,fixed,500,0,0,0
+"Offset Paper Printing","Visiting Cards","Matte Finish Cards",2200,fixed,500,0,0,0
+"Offset Paper Printing","LetterPads","Standard LetterPads",0,offset,0,0,40,0
+"Panaflex","China","2x2 Sign",140,fixed,0,0,0,0
+"Panaflex","China","2x3 Sign",210,fixed,0,0,0,0
+"Social Media Posts","Design Only","Facebook Post",300,fixed,0,0,0,0
 
 SIZES DATA
 sizeName,paperCost
-"A4 Sample",1000
-"Legal Sample",1500
+"A4/2 68g",625
+"A4 68g",1250
+"A4/4 68g",312.5
+"Legal 100g",3600
 
 COLORS DATA
 colorName,colorCost
-"Red",800
-"Gold",1200`;
+"1 Color",700
+"2 Colors",1400
+"3 Colors",2100
+"4 Colors",2800
+"Blue Only",850`;
     
-    const blob = new Blob([sampleCSV], { type: 'text/csv' });
+    // Create proper CSV file with BOM for Excel
+    const BOM = '\uFEFF';
+    const blob = new Blob([BOM + sampleCSV], { 
+        type: 'text/csv;charset=utf-8;' 
+    });
+    
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'sample_data.csv';
+    link.download = 'arham_printers_sample_data.csv';
+    document.body.appendChild(link);
     link.click();
-    URL.revokeObjectURL(url);
+    document.body.removeChild(link);
+    
+    // Clean up
+    setTimeout(() => URL.revokeObjectURL(url), 100);
+    
+    alert('Sample CSV file downloaded! You can open this in Excel to see the format, then modify it and import back.');
 }
-
         // Initialize the application
         window.onload = function() {
             console.log('Arham Printers Complete Calculator loaded successfully!');
