@@ -198,29 +198,6 @@
             display: none;
         }
         
-        .price-breakdown {
-            margin-top: 15px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: var(--border-radius);
-            border: 1px solid #dee2e6;
-            display: none;
-        }
-        
-        .breakdown-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .breakdown-item:last-child {
-            border-bottom: none;
-            font-weight: bold;
-            font-size: 1.1em;
-            color: var(--success);
-        }
-        
         .hidden-fields {
             display: none;
             background: #f8f9fa;
@@ -372,10 +349,6 @@
             </div>
             
             <div class="result" id="result"></div>
-            <div class="price-breakdown" id="priceBreakdown">
-                <h4><i class="fas fa-receipt"></i> Price Breakdown</h4>
-                <div id="breakdownContent"></div>
-            </div>
         </div>
 
         <!-- Contact Information -->
@@ -676,79 +649,54 @@
 
         // Calculate price
         function calculatePrice() {
-            const mainCategory = document.getElementById('mainCategory').value;
-            const subcategory = document.getElementById('subCategory').value;
-            const itemName = document.getElementById('itemName').value;
-            const quantity = parseInt(document.getElementById('quantity').value) || 1;
-            
-            if (!mainCategory || !subcategory || !itemName) {
-                alert("Please select all required fields");
-                return;
-            }
-            
-            const item = data.items.find(i => 
-                i.mainCategory === mainCategory && 
-                i.subcategory === subcategory && 
-                i.itemName === itemName
-            );
-            
-            if (!item) {
-                document.getElementById('result').textContent = "Item not found";
-                document.getElementById('result').style.display = 'block';
-                return;
-            }
-            
-            let basePrice = 0;
-            let breakdown = [];
-            
-            if (item.type === "fixed") {
-                basePrice = item.price;
-                breakdown.push(`Item Price: Rs. ${basePrice}`);
-            } else {
-                const size = document.getElementById('size').value;
-                const color = document.getElementById('color').value;
-                
-                if (!size || !color) {
-                    alert("Please select size and color for this item");
-                    return;
-                }
-                
-                const paperCost = data.sizes[size] || item.paperCost || 0;
-                const bindingCost = item.bindingCost || data.settings.defaultBinding || 0;
-                const colorCost = data.colors[color] || item.colorCost || 0;
-                
-                basePrice = paperCost + bindingCost + colorCost + data.settings.rent;
-                
-                breakdown.push(`Paper Cost: Rs. ${paperCost}`);
-                if (bindingCost > 0) breakdown.push(`Binding Cost: Rs. ${bindingCost}`);
-                breakdown.push(`Color Cost: Rs. ${colorCost}`);
-                breakdown.push(`Rent: Rs. ${data.settings.rent}`);
-                breakdown.push(`Base Cost: Rs. ${basePrice}`);
-            }
-            
-            if (item.designCharges > 0) {
-                breakdown.push(`Design Charges: Rs. ${item.designCharges}`);
-                basePrice += item.designCharges;
-            }
-            
-            const subtotal = basePrice * quantity;
-            const profit = subtotal * (data.settings.profitMargin / 100);
-            const total = subtotal + profit;
-            
-            breakdown.push(`Quantity: ${quantity}`);
-            breakdown.push(`Subtotal: Rs. ${Math.round(subtotal)}`);
-            breakdown.push(`Profit (${data.settings.profitMargin}%): Rs. ${Math.round(profit)}`);
-            breakdown.push(`Total: Rs. ${Math.round(total)}`);
-            
-            document.getElementById('result').textContent = `Total Price: Rs. ${Math.round(total)}`;
-            document.getElementById('result').style.display = 'block';
-            
-            document.getElementById('breakdownContent').innerHTML = breakdown.map(item => 
-                `<div class="breakdown-item">${item}</div>`
-            ).join('');
-            document.getElementById('priceBreakdown').style.display = 'block';
+    const mainCategory = document.getElementById('mainCategory').value;
+    const subcategory = document.getElementById('subCategory').value;
+    const itemName = document.getElementById('itemName').value;
+    const quantity = parseInt(document.getElementById('quantity').value) || 1;
+    
+    if (!mainCategory || !subcategory || !itemName) {
+        alert("Please select all required fields");
+        return;
+    }
+    
+    const item = data.items.find(i => 
+        i.mainCategory === mainCategory && 
+        i.subcategory === subcategory && 
+        i.itemName === itemName
+    );
+    
+    if (!item) {
+        document.getElementById('result').textContent = "Item not found";
+        document.getElementById('result').style.display = 'block';
+        return;
+    }
+    
+    let total = 0;
+    
+    if (item.type === "fixed") {
+        total = item.price * quantity;
+    } else {
+        const size = document.getElementById('size').value;
+        const color = document.getElementById('color').value;
+        
+        if (!size || !color) {
+            alert("Please select size and color for this item");
+            return;
         }
-
+        
+        const paperCost = data.sizes[size] || item.paperCost || 0;
+        const bindingCost = item.bindingCost || data.settings.defaultBinding || 0;
+        const colorCost = data.colors[color] || item.colorCost || 0;
+        
+        const basePrice = paperCost + bindingCost + colorCost + data.settings.rent + item.designCharges;
+        const subtotal = basePrice * quantity;
+        const profit = subtotal * (data.settings.profitMargin / 100);
+        total = subtotal + profit;
+    }
+    
+    document.getElementById('result').textContent = `Total Price: Rs. ${Math.round(total)}`;
+    document.getElementById('result').style.display = 'block';
+}
         // Clear form
         function clearForm() {
             document.getElementById('mainCategory').value = '';
@@ -758,7 +706,6 @@
             document.getElementById('color').value = '';
             document.getElementById('quantity').value = '1';
             document.getElementById('result').style.display = 'none';
-            document.getElementById('priceBreakdown').style.display = 'none';
         }
 
         // Auto-refresh data every 5 minutes
