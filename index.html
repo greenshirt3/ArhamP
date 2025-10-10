@@ -556,11 +556,6 @@
         </header>
 
         <!-- Cloud Sync Section -->
-        <div class="cloud-section">
-            <h2 class="section-title"><i class="fas fa-cloud"></i> Auto Cloud Sync</h2>
-            <div id="syncStatus" class="sync-status sync-offline">
-                <i class="fas fa-cloud"></i> Offline Mode - Data stored locally
-            </div>
             
             <div class="actions">
                 <button class="btn btn-primary" onclick="loginToOneDrive()" id="loginBtn">
@@ -577,21 +572,7 @@
             </div>
         </div>
 
-        <!-- GitHub Auto-Sync Section -->
-        <div class="github-section">
-            <h2 class="section-title"><i class="fab fa-github"></i> Auto GitHub Sync</h2>
-            <div id="githubStatus" class="auto-status">
-                <i class="fas fa-info-circle"></i> GitHub sync ready - Changes auto-publish to customers
-            </div>
-            
-            <div class="actions">
-                <button class="btn btn-success" onclick="setupGitHubSync()" id="githubSetupBtn">
-                    <i class="fab fa-github"></i> Setup GitHub Auto-Sync
-                </button>
-                <button class="btn btn-warning" onclick="manualUploadToGitHub()" id="manualUploadBtn" style="display: none;">
-                    <i class="fas fa-cloud-upload-alt"></i> Upload to GitHub Now
-                </button>
-            </div>
+        
             
 
         <!-- Calculator Section -->
