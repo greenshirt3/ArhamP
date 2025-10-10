@@ -593,20 +593,6 @@
                 </button>
             </div>
             
-            <div id="githubConfig" style="display: none; margin-top: 15px;">
-                <div class="form-group">
-                    <label for="githubToken"><i class="fas fa-key"></i> GitHub Token:</label>
-                    <input type="password" id="githubToken" placeholder="Enter GitHub Personal Access Token">
-                </div>
-                <div class="form-group">
-                    <label for="repoInfo"><i class="fas fa-info"></i> Repository:</label>
-                    <input type="text" id="repoInfo" value="greenshirt3/ArhamP" readonly style="background: #f8f9fa;">
-                </div>
-                <button class="btn btn-primary" onclick="saveGitHubConfig()">
-                    <i class="fas fa-save"></i> Save GitHub Configuration
-                </button>
-            </div>
-        </div>
 
         <!-- Calculator Section -->
         <div class="calculator-section">
@@ -935,10 +921,24 @@
         // =============================================
         // GITHUB AUTO-SYNC CONFIGURATION
         // =============================================
-        const GITHUB_REPO = "greenshirt3/ArhamP";
-        const GITHUB_FILE_PATH = "customer-data.json";
-        let githubToken = null;
-        let autoGitHubSync = false;
+        // Add your GitHub token directly here
+const GITHUB_TOKEN = "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"; // Replace with your actual token
+
+// In the initialization section, replace the GitHub config loading with:
+githubToken = GITHUB_TOKEN;
+autoGitHubSync = true;
+localStorage.setItem('githubToken', GITHUB_TOKEN);
+
+document.getElementById('manualUploadBtn').style.display = 'inline-flex';
+document.getElementById('customerUploadBtn').style.display = 'inline-flex';
+document.getElementById('githubSetupBtn').style.display = 'none';
+document.getElementById('githubStatus').innerHTML = '<i class="fas fa-check-circle"></i> GitHub auto-sync enabled - Changes auto-publish';
+document.getElementById('githubStatus').style.background = '#dff6dd';
+document.getElementById('githubStatus').style.borderColor = '#107c10';
+document.getElementById('githubSyncStatus').innerHTML = 'GitHub auto-sync is <strong>ENABLED</strong>. All changes automatically publish to customers.';
+
+// Test GitHub connection on startup
+testGitHubConnection();
 
         // =============================================
         // DEFAULT DATA STRUCTURE
