@@ -1,0 +1,232 @@
+{
+  "categories": [
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "LetterPads"
+    },
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "Ishtihars"
+    },
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "Envelops"
+    },
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "Visiting Cards"
+    },
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "Stickers"
+    },
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "Bill Books"
+    },
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "PhotoPapers"
+    },
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "weddind cards"
+    },
+    {
+      "mainCategory": "Panaflex",
+      "subcategory": "China"
+    },
+    {
+      "mainCategory": "Panaflex",
+      "subcategory": "Star"
+    },
+    {
+      "mainCategory": "Panaflex",
+      "subcategory": "Venyl"
+    },
+    {
+      "mainCategory": "Panaflex",
+      "subcategory": "One Vision"
+    },
+    {
+      "mainCategory": "Panaflex",
+      "subcategory": "Backlit"
+    },
+    {
+      "mainCategory": "Others",
+      "subcategory": "Miscellaneous"
+    },
+    {
+      "mainCategory": "Social Media Posts",
+      "subcategory": "Design Only"
+    }
+  ],
+  "items": [
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "LetterPads",
+      "itemName": "LetterPads",
+      "price": 0,
+      "type": "offset",
+      "designCharges": 0,
+      "paperCost": 0,
+      "bindingCost": 40,
+      "colorCost": 0
+    },
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "Ishtihars",
+      "itemName": "Paper Ishtihars",
+      "price": 0,
+      "type": "offset",
+      "designCharges": 0,
+      "paperCost": 0,
+      "bindingCost": 0,
+      "colorCost": 0
+    },
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "Ishtihars",
+      "itemName": "Art Paper Ishtihars",
+      "price": 0,
+      "type": "offset",
+      "designCharges": 0,
+      "paperCost": 0,
+      "bindingCost": 0,
+      "colorCost": 0
+    },
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "Envelops",
+      "itemName": "Envelop 9x4",
+      "price": 0,
+      "type": "offset",
+      "designCharges": 0,
+      "paperCost": 0,
+      "bindingCost": 0,
+      "colorCost": 0
+    },
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "Envelops",
+      "itemName": "Envelop 7x5",
+      "price": 0,
+      "type": "offset",
+      "designCharges": 0,
+      "paperCost": 0,
+      "bindingCost": 0,
+      "colorCost": 0
+    },
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "Visiting Cards",
+      "itemName": "Shine",
+      "price": 1801,
+      "type": "fixed",
+      "designCharges": 0,
+      "paperCost": 0,
+      "bindingCost": 0,
+      "colorCost": 0
+    },
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "Visiting Cards",
+      "itemName": "Mat Single Side",
+      "price": 1900,
+      "type": "fixed",
+      "designCharges": 0,
+      "paperCost": 0,
+      "bindingCost": 0,
+      "colorCost": 0
+    },
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "Visiting Cards",
+      "itemName": "Mat Double Side",
+      "price": 2500,
+      "type": "fixed",
+      "designCharges": 0,
+      "paperCost": 0,
+      "bindingCost": 0,
+      "colorCost": 0
+    },
+    {
+      "mainCategory": "Panaflex",
+      "subcategory": "China",
+      "itemName": "2x2",
+      "price": 140,
+      "type": "fixed",
+      "designCharges": 0,
+      "paperCost": 0,
+      "bindingCost": 0,
+      "colorCost": 0
+    },
+    {
+      "mainCategory": "Panaflex",
+      "subcategory": "China",
+      "itemName": "2x3",
+      "price": 210,
+      "type": "fixed",
+      "designCharges": 0,
+      "paperCost": 0,
+      "bindingCost": 0,
+      "colorCost": 0
+    },
+    {
+      "mainCategory": "Panaflex",
+      "subcategory": "China",
+      "itemName": "2x4",
+      "price": 280,
+      "type": "fixed",
+      "designCharges": 0,
+      "paperCost": 0,
+      "bindingCost": 0,
+      "colorCost": 0
+    },
+    {
+      "mainCategory": "Social Media Posts",
+      "subcategory": "Design Only",
+      "itemName": "Facebook Post",
+      "price": 300,
+      "type": "fixed",
+      "designCharges": 0,
+      "paperCost": 0,
+      "bindingCost": 0,
+      "colorCost": 0
+    },
+    {
+      "mainCategory": "Social Media Posts",
+      "subcategory": "Design Only",
+      "itemName": "Instagram Post",
+      "price": 400,
+      "type": "fixed",
+      "designCharges": 0,
+      "paperCost": 0,
+      "bindingCost": 0,
+      "colorCost": 0
+    }
+  ],
+  "sizes": {
+    "A4/2 68g": 625,
+    "A4 68g": 1250,
+    "A4/4 68g": 312.5,
+    "Legal 100g": 3600,
+    "A4 Art Paper 113g": 3700,
+    "News Paper 9x3.5": 400
+  },
+  "colors": {
+    "1": 700,
+    "2": 1400,
+    "3": 2100,
+    "4": 2800,
+    "Blue": 850,
+    "Green": 850,
+    "Brown": 850
+  },
+  "settings": {
+    "rent": 200,
+    "profitMargin": 25,
+    "defaultBinding": 40
+  },
+  "lastUpdated": "2025-10-11T13:12:22.648Z"
+}
