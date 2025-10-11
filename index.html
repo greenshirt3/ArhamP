@@ -956,7 +956,7 @@
         
         // IMPORTANT: Store GitHub token securely - don't commit to version control
         // For production, use environment variables or secure configuration
-        let githubToken = localStorage.getItem('githubToken') || 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;
+        let githubToken = localStorage.getItem('githubToken') || "YOUR_GITHUB_TOKEN_HERE";
         let autoGitHubSync = true;
 
         // =============================================
@@ -1110,7 +1110,7 @@
 
         async function testGitHubConnection() {
             try {
-                if (!githubToken || githubToken === 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) {
+                if (!githubToken || githubToken === "YOUR_GITHUB_TOKEN_HERE") {
                     updateGitHubStatus('error', 'Please configure GitHub token first');
                     return false;
                 }
@@ -1137,7 +1137,7 @@
         }
 
         async function uploadToGitHub() {
-            if (!autoGitHubSync || !githubToken || githubToken === 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) {
+            if (!autoGitHubSync || !githubToken || githubToken === "YOUR_GITHUB_TOKEN_HERE") {
                 console.log('GitHub sync disabled or token not configured');
                 return false;
             }
@@ -1449,7 +1449,7 @@
             localStorage.setItem('arhamPrintersHistory', JSON.stringify(calculationHistory));
             
             // Auto-upload to GitHub if configured
-            if (autoGitHubSync && githubToken && githubToken !== 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) {
+            if (autoGitHubSync && githubToken && githubToken !== "YOUR_GITHUB_TOKEN_HERE") {
                 setTimeout(() => {
                     uploadToGitHub().catch(error => {
                         console.error("Auto-GitHub sync failed:", error);
@@ -1481,7 +1481,7 @@
             }
             
             // Auto-configure GitHub
-            if (githubToken && githubToken !== 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) {
+            if (githubToken && githubToken !== "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") {
                 localStorage.setItem('githubToken', githubToken);
                 updateGitHubStatus('success', 'GitHub auto-sync enabled - Changes auto-publish');
                 
@@ -1887,7 +1887,7 @@
             refreshAllDisplays();
             saveAllData();
             
-            if (autoGitHubSync && githubToken && githubToken !== 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) {
+            if (autoGitHubSync && githubToken && githubToken !== "YOUR_GITHUB_TOKEN_HERE") {
                 alert('Item added successfully! Data auto-published to customers via GitHub.');
             } else {
                 alert('Item added successfully! Enable GitHub sync to publish to customers.');
@@ -2064,7 +2064,7 @@
             URL.revokeObjectURL(url);
             
             // Also upload to GitHub if configured
-            if (autoGitHubSync && githubToken && githubToken !== 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) {
+            if (autoGitHubSync && githubToken && githubToken !== "YOUR_GITHUB_TOKEN_HERE") {
                 uploadToGitHub();
             }
             
