@@ -554,43 +554,7 @@
             <h1><i class="fas fa-calculator"></i> Arham Printers - Admin Panel</h1>
             <p class="subtitle">Complete Price Calculator with Auto Cloud Sync</p>
         </header>
-
-        <!-- Cloud Sync Section -->
-        <div class="cloud-section">
-            <h2 class="section-title"><i class="fas fa-cloud"></i> Auto Cloud Sync</h2>
-            <div id="syncStatus" class="sync-status sync-offline">
-                <i class="fas fa-cloud"></i> Offline Mode - Data stored locally
-            </div>
-            
-            <div class="actions">
-                <button class="btn btn-primary" onclick="loginToOneDrive()" id="loginBtn">
-                    <i class="fab fa-microsoft"></i> Sign in with Microsoft
-                </button>
-                <button class="btn btn-danger" onclick="logoutFromOneDrive()" id="logoutBtn" style="display: none;">
-                    <i class="fas fa-sign-out-alt"></i> Sign Out
-                </button>
-            </div>
-            
-            <div id="userInfo" class="user-info" style="display: none;">
-                <h3><i class="fas fa-user"></i> Signed in as: <span id="userName"></span></h3>
-                <p>Auto-sync enabled - Data syncs automatically to OneDrive</p>
-            </div>
-        </div>
-
-        <!-- GitHub Auto-Sync Section -->
-        <div class="github-section">
-            <h2 class="section-title"><i class="fab fa-github"></i> Auto GitHub Sync</h2>
-            <div id="githubStatus" class="auto-status">
-                <i class="fas fa-info-circle"></i> GitHub sync ready - Changes auto-publish to customers
-            </div>
-            
-            <div class="actions">
-                <button class="btn btn-warning" onclick="manualUploadToGitHub()" id="manualUploadBtn">
-                    <i class="fas fa-cloud-upload-alt"></i> Upload to GitHub Now
-                </button>
-            </div>
-        </div>
-
+		
         <!-- Calculator Section -->
         <div class="calculator-section">
             <h2 class="section-title"><i class="fas fa-edit"></i> Calculate Printing Price</h2>
@@ -671,6 +635,7 @@
                 <div class="tab" data-tab="history">Calculation History</div>
                 <div class="tab" data-tab="settings">Settings</div>
                 <div class="tab" data-tab="customer-data">Customer Data</div>
+				<div class="tab" data-tab="cloud-sync">Cloud Sync</div>
             </div>
             
             <!-- Data Management Tab -->
@@ -878,7 +843,74 @@
                     </div>
                 </div>
             </div>
-            
+            <!-- Cloud Sync Tab -->
+<div class="tab-content" id="cloud-sync-tab">
+    <h3>Cloud Sync Management</h3>
+    
+    <!-- OneDrive Sync Section -->
+    <div class="admin-section">
+        <h4><i class="fas fa-cloud"></i> OneDrive Auto-Sync</h4>
+        <div id="syncStatus" class="sync-status sync-offline">
+            <i class="fas fa-cloud"></i> Offline Mode - Data stored locally
+        </div>
+        
+        <div class="actions">
+            <button class="btn btn-primary" onclick="loginToOneDrive()" id="loginBtn">
+                <i class="fab fa-microsoft"></i> Sign in with Microsoft
+            </button>
+            <button class="btn btn-danger" onclick="logoutFromOneDrive()" id="logoutBtn" style="display: none;">
+                <i class="fas fa-sign-out-alt"></i> Sign Out
+            </button>
+            <button class="btn btn-secondary" onclick="syncToCloud()" id="syncBtn" style="display: none;">
+                <i class="fas fa-cloud-upload-alt"></i> Sync Now
+            </button>
+        </div>
+        
+        <div id="userInfo" class="user-info" style="display: none; margin-top: 15px;">
+            <h3><i class="fas fa-user"></i> Signed in as: <span id="userName"></span></h3>
+            <p>Auto-sync enabled - Data syncs automatically to OneDrive</p>
+        </div>
+    </div>
+    
+    <!-- GitHub Sync Section -->
+    <div class="admin-section">
+        <h4><i class="fab fa-github"></i> GitHub Auto-Sync</h4>
+        <div id="githubStatus" class="auto-status">
+            <i class="fas fa-info-circle"></i> GitHub sync ready - Changes auto-publish to customers
+        </div>
+        
+        <div class="actions">
+            <button class="btn btn-warning" onclick="manualUploadToGitHub()" id="manualUploadBtn">
+                <i class="fas fa-cloud-upload-alt"></i> Upload to GitHub Now
+            </button>
+            <button class="btn btn-info" onclick="testGitHubConnection()">
+                <i class="fas fa-test"></i> Test Connection
+            </button>
+        </div>
+        
+        <div style="margin-top: 15px;">
+            <p><strong>Status:</strong> <span id="githubSyncStatus">GitHub auto-sync is ready</span></p>
+            <p><small>All price changes automatically publish to customer calculator</small></p>
+        </div>
+    </div>
+    
+    <!-- Sync Status Section -->
+    <div class="admin-section">
+        <h4><i class="fas fa-sync-alt"></i> Sync Status</h4>
+        <div class="admin-row">
+            <label>Last OneDrive Sync:</label>
+            <span id="lastOneDriveSync">Never</span>
+        </div>
+        <div class="admin-row">
+            <label>Last GitHub Sync:</label>
+            <span id="lastGitHubSync">Never</span>
+        </div>
+        <div class="admin-row">
+            <label>Auto-Sync Interval:</label>
+            <span>Every 2 minutes (OneDrive) / Instant (GitHub)</span>
+        </div>
+    </div>
+</div>
             <div class="actions">
                 <button class="btn btn-primary" onclick="saveAllData()">
                     <i class="fas fa-save"></i> Save All Data
@@ -914,6 +946,7 @@
         let isOnline = false;
         let currentUser = null;
         let autoSyncInterval = null;
+        let isSyncing = false; // Prevent race conditions
 
         // =============================================
         // GITHUB AUTO-SYNC CONFIGURATION
@@ -921,8 +954,9 @@
         const GITHUB_REPO = "greenshirt3/ArhamP";
         const GITHUB_FILE_PATH = "customer-data.json";
         
-        // ADD YOUR GITHUB TOKEN HERE:
-        let githubToken = "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";
+        // IMPORTANT: Store GitHub token securely - don't commit to version control
+        // For production, use environment variables or secure configuration
+        let githubToken = localStorage.getItem('githubToken') || "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";
         let autoGitHubSync = true;
 
         // =============================================
@@ -1076,6 +1110,11 @@
 
         async function testGitHubConnection() {
             try {
+                if (!githubToken || githubToken === "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") {
+                    updateGitHubStatus('error', 'Please configure GitHub token first');
+                    return false;
+                }
+                
                 const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}`, {
                     headers: {
                         'Authorization': `token ${githubToken}`,
@@ -1097,43 +1136,79 @@
             }
         }
 
-       async function uploadToGitHub() {
-    if (!autoGitHubSync || !githubToken) return;
+        async function uploadToGitHub() {
+            if (!autoGitHubSync || !githubToken || githubToken === "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") {
+                console.log('GitHub sync disabled or token not configured');
+                return false;
+            }
 
-    try {
-        const customerData = {
-            categories: data.categories,
-            items: data.items,
-            sizes: data.sizes,
-            colors: data.colors,
-            settings: data.settings,
-            lastUpdated: new Date().toISOString()
-        };
+            try {
+                const customerData = {
+                    categories: data.categories,
+                    items: data.items,
+                    sizes: data.sizes,
+                    colors: data.colors,
+                    settings: data.settings,
+                    lastUpdated: new Date().toISOString()
+                };
 
-        // Create downloadable file for manual upload
-        const blob = new Blob([JSON.stringify(customerData, null, 2)], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'customer-data.json';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
+                // Create downloadable file for manual upload
+                const blob = new Blob([JSON.stringify(customerData, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'customer-data.json';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
 
-        console.log('✅ Customer data file ready for manual upload');
-        updateGitHubStatus('success', 'Data file ready - upload to GitHub manually');
-        
-        // Show instructions for manual upload
-        alert('Customer data file downloaded! Please:\n1. Go to your GitHub repository\n2. Upload customer-data.json file\n3. Replace existing file if asked');
-        
-        return true;
-    } catch (error) {
-        console.error('GitHub upload failed:', error);
-        updateGitHubStatus('error', 'Auto-upload failed - use manual download');
-        return false;
-    }
-}
+                console.log('✅ Customer data file ready for manual upload');
+                updateGitHubStatus('success', 'Data file ready - upload to GitHub manually');
+                
+                // Show instructions for manual upload
+                alert('Customer data file downloaded! Please:\n1. Go to your GitHub repository\n2. Upload customer-data.json file\n3. Replace existing file if asked');
+                
+                localStorage.setItem('lastGitHubSync', new Date().toISOString());
+                updateSyncStatusDisplay();
+                
+                return true;
+            } catch (error) {
+                console.error('GitHub upload failed:', error);
+                updateGitHubStatus('error', 'Auto-upload failed - use manual download');
+                return false;
+            }
+        }
+
+        async function manualUploadToGitHub() {
+            try {
+                const success = await uploadToGitHub();
+                if (success) {
+                    updateGitHubStatus('success', 'Manual upload completed');
+                } else {
+                    updateGitHubStatus('error', 'Manual upload failed');
+                }
+            } catch (error) {
+                console.error('Manual upload error:', error);
+                updateGitHubStatus('error', 'Upload error: ' + error.message);
+            }
+        }
+
+        function updateGitHubStatus(type, message) {
+            const statusElem = document.getElementById('githubStatus');
+            statusElem.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-triangle'}"></i> ${message}`;
+            
+            if (type === 'success') {
+                statusElem.style.background = '#dff6dd';
+                statusElem.style.borderColor = '#107c10';
+                statusElem.style.color = '#107c10';
+            } else {
+                statusElem.style.background = '#fff4ce';
+                statusElem.style.borderColor = '#ffb900';
+                statusElem.style.color = '#d13438';
+            }
+        }
+
         // =============================================
         // AUTO ONEDRIVE SYNC FUNCTIONS
         // =============================================
@@ -1178,6 +1253,7 @@
         function updateUIAfterLogin() {
             document.getElementById('loginBtn').style.display = 'none';
             document.getElementById('logoutBtn').style.display = 'inline-flex';
+            document.getElementById('syncBtn').style.display = 'inline-flex';
             document.getElementById('userInfo').style.display = 'block';
             document.getElementById('userName').textContent = currentUser.name;
             document.getElementById('syncStatus').className = 'sync-status sync-online';
@@ -1187,6 +1263,7 @@
         function updateUIAfterLogout() {
             document.getElementById('loginBtn').style.display = 'inline-flex';
             document.getElementById('logoutBtn').style.display = 'none';
+            document.getElementById('syncBtn').style.display = 'none';
             document.getElementById('userInfo').style.display = 'none';
             document.getElementById('syncStatus').className = 'sync-status sync-offline';
             document.getElementById('syncStatus').innerHTML = '<i class="fas fa-cloud"></i> Offline Mode - Data stored locally';
@@ -1233,10 +1310,14 @@
         }
 
         async function autoSyncToCloud() {
-            if (!isOnline || !currentUser) return;
+            if (!isOnline || !currentUser || isSyncing) return;
 
+            isSyncing = true;
             const accessToken = await getAccessToken();
-            if (!accessToken) return;
+            if (!accessToken) {
+                isSyncing = false;
+                return;
+            }
 
             try {
                 const allData = {
@@ -1260,19 +1341,29 @@
 
                 if (response.ok) {
                     console.log('✅ Data auto-synced to OneDrive at:', new Date().toLocaleString());
+                    localStorage.setItem('lastOneDriveSync', new Date().toISOString());
+                    updateSyncStatusDisplay();
+                    return true;
                 } else {
                     throw new Error('Failed to upload to OneDrive');
                 }
             } catch (error) {
                 console.error("Auto-sync failed:", error);
+                return false;
+            } finally {
+                isSyncing = false;
             }
         }
 
         async function autoSyncFromCloud() {
-            if (!isOnline || !currentUser) return;
+            if (!isOnline || !currentUser || isSyncing) return;
 
+            isSyncing = true;
             const accessToken = await getAccessToken();
-            if (!accessToken) return;
+            if (!accessToken) {
+                isSyncing = false;
+                return;
+            }
 
             try {
                 const response = await fetch(
@@ -1296,9 +1387,13 @@
                     refreshDataTables();
                     
                     console.log('✅ Data auto-synced from OneDrive at:', new Date().toLocaleString());
+                    localStorage.setItem('lastOneDriveSync', new Date().toISOString());
+                    updateSyncStatusDisplay();
                 }
             } catch (error) {
                 console.error("Auto-sync from cloud failed:", error);
+            } finally {
+                isSyncing = false;
             }
         }
 
@@ -1323,6 +1418,28 @@
             }
         }
 
+        async function syncToCloud() {
+            if (!isOnline || !currentUser) {
+                alert('Please sign in to OneDrive first');
+                return false;
+            }
+            
+            try {
+                const success = await autoSyncToCloud();
+                if (success) {
+                    alert('Data synced successfully to OneDrive!');
+                    return true;
+                } else {
+                    alert('Sync failed. Please try again.');
+                    return false;
+                }
+            } catch (error) {
+                console.error('Sync error:', error);
+                alert('Sync error: ' + error.message);
+                return false;
+            }
+        }
+
         // =============================================
         // MODIFIED SAVE FUNCTION WITH AUTO SYNC
         // =============================================
@@ -1332,7 +1449,7 @@
             localStorage.setItem('arhamPrintersHistory', JSON.stringify(calculationHistory));
             
             // Auto-upload to GitHub if configured
-            if (autoGitHubSync && githubToken) {
+            if (autoGitHubSync && githubToken && githubToken !== "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") {
                 setTimeout(() => {
                     uploadToGitHub().catch(error => {
                         console.error("Auto-GitHub sync failed:", error);
@@ -1364,23 +1481,20 @@
             }
             
             // Auto-configure GitHub
-            if (githubToken && githubToken !== "YOUR_GITHUB_TOKEN_HERE") {
+            if (githubToken && githubToken !== "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") {
                 localStorage.setItem('githubToken', githubToken);
-                document.getElementById('githubStatus').innerHTML = '<i class="fas fa-check-circle"></i> GitHub auto-sync enabled - Changes auto-publish';
-                document.getElementById('githubStatus').style.background = '#dff6dd';
-                document.getElementById('githubStatus').style.borderColor = '#107c10';
+                updateGitHubStatus('success', 'GitHub auto-sync enabled - Changes auto-publish');
                 
                 // Test GitHub connection on startup
                 testGitHubConnection();
             } else {
-                document.getElementById('githubStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Please add your GitHub token in the code';
-                document.getElementById('githubStatus').style.background = '#fff4ce';
-                document.getElementById('githubStatus').style.borderColor = '#ffb900';
+                updateGitHubStatus('error', 'Please add your GitHub token in the code');
             }
             
             loadAllData();
             setupEventListeners();
             refreshAllDisplays();
+            updateSyncStatusDisplay();
         });
 
         function loadAllData() {
@@ -1426,6 +1540,8 @@
                             updateHistoryDisplay();
                         } else if (this.dataset.tab === 'settings') {
                             loadSettings();
+                        } else if (this.dataset.tab === 'cloud-sync') {
+                            updateSyncStatusDisplay();
                         }
                     }
                 });
@@ -1771,7 +1887,7 @@
             refreshAllDisplays();
             saveAllData();
             
-            if (autoGitHubSync) {
+            if (autoGitHubSync && githubToken && githubToken !== "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") {
                 alert('Item added successfully! Data auto-published to customers via GitHub.');
             } else {
                 alert('Item added successfully! Enable GitHub sync to publish to customers.');
@@ -1948,7 +2064,7 @@
             URL.revokeObjectURL(url);
             
             // Also upload to GitHub if configured
-            if (autoGitHubSync) {
+            if (autoGitHubSync && githubToken && githubToken !== "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") {
                 uploadToGitHub();
             }
             
@@ -1974,6 +2090,19 @@
             urlInput.select();
             document.execCommand('copy');
             alert('Customer URL copied to clipboard!');
+        }
+
+        function updateSyncStatusDisplay() {
+            // Update last sync times
+            const lastOneDrive = localStorage.getItem('lastOneDriveSync');
+            const lastGitHub = localStorage.getItem('lastGitHubSync');
+            
+            if (lastOneDrive) {
+                document.getElementById('lastOneDriveSync').textContent = new Date(lastOneDrive).toLocaleString();
+            }
+            if (lastGitHub) {
+                document.getElementById('lastGitHubSync').textContent = new Date(lastGitHub).toLocaleString();
+            }
         }
 
         // Initialize the application
