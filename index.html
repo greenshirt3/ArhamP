@@ -921,14 +921,14 @@
         const GITHUB_REPO = "greenshirt3/ArhamP";
         const GITHUB_FILE_PATH = "customer-data.json";
         
-        // IMPORTANT: Store GitHub token securely
-        let githubToken = localStorage.getItem('githubToken') || "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";
+        // ADD YOUR GITHUB TOKEN HERE:
+        let githubToken = "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";
         let autoGitHubSync = true;
 
         // =============================================
         // DEFAULT DATA STRUCTURE
         // =============================================
-        const defaultData = {
+       const defaultData = {
             categories: [
                 { mainCategory: "Offset Paper Printing", subcategory: "LetterPads" },
                 { mainCategory: "Offset Paper Printing", subcategory: "Ishtihars" },
@@ -1069,6 +1069,7 @@
                 { mainCategory: "Social Media Posts", subcategory: "Design Only", itemName: "Facebook Post", price: 300, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
                 { mainCategory: "Social Media Posts", subcategory: "Design Only", itemName: "Instagram Post", price: 400, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 }
             ],
+        
             sizes: {
                 "A4/2 68g": 625,
                 "A4 68g": 1250,
@@ -1095,10 +1096,10 @@
 
         let data = JSON.parse(JSON.stringify(defaultData));
         let calculationHistory = [];
-        const ADMIN_PASSWORD = "admin123";
+        const ADMIN_PASSWORD = "saif2733";
 
         // =============================================
-        // AUTO GITHUB SYNC FUNCTIONS - FIXED
+        // AUTO GITHUB SYNC FUNCTIONS
         // =============================================
 
         async function testGitHubConnection() {
@@ -1124,80 +1125,43 @@
             }
         }
 
-        async function uploadToGitHub() {
-            if (!autoGitHubSync || !githubToken || githubToken === "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") {
-                console.log('GitHub sync disabled or token not configured');
-                return false;
-            }
+       async function uploadToGitHub() {
+    if (!autoGitHubSync || !githubToken) return;
 
-            try {
-                const customerData = {
-                    categories: data.categories,
-                    items: data.items,
-                    sizes: data.sizes,
-                    colors: data.colors,
-                    settings: data.settings,
-                    lastUpdated: new Date().toISOString()
-                };
+    try {
+        const customerData = {
+            categories: data.categories,
+            items: data.items,
+            sizes: data.sizes,
+            colors: data.colors,
+            settings: data.settings,
+            lastUpdated: new Date().toISOString()
+        };
 
-                console.log('✅ Customer data prepared for GitHub');
-                updateGitHubStatus('success', 'Data prepared for GitHub upload');
-                
-                localStorage.setItem('lastGitHubSync', new Date().toISOString());
-                updateSyncStatusDisplay();
-                
-                return customerData;
-            } catch (error) {
-                console.error('GitHub upload failed:', error);
-                updateGitHubStatus('error', 'Data preparation failed');
-                return false;
-            }
-        }
+        // Create downloadable file for manual upload
+        const blob = new Blob([JSON.stringify(customerData, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'customer-data.json';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
 
-        async function manualUploadToGitHub() {
-            try {
-                // First export the data (this will create the file)
-                const customerData = exportCustomerData();
-                
-                // Then update status
-                updateGitHubStatus('success', 'Data exported and ready for GitHub upload');
-                alert('Customer data file downloaded! You can now manually upload it to GitHub.');
-                
-            } catch (error) {
-                console.error('Manual upload error:', error);
-                updateGitHubStatus('error', 'Export error: ' + error.message);
-            }
-        }
-
-        function updateGitHubStatus(type, message) {
-            const statusElem = document.getElementById('githubStatus');
-            statusElem.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-triangle'}"></i> ${message}`;
-            
-            if (type === 'success') {
-                statusElem.style.background = '#dff6dd';
-                statusElem.style.borderColor = '#107c10';
-                statusElem.style.color = '#107c10';
-            } else {
-                statusElem.style.background = '#fff4ce';
-                statusElem.style.borderColor = '#ffb900';
-                statusElem.style.color = '#d13438';
-            }
-        }
-
-        function updateSyncStatusDisplay() {
-            // Update last sync times
-            const lastOneDrive = localStorage.getItem('lastOneDriveSync');
-            const lastGitHub = localStorage.getItem('lastGitHubSync');
-            
-            if (lastOneDrive) {
-                // You can display this information if you add elements for it
-                console.log('Last OneDrive sync:', new Date(lastOneDrive).toLocaleString());
-            }
-            if (lastGitHub) {
-                console.log('Last GitHub sync:', new Date(lastGitHub).toLocaleString());
-            }
-        }
-
+        console.log('✅ Customer data file ready for manual upload');
+        updateGitHubStatus('success', 'Data file ready - upload to GitHub manually');
+        
+        // Show instructions for manual upload
+        alert('Customer data file downloaded! Please:\n1. Go to your GitHub repository\n2. Upload customer-data.json file\n3. Replace existing file if asked');
+        
+        return true;
+    } catch (error) {
+        console.error('GitHub upload failed:', error);
+        updateGitHubStatus('error', 'Auto-upload failed - use manual download');
+        return false;
+    }
+}
         // =============================================
         // AUTO ONEDRIVE SYNC FUNCTIONS
         // =============================================
@@ -1324,7 +1288,6 @@
 
                 if (response.ok) {
                     console.log('✅ Data auto-synced to OneDrive at:', new Date().toLocaleString());
-                    localStorage.setItem('lastOneDriveSync', new Date().toISOString());
                 } else {
                     throw new Error('Failed to upload to OneDrive');
                 }
@@ -1396,6 +1359,15 @@
             localStorage.setItem('arhamPrintersData', JSON.stringify(data));
             localStorage.setItem('arhamPrintersHistory', JSON.stringify(calculationHistory));
             
+            // Auto-upload to GitHub if configured
+            if (autoGitHubSync && githubToken) {
+                setTimeout(() => {
+                    uploadToGitHub().catch(error => {
+                        console.error("Auto-GitHub sync failed:", error);
+                    });
+                }, 1000);
+            }
+            
             // Auto-sync to OneDrive if online
             if (isOnline && currentUser) {
                 setTimeout(() => {
@@ -1422,12 +1394,16 @@
             // Auto-configure GitHub
             if (githubToken && githubToken !== "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") {
                 localStorage.setItem('githubToken', githubToken);
-                updateGitHubStatus('success', 'GitHub auto-sync enabled - Changes auto-publish');
+                document.getElementById('githubStatus').innerHTML = '<i class="fas fa-check-circle"></i> GitHub auto-sync enabled - Changes auto-publish';
+                document.getElementById('githubStatus').style.background = '#dff6dd';
+                document.getElementById('githubStatus').style.borderColor = '#107c10';
                 
                 // Test GitHub connection on startup
                 testGitHubConnection();
             } else {
-                updateGitHubStatus('error', 'Please add your GitHub token in the code');
+                document.getElementById('githubStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Please add your GitHub token in the code';
+                document.getElementById('githubStatus').style.background = '#fff4ce';
+                document.getElementById('githubStatus').style.borderColor = '#ffb900';
             }
             
             loadAllData();
@@ -1823,7 +1799,7 @@
             refreshAllDisplays();
             saveAllData();
             
-            if (autoGitHubSync && githubToken && githubToken !== "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") {
+            if (autoGitHubSync) {
                 alert('Item added successfully! Data auto-published to customers via GitHub.');
             } else {
                 alert('Item added successfully! Enable GitHub sync to publish to customers.');
@@ -1999,10 +1975,15 @@
             document.body.removeChild(link);
             URL.revokeObjectURL(url);
             
+            // Also upload to GitHub if configured
+            if (autoGitHubSync) {
+                uploadToGitHub();
+            }
+            
             // Show success message
             const statusDiv = document.getElementById('customerDataStatus');
             statusDiv.style.display = 'block';
-            statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> Customer data exported successfully!';
+            statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> Customer data exported successfully!' + (autoGitHubSync ? ' Auto-published to customers.' : '');
             
             setTimeout(() => {
                 statusDiv.style.display = 'none';
@@ -2030,4 +2011,3 @@
     </script>
 </body>
 </html>
-
