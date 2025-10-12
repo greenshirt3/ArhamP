@@ -70,7 +70,7 @@
       "type": "offset",
       "designCharges": 0,
       "paperCost": 0,
-      "bindingCost": 40,
+      "bindingCost": 400,
       "colorCost": 0
     },
     {
@@ -204,6 +204,17 @@
       "paperCost": 0,
       "bindingCost": 0,
       "colorCost": 0
+    },
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "Bill Books",
+      "itemName": "Bill Book A4 Half",
+      "price": 0,
+      "type": "offset",
+      "designCharges": 300,
+      "paperCost": 1500,
+      "bindingCost": 40,
+      "colorCost": 1000
     }
   ],
   "sizes": {
@@ -228,5 +239,5 @@
     "profitMargin": 25,
     "defaultBinding": 40
   },
-  "lastUpdated": "2025-10-11T13:12:22.648Z"
+  "lastUpdated": "2025-10-12T15:54:07.169Z"
 }
