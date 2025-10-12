@@ -264,6 +264,32 @@
             display: inline-block;
         }
         
+        .sync-status {
+            margin: 10px 0;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            text-align: center;
+        }
+        
+        .sync-success {
+            background: #dff6dd;
+            color: #107c10;
+            border: 1px solid #107c10;
+        }
+        
+        .sync-error {
+            background: #fde7e9;
+            color: #d13438;
+            border: 1px solid #d13438;
+        }
+        
+        .last-update {
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 5px;
+        }
+        
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
@@ -307,8 +333,15 @@
         <!-- Sync Information -->
         <div class="sync-info">
             <p><i class="fas fa-sync-alt"></i> <strong>Live Prices:</strong> Always updated with latest pricing</p>
-            <div class="loading" id="loadingStatus">Loading latest prices...</div>
+            <div class="loading" id="loadingStatus">
+                <i class="fas fa-sync fa-spin"></i> Loading latest prices...
+            </div>
+            <div id="syncStatus" class="sync-status" style="display: none;"></div>
             <div id="updateNotification" style="display: none;"></div>
+            <div class="last-update" id="lastUpdate">Last update: Never</div>
+            <button class="btn btn-secondary" onclick="manualSync()" style="margin-top: 10px; padding: 8px 16px;">
+                <i class="fas fa-sync"></i> Check for Updates
+            </button>
         </div>
 
         <!-- Calculator Section -->
@@ -373,11 +406,12 @@
             <h3><i class="fas fa-phone"></i> Contact Us</h3>
             <p>For custom orders or questions, please contact us directly.</p>
             <p><strong>Phone:</strong> [Your Phone Number] | <strong>Email:</strong> [Your Email]</p>
+            <p><small>Prices are automatically updated from our main system</small></p>
         </div>
     </div>
 
     <script>
-        // Data structure
+        // Data structure - This will be populated from GitHub
         let data = {
             categories: [],
             items: [],
@@ -391,45 +425,85 @@
         };
 
         let lastUpdateTime = null;
+        let syncInterval = null;
 
-        // Try to load from GitHub data file
-        async function loadFromGitHub() {
+        // Enhanced sync function with better error handling
+        async function syncFromGitHub() {
             try {
-                // Use the raw GitHub URL for the data file
-                const response = await fetch('https://raw.githubusercontent.com/greenshirt3/ArhamP/main/customer-data.json?t=' + new Date().getTime());
+                showSyncStatus('Syncing with latest prices...', 'loading');
                 
-                if (response.ok) {
-                    const gitHubData = await response.json();
-                    data = gitHubData;
+                // Use the raw GitHub URL for the data file with cache busting
+                const timestamp = new Date().getTime();
+                const response = await fetch(`https://raw.githubusercontent.com/greenshirt3/ArhamP/main/customer-data.json?t=${timestamp}`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const gitHubData = await response.json();
+                
+                // Validate the data structure
+                if (!gitHubData.categories || !gitHubData.items || !gitHubData.sizes || !gitHubData.colors) {
+                    throw new Error('Invalid data structure received from GitHub');
+                }
+                
+                // Store the data locally for offline use
+                localStorage.setItem('arhamCustomerData', JSON.stringify(gitHubData));
+                localStorage.setItem('arhamCustomerLastSync', new Date().toISOString());
+                
+                // Update the application data
+                data = gitHubData;
+                
+                // Check if this is a new update
+                const wasUpdate = lastUpdateTime && gitHubData.lastUpdated !== lastUpdateTime;
+                lastUpdateTime = gitHubData.lastUpdated;
+                
+                // Update the UI
+                refreshAllDisplays();
+                updateLastUpdateDisplay();
+                
+                showSyncStatus('Prices updated successfully!', 'success');
+                
+                if (wasUpdate) {
+                    showUpdateNotification();
+                }
+                
+                console.log('Successfully synced data from GitHub:', gitHubData);
+                return true;
+                
+            } catch (error) {
+                console.error('GitHub sync failed:', error);
+                showSyncStatus(`Sync failed: ${error.message}`, 'error');
+                
+                // Try to load from local storage as fallback
+                return loadFromLocalStorage();
+            }
+        }
+
+        // Load data from local storage as fallback
+        function loadFromLocalStorage() {
+            try {
+                const localData = localStorage.getItem('arhamCustomerData');
+                const lastSync = localStorage.getItem('arhamCustomerLastSync');
+                
+                if (localData) {
+                    const parsedData = JSON.parse(localData);
+                    data = parsedData;
+                    lastUpdateTime = parsedData.lastUpdated;
                     
-                    // Check if this is a new update
-                    if (lastUpdateTime && gitHubData.lastUpdated !== lastUpdateTime) {
-                        showUpdateNotification();
-                    }
-                    lastUpdateTime = gitHubData.lastUpdated;
-                    
-                    document.getElementById('loadingStatus').innerHTML = '<i class="fas fa-check-circle"></i> Live prices loaded';
-                    console.log('Loaded data from GitHub');
+                    refreshAllDisplays();
+                    updateLastUpdateDisplay();
+                    showSyncStatus('Using cached prices (offline mode)', 'warning');
+                    console.log('Loaded data from local storage');
                     return true;
                 }
             } catch (error) {
-                console.log('GitHub load failed:', error);
+                console.error('Error loading from local storage:', error);
             }
             return false;
         }
 
-        function showUpdateNotification() {
-            const notification = document.getElementById('updateNotification');
-            notification.innerHTML = '<i class="fas fa-bell"></i> Prices updated!';
-            notification.className = 'update-notification';
-            notification.style.display = 'block';
-            
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 5000);
-        }
-
-        // Load default data first
+        // Load default data as last resort
         function loadDefaultData() {
             data = {
                 categories: [
@@ -473,20 +547,89 @@
             };
             
             refreshAllDisplays();
-            document.getElementById('loadingStatus').innerHTML = '<i class="fas fa-info-circle"></i> Using default prices';
+            updateLastUpdateDisplay();
+            showSyncStatus('Using default prices', 'warning');
+        }
+
+        // Show sync status
+        function showSyncStatus(message, type) {
+            const statusElement = document.getElementById('syncStatus');
+            const loadingElement = document.getElementById('loadingStatus');
+            
+            statusElement.textContent = message;
+            statusElement.className = 'sync-status';
+            
+            switch(type) {
+                case 'loading':
+                    statusElement.style.backgroundColor = '#fff4ce';
+                    statusElement.style.color = '#8a6d3b';
+                    statusElement.style.border = '1px solid #faebcc';
+                    loadingElement.innerHTML = `<i class="fas fa-sync fa-spin"></i> ${message}`;
+                    break;
+                case 'success':
+                    statusElement.style.backgroundColor = '#dff6dd';
+                    statusElement.style.color = '#107c10';
+                    statusElement.style.border = '1px solid #107c10';
+                    loadingElement.innerHTML = '<i class="fas fa-check-circle"></i> Prices up to date';
+                    break;
+                case 'error':
+                    statusElement.style.backgroundColor = '#fde7e9';
+                    statusElement.style.color = '#d13438';
+                    statusElement.style.border = '1px solid #d13438';
+                    loadingElement.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Using cached data';
+                    break;
+                case 'warning':
+                    statusElement.style.backgroundColor = '#fff4ce';
+                    statusElement.style.color = '#8a6d3b';
+                    statusElement.style.border = '1px solid #faebcc';
+                    loadingElement.innerHTML = '<i class="fas fa-info-circle"></i> ' + message;
+                    break;
+            }
+            
+            statusElement.style.display = 'block';
+        }
+
+        function showUpdateNotification() {
+            const notification = document.getElementById('updateNotification');
+            notification.innerHTML = '<i class="fas fa-bell"></i> New prices available! Page updated.';
+            notification.className = 'update-notification';
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 5000);
+        }
+
+        function updateLastUpdateDisplay() {
+            const lastUpdateElement = document.getElementById('lastUpdate');
+            if (lastUpdateTime) {
+                const date = new Date(lastUpdateTime);
+                lastUpdateElement.textContent = `Last update: ${date.toLocaleString()}`;
+            } else {
+                lastUpdateElement.textContent = 'Last update: Never';
+            }
+        }
+
+        function manualSync() {
+            syncFromGitHub();
         }
 
         // Initialize the application
         async function initializeApp() {
-            document.getElementById('loadingStatus').innerHTML = '<i class="fas fa-sync fa-spin"></i> Loading latest prices...';
+            // Try to sync from GitHub first
+            const success = await syncFromGitHub();
             
-            let dataLoaded = await loadFromGitHub();
-            
-            if (!dataLoaded) {
-                loadDefaultData();
+            // If GitHub sync fails, try local storage, then default data
+            if (!success) {
+                if (!loadFromLocalStorage()) {
+                    loadDefaultData();
+                }
             }
             
             setupEventListeners();
+            
+            // Start auto-sync every 2 minutes
+            syncInterval = setInterval(syncFromGitHub, 120000);
         }
 
         // Setup event listeners
@@ -684,14 +827,12 @@
             document.getElementById('priceBreakdown').style.display = 'none';
         }
 
-        // Auto-refresh data every 2 minutes
-        setInterval(async () => {
-            const success = await loadFromGitHub();
-            if (success) {
-                refreshAllDisplays();
-                console.log('Prices updated from GitHub');
+        // Clean up on page unload
+        window.addEventListener('beforeunload', () => {
+            if (syncInterval) {
+                clearInterval(syncInterval);
             }
-        }, 120000); // 2 minutes
+        });
 
         // Initialize when page loads
         window.onload = initializeApp;
