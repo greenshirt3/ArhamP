@@ -971,32 +971,33 @@
         // =============================================
         // CUSTOMER DATA EXPORT FOR GITHUB SYNC
         // =============================================
-
-        // Export data for customer sync
-        function exportCustomerDataForGitHub() {
-            const customerData = {
-                categories: data.categories,
-                items: data.items,
-                sizes: data.sizes,
-                colors: data.colors,
-                settings: data.settings,
-                lastUpdated: new Date().toISOString()
-            };
-            
-            // Create a downloadable JSON file
-            const blob = new Blob([JSON.stringify(customerData, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'customer-data.json';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-            
-            alert('Customer data exported! Upload this file to GitHub to update customer prices.');
-        }
-
+// Enhanced export function for customer data
+function exportCustomerDataForGitHub() {
+    const customerData = {
+        categories: data.categories,
+        items: data.items,
+        sizes: data.sizes,
+        colors: data.colors,
+        settings: data.settings,
+        lastUpdated: new Date().toISOString()
+    };
+    
+    // Create a downloadable JSON file
+    const blob = new Blob([JSON.stringify(customerData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'customer-data.json';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    
+    // Also try to auto-upload to GitHub if we have the right setup
+    alert('Customer data exported! Upload the "customer-data.json" file to your GitHub repository to update customer prices.');
+    
+    // Optional: Add auto-commit functionality here if you set up GitHub API
+}
         // =============================================
         // ONEDRIVE CLOUD SYNC FUNCTIONS
         // =============================================
