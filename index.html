@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+async function uploadToGitHub<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -1027,8 +1027,7 @@
             }
         }
 
-       async function uploadToGitHub() {
-    if (!autoGitHubSync || !githubToken) return;
+
 
     try {
         const customerData = {
@@ -1040,27 +1039,16 @@
             lastUpdated: new Date().toISOString()
         };
 
-        // Create downloadable file for manual upload
-        const blob = new Blob([JSON.stringify(customerData, null, 2)], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'customer-data.json';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
-
-        console.log('✅ Customer data file ready for manual upload');
-        updateGitHubStatus('success', 'Data file ready - upload to GitHub manually');
+        console.log('✅ Customer data prepared for GitHub');
+        updateGitHubStatus('success', 'Data prepared for GitHub upload');
         
-        // Show instructions for manual upload
-        alert('Customer data file downloaded! Please:\n1. Go to your GitHub repository\n2. Upload customer-data.json file\n3. Replace existing file if asked');
+        localStorage.setItem('lastGitHubSync', new Date().toISOString());
+        updateSyncStatusDisplay();
         
-        return true;
+        return customerData; // Return data instead of auto-downloading
     } catch (error) {
         console.error('GitHub upload failed:', error);
-        updateGitHubStatus('error', 'Auto-upload failed - use manual download');
+        updateGitHubStatus('error', 'Data preparation failed');
         return false;
     }
 }
@@ -1261,16 +1249,7 @@
             localStorage.setItem('arhamPrintersData', JSON.stringify(data));
             localStorage.setItem('arhamPrintersHistory', JSON.stringify(calculationHistory));
             
-            // Auto-upload to GitHub if configured
-            if (autoGitHubSync && githubToken) {
-                setTimeout(() => {
-                    uploadToGitHub().catch(error => {
-                        console.error("Auto-GitHub sync failed:", error);
-                    });
-                }, 1000);
-            }
-            
-            // Auto-sync to OneDrive if online
+           // Auto-sync to OneDrive if online
             if (isOnline && currentUser) {
                 setTimeout(() => {
                     autoSyncToCloud().catch(error => {
@@ -1855,44 +1834,45 @@
         // =============================================
         // CUSTOMER DATA FUNCTIONS
         // =============================================
-
-        function exportCustomerData() {
-            const customerData = {
-                categories: data.categories,
-                items: data.items,
-                sizes: data.sizes,
-                colors: data.colors,
-                settings: data.settings,
-                lastUpdated: new Date().toISOString()
-            };
-            
-            // Create a downloadable JSON file
-            const blob = new Blob([JSON.stringify(customerData, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'customer-data.json';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-            
-            // Also upload to GitHub if configured
-            if (autoGitHubSync) {
-                uploadToGitHub();
-            }
-            
-            // Show success message
-            const statusDiv = document.getElementById('customerDataStatus');
-            statusDiv.style.display = 'block';
-            statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> Customer data exported successfully!' + (autoGitHubSync ? ' Auto-published to customers.' : '');
-            
-            setTimeout(() => {
-                statusDiv.style.display = 'none';
-            }, 5000);
-            
-            return customerData;
-        }
+function exportCustomerData() {
+    const customerData = {
+        categories: data.categories,
+        items: data.items,
+        sizes: data.sizes,
+        colors: data.colors,
+        settings: data.settings,
+        lastUpdated: new Date().toISOString()
+    };
+    
+    // Create a downloadable JSON file
+    const blob = new Blob([JSON.stringify(customerData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'customer-data.json';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    
+    // Also upload to GitHub if configured (optional)
+    if (autoGitHubSync && githubToken && githubToken !== "YOUR_GITHUB_TOKEN_HERE") {
+        uploadToGitHub().catch(error => {
+            console.error("GitHub upload failed:", error);
+        });
+    }
+    
+    // Show success message
+    const statusDiv = document.getElementById('customerDataStatus');
+    statusDiv.style.display = 'block';
+    statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> Customer data exported successfully!' + (autoGitHubSync ? ' Auto-published to customers.' : '');
+    
+    setTimeout(() => {
+        statusDiv.style.display = 'none';
+    }, 5000);
+    
+    return customerData;
+}
 
         function viewCustomerData() {
             const customerData = exportCustomerData();
@@ -1913,3 +1893,4 @@
     </script>
 </body>
 </html>
+
