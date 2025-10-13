@@ -1778,223 +1778,333 @@ function exportCustomerDataForGitHub() {
         // IMPORT/EXPORT FUNCTIONS
         // =============================================
 
-        function exportAllData() {
-            try {
-                let csvContent = 'data:text/csv;charset=utf-8,';
-                
-                // Export Items
-                csvContent += 'ITEMS DATA\r\n';
-                csvContent += 'mainCategory,subcategory,itemName,price,type,designCharges,paperCost,bindingCost,colorCost\r\n';
-                data.items.forEach(item => {
-                    csvContent += `"${item.mainCategory}","${item.subcategory}","${item.itemName}",${item.price},${item.type},${item.designCharges},${item.paperCost},${item.bindingCost},${item.colorCost}\r\n`;
-                });
-                
-                // Export Sizes
-                csvContent += '\r\nSIZES DATA\r\n';
-                csvContent += 'sizeName,paperCost\r\n';
-                for (let sizeName in data.sizes) {
-                    csvContent += `"${sizeName}",${data.sizes[sizeName]}\r\n`;
-                }
-                
-                // Export Colors
-                csvContent += '\r\nCOLORS DATA\r\n';
-                csvContent += 'colorName,colorCost\r\n';
-                for (let colorName in data.colors) {
-                    csvContent += `"${colorName}",${data.colors[colorName]}\r\n`;
-                }
-                
-                const encodedUri = encodeURI(csvContent);
-                const link = document.createElement('a');
-                link.setAttribute('href', encodedUri);
-                link.setAttribute('download', 'arham_printers_all_data.csv');
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                
-                alert('Data exported successfully!');
-            } catch (error) {
-                console.error('Export error:', error);
-                alert('Error exporting data: ' + error.message);
-            }
-        }
+      // =============================================
+// IMPORT/EXPORT FUNCTIONS - FIXED VERSION
+// =============================================
 
-        function exportItemsData() {
-            try {
-                let csvContent = 'data:text/csv;charset=utf-8,';
-                csvContent += 'mainCategory,subcategory,itemName,price,type,designCharges,paperCost,bindingCost,colorCost\r\n';
-                
-                data.items.forEach(item => {
-                    csvContent += `"${item.mainCategory}","${item.subcategory}","${item.itemName}",${item.price},${item.type},${item.designCharges},${item.paperCost},${item.bindingCost},${item.colorCost}\r\n`;
-                });
-                
-                const encodedUri = encodeURI(csvContent);
-                const link = document.createElement('a');
-                link.setAttribute('href', encodedUri);
-                link.setAttribute('download', 'arham_printers_items.csv');
-                link.click();
-                document.body.removeChild(link);
-                
-                alert('Items exported successfully!');
-            } catch (error) {
-                console.error('Export error:', error);
-                alert('Error exporting items: ' + error.message);
-            }
+function exportAllData() {
+    try {
+        let csvContent = 'data:text/csv;charset=utf-8,';
+        
+        // Export Categories
+        csvContent += 'CATEGORIES DATA\r\n';
+        csvContent += 'mainCategory,subcategory\r\n';
+        data.categories.forEach(cat => {
+            csvContent += `"${cat.mainCategory}","${cat.subcategory}"\r\n`;
+        });
+        
+        // Export Items
+        csvContent += '\r\nITEMS DATA\r\n';
+        csvContent += 'mainCategory,subcategory,itemName,price,type,designCharges,paperCost,bindingCost,colorCost\r\n';
+        data.items.forEach(item => {
+            csvContent += `"${item.mainCategory}","${item.subcategory}","${item.itemName}",${item.price},${item.type},${item.designCharges},${item.paperCost},${item.bindingCost},${item.colorCost}\r\n`;
+        });
+        
+        // Export Sizes
+        csvContent += '\r\nSIZES DATA\r\n';
+        csvContent += 'sizeName,paperCost\r\n';
+        for (let sizeName in data.sizes) {
+            csvContent += `"${sizeName}",${data.sizes[sizeName]}\r\n`;
         }
+        
+        // Export Colors
+        csvContent += '\r\nCOLORS DATA\r\n';
+        csvContent += 'colorName,colorCost\r\n';
+        for (let colorName in data.colors) {
+            csvContent += `"${colorName}",${data.colors[colorName]}\r\n`;
+        }
+        
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', 'arham_printers_all_data.csv');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        alert('Data exported successfully!');
+    } catch (error) {
+        console.error('Export error:', error);
+        alert('Error exporting data: ' + error.message);
+    }
+}
 
-        function importData() {
-            const fileInput = document.getElementById('csvFile');
-            const file = fileInput.files[0];
+function exportItemsData() {
+    try {
+        let csvContent = 'data:text/csv;charset=utf-8,';
+        csvContent += 'mainCategory,subcategory,itemName,price,type,designCharges,paperCost,bindingCost,colorCost\r\n';
+        
+        data.items.forEach(item => {
+            csvContent += `"${item.mainCategory}","${item.subcategory}","${item.itemName}",${item.price},${item.type},${item.designCharges},${item.paperCost},${item.bindingCost},${item.colorCost}\r\n`;
+        });
+        
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', 'arham_printers_items.csv');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        alert('Items exported successfully!');
+    } catch (error) {
+        console.error('Export error:', error);
+        alert('Error exporting items: ' + error.message);
+    }
+}
+
+function importData() {
+    const fileInput = document.getElementById('csvFile');
+    const file = fileInput.files[0];
+    
+    if (!file) {
+        alert('Please select a CSV file to import');
+        return;
+    }
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const csvData = e.target.result;
+            processCSVData(csvData);
+        } catch (error) {
+            console.error('Import error:', error);
+            alert('Error importing data: ' + error.message);
+        }
+    };
+    
+    reader.onerror = function() {
+        alert('Error reading file. Please try again.');
+    };
+    
+    reader.readAsText(file);
+}
+
+// FIXED CSV Processing Function
+function processCSVData(csvData) {
+    try {
+        const lines = csvData.split('\n').filter(line => line.trim() !== '');
+        let currentSection = '';
+        let itemsImported = 0;
+        let sizesImported = 0;
+        let colorsImported = 0;
+        let categoriesImported = 0;
+        
+        // Ask user what they want to do
+        const importChoice = prompt(
+            'How do you want to import data?\n\n' +
+            '1 - REPLACE all existing data\n' +
+            '2 - MERGE with existing data (keep existing, add new)\n' +
+            '3 - UPDATE existing items only\n\n' +
+            'Enter 1, 2, or 3:'
+        );
+        
+        if (!importChoice) return;
+        
+        const replaceData = importChoice === '1';
+        const mergeData = importChoice === '2';
+        const updateOnly = importChoice === '3';
+        
+        // Temporary storage for imported data
+        const importedCategories = [];
+        const importedItems = [];
+        const importedSizes = {};
+        const importedColors = {};
+        
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i].trim();
             
-            if (!file) {
-                alert('Please select a CSV file to import');
-                return;
+            if (line === '') continue;
+            
+            // Detect section headers
+            if (line === 'CATEGORIES DATA') {
+                currentSection = 'categories';
+                continue;
+            } else if (line === 'ITEMS DATA') {
+                currentSection = 'items';
+                continue;
+            } else if (line === 'SIZES DATA') {
+                currentSection = 'sizes';
+                continue;
+            } else if (line === 'COLORS DATA') {
+                currentSection = 'colors';
+                continue;
             }
             
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const csvData = e.target.result;
-                    processCSVData(csvData);
-                } catch (error) {
-                    console.error('Import error:', error);
-                    alert('Error importing data: ' + error.message);
-                }
-            };
+            // Skip column headers
+            if (line.includes('mainCategory,subcategory') || 
+                line.includes('itemName,price,type') ||
+                line.includes('sizeName,paperCost') || 
+                line.includes('colorName,colorCost')) {
+                continue;
+            }
             
-            reader.onerror = function() {
-                alert('Error reading file. Please try again.');
-            };
+            // Parse CSV line properly - handle quoted fields with commas
+            const values = parseCSVLine(line);
             
-            reader.readAsText(file);
-        }
-
-        function processCSVData(csvData) {
-            try {
-                const lines = csvData.split('\n').filter(line => line.trim() !== '');
-                let currentSection = '';
-                let itemsImported = 0;
-                let sizesImported = 0;
-                let colorsImported = 0;
+            if (currentSection === 'categories' && values.length >= 2) {
+                const mainCategory = values[0]?.trim() || '';
+                const subcategory = values[1]?.trim() || '';
                 
-                const replaceData = confirm('Do you want to REPLACE all existing data with imported data? Click OK to replace, Cancel to merge with existing data.');
-                
-                if (replaceData) {
-                    data.items = [];
-                    data.sizes = {};
-                    data.colors = {};
-                    data.categories = [];
-                }
-                
-                for (let i = 0; i < lines.length; i++) {
-                    const line = lines[i].trim();
+                if (mainCategory && subcategory) {
+                    const categoryExists = importedCategories.some(
+                        cat => cat.mainCategory === mainCategory && cat.subcategory === subcategory
+                    );
                     
-                    if (line === '') continue;
-                    
-                    if (line === 'ITEMS DATA') {
-                        currentSection = 'items';
-                        continue;
-                    } else if (line === 'SIZES DATA') {
-                        currentSection = 'sizes';
-                        continue;
-                    } else if (line === 'COLORS DATA') {
-                        currentSection = 'colors';
-                        continue;
-                    }
-                    
-                    if (line.includes('mainCategory,subcategory') || 
-                        line.includes('sizeName,paperCost') || 
-                        line.includes('colorName,colorCost')) {
-                        continue;
-                    }
-                    
-                    const values = line.split(',').map(value => {
-                        return value.replace(/^"(.*)"$/, '$1').trim();
-                    });
-                    
-                    if (currentSection === 'items' && values.length >= 3) {
-                        const item = {
-                            mainCategory: values[0] || '',
-                            subcategory: values[1] || '',
-                            itemName: values[2] || '',
-                            price: parseFloat(values[3]) || 0,
-                            type: values[4] || 'fixed',
-                            designCharges: parseFloat(values[5]) || 0,
-                            paperCost: parseFloat(values[6]) || 0,
-                            bindingCost: parseFloat(values[7]) || 0,
-                            colorCost: parseFloat(values[8]) || 0
-                        };
-                        
-                        if (item.mainCategory && item.subcategory) {
-                            const categoryExists = data.categories.some(
-                                cat => cat.mainCategory === item.mainCategory && cat.subcategory === item.subcategory
-                            );
-                            
-                            if (!categoryExists) {
-                                data.categories.push({
-                                    mainCategory: item.mainCategory,
-                                    subcategory: item.subcategory
-                                });
-                            }
-                        }
-                        
-                        const existingItemIndex = data.items.findIndex(
-                            existing => existing.mainCategory === item.mainCategory && 
-                                       existing.subcategory === item.subcategory && 
-                                       existing.itemName === item.itemName
-                        );
-                        
-                        if (existingItemIndex !== -1) {
-                            data.items[existingItemIndex] = item;
-                        } else {
-                            data.items.push(item);
-                        }
-                        
-                        itemsImported++;
-                        
-                    } else if (currentSection === 'sizes' && values.length >= 2) {
-                        const sizeName = values[0];
-                        const paperCost = parseFloat(values[1]) || 0;
-                        
-                        if (sizeName) {
-                            data.sizes[sizeName] = paperCost;
-                            sizesImported++;
-                        }
-                        
-                    } else if (currentSection === 'colors' && values.length >= 2) {
-                        const colorName = values[0];
-                        const colorCost = parseFloat(values[1]) || 0;
-                        
-                        if (colorName) {
-                            data.colors[colorName] = colorCost;
-                            colorsImported++;
-                        }
+                    if (!categoryExists) {
+                        importedCategories.push({ mainCategory, subcategory });
+                        categoriesImported++;
                     }
                 }
                 
-                saveAllData();
-                refreshAllDisplays();
-                refreshDataTables();
+            } else if (currentSection === 'items' && values.length >= 3) {
+                const item = {
+                    mainCategory: (values[0] || '').trim(),
+                    subcategory: (values[1] || '').trim(),
+                    itemName: (values[2] || '').trim(),
+                    price: parseFloat(values[3]) || 0,
+                    type: (values[4] || 'fixed').trim(),
+                    designCharges: parseFloat(values[5]) || 0,
+                    paperCost: parseFloat(values[6]) || 0,
+                    bindingCost: parseFloat(values[7]) || 0,
+                    colorCost: parseFloat(values[8]) || 0
+                };
                 
-                alert(`Data imported successfully!\n\nItems: ${itemsImported}\nSizes: ${sizesImported}\nColors: ${colorsImported}\n\nTotal categories: ${data.categories.length}`);
+                if (item.mainCategory && item.subcategory && item.itemName) {
+                    importedItems.push(item);
+                    itemsImported++;
+                }
                 
-                document.getElementById('csvFile').value = '';
+            } else if (currentSection === 'sizes' && values.length >= 2) {
+                const sizeName = (values[0] || '').trim();
+                const paperCost = parseFloat(values[1]) || 0;
                 
-            } catch (error) {
-                console.error('Process CSV error:', error);
-                alert('Error processing CSV file: ' + error.message);
+                if (sizeName) {
+                    importedSizes[sizeName] = paperCost;
+                    sizesImported++;
+                }
+                
+            } else if (currentSection === 'colors' && values.length >= 2) {
+                const colorName = (values[0] || '').trim();
+                const colorCost = parseFloat(values[1]) || 0;
+                
+                if (colorName) {
+                    importedColors[colorName] = colorCost;
+                    colorsImported++;
+                }
             }
         }
+        
+        // Apply the imported data based on user choice
+        if (replaceData) {
+            // Replace all data
+            data.categories = importedCategories;
+            data.items = importedItems;
+            data.sizes = importedSizes;
+            data.colors = importedColors;
+        } else if (mergeData) {
+            // Merge data - add new items, keep existing
+            importedCategories.forEach(cat => {
+                const exists = data.categories.some(
+                    existing => existing.mainCategory === cat.mainCategory && existing.subcategory === cat.subcategory
+                );
+                if (!exists) {
+                    data.categories.push(cat);
+                }
+            });
+            
+            importedItems.forEach(item => {
+                const existingIndex = data.items.findIndex(
+                    existing => existing.mainCategory === item.mainCategory && 
+                               existing.subcategory === item.subcategory && 
+                               existing.itemName === item.itemName
+                );
+                
+                if (existingIndex === -1) {
+                    data.items.push(item);
+                } else {
+                    // Update existing item
+                    data.items[existingIndex] = item;
+                }
+            });
+            
+            Object.assign(data.sizes, importedSizes);
+            Object.assign(data.colors, importedColors);
+            
+        } else if (updateOnly) {
+            // Update only existing items
+            importedItems.forEach(item => {
+                const existingIndex = data.items.findIndex(
+                    existing => existing.mainCategory === item.mainCategory && 
+                               existing.subcategory === item.subcategory && 
+                               existing.itemName === item.itemName
+                );
+                
+                if (existingIndex !== -1) {
+                    data.items[existingIndex] = item;
+                }
+            });
+        }
+        
+        saveAllData();
+        refreshAllDisplays();
+        refreshDataTables();
+        
+        let message = `Data imported successfully!\n\n`;
+        if (replaceData) message += 'All existing data was REPLACED.\n\n';
+        if (mergeData) message += 'Data was MERGED with existing data.\n\n';
+        if (updateOnly) message += 'Existing items were UPDATED.\n\n';
+        
+        message += `Categories: ${categoriesImported}\n`;
+        message += `Items: ${itemsImported}\n`;
+        message += `Sizes: ${sizesImported}\n`;
+        message += `Colors: ${colorsImported}\n\n`;
+        message += `Total categories: ${data.categories.length}\n`;
+        message += `Total items: ${data.items.length}`;
+        
+        alert(message);
+        
+        document.getElementById('csvFile').value = '';
+        
+    } catch (error) {
+        console.error('Process CSV error:', error);
+        alert('Error processing CSV file: ' + error.message + '\n\nPlease check your CSV format.');
+    }
+}
 
-        function resetToDefault() {
-            if (confirm('Are you sure you want to reset all data to default? This cannot be undone.')) {
-                data = JSON.parse(JSON.stringify(defaultData));
-                calculationHistory = [];
-                saveAllData();
-                refreshAllDisplays();
-                refreshDataTables();
-                alert('Data reset to default values!');
-            }
+// Helper function to properly parse CSV lines with quoted fields
+function parseCSVLine(line) {
+    const result = [];
+    let current = '';
+    let inQuotes = false;
+    
+    for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+        
+        if (char === '"') {
+            inQuotes = !inQuotes;
+        } else if (char === ',' && !inQuotes) {
+            result.push(current);
+            current = '';
+        } else {
+            current += char;
         }
+    }
+    
+    result.push(current);
+    return result;
+}
+
+function resetToDefault() {
+    if (confirm('Are you sure you want to reset all data to default? This cannot be undone.')) {
+        data = JSON.parse(JSON.stringify(defaultData));
+        calculationHistory = [];
+        saveAllData();
+        refreshAllDisplays();
+        refreshDataTables();
+        alert('Data reset to default values!');
+    }
+}
 
         // Initialize the application
         window.onload = function() {
