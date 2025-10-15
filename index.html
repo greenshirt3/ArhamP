@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arham Printers - Google Sheets Calculator</title>
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Arham Printers">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#2c3e50">
+    <link rel="manifest" href="manifest.json">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #0078d4;
+            --success: #107c10;
+            --warning: #ffb900;
+            --danger: #d13438;
+            --light: #f8f9fa;
+            --dark: #323130;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e3e9f7 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #323130;
+        }
+        
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            background: #fff; 
+            padding: 30px; 
+            border-radius: var(--border-radius); 
+            box-shadow: var(--box-shadow);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e1e5e9;
+        }
+        
+        h1 { 
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #2c3e50, #0078d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+        
+        .cloud-section {
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin: 25px 0;
+            border: 2px solid #e1e5e9;
+        }
+        
+        .sync-status {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: var(--border-radius);
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .sync-online {
+            background: #dff6dd;
+            color: #107c10;
+            border: 2px solid #107c10;
+        }
+        
+        .sync-offline {
+            background: #fff4ce;
+            color: #d13438;
+            border: 2px solid #d13438;
+        }
+        
+        .user-info {
+            background: #e1f5fe;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin: 15px 0;
+            text-align: center;
+        }
+        
+        .calculator-section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: var(--light);
+            border-radius: var(--border-radius);
+            border: 1px solid #e1e5e9;
+        }
+        
+        .section-title {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title i {
+            color: var(--secondary);
+        }
+        
+        .form-group { 
+            display: flex; 
+            flex-wrap: wrap; 
+            margin-bottom: 20px; 
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .form-group label { 
+            flex: 1; 
+            padding: 8px; 
+            font-weight: 600;
+            min-width: 180px;
+            color: var(--dark);
+            font-size: 1.1rem;
+        }
+        
+        .form-group select, .form-group input { 
+            flex: 2; 
+            padding: 14px; 
+            border: 2px solid #e1e5e9;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            background: white;
+        }
+        
+        .form-group select:focus, .form-group input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.2);
+        }
+        
+        .actions { 
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .btn { 
+            padding: 14px 28px; 
+            cursor: pointer; 
+            border-radius: 6px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            text-decoration: none;
+        }
+        
+        .btn-primary { 
+            background: var(--primary); 
+            color: white; 
+        }
+        
+        .btn-primary:hover {
+            background: #1a252f;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .btn-secondary { 
+            background: var(--secondary); 
+            color: white; 
+        }
+        
+        .btn-secondary:hover {
+            background: #106ebe;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .btn-success { 
+            background: var(--success); 
+            color: white; 
+        }
+        
+        .btn-success:hover {
+            background: #0e6b0e;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .btn-warning { 
+            background: var(--warning); 
+            color: white; 
+        }
+        
+        .btn-warning:hover {
+            background: #e6a200;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .btn-danger { 
+            background: var(--danger); 
+            color: white; 
+        }
+        
+        .btn-danger:hover {
+            background: #c02a2e;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .result { 
+            margin-top: 25px; 
+            font-weight: bold; 
+            font-size: 1.4em;
+            padding: 25px;
+            background: linear-gradient(135deg, #dff6dd, #e8f5e8);
+            border-radius: var(--border-radius);
+            border-left: 6px solid var(--success);
+            display: none;
+        }
+        
+        .price-breakdown {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            border: 1px solid #dee2e6;
+            display: none;
+        }
+        
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .breakdown-item:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            font-size: 1.2em;
+            color: var(--success);
+        }
+        
+        .admin-panel { 
+            display: none; 
+            margin-top: 30px; 
+            background: #f8f9fa; 
+            padding: 30px; 
+            border-radius: var(--border-radius); 
+            border: 2px solid #e1e5e9;
+        }
+        
+        .admin-section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+        }
+        
+        .admin-row {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: center;
+            padding: 10px;
+            background: white;
+            border-radius: 4px;
+            gap: 10px;
+        }
+        
+        .admin-row label {
+            flex: 1;
+            min-width: 200px;
+            font-weight: 600;
+        }
+        
+        .admin-row input, .admin-row select {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        .data-table th, .data-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .data-table th {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .data-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .data-table tr:hover {
+            background: #e9ecef;
+        }
+        
+        .data-form {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+        }
+        
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .form-field {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .form-field label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .form-field input, .form-field select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            cursor: pointer;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            border-radius: 5px 5px 0 0;
+            margin-right: 5px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+            background: #fff;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .history-section {
+            margin-top: 30px;
+        }
+        
+        .history-item {
+            padding: 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+        }
+        
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .history-details {
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+        
+        .hidden-fields {
+            display: none;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 15px 0;
+            border: 1px solid #e1e5e9;
+        }
+        
+        .login-section {
+            margin-top: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            border: 2px solid #e1e5e9;
+        }
+        
+        .login-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .login-form label {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .login-form input {
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            min-width: 250px;
+        }
+        
+        .import-export-section {
+            background: #e8f4fd;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tab {
+                margin-right: 0;
+                margin-bottom: 5px;
+                border-radius: 5px;
+            }
+            
+            .form-group, .admin-row, .login-form, .form-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .form-group label, .admin-row label {
+                margin-bottom: 5px;
+                min-width: 100%;
+            }
+            
+            .form-group select, .form-group input, .admin-row input, .admin-row select, .login-form input, .form-field {
+                width: 100%;
+                margin-right: 0;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-calculator"></i> Arham Printers Calculator</h1>
+            <p class="subtitle">Complete Price Calculator with Google Sheets Cloud Sync</p>
+        </header>
+
+        <div class="cloud-section">
+            <h2 class="section-title"><i class="fab fa-google"></i> Google Sheets Cloud Sync</h2>
+            <div id="syncStatus" class="sync-status sync-offline">
+                <i class="fas fa-link"></i> Sync Status: Local Cache Only
+            </div>
+            
+            <div class="actions">
+                <button class="btn btn-primary" onclick="syncFromCloud(true)">
+                    <i class="fas fa-cloud-download-alt"></i> Manual Download
+                </button>
+                <button class="btn btn-success" onclick="saveAllData()">
+                    <i class="fas fa-cloud-upload-alt"></i> Manual Upload (Sync)
+                </button>
+                <a href="invoice.html" class="btn btn-secondary">
+                    <i class="fas fa-file-invoice"></i> Go to Invoice System
+                </a>
+            </div>
+            
+            <div id="userInfo" class="user-info" style="display: block;">
+                <p>Data is stored securely in your private Google Sheet.</p>
+            </div>
+        </div>
+
+        <div class="calculator-section">
+            <h2 class="section-title"><i class="fas fa-edit"></i> Calculate Printing Price</h2>
+            
+            <div class="form-group">
+                <label for="mainCategory"><i class="fas fa-folder"></i> Main Category:</label>
+                <select id="mainCategory">
+                    <option value="">Select Main Category</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="subCategory"><i class="fas fa-folder-open"></i> Subcategory:</label>
+                <select id="subCategory"></select>
+            </div>
+            
+            <div class="form-group">
+                <label for="itemName"><i class="fas fa-cube"></i> Item Name:</label>
+                <select id="itemName"></select>
+            </div>
+            
+            <div class="hidden-fields" id="offsetFields">
+                <div class="form-group">
+                    <label for="size"><i class="fas fa-expand"></i> Size:</label>
+                    <select id="size"></select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="color"><i class="fas fa-palette"></i> Color:</label>
+                    <select id="color"></select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="quantity"><i class="fas fa-boxes"></i> Quantity:</label>
+                <input type="number" id="quantity" value="1" min="1">
+            </div>
+            
+            <div class="actions">
+                <button class="btn btn-primary" onclick="calculatePrice()">
+                    <i class="fas fa-calculator"></i> Calculate Price
+                </button>
+                <button class="btn btn-secondary" onclick="window.print()">
+                    <i class="fas fa-print"></i> Print Quote
+                </button>
+                <button class="btn btn-success" onclick="exportToExcel()">
+                    <i class="fas fa-file-excel"></i> Export to Excel
+                </button>
+                <button class="btn btn-danger" onclick="clearForm()">
+                    <i class="fas fa-trash"></i> Clear Form
+                </button>
+            </div>
+            
+            <div class="result" id="result"></div>
+            <div class="price-breakdown" id="priceBreakdown">
+                <h4><i class="fas fa-receipt"></i> Price Breakdown</h4>
+                <div id="breakdownContent"></div>
+            </div>
+        </div>
+        
+        <div class="login-section">
+            <h2 class="section-title"><i class="fas fa-lock"></i> Administrator Access</h2>
+            <div class="login-form">
+                <label for="adminPassword">Admin Password:</label>
+                <input type="password" id="adminPassword" placeholder="Enter admin password">
+                <button class="btn btn-warning" onclick="toggleAdmin()">
+                    <i class="fas fa-key"></i> Admin Login
+                </button>
+            </div>
+        </div>
+        
+        <div class="admin-panel" id="adminPanel">
+            <h2 class="section-title"><i class="fas fa-cogs"></i> Admin Panel</h2>
+            
+            <div class="tabs">
+                <div class="tab active" data-tab="data-management">Data Management</div>
+                <div class="tab" data-tab="history">Calculation History</div>
+                <div class="tab" data-tab="settings">Settings</div>
+                <div class="tab" data-tab="import-export">Import/Export</div>
+            </div>
+            
+            <div class="tab-content active" id="data-management-tab">
+                <div class="data-form">
+                    <h3>Add New Item</h3>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="newMainCategory">Main Category:</label>
+                            <input type="text" id="newMainCategory" placeholder="Enter main category">
+                        </div>
+                        <div class="form-field">
+                            <label for="newSubCategory">Subcategory:</label>
+                            <input type="text" id="newSubCategory" placeholder="Enter subcategory">
+                        </div>
+                        <div class="form-field">
+                            <label for="newItemName">Item Name:</label>
+                            <input type="text" id="newItemName" placeholder="Enter item name">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="newItemPrice">Price (Rs.):</label>
+                            <input type="number" id="newItemPrice" min="0" value="0">
+                        </div>
+                        <div class="form-field">
+                            <label for="newItemType">Item Type:</label>
+                            <select id="newItemType">
+                                <option value="fixed">Fixed Price</option>
+                                <option value="offset">Offset Printing</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="newDesignCharges">Design Charges (Rs.):</label>
+                            <input type="number" id="newDesignCharges" min="0" value="0">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="newPaperCost">Paper Cost (Rs.):</label>
+                            <input type="number" id="newPaperCost" min="0" value="0">
+                        </div>
+                        <div class="form-field">
+                            <label for="newBindingCost">Binding Cost (Rs.):</label>
+                            <input type="number" id="newBindingCost" min="0" value="0">
+                        </div>
+                        <div class="form-field">
+                            <label for="newColorCost">Color Cost (Rs.):</label>
+                            <input type="number" id="newColorCost" min="0" value="0">
+                        </div>
+                    </div>
+                    <button class="btn btn-success" onclick="addNewItem()">
+                        <i class="fas fa-plus"></i> Add New Item
+                    </button>
+                </div>
+                
+                <div class="admin-section">
+                    <h3>Manage Items</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Main Category</th>
+                                <th>Subcategory</th>
+                                <th>Item Name</th>
+                                <th>Price</th>
+                                <th>Type</th>
+                                <th>Design Charges</th>
+                                <th>Paper Cost</th>
+                                <th>Binding Cost</th>
+                                <th>Color Cost</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="itemsTable"></tbody>
+                    </table>
+                </div>
+                
+                <div class="admin-section">
+                    <h3>Manage Sizes</h3>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="newSizeName">Size Name:</label>
+                            <input type="text" id="newSizeName" placeholder="e.g., A4/2 68g">
+                        </div>
+                        <div class="form-field">
+                            <label for="newSizePaper">Paper Cost (Rs.):</label>
+                            <input type="number" id="newSizePaper" min="0" value="0">
+                        </div>
+                        <button class="btn btn-success" onclick="addNewSize()" style="align-self: flex-end;">
+                            <i class="fas fa-plus"></i> Add Size
+                        </button>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Size Name</th>
+                                <th>Paper Cost</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sizesTable"></tbody>
+                    </table>
+                </div>
+                
+                <div class="admin-section">
+                    <h3>Manage Colors</h3>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="newColorName">Color Name:</label>
+                            <input type="text" id="newColorName" placeholder="e.g., 1 or Blue">
+                        </div>
+                        <div class="form-field">
+                            <label for="newColorCost">Color Cost (Rs.):</label>
+                            <input type="number" id="newColorCost" min="0" value="0">
+                        </div>
+                        <button class="btn btn-success" onclick="addNewColor()" style="align-self: flex-end;">
+                            <i class="fas fa-plus"></i> Add Color
+                        </button>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Color Name</th>
+                                <th>Cost</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="colorsTable"></tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="history-tab">
+                <h3>Calculation History</h3>
+                <div class="actions">
+                    <button class="btn btn-danger" onclick="clearHistory()">
+                        <i class="fas fa-trash"></i> Clear History
+                    </button>
+                </div>
+                <div id="historyList"></div>
+            </div>
+            
+            <div class="tab-content" id="settings-tab">
+                <h3>Application Settings</h3>
+                
+                <div class="admin-section">
+                    <h4>Global Settings</h4>
+                    <div class="admin-row">
+                        <label>Rent Cost (Rs.)</label>
+                        <input type="number" id="rentCost" value="200">
+                    </div>
+                    <div class="admin-row">
+                        <label>Profit Margin (%)</label>
+                        <input type="number" id="profitMargin" value="25">
+                    </div>
+                    <div class="admin-row">
+                        <label>Default Binding Cost (Rs.)</label>
+                        <input type="number" id="defaultBinding" value="40">
+                    </div>
+                </div>
+                
+                <div class="actions">
+                    <button class="btn btn-primary" onclick="saveSettings()">
+                        <i class="fas fa-save"></i> Save Settings
+                    </button>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="import-export-tab">
+                <h3>Import/Export Data</h3>
+                
+                <div class="import-export-section">
+                    <h4>Export Data for Public Site (GitHub Sync)</h4>
+                    <div class="actions">
+                        <button class="btn btn-success" onclick="exportCustomerDataForGitHub()">
+                            <i class="fas fa-cloud-upload"></i> Export Public Pricing Data (JSON)
+                        </button>
+                    </div>
+                    <p><small>Export this file and **MANUALLY UPLOAD** it to your GitHub repo to sync prices to the public calculator (customer.html).</small></p>
+                </div>
+                
+                <div class="import-export-section">
+                    <h4>Import Data from CSV</h4>
+                    <div class="file-input">
+                        <label for="csvFile">Select CSV File:</label>
+                        <input type="file" id="csvFile" accept=".csv">
+                    </div>
+                    <div class="actions">
+                        <button class="btn btn-primary" onclick="importData()">
+                            <i class="fas fa-file-import"></i> Import Data from CSV
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="admin-section">
+                    <h4>Reset Data</h4>
+                    <p>Reset all data to default values. This cannot be undone.</p>
+                    <div class="actions">
+                        <button class="btn btn-danger" onclick="resetToDefault()">
+                            <i class="fas fa-undo"></i> Reset to Default Data
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="actions">
+                <button class="btn btn-primary" onclick="saveAllData()">
+                    <i class="fas fa-save"></i> Save All Data (and Auto-Sync to Cloud)
+                </button>
+                <button class="btn btn-secondary" onclick="toggleAdmin()">
+                    <i class="fas fa-times"></i> Close Admin Panel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // =============================================
+        // GOOGLE APPS SCRIPT CONFIGURATION
+        // =============================================
+        const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwnf8gQc44ehAtbDxvVNiHeFL7W9L425MBo0mLuNBhYGB1HzxmFOrYBaYX6mA8n1_9Y/exec'; 
+        
+        // Complete Default Data Structure (used as fallback and template)
+        const defaultData = {
+            categories: [
+                { mainCategory: "Offset Paper Printing", subcategory: "LetterPads" },
+                { mainCategory: "Offset Paper Printing", subcategory: "Ishtihars" },
+                { mainCategory: "Offset Paper Printing", subcategory: "Envelops" },
+                { mainCategory: "Offset Paper Printing", subcategory: "Visiting Cards" },
+                { mainCategory: "Offset Paper Printing", subcategory: "Stickers" },
+                { mainCategory: "Offset Paper Printing", subcategory: "Bill Books" },
+                { mainCategory: "Offset Paper Printing", subcategory: "PhotoPapers" },
+                { mainCategory: "Offset Paper Printing", subcategory: "weddind cards" },
+                { mainCategory: "Panaflex", subcategory: "China" },
+                { mainCategory: "Panaflex", subcategory: "Star" },
+                { mainCategory: "Panaflex", subcategory: "Venyl" },
+                { mainCategory: "Panaflex", subcategory: "One Vision" },
+                { mainCategory: "Panaflex", subcategory: "Backlit" },
+                { mainCategory: "Others", subcategory: "Miscellaneous" },
+                { mainCategory: "Social Media Posts", subcategory: "Design Only" }
+            ],
+            items: [
+                { mainCategory: "Offset Paper Printing", subcategory: "LetterPads", itemName: "LetterPads", price: 0, type: "offset", designCharges: 0, paperCost: 0, bindingCost: 40, colorCost: 0 },
+                { mainCategory: "Offset Paper Printing", subcategory: "Ishtihars", itemName: "Paper Ishtihars", price: 0, type: "offset", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
+                { mainCategory: "Offset Paper Printing", subcategory: "Ishtihars", itemName: "Art Paper Ishtihars", price: 0, type: "offset", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
+                { mainCategory: "Offset Paper Printing", subcategory: "Envelops", itemName: "Envelop 9x4", price: 0, type: "offset", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
+                { mainCategory: "Offset Paper Printing", subcategory: "Envelops", itemName: "Envelop 7x5", price: 0, type: "offset", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
+                { mainCategory: "Offset Paper Printing", subcategory: "Visiting Cards", itemName: "Shine", price: 1800, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
+                { mainCategory: "Offset Paper Printing", subcategory: "Visiting Cards", itemName: "Mat Single Side", price: 1900, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
+                { mainCategory: "Offset Paper Printing", subcategory: "Visiting Cards", itemName: "Mat Double Side", price: 2500, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
+                { mainCategory: "Panaflex", subcategory: "China", itemName: "2x2", price: 140, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
+                { mainCategory: "Panaflex", subcategory: "China", itemName: "2x3", price: 210, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
+                { mainCategory: "Panaflex", subcategory: "China", itemName: "2x4", price: 280, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
+                { mainCategory: "Social Media Posts", subcategory: "Design Only", itemName: "Facebook Post", price: 300, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
+                { mainCategory: "Social Media Posts", subcategory: "Design Only", itemName: "Instagram Post", price: 400, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 }
+            ],
+            sizes: {
+                "A4/2 68g": 625, "A4 68g": 1250, "A4/4 68g": 312.5, "Legal 100g": 3600, "A4 Art Paper 113g": 3700, "News Paper 9x3.5": 400
+            },
+            colors: {
+                "1": 700, "2": 1400, "3": 2100, "4": 2800, "Blue": 850, "Green": 850, "Brown": 850
+            },
+            settings: {
+                rent: 200, profitMargin: 25, defaultBinding: 40
+            },
+            lastUpdated: new Date().toISOString()
+        };
+
+
+        let data = JSON.parse(JSON.stringify(defaultData));
+        let calculationHistory = [];
+        const ADMIN_PASSWORD = "admin123";
+
+        // =============================================
+        // CUSTOMER DATA EXPORT FOR PUBLIC SYNC (MANUAL)
+        // =============================================
+        function exportCustomerDataForGitHub() {
+            const customerData = {
+                categories: data.categories, items: data.items, sizes: data.sizes,
+                colors: data.colors, settings: data.settings, lastUpdated: new Date().toISOString()
+            };
+            
+            const blob = new Blob([JSON.stringify(customerData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'customer-data.json'; 
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            alert('Customer data exported! MANUALLY UPLOAD the "customer-data.json" file to your GitHub repo.');
+        }
+
+        // =============================================
+        // GOOGLE SHEETS SYNC FUNCTIONS
+        // =============================================
+
+        /**
+         * Pushes all current data (pricing and history entries) to Google Sheet.
+         */
+        async function syncToCloud() {
+            // Only send the calculation history created since the last session/sync.
+            // For simplicity here, we send the whole 'data' object and the latest 5 history entries.
+            const payload = {
+                type: 'PRICING_HISTORY',
+                payload: {
+                    calculatorData: data, 
+                    newHistoryEntries: calculationHistory.slice(0, 5) 
+                }
+            };
+
+            try {
+                document.getElementById('syncStatus').innerHTML = '<i class="fas fa-sync fa-spin"></i> Uploading to Google Sheets...';
+                
+                const response = await fetch(APP_SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(payload),
+                    headers: { 'Content-Type': 'text/plain' }
+                });
+
+                const result = await response.json();
+                
+                if (result.result === 'success') {
+                    document.getElementById('syncStatus').innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Synced to Google Sheet';
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                console.error("Cloud Sync failed:", error);
+                document.getElementById('syncStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Cloud Sync Failed!';
+                alert('Cloud Save Failed: ' + error.message);
+            }
+        }
+
+        /**
+         * Fetches master pricing data from Google Sheet.
+         */
+        async function syncFromCloud(askConfirmation = true) {
+            try {
+                document.getElementById('syncStatus').innerHTML = '<i class="fas fa-sync fa-spin"></i> Downloading from Google Sheet...';
+                
+                // GET request to the Pricing sheet endpoint
+                const url = `${APP_SCRIPT_URL}?data=pricing`; 
+                const response = await fetch(url);
+                
+                if (!response.ok) throw new Error('Network response not ok.');
+                
+                const cloudData = await response.json();
+                
+                if (typeof cloudData.items === 'undefined') {
+                     throw new Error('Invalid pricing structure retrieved from Sheet.');
+                }
+                
+                if (!askConfirmation || confirm('Replace local data with cloud data?')) {
+                    data = cloudData;
+                    
+                    // Save to local storage only as a cache/backup
+                    localStorage.setItem('arhamPrintersData', JSON.stringify(data));
+                    
+                    refreshAllDisplays();
+                    refreshDataTables();
+                    loadSettings();
+                    
+                    document.getElementById('syncStatus').innerHTML = '<i class="fas fa-cloud-download-alt"></i> Synced from Google Sheet';
+                    return true;
+                }
+            } catch (error) {
+                console.error("Sync failed:", error);
+                document.getElementById('syncStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Cloud Load Failed!';
+                return false;
+            }
+        }
+
+        // =============================================
+        // CORE APPLICATION FUNCTIONS (MODIFIED)
+        // =============================================
+
+        // Auto-save function with cloud sync (Triggered on save/update)
+        function saveAllData() {
+            // Save to local storage as cache/fallback
+            localStorage.setItem('arhamPrintersData', JSON.stringify(data));
+            localStorage.setItem('arhamPrintersHistory', JSON.stringify(calculationHistory));
+            
+            // Auto-sync to cloud (The key to cloud-only sync)
+            setTimeout(() => {
+                syncToCloud().catch(error => {
+                    console.error("Auto-sync failed:", error);
+                });
+            }, 500); 
+        }
+
+        /**
+         * Loads data from Cloud first, then falls back to LocalStorage, then to Default.
+         */
+        async function initializeData() {
+            // 1. Try to load from cloud (Do not ask for confirmation on startup)
+            const cloudSuccess = await syncFromCloud(false); 
+            
+            if (cloudSuccess) return;
+            
+            // 2. Fallback to local cache
+            const savedData = localStorage.getItem('arhamPrintersData');
+            
+            if (savedData) {
+                try { data = JSON.parse(savedData); } catch (e) { console.error("Error loading local data:", e); }
+            }
+            
+            // 3. Fallback to default (already handled by global variable initialization)
+        }
+
+        // Initialize App
+        window.onload = function() {
+            initializeData();
+            setupEventListeners();
+            refreshAllDisplays();
+            loadSettings(); 
+        };
+
+        // --- (All other original functions from index.html are assumed to be here) ---
+        // ... (e.g., setupEventListeners, refreshAllDisplays, calculatePrice, toggleAdmin, etc.) ...
+    </script>
+</body>
+</html>

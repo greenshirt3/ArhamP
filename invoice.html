@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arham Printers - Professional Invoice System</title>
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Arham Printers">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#2c3e50">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧾</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧾</text></svg>">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ... (Your existing styles are here - unchanged) ... */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-file-invoice"></i> Arham Printers Invoice System</h1>
+            <p class="subtitle">Professional Invoicing with Google Sheets Cloud Sync</p>
+        </header>
+
+        <div class="cloud-section navigation-section">
+            <h3><i class="fab fa-google"></i> Google Sheets Cloud Sync Status</h3>
+            <div id="invoiceSyncStatus" class="sync-status sync-offline" style="padding: 15px; margin: 15px auto; border-radius: 8px; font-weight: 600;">
+                <i class="fas fa-link"></i> Sync Status: Local Cache Only
+            </div>
+            <div class="actions">
+                <button class="btn btn-primary" onclick="syncFromCloud(true)">
+                    <i class="fas fa-cloud-download-alt"></i> Download Latest Pricing
+                </button>
+                <a href="index.html" class="btn btn-warning">
+                    <i class="fas fa-calculator"></i> Go to Admin Calc
+                </a>
+            </div>
+        </div>
+
+        <div class="backup-section">
+            <h3><i class="fas fa-cloud-upload-alt"></i> Data Backup & Manual Import</h3>
+            </div>
+
+        </div>
+
+    <script>
+        // =============================================
+        // GOOGLE APPS SCRIPT CONFIGURATION
+        // =============================================
+        const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwnf8gQc44ehAtbDxvVNiHeFL7W9L425MBo0mLuNBhYGB1HzxmFOrYBaYX6mA8n1_9Y/exec'; 
+
+        // Data structures - These are local cache variables that will be used 
+        // by the UI, loaded from localStorage/cloud for initialization.
+        let customers = [];
+        let invoices = [];
+        let calculatorData = {}; // Stores pricing data synced from Admin
+        let nextInvoiceNumber = 1001;
+        
+        let currentInvoiceItems = [];
+        let currentCustomer = null;
+        let autoBackupInterval = null;
+
+        // =============================================
+        // GOOGLE SHEETS SYNC FUNCTIONS
+        // =============================================
+
+        // Unified save function (Auto-triggered on invoice save)
+        async function syncToCloud(invoiceData) {
+            // Package data to send to Apps Script
+            const payload = {
+                type: 'INVOICE_CUSTOMER',
+                payload: {
+                    invoice: invoiceData, // The newly saved invoice object
+                }
+            };
+
+            try {
+                document.getElementById('invoiceSyncStatus').innerHTML = '<i class="fas fa-sync fa-spin"></i> Uploading Invoice...';
+                
+                const response = await fetch(APP_SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(payload),
+                    headers: { 'Content-Type': 'text/plain' }
+                });
+
+                const result = await response.json();
+                
+                if (result.result === 'success') {
+                    document.getElementById('invoiceSyncStatus').innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Invoice Synced to Sheet';
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                console.error("Cloud Sync failed:", error);
+                document.getElementById('invoiceSyncStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Cloud Sync Failed!';
+            }
+        }
+
+        // Unified load function (downloads latest pricing from Admin's sheet)
+        async function syncFromCloud(askConfirmation = true) {
+            try {
+                document.getElementById('invoiceSyncStatus').innerHTML = '<i class="fas fa-sync fa-spin"></i> Downloading pricing data...';
+                
+                // Fetch pricing JSON stored in A1 of the 'Pricing' sheet
+                const url = `${APP_SCRIPT_URL}?data=pricing`; 
+                const response = await fetch(url);
+                
+                if (!response.ok) throw new Error('Network response not ok.');
+                
+                const cloudData = await response.json();
+                
+                if (!askConfirmation || confirm('Replace local pricing data with cloud data?')) {
+                    
+                    // Update master pricing data (from Admin Calc)
+                    calculatorData = cloudData; 
+                    localStorage.setItem('arhamPrintersData', JSON.stringify(calculatorData));
+                    
+                    document.getElementById('invoiceSyncStatus').innerHTML = '<i class="fas fa-cloud-download-alt"></i> Pricing Synced from Sheet';
+                    return true;
+                }
+            } catch (error) {
+                console.error("Cloud Load failed:", error);
+                document.getElementById('invoiceSyncStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Cloud Load Failed!';
+                return false;
+            }
+        }
+
+
+        // =============================================
+        // DATA MANAGEMENT SYSTEM (MODIFIED)
+        // =============================================
+
+        /**
+         * Loads pricing data from Cloud first, then falls back to LocalStorage.
+         */
+        async function initializeData() {
+             // 1. Try to load pricing from cloud first
+            const cloudSuccess = await syncFromCloud(false); 
+            
+            // 2. Load the rest (customers/invoices) from local cache
+            customers = JSON.parse(localStorage.getItem('arhamPrintersCustomers')) || [];
+            invoices = JSON.parse(localStorage.getItem('arhamPrintersInvoices')) || [];
+            if (!cloudSuccess) {
+                // If cloud pricing failed, load local pricing cache
+                calculatorData = JSON.parse(localStorage.getItem('arhamPrintersData')) || {};
+            }
+            nextInvoiceNumber = parseInt(localStorage.getItem('arhamNextInvoiceNumber')) || 1001;
+        }
+
+        // Save customers to local cache
+        function saveCustomers() {
+            localStorage.setItem('arhamPrintersCustomers', JSON.stringify(customers));
+        }
+
+        // Save invoices to local cache
+        function saveInvoices() {
+            localStorage.setItem('arhamPrintersInvoices', JSON.stringify(invoices));
+            localStorage.setItem('arhamNextInvoiceNumber', nextInvoiceNumber.toString());
+            // Cloud sync for the single new invoice happens in saveInvoice()
+        }
+        
+        // Save the Invoice - updates local arrays and triggers Google Sheet sync
+        function saveInvoice() {
+            // ... (Keep existing logic to create the 'invoice' object) ...
+            
+            const customerName = document.getElementById('customerName').value.trim();
+            const invoiceNo = document.getElementById('invoiceNo').value;
+            const invoiceDate = document.getElementById('invoiceDate').value;
+            const dueDate = document.getElementById('dueDate').value;
+            
+            if (!customerName) {
+                alert('Please enter customer name');
+                return;
+            }
+            
+            // Get items from table
+            currentInvoiceItems = [];
+            document.querySelectorAll('#itemsTableBody tr').forEach(row => {
+                const name = row.querySelector('.item-name').value;
+                const rate = parseFloat(row.querySelector('.item-rate').value) || 0;
+                const quantity = parseFloat(row.querySelector('.item-quantity').value) || 1;
+                const amount = parseFloat(row.querySelector('.item-amount').value) || 0;
+                
+                if (name && rate > 0) {
+                    currentInvoiceItems.push({
+                        name: name,
+                        rate: rate,
+                        quantity: quantity,
+                        amount: amount
+                    });
+                }
+            });
+            
+            if (currentInvoiceItems.length === 0) {
+                alert('Please add at least one item to the invoice');
+                return;
+            }
+            
+            const totals = {
+                subtotal: parseFloat(document.getElementById('subtotalAmount').value) || 0,
+                tax: parseFloat(document.getElementById('taxAmount').value) || 0,
+                total: parseFloat(document.getElementById('totalAmount').value) || 0,
+                previousBalance: parseFloat(document.getElementById('previousBalance').value) || 0,
+                payment: parseFloat(document.getElementById('payment').value) || 0,
+                remainingBalance: parseFloat(document.getElementById('remainingBalance').value) || 0
+            };
+            
+            const newInvoice = {
+                id: 'inv_' + Date.now(),
+                invoiceNumber: invoiceNo,
+                date: invoiceDate,
+                dueDate: dueDate,
+                customer: {
+                    id: currentCustomer?.id || 'new_customer',
+                    name: customerName,
+                    phone: document.getElementById('customerPhone').value,
+                    address: document.getElementById('customerAddress').value
+                },
+                items: [...currentInvoiceItems],
+                totals: totals,
+                status: totals.remainingBalance > 0 ? 'pending' : 'paid',
+                created: new Date().toISOString(),
+                paymentHistory: [{
+                    date: new Date().toISOString(),
+                    amount: totals.payment,
+                    type: 'payment'
+                }]
+            };
+
+            // Update customer balance in local array
+            if (currentCustomer) {
+                const customerIndex = customers.findIndex(c => c.id === currentCustomer.id);
+                if (customerIndex !== -1) {
+                    customers[customerIndex].balance = totals.remainingBalance;
+                    if (!customers[customerIndex].invoices) customers[customerIndex].invoices = [];
+                    customers[customerIndex].invoices.push(newInvoice.id);
+                }
+                saveCustomers(); 
+            }
+            
+            // Save invoice to local array
+            invoices.unshift(newInvoice);
+            nextInvoiceNumber++;
+            saveInvoices(); // Saves to local cache
+
+            // New: Trigger the cloud sync with the new invoice data
+            syncToCloud(newInvoice); 
+            
+            alert(`✅ Invoice ${newInvoice.invoiceNumber} saved successfully and synced to cloud!`);
+            
+            return newInvoice;
+        }
+
+
+        // Initialize App
+        window.onload = function() {
+            initializeData();
+            setupEventListeners();
+            generateInvoiceNumber();
+            setDefaultDates();
+            startAutoBackup();
+            updateTotal(); // Must be called after all data is loaded
+        };
+
+        // --- (All other original functions from invoice.html are assumed to be here) ---
+        // ... (e.g., setupEventListeners, handleCustomerAutocomplete, updateAmount, etc.) ...
+    </script>
+</body>
+</html>

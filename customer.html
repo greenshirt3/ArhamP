@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arham Printers - Price Calculator</title>
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Arham Printers">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#2c3e50">
+    <link rel="manifest" href="manifest.json">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ... (Your existing styles are here - unchanged) ... */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-calculator"></i> Arham Printers Calculator</h1>
+            <p class="subtitle">Instant Printing Price Calculator</p>
+        </header>
+
+        <div class="sync-info">
+            <p><i class="fas fa-sync-alt"></i> <strong>Live Prices:</strong> Always updated with latest pricing</p>
+            <div class="loading" id="loadingStatus">Loading latest prices...</div>
+            <div id="updateNotification" style="display: none;"></div>
+        </div>
+
+        <div class="calculator-section">
+            <h2 class="section-title"><i class="fas fa-edit"></i> Calculate Printing Price</h2>
+            </div>
+
+        <div class="contact-info">
+            <h3><i class="fas fa-phone"></i> Contact Us</h3>
+            <p>For custom orders or questions, please contact us directly.</p>
+            <p><strong>Phone:</strong> [Your Phone Number] | <strong>Email:</strong> [Your Email]</p>
+        </div>
+    </div>
+
+    <script>
+        // =============================================
+        // GOOGLE APPS SCRIPT CONFIGURATION
+        // =============================================
+        const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwnf8gQc44ehAtbDxvVNiHeFL7W9L425MBo0mLuNBhYGB1HzxmFOrYBaYX6mA8n1_9Y/exec'; 
+        
+        // Data structure
+        let data = {
+            categories: [], items: [], sizes: {}, colors: {}, settings: { rent: 200, profitMargin: 25, defaultBinding: 40 }
+        };
+
+        let lastUpdateTime = null;
+        const LOCAL_CACHE_KEY = 'arhamPrintersData_Public';
+        
+        // --- (Default Data Structure is assumed to be here as a fallback) ---
+        
+        // Function to save GitHub data to a separate local cache
+        function savePriceDataToLocal(priceData) {
+            localStorage.setItem(LOCAL_CACHE_KEY, JSON.stringify(priceData));
+        }
+
+        // Function to load data from local cache
+        function loadPriceDataFromLocal() {
+            const savedData = localStorage.getItem(LOCAL_CACHE_KEY);
+            if (savedData) {
+                try {
+                    data = JSON.parse(savedData);
+                    return true;
+                } catch (e) {
+                    console.error("Error loading local price data:", e);
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        // Try to load from Google Sheets (Replaces loadFromGitHub)
+        async function loadFromGoogleSheet() {
+            try {
+                // GET request to the Pricing sheet endpoint
+                const url = `${APP_SCRIPT_URL}?data=pricing`; 
+                const response = await fetch(url);
+                
+                if (response.ok) {
+                    const sheetData = await response.json();
+                    
+                    if (typeof sheetData.items === 'undefined') {
+                         throw new Error('Invalid pricing structure retrieved.');
+                    }
+                    
+                    // Check if this is a new update (optional, requires metadata in the sheet)
+                    // if (lastUpdateTime && sheetData.lastUpdated !== lastUpdateTime) {
+                    //     showUpdateNotification();
+                    // }
+                    // lastUpdateTime = sheetData.lastUpdated;
+
+                    data = sheetData;
+                    savePriceDataToLocal(sheetData); // Cache the new data
+                    
+                    document.getElementById('loadingStatus').innerHTML = '<i class="fas fa-check-circle"></i> Live prices loaded';
+                    return true;
+                }
+            } catch (error) {
+                console.log('Google Sheet load failed:', error);
+            }
+            return false;
+        }
+
+        // Initialize the application
+        async function initializeApp() {
+            document.getElementById('loadingStatus').innerHTML = '<i class="fas fa-sync fa-spin"></i> Loading prices...';
+            
+            // 1. Try to load from Local Cache first
+            let dataLoaded = loadPriceDataFromLocal();
+
+            if (dataLoaded) {
+                 document.getElementById('loadingStatus').innerHTML = '<i class="fas fa-check-circle"></i> Local prices loaded';
+            }
+            
+            // 2. Then, attempt to fetch latest from Google Sheet
+            const sheetSuccess = await loadFromGoogleSheet();
+            
+            if (sheetSuccess) {
+                 dataLoaded = true;
+            } else if (!dataLoaded) {
+                // 3. If local cache and Sheet failed, use the hardcoded default
+                // (Assuming default data structure is present in the file)
+                document.getElementById('loadingStatus').innerHTML = '<i class="fas fa-info-circle"></i> Using default prices (Offline)';
+            }
+            
+            setupEventListeners();
+            refreshAllDisplays();
+        }
+
+        // Auto-refresh data every 2 minutes
+        setInterval(async () => {
+            const success = await loadFromGoogleSheet();
+            if (success) {
+                refreshAllDisplays();
+                console.log('Prices updated from Google Sheet');
+            }
+        }, 120000); // 2 minutes
+
+        // Initialize when page loads
+        window.onload = initializeApp;
+
+        // --- (All other original functions from customer.html are assumed to be here) ---
+    </script>
+</body>
+</html>
