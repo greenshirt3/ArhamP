@@ -15,6 +15,8 @@
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧾</text></svg>">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://alcdn.msauth.net/browser/2.24.0/js/msal-browser.min.js"></script>
+    <script src="onedrive-excel-sync.js"></script>
     
     <style>
         :root {
@@ -121,6 +123,14 @@
             background: #e2e3e5;
             color: #383d41;
             border: 2px solid #d6d8db;
+        }
+        
+        .user-info {
+            background: #e1f5fe;
+            padding: 10px;
+            border-radius: var(--border-radius);
+            margin: 10px 0;
+            text-align: center;
         }
         
         .actions { 
@@ -259,6 +269,7 @@
             padding: 8px;
             border: 1px solid #ddd;
             border-radius: 4px;
+            font-size: 0.9rem;
         }
         
         .totals-section {
@@ -339,6 +350,67 @@
             color: var(--primary);
         }
         
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            color: white;
+            font-weight: 600;
+            z-index: 1000;
+            box-shadow: var(--box-shadow);
+            animation: slideIn 0.3s ease;
+        }
+        
+        .notification.success {
+            background: var(--success);
+        }
+        
+        .notification.error {
+            background: var(--danger);
+        }
+        
+        .notification.info {
+            background: var(--secondary);
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .customer-suggestions {
+            position: absolute;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            width: 100%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .customer-suggestion {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .customer-suggestion:hover {
+            background: #f5f5f5;
+        }
+        
+        .customer-suggestion:last-child {
+            border-bottom: none;
+        }
+        
+        .suggestion-container {
+            position: relative;
+            flex: 2;
+        }
+        
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
@@ -414,20 +486,45 @@
     <div class="container">
         <header>
             <h1><i class="fas fa-file-invoice"></i> Arham Printers Invoice System</h1>
-            <p class="subtitle">Professional Invoicing with Google Sheets Cloud Sync</p>
+            <p class="subtitle">Professional Invoicing with Multi-Device Cloud Sync</p>
         </header>
 
-        <div class="cloud-section navigation-section">
-            <h3 class="section-title"><i class="fab fa-google"></i> Google Sheets Cloud Sync Status</h3>
-            <div id="invoiceSyncStatus" class="sync-status sync-info">
-                <i class="fas fa-link"></i> Sync Status: Initializing...
+        <!-- Cloud Sync Section -->
+        <div class="cloud-section">
+            <h3 class="section-title"><i class="fas fa-cloud"></i> Multi-Cloud Sync Status</h3>
+            
+            <!-- OneDrive Sync -->
+            <div class="sync-section">
+                <h4><i class="fab fa-microsoft"></i> OneDrive Sync</h4>
+                <div id="onedriveSyncStatus" class="sync-status sync-info">
+                    <i class="fas fa-link"></i> OneDrive: Not connected
+                </div>
+                <div class="actions">
+                    <button class="btn btn-primary" onclick="loginToOneDrive()" id="onedriveLoginBtn">
+                        <i class="fab fa-microsoft"></i> Sign in to OneDrive
+                    </button>
+                    <button class="btn btn-success" onclick="syncInvoicesToOneDrive()" id="onedriveSyncBtn" style="display: none;">
+                        <i class="fas fa-cloud-upload-alt"></i> Upload to OneDrive
+                    </button>
+                    <button class="btn btn-secondary" onclick="syncInvoicesFromOneDrive()" id="onedriveDownloadBtn" style="display: none;">
+                        <i class="fas fa-cloud-download-alt"></i> Download from OneDrive
+                    </button>
+                    <button class="btn btn-danger" onclick="logoutFromOneDrive()" id="onedriveLogoutBtn" style="display: none;">
+                        <i class="fas fa-sign-out-alt"></i> Sign Out
+                    </button>
+                </div>
+                <div id="onedriveUserInfo" class="user-info" style="display: none;">
+                    <p><i class="fas fa-user"></i> Signed in as: <span id="onedriveUserName"></span></p>
+                </div>
             </div>
-            <div class="actions">
-                <button class="btn btn-primary" onclick="syncFromCloud(true)">
-                    <i class="fas fa-cloud-download-alt"></i> Download Latest Pricing
-                </button>
+
+            <!-- Navigation -->
+            <div class="actions" style="margin-top: 20px;">
                 <a href="index.html" class="btn btn-warning">
-                    <i class="fas fa-calculator"></i> Go to Admin Calc
+                    <i class="fas fa-calculator"></i> Go to Admin Calculator
+                </a>
+                <a href="customer.html" class="btn btn-secondary">
+                    <i class="fas fa-users"></i> Go to Customer Calculator
                 </a>
             </div>
         </div>
@@ -437,8 +534,10 @@
             
             <div class="form-group">
                 <label for="customerName"><i class="fas fa-user"></i> Customer Name:</label>
-                <input type="text" id="customerName" placeholder="Enter customer name" list="customerList">
-                <datalist id="customerList"></datalist>
+                <div class="suggestion-container">
+                    <input type="text" id="customerName" placeholder="Start typing customer name..." autocomplete="off">
+                    <div id="customerSuggestions" class="customer-suggestions" style="display: none;"></div>
+                </div>
             </div>
             
             <div class="form-group">
@@ -482,7 +581,9 @@
                 </thead>
                 <tbody id="itemsTableBody">
                     <tr>
-                        <td><input type="text" class="item-name" placeholder="Item description"></td>
+                        <td>
+                            <input type="text" class="item-name" placeholder="Enter item description" autocomplete="off">
+                        </td>
                         <td><input type="number" class="item-rate" value="0" min="0" step="0.01"></td>
                         <td><input type="number" class="item-quantity" value="1" min="1"></td>
                         <td><input type="number" class="item-amount" value="0" readonly></td>
@@ -542,7 +643,7 @@
 
         <div class="actions">
             <button class="btn btn-primary" onclick="saveInvoice()">
-                <i class="fas fa-save"></i> Save Invoice & Sync to Cloud
+                <i class="fas fa-save"></i> Save Invoice
             </button>
             <button class="btn btn-secondary" onclick="previewInvoice()">
                 <i class="fas fa-eye"></i> Preview Invoice
@@ -624,12 +725,12 @@
         </div>
 
         <div class="backup-section no-print">
-            <h3 class="section-title"><i class="fas fa-cloud-upload-alt"></i> Data Backup & Manual Import</h3>
+            <h3 class="section-title"><i class="fas fa-cloud-upload-alt"></i> Data Backup & Export</h3>
             <div class="actions">
                 <button class="btn btn-secondary" onclick="exportInvoices()">
                     <i class="fas fa-download"></i> Export Invoices (JSON)
                 </button>
-                <button class="btn btn-warning" onclick="alert('Import feature not implemented yet.')">
+                <button class="btn btn-warning" onclick="importInvoices()">
                     <i class="fas fa-upload"></i> Import Invoices
                 </button>
                 <button class="btn btn-danger" onclick="clearAllData()">
@@ -641,43 +742,54 @@
 
     <script>
         // =============================================
-        // GOOGLE APPS SCRIPT CONFIGURATION
+        // CLOUD SYNC CONFIGURATION
         // =============================================
-        // 🔴 CRITICAL: REPLACE 'YOUR_APP_SCRIPT_URL_HERE' with the deployed URL of your code.gs
-        const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw5jRbepFrowKG339OFd2ZbH_8Gyr5wUcVDp9yHrL-H/dev'; 
-
+        
+        // OneDrive Configuration - Updated to match your other files
+        const AZURE_CLIENT_ID = "26b3dde9-366f-487b-a485-79d1bf1ab857";
+        const msalConfig = {
+            auth: {
+                clientId: AZURE_CLIENT_ID,
+                authority: "https://login.microsoftonline.com/common",
+                redirectUri: window.location.origin,
+                knownAuthorities: ["https://login.microsoftonline.com/common/"]
+            },
+            cache: {
+                cacheLocation: "localStorage",
+                storeAuthStateInCookie: false
+            }
+        };
+        const msalInstance = new msal.PublicClientApplication(msalConfig);
+        
         // Data structures
         let customers = [];
         let invoices = [];
-        let calculatorData = {};
         let nextInvoiceNumber = 1001;
-        
         let currentCustomer = null;
-        let autoBackupInterval = null;
+        let isOneDriveOnline = false;
+        let currentOneDriveUser = null;
         
+        // Local Storage Keys
         const LOCAL_CUSTOMER_KEY = 'arhamPrintersCustomers';
         const LOCAL_INVOICE_KEY = 'arhamPrintersInvoices';
         const LOCAL_NEXT_INV_KEY = 'arhamNextInvoiceNumber';
-        const LOCAL_PRICING_KEY = 'arhamPrintersData';
 
         // =============================================
-        // ENHANCED SYNC & UTILITY FUNCTIONS
+        // UTILITY FUNCTIONS
         // =============================================
 
-        function updateSyncStatus(message, type = 'info') {
-            const statusEl = document.getElementById('invoiceSyncStatus');
-            if (!statusEl) return;
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check' : type === 'error' ? 'exclamation-triangle' : 'info'}-circle"></i>
+                ${message}
+            `;
+            document.body.appendChild(notification);
             
-            const icons = {
-                success: 'fa-check-circle',
-                error: 'fa-exclamation-triangle',
-                warning: 'fa-exclamation-circle',
-                info: 'fa-info-circle',
-                loading: 'fa-sync fa-spin'
-            };
-            
-            statusEl.innerHTML = `<i class="fas ${icons[type]}"></i> ${message}`;
-            statusEl.className = `sync-status sync-${type}`;
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
         }
 
         function showLoading(show = true, message = 'Loading...') {
@@ -690,425 +802,454 @@
             }
         }
 
-        async function safeApiCall(url, options = {}) {
-            try {
-                // Simplified direct fetch, relying on Apps Script's CORS headers.
-                const response = await fetch(url, options);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
-                
-                return await response.json();
-            } catch (error) {
-                console.error('API Call failed:', error);
-                throw error;
-            }
-        }
+        // =============================================
+        // CUSTOMER AUTO-COMPLETE FUNCTIONS
+        // =============================================
 
-        function setupOfflineDetection() {
-            window.addEventListener('online', () => {
-                updateSyncStatus('Connection restored', 'info');
-            });
+        function setupCustomerAutocomplete() {
+            const customerInput = document.getElementById('customerName');
+            const suggestionsContainer = document.getElementById('customerSuggestions');
             
-            window.addEventListener('offline', () => {
-                updateSyncStatus('Offline mode - using local data', 'warning');
-            });
-        }
-
-        // =============================================
-        // GOOGLE SHEETS SYNC FUNCTIONS
-        // =============================================
-
-        async function syncToCloud(invoiceData) {
-            const payload = {
-                type: 'INVOICE_CUSTOMER',
-                payload: {
-                    invoice: invoiceData,
-                }
-            };
-
-            try {
-                updateSyncStatus('Uploading Invoice to Google Sheets...', 'loading');
+            customerInput.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase().trim();
+                suggestionsContainer.innerHTML = '';
                 
-                const response = await safeApiCall(APP_SCRIPT_URL, {
-                    method: 'POST',
-                    body: JSON.stringify(payload),
-                    headers: { 'Content-Type': 'text/plain' }
-                });
-
-                if (response.result === 'success') {
-                    updateSyncStatus('Invoice successfully synced to Google Sheet', 'success');
-                    return true;
+                if (searchTerm.length < 2) {
+                    suggestionsContainer.style.display = 'none';
+                    return;
+                }
+                
+                const matches = customers.filter(customer => 
+                    customer.name.toLowerCase().includes(searchTerm)
+                );
+                
+                if (matches.length > 0) {
+                    matches.forEach(customer => {
+                        const div = document.createElement('div');
+                        div.className = 'customer-suggestion';
+                        div.textContent = customer.name;
+                        div.onclick = function() {
+                            selectCustomer(customer);
+                            suggestionsContainer.style.display = 'none';
+                        };
+                        suggestionsContainer.appendChild(div);
+                    });
+                    suggestionsContainer.style.display = 'block';
                 } else {
-                    throw new Error(response.message || 'Unknown error');
+                    suggestionsContainer.style.display = 'none';
                 }
-            } catch (error) {
-                console.error("Cloud Sync failed:", error);
-                updateSyncStatus('Cloud Sync Failed: ' + error.message, 'error');
-                return false;
-            }
+            });
+            
+            // Hide suggestions when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!customerInput.contains(e.target) && !suggestionsContainer.contains(e.target)) {
+                    suggestionsContainer.style.display = 'none';
+                }
+            });
         }
 
-        async function syncFromCloud(askConfirmation = true) {
-            try {
-                updateSyncStatus('Downloading pricing data...', 'loading');
-                
-                const url = `${APP_SCRIPT_URL}?data=pricing&v=${Date.now()}`;
-                const cloudData = await safeApiCall(url);
-                
-                if (typeof cloudData.items === 'undefined') {
-                    throw new Error('Invalid pricing structure retrieved from Sheet.');
-                }
-                
-                if (!askConfirmation || confirm('Replace local pricing data with cloud data?')) {
-                    calculatorData = cloudData;
-                    localStorage.setItem(LOCAL_PRICING_KEY, JSON.stringify(calculatorData));
-                    updateSyncStatus('Pricing data synced from Google Sheet', 'success');
-                    return true;
-                }
-            } catch (error) {
-                console.error("Cloud Load failed:", error);
-                updateSyncStatus('Cloud Load Failed: ' + error.message, 'error');
-                return false;
-            }
+        function selectCustomer(customer) {
+            document.getElementById('customerName').value = customer.name;
+            document.getElementById('customerPhone').value = customer.phone || '';
+            document.getElementById('customerAddress').value = customer.address || '';
+            document.getElementById('previousBalance').value = customer.balance || 0;
+            currentCustomer = customer;
+            calculateTotal();
         }
 
         // =============================================
-        // DATA MANAGEMENT SYSTEM
+        // ONEDRIVE SYNC FUNCTIONS
         // =============================================
 
-        function validateData(data) {
-            // Ensure all required properties exist (minimal validation for invoice)
-            if (!data.categories) data.categories = [];
-            if (!data.items) data.items = [];
-            if (!data.settings) data.settings = { rent: 200, profitMargin: 25, defaultBinding: 40 };
-            
-            return data;
-        }
-
-        function loadDefaultPricing() {
-            calculatorData = validateData({});
-            updateSyncStatus('Using minimal pricing data', 'warning');
-        }
-
-        async function initializeData() {
-            showLoading(true, 'Loading invoice data...');
-            
+        async function loginToOneDrive() {
             try {
-                // 1. Load Pricing Data (Try Cloud first, then local, then default)
-                let cloudSuccess = false;
-                if (navigator.onLine) {
-                    try {
-                        const url = `${APP_SCRIPT_URL}?data=pricing&v=${Date.now()}`;
-                        const cloudData = await safeApiCall(url);
-                        calculatorData = validateData(cloudData);
-                        updateSyncStatus('Pricing loaded from cloud', 'success');
-                        cloudSuccess = true;
-                    } catch (cloudError) {
-                         console.log('Cloud load failed, using local pricing:', cloudError);
-                    }
-                }
+                const loginRequest = {
+                    scopes: ["User.Read", "Files.ReadWrite.All"],
+                    prompt: "select_account"
+                };
                 
-                if (!cloudSuccess) {
-                    const savedPricing = localStorage.getItem(LOCAL_PRICING_KEY);
-                    if (savedPricing) {
-                        try {
-                             calculatorData = validateData(JSON.parse(savedPricing));
-                             updateSyncStatus('Pricing loaded from local storage', 'info');
-                        } catch (e) { loadDefaultPricing(); }
-                    } else {
-                        loadDefaultPricing();
-                    }
-                }
+                const response = await msalInstance.loginPopup(loginRequest);
+                currentOneDriveUser = response.account;
+                isOneDriveOnline = true;
                 
-                // 2. Load Invoice & Customer Data from local cache
-                customers = JSON.parse(localStorage.getItem(LOCAL_CUSTOMER_KEY)) || [];
-                invoices = JSON.parse(localStorage.getItem(LOCAL_INVOICE_KEY)) || [];
-                nextInvoiceNumber = parseInt(localStorage.getItem(LOCAL_NEXT_INV_KEY)) || 1001;
+                updateOneDriveUIAfterLogin();
+                await checkOneDriveInvoiceFile();
                 
             } catch (error) {
-                console.error('Invoice initialization error:', error);
-                loadDefaultPricing();
-                customers = [];
-                invoices = [];
-                nextInvoiceNumber = 1001;
-            } finally {
-                refreshCustomerList();
-                showLoading(false);
+                console.error("Login failed:", error);
+                showNotification("Login failed. Please try again.", "error");
             }
         }
 
-        function saveCustomers() {
-            localStorage.setItem(LOCAL_CUSTOMER_KEY, JSON.stringify(customers));
+        async function logoutFromOneDrive() {
+            try {
+                await msalInstance.logoutPopup();
+                currentOneDriveUser = null;
+                isOneDriveOnline = false;
+                updateOneDriveUIAfterLogout();
+                showNotification('Signed out from OneDrive', 'info');
+            } catch (error) {
+                console.error("OneDrive Logout error:", error);
+            }
         }
 
-        function saveInvoices() {
-            localStorage.setItem(LOCAL_INVOICE_KEY, JSON.stringify(invoices));
-            localStorage.setItem(LOCAL_NEXT_INV_KEY, nextInvoiceNumber.toString());
+        function updateOneDriveUIAfterLogin() {
+            document.getElementById('onedriveLoginBtn').style.display = 'none';
+            document.getElementById('onedriveSyncBtn').style.display = 'inline-flex';
+            document.getElementById('onedriveDownloadBtn').style.display = 'inline-flex';
+            document.getElementById('onedriveLogoutBtn').style.display = 'inline-flex';
+            document.getElementById('onedriveUserInfo').style.display = 'block';
+            document.getElementById('onedriveUserName').textContent = currentOneDriveUser.name;
+            document.getElementById('onedriveSyncStatus').innerHTML = '<i class="fas fa-check-circle"></i> OneDrive: Connected';
+            document.getElementById('onedriveSyncStatus').className = 'sync-status sync-success';
+        }
+
+        function updateOneDriveUIAfterLogout() {
+            document.getElementById('onedriveLoginBtn').style.display = 'inline-flex';
+            document.getElementById('onedriveSyncBtn').style.display = 'none';
+            document.getElementById('onedriveDownloadBtn').style.display = 'none';
+            document.getElementById('onedriveLogoutBtn').style.display = 'none';
+            document.getElementById('onedriveUserInfo').style.display = 'none';
+            document.getElementById('onedriveSyncStatus').innerHTML = '<i class="fas fa-link"></i> OneDrive: Not connected';
+            document.getElementById('onedriveSyncStatus').className = 'sync-status sync-info';
+        }
+
+        async function getOneDriveAccessToken() {
+            const request = {
+                scopes: ["Files.ReadWrite.All"],
+                account: currentOneDriveUser
+            };
+            
+            try {
+                const response = await msalInstance.acquireTokenSilent(request);
+                return response.accessToken;
+            } catch (error) {
+                console.error("Token acquisition failed:", error);
+                return null;
+            }
+        }
+
+        async function syncInvoicesToOneDrive() {
+            if (!isOneDriveOnline || !currentOneDriveUser) {
+                showNotification("Please sign in to OneDrive first", "error");
+                return;
+            }
+
+            const accessToken = await getOneDriveAccessToken();
+            if (!accessToken) {
+                showNotification("Could not get access token. Please try signing in again.", "error");
+                return;
+            }
+
+            try {
+                const invoiceData = {
+                    customers: customers,
+                    invoices: invoices,
+                    nextInvoiceNumber: nextInvoiceNumber,
+                    lastSync: new Date().toISOString()
+                };
+
+                // Create folder if it doesn't exist
+                try {
+                    await fetch(
+                        `https://graph.microsoft.com/v1.0/me/drive/root:/ArhamPrinters:/children`,
+                        {
+                            method: 'GET',
+                            headers: {
+                                'Authorization': `Bearer ${accessToken}`
+                            }
+                        }
+                    );
+                } catch (e) {
+                    // Folder doesn't exist, create it
+                    await fetch(
+                        `https://graph.microsoft.com/v1.0/me/drive/root/children`,
+                        {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': `Bearer ${accessToken}`,
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                name: "ArhamPrinters",
+                                folder: {},
+                                "@microsoft.graph.conflictBehavior": "replace"
+                            })
+                        }
+                    );
+                }
+
+                // Upload invoice data
+                const response = await fetch(
+                    `https://graph.microsoft.com/v1.0/me/drive/root:/ArhamPrinters/invoices.json:/content`,
+                    {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(invoiceData)
+                    }
+                );
+
+                if (response.ok) {
+                    showNotification('Invoices synced to OneDrive!', 'success');
+                } else {
+                    throw new Error('Failed to upload to OneDrive');
+                }
+            } catch (error) {
+                console.error("OneDrive Sync failed:", error);
+                showNotification('OneDrive sync failed', 'error');
+            }
+        }
+
+        async function syncInvoicesFromOneDrive() {
+            if (!isOneDriveOnline || !currentOneDriveUser) {
+                showNotification("Please sign in to OneDrive first", "error");
+                return;
+            }
+
+            const accessToken = await getOneDriveAccessToken();
+            if (!accessToken) {
+                showNotification("Could not get access token. Please try signing in again.", "error");
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    `https://graph.microsoft.com/v1.0/me/drive/root:/ArhamPrinters/invoices.json:/content`,
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                        }
+                    }
+                );
+
+                if (response.ok) {
+                    const cloudData = await response.json();
+                    
+                    if (confirm('Do you want to replace your local invoice data with OneDrive data?')) {
+                        customers = cloudData.customers || customers;
+                        invoices = cloudData.invoices || invoices;
+                        nextInvoiceNumber = cloudData.nextInvoiceNumber || nextInvoiceNumber;
+                        
+                        saveCustomers();
+                        saveInvoices();
+                        showNotification('Invoices synced from OneDrive!', 'success');
+                    }
+                } else {
+                    throw new Error('Failed to download from OneDrive');
+                }
+            } catch (error) {
+                console.error("OneDrive Sync failed:", error);
+                showNotification('OneDrive sync failed', 'error');
+            }
+        }
+
+        async function checkOneDriveInvoiceFile() {
+            const accessToken = await getOneDriveAccessToken();
+            if (!accessToken) return;
+
+            try {
+                const response = await fetch(
+                    `https://graph.microsoft.com/v1.0/me/drive/root:/ArhamPrinters/invoices.json`,
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                        }
+                    }
+                );
+
+                if (response.ok) {
+                    document.getElementById('onedriveSyncStatus').innerHTML = '<i class="fas fa-check-circle"></i> OneDrive: Connected & Data Available';
+                    document.getElementById('onedriveSyncStatus').className = 'sync-status sync-success';
+                } else {
+                    document.getElementById('onedriveSyncStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i> OneDrive: Connected (No data found)';
+                    document.getElementById('onedriveSyncStatus').className = 'sync-status sync-warning';
+                }
+            } catch (error) {
+                console.error("OneDrive file check failed:", error);
+            }
         }
 
         // =============================================
         // INVOICE MANAGEMENT FUNCTIONS
         // =============================================
 
-        function setupEventListeners() {
-            // Item amount calculation
-            document.getElementById('itemsTableBody').addEventListener('input', function(e) {
-                if (e.target.classList.contains('item-rate') || e.target.classList.contains('item-quantity')) {
-                    updateAmount(e.target);
-                }
-            });
-            
-            // Auto-calculate totals
-            document.getElementById('taxRate').addEventListener('input', calculateTotal);
-            document.getElementById('previousBalance').addEventListener('input', calculateTotal);
-            document.getElementById('payment').addEventListener('input', calculateTotal);
-            
-            // Customer autocomplete
-            document.getElementById('customerName').addEventListener('input', handleCustomerAutocomplete);
-            document.getElementById('customerName').addEventListener('change', handleCustomerSelection);
-        }
-
-        function handleCustomerAutocomplete() {
-            const input = document.getElementById('customerName');
-            const datalist = document.getElementById('customerList');
-            const searchTerm = input.value.toLowerCase();
-            
-            datalist.innerHTML = '';
-            
-            if (searchTerm.length < 2) return;
-            
-            const matches = customers.filter(customer => 
-                customer.name.toLowerCase().includes(searchTerm)
-            );
-            
-            matches.forEach(customer => {
-                const option = document.createElement('option');
-                option.value = customer.name;
-                option.setAttribute('data-customer-id', customer.id);
-                datalist.appendChild(option);
-            });
-        }
-
-        function handleCustomerSelection() {
-            const input = document.getElementById('customerName');
-            const customerName = input.value;
-            const customer = customers.find(c => c.name === customerName);
-            
-            if (customer) {
-                currentCustomer = customer;
-                document.getElementById('customerPhone').value = customer.phone || '';
-                document.getElementById('customerAddress').value = customer.address || '';
-                document.getElementById('previousBalance').value = customer.balance || 0;
-                calculateTotal();
-            } else {
-                currentCustomer = null;
-                // Clear all fields if a non-matching name is entered
-                document.getElementById('customerPhone').value = '';
-                document.getElementById('customerAddress').value = '';
-                document.getElementById('previousBalance').value = '0';
-                calculateTotal();
-            }
-        }
-
         function addItem() {
-            const tbody = document.getElementById('itemsTableBody');
+            const tableBody = document.getElementById('itemsTableBody');
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
-                <td><input type="text" class="item-name" placeholder="Item description"></td>
+                <td><input type="text" class="item-name" placeholder="Enter item description" autocomplete="off"></td>
                 <td><input type="number" class="item-rate" value="0" min="0" step="0.01"></td>
                 <td><input type="number" class="item-quantity" value="1" min="1"></td>
                 <td><input type="number" class="item-amount" value="0" readonly></td>
                 <td><button type="button" class="btn btn-danger" onclick="removeItem(this)"><i class="fas fa-trash"></i></button></td>
             `;
-            tbody.appendChild(newRow);
+            tableBody.appendChild(newRow);
+            
+            // Add event listeners to new inputs
+            const inputs = newRow.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('input', calculateTotal);
+            });
         }
 
         function removeItem(button) {
             const row = button.closest('tr');
-            if (document.getElementById('itemsTableBody').children.length > 1) {
+            if (document.querySelectorAll('#itemsTableBody tr').length > 1) {
                 row.remove();
                 calculateTotal();
             } else {
-                alert('At least one item is required');
+                showNotification('At least one item is required', 'error');
             }
-        }
-
-        function updateAmount(input) {
-            const row = input.closest('tr');
-            const rate = parseFloat(row.querySelector('.item-rate').value) || 0;
-            const quantity = parseFloat(row.querySelector('.item-quantity').value) || 1;
-            const amount = rate * quantity;
-            
-            row.querySelector('.item-amount').value = amount.toFixed(2);
-            calculateTotal();
         }
 
         function calculateTotal() {
             let subtotal = 0;
             
             document.querySelectorAll('#itemsTableBody tr').forEach(row => {
-                const amount = parseFloat(row.querySelector('.item-amount').value) || 0;
+                const rate = parseFloat(row.querySelector('.item-rate').value) || 0;
+                const quantity = parseInt(row.querySelector('.item-quantity').value) || 0;
+                const amount = rate * quantity;
+                
+                row.querySelector('.item-amount').value = amount.toFixed(2);
                 subtotal += amount;
             });
             
             const taxRate = parseFloat(document.getElementById('taxRate').value) || 0;
             const taxAmount = subtotal * (taxRate / 100);
-            const total = subtotal + taxAmount;
+            const totalAmount = subtotal + taxAmount;
             const previousBalance = parseFloat(document.getElementById('previousBalance').value) || 0;
             const payment = parseFloat(document.getElementById('payment').value) || 0;
-            const remainingBalance = total + previousBalance - payment;
+            const remainingBalance = totalAmount + previousBalance - payment;
             
             document.getElementById('subtotalAmount').textContent = subtotal.toFixed(2);
             document.getElementById('taxAmount').textContent = taxAmount.toFixed(2);
-            document.getElementById('totalAmount').textContent = total.toFixed(2);
+            document.getElementById('totalAmount').textContent = totalAmount.toFixed(2);
             document.getElementById('remainingBalance').textContent = remainingBalance.toFixed(2);
         }
 
         function saveInvoice() {
+            // Validate form
             const customerName = document.getElementById('customerName').value.trim();
-            const invoiceNo = document.getElementById('invoiceNo').value;
             const invoiceDate = document.getElementById('invoiceDate').value;
             const dueDate = document.getElementById('dueDate').value;
             
             if (!customerName) {
-                alert('Please enter customer name');
+                showNotification('Please enter customer name', 'error');
                 return;
             }
             
-            let currentInvoiceItems = [];
+            if (!invoiceDate) {
+                showNotification('Please select invoice date', 'error');
+                return;
+            }
+            
+            // Collect items
+            const items = [];
+            let hasValidItem = false;
+            
             document.querySelectorAll('#itemsTableBody tr').forEach(row => {
-                const name = row.querySelector('.item-name').value;
+                const name = row.querySelector('.item-name').value.trim();
                 const rate = parseFloat(row.querySelector('.item-rate').value) || 0;
-                const quantity = parseFloat(row.querySelector('.item-quantity').value) || 1;
-                const amount = parseFloat(row.querySelector('.item-amount').value) || 0;
+                const quantity = parseInt(row.querySelector('.item-quantity').value) || 0;
                 
-                if (name && (rate > 0 || amount > 0)) {
-                    currentInvoiceItems.push({
+                if (name) {
+                    items.push({
                         name: name,
                         rate: rate,
                         quantity: quantity,
-                        amount: amount
+                        amount: rate * quantity
                     });
+                    hasValidItem = true;
                 }
             });
             
-            if (currentInvoiceItems.length === 0) {
-                alert('Please add at least one item to the invoice with a valid rate/amount');
+            if (!hasValidItem) {
+                showNotification('Please add at least one valid item', 'error');
                 return;
             }
             
-            calculateTotal(); // Recalculate one last time
-            const totals = {
-                subtotal: parseFloat(document.getElementById('subtotalAmount').textContent) || 0,
-                tax: parseFloat(document.getElementById('taxAmount').textContent) || 0,
-                total: parseFloat(document.getElementById('totalAmount').textContent) || 0,
-                previousBalance: parseFloat(document.getElementById('previousBalance').value) || 0,
-                payment: parseFloat(document.getElementById('payment').value) || 0,
-                remainingBalance: parseFloat(document.getElementById('remainingBalance').textContent) || 0
-            };
-            
-            // Determine if this is a new customer
-            const customerPhone = document.getElementById('customerPhone').value;
-            const customerAddress = document.getElementById('customerAddress').value;
-            let customerId;
-
-            if (currentCustomer) {
-                // Existing customer update
-                customerId = currentCustomer.id;
-                const customerIndex = customers.findIndex(c => c.id === customerId);
-                if (customerIndex !== -1) {
-                    customers[customerIndex].balance = totals.remainingBalance;
-                    customers[customerIndex].phone = customerPhone;
-                    customers[customerIndex].address = customerAddress;
-                    if (!customers[customerIndex].invoices) customers[customerIndex].invoices = [];
-                    customers[customerIndex].invoices.push(invoiceNo);
-                }
-            } else {
-                // Create new customer
-                customerId = 'cust_' + Date.now();
-                const newCustomer = {
-                    id: customerId,
+            // Save or update customer
+            let customer = customers.find(c => c.name === customerName);
+            if (!customer) {
+                customer = {
+                    id: Date.now().toString(),
                     name: customerName,
-                    phone: customerPhone,
-                    address: customerAddress,
-                    balance: totals.remainingBalance,
-                    invoices: [invoiceNo],
+                    phone: document.getElementById('customerPhone').value.trim(),
+                    address: document.getElementById('customerAddress').value.trim(),
+                    balance: parseFloat(document.getElementById('previousBalance').value) || 0,
                     created: new Date().toISOString()
                 };
-                customers.push(newCustomer);
-                currentCustomer = newCustomer;
+                customers.push(customer);
+            } else {
+                // Update customer details if changed
+                customer.phone = document.getElementById('customerPhone').value.trim();
+                customer.address = document.getElementById('customerAddress').value.trim();
+                customer.balance = parseFloat(document.getElementById('previousBalance').value) || 0;
             }
             
-            saveCustomers();
-            
-            // Create and save invoice
-            const newInvoice = {
-                id: 'inv_' + Date.now(),
-                invoiceNumber: invoiceNo,
+            // Create invoice
+            const invoice = {
+                id: Date.now().toString(),
+                invoiceNo: document.getElementById('invoiceNo').value,
                 date: invoiceDate,
                 dueDate: dueDate,
-                customer: {
-                    id: customerId,
-                    name: customerName,
-                    phone: customerPhone,
-                    address: customerAddress
-                },
-                items: currentInvoiceItems,
-                totals: totals,
-                status: totals.remainingBalance > 0 ? 'pending' : 'paid',
-                created: new Date().toISOString(),
-                paymentHistory: [{
-                    date: new Date().toISOString(),
-                    amount: totals.payment,
-                    type: 'payment'
-                }]
+                customerId: customer.id,
+                items: items,
+                subtotal: parseFloat(document.getElementById('subtotalAmount').textContent),
+                taxRate: parseFloat(document.getElementById('taxRate').value) || 0,
+                taxAmount: parseFloat(document.getElementById('taxAmount').textContent),
+                total: parseFloat(document.getElementById('totalAmount').textContent),
+                previousBalance: parseFloat(document.getElementById('previousBalance').value) || 0,
+                payment: parseFloat(document.getElementById('payment').value) || 0,
+                remainingBalance: parseFloat(document.getElementById('remainingBalance').textContent),
+                status: 'pending',
+                created: new Date().toISOString()
             };
-
-            invoices.unshift(newInvoice);
-            nextInvoiceNumber++;
+            
+            invoices.push(invoice);
+            
+            // Update customer balance
+            customer.balance = invoice.remainingBalance;
+            
+            // Save data
+            saveCustomers();
             saveInvoices();
             
-            // Sync to cloud
-            syncToCloud(newInvoice);
+            // Update invoice number
+            nextInvoiceNumber++;
+            localStorage.setItem(LOCAL_NEXT_INV_KEY, nextInvoiceNumber.toString());
             
-            refreshCustomerList();
-            generateInvoiceNumber();
+            showNotification('Invoice saved successfully!', 'success');
             
-            alert(`✅ Invoice ${newInvoice.invoiceNumber} saved successfully and synced to cloud!`);
-            
-            return newInvoice;
+            // Auto-sync to OneDrive if connected
+            if (isOneDriveOnline) {
+                setTimeout(syncInvoicesToOneDrive, 1000);
+            }
         }
 
         function previewInvoice() {
-            const preview = document.getElementById('invoicePreview');
-            const customerName = document.getElementById('customerName').value;
+            // Update preview with current data
+            document.getElementById('previewCustomerName').textContent = document.getElementById('customerName').value || 'N/A';
+            document.getElementById('previewCustomerPhone').textContent = document.getElementById('customerPhone').value || 'N/A';
+            document.getElementById('previewCustomerAddress').textContent = document.getElementById('customerAddress').value || 'N/A';
+            document.getElementById('previewInvoiceNo').textContent = document.getElementById('invoiceNo').value || 'N/A';
+            document.getElementById('previewInvoiceDate').textContent = document.getElementById('invoiceDate').value || 'N/A';
+            document.getElementById('previewDueDate').textContent = document.getElementById('dueDate').value || 'N/A';
             
-            if (!customerName) {
-                alert('Please enter customer name first');
-                return;
-            }
-            
-            // Update preview content
-            document.getElementById('previewCustomerName').textContent = customerName;
-            document.getElementById('previewCustomerPhone').textContent = document.getElementById('customerPhone').value;
-            document.getElementById('previewCustomerAddress').textContent = document.getElementById('customerAddress').value;
-            document.getElementById('previewInvoiceNo').textContent = document.getElementById('invoiceNo').value;
-            document.getElementById('previewInvoiceDate').textContent = document.getElementById('invoiceDate').value;
-            document.getElementById('previewDueDate').textContent = document.getElementById('dueDate').value;
-            
-            // Update items table
+            // Update items in preview
             const previewItemsTable = document.getElementById('previewItemsTable');
             previewItemsTable.innerHTML = '';
             
             document.querySelectorAll('#itemsTableBody tr').forEach(row => {
-                const name = row.querySelector('.item-name').value;
+                const name = row.querySelector('.item-name').value.trim();
                 const rate = parseFloat(row.querySelector('.item-rate').value) || 0;
-                const quantity = parseFloat(row.querySelector('.item-quantity').value) || 1;
-                const amount = parseFloat(row.querySelector('.item-amount').value) || 0;
+                const quantity = parseInt(row.querySelector('.item-quantity').value) || 0;
+                const amount = rate * quantity;
                 
-                if (name && (rate > 0 || amount > 0)) {
+                if (name) {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td>${name}</td>
@@ -1120,16 +1261,16 @@
                 }
             });
             
-            // Update totals
+            // Update totals in preview
             document.getElementById('previewSubtotal').textContent = document.getElementById('subtotalAmount').textContent;
             document.getElementById('previewTax').textContent = document.getElementById('taxAmount').textContent;
             document.getElementById('previewTotal').textContent = document.getElementById('totalAmount').textContent;
-            document.getElementById('previewPreviousBalance').textContent = parseFloat(document.getElementById('previousBalance').value).toFixed(2);
-            document.getElementById('previewPayment').textContent = parseFloat(document.getElementById('payment').value).toFixed(2);
+            document.getElementById('previewPreviousBalance').textContent = document.getElementById('previousBalance').value || '0.00';
+            document.getElementById('previewPayment').textContent = document.getElementById('payment').value || '0.00';
             document.getElementById('previewBalanceDue').textContent = document.getElementById('remainingBalance').textContent;
             
-            preview.style.display = 'block';
-            preview.scrollIntoView({ behavior: 'smooth' });
+            // Show preview
+            document.getElementById('invoicePreview').style.display = 'block';
         }
 
         function printInvoice() {
@@ -1144,54 +1285,51 @@
                 document.getElementById('customerName').value = '';
                 document.getElementById('customerPhone').value = '';
                 document.getElementById('customerAddress').value = '';
+                document.getElementById('invoiceDate').value = '';
+                document.getElementById('dueDate').value = '';
+                document.getElementById('taxRate').value = '0';
                 document.getElementById('previousBalance').value = '0';
                 document.getElementById('payment').value = '0';
-                document.getElementById('taxRate').value = '0'; // Also reset tax rate
                 
-                const tbody = document.getElementById('itemsTableBody');
-                tbody.innerHTML = `
-                    <tr>
-                        <td><input type="text" class="item-name" placeholder="Item description"></td>
-                        <td><input type="number" class="item-rate" value="0" min="0" step="0.01"></td>
-                        <td><input type="number" class="item-quantity" value="1" min="1"></td>
-                        <td><input type="number" class="item-amount" value="0" readonly></td>
-                        <td><button type="button" class="btn btn-danger" onclick="removeItem(this)"><i class="fas fa-trash"></i></button></td>
-                    </tr>
-                `;
+                const tableBody = document.getElementById('itemsTableBody');
+                tableBody.innerHTML = '';
+                addItem(); // Add one empty row
                 
                 calculateTotal();
-                currentCustomer = null;
-                generateInvoiceNumber();
                 document.getElementById('invoicePreview').style.display = 'none';
+                
+                showNotification('Invoice form cleared', 'info');
             }
         }
 
-        function generateInvoiceNumber() {
-            document.getElementById('invoiceNo').value = `INV-${nextInvoiceNumber}`;
+        // =============================================
+        // DATA PERSISTENCE FUNCTIONS
+        // =============================================
+
+        function saveCustomers() {
+            localStorage.setItem(LOCAL_CUSTOMER_KEY, JSON.stringify(customers));
         }
 
-        function setDefaultDates() {
-            const today = new Date();
-            const dueDate = new Date();
-            dueDate.setDate(today.getDate() + 30);
-            
-            const todayISO = today.toISOString().split('T')[0];
-            const dueDateISO = dueDate.toISOString().split('T')[0];
-            
-            document.getElementById('invoiceDate').value = todayISO;
-            document.getElementById('dueDate').value = dueDateISO;
+        function saveInvoices() {
+            localStorage.setItem(LOCAL_INVOICE_KEY, JSON.stringify(invoices));
         }
 
-        function refreshCustomerList() {
-            const datalist = document.getElementById('customerList');
-            datalist.innerHTML = '';
-            
-            customers.forEach(customer => {
-                const option = document.createElement('option');
-                option.value = customer.name;
-                option.setAttribute('data-customer-id', customer.id);
-                datalist.appendChild(option);
-            });
+        function loadCustomers() {
+            const stored = localStorage.getItem(LOCAL_CUSTOMER_KEY);
+            if (stored) {
+                customers = JSON.parse(stored);
+            }
+        }
+
+        function loadInvoices() {
+            const stored = localStorage.getItem(LOCAL_INVOICE_KEY);
+            if (stored) {
+                invoices = JSON.parse(stored);
+            if (invoices.length > 0) {
+                const lastInvoice = invoices[invoices.length - 1];
+                nextInvoiceNumber = parseInt(lastInvoice.invoiceNo) + 1;
+            }
+            document.getElementById('invoiceNo').value = nextInvoiceNumber.toString().padStart(4, '0');
         }
 
         function exportInvoices() {
@@ -1199,65 +1337,119 @@
                 customers: customers,
                 invoices: invoices,
                 nextInvoiceNumber: nextInvoiceNumber,
-                exportedAt: new Date().toISOString()
+                exportDate: new Date().toISOString()
             };
             
-            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            const url = URL.createObjectURL(dataBlob);
             const link = document.createElement('a');
             link.href = url;
-            link.download = `arham-invoices-backup-${new Date().toISOString().split('T')[0]}.json`;
+            link.download = `arham-printers-backup-${new Date().toISOString().split('T')[0]}.json`;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
             URL.revokeObjectURL(url);
-            alert('Invoices exported successfully!');
+            
+            showNotification('Data exported successfully', 'success');
+        }
+
+        function importInvoices() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            
+            input.onchange = e => {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = event => {
+                    try {
+                        const data = JSON.parse(event.target.result);
+                        
+                        if (confirm('This will replace your current data. Continue?')) {
+                            customers = data.customers || customers;
+                            invoices = data.invoices || invoices;
+                            nextInvoiceNumber = data.nextInvoiceNumber || nextInvoiceNumber;
+                            
+                            saveCustomers();
+                            saveInvoices();
+                            
+                            showNotification('Data imported successfully', 'success');
+                        }
+                    } catch (error) {
+                        console.error('Import error:', error);
+                        showNotification('Invalid backup file', 'error');
+                    }
+                };
+                
+                reader.readAsText(file);
+            };
+            
+            input.click();
         }
 
         function clearAllData() {
-            if (confirm('Are you sure you want to clear ALL invoice and customer data? This cannot be undone!')) {
+            if (confirm('This will permanently delete all your invoices and customer data. Are you sure?')) {
+                localStorage.removeItem(LOCAL_CUSTOMER_KEY);
+                localStorage.removeItem(LOCAL_INVOICE_KEY);
+                localStorage.removeItem(LOCAL_NEXT_INV_KEY);
+                
                 customers = [];
                 invoices = [];
                 nextInvoiceNumber = 1001;
-                saveCustomers();
-                saveInvoices();
-                refreshCustomerList();
+                
+                document.getElementById('invoiceNo').value = nextInvoiceNumber.toString().padStart(4, '0');
                 clearInvoice();
-                alert('All data cleared successfully!');
+                
+                showNotification('All data cleared', 'info');
             }
-        }
-
-        function startAutoBackup() {
-            // Auto-save every 5 minutes
-            autoBackupInterval = setInterval(() => {
-                saveCustomers();
-                saveInvoices();
-            }, 300000);
         }
 
         // =============================================
         // INITIALIZATION
         // =============================================
 
-        window.onload = function() {
-            initializeData();
-            setupEventListeners();
-            generateInvoiceNumber();
-            setDefaultDates();
-            setupOfflineDetection();
-            startAutoBackup();
-            calculateTotal();
-        };
-
-        // Cleanup on page unload
-        window.addEventListener('beforeunload', () => {
-            if (autoBackupInterval) {
-                clearInterval(autoBackupInterval);
+        function initializeApp() {
+            showLoading(true, 'Loading Invoice System...');
+            
+            // Load data from localStorage
+            loadCustomers();
+            loadInvoices();
+            
+            // Set default dates
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('invoiceDate').value = today;
+            
+            const dueDate = new Date();
+            dueDate.setDate(dueDate.getDate() + 30);
+            document.getElementById('dueDate').value = dueDate.toISOString().split('T')[0];
+            
+            // Set up event listeners
+            document.querySelectorAll('input, select, textarea').forEach(element => {
+                if (element.type !== 'button' && element.type !== 'submit') {
+                    element.addEventListener('input', calculateTotal);
+                }
+            });
+            
+            // Set up customer autocomplete
+            setupCustomerAutocomplete();
+            
+            // Check if user is already signed in to OneDrive
+            const accounts = msalInstance.getAllAccounts();
+            if (accounts.length > 0) {
+                currentOneDriveUser = accounts[0];
+                isOneDriveOnline = true;
+                updateOneDriveUIAfterLogin();
+                checkOneDriveInvoiceFile();
             }
-            saveCustomers();
-            saveInvoices();
-        });
+            
+            showLoading(false);
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initializeApp);
     </script>
 </body>
-
 </html>
