@@ -780,25 +780,43 @@
         // DATA MANAGEMENT SYSTEM
         // =============================================
 
-        async function initializeData() {
-            showLoading(true, 'Loading invoice data...');
-            
-            // 1. Try to load pricing from cloud first
-            const cloudSuccess = await syncFromCloud(false);
-            
-            // 2. Load the rest from local cache
-            customers = JSON.parse(localStorage.getItem('arhamPrintersCustomers')) || [];
-            invoices = JSON.parse(localStorage.getItem('arhamPrintersInvoices')) || [];
-            
-            if (!cloudSuccess) {
-                calculatorData = JSON.parse(localStorage.getItem('arhamPrintersData')) || {};
+       async function initializeData() {
+    showLoading(true, 'Loading invoice data...');
+    
+    try {
+        // 1. Try to load pricing from cloud first
+        const cloudSuccess = await syncFromCloud(false);
+        
+        // 2. Load the rest from local cache
+        customers = JSON.parse(localStorage.getItem('arhamPrintersCustomers')) || [];
+        invoices = JSON.parse(localStorage.getItem('arhamPrintersInvoices')) || [];
+        
+        if (!cloudSuccess) {
+            const savedData = localStorage.getItem('arhamPrintersData');
+            if (savedData) {
+                try {
+                    calculatorData = validateData(JSON.parse(savedData));
+                } catch (e) {
+                    calculatorData = validateData({});
+                }
+            } else {
+                calculatorData = validateData({});
             }
-            
-            nextInvoiceNumber = parseInt(localStorage.getItem('arhamNextInvoiceNumber')) || 1001;
-            
-            refreshCustomerList();
-            showLoading(false);
         }
+        
+        nextInvoiceNumber = parseInt(localStorage.getItem('arhamNextInvoiceNumber')) || 1001;
+        
+    } catch (error) {
+        console.error('Invoice initialization error:', error);
+        calculatorData = validateData({});
+        customers = [];
+        invoices = [];
+        nextInvoiceNumber = 1001;
+    } finally {
+        refreshCustomerList();
+        showLoading(false);
+    }
+}
 function validateData(data) {
     // Ensure all required properties exist
     if (!data.categories) data.categories = [];

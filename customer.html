@@ -513,28 +513,28 @@
         }
 
         // Initialize the application
-        async function initializeApp() {
-            setupOfflineDetection();
-            
-            // 1. Load from Local Cache first for fast startup
-            let dataLoaded = loadPriceDataFromLocal();
-            if (dataLoaded) {
-                updateSyncStatus('Local prices loaded', 'success');
-                refreshAllDisplays();
-            }
-            
-            // 2. Then attempt to fetch latest from Google Sheet
-            if (navigator.onLine && shouldRefreshCache()) {
-                await loadFromGoogleSheet();
-            } else if (!dataLoaded) {
-                // 3. If local cache failed, use default data
-                data = JSON.parse(JSON.stringify(defaultData));
-                updateSyncStatus('Using default prices (Offline)', 'warning');
-            }
-            
-            setupEventListeners();
-            refreshAllDisplays();
-        }
+       async function initializeApp() {
+    setupOfflineDetection();
+    
+    // 1. Load from Local Cache first for fast startup
+    let dataLoaded = loadPriceDataFromLocal();
+    if (dataLoaded) {
+        updateSyncStatus('Local prices loaded', 'success');
+        refreshAllDisplays();
+    }
+    
+    // 2. Then attempt to fetch latest from Google Sheet
+    if (navigator.onLine && shouldRefreshCache()) {
+        await loadFromGoogleSheet();
+    } else if (!dataLoaded) {
+        // 3. If local cache failed, use default data
+        data = validateData(JSON.parse(JSON.stringify(defaultData)));
+        updateSyncStatus('Using default prices (Offline)', 'warning');
+    }
+    
+    setupEventListeners();
+    refreshAllDisplays();
+}
 		function validateData(data) {
     // Ensure all required properties exist
     if (!data.categories) data.categories = [];

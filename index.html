@@ -1180,100 +1180,39 @@
                 const url = `${APP_SCRIPT_URL}?data=pricing&v=${Date.now()}`;
                 const cloudData = await safeApiCall(url);
                 data = validateData(cloudData);
+                localStorage.setItem('arhamPrintersData', JSON.stringify(data));
                 updateSyncStatus('Data loaded from cloud', 'success');
             } catch (cloudError) {
                 console.log('Cloud load failed, using local data:', cloudError);
                 // Fall back to local data
                 loadFromLocalStorage();
+                updateSyncStatus('Using cached data - ' + cloudError.message, 'warning');
             }
         } else {
             loadFromLocalStorage();
+            updateSyncStatus('Offline - using local data', 'warning');
         }
+        
+        // Load history
+        const savedHistory = localStorage.getItem('arhamPrintersHistory');
+        if (savedHistory) {
+            try {
+                calculationHistory = JSON.parse(savedHistory);
+            } catch (e) {
+                console.error("Error loading history:", e);
+                calculationHistory = [];
+            }
+        }
+        
     } catch (error) {
         console.error('Initialization error:', error);
         loadDefaultData();
     } finally {
         refreshAllDisplays();
+        refreshHistoryDisplay();
         showLoading(false);
     }
 }
-
-function loadFromLocalStorage() {
-    const savedData = localStorage.getItem('arhamPrintersData');
-    if (savedData) {
-        try {
-            data = validateData(JSON.parse(savedData));
-            updateSyncStatus('Loaded from local storage', 'success');
-        } catch (e) {
-            loadDefaultData();
-        }
-    } else {
-        loadDefaultData();
-    }
-}
-
-function loadDefaultData() {
-    data = validateData({
-        categories: [],
-        items: [],
-        sizes: {},
-        colors: {},
-        settings: { rent: 200, profitMargin: 25, defaultBinding: 40 }
-    });
-    updateSyncStatus('Using default data', 'warning');
-}
-
-        function debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        }
-
-        const debouncedSave = debounce(() => {
-            if (navigator.onLine) {
-                saveAllData();
-            }
-        }, 2000);
-
-        async function initializeData() {
-            showLoading(true, 'Initializing application...');
-            
-            // Load from local cache first
-            const savedData = localStorage.getItem('arhamPrintersData');
-            if (savedData) {
-                try { 
-                    data = JSON.parse(savedData); 
-                    updateSyncStatus('Loaded from local cache', 'success');
-                } catch (e) { 
-                    console.error("Error loading local data:", e);
-                    data = JSON.parse(JSON.stringify(defaultData));
-                }
-            }
-            
-            // Then try to sync with cloud
-            if (navigator.onLine && shouldRefreshCache()) {
-                await syncFromCloud(false);
-            }
-            
-            const savedHistory = localStorage.getItem('arhamPrintersHistory');
-            if (savedHistory) {
-                try {
-                    calculationHistory = JSON.parse(savedHistory);
-                refreshHistoryDisplay();
-                } catch (e) {
-                    console.error("Error loading history:", e);
-                }
-            }
-            
-            updateLastSyncInfo();
-            showLoading(false);
-        }
 
         // =============================================
         // CALCULATOR FUNCTIONS
