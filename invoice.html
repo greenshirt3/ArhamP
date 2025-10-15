@@ -676,29 +676,37 @@
         }
 
         async function safeApiCall(url, options = {}) {
-            try {
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 15000);
-                
-                const response = await fetch(url, {
-                    ...options,
-                    signal: controller.signal
-                });
-                
-                clearTimeout(timeoutId);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    try {
+        // For Google Apps Script, we need to handle CORS differently
+        if (url.includes('script.google.com')) {
+            // Use a proxy approach for CORS
+            const proxyUrl = `https://cors-anywhere.herokuapp.com/${url}`;
+            const response = await fetch(proxyUrl, {
+                ...options,
+                headers: {
+                    ...options.headers,
+                    'X-Requested-With': 'XMLHttpRequest'
                 }
-                
-                return await response.json();
-            } catch (error) {
-                if (error.name === 'AbortError') {
-                    throw new Error('Request timeout - please check your connection');
-                }
-                throw error;
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
             }
+            
+            return await response.json();
+        } else {
+            // Normal fetch for other URLs
+            const response = await fetch(url, options);
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            return await response.json();
         }
+    } catch (error) {
+        console.error('API Call failed:', error);
+        throw error;
+    }
+}
 
         function setupOfflineDetection() {
             window.addEventListener('online', () => {
@@ -791,7 +799,70 @@
             refreshCustomerList();
             showLoading(false);
         }
+function validateData(data) {
+    // Ensure all required properties exist
+    if (!data.categories) data.categories = [];
+    if (!data.items) data.items = [];
+    if (!data.sizes) data.sizes = {};
+    if (!data.colors) data.colors = {};
+    if (!data.settings) data.settings = { rent: 200, profitMargin: 25, defaultBinding: 40 };
+    
+    return data;
+}
 
+// Update your initializeData function to use validation:
+async function initializeData() {
+    showLoading(true, 'Loading data...');
+    
+    try {
+        // Try to load from cloud first
+        if (navigator.onLine) {
+            try {
+                const url = `${APP_SCRIPT_URL}?data=pricing&v=${Date.now()}`;
+                const cloudData = await safeApiCall(url);
+                data = validateData(cloudData);
+                updateSyncStatus('Data loaded from cloud', 'success');
+            } catch (cloudError) {
+                console.log('Cloud load failed, using local data:', cloudError);
+                // Fall back to local data
+                loadFromLocalStorage();
+            }
+        } else {
+            loadFromLocalStorage();
+        }
+    } catch (error) {
+        console.error('Initialization error:', error);
+        loadDefaultData();
+    } finally {
+        refreshAllDisplays();
+        showLoading(false);
+    }
+}
+
+function loadFromLocalStorage() {
+    const savedData = localStorage.getItem('arhamPrintersData');
+    if (savedData) {
+        try {
+            data = validateData(JSON.parse(savedData));
+            updateSyncStatus('Loaded from local storage', 'success');
+        } catch (e) {
+            loadDefaultData();
+        }
+    } else {
+        loadDefaultData();
+    }
+}
+
+function loadDefaultData() {
+    data = validateData({
+        categories: [],
+        items: [],
+        sizes: {},
+        colors: {},
+        settings: { rent: 200, profitMargin: 25, defaultBinding: 40 }
+    });
+    updateSyncStatus('Using default data', 'warning');
+}
         function saveCustomers() {
             localStorage.setItem('arhamPrintersCustomers', JSON.stringify(customers));
         }
