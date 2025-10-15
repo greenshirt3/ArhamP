@@ -175,6 +175,16 @@
             transform: translateY(-2px);
         }
         
+        .btn-danger { 
+            background: var(--danger); 
+            color: white; 
+        }
+        
+        .btn-danger:hover {
+            background: #c02a2e;
+            transform: translateY(-2px);
+        }
+        
         .invoice-section {
             margin-bottom: 25px;
             padding: 20px;
@@ -619,7 +629,7 @@
                 <button class="btn btn-secondary" onclick="exportInvoices()">
                     <i class="fas fa-download"></i> Export Invoices (JSON)
                 </button>
-                <button class="btn btn-warning" onclick="importInvoices()">
+                <button class="btn btn-warning" onclick="alert('Import feature not implemented yet.')">
                     <i class="fas fa-upload"></i> Import Invoices
                 </button>
                 <button class="btn btn-danger" onclick="clearAllData()">
@@ -633,7 +643,8 @@
         // =============================================
         // GOOGLE APPS SCRIPT CONFIGURATION
         // =============================================
-        const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx92he9mOusjHbZxgwueelz2JwrHUIzjiByaQvCnFxiSsXF9DrheUbtwAuEoEkVOZKXaQ/exec'; 
+        // 🔴 CRITICAL: REPLACE 'YOUR_APP_SCRIPT_URL_HERE' with the deployed URL of your code.gs
+        const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxICIMRlXZ3RNv-GyUv-4ePgHYv7dZ4bj9_tP1oh6rOArmZJ8bbf07p9FNUXOr_rly1hw/exec'; 
 
         // Data structures
         let customers = [];
@@ -641,9 +652,13 @@
         let calculatorData = {};
         let nextInvoiceNumber = 1001;
         
-        let currentInvoiceItems = [];
         let currentCustomer = null;
         let autoBackupInterval = null;
+        
+        const LOCAL_CUSTOMER_KEY = 'arhamPrintersCustomers';
+        const LOCAL_INVOICE_KEY = 'arhamPrintersInvoices';
+        const LOCAL_NEXT_INV_KEY = 'arhamNextInvoiceNumber';
+        const LOCAL_PRICING_KEY = 'arhamPrintersData';
 
         // =============================================
         // ENHANCED SYNC & UTILITY FUNCTIONS
@@ -676,37 +691,20 @@
         }
 
         async function safeApiCall(url, options = {}) {
-    try {
-        // For Google Apps Script, we need to handle CORS differently
-        if (url.includes('script.google.com')) {
-            // Use a proxy approach for CORS
-            const proxyUrl = `https://cors-anywhere.herokuapp.com/${url}`;
-            const response = await fetch(proxyUrl, {
-                ...options,
-                headers: {
-                    ...options.headers,
-                    'X-Requested-With': 'XMLHttpRequest'
+            try {
+                // Simplified direct fetch, relying on Apps Script's CORS headers.
+                const response = await fetch(url, options);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
-            });
-            
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                
+                return await response.json();
+            } catch (error) {
+                console.error('API Call failed:', error);
+                throw error;
             }
-            
-            return await response.json();
-        } else {
-            // Normal fetch for other URLs
-            const response = await fetch(url, options);
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-            }
-            return await response.json();
         }
-    } catch (error) {
-        console.error('API Call failed:', error);
-        throw error;
-    }
-}
 
         function setupOfflineDetection() {
             window.addEventListener('online', () => {
@@ -765,7 +763,7 @@
                 
                 if (!askConfirmation || confirm('Replace local pricing data with cloud data?')) {
                     calculatorData = cloudData;
-                    localStorage.setItem('arhamPrintersData', JSON.stringify(calculatorData));
+                    localStorage.setItem(LOCAL_PRICING_KEY, JSON.stringify(calculatorData));
                     updateSyncStatus('Pricing data synced from Google Sheet', 'success');
                     return true;
                 }
@@ -780,114 +778,74 @@
         // DATA MANAGEMENT SYSTEM
         // =============================================
 
-       async function initializeData() {
-    showLoading(true, 'Loading invoice data...');
-    
-    try {
-        // 1. Try to load pricing from cloud first
-        const cloudSuccess = await syncFromCloud(false);
-        
-        // 2. Load the rest from local cache
-        customers = JSON.parse(localStorage.getItem('arhamPrintersCustomers')) || [];
-        invoices = JSON.parse(localStorage.getItem('arhamPrintersInvoices')) || [];
-        
-        if (!cloudSuccess) {
-            const savedData = localStorage.getItem('arhamPrintersData');
-            if (savedData) {
-                try {
-                    calculatorData = validateData(JSON.parse(savedData));
-                } catch (e) {
-                    calculatorData = validateData({});
-                }
-            } else {
-                calculatorData = validateData({});
-            }
+        function validateData(data) {
+            // Ensure all required properties exist (minimal validation for invoice)
+            if (!data.categories) data.categories = [];
+            if (!data.items) data.items = [];
+            if (!data.settings) data.settings = { rent: 200, profitMargin: 25, defaultBinding: 40 };
+            
+            return data;
         }
-        
-        nextInvoiceNumber = parseInt(localStorage.getItem('arhamNextInvoiceNumber')) || 1001;
-        
-    } catch (error) {
-        console.error('Invoice initialization error:', error);
-        calculatorData = validateData({});
-        customers = [];
-        invoices = [];
-        nextInvoiceNumber = 1001;
-    } finally {
-        refreshCustomerList();
-        showLoading(false);
-    }
-}
-function validateData(data) {
-    // Ensure all required properties exist
-    if (!data.categories) data.categories = [];
-    if (!data.items) data.items = [];
-    if (!data.sizes) data.sizes = {};
-    if (!data.colors) data.colors = {};
-    if (!data.settings) data.settings = { rent: 200, profitMargin: 25, defaultBinding: 40 };
-    
-    return data;
-}
 
-// Update your initializeData function to use validation:
-async function initializeData() {
-    showLoading(true, 'Loading data...');
-    
-    try {
-        // Try to load from cloud first
-        if (navigator.onLine) {
+        function loadDefaultPricing() {
+            calculatorData = validateData({});
+            updateSyncStatus('Using minimal pricing data', 'warning');
+        }
+
+        async function initializeData() {
+            showLoading(true, 'Loading invoice data...');
+            
             try {
-                const url = `${APP_SCRIPT_URL}?data=pricing&v=${Date.now()}`;
-                const cloudData = await safeApiCall(url);
-                data = validateData(cloudData);
-                updateSyncStatus('Data loaded from cloud', 'success');
-            } catch (cloudError) {
-                console.log('Cloud load failed, using local data:', cloudError);
-                // Fall back to local data
-                loadFromLocalStorage();
+                // 1. Load Pricing Data (Try Cloud first, then local, then default)
+                let cloudSuccess = false;
+                if (navigator.onLine) {
+                    try {
+                        const url = `${APP_SCRIPT_URL}?data=pricing&v=${Date.now()}`;
+                        const cloudData = await safeApiCall(url);
+                        calculatorData = validateData(cloudData);
+                        updateSyncStatus('Pricing loaded from cloud', 'success');
+                        cloudSuccess = true;
+                    } catch (cloudError) {
+                         console.log('Cloud load failed, using local pricing:', cloudError);
+                    }
+                }
+                
+                if (!cloudSuccess) {
+                    const savedPricing = localStorage.getItem(LOCAL_PRICING_KEY);
+                    if (savedPricing) {
+                        try {
+                             calculatorData = validateData(JSON.parse(savedPricing));
+                             updateSyncStatus('Pricing loaded from local storage', 'info');
+                        } catch (e) { loadDefaultPricing(); }
+                    } else {
+                        loadDefaultPricing();
+                    }
+                }
+                
+                // 2. Load Invoice & Customer Data from local cache
+                customers = JSON.parse(localStorage.getItem(LOCAL_CUSTOMER_KEY)) || [];
+                invoices = JSON.parse(localStorage.getItem(LOCAL_INVOICE_KEY)) || [];
+                nextInvoiceNumber = parseInt(localStorage.getItem(LOCAL_NEXT_INV_KEY)) || 1001;
+                
+            } catch (error) {
+                console.error('Invoice initialization error:', error);
+                loadDefaultPricing();
+                customers = [];
+                invoices = [];
+                nextInvoiceNumber = 1001;
+            } finally {
+                refreshCustomerList();
+                showLoading(false);
             }
-        } else {
-            loadFromLocalStorage();
         }
-    } catch (error) {
-        console.error('Initialization error:', error);
-        loadDefaultData();
-    } finally {
-        refreshAllDisplays();
-        showLoading(false);
-    }
-}
 
-function loadFromLocalStorage() {
-    const savedData = localStorage.getItem('arhamPrintersData');
-    if (savedData) {
-        try {
-            data = validateData(JSON.parse(savedData));
-            updateSyncStatus('Loaded from local storage', 'success');
-        } catch (e) {
-            loadDefaultData();
-        }
-    } else {
-        loadDefaultData();
-    }
-}
-
-function loadDefaultData() {
-    data = validateData({
-        categories: [],
-        items: [],
-        sizes: {},
-        colors: {},
-        settings: { rent: 200, profitMargin: 25, defaultBinding: 40 }
-    });
-    updateSyncStatus('Using default data', 'warning');
-}
         function saveCustomers() {
-            localStorage.setItem('arhamPrintersCustomers', JSON.stringify(customers));
+            localStorage.setItem(LOCAL_CUSTOMER_KEY, JSON.stringify(customers));
         }
 
         function saveInvoices() {
-            localStorage.setItem('arhamPrintersInvoices', JSON.stringify(invoices));
-            localStorage.setItem('arhamNextInvoiceNumber', nextInvoiceNumber.toString());
+            localStorage.setItem(LOCAL_INVOICE_KEY, JSON.stringify(invoices));
+            localStorage.setItem(LOCAL_NEXT_INV_KEY, nextInvoiceNumber.toString());
         }
 
         // =============================================
@@ -946,6 +904,11 @@ function loadDefaultData() {
                 calculateTotal();
             } else {
                 currentCustomer = null;
+                // Clear all fields if a non-matching name is entered
+                document.getElementById('customerPhone').value = '';
+                document.getElementById('customerAddress').value = '';
+                document.getElementById('previousBalance').value = '0';
+                calculateTotal();
             }
         }
 
@@ -1014,15 +977,14 @@ function loadDefaultData() {
                 return;
             }
             
-            // Get items from table
-            currentInvoiceItems = [];
+            let currentInvoiceItems = [];
             document.querySelectorAll('#itemsTableBody tr').forEach(row => {
                 const name = row.querySelector('.item-name').value;
                 const rate = parseFloat(row.querySelector('.item-rate').value) || 0;
                 const quantity = parseFloat(row.querySelector('.item-quantity').value) || 1;
                 const amount = parseFloat(row.querySelector('.item-amount').value) || 0;
                 
-                if (name && rate > 0) {
+                if (name && (rate > 0 || amount > 0)) {
                     currentInvoiceItems.push({
                         name: name,
                         rate: rate,
@@ -1033,10 +995,11 @@ function loadDefaultData() {
             });
             
             if (currentInvoiceItems.length === 0) {
-                alert('Please add at least one item to the invoice');
+                alert('Please add at least one item to the invoice with a valid rate/amount');
                 return;
             }
             
+            calculateTotal(); // Recalculate one last time
             const totals = {
                 subtotal: parseFloat(document.getElementById('subtotalAmount').textContent) || 0,
                 tax: parseFloat(document.getElementById('taxAmount').textContent) || 0,
@@ -1046,18 +1009,53 @@ function loadDefaultData() {
                 remainingBalance: parseFloat(document.getElementById('remainingBalance').textContent) || 0
             };
             
+            // Determine if this is a new customer
+            const customerPhone = document.getElementById('customerPhone').value;
+            const customerAddress = document.getElementById('customerAddress').value;
+            let customerId;
+
+            if (currentCustomer) {
+                // Existing customer update
+                customerId = currentCustomer.id;
+                const customerIndex = customers.findIndex(c => c.id === customerId);
+                if (customerIndex !== -1) {
+                    customers[customerIndex].balance = totals.remainingBalance;
+                    customers[customerIndex].phone = customerPhone;
+                    customers[customerIndex].address = customerAddress;
+                    if (!customers[customerIndex].invoices) customers[customerIndex].invoices = [];
+                    customers[customerIndex].invoices.push(invoiceNo);
+                }
+            } else {
+                // Create new customer
+                customerId = 'cust_' + Date.now();
+                const newCustomer = {
+                    id: customerId,
+                    name: customerName,
+                    phone: customerPhone,
+                    address: customerAddress,
+                    balance: totals.remainingBalance,
+                    invoices: [invoiceNo],
+                    created: new Date().toISOString()
+                };
+                customers.push(newCustomer);
+                currentCustomer = newCustomer;
+            }
+            
+            saveCustomers();
+            
+            // Create and save invoice
             const newInvoice = {
                 id: 'inv_' + Date.now(),
                 invoiceNumber: invoiceNo,
                 date: invoiceDate,
                 dueDate: dueDate,
                 customer: {
-                    id: currentCustomer?.id || 'new_customer_' + Date.now(),
+                    id: customerId,
                     name: customerName,
-                    phone: document.getElementById('customerPhone').value,
-                    address: document.getElementById('customerAddress').value
+                    phone: customerPhone,
+                    address: customerAddress
                 },
-                items: [...currentInvoiceItems],
+                items: currentInvoiceItems,
                 totals: totals,
                 status: totals.remainingBalance > 0 ? 'pending' : 'paid',
                 created: new Date().toISOString(),
@@ -1068,34 +1066,6 @@ function loadDefaultData() {
                 }]
             };
 
-            // Update or create customer
-            if (currentCustomer) {
-                const customerIndex = customers.findIndex(c => c.id === currentCustomer.id);
-                if (customerIndex !== -1) {
-                    customers[customerIndex].balance = totals.remainingBalance;
-                    customers[customerIndex].phone = document.getElementById('customerPhone').value;
-                    customers[customerIndex].address = document.getElementById('customerAddress').value;
-                    if (!customers[customerIndex].invoices) customers[customerIndex].invoices = [];
-                    customers[customerIndex].invoices.push(newInvoice.id);
-                }
-            } else {
-                // Create new customer
-                const newCustomer = {
-                    id: 'cust_' + Date.now(),
-                    name: customerName,
-                    phone: document.getElementById('customerPhone').value,
-                    address: document.getElementById('customerAddress').value,
-                    balance: totals.remainingBalance,
-                    invoices: [newInvoice.id],
-                    created: new Date().toISOString()
-                };
-                customers.push(newCustomer);
-                currentCustomer = newCustomer;
-            }
-            
-            saveCustomers();
-            
-            // Save invoice
             invoices.unshift(newInvoice);
             nextInvoiceNumber++;
             saveInvoices();
@@ -1138,7 +1108,7 @@ function loadDefaultData() {
                 const quantity = parseFloat(row.querySelector('.item-quantity').value) || 1;
                 const amount = parseFloat(row.querySelector('.item-amount').value) || 0;
                 
-                if (name) {
+                if (name && (rate > 0 || amount > 0)) {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td>${name}</td>
@@ -1154,8 +1124,8 @@ function loadDefaultData() {
             document.getElementById('previewSubtotal').textContent = document.getElementById('subtotalAmount').textContent;
             document.getElementById('previewTax').textContent = document.getElementById('taxAmount').textContent;
             document.getElementById('previewTotal').textContent = document.getElementById('totalAmount').textContent;
-            document.getElementById('previewPreviousBalance').textContent = document.getElementById('previousBalance').value;
-            document.getElementById('previewPayment').textContent = document.getElementById('payment').value;
+            document.getElementById('previewPreviousBalance').textContent = parseFloat(document.getElementById('previousBalance').value).toFixed(2);
+            document.getElementById('previewPayment').textContent = parseFloat(document.getElementById('payment').value).toFixed(2);
             document.getElementById('previewBalanceDue').textContent = document.getElementById('remainingBalance').textContent;
             
             preview.style.display = 'block';
@@ -1176,6 +1146,7 @@ function loadDefaultData() {
                 document.getElementById('customerAddress').value = '';
                 document.getElementById('previousBalance').value = '0';
                 document.getElementById('payment').value = '0';
+                document.getElementById('taxRate').value = '0'; // Also reset tax rate
                 
                 const tbody = document.getElementById('itemsTableBody');
                 tbody.innerHTML = `
@@ -1191,6 +1162,7 @@ function loadDefaultData() {
                 calculateTotal();
                 currentCustomer = null;
                 generateInvoiceNumber();
+                document.getElementById('invoicePreview').style.display = 'none';
             }
         }
 
@@ -1203,8 +1175,11 @@ function loadDefaultData() {
             const dueDate = new Date();
             dueDate.setDate(today.getDate() + 30);
             
-            document.getElementById('invoiceDate').value = today.toISOString().split('T')[0];
-            document.getElementById('dueDate').value = dueDate.toISOString().split('T')[0];
+            const todayISO = today.toISOString().split('T')[0];
+            const dueDateISO = dueDate.toISOString().split('T')[0];
+            
+            document.getElementById('invoiceDate').value = todayISO;
+            document.getElementById('dueDate').value = dueDateISO;
         }
 
         function refreshCustomerList() {
@@ -1236,11 +1211,7 @@ function loadDefaultData() {
             link.click();
             document.body.removeChild(link);
             URL.revokeObjectURL(url);
-        }
-
-        function importInvoices() {
-            alert('Invoice import functionality would allow restoring from a backup file');
-            // This would require file input and JSON parsing implementation
+            alert('Invoices exported successfully!');
         }
 
         function clearAllData() {

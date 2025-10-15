@@ -177,6 +177,26 @@
             transform: translateY(-2px);
         }
         
+        .btn-secondary { 
+            background: var(--secondary); 
+            color: white; 
+        }
+        
+        .btn-secondary:hover {
+            background: #106ebe;
+            transform: translateY(-2px);
+        }
+        
+        .btn-danger { 
+            background: var(--danger); 
+            color: white; 
+        }
+        
+        .btn-danger:hover {
+            background: #c02a2e;
+            transform: translateY(-2px);
+        }
+        
         .result { 
             margin-top: 20px; 
             font-weight: bold; 
@@ -341,59 +361,35 @@
         // =============================================
         // GOOGLE APPS SCRIPT CONFIGURATION
         // =============================================
-        const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx92he9mOusjHbZxgwueelz2JwrHUIzjiByaQvCnFxiSsXF9DrheUbtwAuEoEkVOZKXaQ/exec'; 
+        // 🔴 CRITICAL: REPLACE 'YOUR_APP_SCRIPT_URL_HERE' with the deployed URL of your code.gs
+        const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxICIMRlXZ3RNv-GyUv-4ePgHYv7dZ4bj9_tP1oh6rOArmZJ8bbf07p9FNUXOr_rly1hw/exec'; 
         
         // Data structure
         let data = {
             categories: [], items: [], sizes: {}, colors: {}, settings: { rent: 200, profitMargin: 25, defaultBinding: 40 }
         };
 
-        let lastUpdateTime = null;
         const LOCAL_CACHE_KEY = 'arhamPrintersData_Public';
         
-        // Default Data Structure
+        // Complete Default Data Structure (used as fallback)
         const defaultData = {
             categories: [
                 { mainCategory: "Offset Paper Printing", subcategory: "LetterPads" },
                 { mainCategory: "Offset Paper Printing", subcategory: "Ishtihars" },
                 { mainCategory: "Offset Paper Printing", subcategory: "Envelops" },
                 { mainCategory: "Offset Paper Printing", subcategory: "Visiting Cards" },
-                { mainCategory: "Offset Paper Printing", subcategory: "Stickers" },
-                { mainCategory: "Offset Paper Printing", subcategory: "Bill Books" },
-                { mainCategory: "Offset Paper Printing", subcategory: "PhotoPapers" },
-                { mainCategory: "Offset Paper Printing", subcategory: "wedding cards" },
                 { mainCategory: "Panaflex", subcategory: "China" },
-                { mainCategory: "Panaflex", subcategory: "Star" },
-                { mainCategory: "Panaflex", subcategory: "Venyl" },
-                { mainCategory: "Panaflex", subcategory: "One Vision" },
-                { mainCategory: "Panaflex", subcategory: "Backlit" },
-                { mainCategory: "Others", subcategory: "Miscellaneous" },
                 { mainCategory: "Social Media Posts", subcategory: "Design Only" }
             ],
             items: [
-                { mainCategory: "Offset Paper Printing", subcategory: "LetterPads", itemName: "LetterPads", price: 0, type: "offset", designCharges: 0, paperCost: 0, bindingCost: 40, colorCost: 0 },
-                { mainCategory: "Offset Paper Printing", subcategory: "Ishtihars", itemName: "Paper Ishtihars", price: 0, type: "offset", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
-                { mainCategory: "Offset Paper Printing", subcategory: "Ishtihars", itemName: "Art Paper Ishtihars", price: 0, type: "offset", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
-                { mainCategory: "Offset Paper Printing", subcategory: "Envelops", itemName: "Envelop 9x4", price: 0, type: "offset", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
-                { mainCategory: "Offset Paper Printing", subcategory: "Envelops", itemName: "Envelop 7x5", price: 0, type: "offset", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
-                { mainCategory: "Offset Paper Printing", subcategory: "Visiting Cards", itemName: "Shine", price: 1800, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
-                { mainCategory: "Offset Paper Printing", subcategory: "Visiting Cards", itemName: "Mat Single Side", price: 1900, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
-                { mainCategory: "Offset Paper Printing", subcategory: "Visiting Cards", itemName: "Mat Double Side", price: 2500, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
-                { mainCategory: "Panaflex", subcategory: "China", itemName: "2x2", price: 140, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
-                { mainCategory: "Panaflex", subcategory: "China", itemName: "2x3", price: 210, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
-                { mainCategory: "Panaflex", subcategory: "China", itemName: "2x4", price: 280, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
-                { mainCategory: "Social Media Posts", subcategory: "Design Only", itemName: "Facebook Post", price: 300, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
-                { mainCategory: "Social Media Posts", subcategory: "Design Only", itemName: "Instagram Post", price: 400, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 }
+                { mainCategory: "Offset Paper Printing", subcategory: "LetterPads", itemName: "LetterPads", price: 0, type: "offset", designCharges: 0, bindingCost: 40 },
+                { mainCategory: "Offset Paper Printing", subcategory: "Visiting Cards", itemName: "Shine", price: 1800, type: "fixed", designCharges: 0 },
+                { mainCategory: "Panaflex", subcategory: "China", itemName: "2x2", price: 140, type: "fixed", designCharges: 0 },
+                { mainCategory: "Social Media Posts", subcategory: "Design Only", itemName: "Facebook Post", price: 300, type: "fixed", designCharges: 0 }
             ],
-            sizes: {
-                "A4/2 68g": 625, "A4 68g": 1250, "A4/4 68g": 312.5, "Legal 100g": 3600, "A4 Art Paper 113g": 3700, "News Paper 9x3.5": 400
-            },
-            colors: {
-                "1": 700, "2": 1400, "3": 2100, "4": 2800, "Blue": 850, "Green": 850, "Brown": 850
-            },
-            settings: {
-                rent: 200, profitMargin: 25, defaultBinding: 40
-            }
+            sizes: { "A4/2 68g": 625, "Legal 100g": 3600 },
+            colors: { "1": 700, "4": 2800, "Blue": 850 },
+            settings: { rent: 200, profitMargin: 25, defaultBinding: 40 }
         };
         
         // Enhanced sync status management
@@ -413,52 +409,29 @@
             statusEl.className = `loading sync-${type}`;
         }
 
-        // Enhanced API call with timeout
-        async function safeApiCall(url, options = {}) {
-    try {
-        // For Google Apps Script, we need to handle CORS differently
-        if (url.includes('script.google.com')) {
-            // Use a proxy approach for CORS
-            const proxyUrl = `https://cors-anywhere.herokuapp.com/${url}`;
-            const response = await fetch(proxyUrl, {
-                ...options,
-                headers: {
-                    ...options.headers,
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            });
+        // --- Data Validation & Loading ---
+        
+        function validateData(inputData) {
+            // Ensure all required properties exist with defaults
+            if (!inputData.categories) inputData.categories = [];
+            if (!inputData.items) inputData.items = [];
+            if (!inputData.sizes) inputData.sizes = {};
+            if (!inputData.colors) inputData.colors = {};
+            if (!inputData.settings) inputData.settings = defaultData.settings;
             
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-            }
-            
-            return await response.json();
-        } else {
-            // Normal fetch for other URLs
-            const response = await fetch(url, options);
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-            }
-            return await response.json();
-        }
-    } catch (error) {
-        console.error('API Call failed:', error);
-        throw error;
-    }
-}
-
-        // Function to save data to local cache
-        function savePriceDataToLocal(priceData) {
-            localStorage.setItem(LOCAL_CACHE_KEY, JSON.stringify(priceData));
-            localStorage.setItem('lastSuccessfulSync', new Date().toISOString());
+            return inputData;
         }
 
-        // Function to load data from local cache
+        function loadDefaultData() {
+            data = validateData(JSON.parse(JSON.stringify(defaultData)));
+            updateSyncStatus('Using default prices', 'warning');
+        }
+
         function loadPriceDataFromLocal() {
             const savedData = localStorage.getItem(LOCAL_CACHE_KEY);
             if (savedData) {
                 try {
-                    data = JSON.parse(savedData);
+                    data = validateData(JSON.parse(savedData));
                     return true;
                 } catch (e) {
                     console.error("Error loading local price data:", e);
@@ -468,7 +441,30 @@
             return false;
         }
 
-        // Check if cache should be refreshed
+        // --- Sync Functions ---
+
+        async function safeApiCall(url, options = {}) {
+            try {
+                // The original code used a proxy, but we will simplify to a direct fetch 
+                // relying on the Apps Script's CORS headers.
+                const response = await fetch(url, options);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                return await response.json();
+            } catch (error) {
+                console.error('API Call failed:', error);
+                throw error;
+            }
+        }
+        
+        function savePriceDataToLocal(priceData) {
+            localStorage.setItem(LOCAL_CACHE_KEY, JSON.stringify(priceData));
+            localStorage.setItem('lastSuccessfulSync', new Date().toISOString());
+        }
+
         function shouldRefreshCache() {
             const lastUpdate = localStorage.getItem('lastSuccessfulSync');
             if (!lastUpdate) return true;
@@ -477,7 +473,6 @@
             return cacheAge > (5 * 60 * 1000); // Refresh if older than 5 minutes
         }
 
-        // Load from Google Sheets with enhanced error handling
         async function loadFromGoogleSheet() {
             try {
                 updateSyncStatus('Loading latest prices...', 'loading');
@@ -489,8 +484,9 @@
                     throw new Error('Invalid pricing structure retrieved.');
                 }
                 
-                data = sheetData;
-                savePriceDataToLocal(sheetData);
+                const validatedData = validateData(sheetData);
+                data = validatedData;
+                savePriceDataToLocal(validatedData);
                 updateSyncStatus('Live prices loaded successfully', 'success');
                 return true;
             } catch (error) {
@@ -500,7 +496,6 @@
             }
         }
 
-        // Setup offline detection
         function setupOfflineDetection() {
             window.addEventListener('online', () => {
                 updateSyncStatus('Connection restored - syncing...', 'info');
@@ -512,100 +507,36 @@
             });
         }
 
-        // Initialize the application
-       async function initializeApp() {
-    setupOfflineDetection();
-    
-    // 1. Load from Local Cache first for fast startup
-    let dataLoaded = loadPriceDataFromLocal();
-    if (dataLoaded) {
-        updateSyncStatus('Local prices loaded', 'success');
-        refreshAllDisplays();
-    }
-    
-    // 2. Then attempt to fetch latest from Google Sheet
-    if (navigator.onLine && shouldRefreshCache()) {
-        await loadFromGoogleSheet();
-    } else if (!dataLoaded) {
-        // 3. If local cache failed, use default data
-        data = validateData(JSON.parse(JSON.stringify(defaultData)));
-        updateSyncStatus('Using default prices (Offline)', 'warning');
-    }
-    
-    setupEventListeners();
-    refreshAllDisplays();
-}
-		function validateData(data) {
-    // Ensure all required properties exist
-    if (!data.categories) data.categories = [];
-    if (!data.items) data.items = [];
-    if (!data.sizes) data.sizes = {};
-    if (!data.colors) data.colors = {};
-    if (!data.settings) data.settings = { rent: 200, profitMargin: 25, defaultBinding: 40 };
-    
-    return data;
-}
-
-// Update your initializeData function to use validation:
-async function initializeData() {
-    showLoading(true, 'Loading data...');
-    
-    try {
-        // Try to load from cloud first
-        if (navigator.onLine) {
-            try {
-                const url = `${APP_SCRIPT_URL}?data=pricing&v=${Date.now()}`;
-                const cloudData = await safeApiCall(url);
-                data = validateData(cloudData);
-                updateSyncStatus('Data loaded from cloud', 'success');
-            } catch (cloudError) {
-                console.log('Cloud load failed, using local data:', cloudError);
-                // Fall back to local data
-                loadFromLocalStorage();
+        async function initializeApp() {
+            setupOfflineDetection();
+            
+            // 1. Load from Local Cache first for fast startup
+            let dataLoaded = loadPriceDataFromLocal();
+            if (dataLoaded) {
+                updateSyncStatus('Local prices loaded', 'info');
+                refreshAllDisplays();
             }
-        } else {
-            loadFromLocalStorage();
+            
+            // 2. Then attempt to fetch latest from Google Sheet
+            if (navigator.onLine && shouldRefreshCache()) {
+                const cloudSuccess = await loadFromGoogleSheet();
+                if (!cloudSuccess && !dataLoaded) {
+                    loadDefaultData();
+                }
+            } else if (!dataLoaded) {
+                // 3. If local cache failed, use default data
+                loadDefaultData();
+            }
+            
+            setupEventListeners();
+            refreshAllDisplays();
         }
-    } catch (error) {
-        console.error('Initialization error:', error);
-        loadDefaultData();
-    } finally {
-        refreshAllDisplays();
-        showLoading(false);
-    }
-}
-
-function loadFromLocalStorage() {
-    const savedData = localStorage.getItem('arhamPrintersData');
-    if (savedData) {
-        try {
-            data = validateData(JSON.parse(savedData));
-            updateSyncStatus('Loaded from local storage', 'success');
-        } catch (e) {
-            loadDefaultData();
-        }
-    } else {
-        loadDefaultData();
-    }
-}
-
-function loadDefaultData() {
-    data = validateData({
-        categories: [],
-        items: [],
-        sizes: {},
-        colors: {},
-        settings: { rent: 200, profitMargin: 25, defaultBinding: 40 }
-    });
-    updateSyncStatus('Using default data', 'warning');
-}
 
         // Auto-refresh data every 5 minutes when online
         setInterval(async () => {
             if (navigator.onLine) {
                 await loadFromGoogleSheet();
                 refreshAllDisplays();
-                console.log('Prices updated from Google Sheet');
             }
         }, 300000); // 5 minutes
 
@@ -618,6 +549,8 @@ function loadDefaultData() {
                 updateSubCategories();
                 updateItemNames();
                 toggleOffsetFields();
+                document.getElementById('result').style.display = 'none';
+                document.getElementById('priceBreakdown').style.display = 'none';
             });
             
             document.getElementById('subCategory').addEventListener('change', function() {
@@ -651,6 +584,7 @@ function loadDefaultData() {
                     subCategorySelect.appendChild(option);
                 });
             }
+            subCategorySelect.value = ''; // Reset subcategory selection
         }
 
         function updateItemNames() {
@@ -674,6 +608,7 @@ function loadDefaultData() {
                     itemNameSelect.appendChild(option);
                 });
             }
+            itemNameSelect.value = ''; // Reset item selection
         }
 
         function toggleOffsetFields() {
@@ -740,9 +675,15 @@ function loadDefaultData() {
             let breakdown = [];
             
             if (item.type === 'fixed') {
-                totalPrice = item.price * quantity;
-                breakdown.push({ name: 'Base Price', value: item.price });
+                totalPrice = (item.price || 0) * quantity;
+                breakdown.push({ name: 'Base Price (per unit)', value: item.price || 0 });
                 breakdown.push({ name: 'Quantity', value: quantity });
+                
+                if (item.designCharges > 0) {
+                     breakdown.push({ name: 'Design Charges', value: item.designCharges });
+                     totalPrice += item.designCharges;
+                }
+                
             } else if (item.type === 'offset') {
                 const size = document.getElementById('size').value;
                 const color = document.getElementById('color').value;
@@ -755,11 +696,13 @@ function loadDefaultData() {
                 const paperCost = data.sizes[size] || 0;
                 const colorCost = data.colors[color] || 0;
                 const designCharges = item.designCharges || 0;
-                const bindingCost = item.bindingCost || data.settings.defaultBinding || 0;
+                // Use item's specific binding cost, or global default, or 0
+                const bindingCost = item.bindingCost || data.settings.defaultBinding || 0; 
                 
                 const baseCost = paperCost + colorCost + designCharges + bindingCost;
                 const costWithRent = baseCost + data.settings.rent;
-                const costWithProfit = costWithRent * (1 + data.settings.profitMargin / 100);
+                const profitAmount = costWithRent * (data.settings.profitMargin / 100);
+                const costWithProfit = costWithRent + profitAmount;
                 
                 totalPrice = costWithProfit * quantity;
                 
@@ -767,9 +710,9 @@ function loadDefaultData() {
                 breakdown.push({ name: 'Color Cost', value: colorCost });
                 breakdown.push({ name: 'Design Charges', value: designCharges });
                 breakdown.push({ name: 'Binding Cost', value: bindingCost });
-                breakdown.push({ name: 'Rent', value: data.settings.rent });
-                breakdown.push({ name: `Profit Margin (${data.settings.profitMargin}%)`, value: costWithRent * (data.settings.profitMargin / 100) });
-                breakdown.push({ name: 'Quantity', value: quantity });
+                breakdown.push({ name: 'Overheads/Rent', value: data.settings.rent });
+                breakdown.push({ name: `Profit Margin (${data.settings.profitMargin}%)`, value: profitAmount });
+                breakdown.push({ name: 'Quantity Multiplier', value: quantity });
             }
             
             displayResult(totalPrice, breakdown, quantity);
@@ -782,7 +725,7 @@ function loadDefaultData() {
             
             resultDiv.innerHTML = `
                 <h3><i class="fas fa-receipt"></i> Total Price: Rs. ${totalPrice.toFixed(2)}</h3>
-                <p>For ${quantity} ${quantity > 1 ? 'items' : 'item'}</p>
+                <p>For ${quantity} ${quantity > 1 ? 'units' : 'unit'} of ${document.getElementById('itemName').value}</p>
             `;
             resultDiv.style.display = 'block';
             
@@ -793,7 +736,7 @@ function loadDefaultData() {
                     div.className = 'breakdown-item';
                     div.innerHTML = `
                         <span>${item.name}:</span>
-                        <span>Rs. ${item.value.toFixed(2)}</span>
+                        <span>${item.name.includes('Multiplier') ? `x${item.value}` : `Rs. ${item.value.toFixed(2)}`}</span>
                     `;
                     breakdownContent.appendChild(div);
                 });

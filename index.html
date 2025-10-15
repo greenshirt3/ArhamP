@@ -706,7 +706,7 @@
                     </div>
                     <div class="form-row">
                         <div class="form-field">
-                            <label for="newItemPrice">Price (Rs.):</label>
+                            <label for="newItemPrice">Fixed Price (Rs.):</label>
                             <input type="number" id="newItemPrice" min="0" value="0">
                         </div>
                         <div class="form-field">
@@ -723,18 +723,10 @@
                     </div>
                     <div class="form-row">
                         <div class="form-field">
-                            <label for="newPaperCost">Paper Cost (Rs.):</label>
-                            <input type="number" id="newPaperCost" min="0" value="0">
-                        </div>
-                        <div class="form-field">
-                            <label for="newBindingCost">Binding Cost (Rs.):</label>
+                            <label for="newBindingCost">Offset Binding Cost (Rs.):</label>
                             <input type="number" id="newBindingCost" min="0" value="0">
                         </div>
-                        <div class="form-field">
-                            <label for="newColorCost">Color Cost (Rs.):</label>
-                            <input type="number" id="newColorCost" min="0" value="0">
                         </div>
-                    </div>
                     <button class="btn btn-success" onclick="addNewItem()">
                         <i class="fas fa-plus"></i> Add New Item
                     </button>
@@ -751,9 +743,7 @@
                                 <th>Price</th>
                                 <th>Type</th>
                                 <th>Design Charges</th>
-                                <th>Paper Cost</th>
                                 <th>Binding Cost</th>
-                                <th>Color Cost</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -762,7 +752,7 @@
                 </div>
                 
                 <div class="admin-section">
-                    <h3>Manage Sizes</h3>
+                    <h3>Manage Sizes (Paper Cost)</h3>
                     <div class="form-row">
                         <div class="form-field">
                             <label for="newSizeName">Size Name:</label>
@@ -789,7 +779,7 @@
                 </div>
                 
                 <div class="admin-section">
-                    <h3>Manage Colors</h3>
+                    <h3>Manage Colors (Per Plate/Color Cost)</h3>
                     <div class="form-row">
                         <div class="form-field">
                             <label for="newColorName">Color Name:</label>
@@ -856,23 +846,24 @@
                 <h3>Import/Export Data</h3>
                 
                 <div class="import-export-section">
-                    <h4>Export Data for Public Site (GitHub Sync)</h4>
+                    <h4>Export Data for Public Site (Manual Sync)</h4>
                     <div class="actions">
                         <button class="btn btn-success" onclick="exportCustomerDataForGitHub()">
                             <i class="fas fa-cloud-upload"></i> Export Public Pricing Data (JSON)
                         </button>
                     </div>
-                    <p><small>Export this file and **MANUALLY UPLOAD** it to your GitHub repo to sync prices to the public calculator (customer.html).</small></p>
+                    <p><small>Export this file and **MANUALLY UPLOAD** it to sync prices to the public calculator (customer.html).</small></p>
                 </div>
                 
                 <div class="import-export-section">
-                    <h4>Import Data from CSV</h4>
+                    <h4>Import Data from CSV (Not Implemented)</h4>
+                    <p>CSV import functionality is not yet implemented.</p>
                     <div class="file-input">
                         <label for="csvFile">Select CSV File:</label>
-                        <input type="file" id="csvFile" accept=".csv">
+                        <input type="file" id="csvFile" accept=".csv" disabled>
                     </div>
                     <div class="actions">
-                        <button class="btn btn-primary" onclick="importData()">
+                        <button class="btn btn-primary" onclick="alert('Import not implemented')" disabled>
                             <i class="fas fa-file-import"></i> Import Data from CSV
                         </button>
                     </div>
@@ -904,8 +895,13 @@
         // =============================================
         // GOOGLE APPS SCRIPT CONFIGURATION
         // =============================================
-        const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx92he9mOusjHbZxgwueelz2JwrHUIzjiByaQvCnFxiSsXF9DrheUbtwAuEoEkVOZKXaQ/exec'; 
+        // 🔴 CRITICAL: REPLACE 'YOUR_APP_SCRIPT_URL_HERE' with the deployed URL of your code.gs
+        const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxICIMRlXZ3RNv-GyUv-4ePgHYv7dZ4bj9_tP1oh6rOArmZJ8bbf07p9FNUXOr_rly1hw/exec'; 
         
+        // --- Security Warning ---
+        // 🔴 SECURITY RISK: The Admin Password is hardcoded. Do not use this method for sensitive data.
+        const ADMIN_PASSWORD = "admin123";
+
         // Complete Default Data Structure
         const defaultData = {
             categories: [
@@ -926,36 +922,23 @@
                 { mainCategory: "Social Media Posts", subcategory: "Design Only" }
             ],
             items: [
-                { mainCategory: "Offset Paper Printing", subcategory: "LetterPads", itemName: "LetterPads", price: 0, type: "offset", designCharges: 0, paperCost: 0, bindingCost: 40, colorCost: 0 },
-                { mainCategory: "Offset Paper Printing", subcategory: "Ishtihars", itemName: "Paper Ishtihars", price: 0, type: "offset", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
-                { mainCategory: "Offset Paper Printing", subcategory: "Ishtihars", itemName: "Art Paper Ishtihars", price: 0, type: "offset", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
-                { mainCategory: "Offset Paper Printing", subcategory: "Envelops", itemName: "Envelop 9x4", price: 0, type: "offset", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
-                { mainCategory: "Offset Paper Printing", subcategory: "Envelops", itemName: "Envelop 7x5", price: 0, type: "offset", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
-                { mainCategory: "Offset Paper Printing", subcategory: "Visiting Cards", itemName: "Shine", price: 1800, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
-                { mainCategory: "Offset Paper Printing", subcategory: "Visiting Cards", itemName: "Mat Single Side", price: 1900, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
-                { mainCategory: "Offset Paper Printing", subcategory: "Visiting Cards", itemName: "Mat Double Side", price: 2500, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
-                { mainCategory: "Panaflex", subcategory: "China", itemName: "2x2", price: 140, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
-                { mainCategory: "Panaflex", subcategory: "China", itemName: "2x3", price: 210, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
-                { mainCategory: "Panaflex", subcategory: "China", itemName: "2x4", price: 280, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
-                { mainCategory: "Social Media Posts", subcategory: "Design Only", itemName: "Facebook Post", price: 300, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
-                { mainCategory: "Social Media Posts", subcategory: "Design Only", itemName: "Instagram Post", price: 400, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 }
+                { mainCategory: "Offset Paper Printing", subcategory: "LetterPads", itemName: "LetterPads", price: 0, type: "offset", designCharges: 0, bindingCost: 40 },
+                { mainCategory: "Offset Paper Printing", subcategory: "Ishtihars", itemName: "Paper Ishtihars", price: 0, type: "offset", designCharges: 0, bindingCost: 0 },
+                { mainCategory: "Offset Paper Printing", subcategory: "Visiting Cards", itemName: "Shine", price: 1800, type: "fixed", designCharges: 0, bindingCost: 0 },
+                { mainCategory: "Panaflex", subcategory: "China", itemName: "2x2", price: 140, type: "fixed", designCharges: 0, bindingCost: 0 },
+                { mainCategory: "Social Media Posts", subcategory: "Design Only", itemName: "Facebook Post", price: 300, type: "fixed", designCharges: 0, bindingCost: 0 }
             ],
-            sizes: {
-                "A4/2 68g": 625, "A4 68g": 1250, "A4/4 68g": 312.5, "Legal 100g": 3600, "A4 Art Paper 113g": 3700, "News Paper 9x3.5": 400
-            },
-            colors: {
-                "1": 700, "2": 1400, "3": 2100, "4": 2800, "Blue": 850, "Green": 850, "Brown": 850
-            },
-            settings: {
-                rent: 200, profitMargin: 25, defaultBinding: 40
-            },
+            sizes: { "A4/2 68g": 625, "A4 68g": 1250, "A4/4 68g": 312.5, "Legal 100g": 3600, "A4 Art Paper 113g": 3700, "News Paper 9x3.5": 400 },
+            colors: { "1": 700, "2": 1400, "3": 2100, "4": 2800, "Blue": 850, "Green": 850, "Brown": 850 },
+            settings: { rent: 200, profitMargin: 25, defaultBinding: 40 },
             lastUpdated: new Date().toISOString()
         };
 
         let data = JSON.parse(JSON.stringify(defaultData));
         let calculationHistory = [];
-        const ADMIN_PASSWORD = "admin123";
         let autoSaveInterval;
+        const LOCAL_DATA_KEY = 'arhamPrintersData';
+        const LOCAL_HISTORY_KEY = 'arhamPrintersHistory';
 
         // =============================================
         // ENHANCED SYNC & UTILITY FUNCTIONS
@@ -987,38 +970,21 @@
             }
         }
 
-         async function safeApiCall(url, options = {}) {
-    try {
-        // For Google Apps Script, we need to handle CORS differently
-        if (url.includes('script.google.com')) {
-            // Use a proxy approach for CORS
-            const proxyUrl = `https://cors-anywhere.herokuapp.com/${url}`;
-            const response = await fetch(proxyUrl, {
-                ...options,
-                headers: {
-                    ...options.headers,
-                    'X-Requested-With': 'XMLHttpRequest'
+        async function safeApiCall(url, options = {}) {
+            try {
+                // Simplified direct fetch, relying on Apps Script's CORS headers.
+                const response = await fetch(url, options);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
-            });
-            
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                
+                return await response.json();
+            } catch (error) {
+                console.error('API Call failed:', error);
+                throw error;
             }
-            
-            return await response.json();
-        } else {
-            // Normal fetch for other URLs
-            const response = await fetch(url, options);
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-            }
-            return await response.json();
         }
-    } catch (error) {
-        console.error('API Call failed:', error);
-        throw error;
-    }
-}
 
         function setupOfflineDetection() {
             window.addEventListener('online', () => {
@@ -1046,45 +1012,110 @@
             if (infoEl && lastSync) {
                 const lastSyncDate = new Date(lastSync);
                 infoEl.textContent = `Last synced: ${lastSyncDate.toLocaleString()}`;
+            } else if (infoEl) {
+                infoEl.textContent = `Last synced: Never`;
             }
         }
 
         // =============================================
-        // CUSTOMER DATA EXPORT FOR PUBLIC SYNC
+        // DATA MANAGEMENT
         // =============================================
-        function exportCustomerDataForGitHub() {
-            const customerData = {
-                categories: data.categories, 
-                items: data.items, 
-                sizes: data.sizes,
-                colors: data.colors, 
-                settings: data.settings, 
-                lastUpdated: new Date().toISOString()
-            };
+
+        function validateData(inputData) {
+            // Ensure all required properties exist with defaults
+            if (!inputData.categories) inputData.categories = [];
+            if (!inputData.items) inputData.items = [];
+            if (!inputData.sizes) inputData.sizes = {};
+            if (!inputData.colors) inputData.colors = {};
+            if (!inputData.settings) inputData.settings = defaultData.settings;
             
-            const blob = new Blob([JSON.stringify(customerData, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'customer-data.json'; 
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-            
-            alert('Customer data exported! MANUALLY UPLOAD the "customer-data.json" file to your GitHub repo.');
+            return inputData;
         }
 
-        // =============================================
-        // GOOGLE SHEETS SYNC FUNCTIONS
-        // =============================================
+        function loadFromLocalStorage() {
+            const savedData = localStorage.getItem(LOCAL_DATA_KEY);
+            if (savedData) {
+                try {
+                    data = validateData(JSON.parse(savedData));
+                    return true;
+                } catch (e) {
+                    console.error("Error parsing local data:", e);
+                    return false;
+                }
+            }
+            return false;
+        }
 
+        function loadDefaultData() {
+             data = validateData(JSON.parse(JSON.stringify(defaultData)));
+             updateSyncStatus('Using default data', 'warning');
+        }
+
+        function saveAllData() {
+            localStorage.setItem(LOCAL_DATA_KEY, JSON.stringify(data));
+            localStorage.setItem(LOCAL_HISTORY_KEY, JSON.stringify(calculationHistory));
+            
+            // Auto-sync to cloud
+            setTimeout(() => {
+                syncToCloud().catch(error => {
+                    console.error("Auto-sync failed:", error);
+                });
+            }, 500);
+        }
+
+        async function initializeData() {
+            showLoading(true, 'Loading data...');
+            
+            try {
+                let dataLoaded = loadFromLocalStorage();
+
+                // Try to load from cloud if online and cache is old
+                if (navigator.onLine && shouldRefreshCache()) {
+                    try {
+                        const url = `${APP_SCRIPT_URL}?data=pricing&v=${Date.now()}`;
+                        const cloudData = await safeApiCall(url);
+                        data = validateData(cloudData);
+                        localStorage.setItem(LOCAL_DATA_KEY, JSON.stringify(data));
+                        localStorage.setItem('lastSuccessfulSync', new Date().toISOString());
+                        updateSyncStatus('Data loaded from cloud', 'success');
+                        dataLoaded = true;
+                    } catch (cloudError) {
+                        console.log('Cloud load failed, using local data:', cloudError);
+                        if (!dataLoaded) loadDefaultData();
+                        updateSyncStatus('Using cached data - Sync failed', 'warning');
+                    }
+                } else if (!dataLoaded) {
+                    loadDefaultData();
+                }
+                
+                // Load history
+                const savedHistory = localStorage.getItem(LOCAL_HISTORY_KEY);
+                if (savedHistory) {
+                    try {
+                        calculationHistory = JSON.parse(savedHistory);
+                    } catch (e) {
+                        console.error("Error loading history:", e);
+                        calculationHistory = [];
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Initialization error:', error);
+                loadDefaultData();
+            } finally {
+                refreshAllDisplays();
+                refreshHistoryDisplay();
+                updateLastSyncInfo();
+                showLoading(false);
+            }
+        }
+        
         async function syncToCloud() {
             const payload = {
                 type: 'PRICING_HISTORY',
                 payload: {
                     calculatorData: data, 
-                    newHistoryEntries: calculationHistory.slice(-10) // Last 10 entries
+                    newHistoryEntries: calculationHistory.slice(0, 10) // Only send the last 10 entries to the log
                 }
             };
 
@@ -1123,9 +1154,9 @@
                     throw new Error('Invalid pricing structure retrieved from Sheet.');
                 }
                 
-                if (!askConfirmation || confirm('Replace local data with cloud data?')) {
-                    data = cloudData;
-                    localStorage.setItem('arhamPrintersData', JSON.stringify(data));
+                if (!askConfirmation || confirm('Replace local data with cloud data? This cannot be undone.')) {
+                    data = validateData(cloudData);
+                    localStorage.setItem(LOCAL_DATA_KEY, JSON.stringify(data));
                     localStorage.setItem('lastSuccessfulSync', new Date().toISOString());
                     
                     refreshAllDisplays();
@@ -1143,79 +1174,17 @@
             }
         }
 
-        // =============================================
-        // CORE APPLICATION FUNCTIONS
-        // =============================================
-
-        function saveAllData() {
-            localStorage.setItem('arhamPrintersData', JSON.stringify(data));
-            localStorage.setItem('arhamPrintersHistory', JSON.stringify(calculationHistory));
-            
-            // Auto-sync to cloud
-            setTimeout(() => {
-                syncToCloud().catch(error => {
-                    console.error("Auto-sync failed:", error);
-                });
-            }, 500);
+        // Debounce function to limit rapid saving
+        let timeout;
+        function debouncedSave() {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                saveSettings();
+            }, 1000);
         }
-		function validateData(data) {
-		// Ensure all required properties exist
-		if (!data.categories) data.categories = [];
-		if (!data.items) data.items = [];
-		if (!data.sizes) data.sizes = {};
-		if (!data.colors) data.colors = {};
-		if (!data.settings) data.settings = { rent: 200, profitMargin: 25, defaultBinding: 40 };
-    
-		return data;
-		}
-
-// Update your initializeData function to use validation:
-		async function initializeData() {
-    showLoading(true, 'Loading data...');
-    
-    try {
-        // Try to load from cloud first
-        if (navigator.onLine) {
-            try {
-                const url = `${APP_SCRIPT_URL}?data=pricing&v=${Date.now()}`;
-                const cloudData = await safeApiCall(url);
-                data = validateData(cloudData);
-                localStorage.setItem('arhamPrintersData', JSON.stringify(data));
-                updateSyncStatus('Data loaded from cloud', 'success');
-            } catch (cloudError) {
-                console.log('Cloud load failed, using local data:', cloudError);
-                // Fall back to local data
-                loadFromLocalStorage();
-                updateSyncStatus('Using cached data - ' + cloudError.message, 'warning');
-            }
-        } else {
-            loadFromLocalStorage();
-            updateSyncStatus('Offline - using local data', 'warning');
-        }
-        
-        // Load history
-        const savedHistory = localStorage.getItem('arhamPrintersHistory');
-        if (savedHistory) {
-            try {
-                calculationHistory = JSON.parse(savedHistory);
-            } catch (e) {
-                console.error("Error loading history:", e);
-                calculationHistory = [];
-            }
-        }
-        
-    } catch (error) {
-        console.error('Initialization error:', error);
-        loadDefaultData();
-    } finally {
-        refreshAllDisplays();
-        refreshHistoryDisplay();
-        showLoading(false);
-    }
-}
 
         // =============================================
-        // CALCULATOR FUNCTIONS
+        // CALCULATOR LOGIC (Copied from customer.html)
         // =============================================
 
         function setupEventListeners() {
@@ -1375,9 +1344,15 @@
             let breakdown = [];
             
             if (item.type === 'fixed') {
-                totalPrice = item.price * quantity;
-                breakdown.push({ name: 'Base Price', value: item.price });
+                totalPrice = (item.price || 0) * quantity;
+                breakdown.push({ name: 'Base Price (per unit)', value: item.price || 0 });
                 breakdown.push({ name: 'Quantity', value: quantity });
+                
+                if (item.designCharges > 0) {
+                     breakdown.push({ name: 'Design Charges', value: item.designCharges });
+                     totalPrice += item.designCharges;
+                }
+                
             } else if (item.type === 'offset') {
                 const size = document.getElementById('size').value;
                 const color = document.getElementById('color').value;
@@ -1394,7 +1369,8 @@
                 
                 const baseCost = paperCost + colorCost + designCharges + bindingCost;
                 const costWithRent = baseCost + data.settings.rent;
-                const costWithProfit = costWithRent * (1 + data.settings.profitMargin / 100);
+                const profitAmount = costWithRent * (data.settings.profitMargin / 100);
+                const costWithProfit = costWithRent + profitAmount;
                 
                 totalPrice = costWithProfit * quantity;
                 
@@ -1402,9 +1378,9 @@
                 breakdown.push({ name: 'Color Cost', value: colorCost });
                 breakdown.push({ name: 'Design Charges', value: designCharges });
                 breakdown.push({ name: 'Binding Cost', value: bindingCost });
-                breakdown.push({ name: 'Rent', value: data.settings.rent });
-                breakdown.push({ name: `Profit Margin (${data.settings.profitMargin}%)`, value: costWithRent * (data.settings.profitMargin / 100) });
-                breakdown.push({ name: 'Quantity', value: quantity });
+                breakdown.push({ name: 'Overheads/Rent', value: data.settings.rent });
+                breakdown.push({ name: `Profit Margin (${data.settings.profitMargin}%)`, value: profitAmount });
+                breakdown.push({ name: 'Quantity Multiplier', value: quantity });
             }
             
             // Add to history
@@ -1423,7 +1399,7 @@
                 calculationHistory = calculationHistory.slice(0, 50);
             }
             
-            localStorage.setItem('arhamPrintersHistory', JSON.stringify(calculationHistory));
+            localStorage.setItem(LOCAL_HISTORY_KEY, JSON.stringify(calculationHistory));
             refreshHistoryDisplay();
             
             displayResult(totalPrice, breakdown, quantity);
@@ -1436,7 +1412,7 @@
             
             resultDiv.innerHTML = `
                 <h3><i class="fas fa-receipt"></i> Total Price: Rs. ${totalPrice.toFixed(2)}</h3>
-                <p>For ${quantity} ${quantity > 1 ? 'items' : 'item'}</p>
+                <p>For ${quantity} ${quantity > 1 ? 'units' : 'unit'} of ${document.getElementById('itemName').value}</p>
             `;
             resultDiv.style.display = 'block';
             
@@ -1447,7 +1423,7 @@
                     div.className = 'breakdown-item';
                     div.innerHTML = `
                         <span>${item.name}:</span>
-                        <span>Rs. ${item.value.toFixed(2)}</span>
+                        <span>${item.name.includes('Multiplier') ? `x${item.value}` : `Rs. ${item.value.toFixed(2)}`}</span>
                     `;
                     breakdownContent.appendChild(div);
                 });
@@ -1527,7 +1503,7 @@
             data.settings.defaultBinding = parseFloat(document.getElementById('defaultBinding').value) || 40;
             
             saveAllData();
-            alert('Settings saved successfully!');
+            updateSyncStatus('Settings saved locally and scheduled for cloud sync', 'info');
         }
 
         function addNewItem() {
@@ -1537,12 +1513,10 @@
             const price = parseFloat(document.getElementById('newItemPrice').value) || 0;
             const type = document.getElementById('newItemType').value;
             const designCharges = parseFloat(document.getElementById('newDesignCharges').value) || 0;
-            const paperCost = parseFloat(document.getElementById('newPaperCost').value) || 0;
             const bindingCost = parseFloat(document.getElementById('newBindingCost').value) || 0;
-            const colorCost = parseFloat(document.getElementById('newColorCost').value) || 0;
             
             if (!mainCategory || !subCategory || !itemName) {
-                alert('Please fill in all required fields');
+                alert('Please fill in Main Category, Subcategory, and Item Name');
                 return;
             }
             
@@ -1552,26 +1526,25 @@
             );
             
             if (!categoryExists) {
-                data.categories.push({ mainCategory, subCategory });
+                data.categories.push({ mainCategory, subcategory: subCategory });
             }
             
             // Add item
             data.items.push({
                 mainCategory,
-                subCategory,
+                subcategory: subCategory,
                 itemName,
                 price,
                 type,
                 designCharges,
-                paperCost,
                 bindingCost,
-                colorCost
             });
             
             saveAllData();
+            refreshAllDisplays();
             refreshDataTables();
             clearNewItemForm();
-            alert('Item added successfully!');
+            updateSyncStatus('Item added and scheduled for cloud sync', 'success');
         }
 
         function clearNewItemForm() {
@@ -1581,9 +1554,7 @@
             document.getElementById('newItemPrice').value = '0';
             document.getElementById('newItemType').value = 'fixed';
             document.getElementById('newDesignCharges').value = '0';
-            document.getElementById('newPaperCost').value = '0';
             document.getElementById('newBindingCost').value = '0';
-            document.getElementById('newColorCost').value = '0';
         }
 
         function addNewSize() {
@@ -1600,7 +1571,7 @@
             refreshDataTables();
             document.getElementById('newSizeName').value = '';
             document.getElementById('newSizePaper').value = '0';
-            alert('Size added successfully!');
+            updateSyncStatus('Size added and scheduled for cloud sync', 'success');
         }
 
         function addNewColor() {
@@ -1617,7 +1588,7 @@
             refreshDataTables();
             document.getElementById('newColorName').value = '';
             document.getElementById('newColorCost').value = '0';
-            alert('Color added successfully!');
+            updateSyncStatus('Color added and scheduled for cloud sync', 'success');
         }
 
         function refreshDataTables() {
@@ -1639,13 +1610,8 @@
                     <td>${item.price}</td>
                     <td>${item.type}</td>
                     <td>${item.designCharges}</td>
-                    <td>${item.paperCost}</td>
                     <td>${item.bindingCost}</td>
-                    <td>${item.colorCost}</td>
                     <td>
-                        <button class="btn btn-warning btn-sm" onclick="editItem(${index})">
-                            <i class="fas fa-edit"></i>
-                        </button>
                         <button class="btn btn-danger btn-sm" onclick="deleteItem(${index})">
                             <i class="fas fa-trash"></i>
                         </button>
@@ -1726,6 +1692,7 @@
                 data.items.splice(index, 1);
                 saveAllData();
                 refreshDataTables();
+                updateSyncStatus('Item deleted and scheduled for cloud sync', 'success');
             }
         }
 
@@ -1734,6 +1701,7 @@
                 delete data.sizes[sizeName];
                 saveAllData();
                 refreshDataTables();
+                updateSyncStatus('Size deleted and scheduled for cloud sync', 'success');
             }
         }
 
@@ -1742,19 +1710,20 @@
                 delete data.colors[colorName];
                 saveAllData();
                 refreshDataTables();
+                updateSyncStatus('Color deleted and scheduled for cloud sync', 'success');
             }
         }
 
         function clearHistory() {
-            if (confirm('Are you sure you want to clear all calculation history?')) {
+            if (confirm('Are you sure you want to clear all calculation history? This will only clear local history.')) {
                 calculationHistory = [];
-                localStorage.setItem('arhamPrintersHistory', JSON.stringify(calculationHistory));
+                localStorage.setItem(LOCAL_HISTORY_KEY, JSON.stringify(calculationHistory));
                 refreshHistoryDisplay();
             }
         }
 
         function resetToDefault() {
-            if (confirm('Are you sure you want to reset all data to default values? This cannot be undone.')) {
+            if (confirm('Are you sure you want to reset all data to default values? This cannot be undone and will overwrite your cloud data on next sync.')) {
                 data = JSON.parse(JSON.stringify(defaultData));
                 calculationHistory = [];
                 saveAllData();
@@ -1762,7 +1731,7 @@
                 refreshDataTables();
                 refreshHistoryDisplay();
                 loadSettings();
-                alert('Data reset to default values!');
+                updateSyncStatus('Data reset to default values locally.', 'warning');
             }
         }
 
@@ -1785,10 +1754,29 @@
             URL.revokeObjectURL(url);
         }
 
-        function importData() {
-            alert('CSV import functionality would be implemented here');
-            // This would require additional implementation for CSV parsing
+        function exportCustomerDataForGitHub() {
+            const customerData = {
+                categories: data.categories, 
+                items: data.items.map(({ mainCategory, subcategory, itemName, price, type, designCharges, bindingCost }) => ({ mainCategory, subcategory, itemName, price, type, designCharges, bindingCost })),
+                sizes: data.sizes,
+                colors: data.colors, 
+                settings: data.settings, 
+                lastUpdated: new Date().toISOString()
+            };
+            
+            const blob = new Blob([JSON.stringify(customerData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'customer-data.json'; 
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            alert('Customer data exported! MANUALLY UPLOAD the "customer-data.json" file to sync with your public calculator.');
         }
+
 
         // =============================================
         // INITIALIZATION
@@ -1797,13 +1785,16 @@
         window.onload = function() {
             initializeData();
             setupEventListeners();
-            refreshAllDisplays();
             setupOfflineDetection();
             
             // Auto-save every 2 minutes when online
             autoSaveInterval = setInterval(() => {
                 if (navigator.onLine) {
                     saveAllData();
+                } else {
+                     // Local save even if offline
+                    localStorage.setItem(LOCAL_DATA_KEY, JSON.stringify(data));
+                    localStorage.setItem(LOCAL_HISTORY_KEY, JSON.stringify(calculationHistory));
                 }
             }, 120000);
         };
