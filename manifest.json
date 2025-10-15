@@ -1,0 +1,16 @@
+{
+  "name": "Arham Printers Calculator",
+  "short_name": "ArhamPrinters",
+  "description": "Printing price calculator and invoice system",
+  "start_url": "/ArhamP/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2c3e50",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
