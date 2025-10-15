@@ -18,7 +18,247 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* ... (Your existing styles are here - unchanged) ... */
+        :root {
+            --primary: #2c3e50;
+            --secondary: #0078d4;
+            --success: #107c10;
+            --warning: #ffb900;
+            --danger: #d13438;
+            --light: #f8f9fa;
+            --dark: #323130;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e3e9f7 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #323130;
+        }
+        
+        .container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            background: #fff; 
+            padding: 30px; 
+            border-radius: var(--border-radius); 
+            box-shadow: var(--box-shadow);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e1e5e9;
+        }
+        
+        h1 { 
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #2c3e50, #0078d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            color: var(--secondary);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        
+        .sync-info {
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+            border: 2px solid #e1e5e9;
+        }
+        
+        .loading {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: var(--border-radius);
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .calculator-section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: var(--light);
+            border-radius: var(--border-radius);
+            border: 1px solid #e1e5e9;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form-group { 
+            display: flex; 
+            flex-wrap: wrap; 
+            margin-bottom: 20px; 
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .form-group label { 
+            flex: 1; 
+            padding: 8px; 
+            font-weight: 600;
+            min-width: 150px;
+            color: var(--dark);
+            font-size: 1rem;
+        }
+        
+        .form-group select, .form-group input { 
+            flex: 2; 
+            padding: 12px; 
+            border: 2px solid #e1e5e9;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: white;
+        }
+        
+        .form-group select:focus, .form-group input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.2);
+        }
+        
+        .actions { 
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .btn { 
+            padding: 12px 24px; 
+            cursor: pointer; 
+            border-radius: 6px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 1rem;
+            text-decoration: none;
+        }
+        
+        .btn-primary { 
+            background: var(--primary); 
+            color: white; 
+        }
+        
+        .btn-primary:hover {
+            background: #1a252f;
+            transform: translateY(-2px);
+        }
+        
+        .result { 
+            margin-top: 20px; 
+            font-weight: bold; 
+            font-size: 1.3em;
+            padding: 20px;
+            background: linear-gradient(135deg, #dff6dd, #e8f5e8);
+            border-radius: var(--border-radius);
+            border-left: 6px solid var(--success);
+            display: none;
+        }
+        
+        .price-breakdown {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            border: 1px solid #dee2e6;
+            display: none;
+        }
+        
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .breakdown-item:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            color: var(--success);
+        }
+        
+        .hidden-fields {
+            display: none;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin: 15px 0;
+            border: 1px solid #e1e5e9;
+        }
+        
+        .contact-info {
+            background: #e8f4fd;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-top: 20px;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .form-group {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .form-group label {
+                margin-bottom: 5px;
+                min-width: 100%;
+            }
+            
+            .form-group select, .form-group input {
+                width: 100%;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -36,7 +276,59 @@
 
         <div class="calculator-section">
             <h2 class="section-title"><i class="fas fa-edit"></i> Calculate Printing Price</h2>
+            
+            <div class="form-group">
+                <label for="mainCategory"><i class="fas fa-folder"></i> Main Category:</label>
+                <select id="mainCategory">
+                    <option value="">Select Main Category</option>
+                </select>
             </div>
+            
+            <div class="form-group">
+                <label for="subCategory"><i class="fas fa-folder-open"></i> Subcategory:</label>
+                <select id="subCategory"></select>
+            </div>
+            
+            <div class="form-group">
+                <label for="itemName"><i class="fas fa-cube"></i> Item Name:</label>
+                <select id="itemName"></select>
+            </div>
+            
+            <div class="hidden-fields" id="offsetFields">
+                <div class="form-group">
+                    <label for="size"><i class="fas fa-expand"></i> Size:</label>
+                    <select id="size"></select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="color"><i class="fas fa-palette"></i> Color:</label>
+                    <select id="color"></select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="quantity"><i class="fas fa-boxes"></i> Quantity:</label>
+                <input type="number" id="quantity" value="1" min="1">
+            </div>
+            
+            <div class="actions">
+                <button class="btn btn-primary" onclick="calculatePrice()">
+                    <i class="fas fa-calculator"></i> Calculate Price
+                </button>
+                <button class="btn btn-secondary" onclick="window.print()">
+                    <i class="fas fa-print"></i> Print Quote
+                </button>
+                <button class="btn btn-danger" onclick="clearForm()">
+                    <i class="fas fa-trash"></i> Clear Form
+                </button>
+            </div>
+            
+            <div class="result" id="result"></div>
+            <div class="price-breakdown" id="priceBreakdown">
+                <h4><i class="fas fa-receipt"></i> Price Breakdown</h4>
+                <div id="breakdownContent"></div>
+            </div>
+        </div>
 
         <div class="contact-info">
             <h3><i class="fas fa-phone"></i> Contact Us</h3>
@@ -59,11 +351,98 @@
         let lastUpdateTime = null;
         const LOCAL_CACHE_KEY = 'arhamPrintersData_Public';
         
-        // --- (Default Data Structure is assumed to be here as a fallback) ---
+        // Default Data Structure
+        const defaultData = {
+            categories: [
+                { mainCategory: "Offset Paper Printing", subcategory: "LetterPads" },
+                { mainCategory: "Offset Paper Printing", subcategory: "Ishtihars" },
+                { mainCategory: "Offset Paper Printing", subcategory: "Envelops" },
+                { mainCategory: "Offset Paper Printing", subcategory: "Visiting Cards" },
+                { mainCategory: "Offset Paper Printing", subcategory: "Stickers" },
+                { mainCategory: "Offset Paper Printing", subcategory: "Bill Books" },
+                { mainCategory: "Offset Paper Printing", subcategory: "PhotoPapers" },
+                { mainCategory: "Offset Paper Printing", subcategory: "wedding cards" },
+                { mainCategory: "Panaflex", subcategory: "China" },
+                { mainCategory: "Panaflex", subcategory: "Star" },
+                { mainCategory: "Panaflex", subcategory: "Venyl" },
+                { mainCategory: "Panaflex", subcategory: "One Vision" },
+                { mainCategory: "Panaflex", subcategory: "Backlit" },
+                { mainCategory: "Others", subcategory: "Miscellaneous" },
+                { mainCategory: "Social Media Posts", subcategory: "Design Only" }
+            ],
+            items: [
+                { mainCategory: "Offset Paper Printing", subcategory: "LetterPads", itemName: "LetterPads", price: 0, type: "offset", designCharges: 0, paperCost: 0, bindingCost: 40, colorCost: 0 },
+                { mainCategory: "Offset Paper Printing", subcategory: "Ishtihars", itemName: "Paper Ishtihars", price: 0, type: "offset", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
+                { mainCategory: "Offset Paper Printing", subcategory: "Ishtihars", itemName: "Art Paper Ishtihars", price: 0, type: "offset", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
+                { mainCategory: "Offset Paper Printing", subcategory: "Envelops", itemName: "Envelop 9x4", price: 0, type: "offset", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
+                { mainCategory: "Offset Paper Printing", subcategory: "Envelops", itemName: "Envelop 7x5", price: 0, type: "offset", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
+                { mainCategory: "Offset Paper Printing", subcategory: "Visiting Cards", itemName: "Shine", price: 1800, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
+                { mainCategory: "Offset Paper Printing", subcategory: "Visiting Cards", itemName: "Mat Single Side", price: 1900, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
+                { mainCategory: "Offset Paper Printing", subcategory: "Visiting Cards", itemName: "Mat Double Side", price: 2500, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
+                { mainCategory: "Panaflex", subcategory: "China", itemName: "2x2", price: 140, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
+                { mainCategory: "Panaflex", subcategory: "China", itemName: "2x3", price: 210, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
+                { mainCategory: "Panaflex", subcategory: "China", itemName: "2x4", price: 280, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
+                { mainCategory: "Social Media Posts", subcategory: "Design Only", itemName: "Facebook Post", price: 300, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 },
+                { mainCategory: "Social Media Posts", subcategory: "Design Only", itemName: "Instagram Post", price: 400, type: "fixed", designCharges: 0, paperCost: 0, bindingCost: 0, colorCost: 0 }
+            ],
+            sizes: {
+                "A4/2 68g": 625, "A4 68g": 1250, "A4/4 68g": 312.5, "Legal 100g": 3600, "A4 Art Paper 113g": 3700, "News Paper 9x3.5": 400
+            },
+            colors: {
+                "1": 700, "2": 1400, "3": 2100, "4": 2800, "Blue": 850, "Green": 850, "Brown": 850
+            },
+            settings: {
+                rent: 200, profitMargin: 25, defaultBinding: 40
+            }
+        };
         
-        // Function to save GitHub data to a separate local cache
+        // Enhanced sync status management
+        function updateSyncStatus(message, type = 'info') {
+            const statusEl = document.getElementById('loadingStatus');
+            if (!statusEl) return;
+            
+            const icons = {
+                success: 'fa-check-circle',
+                error: 'fa-exclamation-triangle',
+                warning: 'fa-exclamation-circle',
+                info: 'fa-info-circle',
+                loading: 'fa-sync fa-spin'
+            };
+            
+            statusEl.innerHTML = `<i class="fas ${icons[type]}"></i> ${message}`;
+            statusEl.className = `loading sync-${type}`;
+        }
+
+        // Enhanced API call with timeout
+        async function safeApiCall(url, options = {}) {
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 10000);
+                
+                const response = await fetch(url, {
+                    ...options,
+                    signal: controller.signal
+                });
+                
+                clearTimeout(timeoutId);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                return await response.json();
+            } catch (error) {
+                if (error.name === 'AbortError') {
+                    throw new Error('Request timeout - please check your connection');
+                }
+                throw error;
+            }
+        }
+
+        // Function to save data to local cache
         function savePriceDataToLocal(priceData) {
             localStorage.setItem(LOCAL_CACHE_KEY, JSON.stringify(priceData));
+            localStorage.setItem('lastSuccessfulSync', new Date().toISOString());
         }
 
         // Function to load data from local cache
@@ -81,77 +460,317 @@
             return false;
         }
 
-        // Try to load from Google Sheets (Replaces loadFromGitHub)
+        // Check if cache should be refreshed
+        function shouldRefreshCache() {
+            const lastUpdate = localStorage.getItem('lastSuccessfulSync');
+            if (!lastUpdate) return true;
+            
+            const cacheAge = Date.now() - new Date(lastUpdate).getTime();
+            return cacheAge > (5 * 60 * 1000); // Refresh if older than 5 minutes
+        }
+
+        // Load from Google Sheets with enhanced error handling
         async function loadFromGoogleSheet() {
             try {
-                // GET request to the Pricing sheet endpoint
-                const url = `${APP_SCRIPT_URL}?data=pricing`; 
-                const response = await fetch(url);
+                updateSyncStatus('Loading latest prices...', 'loading');
                 
-                if (response.ok) {
-                    const sheetData = await response.json();
-                    
-                    if (typeof sheetData.items === 'undefined') {
-                         throw new Error('Invalid pricing structure retrieved.');
-                    }
-                    
-                    // Check if this is a new update (optional, requires metadata in the sheet)
-                    // if (lastUpdateTime && sheetData.lastUpdated !== lastUpdateTime) {
-                    //     showUpdateNotification();
-                    // }
-                    // lastUpdateTime = sheetData.lastUpdated;
-
-                    data = sheetData;
-                    savePriceDataToLocal(sheetData); // Cache the new data
-                    
-                    document.getElementById('loadingStatus').innerHTML = '<i class="fas fa-check-circle"></i> Live prices loaded';
-                    return true;
+                const url = `${APP_SCRIPT_URL}?data=pricing&v=${Date.now()}`;
+                const sheetData = await safeApiCall(url);
+                
+                if (typeof sheetData.items === 'undefined') {
+                    throw new Error('Invalid pricing structure retrieved.');
                 }
+                
+                data = sheetData;
+                savePriceDataToLocal(sheetData);
+                updateSyncStatus('Live prices loaded successfully', 'success');
+                return true;
             } catch (error) {
                 console.log('Google Sheet load failed:', error);
+                updateSyncStatus('Using cached prices - ' + error.message, 'warning');
+                return false;
             }
-            return false;
+        }
+
+        // Setup offline detection
+        function setupOfflineDetection() {
+            window.addEventListener('online', () => {
+                updateSyncStatus('Connection restored - syncing...', 'info');
+                setTimeout(() => loadFromGoogleSheet(), 2000);
+            });
+            
+            window.addEventListener('offline', () => {
+                updateSyncStatus('Offline - using cached data', 'warning');
+            });
         }
 
         // Initialize the application
         async function initializeApp() {
-            document.getElementById('loadingStatus').innerHTML = '<i class="fas fa-sync fa-spin"></i> Loading prices...';
+            setupOfflineDetection();
             
-            // 1. Try to load from Local Cache first
+            // 1. Load from Local Cache first for fast startup
             let dataLoaded = loadPriceDataFromLocal();
-
             if (dataLoaded) {
-                 document.getElementById('loadingStatus').innerHTML = '<i class="fas fa-check-circle"></i> Local prices loaded';
+                updateSyncStatus('Local prices loaded', 'success');
+                refreshAllDisplays();
             }
             
-            // 2. Then, attempt to fetch latest from Google Sheet
-            const sheetSuccess = await loadFromGoogleSheet();
-            
-            if (sheetSuccess) {
-                 dataLoaded = true;
+            // 2. Then attempt to fetch latest from Google Sheet
+            if (navigator.onLine && shouldRefreshCache()) {
+                await loadFromGoogleSheet();
             } else if (!dataLoaded) {
-                // 3. If local cache and Sheet failed, use the hardcoded default
-                // (Assuming default data structure is present in the file)
-                document.getElementById('loadingStatus').innerHTML = '<i class="fas fa-info-circle"></i> Using default prices (Offline)';
+                // 3. If local cache failed, use default data
+                data = JSON.parse(JSON.stringify(defaultData));
+                updateSyncStatus('Using default prices (Offline)', 'warning');
             }
             
             setupEventListeners();
             refreshAllDisplays();
         }
 
-        // Auto-refresh data every 2 minutes
+        // Auto-refresh data every 5 minutes when online
         setInterval(async () => {
-            const success = await loadFromGoogleSheet();
-            if (success) {
+            if (navigator.onLine) {
+                await loadFromGoogleSheet();
                 refreshAllDisplays();
                 console.log('Prices updated from Google Sheet');
             }
-        }, 120000); // 2 minutes
+        }, 300000); // 5 minutes
+
+        // =============================================
+        // CALCULATOR FUNCTIONS
+        // =============================================
+
+        function setupEventListeners() {
+            document.getElementById('mainCategory').addEventListener('change', function() {
+                updateSubCategories();
+                updateItemNames();
+                toggleOffsetFields();
+            });
+            
+            document.getElementById('subCategory').addEventListener('change', function() {
+                updateItemNames();
+                toggleOffsetFields();
+            });
+            
+            document.getElementById('itemName').addEventListener('change', toggleOffsetFields);
+            document.getElementById('quantity').addEventListener('input', function() {
+                if (this.value < 1) this.value = 1;
+            });
+        }
+
+        function updateSubCategories() {
+            const mainCategory = document.getElementById('mainCategory').value;
+            const subCategorySelect = document.getElementById('subCategory');
+            
+            subCategorySelect.innerHTML = '<option value="">Select Subcategory</option>';
+            
+            if (mainCategory) {
+                const uniqueSubcategories = [...new Set(
+                    data.categories
+                        .filter(cat => cat.mainCategory === mainCategory)
+                        .map(cat => cat.subcategory)
+                )];
+                
+                uniqueSubcategories.forEach(sub => {
+                    const option = document.createElement('option');
+                    option.value = sub;
+                    option.textContent = sub;
+                    subCategorySelect.appendChild(option);
+                });
+            }
+        }
+
+        function updateItemNames() {
+            const mainCategory = document.getElementById('mainCategory').value;
+            const subCategory = document.getElementById('subCategory').value;
+            const itemNameSelect = document.getElementById('itemName');
+            
+            itemNameSelect.innerHTML = '<option value="">Select Item</option>';
+            
+            if (mainCategory && subCategory) {
+                const items = data.items.filter(item => 
+                    item.mainCategory === mainCategory && 
+                    item.subcategory === subCategory
+                );
+                
+                items.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item.itemName;
+                    option.textContent = item.itemName;
+                    option.setAttribute('data-type', item.type);
+                    itemNameSelect.appendChild(option);
+                });
+            }
+        }
+
+        function toggleOffsetFields() {
+            const itemNameSelect = document.getElementById('itemName');
+            const selectedOption = itemNameSelect.options[itemNameSelect.selectedIndex];
+            const offsetFields = document.getElementById('offsetFields');
+            
+            if (selectedOption && selectedOption.getAttribute('data-type') === 'offset') {
+                offsetFields.style.display = 'block';
+                populateSizes();
+                populateColors();
+            } else {
+                offsetFields.style.display = 'none';
+            }
+        }
+
+        function populateSizes() {
+            const sizeSelect = document.getElementById('size');
+            sizeSelect.innerHTML = '<option value="">Select Size</option>';
+            
+            Object.keys(data.sizes).forEach(size => {
+                const option = document.createElement('option');
+                option.value = size;
+                option.textContent = `${size} (Rs. ${data.sizes[size]})`;
+                sizeSelect.appendChild(option);
+            });
+        }
+
+        function populateColors() {
+            const colorSelect = document.getElementById('color');
+            colorSelect.innerHTML = '<option value="">Select Color</option>';
+            
+            Object.keys(data.colors).forEach(color => {
+                const option = document.createElement('option');
+                option.value = color;
+                option.textContent = `${color} (Rs. ${data.colors[color]})`;
+                colorSelect.appendChild(option);
+            });
+        }
+
+        function calculatePrice() {
+            const mainCategory = document.getElementById('mainCategory').value;
+            const subCategory = document.getElementById('subCategory').value;
+            const itemName = document.getElementById('itemName').value;
+            const quantity = parseInt(document.getElementById('quantity').value) || 1;
+            
+            if (!mainCategory || !subCategory || !itemName) {
+                alert('Please select all required fields');
+                return;
+            }
+            
+            const item = data.items.find(item => 
+                item.mainCategory === mainCategory && 
+                item.subcategory === subCategory && 
+                item.itemName === itemName
+            );
+            
+            if (!item) {
+                alert('Selected item not found in database');
+                return;
+            }
+            
+            let totalPrice = 0;
+            let breakdown = [];
+            
+            if (item.type === 'fixed') {
+                totalPrice = item.price * quantity;
+                breakdown.push({ name: 'Base Price', value: item.price });
+                breakdown.push({ name: 'Quantity', value: quantity });
+            } else if (item.type === 'offset') {
+                const size = document.getElementById('size').value;
+                const color = document.getElementById('color').value;
+                
+                if (!size || !color) {
+                    alert('Please select size and color for offset printing');
+                    return;
+                }
+                
+                const paperCost = data.sizes[size] || 0;
+                const colorCost = data.colors[color] || 0;
+                const designCharges = item.designCharges || 0;
+                const bindingCost = item.bindingCost || data.settings.defaultBinding || 0;
+                
+                const baseCost = paperCost + colorCost + designCharges + bindingCost;
+                const costWithRent = baseCost + data.settings.rent;
+                const costWithProfit = costWithRent * (1 + data.settings.profitMargin / 100);
+                
+                totalPrice = costWithProfit * quantity;
+                
+                breakdown.push({ name: 'Paper Cost', value: paperCost });
+                breakdown.push({ name: 'Color Cost', value: colorCost });
+                breakdown.push({ name: 'Design Charges', value: designCharges });
+                breakdown.push({ name: 'Binding Cost', value: bindingCost });
+                breakdown.push({ name: 'Rent', value: data.settings.rent });
+                breakdown.push({ name: `Profit Margin (${data.settings.profitMargin}%)`, value: costWithRent * (data.settings.profitMargin / 100) });
+                breakdown.push({ name: 'Quantity', value: quantity });
+            }
+            
+            displayResult(totalPrice, breakdown, quantity);
+        }
+
+        function displayResult(totalPrice, breakdown, quantity) {
+            const resultDiv = document.getElementById('result');
+            const breakdownDiv = document.getElementById('priceBreakdown');
+            const breakdownContent = document.getElementById('breakdownContent');
+            
+            resultDiv.innerHTML = `
+                <h3><i class="fas fa-receipt"></i> Total Price: Rs. ${totalPrice.toFixed(2)}</h3>
+                <p>For ${quantity} ${quantity > 1 ? 'items' : 'item'}</p>
+            `;
+            resultDiv.style.display = 'block';
+            
+            if (breakdown.length > 0) {
+                breakdownContent.innerHTML = '';
+                breakdown.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'breakdown-item';
+                    div.innerHTML = `
+                        <span>${item.name}:</span>
+                        <span>Rs. ${item.value.toFixed(2)}</span>
+                    `;
+                    breakdownContent.appendChild(div);
+                });
+                
+                const totalDiv = document.createElement('div');
+                totalDiv.className = 'breakdown-item';
+                totalDiv.innerHTML = `
+                    <span><strong>Total:</strong></span>
+                    <span><strong>Rs. ${totalPrice.toFixed(2)}</strong></span>
+                `;
+                breakdownContent.appendChild(totalDiv);
+                
+                breakdownDiv.style.display = 'block';
+            } else {
+                breakdownDiv.style.display = 'none';
+            }
+        }
+
+        function clearForm() {
+            document.getElementById('mainCategory').value = '';
+            document.getElementById('subCategory').innerHTML = '<option value="">Select Subcategory</option>';
+            document.getElementById('itemName').innerHTML = '<option value="">Select Item</option>';
+            document.getElementById('quantity').value = '1';
+            document.getElementById('offsetFields').style.display = 'none';
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('priceBreakdown').style.display = 'none';
+        }
+
+        function refreshAllDisplays() {
+            // Populate main categories
+            const mainCategorySelect = document.getElementById('mainCategory');
+            mainCategorySelect.innerHTML = '<option value="">Select Main Category</option>';
+            
+            const uniqueMainCategories = [...new Set(data.categories.map(cat => cat.mainCategory))];
+            uniqueMainCategories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category;
+                mainCategorySelect.appendChild(option);
+            });
+            
+            // Clear other selects
+            document.getElementById('subCategory').innerHTML = '<option value="">Select Subcategory</option>';
+            document.getElementById('itemName').innerHTML = '<option value="">Select Item</option>';
+            document.getElementById('offsetFields').style.display = 'none';
+        }
 
         // Initialize when page loads
         window.onload = initializeApp;
-
-        // --- (All other original functions from customer.html are assumed to be here) ---
     </script>
 </body>
 </html>
