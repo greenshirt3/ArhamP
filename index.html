@@ -1381,31 +1381,40 @@
             }
         }
 
-        // Setup event listeners
-        function setupEventListeners() {
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.addEventListener('click', function() {
-                    if (!this.classList.contains('active')) {
-                        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                        
-                        this.classList.add('active');
-                        document.getElementById(`${this.dataset.tab}-tab`).classList.add('active');
-                        
-                        if (this.dataset.tab === 'data-management') {
-                            refreshDataTables();
-                        } else if (this.dataset.tab === 'history') {
-                            updateHistoryDisplay();
-                        } else if (this.dataset.tab === 'settings') {
-                            loadSettings();
-                        }
-                    }
-                });
-            });
-            
-            document.getElementById('mainCategory').addEventListener('change', updateSubcategories);
-            document.getElementById('subCategory').addEventListener('change', updateItemsAndFields);
-        }
+  // Setup event listeners
+function setupEventListeners() {
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            if (!this.classList.contains('active')) {
+                // 1. Deactivate current tabs
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // 2. Activate the clicked tab and content
+                this.classList.add('active');
+                document.getElementById(`${this.dataset.tab}-tab`).classList.add('active');
+                
+                // 3. === FORCE DATA REFRESH FOR THE NEW TAB ===
+                switch (this.dataset.tab) {
+                    case 'data-management':
+                        refreshDataTables();
+                        break;
+                    case 'history':
+                        updateHistoryDisplay();
+                        break;
+                    case 'settings':
+                        loadSettings();
+                        break;
+                    // 'import-export' tab doesn't require a refresh function call, 
+                    // but we ensure others do when clicked.
+                }
+            }
+        });
+    });
+    
+    document.getElementById('mainCategory').addEventListener('change', updateSubcategories);
+    document.getElementById('subCategory').addEventListener('change', updateItemsAndFields);
+}
 
         // Refresh all UI displays
         function refreshAllDisplays() {
@@ -2128,5 +2137,6 @@
 </body>
 
 </html>
+
 
 
