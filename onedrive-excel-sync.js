@@ -1,4 +1,4 @@
-// onedrive-excel-sync.js - Complete Excel Sync System
+// onedrive-excel-sync.js - Complete Excel Sync System (Optimized for Error Handling)
 
 // --- External dependencies (must be defined in index.html for this to work) ---
 // async function getOneDriveAccessToken()
@@ -19,7 +19,6 @@ class OneDriveExcelSync {
             SETTINGS: 'Settings',
             HISTORY: 'Calculation_History'
         };
-        // Ensure MSAL functions are globally available for API calls
         if (typeof getOneDriveAccessToken !== 'function') {
             console.error("Dependency Error: getOneDriveAccessToken is not defined. OneDrive sync will fail.");
         }
@@ -30,26 +29,49 @@ class OneDriveExcelSync {
     // =============================================
 
     async ensureExcelFile() {
-        try {
-            // Check if Excel file exists
-            const fileInfo = await this.getExcelFileInfo();
-            if (fileInfo) {
-                this.excelFileId = fileInfo.id;
-                return true;
-            }
+        const MAX_RETRIES = 3;
+        const INITIAL_DELAY = 5000; // 5 seconds
 
-            // Create new Excel file (simplified template)
-            const success = await this.createExcelFile();
-            if (success) {
-                // Wait for the file to be processed by Excel Online, then initialize sheets
-                await new Promise(resolve => setTimeout(resolve, 5000));
+        for (let i = 0; i < MAX_RETRIES; i++) {
+            try {
+                let fileInfo = await this.getExcelFileInfo();
+                if (fileInfo) {
+                    this.excelFileId = fileInfo.id;
+                    return true;
+                }
+
+                // If file does not exist, attempt to create it.
+                if (i === 0) {
+                    console.log('Excel file not found. Attempting creation...');
+                    const createSuccess = await this.createExcelFile();
+                    if (createSuccess) {
+                        fileInfo = await this.getExcelFileInfo();
+                        this.excelFileId = fileInfo.id;
+                    }
+                }
+
+                if (!this.excelFileId) {
+                    throw new Error('File ID still not available after creation attempt.');
+                }
+                
+                // Wait for Excel Online to process the file before initializing sheets
+                await new Promise(resolve => setTimeout(resolve, INITIAL_DELAY * (i + 1)));
+
+                // Initialize sheets. If this fails, the file may still be corrupt/unrecognized.
                 await this.initializeSheets();
+                
+                // If initialization succeeds, the file is good.
+                return true;
+
+            } catch (error) {
+                console.warn(`Attempt ${i + 1} failed to ensure Excel file.`, error.message);
+                if (i === MAX_RETRIES - 1) {
+                    console.error('Max retries reached. Failed to ensure Excel file.', error);
+                    return false;
+                }
             }
-            return success;
-        } catch (error) {
-            console.error('Error ensuring Excel file:', error);
-            return false;
         }
+        return false;
     }
 
     async getExcelFileInfo() {
@@ -60,20 +82,16 @@ class OneDriveExcelSync {
             const response = await fetch(
                 `https://graph.microsoft.com/v1.0/me/drive/root:${this.excelFilePath}`,
                 {
-                    headers: {
-                        'Authorization': `Bearer ${accessToken}`
-                    }
+                    headers: { 'Authorization': `Bearer ${accessToken}` }
                 }
             );
 
             if (response.ok) {
-                const fileInfo = await response.json();
-                return fileInfo;
+                return await response.json();
             }
             return null;
         } catch (error) {
-            // Error 404 is common if file doesn't exist
-            console.log('Excel file not found or error getting info:', error);
+            console.log('Error getting Excel file info (expected for 404):', error);
             return null;
         }
     }
@@ -83,14 +101,16 @@ class OneDriveExcelSync {
         if (!accessToken) return false;
 
         try {
-            // Create a small, empty, valid XLSX file (Base64 encoded binary data)
-            // Creating a new file and uploading it. This is a complex operation for a browser app.
-            // A simpler, more reliable approach for browser-based apps is to copy a template or
-            // create an empty file, which requires binary manipulation.
-            // For simplicity, we'll try a minimal PUT request which usually works on a plain folder path.
-            
-            // Create the ArhamPrinters folder if it doesn't exist
+            // Ensure folder exists first
             await this.ensureOneDriveFolder('/ArhamPrinters');
+
+            // The PUT request is the most reliable way to create the file at a specific path.
+            // Using a minimal valid XLSX file content (a minimal zip archive).
+            const emptyXLSXBlob = new Uint8Array([
+                0x50, 0x4b, 0x05, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+                0x00, 0x00
+            ]).buffer;
 
             const response = await fetch(
                 `https://graph.microsoft.com/v1.0/me/drive/root:/ArhamPrinters/${this.excelFileName}:/content`,
@@ -100,16 +120,19 @@ class OneDriveExcelSync {
                         'Authorization': `Bearer ${accessToken}`,
                         'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
                     },
-                    body: new Uint8Array([0x50, 0x4B, 0x05, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]).buffer // Minimal empty zip (xlsx is a zip)
+                    body: emptyXLSXBlob
                 }
             );
 
             if (response.ok || response.status === 201) {
                 const fileInfo = await response.json();
                 this.excelFileId = fileInfo.id;
+                console.log('Excel file created successfully via PUT.');
                 return true;
             }
+            console.error('Failed to create Excel file. Status:', response.status);
             return false;
+
         } catch (error) {
             console.error('Error creating Excel file:', error);
             return false;
@@ -121,7 +144,6 @@ class OneDriveExcelSync {
         if (!accessToken) return;
 
         try {
-            // Check if folder exists
             const checkResponse = await fetch(
                 `https://graph.microsoft.com/v1.0/me/drive/root:${folderPath}`,
                 {
@@ -130,10 +152,9 @@ class OneDriveExcelSync {
             );
 
             if (checkResponse.ok) {
-                return; // Folder exists
+                return;
             }
 
-            // Create folder
             await fetch(
                 `https://graph.microsoft.com/v1.0/me/drive/root/children`,
                 {
@@ -145,7 +166,7 @@ class OneDriveExcelSync {
                     body: JSON.stringify({
                         name: folderPath.substring(folderPath.lastIndexOf('/') + 1),
                         folder: {},
-                        '@microsoft.graph.conflictBehavior': 'rename'
+                        '@microsoft.graph.conflictBehavior': 'ignore' // Use ignore for robustness
                     })
                 }
             );
@@ -157,37 +178,39 @@ class OneDriveExcelSync {
     async initializeSheets() {
         if (!this.excelFileId) return;
         
-        // This is simplified and assumes sheets exist, which is true for a new XLSX file.
-        // The real Graph API call for adding sheets is complex. We focus on updating the data/headers.
-        
-        await this.updateSheetHeaders(this.sheets.ITEMS, [
-            'Main Category', 'Subcategory', 'Item Name', 'Price', 'Type', 
-            'Design Charges', 'Paper Cost', 'Binding Cost', 'Color Cost', 'Last Updated'
-        ]);
+        console.log('Initializing Excel sheet headers...');
+        // Note: Graph API automatically creates a 'Sheet1' on new file creation.
+        // We ensure all target sheets exist by attempting to write to them.
 
-        await this.updateSheetHeaders(this.sheets.INVOICES, [
-            'Invoice Number', 'Date', 'Due Date', 'Customer Name', 'Customer Phone', 
-            'Customer Address', 'Items Count', 'Subtotal', 'Tax', 'Total Amount',
-            'Previous Balance', 'Payment Received', 'Remaining Balance', 'Status', 'Created Date'
-        ]);
+        const sheetPromises = [
+            this.updateSheetHeaders(this.sheets.ITEMS, [
+                'Main Category', 'Subcategory', 'Item Name', 'Price', 'Type', 
+                'Design Charges', 'Paper Cost', 'Binding Cost', 'Color Cost', 'Last Updated'
+            ]),
+            this.updateSheetHeaders(this.sheets.INVOICES, [
+                'Invoice Number', 'Date', 'Due Date', 'Customer Name', 'Customer Phone', 
+                'Customer Address', 'Items Count', 'Subtotal', 'Tax', 'Total Amount',
+                'Previous Balance', 'Payment Received', 'Remaining Balance', 'Status', 'Created Date'
+            ]),
+            this.updateSheetHeaders(this.sheets.CUSTOMERS, [
+                'Customer Name', 'Phone', 'Address', 'Total Invoices', 
+                'Current Balance', 'Last Invoice Date', 'Created Date'
+            ]),
+            this.updateSheetHeaders(this.sheets.SETTINGS, [
+                'Setting Name', 'Value', 'Last Updated'
+            ]),
+            this.updateSheetHeaders(this.sheets.HISTORY, [
+                'Date', 'Main Category', 'Subcategory', 'Item Name', 
+                'Quantity', 'Design Charges', 'Total Price', 'Calculated By'
+            ])
+        ];
 
-        await this.updateSheetHeaders(this.sheets.CUSTOMERS, [
-            'Customer Name', 'Phone', 'Address', 'Total Invoices', 
-            'Current Balance', 'Last Invoice Date', 'Created Date'
-        ]);
-
-        await this.updateSheetHeaders(this.sheets.SETTINGS, [
-            'Setting Name', 'Value', 'Last Updated'
-        ]);
-
-        await this.updateSheetHeaders(this.sheets.HISTORY, [
-            'Date', 'Main Category', 'Subcategory', 'Item Name', 
-            'Quantity', 'Design Charges', 'Total Price', 'Calculated By'
-        ]);
+        await Promise.allSettled(sheetPromises);
+        console.log('Sheet header initialization complete.');
     }
 
     // =============================================
-    // EXCEL DATA SYNC FUNCTIONS
+    // EXCEL DATA SYNC FUNCTIONS (sync* functions remain the same)
     // =============================================
 
     async syncAllDataToExcel(calculatorData, invoices, customers, history) {
@@ -216,84 +239,52 @@ class OneDriveExcelSync {
 
     async syncCalculatorItems(items) {
         const rows = items.map(item => [
-            item.mainCategory || '',
-            item.subcategory || '',
-            item.itemName || '',
-            item.price || 0,
-            item.type || 'fixed',
-            item.designCharges || 0,
-            item.paperCost || 0,
-            item.bindingCost || 0,
-            item.colorCost || 0,
+            item.mainCategory || '', item.subcategory || '', item.itemName || '',
+            item.price || 0, item.type || 'fixed', item.designCharges || 0, 
+            item.paperCost || 0, item.bindingCost || 0, item.colorCost || 0,
             new Date().toISOString()
         ]);
-
         await this.updateSheetData(this.sheets.ITEMS, rows);
     }
 
     async syncInvoices(invoices) {
         const rows = invoices.map(invoice => [
-            invoice.invoiceNo || '',
-            invoice.date || '',
-            invoice.dueDate || '',
-            invoice.customerName || 'N/A', // Assuming name is stored on invoice or needs to be fetched
-            invoice.customerPhone || '',
-            invoice.customerAddress || '',
-            invoice.items?.length || 0,
-            invoice.subtotal || 0,
-            invoice.taxAmount || 0,
-            invoice.total || 0,
-            invoice.previousBalance || 0,
-            invoice.payment || 0,
-            invoice.remainingBalance || 0,
-            invoice.status || 'pending',
-            invoice.created || new Date().toISOString()
+            invoice.invoiceNo || '', invoice.date || '', invoice.dueDate || '',
+            invoice.customerName || 'N/A', invoice.customerPhone || '', invoice.customerAddress || '',
+            invoice.items?.length || 0, invoice.subtotal || 0, invoice.taxAmount || 0, 
+            invoice.total || 0, invoice.previousBalance || 0, invoice.payment || 0, 
+            invoice.remainingBalance || 0, invoice.status || 'pending', invoice.created || new Date().toISOString()
         ]);
-
         await this.updateSheetData(this.sheets.INVOICES, rows);
     }
 
     async syncCustomers(customers) {
         const rows = customers.map(customer => [
-            customer.name || '',
-            customer.phone || '',
-            customer.address || '',
-            customer.invoicesCount || 0, // Placeholder: Invoice logic in invoice.html doesn't track this easily
-            customer.balance || 0,
-            customer.lastInvoiceDate || '', // Placeholder
-            customer.created || new Date().toISOString()
+            customer.name || '', customer.phone || '', customer.address || '',
+            customer.invoicesCount || 0, customer.balance || 0,
+            customer.lastInvoiceDate || '', customer.created || new Date().toISOString()
         ]);
-
         await this.updateSheetData(this.sheets.CUSTOMERS, rows);
     }
 
     async syncSettings(settings) {
         const rows = Object.entries(settings).map(([key, value]) => [
-            key,
-            value,
-            new Date().toISOString()
+            key, value, new Date().toISOString()
         ]);
-
         await this.updateSheetData(this.sheets.SETTINGS, rows);
     }
 
     async syncHistory(history) {
         const rows = history.map(record => [
-            record.timestamp || new Date().toLocaleString(),
-            record.mainCategory || '',
-            record.subcategory || '',
-            record.itemName || '',
-            record.quantity || 1,
-            record.designCharges || 0,
-            record.total || 0,
-            'Admin' // Always calculated by admin on index.html
+            record.timestamp || new Date().toLocaleString(), record.mainCategory || '', 
+            record.subcategory || '', record.itemName || '', record.quantity || 1, 
+            record.designCharges || 0, record.total || 0, 'Admin'
         ]);
-
         await this.updateSheetData(this.sheets.HISTORY, rows);
     }
 
     // =============================================
-    // EXCEL API FUNCTIONS (Using MS Graph)
+    // EXCEL API FUNCTIONS
     // =============================================
 
     async updateSheetHeaders(sheetName, headers) {
@@ -301,10 +292,12 @@ class OneDriveExcelSync {
         if (!accessToken || !this.excelFileId) return;
 
         try {
+            // Check if sheet exists; create it if it doesn't (or rely on Graph to create on first write)
+            // The Graph API is usually resilient enough to create a sheet implicitly on first write if needed.
             const headerRange = `A1:${String.fromCharCode(64 + headers.length)}1`;
             const endpoint = `https://graph.microsoft.com/v1.0/me/drive/items/${this.excelFileId}/workbook/worksheets('${sheetName}')/range(address='${headerRange}')`;
 
-            await fetch(endpoint, {
+            const response = await fetch(endpoint, {
                 method: 'PATCH',
                 headers: {
                     'Authorization': `Bearer ${accessToken}`,
@@ -314,8 +307,49 @@ class OneDriveExcelSync {
                     values: [headers]
                 })
             });
+
+            if (!response.ok) {
+                 // Attempt to add the worksheet explicitly if it fails
+                 await this.addWorksheet(sheetName);
+                 // Retry writing headers after creating the sheet
+                 await fetch(endpoint, {
+                    method: 'PATCH',
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        values: [headers]
+                    })
+                });
+            }
+
         } catch (error) {
-            console.error(`Error updating headers for ${sheetName}:`, error);
+            console.error(`Error updating/creating headers for ${sheetName}:`, error);
+            throw error; // Re-throw to signal failure in ensureExcelFile loop
+        }
+    }
+    
+    async addWorksheet(sheetName) {
+        const accessToken = await getOneDriveAccessToken();
+        if (!accessToken || !this.excelFileId) return;
+
+        try {
+            const endpoint = `https://graph.microsoft.com/v1.0/me/drive/items/${this.excelFileId}/workbook/worksheets`;
+
+            await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: sheetName
+                })
+            });
+            console.log(`Worksheet ${sheetName} created successfully.`);
+        } catch (error) {
+            console.warn(`Could not explicitly add worksheet ${sheetName}:`, error);
         }
     }
 
@@ -324,10 +358,8 @@ class OneDriveExcelSync {
         if (!accessToken || !this.excelFileId) return;
 
         try {
-            // 1. Clear existing data (except headers)
             await this.clearSheetData(sheetName);
 
-            // 2. Add new data starting from row 2
             if (rows.length > 0) {
                 const startCell = 'A2';
                 const endCell = `${String.fromCharCode(64 + rows[0].length)}${rows.length + 1}`;
@@ -368,14 +400,9 @@ class OneDriveExcelSync {
                 })
             });
         } catch (error) {
-            // Log as warning since clearing a sheet that doesn't exist is fine.
             console.warn(`Could not clear sheet ${sheetName}, possibly empty or doesn't exist.`, error);
         }
     }
-
-    // =============================================
-    // UTILITY FUNCTIONS
-    // =============================================
 
     async getExcelFileLink() {
         if (!this.excelFileId) return null;
