@@ -172,7 +172,7 @@
             box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.2);
         }
         
-        .actions { 
+        . { 
             display: flex;
             flex-wrap: wrap;
             gap: 15px;
@@ -551,7 +551,7 @@
                 margin-right: 0;
             }
             
-            .actions {
+            . {
                 flex-direction: column;
             }
             
@@ -766,7 +766,7 @@
                                 <th>Paper Cost</th>
                                 <th>Binding Cost</th>
                                 <th>Color Cost</th>
-                                <th>Actions</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody id="itemsTable"></tbody>
@@ -793,7 +793,7 @@
                             <tr>
                                 <th>Size Name</th>
                                 <th>Paper Cost</th>
-                                <th>Actions</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody id="sizesTable"></tbody>
@@ -820,7 +820,7 @@
                             <tr>
                                 <th>Color Name</th>
                                 <th>Cost</th>
-                                <th>Actions</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody id="colorsTable"></tbody>
@@ -830,7 +830,7 @@
             
             <div class="tab-content" id="history-tab">
                 <h3>Calculation History</h3>
-                <div class="actions">
+                <div class="">
                     <button class="btn btn-danger" onclick="clearHistory()">
                         <i class="fas fa-trash"></i> Clear History
                     </button>
@@ -857,7 +857,7 @@
                     </div>
                 </div>
                 
-                <div class="actions">
+                <div class="">
                     <button class="btn btn-primary" onclick="saveSettings()">
                         <i class="fas fa-save"></i> Save Settings
                     </button>
@@ -869,7 +869,7 @@
                 
                 <div class="import-export-section">
                     <h4>Export Data</h4>
-                    <div class="actions">
+                    <div class="">
                         <button class="btn btn-success" onclick="exportAllData()">
                             <i class="fas fa-file-export"></i> Export All Data to CSV
                         </button>
@@ -892,7 +892,7 @@
                         <label for="csvFile">Select CSV File:</label>
                         <input type="file" id="csvFile" accept=".csv">
                     </div>
-                    <div class="actions">
+                    <div class="">
                         <button class="btn btn-primary" onclick="importData()">
                             <i class="fas fa-file-import"></i> Import Data from CSV
                         </button>
@@ -902,7 +902,7 @@
                 <div class="admin-section">
                     <h4>Reset Data</h4>
                     <p>Reset all data to default values. This cannot be undone.</p>
-                    <div class="actions">
+                    <div class="">
                         <button class="btn btn-danger" onclick="resetToDefault()">
                             <i class="fas fa-undo"></i> Reset to Default Data
                         </button>
@@ -910,7 +910,7 @@
                 </div>
             </div>
             
-            <div class="actions">
+            <div class="">
                 <button class="btn btn-primary" onclick="saveAllData()">
                     <i class="fas fa-save"></i> Save All Data
                 </button>
@@ -2141,3 +2141,4 @@
 </body>
 
 </html>
+
