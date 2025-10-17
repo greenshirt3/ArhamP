@@ -2026,7 +2026,11 @@
 
         // --- Import/Export ---
         function exportCustomerDataForGitHub() {
-            const customerData = { categories: data.categories, items: data.items, settings: data.settings, lastUpdated: new Date().toISOString() };
+            const customerData = {
+        categories: data.categories,
+        items: data.items,
+        settings: data.settings,
+        lastUpdated: new Date().toISOString()};
             const blob = new Blob([JSON.stringify(customerData, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
@@ -2124,4 +2128,5 @@
         });
     </script>
 </body>
+
 </html>
