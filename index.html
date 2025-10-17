@@ -5,18 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arham Printers - Complete Shop Management</title>
     
-    <!-- PWA Meta Tags -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Arham Printers">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#2c3e50">
 
-    <!-- Icons -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
 
-    <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://alcdn.msauth.net/browser/2.24.0/js/msal-browser.min.js"></script>
     
@@ -646,7 +643,6 @@
             <p class="subtitle">Complete Price Calculator, Invoicing, and Cloud Sync</p>
         </header>
 
-        <!-- Cloud Sync Section -->
         <div class="cloud-section">
             <h2 class="section-title"><i class="fas fa-cloud"></i> OneDrive Cloud Sync</h2>
             <div id="syncStatus" class="sync-status sync-offline">
@@ -657,9 +653,8 @@
                 <button class="btn btn-primary" onclick="loginToOneDrive()" id="loginBtn">
                     <i class="fab fa-microsoft"></i> Sign in with Microsoft
                 </button>
-      <button class="btn btn-success" onclick="syncAllData()" id="syncBtn" style="display: none;">
-    <i class="fas fa-cloud-upload-alt"></i> Sync All Data to OneDrive
-</button>
+                <button class="btn btn-success" onclick="syncAllData()" id="syncBtn" style="display: none;">
+                    <i class="fas fa-cloud-upload-alt"></i> Sync All Data to OneDrive
                 </button>
                 <button class="btn btn-secondary" onclick="syncFromCloud()" id="downloadBtn" style="display: none;">
                     <i class="fas fa-cloud-download-alt"></i> Download Data (JSON)
@@ -676,9 +671,6 @@
         </div>
 
         <div class="content-grid">
-            <!-- ---------------------------------------------------- -->
-            <!-- ADMIN CALCULATOR PANEL -->
-            <!-- ---------------------------------------------------- -->
             <div class="section-panel">
                 <h2 class="section-title"><i class="fas fa-calculator"></i> Price Calculator</h2>
                 
@@ -723,9 +715,6 @@
                 </div>
             </div>
 
-            <!-- ---------------------------------------------------- -->
-            <!-- INVOICE SYSTEM PANEL -->
-            <!-- ---------------------------------------------------- -->
             <div class="section-panel">
                 <h2 class="section-title"><i class="fas fa-file-invoice"></i> Invoice System</h2>
                 
@@ -764,7 +753,6 @@
                         </tr>
                     </thead>
                     <tbody id="itemsTableBody">
-                        <!-- Initial item row -->
                         <tr>
                             <td>
                                 <div style="position: relative;">
@@ -833,9 +821,6 @@
             </div>
         </div>
         
-        <!-- ---------------------------------------------------- -->
-        <!-- ADMIN PANEL SECTION -->
-        <!-- ---------------------------------------------------- -->
         <div class="login-section">
             <h2 class="section-title"><i class="fas fa-lock"></i> Administrator Access</h2>
             <div class="login-form">
@@ -860,7 +845,6 @@
                 <div class="tab" data-tab="import-export">Import/Export</div>
             </div>
             
-            <!-- Data Management Tab -->
             <div class="tab-content active" id="data-management-tab">
                 <div class="data-form admin-section">
                     <h3>Add New Item</h3>
@@ -884,7 +868,6 @@
                 </div>
             </div>
 
-            <!-- Invoice List Tab -->
             <div class="tab-content" id="invoice-list-tab">
                 <h3>Saved Invoices</h3>
                 <div id="invoiceList">
@@ -897,7 +880,6 @@
                 </div>
             </div>
             
-            <!-- History Tab -->
             <div class="tab-content" id="history-tab">
                 <h3>Calculation History</h3>
                 <div class="actions">
@@ -908,7 +890,6 @@
                 <div id="historyList"></div>
             </div>
             
-            <!-- Settings Tab -->
             <div class="tab-content" id="settings-tab">
                 <h3>Application Settings</h3>
                 <div class="admin-section">
@@ -930,7 +911,6 @@
                 </div>
             </div>
             
-            <!-- Import/Export Tab -->
             <div class="tab-content" id="import-export-tab">
                 <h3>Import/Export Data</h3>
                 
@@ -969,7 +949,6 @@
         </div>
     </div>
 
-    <!-- Notification Container -->
     <div id="notificationContainer"></div>
 
     <script>
@@ -1018,7 +997,10 @@
         };
 
         const msalInstance = new msal.PublicClientApplication(msalConfig);
-        const excelSync = new OneDriveExcelSync();
+        
+        // SECURITY WARNING: Hardcoding a password in client-side code is not secure.
+        // Anyone can view the page source to find this password.
+        // This is acceptable only for a local-only file not hosted on the internet.
         const ADMIN_PASSWORD = "8233";
 
         // Local Storage Keys
@@ -1027,7 +1009,6 @@
         const LOCAL_CUSTOMER_KEY = 'arhamPrintersCustomers';
         const LOCAL_INVOICE_KEY = 'arhamPrintersInvoices';
         const LOCAL_NEXT_INV_KEY = 'arhamNextInvoiceNumber';
-        const LOCAL_EXCEL_TRIGGER_KEY = 'arhamPrintersExcelSyncTrigger';
 
         let isOnline = false;
         let currentUser = null;
@@ -1189,7 +1170,7 @@
             }
         }
 
-        // Main sync function (replaces Excel sync)
+        // Main sync function
         async function syncAllData() {
             if (!isOnline || !currentUser) {
                 showNotification("Please sign in to OneDrive to sync data.", "warning");
@@ -1235,7 +1216,7 @@
             document.getElementById('syncStatus').className = 'sync-status sync-offline';
             document.getElementById('syncStatus').innerHTML = '<i class="fas fa-cloud"></i> Offline Mode - Data stored locally';
         }
- function loadAllData() {
+        function loadAllData() {
             try {
                 const savedCalc = localStorage.getItem(LOCAL_CALC_DATA_KEY);
                 const savedHistory = localStorage.getItem(LOCAL_HISTORY_KEY);
@@ -1804,21 +1785,8 @@
         }
 
         // =============================================
-        // INITIALIZATION AND SYNC CHECK
+        // INITIALIZATION
         // =============================================
-        function checkInvoiceSyncTrigger() {
-            const trigger = localStorage.getItem(LOCAL_EXCEL_TRIGGER_KEY);
-            if (trigger === 'true') {
-                if (isOnline && currentUser) {
-                    localStorage.removeItem(LOCAL_EXCEL_TRIGGER_KEY);
-                    console.log("Trigger detected: Starting Invoice/Customer Excel sync.");
-                    window.syncAllToExcel(true); 
-                } else {
-                    document.getElementById('syncStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Invoice Saved: Sign in to sync to Excel.';
-                }
-            }
-        }
-
         // Initialize MSAL and start the application
         msalInstance.initialize().then(() => {
             const accounts = msalInstance.getAllAccounts();
@@ -1846,9 +1814,8 @@
                     document.getElementById(`${tabId}-tab`).classList.add('active');
                 });
             });
-     
-            setInterval(checkInvoiceSyncTrigger, 5000); 
-
+    
+            // Global click listener to hide suggestion boxes
             document.addEventListener('click', function(e) {
                 if (!e.target.classList.contains('item-name') && !e.target.closest('.item-suggestions')) {
                     document.querySelectorAll('.item-suggestions').forEach(box => box.style.display = 'none');
@@ -1863,5 +1830,3 @@
 </body>
 
 </html>
-
-
