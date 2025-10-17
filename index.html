@@ -1000,268 +1000,6 @@
         }
 
         // =============================================
-        // ONEDRIVE EXCEL SYNC CLASS
-        // =============================================
-        class OneDriveExcelSync {
-            constructor() {
-                this.excelFileId = null;
-                this.excelFileName = 'Arham_Printers_Database.xlsx';
-                this.excelFilePath = `/ArhamPrinters/${this.excelFileName}`;
-                this.sheets = {
-                    ITEMS: 'Calculator_Items',
-                    INVOICES: 'Invoices',
-                    CUSTOMERS: 'Customers',
-                    SETTINGS: 'Settings',
-                    HISTORY: 'Calculation_History'
-                };
-            }
-
-            async ensureExcelFile() {
-                const MAX_RETRIES = 3;
-                const INITIAL_DELAY = 5000;
-                let fileInfo = null;
-
-                for (let i = 0; i < MAX_RETRIES; i++) {
-                    try {
-                        fileInfo = await this.getExcelFileInfo();
-                        if (fileInfo) {
-                            this.excelFileId = fileInfo.id;
-                            await this.initializeSheets();
-                            return true;
-                        }
-
-                        if (i === 0) {
-                            console.log('Excel file not found. Attempting creation...');
-                            const createSuccess = await this.createExcelFile();
-                            if (createSuccess) {
-                                fileInfo = await this.getExcelFileInfo();
-                                this.excelFileId = fileInfo.id;
-                            }
-                        }
-
-                        if (!this.excelFileId) {
-                            throw new Error('File ID still not available after creation attempt.');
-                        }
-                        
-                        await new Promise(resolve => setTimeout(resolve, INITIAL_DELAY * (i + 1)));
-                        await this.initializeSheets();
-                        
-                        return true;
-
-                    } catch (error) {
-                        console.warn(`Attempt ${i + 1} failed to ensure Excel file.`, error.message);
-                        if (i === MAX_RETRIES - 1) {
-                            console.error('Max retries reached. Failed to ensure Excel file.', error);
-                            return false;
-                        }
-                    }
-                }
-                return false;
-            }
-
-            async getExcelFileInfo() {
-                const accessToken = await getOneDriveAccessToken();
-                if (!accessToken) return null;
-
-                try {
-                    const response = await fetch(
-                        `https://graph.microsoft.com/v1.0/me/drive/root:${this.excelFilePath}`,
-                        { headers: { 'Authorization': `Bearer ${accessToken}` } }
-                    );
-                    return response.ok ? await response.json() : null;
-                } catch (error) {
-                    return null;
-                }
-            }
-
-            async createExcelFile() {
-                const accessToken = await getOneDriveAccessToken();
-                if (!accessToken) return false;
-
-                try {
-                    await this.ensureOneDriveFolder('/ArhamPrinters');
-                    const emptyXLSXBlob = new Uint8Array([0x50, 0x4b, 0x05, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]).buffer;
-
-                    const response = await fetch(
-                        `https://graph.microsoft.com/v1.0/me/drive/root:/ArhamPrinters/${this.excelFileName}:/content`,
-                        {
-                            method: 'PUT',
-                            headers: {
-                                'Authorization': `Bearer ${accessToken}`,
-                                'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-                            },
-                            body: emptyXLSXBlob
-                        }
-                    );
-                    if (response.ok || response.status === 201) {
-                        this.excelFileId = (await response.json()).id;
-                        return true;
-                    }
-                    return false;
-                } catch (error) {
-                    console.error('Error creating Excel file:', error);
-                    return false;
-                }
-            }
-
-            async ensureOneDriveFolder(folderPath) {
-                const accessToken = await getOneDriveAccessToken();
-                if (!accessToken) return;
-
-                try {
-                    const checkResponse = await fetch(`https://graph.microsoft.com/v1.0/me/drive/root:${folderPath}`, { headers: { 'Authorization': `Bearer ${accessToken}` } });
-                    if (checkResponse.ok) return;
-
-                    await fetch(`https://graph.microsoft.com/v1.0/me/drive/root/children`, {
-                        method: 'POST',
-                        headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            name: folderPath.substring(folderPath.lastIndexOf('/') + 1),
-                            folder: {},
-                            '@microsoft.graph.conflictBehavior': 'ignore'
-                        })
-                    });
-                } catch (error) {
-                    console.error(`Error ensuring folder ${folderPath}:`, error);
-                }
-            }
-
-            async initializeSheets() {
-                if (!this.excelFileId) return;
-                
-                const sheetPromises = [
-                    this.updateSheetHeaders(this.sheets.ITEMS, ['Main Category', 'Subcategory', 'Item Name', 'Price', 'Type', 'Design Charges', 'Last Updated']),
-                    this.updateSheetHeaders(this.sheets.INVOICES, ['Invoice Number', 'Date', 'Due Date', 'Customer Name', 'Customer Phone', 'Customer Address', 'Items Count', 'Subtotal', 'Tax', 'Total Amount', 'Previous Balance', 'Payment Received', 'Remaining Balance', 'Status', 'Created Date']),
-                    this.updateSheetHeaders(this.sheets.CUSTOMERS, ['Customer Name', 'Phone', 'Address', 'Total Invoices', 'Current Balance', 'Last Invoice Date', 'Created Date']),
-                    this.updateSheetHeaders(this.sheets.SETTINGS, ['Setting Name', 'Value', 'Last Updated']),
-                    this.updateSheetHeaders(this.sheets.HISTORY, ['Date', 'Main Category', 'Subcategory', 'Item Name', 'Quantity', 'Design Charges', 'Total Price', 'Calculated By'])
-                ];
-                await Promise.allSettled(sheetPromises);
-            }
-
-            async syncAllDataToExcel(calculatorData, invoices, customers, history) {
-                if (!await this.ensureExcelFile()) { 
-                    showNotification('Failed to connect to OneDrive Excel', 'error');
-                    return false; 
-                }
-
-                try {
-                    const itemSync = this.syncCalculatorItems(calculatorData.items);
-                    const invoiceSync = this.syncInvoices(invoices);
-                    const customerSync = this.syncCustomers(customers);
-                    const settingSync = this.syncSettings(calculatorData.settings);
-                    const historySync = this.syncHistory(history);
-
-                    await Promise.all([itemSync, invoiceSync, customerSync, settingSync, historySync]);
-                    showNotification('All data successfully synced to OneDrive Excel!', 'success');
-                    return true;
-                } catch (error) {
-                    console.error('Error syncing all data to Excel:', error);
-                    showNotification('Failed to sync data to OneDrive Excel', 'error');
-                    return false;
-                }
-            }
-
-            async syncCalculatorItems(items) {
-                const rows = items.map(item => [
-                    item.mainCategory || '', 
-                    item.subcategory || '', 
-                    item.itemName || '', 
-                    item.price || 0, 
-                    item.type || 'fixed', 
-                    item.designCharges || 0, 
-                    new Date().toISOString()
-                ]);
-                await this.updateSheetData(this.sheets.ITEMS, rows);
-            }
-
-            async syncInvoices(invoices) {
-                const rows = invoices.map(invoice => [invoice.invoiceNo || '', invoice.date || '', invoice.dueDate || '', invoice.customerName || 'N/A', invoice.customerPhone || '', invoice.customerAddress || '', invoice.items?.length || 0, invoice.subtotal || 0, invoice.taxAmount || 0, invoice.total || 0, invoice.previousBalance || 0, invoice.payment || 0, invoice.remainingBalance || 0, invoice.status || 'pending', invoice.created || new Date().toISOString()]);
-                await this.updateSheetData(this.sheets.INVOICES, rows);
-            }
-
-            async syncCustomers(customers) {
-                const rows = customers.map(customer => [customer.name || '', customer.phone || '', customer.address || '', customer.invoicesCount || 0, customer.balance || 0, customer.lastInvoiceDate || '', customer.created || new Date().toISOString()]);
-                await this.updateSheetData(this.sheets.CUSTOMERS, rows);
-            }
-
-            async syncSettings(settings) {
-                const rows = Object.entries(settings).map(([key, value]) => [key, value, new Date().toISOString()]);
-                await this.updateSheetData(this.sheets.SETTINGS, rows);
-            }
-
-            async syncHistory(history) {
-                const rows = history.map(record => [record.timestamp || new Date().toLocaleString(), record.mainCategory || '', record.subcategory || '', record.itemName || '', record.quantity || 1, record.designCharges || 0, record.total || 0, currentUser?.name || 'Admin']);
-                await this.updateSheetData(this.sheets.HISTORY, rows);
-            }
-
-            async updateSheetHeaders(sheetName, headers) {
-                const accessToken = await getOneDriveAccessToken();
-                if (!accessToken || !this.excelFileId) return;
-
-                const headerRange = `A1:${String.fromCharCode(64 + headers.length)}1`;
-                const endpoint = `https://graph.microsoft.com/v1.0/me/drive/items/${this.excelFileId}/workbook/worksheets('${sheetName}')/range(address='${headerRange}')`;
-
-                const response = await fetch(endpoint, {
-                    method: 'PATCH',
-                    headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ values: [headers] })
-                });
-
-                if (!response.ok) {
-                     await this.addWorksheet(sheetName);
-                     await fetch(endpoint, {
-                        method: 'PATCH',
-                        headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ values: [headers] })
-                    });
-                }
-            }
-            
-            async addWorksheet(sheetName) {
-                const accessToken = await getOneDriveAccessToken();
-                if (!accessToken || !this.excelFileId) return;
-
-                await fetch(`https://graph.microsoft.com/v1.0/me/drive/items/${this.excelFileId}/workbook/worksheets`, {
-                    method: 'POST',
-                    headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name: sheetName })
-                });
-            }
-
-            async updateSheetData(sheetName, rows) {
-                const accessToken = await getOneDriveAccessToken();
-                if (!accessToken || !this.excelFileId) return;
-
-                await this.clearSheetData(sheetName);
-
-                if (rows.length > 0) {
-                    const startCell = 'A2';
-                    const endCell = `${String.fromCharCode(64 + rows[0].length)}${rows.length + 1}`;
-                    const dataRange = `${startCell}:${endCell}`;
-                    const endpoint = `https://graph.microsoft.com/v1.0/me/drive/items/${this.excelFileId}/workbook/worksheets('${sheetName}')/range(address='${dataRange}')`;
-
-                    await fetch(endpoint, {
-                        method: 'PATCH',
-                        headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ values: rows })
-                    });
-                }
-            }
-
-            async clearSheetData(sheetName) {
-                const accessToken = await getOneDriveAccessToken();
-                if (!accessToken || !this.excelFileId) return;
-
-                await fetch(`https://graph.microsoft.com/v1.0/me/drive/items/${this.excelFileId}/workbook/worksheets('${sheetName}')/range(address='A2:Z5000')/clear`, {
-                    method: 'POST',
-                    headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ applyTo: 'contents' })
-                });
-            }
-        }
-
-        // =============================================
         // AZURE CONFIGURATION & GLOBAL DATA/FUNCTIONS
         // =============================================
         const AZURE_CLIENT_ID = "26b3dde9-366f-487b-a485-79d1bf1ab857";
@@ -1280,7 +1018,7 @@
 
         const msalInstance = new msal.PublicClientApplication(msalConfig);
         const excelSync = new OneDriveExcelSync();
-        const ADMIN_PASSWORD = "admin123";
+        const ADMIN_PASSWORD = "8233";
 
         // Local Storage Keys
         const LOCAL_CALC_DATA_KEY = 'arhamPrintersData';
@@ -1360,7 +1098,7 @@
             }
         }
 
-        // --- Core Sync Functions ---
+       // --- CORE JSON SYNC FUNCTIONS ---
         async function syncToCloud() {
             if (!isOnline || !currentUser) { 
                 showNotification("Please sign in to sync with OneDrive", "warning");
@@ -1376,6 +1114,8 @@
                 const allData = {
                     calculatorData: data,
                     history: calculationHistory,
+                    customers: customers,
+                    invoices: invoices,
                     lastSync: new Date().toISOString()
                 };
 
@@ -1383,18 +1123,23 @@
                     `https://graph.microsoft.com/v1.0/me/drive/root:/ArhamPrinters/data.json:/content`,
                     {
                         method: 'PUT',
-                        headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+                        headers: { 
+                            'Authorization': `Bearer ${accessToken}`, 
+                            'Content-Type': 'application/json' 
+                        },
                         body: JSON.stringify(allData)
                     }
                 );
+                
                 if (response.ok) { 
-                    showNotification('Data successfully synced to OneDrive JSON!', 'success');
+                    showNotification('Data successfully synced to OneDrive!', 'success');
                     return true; 
-                } 
-                else { throw new Error('Failed to upload JSON to OneDrive'); }
+                } else {
+                    throw new Error('Failed to upload JSON to OneDrive');
+                }
             } catch (error) {
                 console.error("JSON Sync failed:", error);
-                showNotification('Failed to sync JSON data to OneDrive: ' + error.message, 'error');
+                showNotification('Failed to sync data to OneDrive: ' + error.message, 'error');
                 return false;
             }
         }
@@ -1419,16 +1164,20 @@
                 if (response.ok) {
                     const cloudData = await response.json();
                     
-                    if (confirm('Do you want to replace your local calculator and history data with cloud data?')) {
+                    if (confirm('Do you want to replace your local data with cloud data?')) {
                         data = cloudData.calculatorData || data;
                         calculationHistory = cloudData.history || calculationHistory;
+                        customers = cloudData.customers || customers;
+                        invoices = cloudData.invoices || invoices;
                         
                         localStorage.setItem(LOCAL_CALC_DATA_KEY, JSON.stringify(data));
                         localStorage.setItem(LOCAL_HISTORY_KEY, JSON.stringify(calculationHistory));
+                        localStorage.setItem(LOCAL_CUSTOMER_KEY, JSON.stringify(customers));
+                        localStorage.setItem(LOCAL_INVOICE_KEY, JSON.stringify(invoices));
                         
                         refreshAllDisplays();
                         refreshDataTables();
-                        showNotification('Calculator Data successfully synced from OneDrive (JSON)!', 'success');
+                        showNotification('Data successfully synced from OneDrive!', 'success');
                     }
                 } else {
                     throw new Error('Failed to download JSON from OneDrive');
@@ -1439,25 +1188,24 @@
             }
         }
 
-        window.syncAllToExcel = async function(isAutomatic = false) {
-             if (!isOnline || !currentUser) {
-                 if (!isAutomatic) showNotification("Please sign in to OneDrive to sync data.", "warning");
-                 return false;
-             }
-             
-             document.getElementById('syncStatus').innerHTML = '<i class="fas fa-sync fa-spin"></i> Syncing to Excel...';
-             
-             loadAllInvoiceData();
-             
-             const success = await excelSync.syncAllDataToExcel(data, invoices, customers, calculationHistory);
-             
-             if (success) {
-                 document.getElementById('syncStatus').innerHTML = '<i class="fas fa-check-circle"></i> Online - Connected to OneDrive (Excel Synced)';
-             } else {
-                 document.getElementById('syncStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Excel Sync Failed';
-             }
-             
-             return success;
+        // Main sync function (replaces Excel sync)
+        async function syncAllData() {
+            if (!isOnline || !currentUser) {
+                showNotification("Please sign in to OneDrive to sync data.", "warning");
+                return false;
+            }
+            
+            document.getElementById('syncStatus').innerHTML = '<i class="fas fa-sync fa-spin"></i> Syncing to OneDrive...';
+            
+            const success = await syncToCloud();
+            
+            if (success) {
+                document.getElementById('syncStatus').innerHTML = '<i class="fas fa-check-circle"></i> Online - Data synced to OneDrive';
+            } else {
+                document.getElementById('syncStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Sync Failed';
+            }
+            
+            return success;
         }
 
         // --- Authentication/UI Functions ---
@@ -1469,12 +1217,12 @@
             document.getElementById('userInfo').style.display = 'block';
             document.getElementById('userName').textContent = currentUser.name;
             document.getElementById('syncStatus').className = 'sync-status sync-online';
-            document.getElementById('syncStatus').innerHTML = '<i class="fas fa-sync fa-spin"></i> Initializing Cloud and Excel...';
-            
-            await excelSync.ensureExcelFile(); 
             document.getElementById('syncStatus').innerHTML = '<i class="fas fa-check-circle"></i> Online - Connected to OneDrive';
 
-            saveAllData(); 
+            // Auto-sync after login
+            setTimeout(() => {
+                syncAllData();
+            }, 1000);
         }
 
         function updateUIAfterLogout() {
@@ -1486,9 +1234,7 @@
             document.getElementById('syncStatus').className = 'sync-status sync-offline';
             document.getElementById('syncStatus').innerHTML = '<i class="fas fa-cloud"></i> Offline Mode - Data stored locally';
         }
-
-        // --- Main Data Management ---
-        function loadAllData() {
+ function loadAllData() {
             try {
                 const savedCalc = localStorage.getItem(LOCAL_CALC_DATA_KEY);
                 const savedHistory = localStorage.getItem(LOCAL_HISTORY_KEY);
@@ -1518,14 +1264,36 @@
             localStorage.setItem(LOCAL_INVOICE_KEY, JSON.stringify(invoices));
             localStorage.setItem(LOCAL_NEXT_INV_KEY, nextInvoiceNumber.toString());
 
+            // Auto-sync to cloud when online
             if (isOnline && currentUser) {
-                setTimeout(async () => {
-                    await syncToCloud();
-                    await window.syncAllToExcel(true);
+                setTimeout(() => {
+                    syncAllData();
                 }, 1000);
             }
         }
-        
+
+        // --- Export for Customer Calculator ---
+        function exportCustomerDataForGitHub() {
+            const customerData = {
+                categories: data.categories,
+                items: data.items,
+                settings: data.settings,
+                lastUpdated: new Date().toISOString()
+            };
+            
+            const blob = new Blob([JSON.stringify(customerData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'customer-data.json';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            showNotification('Price data exported! Upload this file to GitHub for customer calculator.', 'success');
+        }
+
         // --- ADMIN LOGIN ---
         function toggleAdmin() {
             const panel = document.getElementById('adminPanel');
@@ -2023,44 +1791,6 @@
             saveAllData();
             showNotification('Settings saved successfully!', 'success');
         }
-
-        // --- Import/Export ---
-        function exportCustomerDataForGitHub() {
-            const customerData = {
-        categories: data.categories,
-        items: data.items,
-        settings: data.settings,
-        lastUpdated: new Date().toISOString()};
-            const blob = new Blob([JSON.stringify(customerData, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'customer-data.json';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-            showNotification('Price data exported! Upload this file to your public hosting service (like GitHub) to sync with external/customer calculators.', 'success');
-        }
-
-        function exportAllData() {
-            let csvContent = 'data:text/csv;charset=utf-8,';
-            
-            csvContent += 'ITEMS DATA\r\nMain Category,Subcategory,Item Name,Price,Type,Design Charges\r\n';
-            data.items.forEach(item => {
-                csvContent += `"${item.mainCategory}","${item.subcategory}","${item.itemName}",${item.price},${item.type},${item.designCharges}\r\n`;
-            });
-            
-            const encodedUri = encodeURI(csvContent);
-            const link = document.createElement('a');
-            link.setAttribute('href', encodedUri);
-            link.setAttribute('download', 'arham_printers_all_data.csv');
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            showNotification('Data exported successfully!', 'success');
-        }
-
         function resetToDefault() {
             if (confirm('WARNING: This will reset all calculator data (items, settings) to default values. Are you sure?')) {
                 data = JSON.parse(JSON.stringify(defaultData));
@@ -2101,17 +1831,7 @@
             refreshAllDisplays();
             document.getElementById('invoiceDate').value = new Date().toISOString().split('T')[0];
             
-            setInterval(checkInvoiceSyncTrigger, 5000); 
-
-            document.addEventListener('click', function(e) {
-                if (!e.target.classList.contains('item-name') && !e.target.closest('.item-suggestions')) {
-                    document.querySelectorAll('.item-suggestions').forEach(box => box.style.display = 'none');
-                }
-                if (!e.target.id === 'invoiceCustomerName' && !e.target.closest('.customer-suggestions')) {
-                    document.getElementById('customerSuggestions').style.display = 'none';
-                }
-            });
-            
+            // Tab switching functionality
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.addEventListener('click', function() {
                     const tabId = this.getAttribute('data-tab');
@@ -2125,8 +1845,21 @@
                     document.getElementById(`${tabId}-tab`).classList.add('active');
                 });
             });
+     
+            setInterval(checkInvoiceSyncTrigger, 5000); 
+
+            document.addEventListener('click', function(e) {
+                if (!e.target.classList.contains('item-name') && !e.target.closest('.item-suggestions')) {
+                    document.querySelectorAll('.item-suggestions').forEach(box => box.style.display = 'none');
+                }
+                if (!e.target.id === 'invoiceCustomerName' && !e.target.closest('.customer-suggestions')) {
+                    document.getElementById('customerSuggestions').style.display = 'none';
+                }
+            });
+            
         });
     </script>
 </body>
 
 </html>
+
