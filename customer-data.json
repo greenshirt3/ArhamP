@@ -1,0 +1,117 @@
+{
+  "categories": [
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "LetterPads"
+    },
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "Ishtihars"
+    },
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "Envelops"
+    },
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "Visiting Cards"
+    },
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "Stickers"
+    },
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "Bill Books"
+    },
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "PhotoPapers"
+    },
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "wedding cards"
+    },
+    {
+      "mainCategory": "Panaflex",
+      "subcategory": "China"
+    },
+    {
+      "mainCategory": "Panaflex",
+      "subcategory": "Star"
+    },
+    {
+      "mainCategory": "Panaflex",
+      "subcategory": "Venyl"
+    },
+    {
+      "mainCategory": "Panaflex",
+      "subcategory": "One Vision"
+    },
+    {
+      "mainCategory": "Panaflex",
+      "subcategory": "Backlit"
+    },
+    {
+      "mainCategory": "Others",
+      "subcategory": "Miscellaneous"
+    },
+    {
+      "mainCategory": "Social Media Posts",
+      "subcategory": "Design Only"
+    }
+  ],
+  "items": [
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "LetterPads",
+      "itemName": "LetterPads",
+      "price": 0,
+      "type": "offset",
+      "designCharges": 0,
+      "bindingCost": 40
+    },
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "Ishtihars",
+      "itemName": "Paper Ishtihars",
+      "price": 0,
+      "type": "offset",
+      "designCharges": 0,
+      "bindingCost": 0
+    },
+    {
+      "mainCategory": "Offset Paper Printing",
+      "subcategory": "Visiting Cards",
+      "itemName": "Shine",
+      "price": 1800,
+      "type": "fixed",
+      "designCharges": 0,
+      "bindingCost": 0
+    },
+    {
+      "mainCategory": "Panaflex",
+      "subcategory": "China",
+      "itemName": "2x2",
+      "price": 140,
+      "type": "fixed",
+      "designCharges": 0,
+      "bindingCost": 0
+    },
+    {
+      "mainCategory": "Social Media Posts",
+      "subcategory": "Design Only",
+      "itemName": "Facebook Post",
+      "price": 300,
+      "type": "fixed",
+      "designCharges": 0,
+      "bindingCost": 0
+    }
+  ],
+  "settings": {
+    "rent": 200,
+    "profitMargin": 25,
+    "defaultBinding": 40
+  },
+  "lastUpdated": "2025-10-18T06:55:46.476Z"
+}
