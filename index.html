@@ -145,12 +145,25 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         }
         
+        /* Updated Grid for 3 Panels */
         .content-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr; 
             gap: 30px;
         }
 
+        /* Adjustments for smaller screens */
+        @media (max-width: 1400px) {
+            .content-grid {
+                grid-template-columns: 1fr 1fr; /* Switch to 2 columns on medium screens */
+            }
+        }
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr; /* Switch to 1 column on small screens */
+            }
+        }
+        
         .section-panel {
             padding: 25px;
             background: var(--light);
@@ -819,6 +832,57 @@
                     </button>
                 </div>
             </div>
+            
+            <div class="section-panel expense-panel">
+                <h2 class="section-title"><i class="fas fa-money-check-alt"></i> Expense Tracker</h2>
+                
+                <div class="form-group">
+                    <label for="expenseDate"><i class="fas fa-calendar-alt"></i> Date:</label>
+                    <input type="date" id="expenseDate">
+                </div>
+                
+                <div class="form-group">
+                    <label for="expenseCategory"><i class="fas fa-tags"></i> Category:</label>
+                    <select id="expenseCategory">
+                        <option value="">Select Category</option>
+                        <option value="Business: Materials">Business: Materials/Supplies</option>
+                        <option value="Business: Rent">Business: Rent/Utilities</option>
+                        <option value="Business: Salaries">Business: Salaries</option>
+                        <option value="Business: Other">Business: Other</option>
+                        <option value="Personal: Groceries">Personal: Groceries</option>
+                        <option value="Personal: Transport">Personal: Transport</option>
+                        <option value="Personal: Bills">Personal: Bills/Utilities (Home)</option>
+                        <option value="Personal: Other">Personal: Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="expenseAmount"><i class="fas fa-rupee-sign"></i> Amount (Rs.):</label>
+                    <input type="number" id="expenseAmount" value="0" min="0" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="expenseDescription"><i class="fas fa-comment"></i> Description:</label>
+                    <textarea id="expenseDescription" placeholder="e.g., A4 paper ream purchase, electricity bill" list="expenseDescriptionList"></textarea>
+                    <datalist id="expenseDescriptionList"></datalist>
+                </div>
+                
+                <div class="actions">
+                    <button class="btn btn-success" onclick="saveExpense()">
+                        <i class="fas fa-save"></i> Save & Sync Expense
+                    </button>
+                    <button class="btn btn-danger" onclick="clearExpenseForm()">
+                        <i class="fas fa-trash-alt"></i> Clear Form
+                    </button>
+                </div>
+                
+                <div class="totals-section">
+                    <h3 class="section-title"><i class="fas fa-chart-line"></i> Budget Snapshot</h3>
+                    <div id="budgetDisplay">
+                        <p>No budget set. Go to Admin > Settings.</p>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <div class="login-section">
@@ -840,6 +904,7 @@
             <div class="tabs">
                 <div class="tab active" data-tab="data-management">Data Management</div>
                 <div class="tab" data-tab="invoice-list">Invoice List</div>
+                <div class="tab" data-tab="expenses-list">Expense List</div>
                 <div class="tab" data-tab="history">Calculation History</div>
                 <div class="tab" data-tab="settings">Settings</div>
                 <div class="tab" data-tab="import-export">Import/Export</div>
@@ -849,9 +914,21 @@
                 <div class="data-form admin-section">
                     <h3>Add New Item</h3>
                     <div class="form-row">
-                        <div class="form-field"><label for="newMainCategory">Main Category:</label><input type="text" id="newMainCategory" placeholder="Enter main category"></div>
-                        <div class="form-field"><label for="newSubCategory">Subcategory:</label><input type="text" id="newSubCategory" placeholder="Enter subcategory"></div>
-                        <div class="form-field"><label for="newItemName">Item Name:</label><input type="text" id="newItemName" placeholder="Enter item name"></div>
+                        <div class="form-field">
+                            <label for="newMainCategory">Main Category:</label>
+                            <input type="text" id="newMainCategory" placeholder="Enter main category" list="newMainCategoryList">
+                            <datalist id="newMainCategoryList"></datalist>
+                        </div>
+                        <div class="form-field">
+                            <label for="newSubCategory">Subcategory:</label>
+                            <input type="text" id="newSubCategory" placeholder="Enter subcategory" list="newSubCategoryList">
+                            <datalist id="newSubCategoryList"></datalist>
+                        </div>
+                        <div class="form-field">
+                            <label for="newItemName">Item Name:</label>
+                            <input type="text" id="newItemName" placeholder="Enter item name" list="newItemNameList">
+                            <datalist id="newItemNameList"></datalist>
+                        </div>
                     </div>
                     <div class="form-row">
                         <div class="form-field"><label for="newItemPrice">Price (Rs.):</label><input type="number" id="newItemPrice" min="0" value="0"></div>
@@ -867,7 +944,7 @@
                     <table class="data-table" id="itemsTable"></table>
                 </div>
             </div>
-
+            
             <div class="tab-content" id="invoice-list-tab">
                 <h3>Saved Invoices</h3>
                 <div id="invoiceList">
@@ -880,6 +957,21 @@
                 </div>
             </div>
             
+            <div class="tab-content" id="expenses-list-tab">
+                <h3>Expense Records</h3>
+                <div id="expenseList">
+                    <p>Load the Expense List to view purchase records.</p>
+                </div>
+                <div class="actions">
+                    <button class="btn btn-secondary" onclick="loadExpenseList()">
+                        <i class="fas fa-list"></i> Load Expenses
+                    </button>
+                    <button class="btn btn-danger" onclick="clearAllExpenses()">
+                        <i class="fas fa-trash"></i> Clear All Expenses
+                    </button>
+                </div>
+            </div>
+
             <div class="tab-content" id="history-tab">
                 <h3>Calculation History</h3>
                 <div class="actions">
@@ -893,7 +985,7 @@
             <div class="tab-content" id="settings-tab">
                 <h3>Application Settings</h3>
                 <div class="admin-section">
-                    <h4>Global Settings</h4>
+                    <h4>Price Settings</h4>
                     <div class="form-group">
                         <label>Rent Cost (Rs.)</label>
                         <input type="number" id="rentCost" value="200">
@@ -901,6 +993,18 @@
                     <div class="form-group">
                         <label>Profit Margin (%)</label>
                         <input type="number" id="profitMargin" value="25">
+                    </div>
+                </div>
+                
+                <div class="admin-section">
+                    <h4>Monthly Budget (Rs.)</h4>
+                    <div class="form-group">
+                        <label>Business Budget:</label>
+                        <input type="number" id="budgetBusiness" min="0" value="50000">
+                    </div>
+                    <div class="form-group">
+                        <label>Personal Budget:</label>
+                        <input type="number" id="budgetPersonal" min="0" value="30000">
                     </div>
                 </div>
                 
@@ -992,7 +1096,8 @@
                     INVOICES: 'Invoices',
                     CUSTOMERS: 'Customers',
                     SETTINGS: 'Settings',
-                    HISTORY: 'Calculation_History'
+                    HISTORY: 'Calculation_History',
+                    EXPENSES: 'Expenses' 
                 };
             }
 
@@ -1114,12 +1219,13 @@
                     this.updateSheetHeaders(this.sheets.INVOICES, ['Invoice Number', 'Date', 'Due Date', 'Customer Name', 'Customer Phone', 'Customer Address', 'Items Count', 'Subtotal', 'Tax', 'Total Amount', 'Previous Balance', 'Payment Received', 'Remaining Balance', 'Status', 'Created Date']),
                     this.updateSheetHeaders(this.sheets.CUSTOMERS, ['Customer Name', 'Phone', 'Address', 'Total Invoices', 'Current Balance', 'Last Invoice Date', 'Created Date']),
                     this.updateSheetHeaders(this.sheets.SETTINGS, ['Setting Name', 'Value', 'Last Updated']),
-                    this.updateSheetHeaders(this.sheets.HISTORY, ['Date', 'Main Category', 'Subcategory', 'Item Name', 'Quantity', 'Design Charges', 'Total Price', 'Calculated By'])
+                    this.updateSheetHeaders(this.sheets.HISTORY, ['Date', 'Main Category', 'Subcategory', 'Item Name', 'Quantity', 'Design Charges', 'Total Price', 'Calculated By']),
+                    this.updateSheetHeaders(this.sheets.EXPENSES, ['Date', 'Type', 'Category', 'Amount', 'Description', 'Month/Year', 'Recorded By'])
                 ];
                 await Promise.allSettled(sheetPromises);
             }
 
-            async syncAllDataToExcel(calculatorData, invoices, customers, history) {
+            async syncAllDataToExcel(calculatorData, invoices, customers, history, expenses) {
                 if (!await this.ensureExcelFile()) { 
                     showNotification('Failed to connect to OneDrive Excel', 'error');
                     return false; 
@@ -1131,8 +1237,9 @@
                     const customerSync = this.syncCustomers(customers);
                     const settingSync = this.syncSettings(calculatorData.settings);
                     const historySync = this.syncHistory(history);
+                    const expenseSync = this.syncExpenses(expenses);
 
-                    await Promise.all([itemSync, invoiceSync, customerSync, settingSync, historySync]);
+                    await Promise.all([itemSync, invoiceSync, customerSync, settingSync, historySync, expenseSync]);
                     showNotification('All data successfully synced to OneDrive Excel!', 'success');
                     return true;
                 } catch (error) {
@@ -1174,23 +1281,39 @@
                 const rows = history.map(record => [record.timestamp || new Date().toLocaleString(), record.mainCategory || '', record.subcategory || '', record.itemName || '', record.quantity || 1, record.designCharges || 0, record.total || 0, currentUser?.name || 'Admin']);
                 await this.updateSheetData(this.sheets.HISTORY, rows);
             }
-            // Add this method inside the OneDriveExcelSync class (after syncHistory, for example)
+            
+            // NEW METHOD: Sync Expenses
+            async syncExpenses(expenses) {
+                const rows = expenses.map(e => {
+                    const [type, category] = e.category.split(': ');
+                    const date = new Date(e.date);
+                    const monthYear = `${date.toLocaleString('en-US', { month: 'short' })}-${date.getFullYear()}`;
+                    return [
+                        e.date || '',
+                        type || '',
+                        category || e.category,
+                        e.amount || 0,
+                        e.description || '',
+                        monthYear,
+                        currentUser?.name || 'Admin'
+                    ];
+                });
+                await this.updateSheetData(this.sheets.EXPENSES, rows);
+            }
 
             async uploadPublicJson(publicData) {
                 const accessToken = await getOneDriveAccessToken();
                 if (!accessToken) return false;
 
                 try {
-                    // 1. Ensure the ArhamPrinters folder exists
                     await this.ensureOneDriveFolder('/ArhamPrinters');
 
-                    // 2. Upload the public data to a different file path
                     const response = await fetch(
                         `https://graph.microsoft.com/v1.0/me/drive/root:/ArhamPrinters/customer-data.json:/content`,
                         {
                             method: 'PUT',
                             headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
-                            body: JSON.stringify(publicData, null, 2) // Pretty print for readability
+                            body: JSON.stringify(publicData, null, 2)
                         }
                     );
                     return response.ok;
@@ -1214,8 +1337,8 @@
                 });
 
                 if (!response.ok) {
-                     await this.addWorksheet(sheetName);
-                     await fetch(endpoint, {
+                    await this.addWorksheet(sheetName);
+                    await fetch(endpoint, {
                         method: 'PATCH',
                         headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
                         body: JSON.stringify({ values: [headers] })
@@ -1270,15 +1393,13 @@
         // AZURE CONFIGURATION & GLOBAL DATA/FUNCTIONS
         // =============================================
         // 🚨 CRITICAL: REPLACE THE PLACEHOLDER BELOW WITH YOUR LIVE DOMAIN URL 
-        // e.g., "https://arham-admin.netlify.app/index.html"
-       const LIVE_DOMAIN_URL = "https://arhamprinter.netlify.app/index.html";
+        const LIVE_DOMAIN_URL = "https://arhamprinter.netlify.app/index.html";
         
         const AZURE_CLIENT_ID = "26b3dde9-366f-487b-a485-79d1bf1ab857";
         const msalConfig = {
             auth: {
                 clientId: AZURE_CLIENT_ID,
                 authority: "https://login.microsoftonline.com/common",
-                // Use the live domain for MSAL Redirect URI
                 redirectUri: LIVE_DOMAIN_URL,
                 knownAuthorities: ["https://login.microsoftonline.com/common/"]
             },
@@ -1298,7 +1419,11 @@
         const LOCAL_CUSTOMER_KEY = 'arhamPrintersCustomers';
         const LOCAL_INVOICE_KEY = 'arhamPrintersInvoices';
         const LOCAL_NEXT_INV_KEY = 'arhamNextInvoiceNumber';
+        const LOCAL_EXPENSES_KEY = 'arhamPrintersExpenses'; 
+        const LOCAL_BUDGET_KEY = 'arhamPrintersBudget'; 
         const LOCAL_EXCEL_TRIGGER_KEY = 'arhamPrintersExcelSyncTrigger';
+        // New Keys for Datalists
+        const LOCAL_DATALISTS_KEY = 'arhamPrintersDatalists';
 
         let isOnline = false;
         let currentUser = null;
@@ -1308,8 +1433,11 @@
         let calculationHistory = [];
         let customers = [];
         let invoices = [];
+        let expenses = []; 
+        let budget = {}; 
         let nextInvoiceNumber = 1001;
         let currentCustomer = null;
+        let datalists = {}; // New object for previous input entries
 
         const defaultData = {
             categories: [
@@ -1326,8 +1454,20 @@
             settings: {
                 rent: 200,
                 profitMargin: 25
+            },
+            budget: { 
+                business: 50000,
+                personal: 30000
             }
         };
+        
+        const defaultDatalists = {
+            newMainCategoryList: ["Offset Paper Printing", "Digital Printing", "Sign Boards", "Social Media"],
+            newSubCategoryList: ["Visiting Cards", "Letterheads", "Flyers", "China", "Korean", "Design Only"],
+            newItemNameList: ["Mat Double Side", "Gloss Single Side", "A4 Size", "3x6 Panaflex", "Facebook Ad", "Business Card Design"],
+            expenseDescriptionList: ["A4 paper ream purchase", "Electricity bill (shop)", "Staff salary - Jan", "Diesel for generator"]
+        };
+
 
         // --- Auth Token Functions ---
         async function getOneDriveAccessToken() {
@@ -1386,8 +1526,15 @@
                 const allData = {
                     calculatorData: data,
                     history: calculationHistory,
+                    invoices: invoices,
+                    customers: customers,
+                    expenses: expenses, 
+                    budget: budget, 
+                    datalists: datalists, // Include datalists in cloud sync
                     lastSync: new Date().toISOString()
                 };
+
+                await excelSync.ensureOneDriveFolder('/ArhamPrinters'); 
 
                 const response = await fetch(
                     `https://graph.microsoft.com/v1.0/me/drive/root:/ArhamPrinters/data.json:/content`,
@@ -1429,16 +1576,28 @@
                 if (response.ok) {
                     const cloudData = await response.json();
                     
-                    if (confirm('Do you want to replace your local calculator and history data with cloud data?')) {
+                    if (confirm('Do you want to replace your local data with cloud data? This will overwrite local Invoices, Expenses, and Settings.')) {
                         data = cloudData.calculatorData || data;
                         calculationHistory = cloudData.history || calculationHistory;
-                        
+                        invoices = cloudData.invoices || invoices; 
+                        customers = cloudData.customers || customers; 
+                        expenses = cloudData.expenses || expenses; 
+                        budget = cloudData.budget || budget; 
+                        datalists = cloudData.datalists || datalists; // Load datalists
+
+                        // Save all data back to local storage
                         localStorage.setItem(LOCAL_CALC_DATA_KEY, JSON.stringify(data));
                         localStorage.setItem(LOCAL_HISTORY_KEY, JSON.stringify(calculationHistory));
-                        
+                        localStorage.setItem(LOCAL_INVOICE_KEY, JSON.stringify(invoices));
+                        localStorage.setItem(LOCAL_CUSTOMER_KEY, JSON.stringify(customers));
+                        localStorage.setItem(LOCAL_EXPENSES_KEY, JSON.stringify(expenses));
+                        localStorage.setItem(LOCAL_BUDGET_KEY, JSON.stringify(budget));
+                        localStorage.setItem(LOCAL_DATALISTS_KEY, JSON.stringify(datalists)); // Save datalists
+
                         refreshAllDisplays();
                         refreshDataTables();
-                        showNotification('Calculator Data successfully synced from OneDrive (JSON)!', 'success');
+                        loadBudgetSnapshot(); 
+                        showNotification('All data successfully synced from OneDrive (JSON)!', 'success');
                     }
                 } else {
                     throw new Error('Failed to download JSON from OneDrive');
@@ -1459,7 +1618,8 @@
              
              loadAllInvoiceData();
              
-             const success = await excelSync.syncAllDataToExcel(data, invoices, customers, calculationHistory);
+             // Pass expenses array to the sync function
+             const success = await excelSync.syncAllDataToExcel(data, invoices, customers, calculationHistory, expenses); 
              
              if (success) {
                  document.getElementById('syncStatus').innerHTML = '<i class="fas fa-check-circle"></i> Online - Connected to OneDrive (Excel Synced)';
@@ -1502,17 +1662,28 @@
             try {
                 const savedCalc = localStorage.getItem(LOCAL_CALC_DATA_KEY);
                 const savedHistory = localStorage.getItem(LOCAL_HISTORY_KEY);
+                const savedExpenses = localStorage.getItem(LOCAL_EXPENSES_KEY); 
+                const savedBudget = localStorage.getItem(LOCAL_BUDGET_KEY); 
+                const savedDatalists = localStorage.getItem(LOCAL_DATALISTS_KEY);
                 
                 data = savedCalc ? JSON.parse(savedCalc) : JSON.parse(JSON.stringify(defaultData));
                 calculationHistory = savedHistory ? JSON.parse(savedHistory) : [];
+                expenses = savedExpenses ? JSON.parse(savedExpenses) : []; 
+                budget = savedBudget ? JSON.parse(savedBudget) : defaultData.budget; 
+                datalists = savedDatalists ? JSON.parse(savedDatalists) : defaultDatalists;
 
                 loadAllInvoiceData();
                 loadNextInvoiceNumber();
+                loadBudgetSnapshot(); 
+                populateDatalists();
 
             } catch (e) {
                 console.error("Error loading local data:", e);
                 data = JSON.parse(JSON.stringify(defaultData));
                 calculationHistory = [];
+                expenses = [];
+                budget = defaultData.budget;
+                datalists = defaultDatalists;
             }
         }
 
@@ -1522,11 +1693,16 @@
         }
 
         function saveAllData() {
+            // New logic to update datalists from current data
+            updateDatalistValues();
+            
             localStorage.setItem(LOCAL_CALC_DATA_KEY, JSON.stringify(data));
             localStorage.setItem(LOCAL_HISTORY_KEY, JSON.stringify(calculationHistory));
             localStorage.setItem(LOCAL_CUSTOMER_KEY, JSON.stringify(customers));
             localStorage.setItem(LOCAL_INVOICE_KEY, JSON.stringify(invoices));
-            localStorage.setItem(LOCAL_NEXT_INV_KEY, nextInvoiceNumber.toString());
+            localStorage.setItem(LOCAL_EXPENSES_KEY, JSON.stringify(expenses)); 
+            localStorage.setItem(LOCAL_BUDGET_KEY, JSON.stringify(budget)); 
+            localStorage.setItem(LOCAL_DATALISTS_KEY, JSON.stringify(datalists));
 
             if (isOnline && currentUser) {
                 setTimeout(async () => {
@@ -1536,6 +1712,47 @@
             }
         }
         
+        // --- DATALIST MANAGEMENT FUNCTIONS ---
+        function populateDatalists() {
+            for (const listId in datalists) {
+                const datalist = document.getElementById(listId);
+                if (datalist) {
+                    datalist.innerHTML = '';
+                    datalists[listId].forEach(value => {
+                        datalist.innerHTML += `<option value="${value}">`;
+                    });
+                }
+            }
+        }
+
+        function updateDatalist(listName, newValue) {
+            if (newValue && newValue.trim() !== '') {
+                const normalizedValue = newValue.trim();
+                let list = datalists[listName] || [];
+                if (!list.includes(normalizedValue)) {
+                    list.unshift(normalizedValue);
+                    if (list.length > 20) { // Keep list size manageable
+                        list = list.slice(0, 20);
+                    }
+                    datalists[listName] = list;
+                    populateDatalists(); // Re-render the datalists
+                }
+            }
+        }
+        
+        function updateDatalistValues() {
+            // Update datalists from form fields (Admin Panel data)
+            const newMainCategory = document.getElementById('newMainCategory').value.trim();
+            const newSubCategory = document.getElementById('newSubCategory').value.trim();
+            const newItemName = document.getElementById('newItemName').value.trim();
+            const expenseDescription = document.getElementById('expenseDescription').value.trim();
+            
+            updateDatalist('newMainCategoryList', newMainCategory);
+            updateDatalist('newSubCategoryList', newSubCategory);
+            updateDatalist('newItemNameList', newItemName);
+            updateDatalist('expenseDescriptionList', expenseDescription);
+        }
+
         // --- ADMIN LOGIN ---
         function toggleAdmin() {
             const panel = document.getElementById('adminPanel');
@@ -1549,6 +1766,8 @@
                 refreshDataTables();
                 updateHistoryDisplay();
                 loadSettings();
+                loadBudgetSnapshot();
+                populateDatalists(); // Ensure datalists are populated when admin panel opens
                 showNotification('Admin panel unlocked', 'success');
             } else {
                 showNotification('Incorrect admin password', 'error');
@@ -1556,7 +1775,7 @@
         }
         
         // =============================================
-        // CALCULATOR LOGIC
+        // CALCULATOR LOGIC (unchanged)
         // =============================================
         function refreshAllDisplays() {
             updateMainCategories();
@@ -1677,6 +1896,148 @@
                 updateHistoryDisplay();
                 showNotification('Calculation history cleared', 'success');
             }
+        }
+        
+        // =============================================
+        // EXPENSE TRACKER LOGIC (NEW)
+        // =============================================
+
+        // Sets the default date on load
+        document.getElementById('expenseDate').value = new Date().toISOString().split('T')[0];
+
+        function saveExpense() {
+            const date = document.getElementById('expenseDate').value;
+            const category = document.getElementById('expenseCategory').value;
+            const amount = parseFloat(document.getElementById('expenseAmount').value);
+            const description = document.getElementById('expenseDescription').value.trim();
+
+            if (!date || !category || amount <= 0 || !description) {
+                showNotification('Please fill all fields with valid data.', 'warning');
+                return;
+            }
+
+            const expenseType = category.split(':')[0].trim(); // Business or Personal
+
+            const newExpense = {
+                id: Date.now().toString(),
+                date: date,
+                category: category,
+                amount: amount,
+                description: description,
+                type: expenseType
+            };
+
+            expenses.unshift(newExpense);
+            updateDatalist('expenseDescriptionList', description); // Save description to datalist
+            saveAllData();
+            clearExpenseForm();
+            loadBudgetSnapshot();
+            showNotification(`${expenseType} expense of Rs. ${amount.toFixed(2)} saved and synced!`, 'success');
+        }
+
+        function clearExpenseForm() {
+            document.getElementById('expenseCategory').value = '';
+            document.getElementById('expenseAmount').value = '0';
+            document.getElementById('expenseDescription').value = '';
+            document.getElementById('expenseDate').value = new Date().toISOString().split('T')[0];
+        }
+
+        function loadExpenseList() {
+            const listContainer = document.getElementById('expenseList');
+            if (expenses.length === 0) { listContainer.innerHTML = '<p>No expenses saved yet.</p>'; return; }
+
+            const tableHtml = `
+                <table class="data-table">
+                    <thead><tr><th>Date</th><th>Category</th><th>Amount (Rs.)</th><th>Description</th><th>Action</th></tr></thead>
+                    <tbody>
+                        ${expenses.map(e => `
+                            <tr>
+                                <td>${e.date}</td>
+                                <td><span style="color:${e.type === 'Business' ? 'purple' : 'teal'};">${e.category}</span></td>
+                                <td>${e.amount.toFixed(2)}</td>
+                                <td>${e.description}</td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteExpense('${e.id}')"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+            listContainer.innerHTML = tableHtml;
+        }
+
+        function deleteExpense(id) {
+            if (confirm('Delete this expense record?')) {
+                expenses = expenses.filter(e => e.id !== id);
+                saveAllData();
+                loadExpenseList();
+                loadBudgetSnapshot();
+                showNotification('Expense deleted.', 'success');
+            }
+        }
+
+        function clearAllExpenses() {
+            if (confirm('WARNING: Are you sure you want to delete ALL expense records? This is permanent.')) {
+                expenses = [];
+                saveAllData();
+                loadExpenseList();
+                loadBudgetSnapshot();
+                showNotification('All expense records cleared.', 'success');
+            }
+        }
+
+        function loadBudgetSnapshot() {
+            const display = document.getElementById('budgetDisplay');
+            const currentMonth = new Date().getMonth();
+            const currentYear = new Date().getFullYear();
+
+            const monthlyExpenses = expenses.filter(e => {
+                const date = new Date(e.date);
+                // Check if the expense is from the current month/year
+                return date.getMonth() === currentMonth && date.getFullYear() === currentYear;
+            });
+
+            const totals = monthlyExpenses.reduce((acc, expense) => {
+                const type = expense.type.toLowerCase();
+                acc[type] = (acc[type] || 0) + expense.amount;
+                return acc;
+            }, { business: 0, personal: 0 });
+
+            const remainingBusiness = budget.business - totals.business;
+            const remainingPersonal = budget.personal - totals.personal;
+            
+            display.innerHTML = `
+                <p><strong>Month:</strong> ${new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' })}</p>
+                
+                <div class="breakdown-item">
+                    <span><i class="fas fa-briefcase"></i> Business Budget:</span>
+                    <span>Rs. ${budget.business.toFixed(2)}</span>
+                </div>
+                <div class="breakdown-item">
+                    <span>Business Spent:</span>
+                    <span>Rs. ${totals.business.toFixed(2)}</span>
+                </div>
+                <div class="total-row" style="color: ${remainingBusiness < 0 ? 'var(--danger)' : 'var(--success)'}; font-weight: bold;">
+                    <span>Remaining (Business):</span>
+                    <span>Rs. ${remainingBusiness.toFixed(2)}</span>
+                </div>
+                
+                <hr style="margin: 15px 0; border-top: 1px dashed #ddd;">
+
+                <div class="breakdown-item">
+                    <span><i class="fas fa-home"></i> Personal Budget:</span>
+                    <span>Rs. ${budget.personal.toFixed(2)}</span>
+                </div>
+                <div class="breakdown-item">
+                    <span>Personal Spent:</span>
+                    <span>Rs. ${totals.personal.toFixed(2)}</span>
+                </div>
+                <div class="total-row" style="color: ${remainingPersonal < 0 ? 'var(--danger)' : 'var(--success)'}; font-weight: bold;">
+                    <span>Remaining (Personal):</span>
+                    <span>Rs. ${remainingPersonal.toFixed(2)}</span>
+                </div>
+            `;
         }
 
         // =============================================
@@ -1884,8 +2245,12 @@
             customer.invoicesCount = (customer.invoicesCount || 0) + 1;
             
             nextInvoiceNumber++;
+            localStorage.setItem(LOCAL_NEXT_INV_KEY, nextInvoiceNumber.toString()); // Save next invoice number immediately
             saveAllData(); 
             loadNextInvoiceNumber();
+            
+            // Trigger Excel sync check on next page load/interval
+            localStorage.setItem(LOCAL_EXCEL_TRIGGER_KEY, 'true');
             showNotification('Invoice saved and cloud sync initiated!', 'success');
         }
 
@@ -1945,12 +2310,16 @@
         }
 
         // =============================================
-        // ADMIN DATA MANAGEMENT FUNCTIONS
+        // ADMIN DATA MANAGEMENT FUNCTIONS (Updated)
         // =============================================
         function addNewItem() {
-            const mainCategory = document.getElementById('newMainCategory').value.trim();
-            const subCategory = document.getElementById('newSubCategory').value.trim();
-            const itemName = document.getElementById('newItemName').value.trim();
+            const newMainCategoryInput = document.getElementById('newMainCategory');
+            const newSubCategoryInput = document.getElementById('newSubCategory');
+            const newItemNameInput = document.getElementById('newItemName');
+            
+            const mainCategory = newMainCategoryInput.value.trim();
+            const subCategory = newSubCategoryInput.value.trim();
+            const itemName = newItemNameInput.value.trim();
             const price = parseFloat(document.getElementById('newItemPrice').value) || 0;
             const designCharges = parseFloat(document.getElementById('newDesignCharges').value) || 0;
             
@@ -1972,9 +2341,14 @@
                 designCharges 
             });
             
-            document.getElementById('newMainCategory').value = '';
-            document.getElementById('newSubCategory').value = '';
-            document.getElementById('newItemName').value = '';
+            // Update datalists with new values
+            updateDatalist('newMainCategoryList', mainCategory);
+            updateDatalist('newSubCategoryList', subCategory);
+            updateDatalist('newItemNameList', itemName);
+            
+            newMainCategoryInput.value = '';
+            newSubCategoryInput.value = '';
+            newItemNameInput.value = '';
             document.getElementById('newItemPrice').value = '0';
             document.getElementById('newDesignCharges').value = '0';
             
@@ -2025,17 +2399,23 @@
         function loadSettings() {
             document.getElementById('rentCost').value = data.settings.rent;
             document.getElementById('profitMargin').value = data.settings.profitMargin;
+            document.getElementById('budgetBusiness').value = budget.business;
+            document.getElementById('budgetPersonal').value = budget.personal;
         }
 
         function saveSettings() {
             data.settings.rent = parseFloat(document.getElementById('rentCost').value);
             data.settings.profitMargin = parseFloat(document.getElementById('profitMargin').value);
+            
+            budget.business = parseFloat(document.getElementById('budgetBusiness').value);
+            budget.personal = parseFloat(document.getElementById('budgetPersonal').value);
+            
             saveAllData();
+            loadBudgetSnapshot();
             showNotification('Settings saved successfully!', 'success');
         }
 
         // --- Import/Export ---
-      // --- Import/Export ---
         window.exportCustomerDataForGitHub = async function() {
             if (!isOnline || !currentUser) {
                 showNotification('Please sign in to OneDrive first to save the public data file.', 'error');
@@ -2074,6 +2454,7 @@
         function resetToDefault() {
             if (confirm('WARNING: This will reset all calculator data (items, settings) to default values. Are you sure?')) {
                 data = JSON.parse(JSON.stringify(defaultData));
+                datalists = defaultDatalists; // Reset datalists to default
                 calculationHistory = [];
                 saveAllData();
                 refreshAllDisplays();
@@ -2138,6 +2519,4 @@
         });
     </script>
 </body>
-
 </html>
-
