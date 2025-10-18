@@ -1174,6 +1174,31 @@
                 const rows = history.map(record => [record.timestamp || new Date().toLocaleString(), record.mainCategory || '', record.subcategory || '', record.itemName || '', record.quantity || 1, record.designCharges || 0, record.total || 0, currentUser?.name || 'Admin']);
                 await this.updateSheetData(this.sheets.HISTORY, rows);
             }
+            // Add this method inside the OneDriveExcelSync class (after syncHistory, for example)
+
+            async uploadPublicJson(publicData) {
+                const accessToken = await getOneDriveAccessToken();
+                if (!accessToken) return false;
+
+                try {
+                    // 1. Ensure the ArhamPrinters folder exists
+                    await this.ensureOneDriveFolder('/ArhamPrinters');
+
+                    // 2. Upload the public data to a different file path
+                    const response = await fetch(
+                        `https://graph.microsoft.com/v1.0/me/drive/root:/ArhamPrinters/customer-data.json:/content`,
+                        {
+                            method: 'PUT',
+                            headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+                            body: JSON.stringify(publicData, null, 2) // Pretty print for readability
+                        }
+                    );
+                    return response.ok;
+                } catch (error) {
+                    console.error("Public JSON upload failed:", error);
+                    return false;
+                }
+            }
 
             async updateSheetHeaders(sheetName, headers) {
                 const accessToken = await getOneDriveAccessToken();
@@ -2010,18 +2035,22 @@
         }
 
         // --- Import/Export ---
-        function exportCustomerDataForGitHub() {
-            const customerData = { categories: data.categories, items: data.items, settings: data.settings, lastUpdated: new Date().toISOString() };
-            const blob = new Blob([JSON.stringify(customerData, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'customer-data.json';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-            showNotification('Price data exported! Upload this file to your public hosting service (like GitHub) to sync with external/customer calculators.', 'success');
+      // --- Import/Export ---
+        window.exportCustomerDataForGitHub = async function() {
+            if (!isOnline || !currentUser) {
+                showNotification('Please sign in to OneDrive first to save the public data file.', 'error');
+                return;
+            }
+
+            const publicData = { categories: data.categories, items: data.items, settings: data.settings, lastUpdated: new Date().toISOString() };
+            
+            const success = await excelSync.uploadPublicJson(publicData);
+            
+            if (success) {
+                showNotification('Price data saved to OneDrive as customer-data.json! Now push this file to GitHub.', 'success', 8000);
+            } else {
+                showNotification('Failed to save public JSON to OneDrive. Check your connection.', 'error');
+            }
         }
 
         function exportAllData() {
@@ -2111,3 +2140,4 @@
 </body>
 
 </html>
+
