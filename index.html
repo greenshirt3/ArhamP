@@ -709,6 +709,11 @@
                     <input type="number" id="quantity" value="1" min="1">
                 </div>
                 
+                <div class="form-group">
+                    <label for="designCharges"><i class="fas fa-paint-brush"></i> Design Charges (Rs.):</label>
+                    <input type="number" id="designCharges" value="0" min="0" step="0.01">
+                </div>
+                
                 <div class="actions">
                     <button class="btn btn-primary" onclick="calculatePrice()">
                         <i class="fas fa-calculator"></i> Calculate Price
@@ -761,6 +766,7 @@
                             <th>Description</th>
                             <th>Rate (Rs.)</th>
                             <th>Qty</th>
+                            <th>Design Charges (Rs.)</th>
                             <th>Amount</th>
                             <th>Action</th>
                         </tr>
@@ -774,6 +780,7 @@
                             </td>
                             <td><input type="number" class="item-rate" value="0" min="0" step="0.01" oninput="calculateTotal()"></td>
                             <td><input type="number" class="item-quantity" value="1" min="1" oninput="calculateTotal()"></td>
+                            <td><input type="number" class="item-design-charges" value="0" min="0" step="0.01" oninput="calculateTotal()"></td>
                             <td><input type="number" class="item-amount" value="0" readonly></td>
                             <td><button type="button" class="btn btn-danger btn-sm" onclick="removeInvoiceItem(this)"><i class="fas fa-trash"></i></button></td>
                         </tr>
@@ -984,17 +991,6 @@
             
             <div class="tab-content" id="settings-tab">
                 <h3>Application Settings</h3>
-                <div class="admin-section">
-                    <h4>Price Settings</h4>
-                    <div class="form-group">
-                        <label>Rent Cost (Rs.)</label>
-                        <input type="number" id="rentCost" value="200">
-                    </div>
-                    <div class="form-group">
-                        <label>Profit Margin (%)</label>
-                        <input type="number" id="profitMargin" value="25">
-                    </div>
-                </div>
                 
                 <div class="admin-section">
                     <h4>Monthly Budget (Rs.)</h4>
@@ -1452,8 +1448,8 @@
                 { mainCategory: "Social Media Posts", subcategory: "Design Only", itemName: "Instagram Post", price: 400, type: "fixed", designCharges: 0 }
             ],
             settings: {
-                rent: 200,
-                profitMargin: 25
+                rent: 0,
+                profitMargin: 0
             },
             budget: { 
                 business: 50000,
@@ -1775,7 +1771,7 @@
         }
         
         // =============================================
-        // CALCULATOR LOGIC (unchanged)
+        // CALCULATOR LOGIC (updated with manual design charges)
         // =============================================
         function refreshAllDisplays() {
             updateMainCategories();
@@ -1819,6 +1815,7 @@
             const subcategory = document.getElementById('subCategory').value;
             const itemName = document.getElementById('itemName').value;
             const quantity = parseInt(document.getElementById('quantity').value) || 1;
+            const designCharges = parseFloat(document.getElementById('designCharges').value) || 0;
             
             if (!mainCategory || !subcategory || !itemName) { 
                 showNotification("Please select all required fields", "warning");
@@ -1837,18 +1834,17 @@
             
             breakdown.push(`Item Price: Rs. ${basePrice}`);
             
-            if (item.designCharges > 0) {
-                breakdown.push(`Design Charges: Rs. ${item.designCharges}`);
-                basePrice += item.designCharges;
+            // Use manual design charges input instead of item's design charges
+            if (designCharges > 0) {
+                breakdown.push(`Design Charges: Rs. ${designCharges}`);
+                basePrice += designCharges;
             }
             
             const subtotal = basePrice * quantity;
-            const profit = subtotal * (data.settings.profitMargin / 100);
-            const total = subtotal + profit;
+            const total = subtotal;
             
             breakdown.push(`Quantity: ${quantity}`);
             breakdown.push(`Subtotal: Rs. ${Math.round(subtotal)}`);
-            breakdown.push(`Profit (${data.settings.profitMargin}%): Rs. ${Math.round(profit)}`);
             breakdown.push(`Total: Rs. ${Math.round(total)}`);
             
             document.getElementById('result').textContent = `Total Price: Rs. ${Math.round(total)}`;
@@ -1857,7 +1853,7 @@
             document.getElementById('breakdownContent').innerHTML = breakdown.map(item => `<div class="breakdown-item">${item}</div>`).join('');
             document.getElementById('priceBreakdown').style.display = 'block';
             
-            addToHistory({ mainCategory, subcategory, itemName, quantity, designCharges: item.designCharges || 0, total: Math.round(total), timestamp: new Date().toLocaleString() });
+            addToHistory({ mainCategory, subcategory, itemName, quantity, designCharges: designCharges, total: Math.round(total), timestamp: new Date().toLocaleString() });
         }
 
         function clearForm() {
@@ -1865,6 +1861,7 @@
             document.getElementById('subCategory').innerHTML = '<option value="">Select Subcategory</option>';
             document.getElementById('itemName').innerHTML = '<option value="">Select Item</option>';
             document.getElementById('quantity').value = '1';
+            document.getElementById('designCharges').value = '0';
             document.getElementById('result').style.display = 'none';
             document.getElementById('priceBreakdown').style.display = 'none';
             showNotification('Calculator form cleared', 'info');
@@ -2041,7 +2038,7 @@
         }
 
         // =============================================
-        // INVOICE LOGIC
+        // INVOICE LOGIC (updated with design charges)
         // =============================================
         // --- Item Auto-complete ---
         function setupItemAutocomplete() {
@@ -2087,6 +2084,7 @@
         function selectInvoiceItem(row, item, price) {
             row.querySelector('.item-name').value = item.itemName;
             row.querySelector('.item-rate').value = price.toFixed(2);
+            row.querySelector('.item-design-charges').value = item.designCharges || 0;
             calculateTotal(); 
         }
 
@@ -2146,6 +2144,7 @@
                 </td>
                 <td><input type="number" class="item-rate" value="0" min="0" step="0.01" oninput="calculateTotal()"></td>
                 <td><input type="number" class="item-quantity" value="1" min="1" oninput="calculateTotal()"></td>
+                <td><input type="number" class="item-design-charges" value="0" min="0" step="0.01" oninput="calculateTotal()"></td>
                 <td><input type="number" class="item-amount" value="0" readonly></td>
                 <td><button type="button" class="btn btn-danger btn-sm" onclick="removeInvoiceItem(this)"><i class="fas fa-trash"></i></button></td>
             `;
@@ -2168,7 +2167,8 @@
             document.querySelectorAll('#itemsTableBody tr').forEach(row => {
                 const rate = parseFloat(row.querySelector('.item-rate').value) || 0;
                 const quantity = parseInt(row.querySelector('.item-quantity').value) || 0;
-                const amount = rate * quantity;
+                const designCharges = parseFloat(row.querySelector('.item-design-charges').value) || 0;
+                const amount = (rate + designCharges) * quantity;
                 
                 row.querySelector('.item-amount').value = amount.toFixed(2);
                 subtotal += amount;
@@ -2203,8 +2203,9 @@
                 const name = row.querySelector('.item-name').value.trim();
                 const rate = parseFloat(row.querySelector('.item-rate').value) || 0;
                 const quantity = parseInt(row.querySelector('.item-quantity').value) || 0;
-                if (name && (rate > 0 || quantity > 0)) {
-                    items.push({ name, rate, quantity, amount: rate * quantity });
+                const designCharges = parseFloat(row.querySelector('.item-design-charges').value) || 0;
+                if (name && (rate > 0 || quantity > 0 || designCharges > 0)) {
+                    items.push({ name, rate, quantity, designCharges, amount: (rate + designCharges) * quantity });
                     hasValidItem = true;
                 }
             });
@@ -2397,16 +2398,11 @@
         }
 
         function loadSettings() {
-            document.getElementById('rentCost').value = data.settings.rent;
-            document.getElementById('profitMargin').value = data.settings.profitMargin;
             document.getElementById('budgetBusiness').value = budget.business;
             document.getElementById('budgetPersonal').value = budget.personal;
         }
 
         function saveSettings() {
-            data.settings.rent = parseFloat(document.getElementById('rentCost').value);
-            data.settings.profitMargin = parseFloat(document.getElementById('profitMargin').value);
-            
             budget.business = parseFloat(document.getElementById('budgetBusiness').value);
             budget.personal = parseFloat(document.getElementById('budgetPersonal').value);
             
