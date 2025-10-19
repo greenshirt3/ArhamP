@@ -16,110 +16,663 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <script src="https://apis.google.com/js/api.js"></script>
-    
     <style>
         :root {
             --primary: #2c3e50;
-            --secondary: #4285F4; /* Google Blue */
-            --success: #0F9D58;   /* Google Green */
-            --warning: #F4B400;  /* Google Yellow */
-            --danger: #DB4437;   /* Google Red */
+            --primary-light: #3c4e60;
+            --secondary: #0078d4;
+            --secondary-light: #1088e4;
+            --success: #107c10;
+            --warning: #ffb900;
+            --danger: #d13438;
             --light: #f8f9fa;
             --dark: #323130;
             --gray: #6c757d;
             --border-radius: 12px;
             --box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-            --gradient: linear-gradient(135deg, #2c3e50, #4285F4);
+            --box-shadow-hover: 0 10px 25px rgba(0,0,0,0.15);
+            --transition: all 0.3s ease;
+            --gradient: linear-gradient(135deg, #2c3e50, #0078d4);
+            --gradient-light: linear-gradient(135deg, #3c4e60, #1088e4);
         }
         
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
         
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0;
             background: linear-gradient(135deg, #f5f7fa 0%, #e3e9f7 100%);
             min-height: 100vh;
             padding: 20px;
             color: var(--dark);
+            line-height: 1.6;
         }
         
         .container { 
-            max-width: 1400px; margin: 0 auto; background: #fff; 
-            padding: 30px; border-radius: var(--border-radius); 
-            box-shadow: var(--box-shadow); position: relative; overflow: hidden;
+            max-width: 1400px; 
+            margin: 0 auto; 
+            background: #fff; 
+            padding: 30px; 
+            border-radius: var(--border-radius); 
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
         }
         
         .container::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0;
-            height: 5px; background: var(--gradient);
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient);
         }
         
-        header { text-align: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px solid #e1e5e9; }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e1e5e9;
+            position: relative;
+        }
         
         h1 { 
-            font-size: 2.5rem; background: var(--gradient);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 15px;
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
         }
         
-        .subtitle { color: var(--gray); font-size: 1.2rem; }
+        .subtitle {
+            color: var(--gray);
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
         
         .cloud-section {
-            background: linear-gradient(135deg, #e8f0fe, #f1e8fe); padding: 25px;
-            border-radius: var(--border-radius); margin: 25px 0; border: 2px solid #e1e5e9;
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin: 25px 0;
+            border: 2px solid #e1e5e9;
+            box-shadow: var(--box-shadow);
         }
         
         .sync-status {
-            padding: 15px; margin: 15px 0; border-radius: var(--border-radius);
-            text-align: center; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: var(--border-radius);
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
         
-        .sync-online { background: #e6f4ea; color: var(--success); border: 2px solid var(--success); }
-        .sync-offline { background: #fde2e2; color: var(--danger); border: 2px solid var(--danger); }
+        .sync-online {
+            background: #dff6dd;
+            color: var(--success);
+            border: 2px solid var(--success);
+        }
         
-        .user-info { background: #e8f0fe; padding: 15px; border-radius: var(--border-radius); margin-top: 15px; text-align: center; }
+        .sync-offline {
+            background: #fff4ce;
+            color: var(--danger);
+            border: 2px solid var(--danger);
+        }
         
-        .content-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; }
-        .section-panel { padding: 25px; background: var(--light); border-radius: var(--border-radius); border-left: 5px solid var(--secondary); margin-bottom: 30px; box-shadow: var(--box-shadow); }
-        .section-title { font-size: 1.4rem; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 3px solid var(--secondary); display: flex; align-items: center; gap: 10px; }
+        .user-info {
+            background: #e1f5fe;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin: 15px 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
         
-        .form-group { display: flex; flex-wrap: wrap; margin-bottom: 20px; align-items: center; gap: 15px; }
-        .form-group label { flex: 1; font-weight: 600; min-width: 150px; }
-        .form-group select, .form-group input, .form-group textarea { flex: 2; padding: 12px; border: 2px solid #e1e5e9; border-radius: 6px; font-size: 1rem; }
+        /* Updated Grid for 3 Panels */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr; 
+            gap: 30px;
+        }
+
+        /* Adjustments for smaller screens */
+        @media (max-width: 1400px) {
+            .content-grid {
+                grid-template-columns: 1fr 1fr; /* Switch to 2 columns on medium screens */
+            }
+        }
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr; /* Switch to 1 column on small screens */
+            }
+        }
         
-        .actions { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 20px; }
-        .btn { padding: 12px 24px; cursor: pointer; border-radius: 6px; font-weight: 600; border: none; display: inline-flex; align-items: center; justify-content: center; gap: 10px; }
-        .btn-primary { background: var(--secondary); color: white; }
+        .section-panel {
+            padding: 25px;
+            background: var(--light);
+            border-radius: var(--border-radius);
+            border: 1px solid #e1e5e9;
+            margin-bottom: 30px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-panel:hover {
+            box-shadow: var(--box-shadow-hover);
+            transform: translateY(-3px);
+        }
+        
+        .section-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--gradient);
+        }
+        
+        .section-title {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+        
+        .form-group { 
+            display: flex; 
+            flex-wrap: wrap; 
+            margin-bottom: 20px; 
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .form-group label { 
+            flex: 1; 
+            padding: 8px; 
+            font-weight: 600;
+            min-width: 150px;
+            color: var(--dark);
+            font-size: 1.1rem;
+        }
+        
+        .form-group select, .form-group input, .form-group textarea { 
+            flex: 2; 
+            padding: 12px; 
+            border: 2px solid #e1e5e9;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            background: white;
+        }
+        
+        .form-group select:focus, .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.2);
+        }
+        
+        .actions { 
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .btn { 
+            padding: 12px 24px; 
+            cursor: pointer; 
+            border-radius: 6px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+        
+        .btn:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+        
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
+        }
+        
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-light); transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+        
+        .btn-secondary { background: var(--secondary); color: white; }
+        .btn-secondary:hover { background: var(--secondary-light); transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+        
         .btn-success { background: var(--success); color: white; }
-        .btn-warning { background: var(--warning); color: #333; }
+        .btn-success:hover { background: #0e6b0e; transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+        
+        .btn-warning { background: var(--warning); color: white; }
+        .btn-warning:hover { background: #e6a200; transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+        
         .btn-danger { background: var(--danger); color: white; }
-        .btn-sm { padding: 8px 16px; font-size: 0.9rem; }
+        .btn-danger:hover { background: #c02a2e; transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
         
-        .result { margin-top: 25px; font-weight: bold; font-size: 1.4em; padding: 25px; background: #e6f4ea; border-radius: var(--border-radius); border-left: 6px solid var(--success); display: none; }
-        .price-breakdown { margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: var(--border-radius); display: none; }
-        .breakdown-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
         
-        .items-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-        .items-table th, .items-table td { border: 1px solid #ddd; padding: 10px; }
-        .items-table th { background: var(--primary); color: white; }
-        .items-table input { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
         
-        .admin-panel { display: none; margin-top: 30px; background: #f8f9fa; padding: 30px; border-radius: var(--border-radius); }
-        .tabs { display: flex; margin-bottom: 20px; border-bottom: 1px solid #ddd; }
-        .tab { padding: 12px 24px; cursor: pointer; border-radius: 5px 5px 0 0; }
-        .tab.active { background: var(--primary); color: white; }
-        .tab-content { display: none; padding: 20px; border: 1px solid #ddd; border-top: none; }
-        .tab-content.active { display: block; }
-        .admin-section { margin-bottom: 25px; padding: 20px; background: white; border-radius: 6px; }
-        .form-row { display: flex; gap: 15px; margin-bottom: 15px; }
-        .form-field { flex: 1; min-width: 200px; }
-        .login-section { margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: var(--border-radius); }
-        .notification { position: fixed; top: 20px; right: 20px; padding: 15px 20px; border-radius: var(--border-radius); color: white; font-weight: 600; z-index: 10000; transform: translateX(150%); transition: transform 0.3s ease; }
-        .notification.show { transform: translateX(0); }
-        #itemEditor { border-top: 4px solid var(--warning); margin-top: 20px; }
-        .tier-row { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; padding: 10px; border: 1px solid #eee; }
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
         
-        @media (max-width: 1024px) { .content-grid { grid-template-columns: 1fr; } }
+        /* Calculator Result Styling */
+        .result { 
+            margin-top: 25px; 
+            font-weight: bold; 
+            font-size: 1.4em;
+            padding: 25px;
+            background: linear-gradient(135deg, #dff6dd, #e8f5e8);
+            border-radius: var(--border-radius);
+            border-left: 6px solid var(--success);
+            display: none;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        
+        .price-breakdown {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            border: 1px solid #dee2e6;
+            display: none;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .breakdown-item:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            font-size: 1.2em;
+            color: var(--success);
+        }
+
+        /* Invoice Specific Styling */
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        
+        .items-table th, .items-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        .items-table th {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .items-table input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .totals-section {
+            background: #e8f4fd;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin: 15px 0;
+            border-left: 4px solid var(--secondary);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #ccc;
+        }
+        
+        .total-row:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .customer-suggestions, .item-suggestions {
+            position: absolute;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            width: 100%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .customer-suggestion {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .customer-suggestion:hover {
+            background: #f5f5f5;
+        }
+        
+        .suggestion-container {
+            position: relative;
+            flex: 2;
+        }
+
+        /* Admin Panel Styling */
+        .admin-panel { 
+            display: none; 
+            margin-top: 30px; 
+            background: #f8f9fa; 
+            padding: 30px; 
+            border-radius: var(--border-radius); 
+            border: 2px solid #e1e5e9;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            cursor: pointer;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            border-radius: 5px 5px 0 0;
+            margin-right: 5px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+            background: #fff;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .admin-section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .data-table th, .data-table td {
+            padding: 8px;
+            font-size: 0.9em;
+            border: 1px solid #ddd;
+        }
+        
+        .data-table th {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .data-table input {
+            padding: 4px;
+            font-size: 0.9em;
+            width: 100%;
+        }
+        
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .form-field {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .login-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            border: 1px solid #e1e5e9;
+        }
+        
+        .login-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: flex-end;
+        }
+        
+        .login-form label {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .login-form input {
+            padding: 10px;
+            border: 2px solid #e1e5e9;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        
+        .history-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--secondary);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .history-details {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .import-export-section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            color: white;
+            font-weight: 600;
+            z-index: 10000;
+            box-shadow: var(--box-shadow);
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.success {
+            background: var(--success);
+        }
+        
+        .notification.error {
+            background: var(--danger);
+        }
+        
+        .notification.warning {
+            background: var(--warning);
+        }
+        
+        .notification.info {
+            background: var(--secondary);
+        }
+
+        /* Item Editor Specific Styles */
+        #itemEditor {
+            border-top: 4px solid var(--warning);
+            margin-top: 20px;
+            animation: fadeIn 0.5s;
+        }
+        
+        .tier-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 6px;
+        }
+        
+        .tier-row input {
+            padding: 8px;
+            font-size: 1em;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            .form-group, .form-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .form-group label, .form-row label, .form-field {
+                min-width: 100%;
+                width: 100%;
+            }
+            .actions {
+                flex-direction: column;
+            }
+            .btn {
+                width: 100%;
+            }
+            .tabs {
+                flex-direction: column;
+            }
+            .tab {
+                border-radius: 5px;
+                margin-bottom: 5px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -130,314 +683,1603 @@
         </header>
 
         <div class="cloud-section">
-            <h2 class="section-title"><i class="fab fa-google-drive"></i> Google Drive & Sheets Sync</h2>
+            <h2 class="section-title"><i class="fas fa-cloud"></i> Google Drive Cloud Sync</h2>
             <div id="syncStatus" class="sync-status sync-offline">
-                <i class="fas fa-cloud"></i> Offline Mode - Sign in to back up data
+                <i class="fas fa-cloud"></i> Offline Mode - Data stored locally
             </div>
+            
             <div class="actions">
-                <button class="btn btn-primary" onclick="signIn()" id="loginBtn"><i class="fab fa-google"></i> Sign in with Google</button>
-                <button class="btn btn-success" onclick="saveAllData(true)" id="syncBtn" style="display: none;"><i class="fas fa-sync-alt"></i> Force Sync Now</button>
-                <button class="btn btn-danger" onclick="signOut()" id="logoutBtn" style="display: none;"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+                <button class="btn btn-primary" onclick="loginToGoogle()" id="loginBtn">
+                    <i class="fab fa-google"></i> Sign in with Google
+                </button>
+                <button class="btn btn-success" onclick="syncAllToGoogleSheets()" id="syncBtn" style="display: none;">
+                    <i class="fas fa-cloud-upload-alt"></i> Upload All Data to Google Sheets
+                </button>
+                <button class="btn btn-secondary" onclick="syncFromCloud()" id="downloadBtn" style="display: none;">
+                    <i class="fas fa-cloud-download-alt"></i> Download Data (JSON)
+                </button>
+                <button class="btn btn-danger" onclick="logoutFromGoogle()" id="logoutBtn" style="display: none;">
+                    <i class="fas fa-sign-out-alt"></i> Sign Out
+                </button>
             </div>
+            
             <div id="userInfo" class="user-info" style="display: none;">
-                Signed in as: <strong id="userName"></strong>
+                <h3><i class="fas fa-user"></i> Signed in as: <span id="userName"></span></h3>
+                <p>Your data is synced across all devices via Google Drive.</p>
             </div>
         </div>
 
         <div class="content-grid">
             <div class="section-panel">
                 <h2 class="section-title"><i class="fas fa-calculator"></i> Price Calculator</h2>
-                <div class="form-group"><label>Main Category:</label><select id="mainCategory" onchange="updateSubcategories()"></select></div>
-                <div class="form-group"><label>Subcategory:</label><select id="subCategory" onchange="updateItemsAndFields()"></select></div>
-                <div class="form-group"><label>Item Name:</label><select id="itemName" onchange="updateQuantityInput()"></select></div>
-                <div class="form-group"><label>Quantity / Set:</label><div id="quantityInputContainer" style="flex: 2;"></div></div>
-                <div class="form-group" id="priceTierTagGroup" style="display: none;"><label>Set:</label><span id="priceTierTag"></span></div>
-                <div class="form-group"><label>Design Charges (Rs.):</label><input type="number" id="designCharges" value="0"></div>
-                <div class="actions"><button class="btn btn-primary" onclick="calculatePrice()">Calculate</button><button class="btn btn-danger" onclick="clearForm()">Clear</button></div>
-                <div class="result" id="result"></div><div class="price-breakdown" id="priceBreakdown"></div>
+                
+                <div class="form-group">
+                    <label for="mainCategory"><i class="fas fa-folder"></i> Main Category:</label>
+                    <select id="mainCategory" onchange="updateSubcategories()">
+                        <option value="">Select Main Category</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subCategory"><i class="fas fa-folder-open"></i> Subcategory:</label>
+                    <select id="subCategory" onchange="updateItemsAndFields()"></select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="itemName"><i class="fas fa-cube"></i> Item Name:</label>
+                    <select id="itemName" onchange="updateQuantityInput()"></select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="quantityInputContainer"><i class="fas fa-boxes"></i> Quantity / Set:</label>
+                    <div id="quantityInputContainer" style="flex: 2;">
+                        <input type="number" id="quantity" value="1" min="1" oninput="clearTierTag()">
+                    </div>
+                </div>
+                
+                <div class="form-group" id="priceTierTagGroup" style="margin-top: -10px; border: 1px solid #ccc; padding: 10px; border-radius: 4px; background: #f9f9f9; display: none;">
+                    <label><i class="fas fa-tag"></i> Selected Set:</label>
+                    <span id="priceTierTag" style="font-weight: bold; color: var(--danger);">Select a set.</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="designCharges"><i class="fas fa-paint-brush"></i> Design Charges (Rs.):</label>
+                    <input type="number" id="designCharges" value="0" min="0" step="0.01">
+                </div>
+                
+                <div class="actions">
+                    <button class="btn btn-primary" onclick="calculatePrice()">
+                        <i class="fas fa-calculator"></i> Calculate Price
+                    </button>
+                    <button class="btn btn-secondary" onclick="window.print()">
+                        <i class="fas fa-print"></i> Print Quote
+                    </button>
+                    <button class="btn btn-danger" onclick="clearForm()">
+                        <i class="fas fa-trash"></i> Clear Form
+                    </button>
+                </div>
+                
+                <div class="result" id="result"></div>
+                <div class="price-breakdown" id="priceBreakdown">
+                    <h4><i class="fas fa-receipt"></i> Price Breakdown</h4>
+                    <div id="breakdownContent"></div>
+                </div>
             </div>
 
             <div class="section-panel">
                 <h2 class="section-title"><i class="fas fa-file-invoice"></i> Invoice System</h2>
-                <div class="form-group"><label>Customer Name:</label><input type="text" id="invoiceCustomerName" list="customerNameList"></div>
-                <div class="form-group"><label>Phone:</label><input type="tel" id="invoiceCustomerPhone" list="customerPhoneList"></div>
-                <h3>Items</h3>
+                
+                <div class="form-group">
+                    <label for="invoiceCustomerName"><i class="fas fa-user"></i> Customer Name:</label>
+                    <div class="suggestion-container">
+                        <input type="text" id="invoiceCustomerName" placeholder="Start typing customer name..." autocomplete="off">
+                        <div id="customerSuggestions" class="customer-suggestions" style="display: none;"></div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="invoiceCustomerPhone"><i class="fas fa-phone"></i> Phone:</label>
+                    <input type="tel" id="invoiceCustomerPhone" placeholder="Customer phone number">
+                </div>
+                
+                <div class="form-group">
+                    <label for="invoiceNo"><i class="fas fa-hashtag"></i> Invoice Number:</label>
+                    <input type="text" id="invoiceNo" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label for="invoiceDate"><i class="fas fa-calendar"></i> Invoice Date:</label>
+                    <input type="date" id="invoiceDate">
+                </div>
+
+                <h3>Invoice Items</h3>
                 <table class="items-table">
-                    <thead><tr><th>Desc</th><th>Rate</th><th>Qty</th><th>Amount</th><th></th></tr></thead>
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Rate (Rs.)</th>
+                            <th>Qty</th>
+                            <th>Design Charges (Rs.)</th>
+                            <th>Amount</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
                     <tbody id="itemsTableBody">
                         <tr>
-                            <td><input type="text" class="item-name" list="invoiceItemList"></td>
-                            <td><input type="number" class="item-rate" value="0" oninput="calculateTotal()"></td>
-                            <td><input type="number" class="item-quantity" value="1" oninput="calculateTotal()"></td>
+                            <td>
+                                <div style="position: relative;">
+                                    <input type="text" class="item-name" placeholder="Enter item description" autocomplete="off">
+                                </div>
+                            </td>
+                            <td><input type="number" class="item-rate" value="0" min="0" step="0.01" oninput="calculateTotal()"></td>
+                            <td><input type="number" class="item-quantity" value="1" min="1" oninput="calculateTotal()"></td>
+                            <td><input type="number" class="item-design-charges" value="0" min="0" step="0.01" oninput="calculateTotal()"></td>
                             <td><input type="number" class="item-amount" value="0" readonly></td>
-                            <td><button class="btn btn-danger btn-sm" onclick="removeInvoiceItem(this)">X</button></td>
+                            <td><button type="button" class="btn btn-danger btn-sm" onclick="removeInvoiceItem(this)"><i class="fas fa-trash"></i></button></td>
                         </tr>
                     </tbody>
                 </table>
-                <div class="actions"><button class="btn btn-success" onclick="addInvoiceItem()">+ Add Item</button><button class="btn btn-primary" onclick="saveInvoice()">Save Invoice</button></div>
+                
+                <div class="actions">
+                    <button class="btn btn-success" onclick="addInvoiceItem()">
+                        <i class="fas fa-plus"></i> Add Item
+                    </button>
+                    <button class="btn btn-secondary" onclick="calculateTotal()">
+                        <i class="fas fa-calculator"></i> Recalculate
+                    </button>
+                </div>
+
+                <div class="totals-section">
+                    <h3 class="section-title"><i class="fas fa-calculator"></i> Invoice Totals</h3>
+                    
+                    <div class="total-row">
+                        <span>Subtotal:</span>
+                        <span>Rs. <span id="subtotalAmount">0.00</span></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="taxRate">Tax Rate (%):</label>
+                        <input type="number" id="taxRate" value="0" min="0" max="100" step="0.1" oninput="calculateTotal()">
+                    </div>
+                    
+                    <div class="total-row">
+                        <span><strong>Total Amount:</strong></span>
+                        <span><strong>Rs. <span id="totalAmount">0.00</span></strong></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="previousBalance">Previous Balance (Rs.):</label>
+                        <input type="number" id="previousBalance" value="0" min="0" step="0.01" oninput="calculateTotal()">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="payment">Payment Received (Rs.):</label>
+                        <input type="number" id="payment" value="0" min="0" step="0.01" oninput="calculateTotal()">
+                    </div>
+                    
+                    <div class="total-row">
+                        <span><strong>Remaining Balance:</strong></span>
+                        <span><strong>Rs. <span id="remainingBalance">0.00</span></strong></span>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button class="btn btn-primary" onclick="saveInvoice()">
+                        <i class="fas fa-save"></i> Save & Sync Invoice
+                    </button>
+                    <button class="btn btn-warning" onclick="clearInvoice()">
+                        <i class="fas fa-trash"></i> Clear Invoice Form
+                    </button>
+                </div>
             </div>
             
-            <div class="section-panel">
+            <div class="section-panel expense-panel">
                 <h2 class="section-title"><i class="fas fa-money-check-alt"></i> Expense Tracker</h2>
-                <div class="form-group"><label>Date:</label><input type="date" id="expenseDate"></div>
-                <div class="form-group"><label>Description:</label><textarea id="expenseDescription" list="expenseDescriptionList"></textarea></div>
-                <div class="form-group"><label>Amount (Rs.):</label><input type="number" id="expenseAmount" value="0"></div>
-                <div class="actions"><button class="btn btn-success" onclick="saveExpense()">Save Expense</button></div>
+                
+                <div class="form-group">
+                    <label for="expenseDate"><i class="fas fa-calendar-alt"></i> Date:</label>
+                    <input type="date" id="expenseDate">
+                </div>
+                
+                <div class="form-group">
+                    <label for="expenseCategory"><i class="fas fa-tags"></i> Category:</label>
+                    <select id="expenseCategory">
+                        <option value="">Select Category</option>
+                        <option value="Business: Materials">Business: Materials/Supplies</option>
+                        <option value="Business: Rent">Business: Rent/Utilities</option>
+                        <option value="Business: Salaries">Business: Salaries</option>
+                        <option value="Business: Other">Business: Other</option>
+                        <option value="Personal: Groceries">Personal: Groceries</option>
+                        <option value="Personal: Transport">Personal: Transport</option>
+                        <option value="Personal: Bills">Personal: Bills/Utilities (Home)</option>
+                        <option value="Personal: Other">Personal: Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="expenseAmount"><i class="fas fa-rupee-sign"></i> Amount (Rs.):</label>
+                    <input type="number" id="expenseAmount" value="0" min="0" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="expenseDescription"><i class="fas fa-comment"></i> Description:</label>
+                    <textarea id="expenseDescription" placeholder="e.g., A4 paper ream purchase, electricity bill" list="expenseDescriptionList"></textarea>
+                    <datalist id="expenseDescriptionList"></datalist>
+                </div>
+                
+                <div class="actions">
+                    <button class="btn btn-success" onclick="saveExpense()">
+                        <i class="fas fa-save"></i> Save & Sync Expense
+                    </button>
+                    <button class="btn btn-danger" onclick="clearExpenseForm()">
+                        <i class="fas fa-trash-alt"></i> Clear Form
+                    </button>
+                </div>
+                
+                <div class="totals-section">
+                    <h3 class="section-title"><i class="fas fa-chart-line"></i> Budget Snapshot</h3>
+                    <div id="budgetDisplay">
+                        <p>No budget set. Go to Admin > Settings.</p>
+                    </div>
+                </div>
             </div>
         </div>
         
         <div class="login-section">
-            <h2 class="section-title">Administrator Access</h2>
-            <input type="password" id="adminPassword" placeholder="Admin password">
-            <button class="btn btn-warning" onclick="toggleAdmin()">Admin Login</button>
+            <h2 class="section-title"><i class="fas fa-lock"></i> Administrator Access</h2>
+            <div class="login-form">
+                <div>
+                    <label for="adminPassword">Admin Password:</label>
+                    <input type="password" id="adminPassword" placeholder="Enter admin password">
+                </div>
+                <button class="btn btn-warning" onclick="toggleAdmin()">
+                    <i class="fas fa-key"></i> Admin Login
+                </button>
+            </div>
         </div>
         
         <div class="admin-panel" id="adminPanel">
-            <div class="tabs"><div class="tab active" data-tab="data-management">Data</div><div class="tab" data-tab="import-export">Import/Export</div></div>
+            <h2 class="section-title"><i class="fas fa-cogs"></i> Data & Invoice Management</h2>
+            
+            <div class="tabs">
+                <div class="tab active" data-tab="data-management">Data Management</div>
+                <div class="tab" data-tab="invoice-list">Invoice List</div>
+                <div class="tab" data-tab="expenses-list">Expense List</div>
+                <div class="tab" data-tab="history">Calculation History</div>
+                <div class="tab" data-tab="settings">Settings</div>
+                <div class="tab" data-tab="import-export">Import/Export</div>
+            </div>
+            
             <div class="tab-content active" id="data-management-tab">
-                <div class="admin-section"><h3>Add Item</h3>
+                <div class="data-form admin-section">
+                    <h3>Add New Item</h3>
                     <div class="form-row">
-                        <div class="form-field"><label>Category:</label><input type="text" id="newMainCategory" list="newMainCategoryList"></div>
-                        <div class="form-field"><label>Subcategory:</label><input type="text" id="newSubCategory" list="newSubCategoryList"></div>
+                        <div class="form-field">
+                            <label>Main Category:</label>
+                            <input type="text" id="newMainCategory" list="newMainCategoryList">
+                        </div>
+                        <div class="form-field">
+                            <label>Subcategory:</label>
+                            <input type="text" id="newSubCategory" list="newSubCategoryList">
+                        </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-field"><label>Item Name:</label><input type="text" id="newItemName" list="newItemNameList"></div>
-                        <div class="form-field"><label>Profit (%):</label><input type="number" id="newProfitMargin" value="25"></div>
+                     <div class="form-row">
+                        <div class="form-field">
+                            <label>Item Name:</label>
+                            <input type="text" id="newItemName" placeholder="e.g., A4 Letterpad (100 Pages)">
+                        </div>
+                        <div class="form-field">
+                           <label>Profit Margin (%):</label>
+                           <input type="number" id="newProfitMargin" value="25" min="0">
+                        </div>
                     </div>
-                    <button class="btn btn-success" onclick="addNewItem()">+ Add</button>
+                    <button class="btn btn-success" onclick="addNewItem()">
+                        <i class="fas fa-plus"></i> Add New Item
+                    </button>
+                    <p style="font-size: 0.9em; color: var(--gray); margin-top: 15px;">After adding, click 'Edit' below to add quantity sets and prices.</p>
                 </div>
-                <div class="admin-section"><h3>Manage Items</h3><table class="data-table" id="itemsTable"></table></div>
+                
+                <div class="admin-section">
+                    <h3>Manage Items</h3>
+                    <table class="data-table" id="itemsTable"></table>
+                </div>
+
                 <div class="admin-section" id="itemEditor" style="display:none;">
-                    <h3 id="editorTitle">Edit Item</h3><input type="hidden" id="editItemId">
+                    <h3 id="editorTitle">Edit Item</h3>
+                    <input type="hidden" id="editItemId">
                     <div class="form-row">
-                        <div class="form-field"><label>Name:</label><input type="text" id="editItemName"></div>
-                        <div class="form-field"><label>Profit:</label><input type="number" id="editProfitMargin"></div>
+                        <div class="form-field">
+                            <label>Item Name:</label>
+                            <input type="text" id="editItemName">
+                        </div>
+                        <div class="form-field">
+                            <label>Profit Margin (%):</label>
+                            <input type="number" id="editProfitMargin">
+                        </div>
                     </div>
-                    <h4>Sets</h4><div id="tiersContainer"></div><button onclick="addTierRow()">+ Add</button>
-                    <div class="actions"><button class="btn btn-primary" onclick="saveItemChanges()">Save</button></div>
+                     <div class="form-row">
+                        <div class="form-field">
+                            <label>Default Design Charges (Rs):</label>
+                            <input type="number" id="editDesignCharges">
+                        </div>
+                        <div class="form-field">
+                           <label>Material Cost / Unit (Rs):</label>
+                           <input type="number" id="editMaterialCostPerUnit" placeholder="For stamps, shields, etc.">
+                        </div>
+                    </div>
+                    <hr style="margin: 20px 0;">
+                    <h4>Quantity Sets / Price Tiers</h4>
+                    <div id="tiersContainer"></div>
+                    <button class="btn btn-outline btn-sm" onclick="addTierRow()"><i class="fas fa-plus"></i> Add Tier</button>
+                    <hr style="margin: 20px 0;">
+                    <div class="actions">
+                        <button class="btn btn-primary" onclick="saveItemChanges()">Save Changes</button>
+                        <button class="btn btn-secondary" onclick="document.getElementById('itemEditor').style.display='none'">Cancel</button>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="tab-content" id="invoice-list-tab">
+                <h3>Saved Invoices</h3>
+                <div id="invoiceList">
+                    <p>Load the Invoice List to manage customer records.</p>
+                </div>
+                <div class="actions">
+                    <button class="btn btn-secondary" onclick="loadInvoiceList()">
+                        <i class="fas fa-list"></i> Load Invoices
+                    </button>
                 </div>
             </div>
+            
+            <div class="tab-content" id="expenses-list-tab">
+                <h3>Expense Records</h3>
+                <div id="expenseList">
+                    <p>Load the Expense List to view purchase records.</p>
+                </div>
+                <div class="actions">
+                    <button class="btn btn-secondary" onclick="loadExpenseList()">
+                        <i class="fas fa-list"></i> Load Expenses
+                    </button>
+                    <button class="btn btn-danger" onclick="clearAllExpenses()">
+                        <i class="fas fa-trash"></i> Clear All Expenses
+                    </button>
+                </div>
+            </div>
+
+            <div class="tab-content" id="history-tab">
+                <h3>Calculation History</h3>
+                <div class="actions">
+                    <button class="btn btn-danger" onclick="clearHistory()">
+                        <i class="fas fa-trash"></i> Clear History
+                    </button>
+                </div>
+                <div id="historyList"></div>
+            </div>
+            
+            <div class="tab-content" id="settings-tab">
+                <h3>Application Settings</h3>
+                
+                <div class="admin-section">
+                    <h4>Monthly Budget (Rs.)</h4>
+                    <div class="form-group">
+                        <label>Business Budget:</label>
+                        <input type="number" id="budgetBusiness" min="0" value="50000">
+                    </div>
+                    <div class="form-group">
+                        <label>Personal Budget:</label>
+                        <input type="number" id="budgetPersonal" min="0" value="30000">
+                    </div>
+                </div>
+                
+                <div class="actions">
+                    <button class="btn btn-primary" onclick="saveSettings()">
+                        <i class="fas fa-save"></i> Save Settings
+                    </button>
+                </div>
+            </div>
+            
             <div class="tab-content" id="import-export-tab">
-                <div class="admin-section"><h4><i class="fab fa-github"></i> GitHub</h4><input type="password" id="githubPat" placeholder="Paste GitHub PAT"></div>
-                <button class="btn btn-success" onclick="exportCustomerDataForGitHub()">Export & Upload</button>
+                <h3>Import/Export Data</h3>
+                
+                <div class="admin-section">
+                    <h4><i class="fab fa-github"></i> GitHub Auto-Upload</h4>
+                    <p style="font-size: 0.9em; color: var(--gray);">Paste your GitHub Personal Access Token here to upload directly to your repository.</p>
+                    <div class="form-group">
+                        <label for="githubPat">GitHub PAT:</label>
+                        <input type="password" id="githubPat" placeholder="Paste your token here before exporting">
+                    </div>
+                    <p style="font-size: 0.8em; color: var(--danger);"><strong>Security Warning:</strong> Do NOT save this file with the token pasted in it. Only paste it when you need to upload.</p>
+                </div>
+                <div class="import-export-section">
+                    <h4>Export Data</h4>
+                    <div class="actions">
+                        <button class="btn btn-warning" onclick="exportAllData()">
+                            <i class="fas fa-file-export"></i> Export All Data (CSV)
+                        </button>
+                        <button class="btn btn-success" onclick="exportCustomerDataForGitHub()">
+                            <i class="fas fa-cloud-upload"></i> Export Price Data (JSON)
+                        </button>
+                    </div>
+                    <p><small>Export JSON for external/customer calculator sync. Export CSV for backup.</small></p>
+                </div>
+                
+                <div class="import-export-section">
+                    <h4>Reset Data</h4>
+                    <p>Reset all data to default values. This cannot be undone.</p>
+                    <div class="actions">
+                        <button class="btn btn-danger" onclick="resetToDefault()">
+                            <i class="fas fa-undo"></i> Reset to Default Data
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="actions">
+                <button class="btn btn-primary" onclick="saveAllData()">
+                    <i class="fas fa-save"></i> Save & Cloud Sync All
+                </button>
+                <button class="btn btn-secondary" onclick="toggleAdmin()">
+                    <i class="fas fa-times"></i> Close Admin Panel
+                </button>
             </div>
         </div>
     </div>
+
     <div id="notificationContainer"></div>
-    <datalist id="newMainCategoryList"></datalist><datalist id="newSubCategoryList"></datalist><datalist id="newItemNameList"></datalist>
-    <datalist id="customerNameList"></datalist><datalist id="customerPhoneList"></datalist><datalist id="invoiceItemList"></datalist><datalist id="expenseDescriptionList"></datalist>
 
     <script>
         // =============================================
-        // CONFIGURATION & GLOBAL VARIABLES
-        // =============================================
-        const CLIENT_ID = '575508533509-s61q4570mladu8ntspla2j1rc1ejldc0.apps.googleusercontent.com';
-        const SCOPES = 'https://www.googleapis.com/auth/drive.file';
-        const ADMIN_PASSWORD = "admin123";
-
-        const LOCAL_KEYS = { DATA: 'arhamPrintersData', HISTORY: 'arhamPrintersHistory', CUSTOMERS: 'arhamPrintersCustomers', INVOICES: 'arhamPrintersInvoices', NEXT_INV: 'arhamNextInvoiceNumber', EXPENSES: 'arhamPrintersExpenses', BUDGET: 'arhamPrintersBudget', DATALISTS: 'arhamPrintersDatalists' };
-        
-        let isSignedIn = false, gapiInited = false, googleAuth = null;
-        let data = {}, calculationHistory = [], customers = [], invoices = [], expenses = [], budget = {}, nextInvoiceNumber = 1001, datalists = {};
-        
-        const defaultData = { categories: [], items: [] };
-        const defaultDatalists = { newMainCategoryList: [], newSubCategoryList: [], newItemNameList: [], expenseDescriptionList: [], customerNameList: [], customerPhoneList: [], invoiceItemList: [] };
-
-        // =============================================
         // NOTIFICATION SYSTEM
         // =============================================
-        function showNotification(message, type = 'info', duration = 4000) {
+        function showNotification(message, type = 'info', duration = 5000) {
             const container = document.getElementById('notificationContainer');
-            const el = document.createElement('div');
-            el.className = `notification ${type}`;
-            el.style.background = `var(--${type})`;
-            el.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i> ${message}`;
-            container.appendChild(el);
-            setTimeout(() => el.classList.add('show'), 100);
-            setTimeout(() => { el.classList.remove('show'); setTimeout(() => container.removeChild(el), 300); }, duration);
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                ${message}
+            `;
+            container.appendChild(notification);
+            
+            // Show notification
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            // Auto hide after duration
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    container.removeChild(notification);
+                }, 300);
+            }, duration);
         }
-        
-        // =============================================
-        // GOOGLE API AUTHENTICATION
-        // =============================================
-        function handleClientLoad() { gapi.load('client:auth2', initClient); }
-        function initClient() {
-            gapi.client.init({ clientId: CLIENT_ID, scope: SCOPES })
-            .then(() => {
-                googleAuth = gapi.auth2.getAuthInstance();
-                gapiInited = true;
-                googleAuth.isSignedIn.listen(updateSigninStatus);
-                updateSigninStatus(googleAuth.isSignedIn.get());
-            }).catch(err => showNotification('Google API Error. Check console.', 'error'));
-        }
-        function updateSigninStatus(signedIn) {
-            isSignedIn = signedIn;
-            const loginBtn = document.getElementById('loginBtn'), logoutBtn = document.getElementById('logoutBtn'), syncBtn = document.getElementById('syncBtn');
-            const userInfo = document.getElementById('userInfo'), syncStatus = document.getElementById('syncStatus');
-            if (signedIn) {
-                loginBtn.style.display = 'none'; logoutBtn.style.display = 'inline-flex'; syncBtn.style.display = 'inline-flex';
-                userInfo.style.display = 'block';
-                document.getElementById('userName').textContent = googleAuth.currentUser.get().getBasicProfile().getName();
-                syncStatus.className = 'sync-status sync-online';
-                syncStatus.innerHTML = '<i class="fas fa-check-circle"></i> Online - Ready to Sync';
-                saveAllData(true); // Trigger a sync on login
-            } else {
-                loginBtn.style.display = 'inline-flex'; logoutBtn.style.display = 'none'; syncBtn.style.display = 'none';
-                userInfo.style.display = 'none';
-                syncStatus.className = 'sync-status sync-offline';
-                syncStatus.innerHTML = '<i class="fas fa-cloud"></i> Offline Mode';
-            }
-        }
-        function signIn() { if (gapiInited) googleAuth.signIn(); else showNotification('Google API not ready.', 'error'); }
-        function signOut() { if (gapiInited) googleAuth.signOut(); }
 
         // =============================================
         // GOOGLE DRIVE & SHEETS SYNC CLASS
         // =============================================
-        class GoogleSheetSync {
+        class GoogleDriveSync {
             constructor() {
-                this.spreadsheetName = 'Arham_Printers_Database';
-                this.folderName = 'ArhamPrinters';
-                this.spreadsheetId = null;
+                this.SHEETS_FILE_ID = null;
+                this.SHEETS_FILE_NAME = 'Arham_Printers_Database';
+                this.JSON_FILE_ID = null;
+                this.JSON_FILE_NAME = 'Arham_Printers_Data.json';
+                this.FOLDER_NAME = 'ArhamPrinters';
+                this.FOLDER_ID = null;
+                this.sheets = {
+                    ITEMS: 'Calculator_Items',
+                    INVOICES: 'Invoices',
+                    CUSTOMERS: 'Customers',
+                    SETTINGS: 'Settings',
+                    HISTORY: 'Calculation_History',
+                    EXPENSES: 'Expenses' 
+                };
             }
 
-            async findOrCreateFile(name, mimeType, parents = []) {
-                const query = `name='${name}' and mimeType='${mimeType}' and trashed=false ${parents.length ? `and '${parents[0]}' in parents` : ''}`;
-                let response = await gapi.client.drive.files.list({ q: query, fields: 'files(id)' });
-                if (response.result.files.length > 0) return response.result.files[0].id;
-                
-                const fileMetadata = { name, mimeType, parents };
-                response = await gapi.client.drive.files.create({ resource: fileMetadata, fields: 'id' });
-                return response.result.id;
-            }
-
-            async syncAllData() {
-                if (!isSignedIn) return showNotification('Please sign in to sync.', 'error');
-                showNotification('Syncing to Google Sheets...', 'info');
+            async ensureGoogleFolder() {
                 try {
-                    const folderId = await this.findOrCreateFile(this.folderName, 'application/vnd.google-apps.folder');
-                    this.spreadsheetId = await this.findOrCreateFile(this.spreadsheetName, 'application/vnd.google-apps.spreadsheet', [folderId]);
-                    if (!this.spreadsheetId) throw new Error("Spreadsheet not found.");
-
-                    const dataToSync = { 'Items': data.items, 'Invoices': invoices, 'Customers': customers, 'Expenses': expenses, 'History': calculationHistory };
-                    const requests = [];
-                    const existingSheets = (await gapi.client.sheets.spreadsheets.get({ spreadsheetId: this.spreadsheetId })).result.sheets.map(s => s.properties.title);
-
-                    for (const sheetName in dataToSync) {
-                        if (!existingSheets.includes(sheetName)) requests.push({ addSheet: { properties: { title: sheetName } } });
-                    }
-                    if (requests.length > 0) await gapi.client.sheets.spreadsheets.batchUpdate({ spreadsheetId: this.spreadsheetId, resource: { requests } });
-
-                    const valueRanges = [];
-                    for (const sheetName in dataToSync) {
-                        const sheetData = dataToSync[sheetName];
-                        if (sheetData.length === 0) continue;
-                        const headers = Object.keys(sheetData[0]);
-                        const rows = [headers, ...sheetData.map(item => headers.map(h => item[h] === undefined ? '' : item[h]))];
-                        valueRanges.push({ range: sheetName, values: rows });
-                    }
+                    const response = await gapi.client.drive.files.list({
+                        q: `name='${this.FOLDER_NAME}' and mimeType='application/vnd.google-apps.folder' and trashed=false`
+                    });
                     
-                    if (valueRanges.length > 0) {
-                        await gapi.client.sheets.spreadsheets.values.batchUpdate({
-                            spreadsheetId: this.spreadsheetId,
-                            resource: { valueInputOption: 'USER_ENTERED', data: valueRanges }
+                    if (response.result.files.length > 0) {
+                        this.FOLDER_ID = response.result.files[0].id;
+                        return true;
+                    } else {
+                        // Create folder
+                        const folderMetadata = {
+                            name: this.FOLDER_NAME,
+                            mimeType: 'application/vnd.google-apps.folder'
+                        };
+                        
+                        const folderResponse = await gapi.client.drive.files.create({
+                            resource: folderMetadata,
+                            fields: 'id'
+                        });
+                        
+                        this.FOLDER_ID = folderResponse.result.id;
+                        return true;
+                    }
+                } catch (error) {
+                    console.error('Error ensuring Google folder:', error);
+                    return false;
+                }
+            }
+
+            async ensureSheetsFile() {
+                try {
+                    const response = await gapi.client.drive.files.list({
+                        q: `name='${this.SHEETS_FILE_NAME}' and mimeType='application/vnd.google-apps.spreadsheet' and trashed=false and '${this.FOLDER_ID}' in parents`
+                    });
+                    
+                    if (response.result.files.length > 0) {
+                        this.SHEETS_FILE_ID = response.result.files[0].id;
+                        await this.initializeSheets();
+                        return true;
+                    } else {
+                        // Create new spreadsheet
+                        const fileMetadata = {
+                            name: this.SHEETS_FILE_NAME,
+                            mimeType: 'application/vnd.google-apps.spreadsheet',
+                            parents: [this.FOLDER_ID]
+                        };
+                        
+                        const fileResponse = await gapi.client.drive.files.create({
+                            resource: fileMetadata,
+                            fields: 'id'
+                        });
+                        
+                        this.SHEETS_FILE_ID = fileResponse.result.id;
+                        await this.initializeSheets();
+                        return true;
+                    }
+                } catch (error) {
+                    console.error('Error ensuring Google Sheets file:', error);
+                    return false;
+                }
+            }
+
+            async ensureJsonFile() {
+                try {
+                    const response = await gapi.client.drive.files.list({
+                        q: `name='${this.JSON_FILE_NAME}' and trashed=false and '${this.FOLDER_ID}' in parents`
+                    });
+                    
+                    if (response.result.files.length > 0) {
+                        this.JSON_FILE_ID = response.result.files[0].id;
+                        return true;
+                    } else {
+                        // Create new JSON file
+                        const fileMetadata = {
+                            name: this.JSON_FILE_NAME,
+                            parents: [this.FOLDER_ID]
+                        };
+                        
+                        const fileResponse = await gapi.client.drive.files.create({
+                            resource: fileMetadata,
+                            fields: 'id'
+                        });
+                        
+                        this.JSON_FILE_ID = fileResponse.result.id;
+                        return true;
+                    }
+                } catch (error) {
+                    console.error('Error ensuring JSON file:', error);
+                    return false;
+                }
+            }
+
+            async initializeSheets() {
+                if (!this.SHEETS_FILE_ID) return;
+                
+                const sheetPromises = [
+                    this.updateSheetHeaders(this.sheets.ITEMS, ['Main Category', 'Subcategory', 'Item Name', 'Price', 'Type', 'Design Charges', 'Last Updated']),
+                    this.updateSheetHeaders(this.sheets.INVOICES, ['Invoice Number', 'Date', 'Due Date', 'Customer Name', 'Customer Phone', 'Customer Address', 'Items Count', 'Subtotal', 'Tax', 'Total Amount', 'Previous Balance', 'Payment Received', 'Remaining Balance', 'Status', 'Created Date']),
+                    this.updateSheetHeaders(this.sheets.CUSTOMERS, ['Customer Name', 'Phone', 'Address', 'Total Invoices', 'Current Balance', 'Last Invoice Date', 'Created Date']),
+                    this.updateSheetHeaders(this.sheets.SETTINGS, ['Setting Name', 'Value', 'Last Updated']),
+                    this.updateSheetHeaders(this.sheets.HISTORY, ['Date', 'Main Category', 'Subcategory', 'Item Name', 'Quantity', 'Design Charges', 'Total Price', 'Calculated By']),
+                    this.updateSheetHeaders(this.sheets.EXPENSES, ['Date', 'Type', 'Category', 'Amount', 'Description', 'Month/Year', 'Recorded By'])
+                ];
+                
+                await Promise.allSettled(sheetPromises);
+            }
+
+            async updateSheetHeaders(sheetName, headers) {
+                if (!this.SHEETS_FILE_ID) return;
+
+                try {
+                    // Check if sheet exists
+                    const sheetsResponse = await gapi.client.sheets.spreadsheets.get({
+                        spreadsheetId: this.SHEETS_FILE_ID
+                    });
+                    
+                    const sheetExists = sheetsResponse.result.sheets.some(sheet => 
+                        sheet.properties.title === sheetName
+                    );
+                    
+                    if (!sheetExists) {
+                        // Create new sheet
+                        await gapi.client.sheets.spreadsheets.batchUpdate({
+                            spreadsheetId: this.SHEETS_FILE_ID,
+                            resource: {
+                                requests: [{
+                                    addSheet: {
+                                        properties: {
+                                            title: sheetName
+                                        }
+                                    }
+                                }]
+                            }
                         });
                     }
-                    showNotification('Sync to Google Sheets successful!', 'success');
-                } catch (error) { showNotification('Google Sheets sync failed.', 'error'); console.error(error); }
+                    
+                    // Update headers
+                    await gapi.client.sheets.spreadsheets.values.update({
+                        spreadsheetId: this.SHEETS_FILE_ID,
+                        range: `${sheetName}!A1:${String.fromCharCode(64 + headers.length)}1`,
+                        valueInputOption: 'RAW',
+                        resource: {
+                            values: [headers]
+                        }
+                    });
+                } catch (error) {
+                    console.error(`Error updating sheet ${sheetName}:`, error);
+                }
+            }
+
+            async syncAllDataToSheets(calculatorData, invoices, customers, history, expenses) {
+                if (!await this.ensureGoogleFolder() || !await this.ensureSheetsFile()) { 
+                    showNotification('Failed to connect to Google Sheets', 'error');
+                    return false; 
+                }
+
+                try {
+                    const itemSync = this.syncCalculatorItems(calculatorData.items);
+                    const invoiceSync = this.syncInvoices(invoices);
+                    const customerSync = this.syncCustomers(customers);
+                    const settingSync = this.syncSettings(calculatorData.settings);
+                    const historySync = this.syncHistory(history);
+                    const expenseSync = this.syncExpenses(expenses);
+
+                    await Promise.all([itemSync, invoiceSync, customerSync, settingSync, historySync, expenseSync]);
+                    showNotification('All data successfully synced to Google Sheets!', 'success');
+                    return true;
+                } catch (error) {
+                    console.error('Error syncing all data to Sheets:', error);
+                    showNotification('Failed to sync data to Google Sheets', 'error');
+                    return false;
+                }
+            }
+
+            async syncCalculatorItems(items) {
+                const rows = items.map(item => [
+                    item.mainCategory || '', 
+                    item.subcategory || '', 
+                    item.itemName || '', 
+                    item.price || 0, 
+                    item.type || 'fixed', 
+                    item.designCharges || 0, 
+                    new Date().toISOString()
+                ]);
+                await this.updateSheetData(this.sheets.ITEMS, rows);
+            }
+
+            async syncInvoices(invoices) {
+                const rows = invoices.map(invoice => [invoice.invoiceNo || '', invoice.date || '', invoice.dueDate || '', invoice.customerName || 'N/A', invoice.customerPhone || '', invoice.customerAddress || '', invoice.items?.length || 0, invoice.subtotal || 0, invoice.taxAmount || 0, invoice.total || 0, invoice.previousBalance || 0, invoice.payment || 0, invoice.remainingBalance || 0, invoice.status || 'pending', invoice.created || new Date().toISOString()]);
+                await this.updateSheetData(this.sheets.INVOICES, rows);
+            }
+
+            async syncCustomers(customers) {
+                const rows = customers.map(customer => [customer.name || '', customer.phone || '', customer.address || '', customer.invoicesCount || 0, customer.balance || 0, customer.lastInvoiceDate || '', customer.created || new Date().toISOString()]);
+                await this.updateSheetData(this.sheets.CUSTOMERS, rows);
+            }
+
+            async syncSettings(settings) {
+                const rows = Object.entries(settings).map(([key, value]) => [key, value, new Date().toISOString()]);
+                await this.updateSheetData(this.sheets.SETTINGS, rows);
+            }
+
+            async syncHistory(history) {
+                const rows = history.map(record => [record.timestamp || new Date().toLocaleString(), record.mainCategory || '', record.subcategory || '', record.itemName || '', record.quantity || 1, record.designCharges || 0, record.total || 0, currentUser?.name || 'Admin']);
+                await this.updateSheetData(this.sheets.HISTORY, rows);
+            }
+            
+            async syncExpenses(expenses) {
+                const rows = expenses.map(e => {
+                    const [type, category] = e.category.split(': ');
+                    const date = new Date(e.date);
+                    const monthYear = `${date.toLocaleString('en-US', { month: 'short' })}-${date.getFullYear()}`;
+                    return [
+                        e.date || '',
+                        type || '',
+                        category || e.category,
+                        e.amount || 0,
+                        e.description || '',
+                        monthYear,
+                        currentUser?.name || 'Admin'
+                    ];
+                });
+                await this.updateSheetData(this.sheets.EXPENSES, rows);
+            }
+
+            async updateSheetData(sheetName, rows) {
+                if (!this.SHEETS_FILE_ID) return;
+
+                try {
+                    // Clear existing data (except headers)
+                    await gapi.client.sheets.spreadsheets.values.clear({
+                        spreadsheetId: this.SHEETS_FILE_ID,
+                        range: `${sheetName}!A2:Z`
+                    });
+
+                    // Add new data
+                    if (rows.length > 0) {
+                        await gapi.client.sheets.spreadsheets.values.update({
+                            spreadsheetId: this.SHEETS_FILE_ID,
+                            range: `${sheetName}!A2`,
+                            valueInputOption: 'RAW',
+                            resource: {
+                                values: rows
+                            }
+                        });
+                    }
+                } catch (error) {
+                    console.error(`Error updating sheet data for ${sheetName}:`, error);
+                }
+            }
+
+            async uploadJsonToDrive(jsonData) {
+                if (!await this.ensureGoogleFolder() || !await this.ensureJsonFile()) {
+                    return false;
+                }
+
+                try {
+                    const jsonString = JSON.stringify(jsonData, null, 2);
+                    const media = {
+                        mimeType: 'application/json',
+                        body: jsonString
+                    };
+
+                    await gapi.client.drive.files.update({
+                        fileId: this.JSON_FILE_ID,
+                        media: media
+                    });
+
+                    return true;
+                } catch (error) {
+                    console.error('Error uploading JSON to Google Drive:', error);
+                    return false;
+                }
+            }
+
+            async downloadJsonFromDrive() {
+                if (!this.JSON_FILE_ID) return null;
+
+                try {
+                    const response = await gapi.client.drive.files.get({
+                        fileId: this.JSON_FILE_ID,
+                        alt: 'media'
+                    });
+
+                    return response.result;
+                } catch (error) {
+                    console.error('Error downloading JSON from Google Drive:', error);
+                    return null;
+                }
             }
         }
-        const googleSync = new GoogleSheetSync();
 
         // =============================================
-        // LOCAL DATA & APP LOGIC
+        // GOOGLE CONFIGURATION & GLOBAL DATA/FUNCTIONS
         // =============================================
+        const CLIENT_ID = '575508533509-s61q4570mladu8ntspla2j1rc1ejldc0.apps.googleusercontent.com';
+        const SCOPES = 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/spreadsheets';
+        const ADMIN_PASSWORD = "admin123";
+
+        // Local Storage Keys
+        const LOCAL_CALC_DATA_KEY = 'arhamPrintersData';
+        const LOCAL_HISTORY_KEY = 'arhamPrintersHistory';
+        const LOCAL_CUSTOMER_KEY = 'arhamPrintersCustomers';
+        const LOCAL_INVOICE_KEY = 'arhamPrintersInvoices';
+        const LOCAL_NEXT_INV_KEY = 'arhamNextInvoiceNumber';
+        const LOCAL_EXPENSES_KEY = 'arhamPrintersExpenses'; 
+        const LOCAL_BUDGET_KEY = 'arhamPrintersBudget'; 
+        const LOCAL_DATALISTS_KEY = 'arhamPrintersDatalists';
+
+        let isOnline = false;
+        let currentUser = null;
+        const googleSync = new GoogleDriveSync();
+
+        // Shared Data Structures
+        let data = {};
+        let calculationHistory = [];
+        let customers = [];
+        let invoices = [];
+        let expenses = []; 
+        let budget = {}; 
+        let nextInvoiceNumber = 1001;
+        let currentCustomer = null;
+        let datalists = {};
+
+        const defaultData = {
+            categories: [
+                { mainCategory: "Offset Printing", subcategory: "LetterPads" },
+                { mainCategory: "Stamps & Shields", subcategory: "Rubber Stamps" }
+            ],
+            items: [
+                { 
+                    mainCategory: "Offset Printing", 
+                    subcategory: "LetterPads", 
+                    itemName: "A4 Letterpad (100 Pages)", 
+                    profitMargin: 25,
+                    designCharges: 300,
+                    bulkPaperCost: 1000, 
+                    bulkPaperQuantity: 2000, 
+                    pagesPerFinishedUnit: 100,
+                    costTiers: [
+                        { qty: 10, fixedPrice: 2000, tag: "Set of 10 Pads" }
+                    ]
+                },
+                { 
+                    mainCategory: "Stamps & Shields", 
+                    subcategory: "Rubber Stamps", 
+                    itemName: "Self-Inking Stamp", 
+                    profitMargin: 40,
+                    designCharges: 50,
+                    materialCostPerUnit: 150,
+                    costTiers: [
+                        { qty: 1, fixedPrice: 700, tag: "Single Stamp Price" }
+                    ]
+                }
+            ],
+            settings: {},
+            budget: { 
+                business: 50000,
+                personal: 30000
+            }
+        };
+
+        const defaultDatalists = {
+            newMainCategoryList: ["Offset Printing", "Digital Printing", "Sign Boards", "Stamps & Shields"],
+            newSubCategoryList: ["LetterPads", "Visiting Cards", "Flyers", "Rubber Stamps", "Award Shields"],
+            expenseDescriptionList: ["A4 paper ream purchase", "Electricity bill (shop)", "Staff salary - Jan", "Diesel for generator"]
+        };
+
+        // Google API initialization
+        function initGoogleApi() {
+            gapi.load('client:auth2', () => {
+                gapi.client.init({
+                    clientId: CLIENT_ID,
+                    scope: SCOPES,
+                    discoveryDocs: [
+                        'https://sheets.googleapis.com/$discovery/rest?version=v4',
+                        'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'
+                    ]
+                }).then(() => {
+                    // Check if user is already signed in
+                    if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+                        handleGoogleSignIn(gapi.auth2.getAuthInstance().currentUser.get());
+                    }
+                }).catch(error => {
+                    console.error('Error initializing Google API:', error);
+                });
+            });
+        }
+
+        function loginToGoogle() {
+            gapi.auth2.getAuthInstance().signIn().then(handleGoogleSignIn).catch(error => {
+                console.error('Google sign-in failed:', error);
+                showNotification("Google sign-in failed. Please try again.", "error");
+            });
+        }
+
+        function handleGoogleSignIn(googleUser) {
+            currentUser = {
+                name: googleUser.getBasicProfile().getName(),
+                email: googleUser.getBasicProfile().getEmail()
+            };
+            isOnline = true;
+            updateUIAfterLogin();
+        }
+
+        function logoutFromGoogle() {
+            gapi.auth2.getAuthInstance().signOut().then(() => {
+                currentUser = null;
+                isOnline = false;
+                updateUIAfterLogout();
+                showNotification("Signed out successfully", "info");
+            });
+        }
+
+        async function syncToCloud() {
+            if (!isOnline || !currentUser) { 
+                showNotification("Please sign in to sync with Google Drive", "warning");
+                return false; 
+            }
+
+            try {
+                const allData = {
+                    calculatorData: data,
+                    history: calculationHistory,
+                    invoices: invoices,
+                    customers: customers,
+                    expenses: expenses, 
+                    budget: budget, 
+                    datalists: datalists,
+                    lastSync: new Date().toISOString()
+                };
+
+                const success = await googleSync.uploadJsonToDrive(allData);
+                if (success) { 
+                    showNotification('Data successfully synced to Google Drive!', 'success');
+                    return true; 
+                } 
+                else { throw new Error('Failed to upload JSON to Google Drive'); }
+            } catch (error) {
+                console.error("JSON Sync failed:", error);
+                showNotification('Failed to sync JSON data to Google Drive: ' + error.message, 'error');
+                return false;
+            }
+        }
+
+        async function syncFromCloud() {
+            if (!isOnline || !currentUser) { 
+                showNotification("Please sign in to sync with Google Drive", "warning");
+                return; 
+            }
+
+            try {
+                const cloudData = await googleSync.downloadJsonFromDrive();
+
+                if (cloudData) {
+                    if (confirm('Do you want to replace your local data with cloud data? This will overwrite local Invoices, Expenses, and Settings.')) {
+                        data = cloudData.calculatorData || data;
+                        calculationHistory = cloudData.history || calculationHistory;
+                        invoices = cloudData.invoices || invoices; 
+                        customers = cloudData.customers || customers; 
+                        expenses = cloudData.expenses || expenses; 
+                        budget = cloudData.budget || budget; 
+                        datalists = cloudData.datalists || datalists;
+
+                        localStorage.setItem(LOCAL_CALC_DATA_KEY, JSON.stringify(data));
+                        localStorage.setItem(LOCAL_HISTORY_KEY, JSON.stringify(calculationHistory));
+                        localStorage.setItem(LOCAL_INVOICE_KEY, JSON.stringify(invoices));
+                        localStorage.setItem(LOCAL_CUSTOMER_KEY, JSON.stringify(customers));
+                        localStorage.setItem(LOCAL_EXPENSES_KEY, JSON.stringify(expenses));
+                        localStorage.setItem(LOCAL_BUDGET_KEY, JSON.stringify(budget));
+                        localStorage.setItem(LOCAL_DATALISTS_KEY, JSON.stringify(datalists));
+
+                        refreshAllDisplays();
+                        refreshDataTables();
+                        loadBudgetSnapshot(); 
+                        showNotification('All data successfully synced from Google Drive!', 'success');
+                    }
+                } else {
+                    throw new Error('Failed to download JSON from Google Drive');
+                }
+            } catch (error) {
+                console.error("JSON Sync failed:", error);
+                showNotification('Failed to sync data from Google Drive: ' + error.message, 'error');
+            }
+        }
+
+        async function syncAllToGoogleSheets(isAutomatic = false) {
+             if (!isOnline || !currentUser) {
+                 if (!isAutomatic) showNotification("Please sign in to Google to sync data.", "warning");
+                 return false;
+             }
+             
+             document.getElementById('syncStatus').innerHTML = '<i class="fas fa-sync fa-spin"></i> Syncing to Google Sheets...';
+             
+             loadAllInvoiceData();
+             
+             const success = await googleSync.syncAllDataToSheets(data, invoices, customers, calculationHistory, expenses); 
+             
+             if (success) {
+                 document.getElementById('syncStatus').innerHTML = '<i class="fas fa-check-circle"></i> Online - Connected to Google Drive (Sheets Synced)';
+             } else {
+                 document.getElementById('syncStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Google Sheets Sync Failed';
+             }
+             
+             return success;
+        }
+
+        function updateUIAfterLogin() {
+            document.getElementById('loginBtn').style.display = 'none';
+            document.getElementById('syncBtn').style.display = 'inline-flex';
+            document.getElementById('downloadBtn').style.display = 'inline-flex';
+            document.getElementById('logoutBtn').style.display = 'inline-flex';
+            document.getElementById('userInfo').style.display = 'block';
+            document.getElementById('userName').textContent = currentUser.name;
+            document.getElementById('syncStatus').className = 'sync-status sync-online';
+            document.getElementById('syncStatus').innerHTML = '<i class="fas fa-sync fa-spin"></i> Initializing Cloud and Google Sheets...';
+            
+            googleSync.ensureGoogleFolder().then(() => {
+                document.getElementById('syncStatus').innerHTML = '<i class="fas fa-check-circle"></i> Online - Connected to Google Drive';
+            });
+
+            saveAllData(); 
+        }
+
+        function updateUIAfterLogout() {
+            document.getElementById('loginBtn').style.display = 'inline-flex';
+            document.getElementById('syncBtn').style.display = 'none';
+            document.getElementById('downloadBtn').style.display = 'none';
+            document.getElementById('logoutBtn').style.display = 'none';
+            document.getElementById('userInfo').style.display = 'none';
+            document.getElementById('syncStatus').className = 'sync-status sync-offline';
+            document.getElementById('syncStatus').innerHTML = '<i class="fas fa-cloud"></i> Offline Mode - Data stored locally';
+        }
+
         function loadAllData() {
             try {
-                data = JSON.parse(localStorage.getItem(LOCAL_KEYS.DATA) || JSON.stringify(defaultData));
-                calculationHistory = JSON.parse(localStorage.getItem(LOCAL_KEYS.HISTORY) || '[]');
-                customers = JSON.parse(localStorage.getItem(LOCAL_KEYS.CUSTOMERS) || '[]');
-                invoices = JSON.parse(localStorage.getItem(LOCAL_KEYS.INVOICES) || '[]');
-                expenses = JSON.parse(localStorage.getItem(LOCAL_KEYS.EXPENSES) || '[]');
-                budget = JSON.parse(localStorage.getItem(LOCAL_KEYS.BUDGET) || '{}');
-                nextInvoiceNumber = JSON.parse(localStorage.getItem(LOCAL_KEYS.NEXT_INV) || '1001');
-                datalists = JSON.parse(localStorage.getItem(LOCAL_KEYS.DATALISTS) || JSON.stringify(defaultDatalists));
-            } catch {
-                data = defaultData; datalists = defaultDatalists;
+                const savedCalc = localStorage.getItem(LOCAL_CALC_DATA_KEY);
+                const savedHistory = localStorage.getItem(LOCAL_HISTORY_KEY);
+                const savedExpenses = localStorage.getItem(LOCAL_EXPENSES_KEY); 
+                const savedBudget = localStorage.getItem(LOCAL_BUDGET_KEY); 
+                const savedDatalists = localStorage.getItem(LOCAL_DATALISTS_KEY);
+                
+                data = savedCalc ? JSON.parse(savedCalc) : JSON.parse(JSON.stringify(defaultData));
+                calculationHistory = savedHistory ? JSON.parse(savedHistory) : [];
+                expenses = savedExpenses ? JSON.parse(savedExpenses) : []; 
+                budget = savedBudget ? JSON.parse(savedBudget) : defaultData.budget; 
+                datalists = savedDatalists ? JSON.parse(savedDatalists) : defaultDatalists;
+
+                loadAllInvoiceData();
+                loadNextInvoiceNumber();
+                loadBudgetSnapshot(); 
+                populateDatalists();
+
+            } catch (e) {
+                console.error("Error loading local data:", e);
+                data = JSON.parse(JSON.stringify(defaultData));
+                calculationHistory = [];
+                expenses = [];
+                budget = defaultData.budget;
+                datalists = defaultDatalists;
             }
-            populateDatalists();
         }
 
-        function saveAllData(forceSync = false) {
-            Object.entries({ [LOCAL_KEYS.DATA]: data, [LOCAL_KEYS.HISTORY]: calculationHistory, [LOCAL_KEYS.CUSTOMERS]: customers, [LOCAL_KEYS.INVOICES]: invoices, [LOCAL_KEYS.NEXT_INV]: nextInvoiceNumber, [LOCAL_KEYS.EXPENSES]: expenses, [LOCAL_KEYS.BUDGET]: budget, [LOCAL_KEYS.DATALISTS]: datalists }).forEach(([key, val]) => localStorage.setItem(key, JSON.stringify(val)));
-            if (isSignedIn && forceSync) googleSync.syncAllData();
+        function loadAllInvoiceData() {
+            customers = JSON.parse(localStorage.getItem(LOCAL_CUSTOMER_KEY) || '[]');
+            invoices = JSON.parse(localStorage.getItem(LOCAL_INVOICE_KEY) || '[]');
+        }
+
+        function saveAllData() {
+            updateDatalistValues();
+            
+            localStorage.setItem(LOCAL_CALC_DATA_KEY, JSON.stringify(data));
+            localStorage.setItem(LOCAL_HISTORY_KEY, JSON.stringify(calculationHistory));
+            localStorage.setItem(LOCAL_CUSTOMER_KEY, JSON.stringify(customers));
+            localStorage.setItem(LOCAL_INVOICE_KEY, JSON.stringify(invoices));
+            localStorage.setItem(LOCAL_EXPENSES_KEY, JSON.stringify(expenses)); 
+            localStorage.setItem(LOCAL_BUDGET_KEY, JSON.stringify(budget)); 
+            localStorage.setItem(LOCAL_DATALISTS_KEY, JSON.stringify(datalists));
+
+            if (isOnline && currentUser) {
+                setTimeout(async () => {
+                    await syncToCloud();
+                    await syncAllToGoogleSheets(true);
+                }, 1000);
+            }
         }
         
-        function populateDatalists() { for (const id in datalists) { const el = document.getElementById(id); if (el) el.innerHTML = (datalists[id] || []).map(v => `<option value="${v}">`).join(''); } }
-        function updateDatalist(listName, value) { if (!value || value.trim() === '') return; const norm = value.trim(); let list = datalists[listName] || []; if (!list.includes(norm)) { list.unshift(norm); if (list.length > 30) list.pop(); datalists[listName] = list; populateDatalists(); } }
+        function populateDatalists() {
+            for (const listId in datalists) {
+                const datalist = document.getElementById(listId);
+                if (datalist) {
+                    datalist.innerHTML = '';
+                    datalists[listId].forEach(value => {
+                        datalist.innerHTML += `<option value="${value}">`;
+                    });
+                }
+            }
+        }
+
+        function updateDatalist(listName, newValue) {
+            if (newValue && newValue.trim() !== '') {
+                const normalizedValue = newValue.trim();
+                let list = datalists[listName] || [];
+                if (!list.includes(normalizedValue)) {
+                    list.unshift(normalizedValue);
+                    if (list.length > 20) {
+                        list = list.slice(0, 20);
+                    }
+                    datalists[listName] = list;
+                    populateDatalists();
+                }
+            }
+        }
         
-        function toggleAdmin() { const p = document.getElementById('adminPanel'), i = document.getElementById('adminPassword'); if (p.style.display === 'block') p.style.display = 'none'; else if (i.value === ADMIN_PASSWORD) { p.style.display = 'block'; i.value = ''; refreshDataTables(); } else showNotification('Incorrect password', 'error'); }
+        function updateDatalistValues() {
+            const newMainCategory = document.getElementById('newMainCategory').value.trim();
+            const newSubCategory = document.getElementById('newSubCategory').value.trim();
+            const expenseDescription = document.getElementById('expenseDescription').value.trim();
+            
+            updateDatalist('newMainCategoryList', newMainCategory);
+            updateDatalist('newSubCategoryList', newSubCategory);
+            updateDatalist('expenseDescriptionList', expenseDescription);
+        }
+
+        function toggleAdmin() {
+            const panel = document.getElementById('adminPanel');
+            const input = document.getElementById('adminPassword').value;
+            if (panel.style.display === 'block') {
+                panel.style.display = 'none';
+            } else if (input === ADMIN_PASSWORD) {
+                panel.style.display = 'block';
+                document.getElementById('adminPassword').value = '';
+                loadAllInvoiceData();
+                refreshDataTables();
+                updateHistoryDisplay();
+                loadSettings();
+                loadBudgetSnapshot();
+                populateDatalists();
+                showNotification('Admin panel unlocked', 'success');
+            } else {
+                showNotification('Incorrect admin password', 'error');
+            }
+        }
         
-        function refreshAllDisplays() { updateMainCategories(); updateSubcategories(); updateItemsAndFields(); }
-        function updateMainCategories() { const s = document.getElementById('mainCategory'); s.innerHTML = '<option value="">...</option>'; [...new Set(data.categories.map(c => c.mainCategory))].forEach(c => s.add(new Option(c, c))); }
-        function updateSubcategories() { const m = document.getElementById('mainCategory').value, s = document.getElementById('subCategory'); s.innerHTML = '<option value="">...</option>'; if(m) [...new Set(data.categories.filter(c => c.mainCategory === m).map(c => c.subcategory))].forEach(c => s.add(new Option(c, c))); updateItemsAndFields(); }
-        function updateItemsAndFields() { const m = document.getElementById('mainCategory').value, sub = document.getElementById('subCategory').value, s = document.getElementById('itemName'); s.innerHTML = '<option value="">...</option>'; if (m && sub) data.items.filter(i => i.mainCategory === m && i.subcategory === sub).forEach(i => s.add(new Option(i.itemName, i.itemName))); updateQuantityInput(); }
+        function refreshAllDisplays() {
+            updateMainCategories();
+            updateSubcategories();
+            updateItemsAndFields();
+            setupCustomerAutocomplete();
+            setupItemAutocomplete();
+        }
+
+        function updateMainCategories() {
+            const mainSelect = document.getElementById('mainCategory');
+            mainSelect.innerHTML = '<option value="">Select Main Category</option>';
+            const mainCategories = [...new Set(data.categories.map(cat => cat.mainCategory))];
+            mainCategories.forEach(cat => mainSelect.add(new Option(cat, cat)));
+        }
+
+        function updateSubcategories() {
+            const mainCategory = document.getElementById('mainCategory').value;
+            const subSelect = document.getElementById('subCategory');
+            subSelect.innerHTML = '<option value="">Select Subcategory</option>';
+            if (!mainCategory) return;
+            const subcategories = [...new Set(data.categories.filter(cat => cat.mainCategory === mainCategory).map(cat => cat.subcategory))];
+            subcategories.forEach(sub => subSelect.add(new Option(sub, sub)));
+            updateItemsAndFields();
+        }
+        
         function updateQuantityInput() {
-            const item = data.items.find(i => i.itemName === document.getElementById('itemName').value), container = document.getElementById('quantityInputContainer');
-            container.innerHTML = '';
-            if (item && item.costTiers && item.costTiers.length > 0) {
-                const sel = document.createElement('select'); sel.id = 'quantity'; sel.onchange = calculatePrice; sel.add(new Option('Select Set', 0));
-                item.costTiers.forEach(t => sel.add(new Option(t.tag, t.qty))); container.appendChild(sel);
-            } else { const input = document.createElement('input'); input.type = 'number'; input.id = 'quantity'; input.value = 1; container.appendChild(input); }
-        }
-        function calculatePrice() { /* Full calculation logic here... */ }
-        function clearForm() { document.getElementById('mainCategory').value = ''; updateSubcategories(); }
+            const itemName = document.getElementById('itemName').value;
+            const item = data.items.find(i => i.itemName === itemName);
+            const container = document.getElementById('quantityInputContainer');
+            const tagGroup = document.getElementById('priceTierTagGroup');
 
-        // --- Admin Data Management ---
-        function addNewItem() {
-            const main = document.getElementById('newMainCategory').value.trim(), sub = document.getElementById('newSubCategory').value.trim(), name = document.getElementById('newItemName').value.trim(), profit = parseFloat(document.getElementById('newProfitMargin').value) || 25;
-            if (!main || !sub || !name) return;
-            if (!data.categories.some(c => c.mainCategory === main && c.subcategory === sub)) data.categories.push({ mainCategory: main, subcategory: sub });
-            data.items.push({ mainCategory: main, subcategory: sub, itemName: name, profitMargin: profit, costTiers: [] });
-            updateDatalist('newMainCategoryList', main); updateDatalist('newSubCategoryList', sub); updateDatalist('newItemNameList', name);
-            saveAllData(true); refreshAllDisplays(); refreshDataTables();
+            container.innerHTML = '';
+            tagGroup.style.display = 'none';
+
+            if (item && item.costTiers && item.costTiers.length > 0) {
+                const select = document.createElement('select');
+                select.id = 'quantity';
+                select.setAttribute('onchange', 'calculatePrice()');
+                
+                select.add(new Option('--- Select Set ---', 0)); 
+                
+                item.costTiers.forEach(tier => {
+                    const option = document.createElement('option');
+                    option.value = tier.qty;
+                    option.textContent = tier.tag;
+                    if (tier.selected) option.selected = true;
+                    select.appendChild(option);
+                });
+                
+                container.appendChild(select);
+                tagGroup.style.display = 'flex';
+                calculatePrice();
+            } else {
+                const input = document.createElement('input');
+                input.type = 'number';
+                input.id = 'quantity';
+                input.value = 1;
+                input.min = 1;
+                input.setAttribute('onchange', 'calculatePrice()');
+                container.appendChild(input);
+            }
         }
-        function refreshDataTables() { document.getElementById('itemsTable').innerHTML = `<thead><tr><th>Item</th><th>Profit</th><th>Actions</th></tr></thead><tbody>${data.items.map((item, i) => `<tr><td>${item.itemName}</td><td>${item.profitMargin||0}%</td><td><button onclick="openItemEditor(${i})">Edit</button></td></tr>`).join('')}</tbody>`; }
-        function openItemEditor(index) { /* Editor logic */ }
-        function addTierRow(tier = {}) { /* Tier row logic */ }
-        function saveItemChanges() { /* Save item logic */ saveAllData(true); }
         
-        // --- Invoice, Expense, History Logic (Simplified for brevity) ---
-        function saveInvoice() { updateDatalist('customerNameList', document.getElementById('invoiceCustomerName').value); updateDatalist('customerPhoneList', document.getElementById('invoiceCustomerPhone').value); saveAllData(true); showNotification('Invoice Saved', 'success'); }
-        function addInvoiceItem() { const t = document.getElementById('itemsTableBody'); t.appendChild(t.rows[0].cloneNode(true)); }
-        function removeInvoiceItem(btn) { if (document.getElementById('itemsTableBody').rows.length > 1) btn.closest('tr').remove(); }
-        function saveExpense() { updateDatalist('expenseDescriptionList', document.getElementById('expenseDescription').value); saveAllData(true); showNotification('Expense Saved', 'success'); }
+        function clearTierTag() {
+             const tagGroup = document.getElementById('priceTierTagGroup');
+             if (tagGroup.style.display === 'flex') {
+                document.getElementById('priceTierTag').textContent = 'Recalculate to see set details.';
+             }
+        }
+
+        function updateItemsAndFields() {
+            const mainCategory = document.getElementById('mainCategory').value;
+            const subcategory = document.getElementById('subCategory').value;
+            const itemSelect = document.getElementById('itemName');
+            itemSelect.innerHTML = '<option value="">Select Item</option>';
+            
+            if (mainCategory && subcategory) {
+                const items = data.items.filter(item => item.mainCategory === mainCategory && item.subcategory === subcategory);
+                items.forEach(item => itemSelect.add(new Option(item.itemName, item.itemName)));
+            }
+            updateQuantityInput();
+        }
+
+        function calculatePrice() {
+            const mainCategory = document.getElementById('mainCategory').value;
+            const subcategory = document.getElementById('subCategory').value;
+            const itemName = document.getElementById('itemName').value;
+            const quantityElement = document.getElementById('quantity');
+            const quantity = parseInt(quantityElement.value) || 0;
+            const manualDesignCharges = parseFloat(document.getElementById('designCharges').value) || 0;
+            
+            if (!mainCategory || !subcategory || !itemName || quantity <= 0) { 
+                document.getElementById('result').style.display = 'none';
+                document.getElementById('priceBreakdown').style.display = 'none';
+                return; 
+            }
+            
+            const item = data.items.find(i => i.mainCategory === mainCategory && i.subcategory === subcategory && i.itemName === itemName);
+            if (!item) { 
+                document.getElementById('result').textContent = "Item not found"; 
+                document.getElementById('result').style.display = 'block'; 
+                return; 
+            }
+
+            const profitMargin = (item.profitMargin || 0) / 100;
+            let totalFixedCost = 0;
+            let totalVariableCost = 0;
+            let breakdown = [];
+            let finalPricePerUnit = 0;
+            let variableCostDescription = "Zero";
+            
+            if (item.costTiers && item.costTiers.length > 0) {
+                const tier = item.costTiers.find(t => t.qty === quantity);
+                
+                if (!tier) {
+                    showNotification(`Quantity ${quantity} is not a valid set. Please select from the dropdown.`, "error", 5000);
+                    document.getElementById('result').textContent = `ERROR: Invalid quantity (${quantity}).`;
+                    document.getElementById('result').style.display = 'block';
+                    return;
+                }
+                
+                totalFixedCost = tier.fixedPrice + manualDesignCharges;
+                
+                const priceTierTagEl = document.getElementById('priceTierTag');
+                priceTierTagEl.textContent = tier.tag; 
+                document.getElementById('priceTierTagGroup').style.display = 'flex';
+
+            } else {
+                totalFixedCost = (item.fixedSetupCostTotal || 0) + manualDesignCharges;
+                document.getElementById('priceTierTagGroup').style.display = 'none';
+            }
+            
+            if (item.materialCostPerUnit > 0) {
+                totalVariableCost = item.materialCostPerUnit * quantity;
+                variableCostDescription = `Material Cost (Rs. ${item.materialCostPerUnit.toFixed(2)}/Unit)`;
+                breakdown.push(`${variableCostDescription}: Rs. ${totalVariableCost.toFixed(2)}`);
+
+            } else if (item.bulkPaperCost > 0 && item.bulkPaperQuantity > 0) {
+                const pagesPerUnit = item.pagesPerFinishedUnit || 1;
+                const VCPP = (item.bulkPaperCost || 0) / (item.bulkPaperQuantity || 1);
+                const totalPagesNeeded = quantity * pagesPerUnit;
+                
+                totalVariableCost = VCPP * totalPagesNeeded;
+                variableCostDescription = `Paper Cost (${totalPagesNeeded} Pages @ Rs. ${VCPP.toFixed(4)}/Page)`;
+                breakdown.push(`${variableCostDescription}: Rs. ${totalVariableCost.toFixed(2)}`);
+            }
+            
+            const totalCostToProduce = totalFixedCost + totalVariableCost;
+            const profit = totalCostToProduce * profitMargin;
+            const finalPrice = totalCostToProduce + profit;
+            
+            if (quantity > 0) {
+                finalPricePerUnit = finalPrice / quantity;
+            }
+            
+            const fixedCostPerUnit = totalFixedCost / quantity;
+
+            breakdown.unshift(`Total Fixed Cost (Set Price + Design): Rs. ${totalFixedCost.toFixed(2)}`);
+            breakdown.push(`---`);
+            breakdown.push(`Total Production Cost (Break-even): Rs. ${totalCostToProduce.toFixed(2)}`);
+            breakdown.push(`Profit (${(profitMargin * 100).toFixed(0)}%): Rs. ${profit.toFixed(2)}`);
+            breakdown.push(`---`);
+            breakdown.push(`Total Final Price: Rs. ${Math.round(finalPrice)}`);
+            breakdown.push(`FINAL PRICE PER UNIT: Rs. ${finalPricePerUnit.toFixed(2)}`);
+
+            document.getElementById('result').textContent = `Total Customer Price: Rs. ${Math.round(finalPrice)}`;
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('breakdownContent').innerHTML = breakdown.map(item => `<div class="breakdown-item">${item.replace(':', '<span>:</span>')}</div>`).join('').replace('---', '<hr style="border: none; border-top: 1px solid #ddd; margin: 5px 0;">');
+            document.getElementById('priceBreakdown').style.display = 'block';
+            
+            addToHistory({ mainCategory, subcategory, itemName, quantity, designCharges: manualDesignCharges, total: Math.round(finalPrice), timestamp: new Date().toLocaleString() });
+        }
+
+        function clearForm() {
+            document.getElementById('mainCategory').value = '';
+            document.getElementById('subCategory').innerHTML = '<option value="">Select Subcategory</option>';
+            document.getElementById('itemName').innerHTML = '<option value="">Select Item</option>';
+            document.getElementById('quantityInputContainer').innerHTML = '<input type="number" id="quantity" value="1" min="1" onchange="clearTierTag()">';
+            document.getElementById('designCharges').value = '0';
+            document.getElementById('priceTierTagGroup').style.display = 'none';
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('priceBreakdown').style.display = 'none';
+            showNotification('Calculator form cleared', 'info');
+        }
+
+        function addToHistory(calculation) {
+            calculationHistory.unshift(calculation);
+            if (calculationHistory.length > 50) calculationHistory = calculationHistory.slice(0, 50);
+            saveAllData();
+        }
+
+        function updateHistoryDisplay() {
+            const historyList = document.getElementById('historyList');
+            if (calculationHistory.length === 0) { historyList.innerHTML = '<p>No calculations yet</p>'; return; }
+            
+            historyList.innerHTML = calculationHistory.map(calc => `
+                <div class="history-item">
+                    <div class="history-header"><span>${calc.itemName}</span><span>Rs. ${calc.total}</span></div>
+                    <div class="history-details">${calc.mainCategory} > ${calc.subcategory} | Qty: ${calc.quantity} | Design: Rs. ${calc.designCharges} | ${calc.timestamp}</div>
+                </div>
+            `).join('');
+        }
+
+        function clearHistory() {
+            if (confirm('Are you sure you want to clear all calculation history?')) {
+                calculationHistory = [];
+                saveAllData();
+                updateHistoryDisplay();
+                showNotification('Calculation history cleared', 'success');
+            }
+        }
+        
         document.getElementById('expenseDate').value = new Date().toISOString().split('T')[0];
+        function saveExpense() { showNotification('Expense saved (demo mode).', 'success'); saveAllData(); }
+        function clearExpenseForm() { }
+        function loadExpenseList() { document.getElementById('expenseList').innerHTML = '<p>Expense List (Demo)</p>'; }
+        function loadBudgetSnapshot() { }
+        function deleteExpense(id) { }
+        function clearAllExpenses() { }
+
+        function setupItemAutocomplete() { }
+        function selectInvoiceItem(row, item, price) { }
+        function setupCustomerAutocomplete() { }
+        function selectCustomerForInvoice(customer) { }
+        function loadNextInvoiceNumber() { }
+        function addInvoiceItem() { }
+        function removeInvoiceItem(button) { }
+        function calculateTotal() { }
+        function saveInvoice() { showNotification('Invoice saved and sync initiated (demo).', 'success'); saveAllData(); }
+        function clearInvoice() { }
+        function loadInvoiceList() { document.getElementById('invoiceList').innerHTML = '<p>Invoice List (Demo)</p>'; }
+        function deleteInvoice(id) { }
+
+        function addNewItem() {
+            const mainCategory = document.getElementById('newMainCategory').value.trim();
+            const subCategory = document.getElementById('newSubCategory').value.trim();
+            const itemName = document.getElementById('newItemName').value.trim();
+            const profitMargin = parseFloat(document.getElementById('newProfitMargin').value) || 25;
+
+            if (!mainCategory || !subCategory || !itemName) { 
+                showNotification('Please fill in all required fields', 'warning');
+                return; 
+            }
+            
+            if (!data.categories.some(cat => cat.mainCategory === mainCategory && cat.subcategory === subCategory)) {
+                data.categories.push({ mainCategory, subcategory: subCategory });
+            }
+            
+            data.items.push({ 
+                mainCategory, 
+                subcategory: subCategory, 
+                itemName, 
+                profitMargin,
+                costTiers: []
+            });
+            
+            updateDatalist('newMainCategoryList', mainCategory);
+            updateDatalist('newSubCategoryList', subCategory);
+            
+            document.getElementById('newMainCategory').value = '';
+            document.getElementById('newSubCategory').value = '';
+            document.getElementById('newItemName').value = '';
+            document.getElementById('newProfitMargin').value = '25';
+
+            refreshDataTables();
+            refreshAllDisplays();
+            saveAllData();
+            showNotification(`Item '${itemName}' added. Click 'Edit' to add prices.`, 'success');
+        }
+
+        function refreshDataTables() {
+            const itemsTable = document.getElementById('itemsTable');
+            itemsTable.innerHTML = `
+                <thead><tr><th>Category</th><th>Item Name</th><th>Profit %</th><th>Actions</th></tr></thead>
+                <tbody>
+                    ${data.items.map((item, index) => `
+                        <tr>
+                            <td>${item.mainCategory} > ${item.subcategory}</td>
+                            <td>${item.itemName}</td>
+                            <td>${item.profitMargin || 0}%</td>
+                            <td>
+                               <button class="btn btn-warning btn-sm" onclick="openItemEditor(${index})"><i class="fas fa-edit"></i> Edit</button>
+                               <button class="btn btn-danger btn-sm" onclick="deleteItem(${index})"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>`).join('')}
+                </tbody>`;
+        }
         
-        // --- GitHub Export ---
-        async function exportCustomerDataForGitHub() {
-            const publicData = { categories: data.categories, items: data.items, lastUpdated: new Date().toISOString() };
-            const token = document.getElementById('githubPat').value; if (!token) return showNotification('GitHub PAT required.', 'error');
-            const repo = 'greenshirt3/ArhamP', path = 'customer-data.json', apiUrl = `https://api.github.com/repos/${repo}/contents/${path}`;
+        function deleteItem(index) {
+            if(confirm(`Are you sure you want to delete '${data.items[index].itemName}'?`)){
+                data.items.splice(index, 1);
+                saveAllData();
+                refreshDataTables();
+                refreshAllDisplays();
+                showNotification('Item deleted.', 'success');
+            }
+        }
+
+        function openItemEditor(index) {
+            const item = data.items[index];
+            document.getElementById('itemEditor').style.display = 'block';
+            document.getElementById('editorTitle').textContent = `Edit: ${item.itemName}`;
+            document.getElementById('editItemId').value = index;
+            document.getElementById('editItemName').value = item.itemName;
+            document.getElementById('editProfitMargin').value = item.profitMargin || 0;
+            document.getElementById('editDesignCharges').value = item.designCharges || 0;
+            document.getElementById('editMaterialCostPerUnit').value = item.materialCostPerUnit || 0;
+
+            const tiersContainer = document.getElementById('tiersContainer');
+            tiersContainer.innerHTML = '';
+            if (item.costTiers) {
+                item.costTiers.forEach(tier => addTierRow(tier));
+            }
+        }
+        
+        function addTierRow(tier = { qty: 0, fixedPrice: 0, tag: '' }) {
+            const container = document.getElementById('tiersContainer');
+            const tierRow = document.createElement('div');
+            tierRow.className = 'tier-row';
+            tierRow.innerHTML = `
+                <input type="number" class="tier-qty" placeholder="Qty" value="${tier.qty}" style="flex:1;">
+                <input type="number" class="tier-price" placeholder="Fixed Price (Rs)" value="${tier.fixedPrice}" style="flex:2;">
+                <input type="text" class="tier-tag" placeholder="Set Name (e.g., 1000 Cards)" value="${tier.tag}" style="flex:3;">
+                <button class="btn btn-danger btn-sm" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+            `;
+            container.appendChild(tierRow);
+        }
+
+        function saveItemChanges() {
+            const index = document.getElementById('editItemId').value;
+            if (index === '') return;
+
+            const item = data.items[index];
+            item.itemName = document.getElementById('editItemName').value;
+            item.profitMargin = parseFloat(document.getElementById('editProfitMargin').value) || 0;
+            item.designCharges = parseFloat(document.getElementById('editDesignCharges').value) || 0;
+            item.materialCostPerUnit = parseFloat(document.getElementById('editMaterialCostPerUnit').value) || 0;
+            
+            item.costTiers = [];
+            document.querySelectorAll('#tiersContainer .tier-row').forEach(row => {
+                const qty = parseInt(row.querySelector('.tier-qty').value);
+                const fixedPrice = parseFloat(row.querySelector('.tier-price').value);
+                const tag = row.querySelector('.tier-tag').value;
+                if (qty > 0 && fixedPrice > 0 && tag) {
+                    item.costTiers.push({ qty, fixedPrice, tag });
+                }
+            });
+
+            saveAllData();
+            refreshDataTables();
+            refreshAllDisplays();
+            document.getElementById('itemEditor').style.display = 'none';
+            showNotification('Item updated successfully!', 'success');
+        }
+        
+        function loadSettings() {
+            document.getElementById('budgetBusiness').value = budget.business;
+            document.getElementById('budgetPersonal').value = budget.personal;
+        }
+
+        window.exportCustomerDataForGitHub = async function() {
+            // --- Step 1: First, sync to Google Drive as a backup ---
+            if (!isOnline || !currentUser) {
+                showNotification('Please sign in to Google Drive first.', 'error');
+                return;
+            }
+            const publicData = { 
+                categories: data.categories, 
+                items: data.items,
+                settings: {},
+                lastUpdated: new Date().toISOString() 
+            };
+            const driveSuccess = await googleSync.uploadJsonToDrive(publicData);
+            if (driveSuccess) {
+                showNotification('Data saved to Google Drive as customer-data.json!', 'info');
+            } else {
+                showNotification('Failed to save to Google Drive, but will still try GitHub.', 'warning');
+            }
+
+            // --- Step 2: Now, upload to GitHub ---
+            const token = document.getElementById('githubPat').value;
+            if (!token) {
+                showNotification('Please paste your GitHub PAT to auto-upload.', 'error');
+                return;
+            }
+
+            const repo = 'greenshirt3/ArhamP'; // Your repo: username/repository
+            const path = 'customer-data.json'; // The path to the file in your repo
+            const apiUrl = `https://api.github.com/repos/${repo}/contents/${path}`;
+            const commitMessage = `Auto-update prices from shop management tool on ${new Date().toLocaleString()}`;
+            
+            // The content must be Base64 encoded for the GitHub API
             const content = btoa(JSON.stringify(publicData, null, 2));
+
             try {
                 showNotification('Uploading to GitHub...', 'info');
-                const getFileResponse = await fetch(apiUrl, { headers: { 'Authorization': `token ${token}` } });
-                const sha = (await getFileResponse.json()).sha;
-                const uploadResponse = await fetch(apiUrl, { method: 'PUT', headers: { 'Authorization': `token ${token}` }, body: JSON.stringify({ message: `Auto-update prices`, content, sha }) });
-                if (uploadResponse.ok) showNotification('Uploaded to GitHub!', 'success'); else throw new Error();
-            } catch { showNotification(`GitHub upload failed.`, 'error'); }
+
+                // First, we need to get the current file's SHA hash
+                const getFileResponse = await fetch(apiUrl, {
+                    headers: {
+                        'Authorization': `token ${token}`
+                    }
+                });
+
+                if (!getFileResponse.ok && getFileResponse.status !== 404) {
+                    throw new Error(`GitHub API error: ${getFileResponse.statusText}`);
+                }
+
+                const fileData = await getFileResponse.json();
+                const sha = fileData.sha; // This is needed to update an existing file
+
+                // Now, make the request to update the file
+                const uploadResponse = await fetch(apiUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: commitMessage,
+                        content: content,
+                        sha: sha // Include the SHA of the file you are replacing
+                    })
+                });
+
+                if (uploadResponse.ok) {
+                    showNotification('Successfully uploaded customer-data.json to GitHub!', 'success', 8000);
+                } else {
+                    const errorData = await uploadResponse.json();
+                    throw new Error(`GitHub upload failed: ${errorData.message}`);
+                }
+
+            } catch (error) {
+                console.error('GitHub upload error:', error);
+                showNotification(`Error uploading to GitHub: ${error.message}`, 'error', 10000);
+            }
         }
 
-        // =============================================
-        // INITIALIZATION
-        // =============================================
-        window.onload = () => {
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+                document.querySelectorAll('.tab, .tab-content').forEach(el => el.classList.remove('active'));
+                t.classList.add('active');
+                document.getElementById(t.dataset.tab + '-tab').classList.add('active');
+            }));
+
+            // Load Google API
+            const script = document.createElement('script');
+            script.src = 'https://apis.google.com/js/api.js';
+            script.onload = function() {
+                initGoogleApi();
+            };
+            document.head.appendChild(script);
+            
             loadAllData();
             refreshAllDisplays();
-            handleClientLoad(); // Start Google Auth process
-            document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => { document.querySelectorAll('.tab, .tab-content').forEach(el => el.classList.remove('active')); t.classList.add('active'); document.getElementById(t.dataset.tab + '-tab').classList.add('active'); }));
-        };
+            document.getElementById('invoiceDate').value = new Date().toISOString().split('T')[0];
+        });
     </script>
 </body>
 </html>
