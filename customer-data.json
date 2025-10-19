@@ -1,117 +1,155 @@
 {
   "categories": [
     {
-      "mainCategory": "Offset Paper Printing",
+      "mainCategory": "Offset Printing",
       "subcategory": "LetterPads"
     },
     {
-      "mainCategory": "Offset Paper Printing",
-      "subcategory": "Ishtihars"
-    },
-    {
-      "mainCategory": "Offset Paper Printing",
-      "subcategory": "Envelops"
-    },
-    {
-      "mainCategory": "Offset Paper Printing",
+      "mainCategory": "Offset Printing",
       "subcategory": "Visiting Cards"
     },
     {
-      "mainCategory": "Offset Paper Printing",
-      "subcategory": "Stickers"
+      "mainCategory": "Stamps & Shields",
+      "subcategory": "Rubber Stamps"
     },
     {
-      "mainCategory": "Offset Paper Printing",
-      "subcategory": "Bill Books"
+      "mainCategory": "Stamps & Shields",
+      "subcategory": "Award Shields"
     },
     {
-      "mainCategory": "Offset Paper Printing",
-      "subcategory": "PhotoPapers"
-    },
-    {
-      "mainCategory": "Offset Paper Printing",
-      "subcategory": "wedding cards"
-    },
-    {
-      "mainCategory": "Panaflex",
-      "subcategory": "China"
-    },
-    {
-      "mainCategory": "Panaflex",
-      "subcategory": "Star"
-    },
-    {
-      "mainCategory": "Panaflex",
-      "subcategory": "Venyl"
-    },
-    {
-      "mainCategory": "Panaflex",
-      "subcategory": "One Vision"
-    },
-    {
-      "mainCategory": "Panaflex",
-      "subcategory": "Backlit"
-    },
-    {
-      "mainCategory": "Others",
-      "subcategory": "Miscellaneous"
-    },
-    {
-      "mainCategory": "Social Media Posts",
-      "subcategory": "Design Only"
+      "mainCategory": "Offset Printing",
+      "subcategory": "Pamphlets"
     }
   ],
   "items": [
     {
-      "mainCategory": "Offset Paper Printing",
+      "mainCategory": "Offset Printing",
       "subcategory": "LetterPads",
-      "itemName": "LetterPads",
-      "price": 0,
-      "type": "offset",
-      "designCharges": 0,
-      "bindingCost": 40
+      "itemName": "A4 Letterpad (100 Pages)",
+      "profitMargin": 25,
+      "designCharges": 300,
+      "bulkPaperCost": 1000,
+      "bulkPaperQuantity": 2000,
+      "pagesPerFinishedUnit": 100,
+      "costTiers": [
+        {
+          "qty": 10,
+          "fixedPrice": 2000,
+          "tag": "Set of 10 Pads (MOQ)"
+        },
+        {
+          "qty": 20,
+          "fixedPrice": 2200,
+          "tag": "Set of 20 Pads (Better Value)"
+        },
+        {
+          "qty": 30,
+          "fixedPrice": 2350,
+          "tag": "Set of 30 Pads (Recommended)"
+        },
+        {
+          "qty": 40,
+          "fixedPrice": 2500,
+          "tag": "Set of 40 Pads"
+        },
+        {
+          "qty": 50,
+          "fixedPrice": 2650,
+          "tag": "Set of 50 Pads (Bulk Discount)"
+        },
+        {
+          "qty": 100,
+          "fixedPrice": 3000,
+          "tag": "Set of 100 Pads (Best Price)"
+        }
+      ]
     },
     {
-      "mainCategory": "Offset Paper Printing",
-      "subcategory": "Ishtihars",
-      "itemName": "Paper Ishtihars",
-      "price": 0,
-      "type": "offset",
-      "designCharges": 0,
-      "bindingCost": 0
+      "mainCategory": "Stamps & Shields",
+      "subcategory": "Rubber Stamps",
+      "itemName": "Self-Inking Stamp",
+      "profitMargin": 40,
+      "designCharges": 50,
+      "materialCostPerUnit": 150,
+      "costTiers": [
+        {
+          "qty": 1,
+          "fixedPrice": 700,
+          "tag": "Single Stamp Price"
+        },
+        {
+          "qty": 2,
+          "fixedPrice": 950,
+          "tag": "Rs. 475 Setup per Stamp"
+        },
+        {
+          "qty": 3,
+          "fixedPrice": 1100,
+          "tag": "Best Value Setup"
+        }
+      ]
     },
     {
-      "mainCategory": "Offset Paper Printing",
+      "mainCategory": "Stamps & Shields",
+      "subcategory": "Award Shields",
+      "itemName": "Small Wooden Shield",
+      "profitMargin": 30,
+      "designCharges": 100,
+      "materialCostPerUnit": 500,
+      "fixedSetupCostTotal": 500
+    },
+    {
+      "mainCategory": "Offset Printing",
       "subcategory": "Visiting Cards",
-      "itemName": "Shine",
-      "price": 1800,
-      "type": "fixed",
-      "designCharges": 0,
-      "bindingCost": 0
+      "itemName": "Mat Double Side Card",
+      "profitMargin": 35,
+      "designCharges": 500,
+      "costTiers": [
+        {
+          "qty": 1000,
+          "fixedPrice": 2500,
+          "tag": "Set of 1000 Cards"
+        },
+        {
+          "qty": 2000,
+          "fixedPrice": 4500,
+          "tag": "Set of 2000 Cards"
+        },
+        {
+          "qty": 3000,
+          "fixedPrice": 6000,
+          "tag": "Set of 3000 Cards"
+        }
+      ]
     },
     {
-      "mainCategory": "Panaflex",
-      "subcategory": "China",
-      "itemName": "2x2",
-      "price": 140,
-      "type": "fixed",
-      "designCharges": 0,
-      "bindingCost": 0
-    },
-    {
-      "mainCategory": "Social Media Posts",
-      "subcategory": "Design Only",
-      "itemName": "Facebook Post",
-      "price": 300,
-      "type": "fixed",
-      "designCharges": 0,
-      "bindingCost": 0
+      "mainCategory": "Offset Printing",
+      "subcategory": "Pamphlets",
+      "itemName": "A5 Size Pamphlet",
+      "profitMargin": 30,
+      "designCharges": 400,
+      "bulkPaperCost": 1200,
+      "bulkPaperQuantity": 1000,
+      "pagesPerFinishedUnit": 1,
+      "costTiers": [
+        {
+          "qty": 1000,
+          "fixedPrice": 2000,
+          "tag": "Set of 1000 Pamphlets"
+        },
+        {
+          "qty": 2000,
+          "fixedPrice": 3500,
+          "tag": "Set of 2000 Pamphlets"
+        },
+        {
+          "qty": 3000,
+          "fixedPrice": 4800,
+          "tag": "Set of 3000 Pamphlets"
+        }
+      ]
     }
   ],
-  "settings": {
-    "rent": 200,
-    "profitMargin": 25,
-    "defaultBinding": 40
-  },
-  "lastUpdated": "2025-10-18T06:55:46.476Z"
+  "settings": {},
+  "lastUpdated": "2025-10-18T20:00:00.000Z"
 }

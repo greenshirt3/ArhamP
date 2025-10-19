@@ -109,7 +109,7 @@ select:focus, input:focus {
   min-width: 80px;
 }
 
-.quantity-group input {
+.quantity-group select {
   flex: 1;
 }
 
@@ -244,6 +244,17 @@ select:focus, input:focus {
   margin-top: 5px;
 }
 
+#priceTierTag {
+    padding: 10px;
+    background: #e8f4fd;
+    border: 1px solid #0078d4;
+    border-radius: 4px;
+    font-weight: bold;
+    text-align: center;
+    color: var(--primary);
+    margin-top: 15px;
+}
+
 @media (max-width: 480px) {
   .container {
     padding: 20px;
@@ -279,36 +290,46 @@ select:focus, input:focus {
     </select>
 
     <label for="itemSelect"><i class="fas fa-cube"></i> Item</label>
-    <select id="itemSelect" onchange="showPrice()">
+    <select id="itemSelect" onchange="updateQuantityInputViewer()">
       <option value="">Select Item</option>
     </select>
-
+    
     <div class="quantity-group">
-      <label for="quantity"><i class="fas fa-boxes"></i> Quantity:</label>
-      <input type="number" id="quantity" value="1" min="1" onchange="calculateTotalPrice()">
+      <label for="quantitySelect"><i class="fas fa-boxes"></i> Quantity:</label>
+      <div id="quantityInputContainer" style="flex: 1;">
+         </div>
     </div>
+    
+    <div id="priceTierTag">Select item and quantity for price quote.</div>
 
     <div class="result" id="resultBox">
       <h3 id="itemTitle"></h3>
       <div class="price-details">
-        <div class="price-row">
-          <span>Unit Price:</span>
-          <span>Rs. <span id="itemPrice">0</span></span>
+        <div class="price-row" id="setupRow">
+          <span>Fixed Setup/Overhead Cost:</span>
+          <span>Rs. <span id="setupCost">0</span></span>
+        </div>
+        <div class="price-row" id="variableRow">
+          <span>Variable Material/Paper Cost:</span>
+          <span>Rs. <span id="variableCost">0</span></span>
         </div>
         <div class="price-row" id="designRow" style="display:none;">
-          <span>Design Charges:</span>
+          <span>Design Charges (Included Above):</span>
           <span>Rs. <span id="designCharges">0</span></span>
         </div>
         <div class="price-row">
-          <span>Quantity:</span>
-          <span><span id="quantityDisplay">1</span> units</span>
+          <span>Profit Margin (<span id="profitMarginDisplay">0</span>%):</span>
+          <span>Rs. <span id="profitAmount">0</span></span>
         </div>
         <div class="price-row">
           <span><strong>Total Price:</strong></span>
           <span><strong>Rs. <span id="totalPrice">0</span></strong></span>
         </div>
+        <div class="price-row">
+          <span>**Price Per Unit:**</span>
+          <span>**Rs. <span id="pricePerUnit">0</span>**</span>
+        </div>
       </div>
-      <p id="designChargeText" style="font-style: italic; margin-top: 10px;"></p>
     </div>
 
     <button class="refresh-btn" onclick="loadData()">
@@ -329,32 +350,18 @@ select:focus, input:focus {
 // =================================================================================
 // 🚨 CRITICAL CONFIGURATION: REPLACE PLACEHOLDERS BELOW WITH YOUR ACTUAL GITHUB URLS
 // =================================================================================
-// 1. GitHub Pages URL: e.g., https://username.github.io/repo-name/customer-data.json
+// Use your deployed URL where customer-data.json is accessible
 const CLOUD_DATA_URL = "https://greenshirt3.github.io/ArhamP/customer-data.json"; 
-
-// 2. Raw GitHub URL (as a fallback): e.g., https://raw.githubusercontent.com/username/repo-name/main/customer-data.json
 const FALLBACK_URL = "https://raw.githubusercontent.com/greenshirt3/arhamp/main/customer-data.json"; 
 // =================================================================================
 // 🚨 END CRITICAL CONFIGURATION
 // =================================================================================
 
-
-// Local fallback data (will be replaced by cloud data)
+// Local default data structure must reflect the new fields (used as temporary fallback)
 const defaultData = {
-  categories: [
-    { mainCategory: "Offset Paper Printing", subcategory: "Visiting Cards" },
-    { mainCategory: "Panaflex", subcategory: "China" },
-    { mainCategory: "Social Media Posts", subcategory: "Design Only" }
-  ],
-  items: [
-    { mainCategory: "Offset Paper Printing", subcategory: "Visiting Cards", itemName: "Mat Double Side", price: 2500, designCharges: 0 },
-    { mainCategory: "Panaflex", subcategory: "China", itemName: "2x4 Panaflex", price: 280, designCharges: 0 },
-    { mainCategory: "Social Media Posts", subcategory: "Design Only", itemName: "Instagram Post", price: 400, designCharges: 0 }
-  ],
-  settings: {
-    rent: 200,
-    profitMargin: 25
-  },
+  categories: [],
+  items: [],
+  settings: {},
   lastUpdated: new Date().toISOString()
 };
 
@@ -387,42 +394,22 @@ async function loadData() {
   updateSyncStatus('offline', 'Loading latest prices...');
   
   try {
-    // Try GitHub Pages first
-    let response = await fetch(CLOUD_DATA_URL + '?t=' + Date.now(), {
-      cache: 'no-store',
-      headers: {
-        'Accept': 'application/json'
-      }
-    });
+    let response = await fetch(CLOUD_DATA_URL + '?t=' + Date.now(), { cache: 'no-store' });
     
     if (!response.ok) {
-      // Try raw GitHub as fallback
-      response = await fetch(FALLBACK_URL + '?t=' + Date.now(), {
-        cache: 'no-store',
-        headers: {
-          'Accept': 'application/json'
-        }
-      });
+      response = await fetch(FALLBACK_URL + '?t=' + Date.now(), { cache: 'no-store' });
     }
     
     if (response.ok) {
       const jsonData = await response.json();
-      
-      // Handle both direct data and calculatorData structure (for backward compatibility)
-      if (jsonData.calculatorData) {
-        data = jsonData.calculatorData;
-      } else {
-        data = jsonData;
-      }
-      
-      lastSyncTime = new Date();
+      data = jsonData;
+      lastSyncTime = new Date(data.lastUpdated);
       document.getElementById('lastUpdated').textContent = lastSyncTime.toLocaleString();
       
       updateSyncStatus('online', 'Prices updated successfully!');
       setupUI();
       
-      // Save to localStorage for offline use
-      localStorage.setItem('arhamPrices', JSON.stringify({
+      localStorage.setItem('arhamCustomerPrices', JSON.stringify({
         data: data,
         timestamp: lastSyncTime.getTime()
       }));
@@ -434,12 +421,10 @@ async function loadData() {
   } catch (error) {
     console.log('Online fetch failed, trying localStorage...', error);
     
-    // Try to load from localStorage
-    const saved = localStorage.getItem('arhamPrices');
+    const saved = localStorage.getItem('arhamCustomerPrices');
     if (saved) {
       try {
         const savedData = JSON.parse(saved);
-        // Only use if less than 24 hours old
         if (Date.now() - savedData.timestamp < 24 * 60 * 60 * 1000) {
           data = savedData.data;
           lastSyncTime = new Date(savedData.timestamp);
@@ -453,9 +438,8 @@ async function loadData() {
       }
     }
     
-    // Fallback to default data
-    updateSyncStatus('error', 'Failed to load prices. Using sample data.');
-    data = JSON.parse(JSON.stringify(defaultData));
+    updateSyncStatus('error', 'Failed to load prices. Contact Arham Printers.');
+    data = { categories: [], items: [], settings: {}, lastUpdated: new Date().toISOString() };
     setupUI();
   }
 }
@@ -467,7 +451,6 @@ function setupUI() {
   mainSel.innerHTML = '<option value="">Select Main Category</option>';
   mains.forEach(m => mainSel.add(new Option(m, m)));
   
-  // Clear dependent fields
   document.getElementById("subCat").innerHTML = '<option value="">Select Subcategory</option>';
   document.getElementById("itemSelect").innerHTML = '<option value="">Select Item</option>';
   document.getElementById("resultBox").style.display = 'none';
@@ -482,6 +465,7 @@ function loadSubCats() {
   subs.forEach(s => subSel.add(new Option(s, s)));
   document.getElementById("itemSelect").innerHTML = '<option value="">Select Item</option>';
   document.getElementById("resultBox").style.display = 'none';
+  document.getElementById('priceTierTag').textContent = 'Select item and quantity for price quote.';
 }
 
 function loadItems() {
@@ -493,63 +477,141 @@ function loadItems() {
   const items = data.items.filter(i => i.mainCategory === main && i.subcategory === sub);
   items.forEach(i => itemSel.add(new Option(i.itemName, i.itemName)));
   document.getElementById("resultBox").style.display = 'none';
+  document.getElementById('priceTierTag').textContent = 'Select item and quantity for price quote.';
+  updateQuantityInputViewer();
 }
 
-function showPrice() {
-  const main = document.getElementById("mainCat").value;
-  const sub = document.getElementById("subCat").value;
-  const name = document.getElementById("itemSelect").value;
-  const box = document.getElementById("resultBox");
-  
-  if (!name) {
-    box.style.display = 'none';
-    return;
-  }
-  
-  const item = data.items.find(i => i.mainCategory === main && i.subcategory === sub && i.itemName === name);
-  if (!item) {
-    box.style.display = 'none';
-    return;
-  }
-  
-  document.getElementById("itemTitle").textContent = name;
-  document.getElementById("itemPrice").textContent = item.price;
-  
-  // Show/hide design charges
-  const designRow = document.getElementById("designRow");
-  if (item.designCharges > 0) {
-    designRow.style.display = 'flex';
-    document.getElementById("designCharges").textContent = item.designCharges;
-  } else {
-    designRow.style.display = 'none';
-  }
-  
-  calculateTotalPrice();
-  box.style.display = 'block';
+function updateQuantityInputViewer() {
+    const main = document.getElementById("mainCat").value;
+    const sub = document.getElementById("subCat").value;
+    const name = document.getElementById("itemSelect").value;
+    const item = data.items.find(i => i.mainCategory === main && i.subcategory === sub && i.itemName === name);
+    const container = document.getElementById('quantityInputContainer');
+    const tagDisplay = document.getElementById('priceTierTag');
+
+    container.innerHTML = '';
+    tagDisplay.textContent = 'Select a quantity to calculate total price.';
+    document.getElementById("resultBox").style.display = 'none';
+
+    if (!item) return;
+
+    if (item.costTiers) {
+        // Tiered Quantity (Dropdown)
+        const select = document.createElement('select');
+        select.id = 'quantitySelect';
+        select.setAttribute('onchange', 'calculateViewerPrice()');
+        
+        select.add(new Option('--- Select Quantity ---', 0)); 
+        
+        item.costTiers.forEach(tier => {
+            const option = document.createElement('option');
+            option.value = tier.qty;
+            option.textContent = tier.tag; // Use the descriptive tag in the dropdown
+            select.appendChild(option);
+        });
+        
+        container.appendChild(select);
+        
+        // Display the MOQ tag immediately
+        const defaultTier = item.costTiers.find(t => t.selected) || item.costTiers[0];
+        if (defaultTier) {
+            tagDisplay.textContent = `**${defaultTier.tag}** (MOQ: ${defaultTier.qty} units)`;
+        }
+
+    } else {
+        // Simple Quantity (Non-Tiered)
+        const input = document.createElement('input');
+        input.type = 'number';
+        input.id = 'quantitySelect'; // Use the same ID for easy lookup
+        input.value = 1;
+        input.min = 1;
+        input.setAttribute('onchange', 'calculateViewerPrice()');
+        container.appendChild(input);
+        
+        // Display base price if non-tiered
+        if (item.materialCostPerUnit) {
+            tagDisplay.textContent = `Base Material Cost: Rs. ${item.materialCostPerUnit.toFixed(2)}/unit.`;
+        } else {
+             tagDisplay.textContent = `Base Fixed Price model applied.`;
+        }
+    }
 }
 
-function calculateTotalPrice() {
-  const main = document.getElementById("mainCat").value;
-  const sub = document.getElementById("subCat").value;
-  const name = document.getElementById("itemSelect").value;
-  const quantity = parseInt(document.getElementById("quantity").value) || 1;
-  
-  if (!name) return;
-  
-  const item = data.items.find(i => i.mainCategory === main && i.subcategory === sub && i.itemName === name);
-  if (!item) return;
-  
-  document.getElementById("quantityDisplay").textContent = quantity;
-  
-  const unitPrice = item.price;
-  const designCharges = item.designCharges || 0;
-  
-  // Note: Profit margin calculation is intentionally left out for the customer view, 
-  // ensuring only the final sale price is shown.
-  
-  const totalPrice = (unitPrice + designCharges) * quantity;
-  
-  document.getElementById("totalPrice").textContent = totalPrice.toFixed(2);
+function calculateViewerPrice() {
+    const main = document.getElementById("mainCat").value;
+    const sub = document.getElementById("subCat").value;
+    const name = document.getElementById("itemSelect").value;
+    const quantityElement = document.getElementById("quantitySelect");
+    const quantity = parseInt(quantityElement.value) || 0;
+    
+    const resultBox = document.getElementById("resultBox");
+    const tagDisplay = document.getElementById('priceTierTag');
+    
+    if (quantity <= 0 || !name) {
+        resultBox.style.display = 'none';
+        return;
+    }
+
+    const item = data.items.find(i => i.mainCategory === main && i.subcategory === sub && i.itemName === name);
+    if (!item) { resultBox.style.display = 'none'; return; }
+
+    const profitMargin = (item.profitMargin || 0) / 100; // Use item-specific profit margin
+    let totalFixedCost = 0;
+    let totalVariableCost = 0;
+    let designCharges = item.designCharges || 0; 
+    let setupCostDescription = 'Base Fixed Cost (Non-Tiered)';
+
+    // --- 1. FIXED COST LOOKUP ---
+    if (item.costTiers) {
+        // Tiered Model (Letterpads, Stamps)
+        const tier = item.costTiers.find(t => t.qty === quantity);
+        
+        if (!tier) { resultBox.style.display = 'none'; return; } // Should not happen with dropdown
+
+        totalFixedCost = tier.fixedPrice; // All-inclusive fixed cost
+        setupCostDescription = `Tier Fixed Price (${tier.qty} Units)`;
+        tagDisplay.textContent = `**${tier.tag}** (Total Fixed Overhead: Rs. ${tier.fixedPrice} + Design: Rs. ${designCharges})`;
+        
+    } else {
+        // Simple Unit/Fixed Price Model (Shields) - Use fixedSetupCostTotal
+        totalFixedCost = item.fixedSetupCostTotal || 0;
+    }
+    
+    // --- 2. VARIABLE COST CALCULATION ---
+    if (item.materialCostPerUnit > 0) {
+        // A. SIMPLE MATERIAL MODEL (STAMPS, SHIELDS)
+        totalVariableCost = (item.materialCostPerUnit || 0) * quantity;
+        
+    } else if (item.bulkPaperCost > 0 && item.bulkPaperQuantity > 0) {
+        // B. PAPER-BASED MODEL (LETTERPADS)
+        const pagesPerUnit = item.pagesPerFinishedUnit || 1;
+        const VCPP = (item.bulkPaperCost || 0) / (item.bulkPaperQuantity || 1);
+        const totalPagesNeeded = quantity * pagesPerUnit;
+        totalVariableCost = VCPP * totalPagesNeeded;
+    }
+
+    // --- 3. FINAL CALCULATION ---
+    const totalCostToProduce = totalFixedCost + totalVariableCost + designCharges;
+    const profit = totalCostToProduce * profitMargin;
+    const finalPrice = totalCostToProduce + profit;
+    const finalPricePerUnit = finalPrice / quantity;
+    
+    // --- 4. DISPLAY RESULTS ---
+    
+    // Calculate component costs for display clarity
+    const profitComponent = finalPrice - totalCostToProduce;
+    
+    document.getElementById("itemTitle").textContent = `${item.itemName} (${quantity} Units)`;
+    document.getElementById("setupCost").textContent = totalFixedCost.toFixed(2);
+    document.getElementById("variableCost").textContent = totalVariableCost.toFixed(2);
+    document.getElementById("designCharges").textContent = designCharges.toFixed(2);
+    document.getElementById("designRow").style.display = designCharges > 0 ? 'flex' : 'none';
+    document.getElementById("profitMarginDisplay").textContent = (profitMargin * 100).toFixed(0);
+    document.getElementById("profitAmount").textContent = profitComponent.toFixed(2);
+    document.getElementById("totalPrice").textContent = Math.round(finalPrice).toFixed(0);
+    document.getElementById("pricePerUnit").textContent = finalPricePerUnit.toFixed(2);
+
+    resultBox.style.display = 'block';
 }
 
 // Auto-refresh data every 30 minutes
@@ -559,5 +621,4 @@ setInterval(loadData, 30 * 60 * 1000);
 loadData();
 </script>
 </body>
-
 </html>
