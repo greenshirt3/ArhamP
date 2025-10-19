@@ -1083,6 +1083,15 @@
             <div class="tab-content" id="import-export-tab">
                 <h3>Import/Export Data</h3>
                 
+                <div class="admin-section">
+                    <h4><i class="fab fa-github"></i> GitHub Auto-Upload</h4>
+                    <p style="font-size: 0.9em; color: var(--gray);">Paste your GitHub Personal Access Token here to upload directly to your repository.</p>
+                    <div class="form-group">
+                        <label for="githubPat">GitHub PAT:</label>
+                        <input type="password" id="githubPat" placeholder="Paste your token here before exporting">
+                    </div>
+                    <p style="font-size: 0.8em; color: var(--danger);"><strong>Security Warning:</strong> Do NOT save this file with the token pasted in it. Only paste it when you need to upload.</p>
+                </div>
                 <div class="import-export-section">
                     <h4>Export Data</h4>
                     <div class="actions">
@@ -1347,7 +1356,6 @@
                 await this.updateSheetData(this.sheets.HISTORY, rows);
             }
             
-            // NEW METHOD: Sync Expenses
             async syncExpenses(expenses) {
                 const rows = expenses.map(e => {
                     const [type, category] = e.category.split(': ');
@@ -1501,9 +1509,8 @@
         let budget = {}; 
         let nextInvoiceNumber = 1001;
         let currentCustomer = null;
-        let datalists = {}; // New object for previous input entries
+        let datalists = {};
 
-        // UPDATED DEFAULT DATA with item-specific profit margin
         const defaultData = {
             categories: [
                 { mainCategory: "Offset Printing", subcategory: "LetterPads" },
@@ -1535,7 +1542,7 @@
                     ]
                 }
             ],
-            settings: {}, // Profit margin is no longer global
+            settings: {},
             budget: { 
                 business: 50000,
                 personal: 30000
@@ -1549,7 +1556,6 @@
         };
 
 
-        // --- Auth Token Functions (Standard) ---
         async function getOneDriveAccessToken() {
             const request = { scopes: ["Files.ReadWrite.All"], account: currentUser };
             try {
@@ -1566,7 +1572,6 @@
             }
         }
 
-        // --- Authentication Functions (Standard) ---
         async function loginToOneDrive() {
             try {
                 const loginRequest = { scopes: ["Files.ReadWrite.All"] };
@@ -1590,7 +1595,6 @@
             }
         }
 
-        // --- Core Sync Functions (Standard) ---
         async function syncToCloud() {
             if (!isOnline || !currentUser) { 
                 showNotification("Please sign in to sync with OneDrive", "warning");
@@ -1610,7 +1614,7 @@
                     customers: customers,
                     expenses: expenses, 
                     budget: budget, 
-                    datalists: datalists, // Include datalists in cloud sync
+                    datalists: datalists,
                     lastSync: new Date().toISOString()
                 };
 
@@ -1663,16 +1667,15 @@
                         customers = cloudData.customers || customers; 
                         expenses = cloudData.expenses || expenses; 
                         budget = cloudData.budget || budget; 
-                        datalists = cloudData.datalists || datalists; // Load datalists
+                        datalists = cloudData.datalists || datalists;
 
-                        // Save all data back to local storage
                         localStorage.setItem(LOCAL_CALC_DATA_KEY, JSON.stringify(data));
                         localStorage.setItem(LOCAL_HISTORY_KEY, JSON.stringify(calculationHistory));
                         localStorage.setItem(LOCAL_INVOICE_KEY, JSON.stringify(invoices));
                         localStorage.setItem(LOCAL_CUSTOMER_KEY, JSON.stringify(customers));
                         localStorage.setItem(LOCAL_EXPENSES_KEY, JSON.stringify(expenses));
                         localStorage.setItem(LOCAL_BUDGET_KEY, JSON.stringify(budget));
-                        localStorage.setItem(LOCAL_DATALISTS_KEY, JSON.stringify(datalists)); // Save datalists
+                        localStorage.setItem(LOCAL_DATALISTS_KEY, JSON.stringify(datalists));
 
                         refreshAllDisplays();
                         refreshDataTables();
@@ -1698,7 +1701,6 @@
              
              loadAllInvoiceData();
              
-             // Pass expenses array to the sync function
              const success = await excelSync.syncAllDataToExcel(data, invoices, customers, calculationHistory, expenses); 
              
              if (success) {
@@ -1710,7 +1712,6 @@
              return success;
         }
 
-        // --- Authentication/UI Functions ---
         async function updateUIAfterLogin() {
             document.getElementById('loginBtn').style.display = 'none';
             document.getElementById('syncBtn').style.display = 'inline-flex';
@@ -1737,7 +1738,6 @@
             document.getElementById('syncStatus').innerHTML = '<i class="fas fa-cloud"></i> Offline Mode - Data stored locally';
         }
 
-        // --- Main Data Management ---
         function loadAllData() {
             try {
                 const savedCalc = localStorage.getItem(LOCAL_CALC_DATA_KEY);
@@ -1773,7 +1773,6 @@
         }
 
         function saveAllData() {
-            // New logic to update datalists from current data
             updateDatalistValues();
             
             localStorage.setItem(LOCAL_CALC_DATA_KEY, JSON.stringify(data));
@@ -1792,7 +1791,6 @@
             }
         }
         
-        // --- DATALIST MANAGEMENT FUNCTIONS ---
         function populateDatalists() {
             for (const listId in datalists) {
                 const datalist = document.getElementById(listId);
@@ -1811,11 +1809,11 @@
                 let list = datalists[listName] || [];
                 if (!list.includes(normalizedValue)) {
                     list.unshift(normalizedValue);
-                    if (list.length > 20) { // Keep list size manageable
+                    if (list.length > 20) {
                         list = list.slice(0, 20);
                     }
                     datalists[listName] = list;
-                    populateDatalists(); // Re-render the datalists
+                    populateDatalists();
                 }
             }
         }
@@ -1830,7 +1828,6 @@
             updateDatalist('expenseDescriptionList', expenseDescription);
         }
 
-        // --- ADMIN LOGIN ---
         function toggleAdmin() {
             const panel = document.getElementById('adminPanel');
             const input = document.getElementById('adminPassword').value;
@@ -1851,9 +1848,6 @@
             }
         }
         
-        // =============================================
-        // CALCULATOR LOGIC
-        // =============================================
         function refreshAllDisplays() {
             updateMainCategories();
             updateSubcategories();
@@ -1898,7 +1892,7 @@
                 item.costTiers.forEach(tier => {
                     const option = document.createElement('option');
                     option.value = tier.qty;
-                    option.textContent = tier.tag; // Use descriptive tag
+                    option.textContent = tier.tag;
                     if (tier.selected) option.selected = true;
                     select.appendChild(option);
                 });
@@ -2027,7 +2021,6 @@
             addToHistory({ mainCategory, subcategory, itemName, quantity, designCharges: manualDesignCharges, total: Math.round(finalPrice), timestamp: new Date().toLocaleString() });
         }
 
-
         function clearForm() {
             document.getElementById('mainCategory').value = '';
             document.getElementById('subCategory').innerHTML = '<option value="">Select Subcategory</option>';
@@ -2040,7 +2033,6 @@
             showNotification('Calculator form cleared', 'info');
         }
 
-        // --- History Management (Standard) ---
         function addToHistory(calculation) {
             calculationHistory.unshift(calculation);
             if (calculationHistory.length > 50) calculationHistory = calculationHistory.slice(0, 50);
@@ -2068,30 +2060,27 @@
             }
         }
         
-        // --- EXPENSE TRACKER LOGIC (Standard) ---
         document.getElementById('expenseDate').value = new Date().toISOString().split('T')[0];
-        function saveExpense() { /* ... expense logic ... */ showNotification('Expense saved (demo mode).', 'success'); saveAllData(); }
-        function clearExpenseForm() { /* ... expense clear logic ... */ }
+        function saveExpense() { showNotification('Expense saved (demo mode).', 'success'); saveAllData(); }
+        function clearExpenseForm() { }
         function loadExpenseList() { document.getElementById('expenseList').innerHTML = '<p>Expense List (Demo)</p>'; }
-        function loadBudgetSnapshot() { /* ... budget snapshot logic ... */ }
-        function deleteExpense(id) { /* ... delete logic ... */ }
-        function clearAllExpenses() { /* ... clear logic ... */ }
+        function loadBudgetSnapshot() { }
+        function deleteExpense(id) { }
+        function clearAllExpenses() { }
 
-        // --- INVOICE LOGIC (Standard) ---
-        function setupItemAutocomplete() { /* ... autocomplete logic ... */ }
-        function selectInvoiceItem(row, item, price) { /* ... select item logic ... */ }
-        function setupCustomerAutocomplete() { /* ... customer logic ... */ }
-        function selectCustomerForInvoice(customer) { /* ... select customer logic ... */ }
-        function loadNextInvoiceNumber() { /* ... next invoice logic ... */ }
-        function addInvoiceItem() { /* ... add item logic ... */ }
-        function removeInvoiceItem(button) { /* ... remove item logic ... */ }
-        function calculateTotal() { /* ... invoice total logic ... */ }
-        function saveInvoice() { /* ... save invoice logic ... */ showNotification('Invoice saved and sync initiated (demo).', 'success'); saveAllData(); }
-        function clearInvoice() { /* ... clear invoice logic ... */ }
+        function setupItemAutocomplete() { }
+        function selectInvoiceItem(row, item, price) { }
+        function setupCustomerAutocomplete() { }
+        function selectCustomerForInvoice(customer) { }
+        function loadNextInvoiceNumber() { }
+        function addInvoiceItem() { }
+        function removeInvoiceItem(button) { }
+        function calculateTotal() { }
+        function saveInvoice() { showNotification('Invoice saved and sync initiated (demo).', 'success'); saveAllData(); }
+        function clearInvoice() { }
         function loadInvoiceList() { document.getElementById('invoiceList').innerHTML = '<p>Invoice List (Demo)</p>'; }
-        function deleteInvoice(id) { /* ... delete logic ... */ }
+        function deleteInvoice(id) { }
 
-        // --- ADMIN DATA MANAGEMENT FUNCTIONS (NEW) ---
         function addNewItem() {
             const mainCategory = document.getElementById('newMainCategory').value.trim();
             const subCategory = document.getElementById('newSubCategory').value.trim();
@@ -2112,7 +2101,7 @@
                 subcategory: subCategory, 
                 itemName, 
                 profitMargin,
-                costTiers: [] // Start with empty tiers
+                costTiers: []
             });
             
             updateDatalist('newMainCategoryList', mainCategory);
@@ -2219,31 +2208,84 @@
             document.getElementById('budgetPersonal').value = budget.personal;
         }
 
-        // --- Import/Export (Modified for new structure) ---
         window.exportCustomerDataForGitHub = async function() {
+            // --- Step 1: First, sync to OneDrive as a backup ---
             if (!isOnline || !currentUser) {
-                showNotification('Please sign in to OneDrive first to save the public data file.', 'error');
+                showNotification('Please sign in to OneDrive first.', 'error');
                 return;
             }
-            
             const publicData = { 
                 categories: data.categories, 
-                items: data.items, // Export the entire item object, which now contains profit margin
-                settings: {}, // Settings object is now empty
+                items: data.items,
+                settings: {},
                 lastUpdated: new Date().toISOString() 
             };
-            
-            const success = await excelSync.uploadPublicJson(publicData);
-            
-            if (success) {
-                showNotification('Price data saved to OneDrive as customer-data.json! Now push this file to GitHub.', 'success', 8000);
+            const onedriveSuccess = await excelSync.uploadPublicJson(publicData);
+            if (onedriveSuccess) {
+                showNotification('Data saved to OneDrive as customer-data.json!', 'info');
             } else {
-                showNotification('Failed to save public JSON to OneDrive. Check your connection.', 'error');
+                showNotification('Failed to save to OneDrive, but will still try GitHub.', 'warning');
+            }
+
+            // --- Step 2: Now, upload to GitHub ---
+            const token = document.getElementById('githubPat').value;
+            if (!token) {
+                showNotification('Please paste your GitHub PAT to auto-upload.', 'error');
+                return;
+            }
+
+            const repo = 'greenshirt3/ArhamP'; // Your repo: username/repository
+            const path = 'customer-data.json'; // The path to the file in your repo
+            const apiUrl = `https://api.github.com/repos/${repo}/contents/${path}`;
+            const commitMessage = `Auto-update prices from shop management tool on ${new Date().toLocaleString()}`;
+            
+            // The content must be Base64 encoded for the GitHub API
+            const content = btoa(JSON.stringify(publicData, null, 2));
+
+            try {
+                showNotification('Uploading to GitHub...', 'info');
+
+                // First, we need to get the current file's SHA hash
+                const getFileResponse = await fetch(apiUrl, {
+                    headers: {
+                        'Authorization': `token ${token}`
+                    }
+                });
+
+                if (!getFileResponse.ok && getFileResponse.status !== 404) {
+                    throw new Error(`GitHub API error: ${getFileResponse.statusText}`);
+                }
+
+                const fileData = await getFileResponse.json();
+                const sha = fileData.sha; // This is needed to update an existing file
+
+                // Now, make the request to update the file
+                const uploadResponse = await fetch(apiUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: commitMessage,
+                        content: content,
+                        sha: sha // Include the SHA of the file you are replacing
+                    })
+                });
+
+                if (uploadResponse.ok) {
+                    showNotification('Successfully uploaded customer-data.json to GitHub!', 'success', 8000);
+                } else {
+                    const errorData = await uploadResponse.json();
+                    throw new Error(`GitHub upload failed: ${errorData.message}`);
+                }
+
+            } catch (error) {
+                console.error('GitHub upload error:', error);
+                showNotification(`Error uploading to GitHub: ${error.message}`, 'error', 10000);
             }
         }
-        // ... (end of standard functions)
 
-        // Initialize MSAL and start the application
         msalInstance.initialize().then(() => {
             document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
                 document.querySelectorAll('.tab, .tab-content').forEach(el => el.classList.remove('active'));
