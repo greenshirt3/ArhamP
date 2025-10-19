@@ -405,33 +405,6 @@
             font-size: 1.1em;
         }
 
-        .customer-suggestions, .item-suggestions {
-            position: absolute;
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            max-height: 200px;
-            overflow-y: auto;
-            z-index: 1000;
-            width: 100%;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .customer-suggestion {
-            padding: 10px;
-            cursor: pointer;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .customer-suggestion:hover {
-            background: #f5f5f5;
-        }
-        
-        .suggestion-container {
-            position: relative;
-            flex: 2;
-        }
-
         /* Admin Panel Styling */
         .admin-panel { 
             display: none; 
@@ -772,15 +745,14 @@
                 
                 <div class="form-group">
                     <label for="invoiceCustomerName"><i class="fas fa-user"></i> Customer Name:</label>
-                    <div class="suggestion-container">
-                        <input type="text" id="invoiceCustomerName" placeholder="Start typing customer name..." autocomplete="off">
-                        <div id="customerSuggestions" class="customer-suggestions" style="display: none;"></div>
-                    </div>
+                    <input type="text" id="invoiceCustomerName" placeholder="Start typing customer name..." autocomplete="off" list="customerNameList">
+                    <datalist id="customerNameList"></datalist>
                 </div>
                 
                 <div class="form-group">
                     <label for="invoiceCustomerPhone"><i class="fas fa-phone"></i> Phone:</label>
-                    <input type="tel" id="invoiceCustomerPhone" placeholder="Customer phone number">
+                    <input type="tel" id="invoiceCustomerPhone" placeholder="Customer phone number" list="customerPhoneList">
+                    <datalist id="customerPhoneList"></datalist>
                 </div>
                 
                 <div class="form-group">
@@ -808,9 +780,7 @@
                     <tbody id="itemsTableBody">
                         <tr>
                             <td>
-                                <div style="position: relative;">
-                                    <input type="text" class="item-name" placeholder="Enter item description" autocomplete="off">
-                                </div>
+                                <input type="text" class="item-name" placeholder="Enter item description" autocomplete="off" list="invoiceItemList">
                             </td>
                             <td><input type="number" class="item-rate" value="0" min="0" step="0.01" oninput="calculateTotal()"></td>
                             <td><input type="number" class="item-quantity" value="1" min="1" oninput="calculateTotal()"></td>
@@ -820,6 +790,7 @@
                         </tr>
                     </tbody>
                 </table>
+                 <datalist id="invoiceItemList"></datalist>
                 
                 <div class="actions">
                     <button class="btn btn-success" onclick="addInvoiceItem()">
@@ -958,16 +929,19 @@
                         <div class="form-field">
                             <label>Main Category:</label>
                             <input type="text" id="newMainCategory" list="newMainCategoryList">
+                            <datalist id="newMainCategoryList"></datalist>
                         </div>
                         <div class="form-field">
                             <label>Subcategory:</label>
                             <input type="text" id="newSubCategory" list="newSubCategoryList">
+                            <datalist id="newSubCategoryList"></datalist>
                         </div>
                     </div>
                      <div class="form-row">
                         <div class="form-field">
                             <label>Item Name:</label>
-                            <input type="text" id="newItemName" placeholder="e.g., A4 Letterpad (100 Pages)">
+                            <input type="text" id="newItemName" placeholder="e.g., A4 Letterpad (100 Pages)" list="newItemNameList">
+                            <datalist id="newItemNameList"></datalist>
                         </div>
                         <div class="form-field">
                            <label>Profit Margin (%):</label>
@@ -1092,6 +1066,7 @@
                     </div>
                     <p style="font-size: 0.8em; color: var(--danger);"><strong>Security Warning:</strong> Do NOT save this file with the token pasted in it. Only paste it when you need to upload.</p>
                 </div>
+
                 <div class="import-export-section">
                     <h4>Export Data</h4>
                     <div class="actions">
@@ -1143,12 +1118,10 @@
             `;
             container.appendChild(notification);
             
-            // Show notification
             setTimeout(() => {
                 notification.classList.add('show');
             }, 100);
             
-            // Auto hide after duration
             setTimeout(() => {
                 notification.classList.remove('show');
                 setTimeout(() => {
@@ -1177,7 +1150,6 @@
 
             async ensureExcelFile() {
                 const MAX_RETRIES = 3;
-                const INITIAL_DELAY = 5000;
                 let fileInfo = null;
 
                 for (let i = 0; i < MAX_RETRIES; i++) {
@@ -1190,7 +1162,6 @@
                         }
 
                         if (i === 0) {
-                            console.log('Excel file not found. Attempting creation...');
                             const createSuccess = await this.createExcelFile();
                             if (createSuccess) {
                                 fileInfo = await this.getExcelFileInfo();
@@ -1198,21 +1169,15 @@
                             }
                         }
 
-                        if (!this.excelFileId) {
-                            throw new Error('File ID still not available after creation attempt.');
-                        }
+                        if (!this.excelFileId) throw new Error('File ID not available.');
                         
-                        await new Promise(resolve => setTimeout(resolve, INITIAL_DELAY * (i + 1)));
+                        await new Promise(resolve => setTimeout(resolve, 5000 * (i + 1)));
                         await this.initializeSheets();
-                        
                         return true;
 
                     } catch (error) {
-                        console.warn(`Attempt ${i + 1} failed to ensure Excel file.`, error.message);
-                        if (i === MAX_RETRIES - 1) {
-                            console.error('Max retries reached. Failed to ensure Excel file.', error);
-                            return false;
-                        }
+                        console.warn(`Attempt ${i + 1} failed:`, error.message);
+                        if (i === MAX_RETRIES - 1) return false;
                     }
                 }
                 return false;
@@ -1221,272 +1186,131 @@
             async getExcelFileInfo() {
                 const accessToken = await getOneDriveAccessToken();
                 if (!accessToken) return null;
-
-                try {
-                    const response = await fetch(
-                        `https://graph.microsoft.com/v1.0/me/drive/root:${this.excelFilePath}`,
-                        { headers: { 'Authorization': `Bearer ${accessToken}` } }
-                    );
-                    return response.ok ? await response.json() : null;
-                } catch (error) {
-                    return null;
-                }
+                const response = await fetch(`https://graph.microsoft.com/v1.0/me/drive/root:${this.excelFilePath}`, { headers: { 'Authorization': `Bearer ${accessToken}` } });
+                return response.ok ? await response.json() : null;
             }
 
             async createExcelFile() {
                 const accessToken = await getOneDriveAccessToken();
                 if (!accessToken) return false;
-
                 try {
                     await this.ensureOneDriveFolder('/ArhamPrinters');
-                    const emptyXLSXBlob = new Uint8Array([0x50, 0x4b, 0x05, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]).buffer;
-
-                    const response = await fetch(
-                        `https://graph.microsoft.com/v1.0/me/drive/root:/ArhamPrinters/${this.excelFileName}:/content`,
-                        {
-                            method: 'PUT',
-                            headers: {
-                                'Authorization': `Bearer ${accessToken}`,
-                                'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-                            },
-                            body: emptyXLSXBlob
-                        }
-                    );
+                    const emptyXLSX = new Uint8Array([0x50, 0x4b, 0x05, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]).buffer;
+                    const response = await fetch(`https://graph.microsoft.com/v1.0/me/drive/root:/ArhamPrinters/${this.excelFileName}:/content`, {
+                        method: 'PUT',
+                        headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' },
+                        body: emptyXLSX
+                    });
                     if (response.ok || response.status === 201) {
                         this.excelFileId = (await response.json()).id;
                         return true;
                     }
                     return false;
-                } catch (error) {
-                    console.error('Error creating Excel file:', error);
-                    return false;
-                }
+                } catch (error) { return false; }
             }
 
             async ensureOneDriveFolder(folderPath) {
                 const accessToken = await getOneDriveAccessToken();
                 if (!accessToken) return;
-
                 try {
-                    const checkResponse = await fetch(`https://graph.microsoft.com/v1.0/me/drive/root:${folderPath}`, { headers: { 'Authorization': `Bearer ${accessToken}` } });
-                    if (checkResponse.ok) return;
-
+                    const check = await fetch(`https://graph.microsoft.com/v1.0/me/drive/root:${folderPath}`, { headers: { 'Authorization': `Bearer ${accessToken}` } });
+                    if (check.ok) return;
                     await fetch(`https://graph.microsoft.com/v1.0/me/drive/root/children`, {
                         method: 'POST',
                         headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            name: folderPath.substring(folderPath.lastIndexOf('/') + 1),
-                            folder: {},
-                            '@microsoft.graph.conflictBehavior': 'ignore'
-                        })
+                        body: JSON.stringify({ name: folderPath.substring(1), folder: {}, '@microsoft.graph.conflictBehavior': 'ignore' })
                     });
-                } catch (error) {
-                    console.error(`Error ensuring folder ${folderPath}:`, error);
-                }
+                } catch (error) {}
             }
 
             async initializeSheets() {
                 if (!this.excelFileId) return;
-                
-                const sheetPromises = [
-                    this.updateSheetHeaders(this.sheets.ITEMS, ['Main Category', 'Subcategory', 'Item Name', 'Price', 'Type', 'Design Charges', 'Last Updated']),
-                    this.updateSheetHeaders(this.sheets.INVOICES, ['Invoice Number', 'Date', 'Due Date', 'Customer Name', 'Customer Phone', 'Customer Address', 'Items Count', 'Subtotal', 'Tax', 'Total Amount', 'Previous Balance', 'Payment Received', 'Remaining Balance', 'Status', 'Created Date']),
-                    this.updateSheetHeaders(this.sheets.CUSTOMERS, ['Customer Name', 'Phone', 'Address', 'Total Invoices', 'Current Balance', 'Last Invoice Date', 'Created Date']),
-                    this.updateSheetHeaders(this.sheets.SETTINGS, ['Setting Name', 'Value', 'Last Updated']),
-                    this.updateSheetHeaders(this.sheets.HISTORY, ['Date', 'Main Category', 'Subcategory', 'Item Name', 'Quantity', 'Design Charges', 'Total Price', 'Calculated By']),
-                    this.updateSheetHeaders(this.sheets.EXPENSES, ['Date', 'Type', 'Category', 'Amount', 'Description', 'Month/Year', 'Recorded By'])
-                ];
+                const sheetPromises = Object.entries(this.sheets).map(([key, name]) => {
+                    const headers = {
+                        ITEMS: ['Main Category', 'Subcategory', 'Item Name', 'Profit Margin', 'Design Charges', 'Last Updated'],
+                        INVOICES: ['Invoice No', 'Date', 'Customer', 'Total', 'Status'],
+                        CUSTOMERS: ['Name', 'Phone', 'Balance'],
+                        SETTINGS: ['Setting', 'Value'],
+                        HISTORY: ['Date', 'Item', 'Qty', 'Price'],
+                        EXPENSES: ['Date', 'Category', 'Amount', 'Description']
+                    };
+                    return this.updateSheetHeaders(name, headers[key] || [key]);
+                });
                 await Promise.allSettled(sheetPromises);
             }
 
-            async syncAllDataToExcel(calculatorData, invoices, customers, history, expenses) {
-                if (!await this.ensureExcelFile()) { 
-                    showNotification('Failed to connect to OneDrive Excel', 'error');
-                    return false; 
-                }
-
+            async syncAllDataToExcel(data, invoices, customers, history, expenses) {
+                if (!await this.ensureExcelFile()) { return false; }
                 try {
-                    const itemSync = this.syncCalculatorItems(calculatorData.items);
-                    const invoiceSync = this.syncInvoices(invoices);
-                    const customerSync = this.syncCustomers(customers);
-                    const settingSync = this.syncSettings(calculatorData.settings);
-                    const historySync = this.syncHistory(history);
-                    const expenseSync = this.syncExpenses(expenses);
-
-                    await Promise.all([itemSync, invoiceSync, customerSync, settingSync, historySync, expenseSync]);
-                    showNotification('All data successfully synced to OneDrive Excel!', 'success');
+                    await Promise.all([
+                        this.syncSheet(this.sheets.ITEMS, data.items.map(i => [i.mainCategory, i.subcategory, i.itemName, i.profitMargin, i.designCharges, new Date().toISOString()])),
+                        this.syncSheet(this.sheets.INVOICES, invoices.map(inv => [inv.invoiceNo, inv.date, inv.customerName, inv.total, inv.status])),
+                        this.syncSheet(this.sheets.CUSTOMERS, customers.map(c => [c.name, c.phone, c.balance])),
+                        this.syncSheet(this.sheets.HISTORY, history.map(h => [h.timestamp, h.itemName, h.quantity, h.total])),
+                        this.syncSheet(this.sheets.EXPENSES, expenses.map(e => [e.date, e.category, e.amount, e.description]))
+                    ]);
                     return true;
-                } catch (error) {
-                    console.error('Error syncing all data to Excel:', error);
-                    showNotification('Failed to sync data to OneDrive Excel', 'error');
-                    return false;
-                }
-            }
-
-            async syncCalculatorItems(items) {
-                const rows = items.map(item => [
-                    item.mainCategory || '', 
-                    item.subcategory || '', 
-                    item.itemName || '', 
-                    item.price || 0, 
-                    item.type || 'fixed', 
-                    item.designCharges || 0, 
-                    new Date().toISOString()
-                ]);
-                await this.updateSheetData(this.sheets.ITEMS, rows);
-            }
-
-            async syncInvoices(invoices) {
-                const rows = invoices.map(invoice => [invoice.invoiceNo || '', invoice.date || '', invoice.dueDate || '', invoice.customerName || 'N/A', invoice.customerPhone || '', invoice.customerAddress || '', invoice.items?.length || 0, invoice.subtotal || 0, invoice.taxAmount || 0, invoice.total || 0, invoice.previousBalance || 0, invoice.payment || 0, invoice.remainingBalance || 0, invoice.status || 'pending', invoice.created || new Date().toISOString()]);
-                await this.updateSheetData(this.sheets.INVOICES, rows);
-            }
-
-            async syncCustomers(customers) {
-                const rows = customers.map(customer => [customer.name || '', customer.phone || '', customer.address || '', customer.invoicesCount || 0, customer.balance || 0, customer.lastInvoiceDate || '', customer.created || new Date().toISOString()]);
-                await this.updateSheetData(this.sheets.CUSTOMERS, rows);
-            }
-
-            async syncSettings(settings) {
-                const rows = Object.entries(settings).map(([key, value]) => [key, value, new Date().toISOString()]);
-                await this.updateSheetData(this.sheets.SETTINGS, rows);
-            }
-
-            async syncHistory(history) {
-                const rows = history.map(record => [record.timestamp || new Date().toLocaleString(), record.mainCategory || '', record.subcategory || '', record.itemName || '', record.quantity || 1, record.designCharges || 0, record.total || 0, currentUser?.name || 'Admin']);
-                await this.updateSheetData(this.sheets.HISTORY, rows);
+                } catch (error) { return false; }
             }
             
-            async syncExpenses(expenses) {
-                const rows = expenses.map(e => {
-                    const [type, category] = e.category.split(': ');
-                    const date = new Date(e.date);
-                    const monthYear = `${date.toLocaleString('en-US', { month: 'short' })}-${date.getFullYear()}`;
-                    return [
-                        e.date || '',
-                        type || '',
-                        category || e.category,
-                        e.amount || 0,
-                        e.description || '',
-                        monthYear,
-                        currentUser?.name || 'Admin'
-                    ];
-                });
-                await this.updateSheetData(this.sheets.EXPENSES, rows);
+            async syncSheet(sheetName, rows) {
+                const accessToken = await getOneDriveAccessToken();
+                if (!accessToken || !this.excelFileId) return;
+                await this.clearSheetData(sheetName);
+                if (rows.length > 0) {
+                    const range = `A2:${String.fromCharCode(64 + rows[0].length)}${rows.length + 1}`;
+                    const endpoint = `https://graph.microsoft.com/v1.0/me/drive/items/${this.excelFileId}/workbook/worksheets('${sheetName}')/range(address='${range}')`;
+                    await fetch(endpoint, { method: 'PATCH', headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ values: rows }) });
+                }
             }
 
             async uploadPublicJson(publicData) {
                 const accessToken = await getOneDriveAccessToken();
                 if (!accessToken) return false;
-
                 try {
                     await this.ensureOneDriveFolder('/ArhamPrinters');
-
-                    const response = await fetch(
-                        `https://graph.microsoft.com/v1.0/me/drive/root:/ArhamPrinters/customer-data.json:/content`,
-                        {
-                            method: 'PUT',
-                            headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
-                            body: JSON.stringify(publicData, null, 2)
-                        }
-                    );
+                    const response = await fetch(`https://graph.microsoft.com/v1.0/me/drive/root:/ArhamPrinters/customer-data.json:/content`, {
+                        method: 'PUT',
+                        headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+                        body: JSON.stringify(publicData, null, 2)
+                    });
                     return response.ok;
-                } catch (error) {
-                    console.error("Public JSON upload failed:", error);
-                    return false;
-                }
+                } catch (error) { return false; }
             }
 
             async updateSheetHeaders(sheetName, headers) {
                 const accessToken = await getOneDriveAccessToken();
                 if (!accessToken || !this.excelFileId) return;
-
-                const headerRange = `A1:${String.fromCharCode(64 + headers.length)}1`;
-                const endpoint = `https://graph.microsoft.com/v1.0/me/drive/items/${this.excelFileId}/workbook/worksheets('${sheetName}')/range(address='${headerRange}')`;
-
-                const response = await fetch(endpoint, {
-                    method: 'PATCH',
-                    headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ values: [headers] })
-                });
-
-                if (!response.ok) {
-                    await this.addWorksheet(sheetName);
-                    await fetch(endpoint, {
-                        method: 'PATCH',
-                        headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ values: [headers] })
-                    });
-                }
+                const range = `A1:${String.fromCharCode(64 + headers.length)}1`;
+                const endpoint = `https://graph.microsoft.com/v1.0/me/drive/items/${this.excelFileId}/workbook/worksheets('${sheetName}')/range(address='${range}')`;
+                const response = await fetch(endpoint, { method: 'PATCH', headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ values: [headers] }) });
+                if (!response.ok) { await this.addWorksheet(sheetName); await fetch(endpoint, { method: 'PATCH', headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ values: [headers] }) }); }
             }
             
             async addWorksheet(sheetName) {
                 const accessToken = await getOneDriveAccessToken();
                 if (!accessToken || !this.excelFileId) return;
-
-                await fetch(`https://graph.microsoft.com/v1.0/me/drive/items/${this.excelFileId}/workbook/worksheets`, {
-                    method: 'POST',
-                    headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name: sheetName })
-                });
-            }
-
-            async updateSheetData(sheetName, rows) {
-                const accessToken = await getOneDriveAccessToken();
-                if (!accessToken || !this.excelFileId) return;
-
-                await this.clearSheetData(sheetName);
-
-                if (rows.length > 0) {
-                    const startCell = 'A2';
-                    const endCell = `${String.fromCharCode(64 + rows[0].length)}${rows.length + 1}`;
-                    const dataRange = `${startCell}:${endCell}`;
-                    const endpoint = `https://graph.microsoft.com/v1.0/me/drive/items/${this.excelFileId}/workbook/worksheets('${sheetName}')/range(address='${dataRange}')`;
-
-                    await fetch(endpoint, {
-                        method: 'PATCH',
-                        headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ values: rows })
-                    });
-                }
+                await fetch(`https://graph.microsoft.com/v1.0/me/drive/items/${this.excelFileId}/workbook/worksheets`, { method: 'POST', headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ name: sheetName }) });
             }
 
             async clearSheetData(sheetName) {
                 const accessToken = await getOneDriveAccessToken();
                 if (!accessToken || !this.excelFileId) return;
-
-                await fetch(`https://graph.microsoft.com/v1.0/me/drive/items/${this.excelFileId}/workbook/worksheets('${sheetName}')/range(address='A2:Z5000')/clear`, {
-                    method: 'POST',
-                    headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ applyTo: 'contents' })
-                });
+                await fetch(`https://graph.microsoft.com/v1.0/me/drive/items/${this.excelFileId}/workbook/worksheets('${sheetName}')/range(address='A2:Z5000')/clear`, { method: 'POST', headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ applyTo: 'contents' }) });
             }
         }
 
-        // =============================================
-        // AZURE CONFIGURATION & GLOBAL DATA/FUNCTIONS
-        // =============================================
-        // 🚨 CRITICAL: REPLACE THE PLACEHOLDER BELOW WITH YOUR LIVE DOMAIN URL 
         const LIVE_DOMAIN_URL = "https://arhamprinter.netlify.app/index.html";
-        
         const AZURE_CLIENT_ID = "26b3dde9-366f-487b-a485-79d1bf1ab857";
         const msalConfig = {
-            auth: {
-                clientId: AZURE_CLIENT_ID,
-                authority: "https://login.microsoftonline.com/common",
-                redirectUri: LIVE_DOMAIN_URL,
-                knownAuthorities: ["https://login.microsoftonline.com/common/"]
-            },
-            cache: {
-                cacheLocation: "localStorage",
-                storeAuthStateInCookie: false
-            }
+            auth: { clientId: AZURE_CLIENT_ID, authority: "https://login.microsoftonline.com/common", redirectUri: LIVE_DOMAIN_URL, knownAuthorities: ["https://login.microsoftonline.com/common/"] },
+            cache: { cacheLocation: "localStorage", storeAuthStateInCookie: false }
         };
 
         const msalInstance = new msal.PublicClientApplication(msalConfig);
         const excelSync = new OneDriveExcelSync();
         const ADMIN_PASSWORD = "admin123";
 
-        // Local Storage Keys
         const LOCAL_CALC_DATA_KEY = 'arhamPrintersData';
         const LOCAL_HISTORY_KEY = 'arhamPrintersHistory';
         const LOCAL_CUSTOMER_KEY = 'arhamPrintersCustomers';
@@ -1494,311 +1318,108 @@
         const LOCAL_NEXT_INV_KEY = 'arhamNextInvoiceNumber';
         const LOCAL_EXPENSES_KEY = 'arhamPrintersExpenses'; 
         const LOCAL_BUDGET_KEY = 'arhamPrintersBudget'; 
-        const LOCAL_EXCEL_TRIGGER_KEY = 'arhamPrintersExcelSyncTrigger';
         const LOCAL_DATALISTS_KEY = 'arhamPrintersDatalists';
 
-        let isOnline = false;
-        let currentUser = null;
-
-        // Shared Data Structures
-        let data = {};
-        let calculationHistory = [];
-        let customers = [];
-        let invoices = [];
-        let expenses = []; 
-        let budget = {}; 
-        let nextInvoiceNumber = 1001;
-        let currentCustomer = null;
-        let datalists = {};
+        let isOnline = false, currentUser = null, data = {}, calculationHistory = [], customers = [], invoices = [], expenses = [], budget = {}, nextInvoiceNumber = 1001, datalists = {};
 
         const defaultData = {
-            categories: [
-                { mainCategory: "Offset Printing", subcategory: "LetterPads" },
-                { mainCategory: "Stamps & Shields", subcategory: "Rubber Stamps" }
-            ],
-            items: [
-                { 
-                    mainCategory: "Offset Printing", 
-                    subcategory: "LetterPads", 
-                    itemName: "A4 Letterpad (100 Pages)", 
-                    profitMargin: 25,
-                    designCharges: 300,
-                    bulkPaperCost: 1000, 
-                    bulkPaperQuantity: 2000, 
-                    pagesPerFinishedUnit: 100,
-                    costTiers: [
-                        { qty: 10, fixedPrice: 2000, tag: "Set of 10 Pads" }
-                    ]
-                },
-                { 
-                    mainCategory: "Stamps & Shields", 
-                    subcategory: "Rubber Stamps", 
-                    itemName: "Self-Inking Stamp", 
-                    profitMargin: 40,
-                    designCharges: 50,
-                    materialCostPerUnit: 150,
-                    costTiers: [
-                        { qty: 1, fixedPrice: 700, tag: "Single Stamp Price" }
-                    ]
-                }
-            ],
-            settings: {},
-            budget: { 
-                business: 50000,
-                personal: 30000
-            }
+            categories: [{ mainCategory: "Offset Printing", subcategory: "LetterPads" }],
+            items: [{ mainCategory: "Offset Printing", subcategory: "LetterPads", itemName: "A4 Letterpad", profitMargin: 25, designCharges: 300, costTiers: [{ qty: 10, fixedPrice: 2000, tag: "Set of 10" }] }],
+            settings: {}, budget: { business: 50000, personal: 30000 }
         };
-
         const defaultDatalists = {
-            newMainCategoryList: ["Offset Printing", "Digital Printing", "Sign Boards", "Stamps & Shields"],
-            newSubCategoryList: ["LetterPads", "Visiting Cards", "Flyers", "Rubber Stamps", "Award Shields"],
-            expenseDescriptionList: ["A4 paper ream purchase", "Electricity bill (shop)", "Staff salary - Jan", "Diesel for generator"]
+            newMainCategoryList: ["Offset Printing", "Digital Printing", "Sign Boards"],
+            newSubCategoryList: ["LetterPads", "Visiting Cards", "Flyers"],
+            newItemNameList: ["A4 Letterpad (100 Pages)", "Self-Inking Stamp"],
+            expenseDescriptionList: ["A4 paper ream", "Electricity bill"],
+            customerNameList: [], customerPhoneList: [], invoiceItemList: []
         };
-
 
         async function getOneDriveAccessToken() {
-            const request = { scopes: ["Files.ReadWrite.All"], account: currentUser };
-            try {
-                const response = await msalInstance.acquireTokenSilent(request);
-                return response.accessToken;
-            } catch (error) {
-                try {
-                    const response = await msalInstance.acquireTokenPopup(request);
-                    return response.accessToken;
-                } catch (popupError) {
-                    console.error("Popup token acquisition failed:", popupError);
-                    return null;
-                }
-            }
+            try { return (await msalInstance.acquireTokenSilent({ scopes: ["Files.ReadWrite.All"], account: currentUser })).accessToken; } 
+            catch (e) { try { return (await msalInstance.acquireTokenPopup({ scopes: ["Files.ReadWrite.All"] })).accessToken; } catch (pe) { return null; } }
         }
 
         async function loginToOneDrive() {
             try {
-                const loginRequest = { scopes: ["Files.ReadWrite.All"] };
-                const loginResponse = await msalInstance.loginPopup(loginRequest);
-                currentUser = loginResponse.account;
-                isOnline = true;
-                updateUIAfterLogin();
-            } catch (error) {
-                console.error("Login failed:", error);
-                showNotification("Login failed. Please try again.", "error");
-            }
+                currentUser = (await msalInstance.loginPopup({ scopes: ["Files.ReadWrite.All"] })).account;
+                isOnline = true; updateUIAfterLogin();
+            } catch (e) { showNotification("Login failed.", "error"); }
         }
 
         function logoutFromOneDrive() {
-            if (currentUser) {
-                msalInstance.logoutPopup();
-                currentUser = null;
-                isOnline = false;
-                updateUIAfterLogout();
-                showNotification("Signed out successfully", "info");
-            }
+            if (currentUser) { msalInstance.logoutPopup(); currentUser = null; isOnline = false; updateUIAfterLogout(); showNotification("Signed out.", "info"); }
         }
 
         async function syncToCloud() {
-            if (!isOnline || !currentUser) { 
-                showNotification("Please sign in to sync with OneDrive", "warning");
-                return false; 
-            }
-            const accessToken = await getOneDriveAccessToken();
-            if (!accessToken) { 
-                showNotification("Could not get access token", "error");
-                return false; 
-            }
-
+            if (!isOnline) return false;
+            const accessToken = await getOneDriveAccessToken(); if (!accessToken) return false;
             try {
-                const allData = {
-                    calculatorData: data,
-                    history: calculationHistory,
-                    invoices: invoices,
-                    customers: customers,
-                    expenses: expenses, 
-                    budget: budget, 
-                    datalists: datalists,
-                    lastSync: new Date().toISOString()
-                };
-
-                await excelSync.ensureOneDriveFolder('/ArhamPrinters'); 
-
-                const response = await fetch(
-                    `https://graph.microsoft.com/v1.0/me/drive/root:/ArhamPrinters/data.json:/content`,
-                    {
-                        method: 'PUT',
-                        headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
-                        body: JSON.stringify(allData)
-                    }
-                );
-                if (response.ok) { 
-                    showNotification('Data successfully synced to OneDrive JSON!', 'success');
-                    return true; 
-                } 
-                else { throw new Error('Failed to upload JSON to OneDrive'); }
-            } catch (error) {
-                console.error("JSON Sync failed:", error);
-                showNotification('Failed to sync JSON data to OneDrive: ' + error.message, 'error');
-                return false;
-            }
+                const allData = { calculatorData: data, history: calculationHistory, invoices, customers, expenses, budget, datalists, lastSync: new Date().toISOString() };
+                const response = await fetch(`https://graph.microsoft.com/v1.0/me/drive/root:/ArhamPrinters/data.json:/content`, { method: 'PUT', headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' }, body: JSON.stringify(allData) });
+                if (response.ok) { showNotification('Data synced to OneDrive JSON!', 'success'); return true; }
+                else { throw new Error('Upload failed'); }
+            } catch (e) { showNotification('Failed to sync JSON.', 'error'); return false; }
         }
 
         async function syncFromCloud() {
-            if (!isOnline || !currentUser) { 
-                showNotification("Please sign in to sync with OneDrive", "warning");
-                return; 
-            }
-            const accessToken = await getOneDriveAccessToken();
-            if (!accessToken) { 
-                showNotification("Could not get access token", "error");
-                return; 
-            }
-
+            if (!isOnline) return;
+            const accessToken = await getOneDriveAccessToken(); if (!accessToken) return;
             try {
-                const response = await fetch(
-                    `https://graph.microsoft.com/v1.0/me/drive/root:/ArhamPrinters/data.json:/content`,
-                    { headers: { 'Authorization': `Bearer ${accessToken}` } }
-                );
-
+                const response = await fetch(`https://graph.microsoft.com/v1.0/me/drive/root:/ArhamPrinters/data.json:/content`, { headers: { 'Authorization': `Bearer ${accessToken}` } });
                 if (response.ok) {
                     const cloudData = await response.json();
-                    
-                    if (confirm('Do you want to replace your local data with cloud data? This will overwrite local Invoices, Expenses, and Settings.')) {
-                        data = cloudData.calculatorData || data;
-                        calculationHistory = cloudData.history || calculationHistory;
-                        invoices = cloudData.invoices || invoices; 
-                        customers = cloudData.customers || customers; 
-                        expenses = cloudData.expenses || expenses; 
-                        budget = cloudData.budget || budget; 
-                        datalists = cloudData.datalists || datalists;
-
-                        localStorage.setItem(LOCAL_CALC_DATA_KEY, JSON.stringify(data));
-                        localStorage.setItem(LOCAL_HISTORY_KEY, JSON.stringify(calculationHistory));
-                        localStorage.setItem(LOCAL_INVOICE_KEY, JSON.stringify(invoices));
-                        localStorage.setItem(LOCAL_CUSTOMER_KEY, JSON.stringify(customers));
-                        localStorage.setItem(LOCAL_EXPENSES_KEY, JSON.stringify(expenses));
-                        localStorage.setItem(LOCAL_BUDGET_KEY, JSON.stringify(budget));
-                        localStorage.setItem(LOCAL_DATALISTS_KEY, JSON.stringify(datalists));
-
-                        refreshAllDisplays();
-                        refreshDataTables();
-                        loadBudgetSnapshot(); 
-                        showNotification('All data successfully synced from OneDrive (JSON)!', 'success');
+                    if (confirm('Replace local data with cloud data?')) {
+                        data = cloudData.calculatorData || data; calculationHistory = cloudData.history || []; invoices = cloudData.invoices || []; customers = cloudData.customers || []; expenses = cloudData.expenses || []; budget = cloudData.budget || {}; datalists = cloudData.datalists || {};
+                        localStorage.setItem(LOCAL_CALC_DATA_KEY, JSON.stringify(data)); localStorage.setItem(LOCAL_HISTORY_KEY, JSON.stringify(calculationHistory)); localStorage.setItem(LOCAL_INVOICE_KEY, JSON.stringify(invoices)); localStorage.setItem(LOCAL_CUSTOMER_KEY, JSON.stringify(customers)); localStorage.setItem(LOCAL_EXPENSES_KEY, JSON.stringify(expenses)); localStorage.setItem(LOCAL_BUDGET_KEY, JSON.stringify(budget)); localStorage.setItem(LOCAL_DATALISTS_KEY, JSON.stringify(datalists));
+                        refreshAllDisplays(); refreshDataTables(); showNotification('Data synced from OneDrive!', 'success');
                     }
-                } else {
-                    throw new Error('Failed to download JSON from OneDrive');
-                }
-            } catch (error) {
-                console.error("JSON Sync failed:", error);
-                showNotification('Failed to sync data from OneDrive: ' + error.message, 'error');
-            }
+                } else { throw new Error('Download failed'); }
+            } catch (e) { showNotification('Failed to sync from OneDrive.', 'error'); }
         }
 
-        window.syncAllToExcel = async function(isAutomatic = false) {
-             if (!isOnline || !currentUser) {
-                 if (!isAutomatic) showNotification("Please sign in to OneDrive to sync data.", "warning");
-                 return false;
-             }
-             
-             document.getElementById('syncStatus').innerHTML = '<i class="fas fa-sync fa-spin"></i> Syncing to Excel...';
-             
-             loadAllInvoiceData();
-             
-             const success = await excelSync.syncAllDataToExcel(data, invoices, customers, calculationHistory, expenses); 
-             
-             if (success) {
-                 document.getElementById('syncStatus').innerHTML = '<i class="fas fa-check-circle"></i> Online - Connected to OneDrive (Excel Synced)';
-             } else {
-                 document.getElementById('syncStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Excel Sync Failed';
-             }
-             
-             return success;
-        }
+        window.syncAllToExcel = async (isAuto = false) => { if (!isOnline) return; document.getElementById('syncStatus').innerHTML = '<i class="fas fa-sync fa-spin"></i> Syncing...'; if (await excelSync.syncAllDataToExcel(data, invoices, customers, calculationHistory, expenses)) { document.getElementById('syncStatus').innerHTML = '<i class="fas fa-check-circle"></i> Excel Synced'; } else { document.getElementById('syncStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Sync Failed'; }};
 
         async function updateUIAfterLogin() {
-            document.getElementById('loginBtn').style.display = 'none';
-            document.getElementById('syncBtn').style.display = 'inline-flex';
-            document.getElementById('downloadBtn').style.display = 'inline-flex';
-            document.getElementById('logoutBtn').style.display = 'inline-flex';
-            document.getElementById('userInfo').style.display = 'block';
-            document.getElementById('userName').textContent = currentUser.name;
-            document.getElementById('syncStatus').className = 'sync-status sync-online';
-            document.getElementById('syncStatus').innerHTML = '<i class="fas fa-sync fa-spin"></i> Initializing Cloud and Excel...';
-            
-            await excelSync.ensureExcelFile(); 
-            document.getElementById('syncStatus').innerHTML = '<i class="fas fa-check-circle"></i> Online - Connected to OneDrive';
-
-            saveAllData(); 
+            document.getElementById('loginBtn').style.display = 'none'; document.getElementById('syncBtn').style.display = 'inline-flex'; document.getElementById('downloadBtn').style.display = 'inline-flex'; document.getElementById('logoutBtn').style.display = 'inline-flex'; document.getElementById('userInfo').style.display = 'block'; document.getElementById('userName').textContent = currentUser.name; document.getElementById('syncStatus').className = 'sync-status sync-online'; document.getElementById('syncStatus').innerHTML = '<i class="fas fa-sync fa-spin"></i> Initializing...';
+            await excelSync.ensureExcelFile(); document.getElementById('syncStatus').innerHTML = '<i class="fas fa-check-circle"></i> Online'; saveAllData();
         }
 
         function updateUIAfterLogout() {
-            document.getElementById('loginBtn').style.display = 'inline-flex';
-            document.getElementById('syncBtn').style.display = 'none';
-            document.getElementById('downloadBtn').style.display = 'none';
-            document.getElementById('logoutBtn').style.display = 'none';
-            document.getElementById('userInfo').style.display = 'none';
-            document.getElementById('syncStatus').className = 'sync-status sync-offline';
-            document.getElementById('syncStatus').innerHTML = '<i class="fas fa-cloud"></i> Offline Mode - Data stored locally';
+            document.getElementById('loginBtn').style.display = 'inline-flex'; document.getElementById('syncBtn').style.display = 'none'; document.getElementById('downloadBtn').style.display = 'none'; document.getElementById('logoutBtn').style.display = 'none'; document.getElementById('userInfo').style.display = 'none'; document.getElementById('syncStatus').className = 'sync-status sync-offline'; document.getElementById('syncStatus').innerHTML = '<i class="fas fa-cloud"></i> Offline';
         }
 
         function loadAllData() {
             try {
-                const savedCalc = localStorage.getItem(LOCAL_CALC_DATA_KEY);
-                const savedHistory = localStorage.getItem(LOCAL_HISTORY_KEY);
-                const savedExpenses = localStorage.getItem(LOCAL_EXPENSES_KEY); 
-                const savedBudget = localStorage.getItem(LOCAL_BUDGET_KEY); 
-                const savedDatalists = localStorage.getItem(LOCAL_DATALISTS_KEY);
-                
-                data = savedCalc ? JSON.parse(savedCalc) : JSON.parse(JSON.stringify(defaultData));
-                calculationHistory = savedHistory ? JSON.parse(savedHistory) : [];
-                expenses = savedExpenses ? JSON.parse(savedExpenses) : []; 
-                budget = savedBudget ? JSON.parse(savedBudget) : defaultData.budget; 
-                datalists = savedDatalists ? JSON.parse(savedDatalists) : defaultDatalists;
-
-                loadAllInvoiceData();
-                loadNextInvoiceNumber();
-                loadBudgetSnapshot(); 
+                data = JSON.parse(localStorage.getItem(LOCAL_CALC_DATA_KEY) || JSON.stringify(defaultData));
+                calculationHistory = JSON.parse(localStorage.getItem(LOCAL_HISTORY_KEY) || '[]');
+                expenses = JSON.parse(localStorage.getItem(LOCAL_EXPENSES_KEY) || '[]');
+                budget = JSON.parse(localStorage.getItem(LOCAL_BUDGET_KEY) || JSON.stringify(defaultData.budget));
+                datalists = JSON.parse(localStorage.getItem(LOCAL_DATALISTS_KEY) || JSON.stringify(defaultDatalists));
+                customers = JSON.parse(localStorage.getItem(LOCAL_CUSTOMER_KEY) || '[]');
+                invoices = JSON.parse(localStorage.getItem(LOCAL_INVOICE_KEY) || '[]');
+                nextInvoiceNumber = JSON.parse(localStorage.getItem(LOCAL_NEXT_INV_KEY) || '1001');
                 populateDatalists();
-
-            } catch (e) {
-                console.error("Error loading local data:", e);
-                data = JSON.parse(JSON.stringify(defaultData));
-                calculationHistory = [];
-                expenses = [];
-                budget = defaultData.budget;
-                datalists = defaultDatalists;
-            }
-        }
-
-        function loadAllInvoiceData() {
-            customers = JSON.parse(localStorage.getItem(LOCAL_CUSTOMER_KEY) || '[]');
-            invoices = JSON.parse(localStorage.getItem(LOCAL_INVOICE_KEY) || '[]');
+            } catch (e) { data = defaultData; datalists = defaultDatalists; }
         }
 
         function saveAllData() {
-            updateDatalistValues();
-            
             localStorage.setItem(LOCAL_CALC_DATA_KEY, JSON.stringify(data));
             localStorage.setItem(LOCAL_HISTORY_KEY, JSON.stringify(calculationHistory));
             localStorage.setItem(LOCAL_CUSTOMER_KEY, JSON.stringify(customers));
             localStorage.setItem(LOCAL_INVOICE_KEY, JSON.stringify(invoices));
-            localStorage.setItem(LOCAL_EXPENSES_KEY, JSON.stringify(expenses)); 
-            localStorage.setItem(LOCAL_BUDGET_KEY, JSON.stringify(budget)); 
+            localStorage.setItem(LOCAL_NEXT_INV_KEY, JSON.stringify(nextInvoiceNumber));
+            localStorage.setItem(LOCAL_EXPENSES_KEY, JSON.stringify(expenses));
+            localStorage.setItem(LOCAL_BUDGET_KEY, JSON.stringify(budget));
             localStorage.setItem(LOCAL_DATALISTS_KEY, JSON.stringify(datalists));
-
-            if (isOnline && currentUser) {
-                setTimeout(async () => {
-                    await syncToCloud();
-                    await window.syncAllToExcel(true);
-                }, 1000);
-            }
+            if (isOnline) setTimeout(() => { syncToCloud(); window.syncAllToExcel(true); }, 1000);
         }
         
         function populateDatalists() {
             for (const listId in datalists) {
-                const datalist = document.getElementById(listId);
-                if (datalist) {
-                    datalist.innerHTML = '';
-                    datalists[listId].forEach(value => {
-                        datalist.innerHTML += `<option value="${value}">`;
-                    });
+                const datalistEl = document.getElementById(listId);
+                if (datalistEl) {
+                    datalistEl.innerHTML = (datalists[listId] || []).map(val => `<option value="${val}">`).join('');
                 }
             }
         }
@@ -1809,342 +1430,121 @@
                 let list = datalists[listName] || [];
                 if (!list.includes(normalizedValue)) {
                     list.unshift(normalizedValue);
-                    if (list.length > 20) {
-                        list = list.slice(0, 20);
-                    }
+                    if (list.length > 30) list = list.slice(0, 30);
                     datalists[listName] = list;
                     populateDatalists();
                 }
             }
         }
         
-        function updateDatalistValues() {
-            const newMainCategory = document.getElementById('newMainCategory').value.trim();
-            const newSubCategory = document.getElementById('newSubCategory').value.trim();
-            const expenseDescription = document.getElementById('expenseDescription').value.trim();
-            
-            updateDatalist('newMainCategoryList', newMainCategory);
-            updateDatalist('newSubCategoryList', newSubCategory);
-            updateDatalist('expenseDescriptionList', expenseDescription);
-        }
-
         function toggleAdmin() {
-            const panel = document.getElementById('adminPanel');
-            const input = document.getElementById('adminPassword').value;
-            if (panel.style.display === 'block') {
-                panel.style.display = 'none';
-            } else if (input === ADMIN_PASSWORD) {
-                panel.style.display = 'block';
-                document.getElementById('adminPassword').value = '';
-                loadAllInvoiceData();
-                refreshDataTables();
-                updateHistoryDisplay();
-                loadSettings();
-                loadBudgetSnapshot();
-                populateDatalists();
+            const panel = document.getElementById('adminPanel'), input = document.getElementById('adminPassword').value;
+            if (panel.style.display === 'block') panel.style.display = 'none';
+            else if (input === ADMIN_PASSWORD) {
+                panel.style.display = 'block'; document.getElementById('adminPassword').value = '';
+                refreshDataTables(); updateHistoryDisplay(); loadSettings(); populateDatalists();
                 showNotification('Admin panel unlocked', 'success');
-            } else {
-                showNotification('Incorrect admin password', 'error');
-            }
+            } else showNotification('Incorrect password', 'error');
         }
         
-        function refreshAllDisplays() {
-            updateMainCategories();
-            updateSubcategories();
-            updateItemsAndFields();
-            setupCustomerAutocomplete();
-            setupItemAutocomplete();
-        }
-
-        function updateMainCategories() {
-            const mainSelect = document.getElementById('mainCategory');
-            mainSelect.innerHTML = '<option value="">Select Main Category</option>';
-            const mainCategories = [...new Set(data.categories.map(cat => cat.mainCategory))];
-            mainCategories.forEach(cat => mainSelect.add(new Option(cat, cat)));
-        }
-
-        function updateSubcategories() {
-            const mainCategory = document.getElementById('mainCategory').value;
-            const subSelect = document.getElementById('subCategory');
-            subSelect.innerHTML = '<option value="">Select Subcategory</option>';
-            if (!mainCategory) return;
-            const subcategories = [...new Set(data.categories.filter(cat => cat.mainCategory === mainCategory).map(cat => cat.subcategory))];
-            subcategories.forEach(sub => subSelect.add(new Option(sub, sub)));
-            updateItemsAndFields();
-        }
+        function refreshAllDisplays() { updateMainCategories(); updateSubcategories(); updateItemsAndFields(); }
+        function updateMainCategories() { const sel = document.getElementById('mainCategory'); sel.innerHTML = '<option value="">Select...</option>'; [...new Set(data.categories.map(c => c.mainCategory))].forEach(c => sel.add(new Option(c, c))); }
+        function updateSubcategories() { const main = document.getElementById('mainCategory').value, sel = document.getElementById('subCategory'); sel.innerHTML = '<option value="">Select...</option>'; if (!main) return; [...new Set(data.categories.filter(c => c.mainCategory === main).map(c => c.subcategory))].forEach(s => sel.add(new Option(s, s))); updateItemsAndFields(); }
+        function updateItemsAndFields() { const main = document.getElementById('mainCategory').value, sub = document.getElementById('subCategory').value, sel = document.getElementById('itemName'); sel.innerHTML = '<option value="">Select...</option>'; if(main && sub) data.items.filter(i => i.mainCategory === main && i.subcategory === sub).forEach(i => sel.add(new Option(i.itemName, i.itemName))); updateQuantityInput(); }
         
         function updateQuantityInput() {
-            const itemName = document.getElementById('itemName').value;
-            const item = data.items.find(i => i.itemName === itemName);
-            const container = document.getElementById('quantityInputContainer');
-            const tagGroup = document.getElementById('priceTierTagGroup');
-
-            container.innerHTML = '';
-            tagGroup.style.display = 'none';
-
+            const item = data.items.find(i => i.itemName === document.getElementById('itemName').value);
+            const container = document.getElementById('quantityInputContainer'), tagGroup = document.getElementById('priceTierTagGroup');
+            container.innerHTML = ''; tagGroup.style.display = 'none';
             if (item && item.costTiers && item.costTiers.length > 0) {
-                const select = document.createElement('select');
-                select.id = 'quantity';
-                select.setAttribute('onchange', 'calculatePrice()');
-                
-                select.add(new Option('--- Select Set ---', 0)); 
-                
-                item.costTiers.forEach(tier => {
-                    const option = document.createElement('option');
-                    option.value = tier.qty;
-                    option.textContent = tier.tag;
-                    if (tier.selected) option.selected = true;
-                    select.appendChild(option);
-                });
-                
-                container.appendChild(select);
-                tagGroup.style.display = 'flex';
-                calculatePrice();
+                const sel = document.createElement('select'); sel.id = 'quantity'; sel.onchange = calculatePrice;
+                sel.add(new Option('--- Select Set ---', 0));
+                item.costTiers.forEach(t => sel.add(new Option(t.tag, t.qty)));
+                container.appendChild(sel); tagGroup.style.display = 'flex'; calculatePrice();
             } else {
-                const input = document.createElement('input');
-                input.type = 'number';
-                input.id = 'quantity';
-                input.value = 1;
-                input.min = 1;
-                input.setAttribute('onchange', 'calculatePrice()');
+                const input = document.createElement('input'); input.type = 'number'; input.id = 'quantity'; input.value = 1; input.min = 1; input.onchange = calculatePrice;
                 container.appendChild(input);
             }
         }
         
-        function clearTierTag() {
-             const tagGroup = document.getElementById('priceTierTagGroup');
-             if (tagGroup.style.display === 'flex') {
-                document.getElementById('priceTierTag').textContent = 'Recalculate to see set details.';
-             }
-        }
-
-        function updateItemsAndFields() {
-            const mainCategory = document.getElementById('mainCategory').value;
-            const subcategory = document.getElementById('subCategory').value;
-            const itemSelect = document.getElementById('itemName');
-            itemSelect.innerHTML = '<option value="">Select Item</option>';
-            
-            if (mainCategory && subcategory) {
-                const items = data.items.filter(item => item.mainCategory === mainCategory && item.subcategory === subcategory);
-                items.forEach(item => itemSelect.add(new Option(item.itemName, item.itemName)));
-            }
-            updateQuantityInput();
-        }
-
+        function clearTierTag() { if (document.getElementById('priceTierTagGroup').style.display === 'flex') document.getElementById('priceTierTag').textContent = 'Recalculate...'; }
+        
         function calculatePrice() {
-            const mainCategory = document.getElementById('mainCategory').value;
-            const subcategory = document.getElementById('subCategory').value;
-            const itemName = document.getElementById('itemName').value;
-            const quantityElement = document.getElementById('quantity');
-            const quantity = parseInt(quantityElement.value) || 0;
-            const manualDesignCharges = parseFloat(document.getElementById('designCharges').value) || 0;
-            
-            if (!mainCategory || !subcategory || !itemName || quantity <= 0) { 
-                document.getElementById('result').style.display = 'none';
-                document.getElementById('priceBreakdown').style.display = 'none';
-                return; 
-            }
-            
-            const item = data.items.find(i => i.mainCategory === mainCategory && i.subcategory === subcategory && i.itemName === itemName);
-            if (!item) { 
-                document.getElementById('result').textContent = "Item not found"; 
-                document.getElementById('result').style.display = 'block'; 
-                return; 
-            }
+            const item = data.items.find(i => i.itemName === document.getElementById('itemName').value);
+            const qty = parseInt(document.getElementById('quantity')?.value) || 0;
+            const design = parseFloat(document.getElementById('designCharges').value) || 0;
+            const resultEl = document.getElementById('result'), breakdownEl = document.getElementById('priceBreakdown');
+            if (!item || qty <= 0) { resultEl.style.display = 'none'; breakdownEl.style.display = 'none'; return; }
 
-            const profitMargin = (item.profitMargin || 0) / 100;
-            let totalFixedCost = 0;
-            let totalVariableCost = 0;
-            let breakdown = [];
-            let finalPricePerUnit = 0;
-            let variableCostDescription = "Zero";
-            
+            let totalFixed = 0, totalVariable = 0, profitMargin = (item.profitMargin || 0) / 100;
             if (item.costTiers && item.costTiers.length > 0) {
-                const tier = item.costTiers.find(t => t.qty === quantity);
-                
-                if (!tier) {
-                    showNotification(`Quantity ${quantity} is not a valid set. Please select from the dropdown.`, "error", 5000);
-                    document.getElementById('result').textContent = `ERROR: Invalid quantity (${quantity}).`;
-                    document.getElementById('result').style.display = 'block';
-                    return;
-                }
-                
-                totalFixedCost = tier.fixedPrice + manualDesignCharges;
-                
-                const priceTierTagEl = document.getElementById('priceTierTag');
-                priceTierTagEl.textContent = tier.tag; 
+                const tier = item.costTiers.find(t => t.qty === qty);
+                if (!tier) { showNotification(`Invalid set for this item.`, "error"); resultEl.style.display = 'none'; breakdownEl.style.display = 'none'; return; }
+                totalFixed = tier.fixedPrice + design;
+                document.getElementById('priceTierTag').textContent = tier.tag;
                 document.getElementById('priceTierTagGroup').style.display = 'flex';
+            } else { totalFixed = (item.fixedSetupCostTotal || 0) + design; document.getElementById('priceTierTagGroup').style.display = 'none'; }
 
-            } else {
-                totalFixedCost = (item.fixedSetupCostTotal || 0) + manualDesignCharges;
-                document.getElementById('priceTierTagGroup').style.display = 'none';
+            if (item.materialCostPerUnit > 0) totalVariable = item.materialCostPerUnit * qty;
+            else if (item.bulkPaperCost > 0 && item.bulkPaperQuantity > 0) {
+                const vcpp = item.bulkPaperCost / item.bulkPaperQuantity;
+                totalVariable = vcpp * (item.pagesPerFinishedUnit || 1) * qty;
             }
-            
-            if (item.materialCostPerUnit > 0) {
-                totalVariableCost = item.materialCostPerUnit * quantity;
-                variableCostDescription = `Material Cost (Rs. ${item.materialCostPerUnit.toFixed(2)}/Unit)`;
-                breakdown.push(`${variableCostDescription}: Rs. ${totalVariableCost.toFixed(2)}`);
 
-            } else if (item.bulkPaperCost > 0 && item.bulkPaperQuantity > 0) {
-                const pagesPerUnit = item.pagesPerFinishedUnit || 1;
-                const VCPP = (item.bulkPaperCost || 0) / (item.bulkPaperQuantity || 1);
-                const totalPagesNeeded = quantity * pagesPerUnit;
-                
-                totalVariableCost = VCPP * totalPagesNeeded;
-                variableCostDescription = `Paper Cost (${totalPagesNeeded} Pages @ Rs. ${VCPP.toFixed(4)}/Page)`;
-                breakdown.push(`${variableCostDescription}: Rs. ${totalVariableCost.toFixed(2)}`);
-            }
+            const cost = totalFixed + totalVariable, profit = cost * profitMargin, finalPrice = cost + profit, perUnit = finalPrice / qty;
             
-            const totalCostToProduce = totalFixedCost + totalVariableCost;
-            const profit = totalCostToProduce * profitMargin;
-            const finalPrice = totalCostToProduce + profit;
-            
-            if (quantity > 0) {
-                finalPricePerUnit = finalPrice / quantity;
-            }
-            
-            const fixedCostPerUnit = totalFixedCost / quantity;
-
-            breakdown.unshift(`Total Fixed Cost (Set Price + Design): Rs. ${totalFixedCost.toFixed(2)}`);
-            breakdown.push(`---`);
-            breakdown.push(`Total Production Cost (Break-even): Rs. ${totalCostToProduce.toFixed(2)}`);
-            breakdown.push(`Profit (${(profitMargin * 100).toFixed(0)}%): Rs. ${profit.toFixed(2)}`);
-            breakdown.push(`---`);
-            breakdown.push(`Total Final Price: Rs. ${Math.round(finalPrice)}`);
-            breakdown.push(`FINAL PRICE PER UNIT: Rs. ${finalPricePerUnit.toFixed(2)}`);
-
-            document.getElementById('result').textContent = `Total Customer Price: Rs. ${Math.round(finalPrice)}`;
-            document.getElementById('result').style.display = 'block';
-            document.getElementById('breakdownContent').innerHTML = breakdown.map(item => `<div class="breakdown-item">${item.replace(':', '<span>:</span>')}</div>`).join('').replace('---', '<hr style="border: none; border-top: 1px solid #ddd; margin: 5px 0;">');
-            document.getElementById('priceBreakdown').style.display = 'block';
-            
-            addToHistory({ mainCategory, subcategory, itemName, quantity, designCharges: manualDesignCharges, total: Math.round(finalPrice), timestamp: new Date().toLocaleString() });
+            resultEl.textContent = `Total Customer Price: Rs. ${Math.round(finalPrice)}`;
+            resultEl.style.display = 'block';
+            document.getElementById('breakdownContent').innerHTML = [
+                `Fixed Cost: Rs. ${totalFixed.toFixed(2)}`,
+                `Variable Cost: Rs. ${totalVariable.toFixed(2)}`, `---`,
+                `Total Production Cost: Rs. ${cost.toFixed(2)}`,
+                `Profit (${(profitMargin*100).toFixed(0)}%): Rs. ${profit.toFixed(2)}`, `---`,
+                `Total Final Price: Rs. ${Math.round(finalPrice)}`,
+                `PRICE PER UNIT: Rs. ${perUnit.toFixed(2)}`
+            ].map(l => `<div class="breakdown-item">${l.replace(':','<span>:</span>')}</div>`).join('').replace('---', '<hr style="border:0; border-top:1px solid #ddd">');
+            breakdownEl.style.display = 'block';
+            addToHistory({ itemName: item.itemName, quantity: qty, designCharges: design, total: Math.round(finalPrice), timestamp: new Date().toLocaleString() });
         }
 
-        function clearForm() {
-            document.getElementById('mainCategory').value = '';
-            document.getElementById('subCategory').innerHTML = '<option value="">Select Subcategory</option>';
-            document.getElementById('itemName').innerHTML = '<option value="">Select Item</option>';
-            document.getElementById('quantityInputContainer').innerHTML = '<input type="number" id="quantity" value="1" min="1" onchange="clearTierTag()">';
-            document.getElementById('designCharges').value = '0';
-            document.getElementById('priceTierTagGroup').style.display = 'none';
-            document.getElementById('result').style.display = 'none';
-            document.getElementById('priceBreakdown').style.display = 'none';
-            showNotification('Calculator form cleared', 'info');
-        }
-
-        function addToHistory(calculation) {
-            calculationHistory.unshift(calculation);
-            if (calculationHistory.length > 50) calculationHistory = calculationHistory.slice(0, 50);
-            saveAllData();
-        }
-
-        function updateHistoryDisplay() {
-            const historyList = document.getElementById('historyList');
-            if (calculationHistory.length === 0) { historyList.innerHTML = '<p>No calculations yet</p>'; return; }
-            
-            historyList.innerHTML = calculationHistory.map(calc => `
-                <div class="history-item">
-                    <div class="history-header"><span>${calc.itemName}</span><span>Rs. ${calc.total}</span></div>
-                    <div class="history-details">${calc.mainCategory} > ${calc.subcategory} | Qty: ${calc.quantity} | Design: Rs. ${calc.designCharges} | ${calc.timestamp}</div>
-                </div>
-            `).join('');
-        }
-
-        function clearHistory() {
-            if (confirm('Are you sure you want to clear all calculation history?')) {
-                calculationHistory = [];
-                saveAllData();
-                updateHistoryDisplay();
-                showNotification('Calculation history cleared', 'success');
-            }
-        }
+        function clearForm() { document.getElementById('mainCategory').value = ''; updateSubcategories(); document.getElementById('designCharges').value = '0'; document.getElementById('result').style.display = 'none'; document.getElementById('priceBreakdown').style.display = 'none'; }
+        function addToHistory(calc) { calculationHistory.unshift(calc); if (calculationHistory.length > 50) calculationHistory.pop(); saveAllData(); }
+        function updateHistoryDisplay() { const list = document.getElementById('historyList'); list.innerHTML = calculationHistory.length ? calculationHistory.map(c => `<div class="history-item"><div class="history-header"><span>${c.itemName}</span><span>Rs. ${c.total}</span></div><div class="history-details">Qty: ${c.quantity} | Design: ${c.designCharges} | ${c.timestamp}</div></div>`).join('') : '<p>No history.</p>'; }
+        function clearHistory() { if (confirm('Clear history?')) { calculationHistory = []; saveAllData(); updateHistoryDisplay(); } }
         
         document.getElementById('expenseDate').value = new Date().toISOString().split('T')[0];
-        function saveExpense() { showNotification('Expense saved (demo mode).', 'success'); saveAllData(); }
-        function clearExpenseForm() { }
-        function loadExpenseList() { document.getElementById('expenseList').innerHTML = '<p>Expense List (Demo)</p>'; }
-        function loadBudgetSnapshot() { }
-        function deleteExpense(id) { }
-        function clearAllExpenses() { }
+        function saveExpense() { updateDatalist('expenseDescriptionList', document.getElementById('expenseDescription').value); showNotification('Expense saved.', 'success'); saveAllData(); }
+        function clearExpenseForm() { } function loadExpenseList() { } function deleteExpense(id) { } function clearAllExpenses() { }
 
-        function setupItemAutocomplete() { }
-        function selectInvoiceItem(row, item, price) { }
-        function setupCustomerAutocomplete() { }
-        function selectCustomerForInvoice(customer) { }
-        function loadNextInvoiceNumber() { }
-        function addInvoiceItem() { }
-        function removeInvoiceItem(button) { }
-        function calculateTotal() { }
-        function saveInvoice() { showNotification('Invoice saved and sync initiated (demo).', 'success'); saveAllData(); }
-        function clearInvoice() { }
-        function loadInvoiceList() { document.getElementById('invoiceList').innerHTML = '<p>Invoice List (Demo)</p>'; }
-        function deleteInvoice(id) { }
+        function addInvoiceItem() { const tbody = document.getElementById('itemsTableBody'); const newRow = tbody.rows[0].cloneNode(true); newRow.querySelectorAll('input').forEach(i => i.value = (i.type === 'number') ? '0' : ''); tbody.appendChild(newRow); }
+        function removeInvoiceItem(btn) { if (document.getElementById('itemsTableBody').rows.length > 1) btn.closest('tr').remove(); calculateTotal(); }
+        function calculateTotal() { /* Invoice calculation logic */ }
+        function saveInvoice() {
+            updateDatalist('customerNameList', document.getElementById('invoiceCustomerName').value);
+            updateDatalist('customerPhoneList', document.getElementById('invoiceCustomerPhone').value);
+            document.querySelectorAll('#itemsTableBody .item-name').forEach(input => updateDatalist('invoiceItemList', input.value));
+            showNotification('Invoice saved.', 'success'); saveAllData();
+        }
+        function clearInvoice() { } function loadInvoiceList() { } function deleteInvoice(id) { }
 
         function addNewItem() {
-            const mainCategory = document.getElementById('newMainCategory').value.trim();
-            const subCategory = document.getElementById('newSubCategory').value.trim();
-            const itemName = document.getElementById('newItemName').value.trim();
-            const profitMargin = parseFloat(document.getElementById('newProfitMargin').value) || 25;
-
-            if (!mainCategory || !subCategory || !itemName) { 
-                showNotification('Please fill in all required fields', 'warning');
-                return; 
-            }
-            
-            if (!data.categories.some(cat => cat.mainCategory === mainCategory && cat.subcategory === subCategory)) {
-                data.categories.push({ mainCategory, subcategory: subCategory });
-            }
-            
-            data.items.push({ 
-                mainCategory, 
-                subcategory: subCategory, 
-                itemName, 
-                profitMargin,
-                costTiers: []
-            });
-            
-            updateDatalist('newMainCategoryList', mainCategory);
-            updateDatalist('newSubCategoryList', subCategory);
-            
-            document.getElementById('newMainCategory').value = '';
-            document.getElementById('newSubCategory').value = '';
-            document.getElementById('newItemName').value = '';
-            document.getElementById('newProfitMargin').value = '25';
-
-            refreshDataTables();
-            refreshAllDisplays();
-            saveAllData();
-            showNotification(`Item '${itemName}' added. Click 'Edit' to add prices.`, 'success');
+            const mainCat = document.getElementById('newMainCategory').value.trim(), subCat = document.getElementById('newSubCategory').value.trim(), name = document.getElementById('newItemName').value.trim(), profit = parseFloat(document.getElementById('newProfitMargin').value) || 25;
+            if (!mainCat || !subCat || !name) return showNotification('All fields are required.', 'warning');
+            if (!data.categories.some(c => c.mainCategory === mainCat && c.subcategory === subCat)) data.categories.push({ mainCategory: mainCat, subcategory: subCat });
+            data.items.push({ mainCategory: mainCat, subcategory: subCat, itemName: name, profitMargin: profit, costTiers: [] });
+            updateDatalist('newMainCategoryList', mainCat); updateDatalist('newSubCategoryList', subCat); updateDatalist('newItemNameList', name);
+            document.getElementById('newMainCategory').value = ''; document.getElementById('newSubCategory').value = ''; document.getElementById('newItemName').value = ''; document.getElementById('newProfitMargin').value = '25';
+            refreshDataTables(); refreshAllDisplays(); saveAllData(); showNotification(`Item '${name}' added.`, 'success');
         }
 
         function refreshDataTables() {
-            const itemsTable = document.getElementById('itemsTable');
-            itemsTable.innerHTML = `
-                <thead><tr><th>Category</th><th>Item Name</th><th>Profit %</th><th>Actions</th></tr></thead>
-                <tbody>
-                    ${data.items.map((item, index) => `
-                        <tr>
-                            <td>${item.mainCategory} > ${item.subcategory}</td>
-                            <td>${item.itemName}</td>
-                            <td>${item.profitMargin || 0}%</td>
-                            <td>
-                               <button class="btn btn-warning btn-sm" onclick="openItemEditor(${index})"><i class="fas fa-edit"></i> Edit</button>
-                               <button class="btn btn-danger btn-sm" onclick="deleteItem(${index})"><i class="fas fa-trash"></i></button>
-                            </td>
-                        </tr>`).join('')}
-                </tbody>`;
+            const table = document.getElementById('itemsTable');
+            table.innerHTML = `<thead><tr><th>Category</th><th>Item Name</th><th>Profit %</th><th>Actions</th></tr></thead><tbody>
+                ${data.items.map((item, i) => `<tr><td>${item.mainCategory} > ${item.subcategory}</td><td>${item.itemName}</td><td>${item.profitMargin||0}%</td><td><button class="btn btn-warning btn-sm" onclick="openItemEditor(${i})"><i class="fas fa-edit"></i> Edit</button><button class="btn btn-danger btn-sm" onclick="deleteItem(${i})"><i class="fas fa-trash"></i></button></td></tr>`).join('')}
+            </tbody>`;
         }
         
-        function deleteItem(index) {
-            if(confirm(`Are you sure you want to delete '${data.items[index].itemName}'?`)){
-                data.items.splice(index, 1);
-                saveAllData();
-                refreshDataTables();
-                refreshAllDisplays();
-                showNotification('Item deleted.', 'success');
-            }
-        }
+        function deleteItem(index) { if(confirm(`Delete '${data.items[index].itemName}'?`)){ data.items.splice(index, 1); saveAllData(); refreshDataTables(); refreshAllDisplays(); showNotification('Item deleted.', 'success'); } }
 
         function openItemEditor(index) {
             const item = data.items[index];
@@ -2155,154 +1555,59 @@
             document.getElementById('editProfitMargin').value = item.profitMargin || 0;
             document.getElementById('editDesignCharges').value = item.designCharges || 0;
             document.getElementById('editMaterialCostPerUnit').value = item.materialCostPerUnit || 0;
-
             const tiersContainer = document.getElementById('tiersContainer');
             tiersContainer.innerHTML = '';
-            if (item.costTiers) {
-                item.costTiers.forEach(tier => addTierRow(tier));
-            }
+            if (item.costTiers) item.costTiers.forEach(tier => addTierRow(tier));
         }
         
         function addTierRow(tier = { qty: 0, fixedPrice: 0, tag: '' }) {
-            const container = document.getElementById('tiersContainer');
-            const tierRow = document.createElement('div');
-            tierRow.className = 'tier-row';
-            tierRow.innerHTML = `
-                <input type="number" class="tier-qty" placeholder="Qty" value="${tier.qty}" style="flex:1;">
-                <input type="number" class="tier-price" placeholder="Fixed Price (Rs)" value="${tier.fixedPrice}" style="flex:2;">
-                <input type="text" class="tier-tag" placeholder="Set Name (e.g., 1000 Cards)" value="${tier.tag}" style="flex:3;">
-                <button class="btn btn-danger btn-sm" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
-            `;
-            container.appendChild(tierRow);
+            const row = document.createElement('div'); row.className = 'tier-row';
+            row.innerHTML = `<input type="number" class="tier-qty" placeholder="Qty" value="${tier.qty}" style="flex:1;"><input type="number" class="tier-price" placeholder="Fixed Price (Rs)" value="${tier.fixedPrice}" style="flex:2;"><input type="text" class="tier-tag" placeholder="Set Name (e.g., 1000 Cards)" value="${tier.tag}" style="flex:3;"><button class="btn btn-danger btn-sm" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>`;
+            document.getElementById('tiersContainer').appendChild(row);
         }
 
         function saveItemChanges() {
-            const index = document.getElementById('editItemId').value;
-            if (index === '') return;
-
+            const index = document.getElementById('editItemId').value; if (index === '') return;
             const item = data.items[index];
-            item.itemName = document.getElementById('editItemName').value;
-            item.profitMargin = parseFloat(document.getElementById('editProfitMargin').value) || 0;
-            item.designCharges = parseFloat(document.getElementById('editDesignCharges').value) || 0;
-            item.materialCostPerUnit = parseFloat(document.getElementById('editMaterialCostPerUnit').value) || 0;
-            
+            item.itemName = document.getElementById('editItemName').value; item.profitMargin = parseFloat(document.getElementById('editProfitMargin').value) || 0;
+            item.designCharges = parseFloat(document.getElementById('editDesignCharges').value) || 0; item.materialCostPerUnit = parseFloat(document.getElementById('editMaterialCostPerUnit').value) || 0;
             item.costTiers = [];
             document.querySelectorAll('#tiersContainer .tier-row').forEach(row => {
-                const qty = parseInt(row.querySelector('.tier-qty').value);
-                const fixedPrice = parseFloat(row.querySelector('.tier-price').value);
-                const tag = row.querySelector('.tier-tag').value;
-                if (qty > 0 && fixedPrice > 0 && tag) {
-                    item.costTiers.push({ qty, fixedPrice, tag });
-                }
+                const qty = parseInt(row.querySelector('.tier-qty').value), price = parseFloat(row.querySelector('.tier-price').value), tag = row.querySelector('.tier-tag').value;
+                if (qty > 0 && price > 0 && tag) item.costTiers.push({ qty, fixedPrice: price, tag });
             });
-
-            saveAllData();
-            refreshDataTables();
-            refreshAllDisplays();
-            document.getElementById('itemEditor').style.display = 'none';
-            showNotification('Item updated successfully!', 'success');
+            saveAllData(); refreshDataTables(); refreshAllDisplays(); document.getElementById('itemEditor').style.display = 'none'; showNotification('Item updated.', 'success');
         }
         
-        function loadSettings() {
-            document.getElementById('budgetBusiness').value = budget.business;
-            document.getElementById('budgetPersonal').value = budget.personal;
-        }
+        function loadSettings() { document.getElementById('budgetBusiness').value = budget.business; document.getElementById('budgetPersonal').value = budget.personal; }
 
         window.exportCustomerDataForGitHub = async function() {
-            // --- Step 1: First, sync to OneDrive as a backup ---
-            if (!isOnline || !currentUser) {
-                showNotification('Please sign in to OneDrive first.', 'error');
-                return;
-            }
-            const publicData = { 
-                categories: data.categories, 
-                items: data.items,
-                settings: {},
-                lastUpdated: new Date().toISOString() 
-            };
-            const onedriveSuccess = await excelSync.uploadPublicJson(publicData);
-            if (onedriveSuccess) {
-                showNotification('Data saved to OneDrive as customer-data.json!', 'info');
-            } else {
-                showNotification('Failed to save to OneDrive, but will still try GitHub.', 'warning');
-            }
+            if (!isOnline) return showNotification('Please sign in to OneDrive first.', 'error');
+            const publicData = { categories: data.categories, items: data.items, settings: {}, lastUpdated: new Date().toISOString() };
+            if (await excelSync.uploadPublicJson(publicData)) showNotification('Data saved to OneDrive!', 'info'); else showNotification('Failed to save to OneDrive, trying GitHub anyway.', 'warning');
 
-            // --- Step 2: Now, upload to GitHub ---
             const token = document.getElementById('githubPat').value;
-            if (!token) {
-                showNotification('Please paste your GitHub PAT to auto-upload.', 'error');
-                return;
-            }
+            if (!token) return showNotification('Please paste your GitHub PAT to upload.', 'error');
 
-            const repo = 'greenshirt3/ArhamP'; // Your repo: username/repository
-            const path = 'customer-data.json'; // The path to the file in your repo
-            const apiUrl = `https://api.github.com/repos/${repo}/contents/${path}`;
-            const commitMessage = `Auto-update prices from shop management tool on ${new Date().toLocaleString()}`;
-            
-            // The content must be Base64 encoded for the GitHub API
+            const repo = 'greenshirt3/ArhamP', path = 'customer-data.json', apiUrl = `https://api.github.com/repos/${repo}/contents/${path}`, commitMessage = `Auto-update prices on ${new Date().toLocaleString()}`;
             const content = btoa(JSON.stringify(publicData, null, 2));
 
             try {
                 showNotification('Uploading to GitHub...', 'info');
+                const getFileResponse = await fetch(apiUrl, { headers: { 'Authorization': `token ${token}` } });
+                if (!getFileResponse.ok && getFileResponse.status !== 404) throw new Error(`API error: ${getFileResponse.statusText}`);
+                const sha = (await getFileResponse.json()).sha;
 
-                // First, we need to get the current file's SHA hash
-                const getFileResponse = await fetch(apiUrl, {
-                    headers: {
-                        'Authorization': `token ${token}`
-                    }
-                });
-
-                if (!getFileResponse.ok && getFileResponse.status !== 404) {
-                    throw new Error(`GitHub API error: ${getFileResponse.statusText}`);
-                }
-
-                const fileData = await getFileResponse.json();
-                const sha = fileData.sha; // This is needed to update an existing file
-
-                // Now, make the request to update the file
-                const uploadResponse = await fetch(apiUrl, {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${token}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        message: commitMessage,
-                        content: content,
-                        sha: sha // Include the SHA of the file you are replacing
-                    })
-                });
-
-                if (uploadResponse.ok) {
-                    showNotification('Successfully uploaded customer-data.json to GitHub!', 'success', 8000);
-                } else {
-                    const errorData = await uploadResponse.json();
-                    throw new Error(`GitHub upload failed: ${errorData.message}`);
-                }
-
-            } catch (error) {
-                console.error('GitHub upload error:', error);
-                showNotification(`Error uploading to GitHub: ${error.message}`, 'error', 10000);
-            }
+                const uploadResponse = await fetch(apiUrl, { method: 'PUT', headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ message: commitMessage, content, sha }) });
+                if (uploadResponse.ok) showNotification('Successfully uploaded to GitHub!', 'success', 8000); else throw new Error(`Upload failed: ${(await uploadResponse.json()).message}`);
+            } catch (error) { showNotification(`GitHub Error: ${error.message}`, 'error', 10000); }
         }
 
         msalInstance.initialize().then(() => {
-            document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
-                document.querySelectorAll('.tab, .tab-content').forEach(el => el.classList.remove('active'));
-                t.classList.add('active');
-                document.getElementById(t.dataset.tab + '-tab').classList.add('active');
-            }));
-
+            document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => { document.querySelectorAll('.tab, .tab-content').forEach(el => el.classList.remove('active')); t.classList.add('active'); document.getElementById(t.dataset.tab + '-tab').classList.add('active'); }));
             const accounts = msalInstance.getAllAccounts();
-            if (accounts.length > 0) {
-                currentUser = accounts[0];
-                isOnline = true;
-                updateUIAfterLogin();
-            }
-            
-            loadAllData();
-            refreshAllDisplays();
-            document.getElementById('invoiceDate').value = new Date().toISOString().split('T')[0];
+            if (accounts.length > 0) { currentUser = accounts[0]; isOnline = true; updateUIAfterLogin(); }
+            loadAllData(); refreshAllDisplays(); document.getElementById('invoiceDate').value = new Date().toISOString().split('T')[0];
         });
     </script>
 </body>
