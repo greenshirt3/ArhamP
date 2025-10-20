@@ -15,7 +15,8 @@
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://apis.google.com/js/api.js"></script>
+ <script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://apis.google.com/js/api.js"></script>
     
     <style>
         :root {
@@ -1284,33 +1285,12 @@
                 
                 await gapi.client.init({
                     apiKey: '', // No API key needed for OAuth
-                    clientId: CLIENT_ID,
                     discoveryDocs: [DISCOVERY_DOC],
-                    scope: SCOPES
                 });
 
                 gapiInited = true;
                 console.log('Google API client initialized successfully');
                 
-                // Initialize the Google Identity Services client
-                tokenClient = google.accounts.oauth2.initTokenClient({
-                    client_id: CLIENT_ID,
-                    scope: SCOPES,
-                    callback: (resp) => {
-                        if (resp.error !== undefined) {
-                            console.error('OAuth error:', resp);
-                            showNotification('Sign-in failed: ' + resp.error, 'error');
-                            return;
-                        }
-                        
-                        handleSignInSuccess();
-                    },
-                    error_callback: (error) => {
-                        console.error('OAuth error callback:', error);
-                        showNotification('Sign-in error occurred', 'error');
-                    }
-                });
-
                 // Enable the sign-in button
                 document.getElementById('loginBtn').disabled = false;
                 console.log('Sign-in button enabled');
@@ -1318,6 +1298,70 @@
             } catch (error) {
                 console.error('Error initializing Google API client:', error);
                 showNotification('Error initializing Google API. Please refresh the page.', 'error');
+            }
+        }
+
+        // Google Sign In using new GIS
+        function signIn() {
+            console.log('Sign-in button clicked');
+            
+            if (!gapiInited) {
+                console.log('GAPI not initialized');
+                showNotification('Google API not loaded yet. Please wait...', 'warning');
+                return;
+            }
+
+            console.log('Requesting access token...');
+            
+            // Show loading state
+            const loginBtn = document.getElementById('loginBtn');
+            const originalHTML = loginBtn.innerHTML;
+            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
+            loginBtn.disabled = true;
+
+            try {
+                // Use the new Google Identity Services
+                const client = google.accounts.oauth2.initTokenClient({
+                    client_id: CLIENT_ID,
+                    scope: SCOPES,
+                    callback: (response) => {
+                        if (response.error) {
+                            console.error('OAuth error:', response);
+                            loginBtn.innerHTML = originalHTML;
+                            loginBtn.disabled = false;
+                            showNotification('Sign-in failed: ' + response.error, 'error');
+                            return;
+                        }
+                        
+                        // Set the access token for gapi
+                        gapi.client.setToken({
+                            access_token: response.access_token
+                        });
+                        
+                        handleSignInSuccess();
+                    },
+                    error_callback: (error) => {
+                        console.error('OAuth error callback:', error);
+                        loginBtn.innerHTML = originalHTML;
+                        loginBtn.disabled = false;
+                        showNotification('Sign-in error occurred', 'error');
+                    }
+                });
+
+                // Request access token
+                client.requestAccessToken();
+                
+                // Reset button after a timeout (fallback)
+                setTimeout(() => {
+                    loginBtn.innerHTML = originalHTML;
+                    loginBtn.disabled = false;
+                }, 10000);
+                
+            } catch (error) {
+                console.error('Error requesting access token:', error);
+                loginBtn.innerHTML = originalHTML;
+                loginBtn.disabled = false;
+                showNotification('Sign-in error. Please try again.', 'error');
             }
         }
 
@@ -1353,47 +1397,59 @@
             showNotification('Successfully signed in to Google', 'success');
         }
 
-        // Google Sign In
-        function signIn() {
-            console.log('Sign-in button clicked');
+        // Google Sign Out
+        function signOut() {
+            console.log('Signing out...');
             
-            if (!gapiInited) {
-                console.log('GAPI not initialized');
-                showNotification('Google API not loaded yet. Please wait...', 'warning');
-                return;
+            const token = gapi.client.getToken();
+            if (token !== null) {
+                // Revoke token using new GIS
+                google.accounts.oauth2.revoke(token.access_token, () => {
+                    console.log('Token revoked');
+                });
+                gapi.client.setToken('');
             }
-
-            if (!tokenClient) {
-                console.log('Token client not available');
-                showNotification('Google authentication not ready. Please refresh the page.', 'error');
-                return;
-            }
-
-            console.log('Requesting access token...');
             
-            // Show loading state
-            const loginBtn = document.getElementById('loginBtn');
-            const originalHTML = loginBtn.innerHTML;
-            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
-            loginBtn.disabled = true;
-
-            try {
-                tokenClient.requestAccessToken();
-                
-                // Reset button after a timeout (fallback)
-                setTimeout(() => {
-                    loginBtn.innerHTML = originalHTML;
-                    loginBtn.disabled = false;
-                }, 5000);
-                
-            } catch (error) {
-                console.error('Error requesting access token:', error);
-                loginBtn.innerHTML = originalHTML;
-                loginBtn.disabled = false;
-                showNotification('Sign-in error. Please try again.', 'error');
-            }
+            isAuthenticated = false;
+            document.getElementById('loginBtn').style.display = 'inline-block';
+            document.getElementById('syncBtn').style.display = 'none';
+            document.getElementById('logoutBtn').style.display = 'none';
+            document.getElementById('userInfo').style.display = 'none';
+            document.getElementById('syncStatus').className = 'sync-status sync-offline';
+            document.getElementById('syncStatus').innerHTML = '<i class="fas fa-exclamation-circle"></i> Offline Mode - Data stored locally';
+            
+            // Re-enable login button
+            document.getElementById('loginBtn').disabled = false;
+            
+            showNotification('Signed out successfully', 'info');
         }
 
+        // Initialize the application
+        function initApp() {
+            console.log('Initializing application...');
+            
+            // Initialize default items if none exist
+            if (!localStorage.getItem('itemsData')) {
+                initializeDefaultItems();
+            }
+            
+            // Initialize default customers if none exist
+            if (!localStorage.getItem('customersData')) {
+                initializeDefaultCustomers();
+            }
+            
+            // Set up auto-save listeners
+            setupAutoSaveListeners();
+            
+            // Set up sync interval
+            setInterval(() => {
+                if (isAuthenticated) {
+                    saveAllData(false);
+                }
+            }, 30000); // Auto-sync every 30 seconds
+            
+            console.log('Application initialized');
+        }
         // Google Sign Out
         function signOut() {
             console.log('Signing out...');
@@ -3327,6 +3383,7 @@ function updateInvoiceLists() {
     </script>
 </body>
 </html>
+
 
 
 
