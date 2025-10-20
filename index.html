@@ -1242,15 +1242,12 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('entryDate').valueAsDate = new Date();
     
     // Load data from localStorage
+   try {
     loadLocalData();
-    
-    // Initialize Google APIs with error handling
-    try {
-        initGoogleAPIs();
-    } catch (error) {
-        console.error('Failed to initialize Google APIs:', error);
-        showNotification('Failed to initialize Google integration', 'error');
-    }
+} catch (error) {
+    console.error('Error loading local data:', error);
+    // Continue anyway, the app will work with default data
+}
     
     // Update invoice number
     updateInvoiceNumber();
@@ -1297,11 +1294,12 @@ function initGoogleAPIs() {
 
 // Initialize the Google API client
 // Initialize the Google API client
+// Initialize the Google API client
 async function initializeGapiClient() {
     try {
         await gapi.client.init({
             // No API key needed for OAuth flows
-            client_id: CLIENT_ID,  // <-- FIXED: changed to client_id
+            client_id: CLIENT_ID,
             scope: SCOPES,
             discoveryDocs: [DISCOVERY_DOC],
         });
@@ -1315,6 +1313,8 @@ async function initializeGapiClient() {
             callback: '', // defined later
             prompt: 'consent' // Always show consent screen
         });
+        
+        console.log('Google API client initialized successfully');
         
     } catch (error) {
         console.error('Error initializing Google API client:', error);
@@ -1331,9 +1331,15 @@ async function initializeGapiClient() {
         }
 
         // Google Sign In// Google Sign In
+		// Google Sign In
 function signIn() {
     if (!gapiInited) {
         showNotification('Google API not loaded yet. Please wait...', 'warning');
+        return;
+    }
+
+    if (!tokenClient) {
+        showNotification('Google authentication not ready. Please refresh the page.', 'error');
         return;
     }
 
@@ -2295,7 +2301,12 @@ function handleGoogleAPIError(error, operation) {
                 }
             });
         }
-
+			// Update invoice lists for autocomplete
+function updateInvoiceLists() {
+    // This function updates any invoice-related dropdowns or lists
+    // Currently used in loadLocalData but can be expanded if needed
+    updateInvoiceItemList();
+}
         // Update invoice item list for autocomplete
         function updateInvoiceItemList() {
             const invoiceItemList = document.getElementById('invoiceItemList');
@@ -3272,3 +3283,4 @@ function handleGoogleAPIError(error, operation) {
     </script>
 </body>
 </html>
+
