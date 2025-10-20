@@ -1214,14 +1214,15 @@
     <script>
         // Global variables
         let itemsData = [];
-        let customersData = [];
-        let invoicesData = [];
-        let financialData = [];
-        let payablesData = [];
-        let calculationHistory = [];
-        let isAuthenticated = false;
-        let gapiInited = false;
-        let tokenClient = null;
+let customersData = [];
+let invoicesData = [];
+let financialData = [];
+let payablesData = [];
+let calculationHistory = [];
+let isAuthenticated = false;
+let gapiInited = false;
+let tokenClient = null;
+let currentFileId = null;
 
         // Google API Configuration
         const CLIENT_ID = '575508533509-s61q4570mladu8ntspla2j1rc1ejldc0.apps.googleusercontent.com';
@@ -1264,17 +1265,17 @@
         });
 
         // Initialize Google APIs
-        function initGoogleAPIs() {
-            console.log('Initializing Google APIs...');
-            
-            // Load the Google API client library
-            gapi.load('client', async () => {
-                try {
-                    await initializeGapiClient();
-                } catch (error) {
-                    console.error('Error initializing GAPI client:', error);
-                    showNotification('Failed to initialize Google API', 'error');
-                }
+        // New/Corrected Code
+function initGoogleAPIs() {
+    console.log('Initializing Google APIs...');
+    
+    // We added 'drive-v3' here to load the Google Drive API
+    gapi.load('client:drive-v3', async () => {
+        try {
+            await initializeGapiClient();
+        } catch (error) {
+            console.error('Error initializing GAPI client:', error);
+            showNotification('Failed to initialize Google API', 'error');
             });
         }
 
@@ -3333,6 +3334,7 @@ function updateInvoiceLists() {
     </script>
 </body>
 </html>
+
 
 
 
