@@ -1232,33 +1232,39 @@
         const DISCOVERY_DOC = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
 
         // DOM Ready
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize the application
-            initApp();
-            
-            // Set current date for invoice
-            document.getElementById('invoiceDate').valueAsDate = new Date();
-            document.getElementById('entryDate').valueAsDate = new Date();
-            
-            // Load data from localStorage
-            loadLocalData();
-            
-            // Initialize Google APIs
-            initGoogleAPIs();
-            
-            // Update invoice number
-            updateInvoiceNumber();
-            
-            // Update financial dashboard
-            updateFinancialDashboard();
-            
-            // Load admin panel data if logged in
-            if (localStorage.getItem('adminLoggedIn') === 'true') {
-                document.getElementById('adminPanel').style.display = 'block';
-                document.getElementById('adminLoginSection').style.display = 'none';
-                loadAdminPanelData();
-            }
-        });
+      // DOM Ready
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize the application
+    initApp();
+    
+    // Set current date for invoice
+    document.getElementById('invoiceDate').valueAsDate = new Date();
+    document.getElementById('entryDate').valueAsDate = new Date();
+    
+    // Load data from localStorage
+    loadLocalData();
+    
+    // Initialize Google APIs with error handling
+    try {
+        initGoogleAPIs();
+    } catch (error) {
+        console.error('Failed to initialize Google APIs:', error);
+        showNotification('Failed to initialize Google integration', 'error');
+    }
+    
+    // Update invoice number
+    updateInvoiceNumber();
+    
+    // Update financial dashboard
+    updateFinancialDashboard();
+    
+    // Load admin panel data if logged in
+    if (localStorage.getItem('adminLoggedIn') === 'true') {
+        document.getElementById('adminPanel').style.display = 'block';
+        document.getElementById('adminLoginSection').style.display = 'none';
+        loadAdminPanelData();
+    }
+});
 
         // Initialize the application
         function initApp() {
@@ -1284,30 +1290,38 @@
         }
 
         // Initialize Google APIs
-        function initGoogleAPIs() {
-            // Load the Google API client library
-            gapi.load('client', initializeGapiClient);
-            
-            // Initialize the Google Identity Services client
-            tokenClient = google.accounts.oauth2.initTokenClient({
-                client_id: CLIENT_ID,
-                scope: SCOPES,
-                callback: '', // defined later
-            });
-        }
+function initGoogleAPIs() {
+    // Load the Google API client library and OAuth2
+    gapi.load('client', initializeGapiClient);
+}
 
-        // Initialize the Google API client
-        async function initializeGapiClient() {
-            try {
-                await gapi.client.init({
-                    discoveryDocs: [DISCOVERY_DOC],
-                });
-                gapiInited = true;
-                maybeEnableButtons();
-            } catch (error) {
-                console.error('Error initializing Google API client:', error);
-            }
-        }
+// Initialize the Google API client
+// Initialize the Google API client
+async function initializeGapiClient() {
+    try {
+        await gapi.client.init({
+            // No API key needed for OAuth flows
+            client_id: CLIENT_ID,  // <-- FIXED: changed to client_id
+            scope: SCOPES,
+            discoveryDocs: [DISCOVERY_DOC],
+        });
+        gapiInited = true;
+        maybeEnableButtons();
+        
+        // Initialize the Google Identity Services client
+        tokenClient = google.accounts.oauth2.initTokenClient({
+            client_id: CLIENT_ID,
+            scope: SCOPES,
+            callback: '', // defined later
+            prompt: 'consent' // Always show consent screen
+        });
+        
+    } catch (error) {
+        console.error('Error initializing Google API client:', error);
+        showNotification('Error initializing Google API', 'error');
+    }
+}
+
 
         // Enable buttons when APIs are loaded
         function maybeEnableButtons() {
@@ -1316,46 +1330,51 @@
             }
         }
 
-        // Google Sign In
-        function signIn() {
-            tokenClient.callback = async (resp) => {
-                if (resp.error !== undefined) {
-                    throw resp;
-                }
-                
-                isAuthenticated = true;
-                currentUser = gapi.client.getToken().access_token;
-                document.getElementById('loginBtn').style.display = 'none';
-                document.getElementById('syncBtn').style.display = 'inline-block';
-                document.getElementById('logoutBtn').style.display = 'inline-block';
-                document.getElementById('userInfo').style.display = 'block';
-                document.getElementById('syncStatus').className = 'sync-status sync-online';
-                document.getElementById('syncStatus').innerHTML = '<i class="fas fa-check-circle"></i> Online - Synced with Google Drive';
-                
-                // Get user info
-                try {
-                    const userInfo = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-                        headers: {
-                            'Authorization': `Bearer ${gapi.client.getToken().access_token}`
-                        }
-                    }).then(res => res.json());
-                    
-                    document.getElementById('userName').textContent = userInfo.name || userInfo.email;
-                } catch (error) {
-                    console.error('Error fetching user info:', error);
-                    document.getElementById('userName').textContent = 'Google User';
-                }
-                
-                // Load data from Google Drive
-                loadFromGoogleDrive();
-            };
+        // Google Sign In// Google Sign In
+function signIn() {
+    if (!gapiInited) {
+        showNotification('Google API not loaded yet. Please wait...', 'warning');
+        return;
+    }
 
-            if (gapi.client.getToken() === null) {
-                tokenClient.requestAccessToken({prompt: 'consent'});
-            } else {
-                tokenClient.requestAccessToken({prompt: ''});
-            }
+    tokenClient.callback = async (resp) => {
+        if (resp.error !== undefined) {
+            console.error('Sign-in error:', resp);
+            showNotification('Sign-in failed: ' + resp.error, 'error');
+            return;
         }
+        
+        isAuthenticated = true;
+        currentUser = gapi.client.getToken().access_token;
+        document.getElementById('loginBtn').style.display = 'none';
+        document.getElementById('syncBtn').style.display = 'inline-block';
+        document.getElementById('logoutBtn').style.display = 'inline-block';
+        document.getElementById('userInfo').style.display = 'block';
+        document.getElementById('syncStatus').className = 'sync-status sync-online';
+        document.getElementById('syncStatus').innerHTML = '<i class="fas fa-check-circle"></i> Online - Synced with Google Drive';
+        
+        // Get user info
+        try {
+            const userInfo = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+                headers: {
+                    'Authorization': `Bearer ${gapi.client.getToken().access_token}`
+                }
+            }).then(res => res.json());
+            
+            document.getElementById('userName').textContent = userInfo.name || userInfo.email;
+        } catch (error) {
+            console.error('Error fetching user info:', error);
+            document.getElementById('userName').textContent = 'Google User';
+        }
+        
+        // Load data from Google Drive
+        loadFromGoogleDrive();
+    };
+
+    // Request access token
+    tokenClient.requestAccessToken();
+}
+        
 
         // Google Sign Out
         function signOut() {
@@ -1375,6 +1394,20 @@
                 showNotification('Signed out successfully', 'info');
             }
         }
+		// Handle Google API errors
+function handleGoogleAPIError(error, operation) {
+    console.error(`Error during ${operation}:`, error);
+    
+    if (error.status === 401) {
+        // Token expired, sign out
+        showNotification('Session expired. Please sign in again.', 'error');
+        signOut();
+    } else if (error.status === 403) {
+        showNotification('Permission denied. Please check Google Drive permissions.', 'error');
+    } else {
+        showNotification(`Google ${operation} failed: ${error.message || 'Unknown error'}`, 'error');
+    }
+}
 
         // Save all data to Google Drive
         async function saveAllData(forceNotification = false) {
