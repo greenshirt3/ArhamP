@@ -1424,32 +1424,7 @@
             showNotification('Signed out successfully', 'info');
         }
 
-        // Initialize the application
-        function initApp() {
-            console.log('Initializing application...');
-            
-            // Initialize default items if none exist
-            if (!localStorage.getItem('itemsData')) {
-                initializeDefaultItems();
-            }
-            
-            // Initialize default customers if none exist
-            if (!localStorage.getItem('customersData')) {
-                initializeDefaultCustomers();
-            }
-            
-            // Set up auto-save listeners
-            setupAutoSaveListeners();
-            
-            // Set up sync interval
-            setInterval(() => {
-                if (isAuthenticated) {
-                    saveAllData(false);
-                }
-            }, 30000); // Auto-sync every 30 seconds
-            
-            console.log('Application initialized');
-        }
+      
         // Google Sign Out
         function signOut() {
             console.log('Signing out...');
@@ -3383,6 +3358,7 @@ function updateInvoiceLists() {
     </script>
 </body>
 </html>
+
 
 
 
