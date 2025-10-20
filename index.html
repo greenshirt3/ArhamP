@@ -731,9 +731,9 @@
             </div>
             
             <div class="actions">
-                <button class="btn btn-primary" onclick="signIn()" id="loginBtn">
-                    <i class="fab fa-google"></i> Sign in with Google
-                </button>
+                <button class="btn btn-primary" onclick="signIn()" id="loginBtn" disabled>
+    <i class="fas fa-spinner fa-spin"></i> Loading Google API...
+</button>
                 <button class="btn btn-success" onclick="saveAllData(true)" id="syncBtn" style="display: none;">
                     <i class="fas fa-sync-alt"></i> Force Sync Now
                 </button>
@@ -1407,31 +1407,6 @@
                 google.accounts.oauth2.revoke(token.access_token, () => {
                     console.log('Token revoked');
                 });
-                gapi.client.setToken('');
-            }
-            
-            isAuthenticated = false;
-            document.getElementById('loginBtn').style.display = 'inline-block';
-            document.getElementById('syncBtn').style.display = 'none';
-            document.getElementById('logoutBtn').style.display = 'none';
-            document.getElementById('userInfo').style.display = 'none';
-            document.getElementById('syncStatus').className = 'sync-status sync-offline';
-            document.getElementById('syncStatus').innerHTML = '<i class="fas fa-exclamation-circle"></i> Offline Mode - Data stored locally';
-            
-            // Re-enable login button
-            document.getElementById('loginBtn').disabled = false;
-            
-            showNotification('Signed out successfully', 'info');
-        }
-
-      
-        // Google Sign Out
-        function signOut() {
-            console.log('Signing out...');
-            
-            const token = gapi.client.getToken();
-            if (token !== null) {
-                google.accounts.oauth2.revoke(token.access_token);
                 gapi.client.setToken('');
             }
             
@@ -3358,6 +3333,7 @@ function updateInvoiceLists() {
     </script>
 </body>
 </html>
+
 
 
 
