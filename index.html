@@ -1267,7 +1267,6 @@ function initializeGoogleAPI() {
             console.error('Error initializing Google API:', error);
             showNotification('Error initializing Google integration', 'error');
         }
-    });
 
     // Google Identity Services (GIS) initialization
     tokenClient = google.accounts.oauth2.initTokenClient({
@@ -1275,7 +1274,7 @@ function initializeGoogleAPI() {
         scope: SCOPES,
         callback: '', // Will be set when signing in
         prompt: 'consent'
-    });
+    }
     gisInited = true;
     maybeEnableButtons();
 }
@@ -2736,3 +2735,4 @@ async function saveToGoogleDrive(filename, content) {
     </script>
 </body>
 </html>
+
