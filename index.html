@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arham Printers - Complete Shop Management</title>
-     <script src="https://apis.google.com/js/api.js"></script>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://accounts.google.com/gsi/client"></script>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -1251,6 +1251,13 @@ const SCOPES = 'https://www.googleapis.com/auth/drive.file https://www.googleapi
 const DISCOVERY_DOCS = ['https://sheets.googleapis.com/$discovery/rest?version=v4', 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'];
 
 // Initialize Google API
+// Google API Configuration
+const CLIENT_ID = '575508533509-2f68bcc8cq59m28rpmo30uqpsa7pomme.apps.googleusercontent.com';
+const API_KEY = 'AIzaSyAEA4E3QNajLjtOKf30ZX4iSvelhvfFp3E';
+const SCOPES = 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/spreadsheets';
+const DISCOVERY_DOCS = ['https://sheets.googleapis.com/$discovery/rest?version=v4', 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'];
+
+// Initialize Google API
 function initializeGoogleAPI() {
     // Load the Google API client library
     gapi.load('client', async () => {
@@ -1267,6 +1274,7 @@ function initializeGoogleAPI() {
             console.error('Error initializing Google API:', error);
             showNotification('Error initializing Google integration', 'error');
         }
+    });
 
     // Google Identity Services (GIS) initialization
     tokenClient = google.accounts.oauth2.initTokenClient({
@@ -1274,9 +1282,15 @@ function initializeGoogleAPI() {
         scope: SCOPES,
         callback: '', // Will be set when signing in
         prompt: 'consent'
-    }
+    });
     gisInited = true;
     maybeEnableButtons();
+}
+
+function maybeEnableButtons() {
+    if (gapiInited && gisInited) {
+        document.getElementById('loginBtn').disabled = false;
+    }
 }
         // Google Drive integration functions
         function signIn() {
@@ -1299,9 +1313,9 @@ function initializeGoogleAPI() {
         document.getElementById('userInfo').style.display = 'block';
         document.getElementById('syncStatus').className = 'sync-status sync-online';
         document.getElementById('syncStatus').innerHTML = '<i class="fas fa-check-circle"></i> Online - Synced with Google Drive';
-        
+      
         // Get user info
-        try {
+      try {
             const userInfo = await gapi.client.oauth2.userinfo.get();
             document.getElementById('userName').textContent = userInfo.result.name || userInfo.result.email;
         } catch (error) {
