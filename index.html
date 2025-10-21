@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arham Printers - Complete Shop Management</title>
-    
+     <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Arham Printers">
@@ -15,8 +17,7 @@
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
- <script src="https://accounts.google.com/gsi/client" async defer></script>
-<script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
     
     <style>
         :root {
@@ -731,9 +732,9 @@
             </div>
             
             <div class="actions">
-                <button class="btn btn-primary" onclick="signIn()" id="loginBtn" disabled>
-    <i class="fas fa-spinner fa-spin"></i> Loading Google API...
-</button>
+                <button class="btn btn-primary" onclick="signIn()" id="loginBtn">
+                    <i class="fab fa-google"></i> Sign in with Google
+                </button>
                 <button class="btn btn-success" onclick="saveAllData(true)" id="syncBtn" style="display: none;">
                     <i class="fas fa-sync-alt"></i> Force Sync Now
                 </button>
@@ -770,11 +771,11 @@
                 </div>
                 
                 <div class="form-group">
-    <label for="quantity"><i class="fas fa-boxes"></i> Quantity / Set:</label>
-    <div id="quantityInputContainer" style="flex: 2;">
-        <input type="number" id="quantity" value="1" min="1" oninput="clearTierTag()">
-    </div>
-</div>
+                    <label for="quantityInputContainer"><i class="fas fa-boxes"></i> Quantity / Set:</label>
+                    <div id="quantityInputContainer" style="flex: 2;">
+                        <input type="number" id="quantity" value="1" min="1" oninput="clearTierTag()">
+                    </div>
+                </div>
                 
                 <div class="form-group" id="priceTierTagGroup" style="margin-top: -10px; border: 1px solid #ccc; padding: 10px; border-radius: 4px; background: #f9f9f9; display: none;">
                     <label><i class="fas fa-tag"></i> Selected Set:</label>
@@ -995,13 +996,11 @@
                             <label for="payableDueDate">Due Date:</label>
                             <input type="date" id="payableDueDate">
                         </div>
-                        <div class="form-group">
-                            <label for="payableDescription">Description:</label>
-                            <textarea id="payableDescription" placeholder="Description of the payable"></textarea>
+                        <div class="actions">
+                            <button class="btn btn-success" onclick="addPayable()">
+                                <i class="fas fa-plus"></i> Add Payable
+                            </button>
                         </div>
-                        <button class="btn btn-primary" onclick="addPayable()">
-                            <i class="fas fa-plus"></i> Add Payable
-                        </button>
                     </div>
                     
                     <div class="admin-section">
@@ -1013,17 +1012,18 @@
         </div>
 
         <div class="section-panel">
-            <h2 class="section-title"><i class="fas fa-cog"></i> Admin Panel</h2>
+            <h2 class="section-title"><i class="fas fa-history"></i> Recent Calculations & Invoices</h2>
+            <div id="historyContainer"></div>
+        </div>
+
+        <div class="section-panel">
+            <h2 class="section-title"><i class="fas fa-cogs"></i> Admin Panel</h2>
             
             <div class="login-section" id="adminLoginSection">
-                <h3>Admin Login</h3>
+                <h3><i class="fas fa-lock"></i> Admin Login</h3>
                 <div class="login-form">
                     <div class="form-field">
-                        <label for="adminUsername">Username:</label>
-                        <input type="text" id="adminUsername" placeholder="Enter admin username">
-                    </div>
-                    <div class="form-field">
-                        <label for="adminPassword">Password:</label>
+                        <label for="adminPassword">Admin Password:</label>
                         <input type="password" id="adminPassword" placeholder="Enter admin password">
                     </div>
                     <button class="btn btn-primary" onclick="adminLogin()">
@@ -1033,10 +1033,13 @@
             </div>
             
             <div class="admin-panel" id="adminPanel">
+                <h3><i class="fas fa-tools"></i> Admin Controls</h3>
+                
                 <div class="tabs">
                     <div class="tab active" onclick="switchTab(this, 'manageItems')">Manage Items</div>
                     <div class="tab" onclick="switchTab(this, 'manageCustomers')">Manage Customers</div>
-                    <div class="tab" onclick="switchTab(this, 'viewHistory')">View History</div>
+                    <div class="tab" onclick="switchTab(this, 'manageInvoices')">Manage Invoices</div>
+                    <div class="tab" onclick="switchTab(this, 'manageFinancial')">Manage Financial</div>
                     <div class="tab" onclick="switchTab(this, 'importExport')">Import/Export</div>
                 </div>
                 
@@ -1045,32 +1048,30 @@
                         <h4>Add New Item</h4>
                         <div class="form-row">
                             <div class="form-field">
-                                <label for="newItemMainCategory">Main Category:</label>
-                                <input type="text" id="newItemMainCategory" placeholder="e.g., Visiting Cards">
+                                <label for="newMainCategory">Main Category:</label>
+                                <input type="text" id="newMainCategory" placeholder="e.g., Visiting Cards">
                             </div>
                             <div class="form-field">
-                                <label for="newItemSubCategory">Subcategory:</label>
-                                <input type="text" id="newItemSubCategory" placeholder="e.g., Standard">
+                                <label for="newSubCategory">Subcategory:</label>
+                                <input type="text" id="newSubCategory" placeholder="e.g., Plastic Cards">
                             </div>
                             <div class="form-field">
                                 <label for="newItemName">Item Name:</label>
-                                <input type="text" id="newItemName" placeholder="e.g., 500 GSM">
+                                <input type="text" id="newItemName" placeholder="e.g., Plastic Visiting Card">
                             </div>
                         </div>
-                        
                         <div class="form-row">
+                            <div class="form-field">
+                                <label for="newItemUnit">Unit:</label>
+                                <input type="text" id="newItemUnit" placeholder="e.g., Set, Piece, Box">
+                            </div>
                             <div class="form-field">
                                 <label for="newItemBasePrice">Base Price (Rs.):</label>
                                 <input type="number" id="newItemBasePrice" value="0" min="0" step="0.01">
                             </div>
-                            <div class="form-field">
-                                <label for="newItemUnit">Unit:</label>
-                                <input type="text" id="newItemUnit" placeholder="e.g., Set, Piece, Sheet">
-                            </div>
                         </div>
-                        
                         <h5>Price Tiers</h5>
-                        <div id="newItemPriceTiers">
+                        <div id="newItemTiers">
                             <div class="tier-row">
                                 <input type="number" class="tier-min" placeholder="Min Qty" min="1">
                                 <input type="number" class="tier-max" placeholder="Max Qty" min="1">
@@ -1078,7 +1079,6 @@
                                 <button type="button" class="btn btn-danger btn-sm" onclick="removeTier(this)"><i class="fas fa-trash"></i></button>
                             </div>
                         </div>
-                        
                         <div class="actions">
                             <button class="btn btn-success" onclick="addTier()">
                                 <i class="fas fa-plus"></i> Add Tier
@@ -1100,23 +1100,23 @@
                         <h4>Add New Customer</h4>
                         <div class="form-row">
                             <div class="form-field">
-                                <label for="newCustomerName">Name:</label>
-                                <input type="text" id="newCustomerName" placeholder="Customer name">
+                                <label for="newCustomerName">Customer Name:</label>
+                                <input type="text" id="newCustomerName" placeholder="Customer full name">
                             </div>
                             <div class="form-field">
                                 <label for="newCustomerPhone">Phone:</label>
                                 <input type="tel" id="newCustomerPhone" placeholder="Phone number">
                             </div>
-                        </div>
-                        <div class="form-row">
                             <div class="form-field">
                                 <label for="newCustomerAddress">Address:</label>
-                                <textarea id="newCustomerAddress" placeholder="Customer address"></textarea>
+                                <input type="text" id="newCustomerAddress" placeholder="Customer address">
                             </div>
                         </div>
-                        <button class="btn btn-primary" onclick="addNewCustomer()">
-                            <i class="fas fa-plus"></i> Add Customer
-                        </button>
+                        <div class="actions">
+                            <button class="btn btn-primary" onclick="addNewCustomer()">
+                                <i class="fas fa-save"></i> Save Customer
+                            </button>
+                        </div>
                     </div>
                     
                     <div class="admin-section">
@@ -1125,15 +1125,17 @@
                     </div>
                 </div>
                 
-                <div id="viewHistory" class="tab-content">
+                <div id="manageInvoices" class="tab-content">
                     <div class="admin-section">
-                        <h4>Calculation History</h4>
-                        <div id="calculationHistory"></div>
+                        <h4>All Invoices</h4>
+                        <div id="invoicesList"></div>
                     </div>
-                    
+                </div>
+                
+                <div id="manageFinancial" class="tab-content">
                     <div class="admin-section">
-                        <h4>Invoice History</h4>
-                        <div id="invoiceHistory"></div>
+                        <h4>Financial Entries</h4>
+                        <div id="financialEntriesList"></div>
                     </div>
                 </div>
                 
@@ -1141,62 +1143,50 @@
                     <div class="import-export-section">
                         <h4>Export Data</h4>
                         <div class="actions">
-    <button class="btn btn-success" onclick="exportData('items')">
-        <i class="fas fa-download"></i> Export Items (JSON)
-    </button>
-    <button class="btn btn-warning" onclick="exportToGoogleSheets('items')">
-        <i class="fab fa-google"></i> Export Items to Sheets
-    </button>
-    
-    <button class="btn btn-success" onclick="exportData('customers')">
-        <i class="fas fa-download"></i> Export Customers (JSON)
-    </button>
-    <button class="btn btn-warning" onclick="exportToGoogleSheets('customers')">
-        <i class="fab fa-google"></i> Export Customers to Sheets
-    </button>
-    
-    <button class="btn btn-success" onclick="exportData('invoices')">
-        <i class="fas fa-download"></i> Export Invoices (JSON)
-    </button>
-    <button class="btn btn-warning" onclick="exportToGoogleSheets('invoices')">
-        <i class="fab fa-google"></i> Export Invoices to Sheets
-    </button>
-    
-    <button class="btn btn-success" onclick="exportData('financial')">
-        <i class="fas fa-download"></i> Export Financial (JSON)
-    </button>
-    <button class="btn btn-warning" onclick="exportToGoogleSheets('financial')">
-        <i class="fab fa-google"></i> Export Financial to Sheets
-    </button>
-    
-    <button class="btn btn-warning" onclick="exportToGoogleSheets('payables')">
-        <i class="fab fa-google"></i> Export Payables to Sheets
-    </button>
-    
-    <button class="btn btn-primary" onclick="exportAllToGoogleSheets()">
-        <i class="fab fa-google"></i> Export ALL to Google Sheets
-    </button>
-</div>
+                            <button class="btn btn-primary" onclick="exportData('items')">
+                                <i class="fas fa-download"></i> Export Items
+                            </button>
+                            <button class="btn btn-primary" onclick="exportData('customers')">
+                                <i class="fas fa-download"></i> Export Customers
+                            </button>
+                            <button class="btn btn-primary" onclick="exportData('invoices')">
+                                <i class="fas fa-download"></i> Export Invoices
+                            </button>
+                            <button class="btn btn-primary" onclick="exportData('financial')">
+                                <i class="fas fa-download"></i> Export Financial Data
+                            </button>
+                            <button class="btn btn-success" onclick="exportAllData()">
+                                <i class="fas fa-file-archive"></i> Export All Data
+                            </button>
+                        </div>
                     </div>
                     
                     <div class="import-export-section">
                         <h4>Import Data</h4>
                         <div class="form-group">
-                            <label for="importType">Data Type:</label>
-                            <select id="importType">
-                                <option value="items">Items</option>
-                                <option value="customers">Customers</option>
-                                <option value="invoices">Invoices</option>
-                                <option value="financial">Financial Data</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
                             <label for="importFile">Select File:</label>
                             <input type="file" id="importFile" accept=".json">
                         </div>
-                        <button class="btn btn-primary" onclick="importData()">
-                            <i class="fas fa-upload"></i> Import Data
-                        </button>
+                        <div class="actions">
+                            <button class="btn btn-warning" onclick="importData()">
+                                <i class="fas fa-upload"></i> Import Data
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="import-export-section">
+                        <h4>Backup & Restore</h4>
+                        <div class="actions">
+                            <button class="btn btn-success" onclick="createBackup()">
+                                <i class="fas fa-database"></i> Create Backup
+                            </button>
+                            <button class="btn btn-danger" onclick="restoreBackup()">
+                                <i class="fas fa-history"></i> Restore Backup
+                            </button>
+                            <button class="btn btn-danger" onclick="clearAllData()">
+                                <i class="fas fa-trash"></i> Clear All Data
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1205,213 +1195,143 @@
 
     <div id="notification" class="notification"></div>
 
-    <!-- Datalists for autocomplete -->
-    <datalist id="customerNameList"></datalist>
-    <datalist id="customerPhoneList"></datalist>
-    <datalist id="invoiceItemList"></datalist>
-    <datalist id="expenseDescriptionList"></datalist>
-
     <script>
         // Global variables
-        let itemsData = [];
-let customersData = [];
-let invoicesData = [];
-let financialData = [];
-let payablesData = [];
-let calculationHistory = [];
-let isAuthenticated = false;
-let gapiInited = false;
-let tokenClient = null;
-let currentFileId = null;
+        let currentUser = null;
+        let isOnline = false;
+        let isAdmin = false;
+        let priceData = {};
+        let customers = [];
+        let invoices = [];
+        let financialEntries = [];
+        let payables = [];
+        let calculationHistory = [];
+        let gapiInited = false;
+        let gisInited = false;
+        let tokenClient;
 
-        // Google API Configuration
-        const CLIENT_ID = '575508533509-s61q4570mladu8ntspla2j1rc1ejldc0.apps.googleusercontent.com';
-        const SCOPES = 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/spreadsheets';
-        const DISCOVERY_DOC = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
-
-        // DOM Ready
+        // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, initializing app...');
-            
-            // Initialize Google APIs first
-            initGoogleAPIs();
-            
-            // Initialize the application
-            initApp();
-            
-            // Set current date for invoice
+            // Set current date
             document.getElementById('invoiceDate').valueAsDate = new Date();
             document.getElementById('entryDate').valueAsDate = new Date();
+            document.getElementById('payableDueDate').valueAsDate = new Date();
             
             // Load data from localStorage
-            try {
-                loadLocalData();
-            } catch (error) {
-                console.error('Error loading local data:', error);
-            }
+            loadAllData();
             
-            // Update invoice number
-            updateInvoiceNumber();
+            // Initialize Google API
+            initializeGoogleAPI();
             
-            // Update financial dashboard
+            // Update UI
+            updateDashboardMonth();
             updateFinancialDashboard();
+            updatePayablesList();
+            updateHistory();
             
-            // Load admin panel data if logged in
-            if (localStorage.getItem('adminLoggedIn') === 'true') {
-                document.getElementById('adminPanel').style.display = 'block';
-                document.getElementById('adminLoginSection').style.display = 'none';
-                loadAdminPanelData();
-            }
+            // Generate next invoice number
+            generateNextInvoiceNumber();
+            
+            // Add event listeners for customer suggestions
+            document.getElementById('invoiceCustomerName').addEventListener('input', showCustomerSuggestions);
+            
+            // Add event listeners for item suggestions in invoice
+            document.addEventListener('input', function(e) {
+                if (e.target.classList.contains('item-name')) {
+                    showItemSuggestions(e.target);
+                }
+            });
         });
 
-        // Initialize Google APIs
-        // New/Corrected Code
-function initGoogleAPIs() {
-    console.log('Initializing Google APIs...');
-    
-    // We added 'drive-v3' here to load the Google Drive API
-    gapi.load('client:drive-v3', async () => {
+        // Initialize Google API
+       // Google API Configuration - ADD THESE CONSTANTS AT THE TOP OF YOUR SCRIPT
+const CLIENT_ID = '575508533509-2f68bcc8cq59m28rpmo30uqpsa7pomme.apps.googleusercontent.com'; // You need to get this from Google Cloud Console
+const API_KEY = 'AIzaSyAEA4E3QNajLjtOKf30ZX4iSvelhvfFp3E'; // You need to get this from Google Cloud Console
+const SCOPES = 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/spreadsheets';
+const DISCOVERY_DOCS = ['https://sheets.googleapis.com/$discovery/rest?version=v4', 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'];
+
+// Initialize Google API
+function initializeGoogleAPI() {
+    // Load the Google API client library
+    gapi.load('client', async () => {
         try {
-            await initializeGapiClient();
-        } catch (error) {
-            console.error('Error initializing GAPI client:', error);
-            showNotification('Failed to initialize Google API', 'error');
+            await gapi.client.init({
+                apiKey: API_KEY,
+                clientId: CLIENT_ID,
+                discoveryDocs: DISCOVERY_DOCS,
+                scope: SCOPES
             });
+            gapiInited = true;
+            maybeEnableButtons();
+        } catch (error) {
+            console.error('Error initializing Google API:', error);
+            showNotification('Error initializing Google integration', 'error');
         }
+    });
 
-        // Initialize the Google API client
-        async function initializeGapiClient() {
-            try {
-                console.log('Initializing GAPI client...');
-                
-                await gapi.client.init({
-                    apiKey: '', // No API key needed for OAuth
-                    discoveryDocs: [DISCOVERY_DOC],
-                });
-
-                gapiInited = true;
-                console.log('Google API client initialized successfully');
-                
-                // Enable the sign-in button
-                document.getElementById('loginBtn').disabled = false;
-                console.log('Sign-in button enabled');
-                
-            } catch (error) {
-                console.error('Error initializing Google API client:', error);
-                showNotification('Error initializing Google API. Please refresh the page.', 'error');
-            }
-        }
-
-        // Google Sign In using new GIS
+    // Google Identity Services (GIS) initialization
+    tokenClient = google.accounts.oauth2.initTokenClient({
+        client_id: CLIENT_ID,
+        scope: SCOPES,
+        callback: '', // Will be set when signing in
+        prompt: 'consent'
+    });
+    gisInited = true;
+    maybeEnableButtons();
+}
+        // Google Drive integration functions
         function signIn() {
-            console.log('Sign-in button clicked');
-            
-            if (!gapiInited) {
-                console.log('GAPI not initialized');
-                showNotification('Google API not loaded yet. Please wait...', 'warning');
-                return;
-            }
+    if (!gapiInited) {
+        showNotification('Google API not loaded yet. Please wait...', 'warning');
+        return;
+    }
 
-            console.log('Requesting access token...');
-            
-            // Show loading state
-            const loginBtn = document.getElementById('loginBtn');
-            const originalHTML = loginBtn.innerHTML;
-            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
-            loginBtn.disabled = true;
-
-            try {
-                // Use the new Google Identity Services
-                const client = google.accounts.oauth2.initTokenClient({
-                    client_id: CLIENT_ID,
-                    scope: SCOPES,
-                    callback: (response) => {
-                        if (response.error) {
-                            console.error('OAuth error:', response);
-                            loginBtn.innerHTML = originalHTML;
-                            loginBtn.disabled = false;
-                            showNotification('Sign-in failed: ' + response.error, 'error');
-                            return;
-                        }
-                        
-                        // Set the access token for gapi
-                        gapi.client.setToken({
-                            access_token: response.access_token
-                        });
-                        
-                        handleSignInSuccess();
-                    },
-                    error_callback: (error) => {
-                        console.error('OAuth error callback:', error);
-                        loginBtn.innerHTML = originalHTML;
-                        loginBtn.disabled = false;
-                        showNotification('Sign-in error occurred', 'error');
-                    }
-                });
-
-                // Request access token
-                client.requestAccessToken();
-                
-                // Reset button after a timeout (fallback)
-                setTimeout(() => {
-                    loginBtn.innerHTML = originalHTML;
-                    loginBtn.disabled = false;
-                }, 10000);
-                
-            } catch (error) {
-                console.error('Error requesting access token:', error);
-                loginBtn.innerHTML = originalHTML;
-                loginBtn.disabled = false;
-                showNotification('Sign-in error. Please try again.', 'error');
-            }
+    tokenClient.callback = async (resp) => {
+        if (resp.error !== undefined) {
+            console.error('Sign-in error:', resp);
+            showNotification('Sign-in failed: ' + resp.error, 'error');
+            return;
         }
-
-        // Handle successful sign-in
-        async function handleSignInSuccess() {
-            console.log('Sign-in successful, handling response...');
-            
-            isAuthenticated = true;
-            document.getElementById('loginBtn').style.display = 'none';
-            document.getElementById('syncBtn').style.display = 'inline-block';
-            document.getElementById('logoutBtn').style.display = 'inline-block';
-            document.getElementById('userInfo').style.display = 'block';
-            document.getElementById('syncStatus').className = 'sync-status sync-online';
-            document.getElementById('syncStatus').innerHTML = '<i class="fas fa-check-circle"></i> Online - Synced with Google Drive';
-            
-            // Get user info
-            try {
-                const userInfo = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-                    headers: {
-                        'Authorization': `Bearer ${gapi.client.getToken().access_token}`
-                    }
-                }).then(res => res.json());
-                
-                document.getElementById('userName').textContent = userInfo.name || userInfo.email;
-                console.log('User info loaded:', userInfo.name || userInfo.email);
-            } catch (error) {
-                console.error('Error fetching user info:', error);
-                document.getElementById('userName').textContent = 'Google User';
-            }
-            
-            // Load data from Google Drive
-            await loadFromGoogleDrive();
-            showNotification('Successfully signed in to Google', 'success');
+        
+        isOnline = true;
+        document.getElementById('loginBtn').style.display = 'none';
+        document.getElementById('syncBtn').style.display = 'inline-block';
+        document.getElementById('logoutBtn').style.display = 'inline-block';
+        document.getElementById('userInfo').style.display = 'block';
+        document.getElementById('syncStatus').className = 'sync-status sync-online';
+        document.getElementById('syncStatus').innerHTML = '<i class="fas fa-check-circle"></i> Online - Synced with Google Drive';
+        
+        // Get user info
+        try {
+            const userInfo = await gapi.client.oauth2.userinfo.get();
+            document.getElementById('userName').textContent = userInfo.result.name || userInfo.result.email;
+        } catch (error) {
+            console.error('Error getting user info:', error);
+            document.getElementById('userName').textContent = 'Google User';
         }
+        
+        // Sync data with Google Drive
+        await syncAllData();
+        
+        showNotification('Successfully signed in and synced with Google Drive!', 'success');
+    };
 
-        // Google Sign Out
+    if (gapi.client.getToken() === null) {
+        tokenClient.requestAccessToken({prompt: 'consent'});
+    } else {
+        tokenClient.requestAccessToken({prompt: ''});
+    }
+}
         function signOut() {
-            console.log('Signing out...');
-            
             const token = gapi.client.getToken();
             if (token !== null) {
-                // Revoke token using new GIS
-                google.accounts.oauth2.revoke(token.access_token, () => {
-                    console.log('Token revoked');
-                });
+                google.accounts.oauth2.revoke(token.access_token);
                 gapi.client.setToken('');
             }
             
-            isAuthenticated = false;
+            currentUser = null;
+            isOnline = false;
+            
             document.getElementById('loginBtn').style.display = 'inline-block';
             document.getElementById('syncBtn').style.display = 'none';
             document.getElementById('logoutBtn').style.display = 'none';
@@ -1419,150 +1339,119 @@ function initGoogleAPIs() {
             document.getElementById('syncStatus').className = 'sync-status sync-offline';
             document.getElementById('syncStatus').innerHTML = '<i class="fas fa-exclamation-circle"></i> Offline Mode - Data stored locally';
             
-            // Re-enable login button
-            document.getElementById('loginBtn').disabled = false;
-            
-            showNotification('Signed out successfully', 'info');
+            showNotification('Signed out successfully. Data is now stored locally.', 'warning');
         }
 
-        // Initialize the application
-        function initApp() {
-            console.log('Initializing application...');
-            
-            // Initialize default items if none exist
-            if (!localStorage.getItem('itemsData')) {
-                initializeDefaultItems();
+        // Data management functions
+        function loadAllData() {
+            // Load price data
+            const savedPriceData = localStorage.getItem('arhamPrintersPriceData');
+            if (savedPriceData) {
+                priceData = JSON.parse(savedPriceData);
+                populateCategories();
+            } else {
+                // Initialize with default data
+                initializeDefaultPriceData();
             }
             
-            // Initialize default customers if none exist
-            if (!localStorage.getItem('customersData')) {
-                initializeDefaultCustomers();
+            // Load customers
+            const savedCustomers = localStorage.getItem('arhamPrintersCustomers');
+            if (savedCustomers) {
+                customers = JSON.parse(savedCustomers);
             }
             
-            // Set up auto-save listeners
-            setupAutoSaveListeners();
+            // Load invoices
+            const savedInvoices = localStorage.getItem('arhamPrintersInvoices');
+            if (savedInvoices) {
+                invoices = JSON.parse(savedInvoices);
+            }
             
-            // Set up sync interval
-            setInterval(() => {
-                if (isAuthenticated) {
-                    saveAllData(false);
-                }
-            }, 30000); // Auto-sync every 30 seconds
+            // Load financial entries
+            const savedFinancial = localStorage.getItem('arhamPrintersFinancial');
+            if (savedFinancial) {
+                financialEntries = JSON.parse(savedFinancial);
+            }
             
-            console.log('Application initialized');
+            // Load payables
+            const savedPayables = localStorage.getItem('arhamPrintersPayables');
+            if (savedPayables) {
+                payables = JSON.parse(savedPayables);
+            }
+            
+            // Load calculation history
+            const savedHistory = localStorage.getItem('arhamPrintersHistory');
+            if (savedHistory) {
+                calculationHistory = JSON.parse(savedHistory);
+            }
         }
-		// Handle Google API errors
-function handleGoogleAPIError(error, operation) {
-    console.error(`Error during ${operation}:`, error);
+
+        function saveAllData(syncToDrive = false) {
+            // Save to localStorage
+            localStorage.setItem('arhamPrintersPriceData', JSON.stringify(priceData));
+            localStorage.setItem('arhamPrintersCustomers', JSON.stringify(customers));
+            localStorage.setItem('arhamPrintersInvoices', JSON.stringify(invoices));
+            localStorage.setItem('arhamPrintersFinancial', JSON.stringify(financialEntries));
+            localStorage.setItem('arhamPrintersPayables', JSON.stringify(payables));
+            localStorage.setItem('arhamPrintersHistory', JSON.stringify(calculationHistory));
+            
+            if (syncToDrive && isOnline) {
+                syncAllData();
+            }
+            
+            showNotification('Data saved successfully!', 'success');
+        }
+
+        async function syncAllData() {
+    if (!isOnline) return;
     
-    if (error.status === 401) {
-        // Token expired, sign out
-        showNotification('Session expired. Please sign in again.', 'error');
-        signOut();
-    } else if (error.status === 403) {
-        showNotification('Permission denied. Please check Google Drive permissions.', 'error');
-    } else {
-        showNotification(`Google ${operation} failed: ${error.message || 'Unknown error'}`, 'error');
+    try {
+        // Prepare data for saving
+        const dataToSave = {
+            items: priceData,
+            customers: customers,
+            invoices: invoices,
+            financial: financialEntries,
+            payables: payables,
+            calculationHistory: calculationHistory,
+            lastSync: new Date().toISOString()
+        };
+        
+        const jsonData = JSON.stringify(dataToSave, null, 2);
+        
+        // Save to Google Drive
+        await saveToGoogleDrive('arham_printers_data.json', jsonData);
+        showNotification('Data synced with Google Drive!', 'success');
+    } catch (error) {
+        console.error('Error syncing data:', error);
+        showNotification('Error syncing data with Google Drive', 'error');
     }
 }
 
-        // Save all data to Google Drive
-        async function saveAllData(forceNotification = false) {
-            if (!isAuthenticated) {
-                if (forceNotification) {
-                    showNotification('Please sign in to sync data', 'warning');
+async function saveToGoogleDrive(filename, content) {
+    try {
+        // Search for existing file
+        const response = await gapi.client.drive.files.list({
+            q: `name='${filename}' and trashed=false`,
+            spaces: 'drive',
+            fields: 'files(id, name)'
+        });
+        
+        if (response.result.files.length > 0) {
+            // Update existing file
+            const fileId = response.result.files[0].id;
+            await gapi.client.drive.files.update({
+                fileId: fileId,
+                uploadType: 'media',
+                media: {
+                    mimeType: 'application/json',
+                    body: content
                 }
-                return;
-            }
-            
-            try {
-                // Prepare data for saving
-                const dataToSave = {
-                    items: itemsData,
-                    customers: customersData,
-                    invoices: invoicesData,
-                    financial: financialData,
-                    payables: payablesData,
-                    calculationHistory: calculationHistory,
-                    lastSync: new Date().toISOString()
-                };
-                
-                // Convert to JSON
-                const jsonData = JSON.stringify(dataToSave, null, 2);
-                
-                // Check if file already exists
-                if (currentFileId) {
-                    // Update existing file
-                    await updateFile(currentFileId, jsonData);
-                } else {
-                    // Create new file
-                    const fileId = await createFile('arham_printers_data.json', jsonData);
-                    currentFileId = fileId;
-                }
-                
-                if (forceNotification) {
-                    showNotification('Data synced to Google Drive successfully', 'success');
-                }
-                
-                document.getElementById('syncStatus').innerHTML = '<i class="fas fa-check-circle"></i> Online - Last synced: ' + new Date().toLocaleTimeString();
-            } catch (error) {
-                console.error('Error saving data to Google Drive:', error);
-                if (forceNotification) {
-                    showNotification('Error syncing data to Google Drive', 'error');
-                }
-            }
-        }
-
-        // Load data from Google Drive
-        async function loadFromGoogleDrive() {
-            if (!isAuthenticated) return;
-            
-            try {
-                // Search for existing file
-                const files = await listFiles('arham_printers_data.json');
-                
-                if (files && files.length > 0) {
-                    // File exists, load it
-                    const fileId = files[0].id;
-                    currentFileId = fileId;
-                    
-                    const fileContent = await getFileContent(fileId);
-                    const data = JSON.parse(fileContent);
-                    
-                    // Update local data
-                    if (data.items) itemsData = data.items;
-                    if (data.customers) customersData = data.customers;
-                    if (data.invoices) invoicesData = data.invoices;
-                    if (data.financial) financialData = data.financial;
-                    if (data.payables) payablesData = data.payables;
-                    if (data.calculationHistory) calculationHistory = data.calculationHistory;
-                    
-                    // Save to localStorage as backup
-                    saveLocalData();
-                    
-                    // Update UI
-                    updateCategories();
-                    updateCustomerLists();
-                    updateInvoiceLists();
-                    updateFinancialDashboard();
-                    updatePayablesList();
-                    
-                    showNotification('Data loaded from Google Drive successfully', 'success');
-                } else {
-                    // No file exists, create one with current data
-                    saveAllData(false);
-                }
-            } catch (error) {
-                console.error('Error loading data from Google Drive:', error);
-                showNotification('Error loading data from Google Drive', 'error');
-            }
-        }
-
-        // Google Drive API functions
-        async function createFile(name, content) {
-            const file = await gapi.client.drive.files.create({
+            });
+        } else {
+            // Create new file
+            await gapi.client.drive.files.create({
                 resource: {
-                    name: name,
+                    name: filename,
                     mimeType: 'application/json'
                 },
                 media: {
@@ -1570,412 +1459,138 @@ function handleGoogleAPIError(error, operation) {
                     body: content
                 }
             });
-            return file.result.id;
         }
-
-        async function updateFile(fileId, content) {
-            await gapi.client.drive.files.update({
-                fileId: fileId,
-                media: {
-                    mimeType: 'application/json',
-                    body: content
-                }
-            });
-        }
-
-        async function listFiles(name) {
-            const response = await gapi.client.drive.files.list({
-                q: `name='${name}' and trashed=false`,
-                fields: 'files(id, name)'
-            });
-            return response.result.files;
-        }
-
-        async function getFileContent(fileId) {
-            const response = await gapi.client.drive.files.get({
-                fileId: fileId,
-                alt: 'media'
-            });
-            return response.body;
-        }
-        // =============================================
-        // GOOGLE SHEETS EXPORT FUNCTIONS
-        // =============================================
-        
-        // Export data to Google Sheets
-        async function exportToGoogleSheets(type) {
-            if (!isAuthenticated) {
-                showNotification('Please sign in to Google to export to Sheets', 'error');
-                return;
-            }
-
-            try {
-                let data, sheetName;
-                
-                switch(type) {
-                    case 'items':
-                        data = itemsData;
-                        sheetName = 'Items';
-                        break;
-                    case 'customers':
-                        data = customersData;
-                        sheetName = 'Customers';
-                        break;
-                    case 'invoices':
-                        data = invoicesData;
-                        sheetName = 'Invoices';
-                        break;
-                    case 'financial':
-                        data = financialData;
-                        sheetName = 'Financial_Entries';
-                        break;
-                    case 'payables':
-                        data = payablesData;
-                        sheetName = 'Payables';
-                        break;
-                }
-
-                // Create or get spreadsheet
-                const spreadsheetId = await createOrGetSpreadsheet();
-                
-                // Update sheet with data
-                await updateSheetData(spreadsheetId, sheetName, data);
-                
-                showNotification(`${sheetName} data exported to Google Sheets successfully!`, 'success');
-            } catch (error) {
-                console.error('Error exporting to Google Sheets:', error);
-                showNotification('Error exporting to Google Sheets: ' + error.message, 'error');
-            }
-        }
-
-        // Create or get the main spreadsheet
-        async function createOrGetSpreadsheet() {
-            const spreadsheetName = 'Arham Printers Master Data';
-            
-            try {
-                // Check if spreadsheet exists
-                const response = await gapi.client.drive.files.list({
-                    q: `name='${spreadsheetName}' and mimeType='application/vnd.google-apps.spreadsheet' and trashed=false`
-                });
-                
-                if (response.result.files && response.result.files.length > 0) {
-                    return response.result.files[0].id;
-                } else {
-                    // Create new spreadsheet
-                    const spreadsheet = await gapi.client.sheets.spreadsheets.create({
-                        properties: {
-                            title: spreadsheetName
-                        },
-                        sheets: [
-                            { properties: { title: 'Items' } },
-                            { properties: { title: 'Customers' } },
-                            { properties: { title: 'Invoices' } },
-                            { properties: { title: 'Financial_Entries' } },
-                            { properties: { title: 'Payables' } }
-                        ]
-                    });
-                    return spreadsheet.result.spreadsheetId;
-                }
-            } catch (error) {
-                console.error('Error creating/getting spreadsheet:', error);
-                throw error;
-            }
-        }
-
-        // Update sheet data
-        async function updateSheetData(spreadsheetId, sheetName, data) {
-            if (!data || data.length === 0) {
-                // Clear the sheet if no data
-                await gapi.client.sheets.spreadsheets.values.clear({
-                    spreadsheetId: spreadsheetId,
-                    range: `${sheetName}!A:Z`
-                });
-                return;
-            }
-            
-            try {
-                // Get headers from first object
-                const headers = Object.keys(data[0]);
-                const values = [headers];
-                
-                // Convert data to 2D array
-                data.forEach(item => {
-                    const row = headers.map(header => {
-                        const value = item[header];
-                        // Handle different data types
-                        if (value === null || value === undefined) return '';
-                        if (typeof value === 'object') return JSON.stringify(value);
-                        return value.toString();
-                    });
-                    values.push(row);
-                });
-                
-                // Update sheet
-                await gapi.client.sheets.spreadsheets.values.update({
-                    spreadsheetId: spreadsheetId,
-                    range: `${sheetName}!A1`,
-                    valueInputOption: 'RAW',
-                    resource: {
-                        values: values
+    } catch (error) {
+        console.error('Error saving to Google Drive:', error);
+        throw error;
+    }
+}
+        function initializeDefaultPriceData() {
+            priceData = {
+                "Visiting Cards": {
+                    "Plastic Cards": {
+                        "Plastic Visiting Card": {
+                            "unit": "Set",
+                            "basePrice": 100,
+                            "tiers": [
+                                { "min": 1, "max": 50, "price": 100 },
+                                { "min": 51, "max": 100, "price": 90 },
+                                { "min": 101, "max": 200, "price": 80 }
+                            ]
+                        }
+                    },
+                    "Paper Cards": {
+                        "Standard Paper Card": {
+                            "unit": "Set",
+                            "basePrice": 50,
+                            "tiers": [
+                                { "min": 1, "max": 100, "price": 50 },
+                                { "min": 101, "max": 500, "price": 45 },
+                                { "min": 501, "max": 1000, "price": 40 }
+                            ]
+                        }
                     }
-                });
-                
-                // Auto-resize columns
-                await gapi.client.sheets.spreadsheets.batchUpdate({
-                    spreadsheetId: spreadsheetId,
-                    resource: {
-                        requests: [{
-                            autoResizeDimensions: {
-                                dimensions: {
-                                    sheetId: await getSheetId(spreadsheetId, sheetName),
-                                    dimension: 'COLUMNS',
-                                    startIndex: 0,
-                                    endIndex: headers.length
-                                }
-                            }
-                        }]
+                },
+                "Banners": {
+                    "Vinyl Banners": {
+                        "3x6 Vinyl Banner": {
+                            "unit": "Piece",
+                            "basePrice": 500,
+                            "tiers": [
+                                { "min": 1, "max": 5, "price": 500 },
+                                { "min": 6, "max": 10, "price": 450 }
+                            ]
+                        }
                     }
-                });
-                
-            } catch (error) {
-                console.error('Error updating sheet data:', error);
-                throw error;
-            }
-        }
-
-        // Get sheet ID by name
-        async function getSheetId(spreadsheetId, sheetName) {
-            const spreadsheet = await gapi.client.sheets.spreadsheets.get({
-                spreadsheetId: spreadsheetId
-            });
-            
-            const sheet = spreadsheet.result.sheets.find(s => 
-                s.properties.title === sheetName
-            );
-            
-            return sheet ? sheet.properties.sheetId : 0;
-        }
-
-        // Export all data to Google Sheets at once
-        async function exportAllToGoogleSheets() {
-            if (!isAuthenticated) {
-                showNotification('Please sign in to Google to export to Sheets', 'error');
-                return;
-            }
-
-            try {
-                showNotification('Starting export to Google Sheets...', 'info');
-                
-                const spreadsheetId = await createOrGetSpreadsheet();
-                
-                // Export each data type
-                await updateSheetData(spreadsheetId, 'Items', itemsData);
-                await updateSheetData(spreadsheetId, 'Customers', customersData);
-                await updateSheetData(spreadsheetId, 'Invoices', invoicesData);
-                await updateSheetData(spreadsheetId, 'Financial_Entries', financialData);
-                await updateSheetData(spreadsheetId, 'Payables', payablesData);
-                
-                showNotification('All data exported to Google Sheets successfully!', 'success');
-            } catch (error) {
-                console.error('Error exporting all to Google Sheets:', error);
-                showNotification('Error exporting to Google Sheets: ' + error.message, 'error');
-            }
-        }
-        // Local storage functions
-        function saveLocalData() {
-            localStorage.setItem('itemsData', JSON.stringify(itemsData));
-            localStorage.setItem('customersData', JSON.stringify(customersData));
-            localStorage.setItem('invoicesData', JSON.stringify(invoicesData));
-            localStorage.setItem('financialData', JSON.stringify(financialData));
-            localStorage.setItem('payablesData', JSON.stringify(payablesData));
-            localStorage.setItem('calculationHistory', JSON.stringify(calculationHistory));
-        }
-
-        function loadLocalData() {
-            const items = localStorage.getItem('itemsData');
-            const customers = localStorage.getItem('customersData');
-            const invoices = localStorage.getItem('invoicesData');
-            const financial = localStorage.getItem('financialData');
-            const payables = localStorage.getItem('payablesData');
-            const history = localStorage.getItem('calculationHistory');
-            
-            if (items) itemsData = JSON.parse(items);
-            if (customers) customersData = JSON.parse(customers);
-            if (invoices) invoicesData = JSON.parse(invoices);
-            if (financial) financialData = JSON.parse(financial);
-            if (payables) payablesData = JSON.parse(payables);
-            if (history) calculationHistory = JSON.parse(history);
-            
-            // Update UI with loaded data
-            updateCategories();
-            updateCustomerLists();
-            updateInvoiceLists();
-            updateFinancialDashboard();
-            updatePayablesList();
-        }
-
-        // Initialize default items
-        function initializeDefaultItems() {
-            itemsData = [
-                {
-                    mainCategory: "Visiting Cards",
-                    subCategory: "Standard",
-                    itemName: "500 GSM",
-                    basePrice: 350,
-                    unit: "Set",
-                    priceTiers: [
-                        { min: 1, max: 100, price: 350 },
-                        { min: 101, max: 250, price: 320 },
-                        { min: 251, max: 500, price: 300 },
-                        { min: 501, max: 1000, price: 280 }
-                    ]
-                },
-                {
-                    mainCategory: "Visiting Cards",
-                    subCategory: "Premium",
-                    itemName: "600 GSM",
-                    basePrice: 500,
-                    unit: "Set",
-                    priceTiers: [
-                        { min: 1, max: 100, price: 500 },
-                        { min: 101, max: 250, price: 450 },
-                        { min: 251, max: 500, price: 420 },
-                        { min: 501, max: 1000, price: 400 }
-                    ]
-                },
-                {
-                    mainCategory: "Brochures",
-                    subCategory: "A4 Size",
-                    itemName: "150 GSM",
-                    basePrice: 15,
-                    unit: "Piece",
-                    priceTiers: [
-                        { min: 1, max: 100, price: 15 },
-                        { min: 101, max: 500, price: 12 },
-                        { min: 501, max: 1000, price: 10 },
-                        { min: 1001, max: 5000, price: 8 }
-                    ]
                 }
-            ];
+            };
             
-            saveLocalData();
+            populateCategories();
+            saveAllData();
         }
 
-        // Initialize default customers
-        function initializeDefaultCustomers() {
-            customersData = [
-                {
-                    id: 1,
-                    name: "Ali Ahmed",
-                    phone: "0300-1234567",
-                    address: "Main Market, Lahore"
-                },
-                {
-                    id: 2,
-                    name: "Fatima Khan",
-                    phone: "0312-7654321",
-                    address: "Gulberg, Lahore"
-                },
-                {
-                    id: 3,
-                    name: "Bilal Siddiqui",
-                    phone: "0333-9876543",
-                    address: "Model Town, Lahore"
-                }
-            ];
-            
-            saveLocalData();
-        }
-
-        // Update categories dropdown
-        function updateCategories() {
+        // Category and item management
+        function populateCategories() {
             const mainCategorySelect = document.getElementById('mainCategory');
             mainCategorySelect.innerHTML = '<option value="">Select Main Category</option>';
             
-            const mainCategories = [...new Set(itemsData.map(item => item.mainCategory))];
-            mainCategories.forEach(category => {
+            for (const category in priceData) {
                 const option = document.createElement('option');
                 option.value = category;
                 option.textContent = category;
                 mainCategorySelect.appendChild(option);
-            });
-            
-            // Also update the invoice item list
-            updateInvoiceItemList();
+            }
         }
 
-        // Update subcategories based on main category
         function updateSubcategories() {
             const mainCategory = document.getElementById('mainCategory').value;
             const subCategorySelect = document.getElementById('subCategory');
             subCategorySelect.innerHTML = '<option value="">Select Subcategory</option>';
             
-            if (!mainCategory) return;
+            if (mainCategory && priceData[mainCategory]) {
+                for (const subcategory in priceData[mainCategory]) {
+                    const option = document.createElement('option');
+                    option.value = subcategory;
+                    option.textContent = subcategory;
+                    subCategorySelect.appendChild(option);
+                }
+            }
             
-            const subCategories = [...new Set(itemsData
-                .filter(item => item.mainCategory === mainCategory)
-                .map(item => item.subCategory))];
-                
-            subCategories.forEach(subCategory => {
-                const option = document.createElement('option');
-                option.value = subCategory;
-                option.textContent = subCategory;
-                subCategorySelect.appendChild(option);
-            });
-            
-            // Clear item selection
+            // Clear items
             document.getElementById('itemName').innerHTML = '<option value="">Select Item</option>';
+            document.getElementById('quantityInputContainer').innerHTML = '<input type="number" id="quantity" value="1" min="1" oninput="clearTierTag()">';
+            document.getElementById('priceTierTagGroup').style.display = 'none';
         }
 
-        // Update items based on subcategory
         function updateItemsAndFields() {
             const mainCategory = document.getElementById('mainCategory').value;
             const subCategory = document.getElementById('subCategory').value;
-            const itemNameSelect = document.getElementById('itemName');
-            itemNameSelect.innerHTML = '<option value="">Select Item</option>';
+            const itemSelect = document.getElementById('itemName');
+            itemSelect.innerHTML = '<option value="">Select Item</option>';
             
-            if (!mainCategory || !subCategory) return;
+            if (mainCategory && subCategory && priceData[mainCategory] && priceData[mainCategory][subCategory]) {
+                for (const itemName in priceData[mainCategory][subCategory]) {
+                    const option = document.createElement('option');
+                    option.value = itemName;
+                    option.textContent = itemName;
+                    itemSelect.appendChild(option);
+                }
+            }
             
-            const items = itemsData.filter(item => 
-                item.mainCategory === mainCategory && 
-                item.subCategory === subCategory
-            );
-            
-            items.forEach(item => {
-                const option = document.createElement('option');
-                option.value = item.itemName;
-                option.textContent = item.itemName;
-                itemNameSelect.appendChild(option);
-            });
+            updateQuantityInput();
         }
 
-        // Update quantity input based on item unit
         function updateQuantityInput() {
             const mainCategory = document.getElementById('mainCategory').value;
             const subCategory = document.getElementById('subCategory').value;
             const itemName = document.getElementById('itemName').value;
+            const quantityContainer = document.getElementById('quantityInputContainer');
             
-            if (!mainCategory || !subCategory || !itemName) return;
-            
-            const item = itemsData.find(item => 
-                item.mainCategory === mainCategory && 
-                item.subCategory === subCategory && 
-                item.itemName === itemName
-            );
-            
-            if (item) {
-                const container = document.getElementById('quantityInputContainer');
-                container.innerHTML = `<input type="number" id="quantity" value="1" min="1" oninput="clearTierTag()" placeholder="Enter quantity">`;
-                document.getElementById('priceTierTagGroup').style.display = 'none';
+            if (mainCategory && subCategory && itemName && 
+                priceData[mainCategory] && 
+                priceData[mainCategory][subCategory] && 
+                priceData[mainCategory][subCategory][itemName]) {
+                
+                const item = priceData[mainCategory][subCategory][itemName];
+                quantityContainer.innerHTML = `<input type="number" id="quantity" value="1" min="1" oninput="clearTierTag()">`;
+                
+                // Show unit
+                const unitLabel = document.querySelector('label[for="quantityInputContainer"]');
+                unitLabel.innerHTML = `<i class="fas fa-boxes"></i> Quantity (${item.unit}):`;
+            } else {
+                quantityContainer.innerHTML = `<input type="number" id="quantity" value="1" min="1" oninput="clearTierTag()">`;
+                const unitLabel = document.querySelector('label[for="quantityInputContainer"]');
+                unitLabel.innerHTML = `<i class="fas fa-boxes"></i> Quantity / Set:`;
             }
+            
+            document.getElementById('priceTierTagGroup').style.display = 'none';
         }
 
-        // Clear tier tag when quantity changes
         function clearTierTag() {
             document.getElementById('priceTierTagGroup').style.display = 'none';
         }
 
-        // Calculate price based on selected item and quantity
+        // Price calculation
         function calculatePrice() {
             const mainCategory = document.getElementById('mainCategory').value;
             const subCategory = document.getElementById('subCategory').value;
@@ -1984,18 +1599,13 @@ function handleGoogleAPIError(error, operation) {
             const designCharges = parseFloat(document.getElementById('designCharges').value) || 0;
             
             if (!mainCategory || !subCategory || !itemName) {
-                showNotification('Please select category and item', 'error');
+                showNotification('Please select a category and item', 'error');
                 return;
             }
             
-            const item = itemsData.find(item => 
-                item.mainCategory === mainCategory && 
-                item.subCategory === subCategory && 
-                item.itemName === itemName
-            );
-            
+            const item = priceData[mainCategory][subCategory][itemName];
             if (!item) {
-                showNotification('Item not found', 'error');
+                showNotification('Selected item not found', 'error');
                 return;
             }
             
@@ -2003,26 +1613,19 @@ function handleGoogleAPIError(error, operation) {
             let unitPrice = item.basePrice;
             let selectedTier = null;
             
-            for (const tier of item.priceTiers) {
-                if (quantity >= tier.min && quantity <= tier.max) {
-                    unitPrice = tier.price;
-                    selectedTier = tier;
-                    break;
-                }
-            }
-            
-            // If quantity exceeds all tiers, use the last tier price
-            if (!selectedTier && item.priceTiers.length > 0) {
-                const lastTier = item.priceTiers[item.priceTiers.length - 1];
-                if (quantity > lastTier.max) {
-                    unitPrice = lastTier.price;
-                    selectedTier = { min: lastTier.max + 1, max: Infinity, price: lastTier.price };
+            if (item.tiers && item.tiers.length > 0) {
+                for (const tier of item.tiers) {
+                    if (quantity >= tier.min && quantity <= tier.max) {
+                        unitPrice = tier.price;
+                        selectedTier = tier;
+                        break;
+                    }
                 }
             }
             
             // Calculate total price
-            const itemPrice = unitPrice * quantity;
-            const totalPrice = itemPrice + designCharges;
+            const itemTotal = unitPrice * quantity;
+            const totalPrice = itemTotal + designCharges;
             
             // Display results
             const resultDiv = document.getElementById('result');
@@ -2030,117 +1633,68 @@ function handleGoogleAPIError(error, operation) {
             const breakdownContent = document.getElementById('breakdownContent');
             
             resultDiv.innerHTML = `
-                <h3><i class="fas fa-receipt"></i> Price Calculation Result</h3>
-                <p>Total Price: <strong>Rs. ${totalPrice.toFixed(2)}</strong></p>
+                <h3><i class="fas fa-file-invoice-dollar"></i> Price Calculation Result</h3>
+                <p><strong>Item:</strong> ${itemName}</p>
+                <p><strong>Quantity:</strong> ${quantity} ${item.unit}</p>
+                <p><strong>Unit Price:</strong> Rs. ${unitPrice.toFixed(2)}</p>
+                <p><strong>Design Charges:</strong> Rs. ${designCharges.toFixed(2)}</p>
+                <p style="font-size: 1.6em; color: var(--success); margin-top: 15px;"><strong>Total Price: Rs. ${totalPrice.toFixed(2)}</strong></p>
             `;
             
             breakdownContent.innerHTML = `
                 <div class="breakdown-item">
-                    <span>Item: ${itemName}</span>
-                    <span>Rs. ${unitPrice.toFixed(2)} × ${quantity} ${item.unit}</span>
-                </div>
-                <div class="breakdown-item">
-                    <span>Item Price:</span>
-                    <span>Rs. ${itemPrice.toFixed(2)}</span>
+                    <span>Item Price (${quantity} ${item.unit} × Rs. ${unitPrice.toFixed(2)}):</span>
+                    <span>Rs. ${itemTotal.toFixed(2)}</span>
                 </div>
                 <div class="breakdown-item">
                     <span>Design Charges:</span>
                     <span>Rs. ${designCharges.toFixed(2)}</span>
                 </div>
                 <div class="breakdown-item">
-                    <span>Total Price:</span>
-                    <span>Rs. ${totalPrice.toFixed(2)}</span>
+                    <span><strong>Total Amount:</strong></span>
+                    <span><strong>Rs. ${totalPrice.toFixed(2)}</strong></span>
                 </div>
             `;
-            
-            // Show tier information if applicable
-            if (selectedTier) {
-                const tierTagGroup = document.getElementById('priceTierTagGroup');
-                const tierTag = document.getElementById('priceTierTag');
-                
-                let tierText = '';
-                if (selectedTier.max === Infinity) {
-                    tierText = `Set ${selectedTier.min}+ (Rs. ${selectedTier.price}/${item.unit})`;
-                } else {
-                    tierText = `Set ${selectedTier.min}-${selectedTier.max} (Rs. ${selectedTier.price}/${item.unit})`;
-                }
-                
-                tierTag.textContent = tierText;
-                tierTagGroup.style.display = 'block';
-            }
             
             resultDiv.style.display = 'block';
             breakdownDiv.style.display = 'block';
             
-            // Add to calculation history
-            const calculation = {
-                timestamp: new Date().toISOString(),
-                category: mainCategory,
-                subcategory: subCategory,
-                item: itemName,
-                quantity: quantity,
-                unitPrice: unitPrice,
-                designCharges: designCharges,
-                totalPrice: totalPrice
-            };
-            
-            calculationHistory.unshift(calculation);
-            if (calculationHistory.length > 100) {
-                calculationHistory = calculationHistory.slice(0, 100);
+            // Show selected tier if applicable
+            if (selectedTier) {
+                document.getElementById('priceTierTag').textContent = `Set ${selectedTier.min}-${selectedTier.max} (Rs. ${selectedTier.price}/${item.unit})`;
+                document.getElementById('priceTierTagGroup').style.display = 'flex';
             }
             
-            saveLocalData();
-            if (isAuthenticated) {
-                saveAllData(false);
-            }
+            // Add to history
+            addToHistory({
+                type: 'calculation',
+                mainCategory,
+                subCategory,
+                itemName,
+                quantity,
+                unitPrice,
+                designCharges,
+                totalPrice,
+                timestamp: new Date().toISOString()
+            });
+            
+            showNotification('Price calculated successfully!', 'success');
         }
 
-        // Clear the calculator form
         function clearForm() {
             document.getElementById('mainCategory').value = '';
             document.getElementById('subCategory').innerHTML = '<option value="">Select Subcategory</option>';
             document.getElementById('itemName').innerHTML = '<option value="">Select Item</option>';
-            document.getElementById('quantity').value = '1';
-            document.getElementById('designCharges').value = '0';
+            document.getElementById('quantity').value = 1;
+            document.getElementById('designCharges').value = 0;
             document.getElementById('result').style.display = 'none';
             document.getElementById('priceBreakdown').style.display = 'none';
             document.getElementById('priceTierTagGroup').style.display = 'none';
         }
 
-        // Invoice System Functions
-
-        // Update invoice number
-        function updateInvoiceNumber() {
-            const today = new Date();
-            const year = today.getFullYear();
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            const day = String(today.getDate()).padStart(2, '0');
-            
-            // Find the highest invoice number for today
-            let maxNumber = 0;
-            const todayInvoices = invoicesData.filter(inv => {
-                const invDate = new Date(inv.date);
-                return invDate.getFullYear() === year && 
-                       invDate.getMonth() === today.getMonth() && 
-                       invDate.getDate() === today.getDate();
-            });
-            
-            todayInvoices.forEach(inv => {
-                const parts = inv.invoiceNo.split('-');
-                if (parts.length === 4) {
-                    const num = parseInt(parts[3]);
-                    if (num > maxNumber) maxNumber = num;
-                }
-            });
-            
-            const nextNumber = maxNumber + 1;
-            const invoiceNo = `INV-${year}${month}${day}-${String(nextNumber).padStart(3, '0')}`;
-            document.getElementById('invoiceNo').value = invoiceNo;
-        }
-
-        // Add invoice item row
+        // Invoice system
         function addInvoiceItem() {
-            const tbody = document.getElementById('itemsTableBody');
+            const tableBody = document.getElementById('itemsTableBody');
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
                 <td>
@@ -2154,14 +1708,10 @@ function handleGoogleAPIError(error, operation) {
                 <td><input type="number" class="item-amount" value="0" readonly></td>
                 <td><button type="button" class="btn btn-danger btn-sm" onclick="removeInvoiceItem(this)"><i class="fas fa-trash"></i></button></td>
             `;
-            tbody.appendChild(newRow);
-            
-            // Add autocomplete to the new item name input
-            const itemNameInput = newRow.querySelector('.item-name');
-            setupItemAutocomplete(itemNameInput);
+            tableBody.appendChild(newRow);
+            calculateTotal();
         }
 
-        // Remove invoice item row
         function removeInvoiceItem(button) {
             const row = button.closest('tr');
             if (document.getElementById('itemsTableBody').children.length > 1) {
@@ -2172,7 +1722,6 @@ function handleGoogleAPIError(error, operation) {
             }
         }
 
-        // Calculate invoice totals
         function calculateTotal() {
             const rows = document.querySelectorAll('#itemsTableBody tr');
             let subtotal = 0;
@@ -2189,25 +1738,28 @@ function handleGoogleAPIError(error, operation) {
             
             const taxRate = parseFloat(document.getElementById('taxRate').value) || 0;
             const taxAmount = subtotal * (taxRate / 100);
-            const total = subtotal + taxAmount;
+            const totalAmount = subtotal + taxAmount;
             const previousBalance = parseFloat(document.getElementById('previousBalance').value) || 0;
             const payment = parseFloat(document.getElementById('payment').value) || 0;
-            const remainingBalance = total + previousBalance - payment;
+            const remainingBalance = (totalAmount + previousBalance) - payment;
             
             document.getElementById('subtotalAmount').textContent = subtotal.toFixed(2);
-            document.getElementById('totalAmount').textContent = total.toFixed(2);
+            document.getElementById('totalAmount').textContent = totalAmount.toFixed(2);
             document.getElementById('remainingBalance').textContent = remainingBalance.toFixed(2);
         }
 
-        // Save invoice
+        function generateNextInvoiceNumber() {
+            const lastInvoice = invoices.length > 0 ? 
+                Math.max(...invoices.map(inv => parseInt(inv.invoiceNo.replace('INV-', '')) || 0)) : 0;
+            const nextNumber = lastInvoice + 1;
+            document.getElementById('invoiceNo').value = `INV-${nextNumber.toString().padStart(4, '0')}`;
+        }
+
         function saveInvoice() {
             const customerName = document.getElementById('invoiceCustomerName').value.trim();
             const customerPhone = document.getElementById('invoiceCustomerPhone').value.trim();
             const invoiceNo = document.getElementById('invoiceNo').value;
             const invoiceDate = document.getElementById('invoiceDate').value;
-            const taxRate = parseFloat(document.getElementById('taxRate').value) || 0;
-            const previousBalance = parseFloat(document.getElementById('previousBalance').value) || 0;
-            const payment = parseFloat(document.getElementById('payment').value) || 0;
             
             if (!customerName) {
                 showNotification('Please enter customer name', 'error');
@@ -2222,17 +1774,16 @@ function handleGoogleAPIError(error, operation) {
             // Collect items
             const items = [];
             const rows = document.querySelectorAll('#itemsTableBody tr');
-            
             rows.forEach(row => {
-                const name = row.querySelector('.item-name').value.trim();
+                const itemName = row.querySelector('.item-name').value.trim();
                 const rate = parseFloat(row.querySelector('.item-rate').value) || 0;
                 const quantity = parseInt(row.querySelector('.item-quantity').value) || 0;
                 const designCharges = parseFloat(row.querySelector('.item-design-charges').value) || 0;
                 const amount = parseFloat(row.querySelector('.item-amount').value) || 0;
                 
-                if (name) {
+                if (itemName) {
                     items.push({
-                        name,
+                        itemName,
                         rate,
                         quantity,
                         designCharges,
@@ -2247,232 +1798,166 @@ function handleGoogleAPIError(error, operation) {
             }
             
             // Calculate totals
-            const subtotal = items.reduce((sum, item) => sum + item.amount, 0);
+            const subtotal = parseFloat(document.getElementById('subtotalAmount').textContent) || 0;
+            const taxRate = parseFloat(document.getElementById('taxRate').value) || 0;
             const taxAmount = subtotal * (taxRate / 100);
-            const total = subtotal + taxAmount;
-            const remainingBalance = total + previousBalance - payment;
+            const totalAmount = parseFloat(document.getElementById('totalAmount').textContent) || 0;
+            const previousBalance = parseFloat(document.getElementById('previousBalance').value) || 0;
+            const payment = parseFloat(document.getElementById('payment').value) || 0;
+            const remainingBalance = parseFloat(document.getElementById('remainingBalance').textContent) || 0;
             
             // Create invoice object
             const invoice = {
-                id: Date.now(),
                 invoiceNo,
-                date: invoiceDate,
+                invoiceDate,
                 customerName,
                 customerPhone,
                 items,
                 subtotal,
                 taxRate,
                 taxAmount,
-                total,
+                totalAmount,
                 previousBalance,
                 payment,
                 remainingBalance,
                 timestamp: new Date().toISOString()
             };
             
-            // Add to invoices data
-            invoicesData.unshift(invoice);
+            // Add to invoices array
+            invoices.push(invoice);
             
-            // Check if customer exists, if not add them
-            const customerExists = customersData.some(customer => 
-                customer.name.toLowerCase() === customerName.toLowerCase()
-            );
-            
-            if (!customerExists && customerName) {
-                const newCustomer = {
-                    id: Date.now(),
+            // Update customer if exists, or create new one
+            let customer = customers.find(c => c.name === customerName);
+            if (customer) {
+                customer.phone = customerPhone || customer.phone;
+                customer.lastInvoiceDate = invoiceDate;
+                customer.totalInvoices = (customer.totalInvoices || 0) + 1;
+                customer.totalAmount = (customer.totalAmount || 0) + totalAmount;
+                customer.balance = (customer.balance || 0) + remainingBalance;
+            } else {
+                customer = {
                     name: customerName,
                     phone: customerPhone,
-                    address: ''
+                    firstInvoiceDate: invoiceDate,
+                    lastInvoiceDate: invoiceDate,
+                    totalInvoices: 1,
+                    totalAmount: totalAmount,
+                    balance: remainingBalance
                 };
-                customersData.push(newCustomer);
-                updateCustomerLists();
+                customers.push(customer);
             }
             
             // Save data
-            saveLocalData();
-            if (isAuthenticated) {
-                saveAllData(false);
+            saveAllData(true);
+            
+            // Add to financial entries as income if payment > 0
+            if (payment > 0) {
+                const financialEntry = {
+                    type: 'Income',
+                    category: 'Income: Invoice Payment',
+                    date: invoiceDate,
+                    amount: payment,
+                    description: `Payment for invoice ${invoiceNo} - ${customerName}`,
+                    timestamp: new Date().toISOString()
+                };
+                financialEntries.push(financialEntry);
+                saveAllData(true);
             }
             
-            // Show success message
-            showNotification('Invoice saved successfully', 'success');
+            // Add to history
+            addToHistory({
+                type: 'invoice',
+                invoiceNo,
+                customerName,
+                totalAmount,
+                timestamp: new Date().toISOString()
+            });
             
-            // Clear invoice form
+            showNotification(`Invoice ${invoiceNo} saved successfully!`, 'success');
+            
+            // Clear form and generate next invoice number
             clearInvoice();
+            generateNextInvoiceNumber();
             
             // Update financial dashboard
             updateFinancialDashboard();
         }
 
-        // Clear invoice form
         function clearInvoice() {
             document.getElementById('invoiceCustomerName').value = '';
             document.getElementById('invoiceCustomerPhone').value = '';
-            document.getElementById('taxRate').value = '0';
-            document.getElementById('previousBalance').value = '0';
-            document.getElementById('payment').value = '0';
+            document.getElementById('taxRate').value = 0;
+            document.getElementById('previousBalance').value = 0;
+            document.getElementById('payment').value = 0;
             
-            // Clear items table except first row
-            const tbody = document.getElementById('itemsTableBody');
-            while (tbody.children.length > 1) {
-                tbody.removeChild(tbody.lastChild);
+            // Keep only one row in items table
+            const tableBody = document.getElementById('itemsTableBody');
+            while (tableBody.children.length > 1) {
+                tableBody.removeChild(tableBody.lastChild);
             }
             
-            // Reset first row
-            const firstRow = tbody.children[0];
+            // Clear the first row
+            const firstRow = tableBody.children[0];
             firstRow.querySelector('.item-name').value = '';
-            firstRow.querySelector('.item-rate').value = '0';
-            firstRow.querySelector('.item-quantity').value = '1';
-            firstRow.querySelector('.item-design-charges').value = '0';
-            firstRow.querySelector('.item-amount').value = '0';
+            firstRow.querySelector('.item-rate').value = 0;
+            firstRow.querySelector('.item-quantity').value = 1;
+            firstRow.querySelector('.item-design-charges').value = 0;
+            firstRow.querySelector('.item-amount').value = 0;
             
-            // Update invoice number and reset totals
-            updateInvoiceNumber();
             calculateTotal();
         }
 
-        // Update customer lists for autocomplete
-        function updateCustomerLists() {
-            const customerNameList = document.getElementById('customerNameList');
-            const customerPhoneList = document.getElementById('customerPhoneList');
+        // Customer suggestions
+        function showCustomerSuggestions() {
+            const input = document.getElementById('invoiceCustomerName');
+            const suggestionsDiv = document.getElementById('customerSuggestions');
+            const value = input.value.toLowerCase();
             
-            customerNameList.innerHTML = '';
-            customerPhoneList.innerHTML = '';
+            suggestionsDiv.innerHTML = '';
             
-            customersData.forEach(customer => {
-                const nameOption = document.createElement('option');
-                nameOption.value = customer.name;
-                customerNameList.appendChild(nameOption);
-                
-                if (customer.phone) {
-                    const phoneOption = document.createElement('option');
-                    phoneOption.value = customer.phone;
-                    customerPhoneList.appendChild(phoneOption);
-                }
-            });
-        }
-			// Update invoice lists for autocomplete
-function updateInvoiceLists() {
-    // This function updates any invoice-related dropdowns or lists
-    // Currently used in loadLocalData but can be expanded if needed
-    updateInvoiceItemList();
-}
-        // Update invoice item list for autocomplete
-        function updateInvoiceItemList() {
-            const invoiceItemList = document.getElementById('invoiceItemList');
-            invoiceItemList.innerHTML = '';
-            
-            itemsData.forEach(item => {
-                const option = document.createElement('option');
-                option.value = `${item.mainCategory} - ${item.subCategory} - ${item.itemName}`;
-                invoiceItemList.appendChild(option);
-            });
-        }
-
-        // Setup item autocomplete for invoice items
-        function setupItemAutocomplete(input) {
-            input.addEventListener('input', function() {
-                const value = this.value.toLowerCase();
-                const suggestions = document.getElementById('customerSuggestions');
-                
-                if (value.length < 2) {
-                    suggestions.style.display = 'none';
-                    return;
-                }
-                
-                // Filter items based on input
-                const filteredItems = itemsData.filter(item => {
-                    const itemText = `${item.mainCategory} - ${item.subCategory} - ${item.itemName}`.toLowerCase();
-                    return itemText.includes(value);
-                });
-                
-                if (filteredItems.length === 0) {
-                    suggestions.style.display = 'none';
-                    return;
-                }
-                
-                // Show suggestions
-                suggestions.innerHTML = '';
-                filteredItems.forEach(item => {
-                    const div = document.createElement('div');
-                    div.className = 'customer-suggestion';
-                    div.textContent = `${item.mainCategory} - ${item.subCategory} - ${item.itemName}`;
-                    div.onclick = function() {
-                        input.value = this.textContent;
-                        suggestions.style.display = 'none';
-                        
-                        // Try to auto-fill rate if possible
-                        const row = input.closest('tr');
-                        const rateInput = row.querySelector('.item-rate');
-                        rateInput.value = item.basePrice;
-                        
-                        calculateTotal();
-                    };
-                    suggestions.appendChild(div);
-                });
-                
-                suggestions.style.display = 'block';
-            });
-            
-            // Hide suggestions when clicking outside
-            document.addEventListener('click', function(e) {
-                if (e.target !== input) {
-                    document.getElementById('customerSuggestions').style.display = 'none';
-                }
-            });
-        }
-
-        // Customer name autocomplete
-        document.getElementById('invoiceCustomerName').addEventListener('input', function() {
-            const value = this.value.toLowerCase();
-            const suggestions = document.getElementById('customerSuggestions');
-            
-            if (value.length < 2) {
-                suggestions.style.display = 'none';
+            if (value.length < 1) {
+                suggestionsDiv.style.display = 'none';
                 return;
             }
             
-            // Filter customers based on input
-            const filteredCustomers = customersData.filter(customer => 
+            const matchingCustomers = customers.filter(customer => 
                 customer.name.toLowerCase().includes(value)
             );
             
-            if (filteredCustomers.length === 0) {
-                suggestions.style.display = 'none';
+            if (matchingCustomers.length === 0) {
+                suggestionsDiv.style.display = 'none';
                 return;
             }
             
-            // Show suggestions
-            suggestions.innerHTML = '';
-            filteredCustomers.forEach(customer => {
+            matchingCustomers.forEach(customer => {
                 const div = document.createElement('div');
                 div.className = 'customer-suggestion';
                 div.textContent = customer.name;
                 div.onclick = function() {
-                    document.getElementById('invoiceCustomerName').value = this.textContent;
+                    input.value = customer.name;
                     document.getElementById('invoiceCustomerPhone').value = customer.phone || '';
-                    suggestions.style.display = 'none';
+                    suggestionsDiv.style.display = 'none';
                 };
-                suggestions.appendChild(div);
+                suggestionsDiv.appendChild(div);
             });
             
-            suggestions.style.display = 'block';
-        });
+            suggestionsDiv.style.display = 'block';
+        }
 
-        // Financial Hub Functions
+        function showItemSuggestions(input) {
+            // This would show suggestions based on existing items in priceData
+            // For simplicity, we're not implementing the full suggestion dropdown here
+        }
 
-        // Switch financial tabs
+        // Financial Hub functions
         function switchFinancialTab(tabElement, tabId) {
             // Hide all tab contents
-            const tabContents = document.querySelectorAll('#FinancialHub .tab-content');
-            tabContents.forEach(content => {
+            document.querySelectorAll('#FinancialHub .tab-content').forEach(content => {
                 content.classList.remove('active');
             });
             
             // Remove active class from all tabs
-            const tabs = document.querySelectorAll('#FinancialHub .tab');
-            tabs.forEach(tab => {
+            document.querySelectorAll('#FinancialHub .tab').forEach(tab => {
                 tab.classList.remove('active');
             });
             
@@ -2488,41 +1973,83 @@ function updateInvoiceLists() {
             }
         }
 
-        // Toggle payment payable selection
+        function updateDashboardMonth() {
+            const now = new Date();
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"];
+            document.getElementById('dashboardMonth').textContent = `${monthNames[now.getMonth()]} ${now.getFullYear()}`;
+        }
+
+        function updateFinancialDashboard() {
+            const now = new Date();
+            const currentMonth = now.getMonth();
+            const currentYear = now.getFullYear();
+            
+            // Filter entries for current month
+            const monthEntries = financialEntries.filter(entry => {
+                const entryDate = new Date(entry.date);
+                return entryDate.getMonth() === currentMonth && entryDate.getFullYear() === currentYear;
+            });
+            
+            // Calculate totals
+            const income = monthEntries
+                .filter(entry => entry.type === 'Income')
+                .reduce((sum, entry) => sum + entry.amount, 0);
+                
+            const expenses = monthEntries
+                .filter(entry => entry.type === 'Expense' || entry.type === 'Payment')
+                .reduce((sum, entry) => sum + entry.amount, 0);
+                
+            const profit = income - expenses;
+            
+            // Update dashboard
+            const dashboardContainer = document.getElementById('financialDashboardContainer');
+            dashboardContainer.innerHTML = `
+                <div class="dashboard-metric metric-income">
+                    <span>Total Income</span>
+                    <span class="metric-value">Rs. ${income.toFixed(2)}</span>
+                </div>
+                <div class="dashboard-metric metric-expense">
+                    <span>Total Expenses</span>
+                    <span class="metric-value">Rs. ${expenses.toFixed(2)}</span>
+                </div>
+                <div class="dashboard-metric metric-profit">
+                    <span>Net Profit</span>
+                    <span class="metric-value">Rs. ${profit.toFixed(2)}</span>
+                </div>
+                <div class="dashboard-metric metric-net">
+                    <span>Monthly Balance</span>
+                    <span class="metric-value">Rs. ${profit.toFixed(2)}</span>
+                </div>
+            `;
+        }
+
         function togglePaymentPayable() {
             const entryType = document.getElementById('entryType').value;
             const paymentPayableGroup = document.getElementById('paymentPayableGroup');
             
             if (entryType === 'Payment') {
-                paymentPayableGroup.style.display = 'block';
+                paymentPayableGroup.style.display = 'flex';
                 updatePaymentPayableSelect();
             } else {
                 paymentPayableGroup.style.display = 'none';
             }
         }
 
-        // Update payment payable select options
         function updatePaymentPayableSelect() {
             const select = document.getElementById('paymentPayableSelect');
             select.innerHTML = '';
             
-            const activePayables = payablesData.filter(p => !p.paid);
-            activePayables.forEach(payable => {
-                const option = document.createElement('option');
-                option.value = payable.id;
-                option.textContent = `${payable.name} - Rs. ${payable.amount.toFixed(2)}`;
-                select.appendChild(option);
+            payables.forEach(payable => {
+                if (payable.remaining > 0) {
+                    const option = document.createElement('option');
+                    option.value = payable.id;
+                    option.textContent = `${payable.name} - Rs. ${payable.remaining.toFixed(2)}`;
+                    select.appendChild(option);
+                }
             });
-            
-            if (activePayables.length === 0) {
-                const option = document.createElement('option');
-                option.value = '';
-                option.textContent = 'No active payables';
-                select.appendChild(option);
-            }
         }
 
-        // Save financial entry
         function saveFinancialEntry() {
             const entryType = document.getElementById('entryType').value;
             const category = document.getElementById('entryCategory').value;
@@ -2545,9 +2072,7 @@ function updateInvoiceLists() {
                 return;
             }
             
-            // Create financial entry
             const entry = {
-                id: Date.now(),
                 type: entryType,
                 category,
                 date,
@@ -2556,55 +2081,47 @@ function updateInvoiceLists() {
                 timestamp: new Date().toISOString()
             };
             
-            // Handle payment entries
+            // If it's a payment for a payable, update the payable
             if (entryType === 'Payment') {
-                const payableId = parseInt(document.getElementById('paymentPayableSelect').value);
+                const payableSelect = document.getElementById('paymentPayableSelect');
+                const payableId = payableSelect.value;
+                
                 if (payableId) {
-                    const payable = payablesData.find(p => p.id === payableId);
+                    const payable = payables.find(p => p.id === payableId);
                     if (payable) {
+                        payable.paid = (payable.paid || 0) + amount;
+                        payable.remaining = payable.amount - payable.paid;
+                        
+                        if (payable.remaining <= 0) {
+                            payable.status = 'Paid';
+                        }
+                        
                         entry.payableId = payableId;
                         entry.payableName = payable.name;
-                        
-                        // Update payable status
-                        payable.paidAmount = (payable.paidAmount || 0) + amount;
-                        if (payable.paidAmount >= payable.amount) {
-                            payable.paid = true;
-                            payable.paidDate = date;
-                        }
                     }
                 }
             }
             
-            // Add to financial data
-            financialData.unshift(entry);
-            
-            // Save data
-            saveLocalData();
-            if (isAuthenticated) {
-                saveAllData(false);
-            }
-            
-            // Show success message
-            showNotification('Financial entry saved successfully', 'success');
+            financialEntries.push(entry);
+            saveAllData(true);
             
             // Clear form
-            document.getElementById('entryAmount').value = '0';
+            document.getElementById('entryAmount').value = 0;
             document.getElementById('entryDescription').value = '';
             
-            // Update dashboard and payables list
+            // Update dashboard
             updateFinancialDashboard();
-            updatePayablesList();
+            
+            showNotification('Financial entry saved successfully!', 'success');
         }
 
-        // Add payable
         function addPayable() {
             const name = document.getElementById('payableName').value.trim();
             const amount = parseFloat(document.getElementById('payableAmount').value) || 0;
             const dueDate = document.getElementById('payableDueDate').value;
-            const description = document.getElementById('payableDescription').value.trim();
             
             if (!name) {
-                showNotification('Please enter payable name', 'error');
+                showNotification('Please enter a name for the payable', 'error');
                 return;
             }
             
@@ -2614,214 +2131,147 @@ function updateInvoiceLists() {
             }
             
             if (!dueDate) {
-                showNotification('Please select due date', 'error');
+                showNotification('Please select a due date', 'error');
                 return;
             }
             
-            // Create payable
             const payable = {
-                id: Date.now(),
+                id: 'payable_' + Date.now(),
                 name,
                 amount,
+                paid: 0,
+                remaining: amount,
                 dueDate,
-                description,
-                paid: false,
-                paidAmount: 0,
+                status: 'Pending',
                 timestamp: new Date().toISOString()
             };
             
-            // Add to payables data
-            payablesData.unshift(payable);
-            
-            // Save data
-            saveLocalData();
-            if (isAuthenticated) {
-                saveAllData(false);
-            }
-            
-            // Show success message
-            showNotification('Payable added successfully', 'success');
+            payables.push(payable);
+            saveAllData(true);
             
             // Clear form
             document.getElementById('payableName').value = '';
-            document.getElementById('payableAmount').value = '0';
-            document.getElementById('payableDueDate').value = '';
-            document.getElementById('payableDescription').value = '';
+            document.getElementById('payableAmount').value = 0;
+            document.getElementById('payableDueDate').valueAsDate = new Date();
             
-            // Update payables list
+            // Update list
             updatePayablesList();
+            
+            showNotification('Payable added successfully!', 'success');
         }
 
-        // Update financial dashboard
-        function updateFinancialDashboard() {
-            const dashboardContainer = document.getElementById('financialDashboardContainer');
-            const dashboardMonth = document.getElementById('dashboardMonth');
-            
-            // Get current month and year
-            const now = new Date();
-            const currentMonth = now.toLocaleString('default', { month: 'long', year: 'numeric' });
-            dashboardMonth.textContent = currentMonth;
-            
-            // Calculate monthly totals
-            const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
-            const monthEnd = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().split('T')[0];
-            
-            const monthlyIncome = financialData
-                .filter(entry => entry.type === 'Income' && entry.date >= monthStart && entry.date <= monthEnd)
-                .reduce((sum, entry) => sum + entry.amount, 0);
-                
-            const monthlyExpense = financialData
-                .filter(entry => entry.type === 'Expense' && entry.date >= monthStart && entry.date <= monthEnd)
-                .reduce((sum, entry) => sum + entry.amount, 0);
-                
-            const monthlyPayment = financialData
-                .filter(entry => entry.type === 'Payment' && entry.date >= monthStart && entry.date <= monthEnd)
-                .reduce((sum, entry) => sum + entry.amount, 0);
-                
-            const monthlyProfit = monthlyIncome - monthlyExpense - monthlyPayment;
-            
-            // Calculate net worth (all time)
-            const totalIncome = financialData
-                .filter(entry => entry.type === 'Income')
-                .reduce((sum, entry) => sum + entry.amount, 0);
-                
-            const totalExpense = financialData
-                .filter(entry => entry.type === 'Expense' || entry.type === 'Payment')
-                .reduce((sum, entry) => sum + entry.amount, 0);
-                
-            const netWorth = totalIncome - totalExpense;
-            
-            // Update dashboard
-            dashboardContainer.innerHTML = `
-                <div class="dashboard-metric metric-income">
-                    <span>Monthly Income</span>
-                    <span class="metric-value">Rs. ${monthlyIncome.toFixed(2)}</span>
-                </div>
-                <div class="dashboard-metric metric-expense">
-                    <span>Monthly Expenses</span>
-                    <span class="metric-value">Rs. ${monthlyExpense.toFixed(2)}</span>
-                </div>
-                <div class="dashboard-metric metric-profit">
-                    <span>Monthly Profit</span>
-                    <span class="metric-value">Rs. ${monthlyProfit.toFixed(2)}</span>
-                </div>
-                <div class="dashboard-metric metric-net">
-                    <span>Net Worth (All Time)</span>
-                    <span class="metric-value">Rs. ${netWorth.toFixed(2)}</span>
-                </div>
-            `;
-        }
-
-        // Update payables list
         function updatePayablesList() {
             const payablesList = document.getElementById('payablesList');
+            payablesList.innerHTML = '';
             
-            if (payablesData.length === 0) {
+            if (payables.length === 0) {
                 payablesList.innerHTML = '<p>No payables found.</p>';
                 return;
             }
             
-            let html = '';
-            payablesData.forEach(payable => {
-                const dueDate = new Date(payable.dueDate);
-                const today = new Date();
-                const isOverdue = !payable.paid && dueDate < today;
-                
-                html += `
-                    <div class="history-item ${isOverdue ? 'sync-offline' : ''}">
-                        <div class="history-header">
-                            <span>${payable.name}</span>
-                            <span>Rs. ${payable.amount.toFixed(2)}</span>
-                        </div>
-                        <div class="history-details">
-                            <div>Due: ${dueDate.toLocaleDateString()} ${isOverdue ? '<strong style="color: var(--danger);">(OVERDUE)</strong>' : ''}</div>
-                            <div>${payable.description}</div>
-                            <div>Status: ${payable.paid ? `Paid on ${new Date(payable.paidDate).toLocaleDateString()}` : `Pending (Paid: Rs. ${payable.paidAmount.toFixed(2)})`}</div>
-                        </div>
-                        ${!payable.paid ? `
-                        <div style="margin-top: 10px;">
-                            <button class="btn btn-success btn-sm" onclick="markPayablePaid(${payable.id})">
-                                <i class="fas fa-check"></i> Mark Paid
-                            </button>
-                            <button class="btn btn-danger btn-sm" onclick="deletePayable(${payable.id})">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </div>
-                        ` : ''}
+            payables.forEach(payable => {
+                const payableDiv = document.createElement('div');
+                payableDiv.className = 'history-item';
+                payableDiv.innerHTML = `
+                    <div class="history-header">
+                        <span>${payable.name}</span>
+                        <span>Rs. ${payable.amount.toFixed(2)}</span>
+                    </div>
+                    <div class="history-details">
+                        <div>Due: ${new Date(payable.dueDate).toLocaleDateString()}</div>
+                        <div>Paid: Rs. ${payable.paid.toFixed(2)} | Remaining: Rs. ${payable.remaining.toFixed(2)}</div>
+                        <div>Status: <strong>${payable.status}</strong></div>
                     </div>
                 `;
+                payablesList.appendChild(payableDiv);
             });
+        }
+
+        // History management
+        function addToHistory(entry) {
+            calculationHistory.unshift(entry);
             
-            payablesList.innerHTML = html;
+            // Keep only last 50 entries
+            if (calculationHistory.length > 50) {
+                calculationHistory = calculationHistory.slice(0, 50);
+            }
+            
+            saveAllData();
+            updateHistory();
         }
 
-        // Mark payable as paid
-        function markPayablePaid(id) {
-            const payable = payablesData.find(p => p.id === id);
-            if (payable) {
-                payable.paid = true;
-                payable.paidAmount = payable.amount;
-                payable.paidDate = new Date().toISOString().split('T')[0];
+        function updateHistory() {
+            const historyContainer = document.getElementById('historyContainer');
+            historyContainer.innerHTML = '';
+            
+            if (calculationHistory.length === 0) {
+                historyContainer.innerHTML = '<p>No recent calculations or invoices.</p>';
+                return;
+            }
+            
+            calculationHistory.slice(0, 10).forEach(entry => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
                 
-                // Save data
-                saveLocalData();
-                if (isAuthenticated) {
-                    saveAllData(false);
+                if (entry.type === 'calculation') {
+                    historyItem.innerHTML = `
+                        <div class="history-header">
+                            <span><i class="fas fa-calculator"></i> Price Calculation</span>
+                            <span>Rs. ${entry.totalPrice.toFixed(2)}</span>
+                        </div>
+                        <div class="history-details">
+                            <div>${entry.itemName} (${entry.quantity} ${priceData[entry.mainCategory]?.[entry.subCategory]?.[entry.itemName]?.unit || 'units'})</div>
+                            <div>${new Date(entry.timestamp).toLocaleString()}</div>
+                        </div>
+                    `;
+                } else if (entry.type === 'invoice') {
+                    historyItem.innerHTML = `
+                        <div class="history-header">
+                            <span><i class="fas fa-file-invoice"></i> Invoice ${entry.invoiceNo}</span>
+                            <span>Rs. ${entry.totalAmount.toFixed(2)}</span>
+                        </div>
+                        <div class="history-details">
+                            <div>${entry.customerName}</div>
+                            <div>${new Date(entry.timestamp).toLocaleString()}</div>
+                        </div>
+                    `;
                 }
                 
-                // Update UI
-                updatePayablesList();
-                showNotification('Payable marked as paid', 'success');
-            }
+                historyContainer.appendChild(historyItem);
+            });
         }
 
-        // Delete payable
-        function deletePayable(id) {
-            if (confirm('Are you sure you want to delete this payable?')) {
-                payablesData = payablesData.filter(p => p.id !== id);
-                
-                // Save data
-                saveLocalData();
-                if (isAuthenticated) {
-                    saveAllData(false);
-                }
-                
-                // Update UI
-                updatePayablesList();
-                showNotification('Payable deleted', 'success');
-            }
-        }
-
-        // Admin Panel Functions
-
-        // Admin login
+        // Admin panel functions
         function adminLogin() {
-            const username = document.getElementById('adminUsername').value;
             const password = document.getElementById('adminPassword').value;
-            
-            // Simple authentication (in a real app, this would be more secure)
-            if (username === 'admin' && password === 'admin123') {
-                document.getElementById('adminPanel').style.display = 'block';
+            // In a real application, this would be a secure server-side check
+            // For demo purposes, we're using a simple hardcoded password
+            if (password === 'admin123') {
+                isAdmin = true;
                 document.getElementById('adminLoginSection').style.display = 'none';
-                localStorage.setItem('adminLoggedIn', 'true');
-                loadAdminPanelData();
-                showNotification('Admin login successful', 'success');
+                document.getElementById('adminPanel').style.display = 'block';
+                document.getElementById('adminPassword').value = '';
+                
+                // Load admin data
+                updateItemsList();
+                updateCustomersList();
+                updateInvoicesList();
+                updateFinancialEntriesList();
+                
+                showNotification('Admin login successful!', 'success');
             } else {
-                showNotification('Invalid username or password', 'error');
+                showNotification('Invalid admin password', 'error');
             }
         }
 
-        // Switch admin tabs
         function switchTab(tabElement, tabId) {
             // Hide all tab contents
-            const tabContents = document.querySelectorAll('.tab-content');
-            tabContents.forEach(content => {
+            document.querySelectorAll('.tab-content').forEach(content => {
                 content.classList.remove('active');
             });
             
             // Remove active class from all tabs
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(tab => {
+            document.querySelectorAll('.tab').forEach(tab => {
                 tab.classList.remove('active');
             });
             
@@ -2830,160 +2280,34 @@ function updateInvoiceLists() {
             tabElement.classList.add('active');
         }
 
-        // Load admin panel data
-        function loadAdminPanelData() {
-            loadItemsList();
-            loadCustomersList();
-            loadCalculationHistory();
-            loadInvoiceHistory();
+        function addTier() {
+            const tiersContainer = document.getElementById('newItemTiers');
+            const tierRow = document.createElement('div');
+            tierRow.className = 'tier-row';
+            tierRow.innerHTML = `
+                <input type="number" class="tier-min" placeholder="Min Qty" min="1">
+                <input type="number" class="tier-max" placeholder="Max Qty" min="1">
+                <input type="number" class="tier-price" placeholder="Price" min="0" step="0.01">
+                <button type="button" class="btn btn-danger btn-sm" onclick="removeTier(this)"><i class="fas fa-trash"></i></button>
+            `;
+            tiersContainer.appendChild(tierRow);
         }
 
-        // Load items list for admin panel
-        function loadItemsList() {
-            const itemsList = document.getElementById('itemsList');
-            
-            if (itemsData.length === 0) {
-                itemsList.innerHTML = '<p>No items found.</p>';
-                return;
+        function removeTier(button) {
+            const tierRow = button.closest('.tier-row');
+            if (document.getElementById('newItemTiers').children.length > 1) {
+                tierRow.remove();
+            } else {
+                showNotification('Item must have at least one price tier', 'warning');
             }
-            
-            let html = '<table class="data-table"><thead><tr><th>Main Category</th><th>Subcategory</th><th>Item Name</th><th>Base Price</th><th>Unit</th><th>Price Tiers</th><th>Actions</th></tr></thead><tbody>';
-            
-            itemsData.forEach(item => {
-                html += `
-                    <tr>
-                        <td>${item.mainCategory}</td>
-                        <td>${item.subCategory}</td>
-                        <td>${item.itemName}</td>
-                        <td>Rs. ${item.basePrice.toFixed(2)}</td>
-                        <td>${item.unit}</td>
-                        <td>${item.priceTiers.map(tier => 
-                            `${tier.min}-${tier.max}: Rs. ${tier.price}`
-                        ).join(', ')}</td>
-                        <td>
-                            <button class="btn btn-warning btn-sm" onclick="editItem('${item.mainCategory}', '${item.subCategory}', '${item.itemName}')">
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button class="btn btn-danger btn-sm" onclick="deleteItem('${item.mainCategory}', '${item.subCategory}', '${item.itemName}')">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </td>
-                    </tr>
-                `;
-            });
-            
-            html += '</tbody></table>';
-            itemsList.innerHTML = html;
         }
 
-        // Load customers list for admin panel
-        function loadCustomersList() {
-            const customersList = document.getElementById('customersList');
-            
-            if (customersData.length === 0) {
-                customersList.innerHTML = '<p>No customers found.</p>';
-                return;
-            }
-            
-            let html = '<table class="data-table"><thead><tr><th>Name</th><th>Phone</th><th>Address</th><th>Actions</th></tr></thead><tbody>';
-            
-            customersData.forEach(customer => {
-                html += `
-                    <tr>
-                        <td>${customer.name}</td>
-                        <td>${customer.phone}</td>
-                        <td>${customer.address}</td>
-                        <td>
-                            <button class="btn btn-warning btn-sm" onclick="editCustomer(${customer.id})">
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button class="btn btn-danger btn-sm" onclick="deleteCustomer(${customer.id})">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </td>
-                    </tr>
-                `;
-            });
-            
-            html += '</tbody></table>';
-            customersList.innerHTML = html;
-        }
-
-        // Load calculation history for admin panel
-        function loadCalculationHistory() {
-            const calculationHistoryDiv = document.getElementById('calculationHistory');
-            
-            if (calculationHistory.length === 0) {
-                calculationHistoryDiv.innerHTML = '<p>No calculation history found.</p>';
-                return;
-            }
-            
-            let html = '';
-            calculationHistory.slice(0, 20).forEach(calc => {
-                const date = new Date(calc.timestamp);
-                html += `
-                    <div class="history-item">
-                        <div class="history-header">
-                            <span>${calc.item}</span>
-                            <span>Rs. ${calc.totalPrice.toFixed(2)}</span>
-                        </div>
-                        <div class="history-details">
-                            <div>${calc.category} - ${calc.subcategory}</div>
-                            <div>Quantity: ${calc.quantity}, Unit Price: Rs. ${calc.unitPrice.toFixed(2)}, Design: Rs. ${calc.designCharges.toFixed(2)}</div>
-                            <div>${date.toLocaleString()}</div>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            calculationHistoryDiv.innerHTML = html;
-        }
-
-        // Load invoice history for admin panel
-        function loadInvoiceHistory() {
-            const invoiceHistoryDiv = document.getElementById('invoiceHistory');
-            
-            if (invoicesData.length === 0) {
-                invoiceHistoryDiv.innerHTML = '<p>No invoice history found.</p>';
-                return;
-            }
-            
-            let html = '';
-            invoicesData.slice(0, 20).forEach(invoice => {
-                const date = new Date(invoice.date);
-                html += `
-                    <div class="history-item">
-                        <div class="history-header">
-                            <span>${invoice.invoiceNo}</span>
-                            <span>Rs. ${invoice.total.toFixed(2)}</span>
-                        </div>
-                        <div class="history-details">
-                            <div>Customer: ${invoice.customerName} ${invoice.customerPhone ? `(${invoice.customerPhone})` : ''}</div>
-                            <div>Items: ${invoice.items.length}, Balance: Rs. ${invoice.remainingBalance.toFixed(2)}</div>
-                            <div>${date.toLocaleDateString()}</div>
-                        </div>
-                        <div style="margin-top: 10px;">
-                            <button class="btn btn-primary btn-sm" onclick="viewInvoice(${invoice.id})">
-                                <i class="fas fa-eye"></i> View
-                            </button>
-                            <button class="btn btn-danger btn-sm" onclick="deleteInvoice(${invoice.id})">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            invoiceHistoryDiv.innerHTML = html;
-        }
-
-        // Add new item
         function addNewItem() {
-            const mainCategory = document.getElementById('newItemMainCategory').value.trim();
-            const subCategory = document.getElementById('newItemSubCategory').value.trim();
+            const mainCategory = document.getElementById('newMainCategory').value.trim();
+            const subCategory = document.getElementById('newSubCategory').value.trim();
             const itemName = document.getElementById('newItemName').value.trim();
-            const basePrice = parseFloat(document.getElementById('newItemBasePrice').value) || 0;
             const unit = document.getElementById('newItemUnit').value.trim();
+            const basePrice = parseFloat(document.getElementById('newItemBasePrice').value) || 0;
             
             if (!mainCategory || !subCategory || !itemName || !unit) {
                 showNotification('Please fill all required fields', 'error');
@@ -2995,53 +2319,52 @@ function updateInvoiceLists() {
                 return;
             }
             
-            // Collect price tiers
-            const priceTiers = [];
-            const tierRows = document.querySelectorAll('#newItemPriceTiers .tier-row');
-            
+            // Collect tiers
+            const tiers = [];
+            const tierRows = document.querySelectorAll('#newItemTiers .tier-row');
             tierRows.forEach(row => {
                 const min = parseInt(row.querySelector('.tier-min').value) || 0;
                 const max = parseInt(row.querySelector('.tier-max').value) || 0;
                 const price = parseFloat(row.querySelector('.tier-price').value) || 0;
                 
-                if (min > 0 && max >= min && price > 0) {
-                    priceTiers.push({ min, max, price });
+                if (min > 0 && max > 0 && price > 0) {
+                    tiers.push({ min, max, price });
                 }
             });
             
-            // Sort price tiers by min quantity
-            priceTiers.sort((a, b) => a.min - b.min);
-            
-            // Create new item
-            const newItem = {
-                mainCategory,
-                subCategory,
-                itemName,
-                basePrice,
-                unit,
-                priceTiers
-            };
-            
-            // Add to items data
-            itemsData.push(newItem);
-            
-            // Save data
-            saveLocalData();
-            if (isAuthenticated) {
-                saveAllData(false);
+            if (tiers.length === 0) {
+                showNotification('Please add at least one valid price tier', 'error');
+                return;
             }
             
-            // Update UI
-            updateCategories();
-            loadItemsList();
+            // Create category structure if it doesn't exist
+            if (!priceData[mainCategory]) {
+                priceData[mainCategory] = {};
+            }
+            
+            if (!priceData[mainCategory][subCategory]) {
+                priceData[mainCategory][subCategory] = {};
+            }
+            
+            // Add item
+            priceData[mainCategory][subCategory][itemName] = {
+                unit,
+                basePrice,
+                tiers
+            };
+            
+            // Save data
+            saveAllData(true);
             
             // Clear form
-            document.getElementById('newItemMainCategory').value = '';
-            document.getElementById('newItemSubCategory').value = '';
+            document.getElementById('newMainCategory').value = '';
+            document.getElementById('newSubCategory').value = '';
             document.getElementById('newItemName').value = '';
-            document.getElementById('newItemBasePrice').value = '0';
             document.getElementById('newItemUnit').value = '';
-            document.getElementById('newItemPriceTiers').innerHTML = `
+            document.getElementById('newItemBasePrice').value = 0;
+            
+            // Reset tiers
+            document.getElementById('newItemTiers').innerHTML = `
                 <div class="tier-row">
                     <input type="number" class="tier-min" placeholder="Min Qty" min="1">
                     <input type="number" class="tier-max" placeholder="Max Qty" min="1">
@@ -3050,10 +2373,77 @@ function updateInvoiceLists() {
                 </div>
             `;
             
-            showNotification('Item added successfully', 'success');
+            // Update categories in calculator
+            populateCategories();
+            
+            // Update items list in admin panel
+            updateItemsList();
+            
+            showNotification('Item added successfully!', 'success');
         }
 
-        // Add new customer
+        function updateItemsList() {
+            const itemsList = document.getElementById('itemsList');
+            itemsList.innerHTML = '';
+            
+            for (const mainCategory in priceData) {
+                for (const subCategory in priceData[mainCategory]) {
+                    for (const itemName in priceData[mainCategory][subCategory]) {
+                        const item = priceData[mainCategory][subCategory][itemName];
+                        const itemDiv = document.createElement('div');
+                        itemDiv.className = 'history-item';
+                        itemDiv.innerHTML = `
+                            <div class="history-header">
+                                <span>${itemName}</span>
+                                <span>${mainCategory} > ${subCategory}</span>
+                            </div>
+                            <div class="history-details">
+                                <div>Unit: ${item.unit} | Base Price: Rs. ${item.basePrice.toFixed(2)}</div>
+                                <div>Tiers: ${item.tiers.map(tier => `${tier.min}-${tier.max} (Rs. ${tier.price})`).join(', ')}</div>
+                            </div>
+                            <div class="actions" style="margin-top: 10px;">
+                                <button class="btn btn-warning btn-sm" onclick="editItem('${mainCategory}', '${subCategory}', '${itemName}')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteItem('${mainCategory}', '${subCategory}', '${itemName}')">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        `;
+                        itemsList.appendChild(itemDiv);
+                    }
+                }
+            }
+        }
+
+        function editItem(mainCategory, subCategory, itemName) {
+            // This would open an edit form for the item
+            // For simplicity, we're just showing a notification
+            showNotification(`Edit functionality for ${itemName} would open here`, 'info');
+        }
+
+        function deleteItem(mainCategory, subCategory, itemName) {
+            if (confirm(`Are you sure you want to delete "${itemName}"?`)) {
+                delete priceData[mainCategory][subCategory][itemName];
+                
+                // If subcategory is empty, remove it
+                if (Object.keys(priceData[mainCategory][subCategory]).length === 0) {
+                    delete priceData[mainCategory][subCategory];
+                }
+                
+                // If main category is empty, remove it
+                if (Object.keys(priceData[mainCategory]).length === 0) {
+                    delete priceData[mainCategory];
+                }
+                
+                saveAllData(true);
+                populateCategories();
+                updateItemsList();
+                
+                showNotification('Item deleted successfully!', 'success');
+            }
+        }
+
         function addNewCustomer() {
             const name = document.getElementById('newCustomerName').value.trim();
             const phone = document.getElementById('newCustomerPhone').value.trim();
@@ -3064,247 +2454,271 @@ function updateInvoiceLists() {
                 return;
             }
             
-            // Create new customer
-            const newCustomer = {
-                id: Date.now(),
-                name,
-                phone,
-                address
-            };
-            
-            // Add to customers data
-            customersData.push(newCustomer);
-            
-            // Save data
-            saveLocalData();
-            if (isAuthenticated) {
-                saveAllData(false);
+            // Check if customer already exists
+            if (customers.some(c => c.name === name)) {
+                showNotification('Customer with this name already exists', 'error');
+                return;
             }
             
-            // Update UI
-            updateCustomerLists();
-            loadCustomersList();
+            const customer = {
+                name,
+                phone,
+                address,
+                firstInvoiceDate: null,
+                lastInvoiceDate: null,
+                totalInvoices: 0,
+                totalAmount: 0,
+                balance: 0,
+                timestamp: new Date().toISOString()
+            };
+            
+            customers.push(customer);
+            saveAllData(true);
             
             // Clear form
             document.getElementById('newCustomerName').value = '';
             document.getElementById('newCustomerPhone').value = '';
             document.getElementById('newCustomerAddress').value = '';
             
-            showNotification('Customer added successfully', 'success');
+            // Update customers list
+            updateCustomersList();
+            
+            showNotification('Customer added successfully!', 'success');
         }
 
-        // Add price tier
-        function addTier() {
-            const tiersContainer = document.getElementById('newItemPriceTiers');
-            const newTier = document.createElement('div');
-            newTier.className = 'tier-row';
-            newTier.innerHTML = `
-                <input type="number" class="tier-min" placeholder="Min Qty" min="1">
-                <input type="number" class="tier-max" placeholder="Max Qty" min="1">
-                <input type="number" class="tier-price" placeholder="Price" min="0" step="0.01">
-                <button type="button" class="btn btn-danger btn-sm" onclick="removeTier(this)"><i class="fas fa-trash"></i></button>
-            `;
-            tiersContainer.appendChild(newTier);
-        }
-
-        // Remove price tier
-        function removeTier(button) {
-            const tierRow = button.closest('.tier-row');
-            if (document.querySelectorAll('#newItemPriceTiers .tier-row').length > 1) {
-                tierRow.remove();
-            } else {
-                showNotification('At least one price tier is required', 'warning');
+        function updateCustomersList() {
+            const customersList = document.getElementById('customersList');
+            customersList.innerHTML = '';
+            
+            if (customers.length === 0) {
+                customersList.innerHTML = '<p>No customers found.</p>';
+                return;
             }
+            
+            customers.forEach(customer => {
+                const customerDiv = document.createElement('div');
+                customerDiv.className = 'history-item';
+                customerDiv.innerHTML = `
+                    <div class="history-header">
+                        <span>${customer.name}</span>
+                        <span>${customer.phone || 'No phone'}</span>
+                    </div>
+                    <div class="history-details">
+                        <div>${customer.address || 'No address'}</div>
+                        <div>Invoices: ${customer.totalInvoices} | Total: Rs. ${customer.totalAmount.toFixed(2)} | Balance: Rs. ${customer.balance.toFixed(2)}</div>
+                    </div>
+                `;
+                customersList.appendChild(customerDiv);
+            });
         }
 
-        // Edit item (placeholder)
-        function editItem(mainCategory, subCategory, itemName) {
-            showNotification('Edit functionality coming soon', 'info');
-        }
-
-        // Delete item
-        function deleteItem(mainCategory, subCategory, itemName) {
-            if (confirm('Are you sure you want to delete this item?')) {
-                itemsData = itemsData.filter(item => 
-                    !(item.mainCategory === mainCategory && 
-                      item.subCategory === subCategory && 
-                      item.itemName === itemName)
-                );
-                
-                // Save data
-                saveLocalData();
-                if (isAuthenticated) {
-                    saveAllData(false);
-                }
-                
-                // Update UI
-                updateCategories();
-                loadItemsList();
-                
-                showNotification('Item deleted successfully', 'success');
+        function updateInvoicesList() {
+            const invoicesList = document.getElementById('invoicesList');
+            invoicesList.innerHTML = '';
+            
+            if (invoices.length === 0) {
+                invoicesList.innerHTML = '<p>No invoices found.</p>';
+                return;
             }
+            
+            invoices.slice().reverse().forEach(invoice => {
+                const invoiceDiv = document.createElement('div');
+                invoiceDiv.className = 'history-item';
+                invoiceDiv.innerHTML = `
+                    <div class="history-header">
+                        <span>${invoice.invoiceNo} - ${invoice.customerName}</span>
+                        <span>Rs. ${invoice.totalAmount.toFixed(2)}</span>
+                    </div>
+                    <div class="history-details">
+                        <div>Date: ${new Date(invoice.invoiceDate).toLocaleDateString()}</div>
+                        <div>Items: ${invoice.items.length} | Balance: Rs. ${invoice.remainingBalance.toFixed(2)}</div>
+                    </div>
+                `;
+                invoicesList.appendChild(invoiceDiv);
+            });
         }
 
-        // Edit customer (placeholder)
-        function editCustomer(id) {
-            showNotification('Edit functionality coming soon', 'info');
-        }
-
-        // Delete customer
-        function deleteCustomer(id) {
-            if (confirm('Are you sure you want to delete this customer?')) {
-                customersData = customersData.filter(customer => customer.id !== id);
-                
-                // Save data
-                saveLocalData();
-                if (isAuthenticated) {
-                    saveAllData(false);
-                }
-                
-                // Update UI
-                updateCustomerLists();
-                loadCustomersList();
-                
-                showNotification('Customer deleted successfully', 'success');
+        function updateFinancialEntriesList() {
+            const financialEntriesList = document.getElementById('financialEntriesList');
+            financialEntriesList.innerHTML = '';
+            
+            if (financialEntries.length === 0) {
+                financialEntriesList.innerHTML = '<p>No financial entries found.</p>';
+                return;
             }
+            
+            financialEntries.slice().reverse().forEach(entry => {
+                const entryDiv = document.createElement('div');
+                entryDiv.className = 'history-item';
+                const amountClass = entry.type === 'Income' ? 'metric-income' : 'metric-expense';
+                entryDiv.innerHTML = `
+                    <div class="history-header">
+                        <span>${entry.type} - ${entry.category.split(':')[1]}</span>
+                        <span class="${amountClass}">Rs. ${entry.amount.toFixed(2)}</span>
+                    </div>
+                    <div class="history-details">
+                        <div>${entry.description}</div>
+                        <div>Date: ${new Date(entry.date).toLocaleDateString()}</div>
+                    </div>
+                `;
+                financialEntriesList.appendChild(entryDiv);
+            });
         }
 
-        // View invoice (placeholder)
-        function viewInvoice(id) {
-            showNotification('View invoice functionality coming soon', 'info');
-        }
-
-        // Delete invoice
-        function deleteInvoice(id) {
-            if (confirm('Are you sure you want to delete this invoice?')) {
-                invoicesData = invoicesData.filter(invoice => invoice.id !== id);
-                
-                // Save data
-                saveLocalData();
-                if (isAuthenticated) {
-                    saveAllData(false);
-                }
-                
-                // Update UI
-                loadInvoiceHistory();
-                
-                showNotification('Invoice deleted successfully', 'success');
-            }
-        }
-
-        // Export data
+        // Import/Export functions
         function exportData(type) {
             let data, filename;
             
             switch(type) {
                 case 'items':
-                    data = itemsData;
-                    filename = 'arham_printers_items.json';
+                    data = priceData;
+                    filename = 'arham-printers-items.json';
                     break;
                 case 'customers':
-                    data = customersData;
-                    filename = 'arham_printers_customers.json';
+                    data = customers;
+                    filename = 'arham-printers-customers.json';
                     break;
                 case 'invoices':
-                    data = invoicesData;
-                    filename = 'arham_printers_invoices.json';
+                    data = invoices;
+                    filename = 'arham-printers-invoices.json';
                     break;
                 case 'financial':
-                    data = financialData;
-                    filename = 'arham_printers_financial.json';
+                    data = financialEntries;
+                    filename = 'arham-printers-financial.json';
                     break;
                 default:
                     return;
             }
             
-            const jsonData = JSON.stringify(data, null, 2);
-            const blob = new Blob([jsonData], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
             
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = filename;
+            link.click();
             
-            showNotification(`Exported ${type} data successfully`, 'success');
+            showNotification(`${type} exported successfully!`, 'success');
         }
 
-        // Import data
+        function exportAllData() {
+            const allData = {
+                priceData,
+                customers,
+                invoices,
+                financialEntries,
+                payables,
+                calculationHistory,
+                exportDate: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(allData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `arham-printers-backup-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            
+            showNotification('All data exported successfully!', 'success');
+        }
+
         function importData() {
             const fileInput = document.getElementById('importFile');
-            const type = document.getElementById('importType').value;
+            const file = fileInput.files[0];
             
-            if (!fileInput.files.length) {
+            if (!file) {
                 showNotification('Please select a file to import', 'error');
                 return;
             }
             
-            const file = fileInput.files[0];
             const reader = new FileReader();
-            
             reader.onload = function(e) {
                 try {
-                    const data = JSON.parse(e.target.result);
+                    const importedData = JSON.parse(e.target.result);
                     
-                    switch(type) {
-                        case 'items':
-                            itemsData = data;
-                            updateCategories();
-                            loadItemsList();
-                            break;
-                        case 'customers':
-                            customersData = data;
-                            updateCustomerLists();
-                            loadCustomersList();
-                            break;
-                        case 'invoices':
-                            invoicesData = data;
-                            loadInvoiceHistory();
-                            break;
-                        case 'financial':
-                            financialData = data;
-                            updateFinancialDashboard();
-                            break;
+                    // Determine what type of data was imported
+                    if (importedData.priceData) {
+                        // Full backup
+                        priceData = importedData.priceData || priceData;
+                        customers = importedData.customers || customers;
+                        invoices = importedData.invoices || invoices;
+                        financialEntries = importedData.financialEntries || financialEntries;
+                        payables = importedData.payables || payables;
+                        calculationHistory = importedData.calculationHistory || calculationHistory;
+                    } else if (importedData[0] && importedData[0].name) {
+                        // Customers array
+                        customers = importedData;
+                    } else if (importedData[0] && importedData[0].invoiceNo) {
+                        // Invoices array
+                        invoices = importedData;
+                    } else if (importedData[0] && importedData[0].type) {
+                        // Financial entries array
+                        financialEntries = importedData;
+                    } else {
+                        // Assume it's items data
+                        priceData = importedData;
                     }
                     
-                    // Save data
-                    saveLocalData();
-                    if (isAuthenticated) {
-                        saveAllData(false);
+                    saveAllData(true);
+                    populateCategories();
+                    
+                    if (isAdmin) {
+                        updateItemsList();
+                        updateCustomersList();
+                        updateInvoicesList();
+                        updateFinancialEntriesList();
                     }
                     
-                    showNotification(`Imported ${type} data successfully`, 'success');
+                    showNotification('Data imported successfully!', 'success');
                     fileInput.value = '';
+                    
                 } catch (error) {
                     console.error('Error importing data:', error);
                     showNotification('Error importing data. Please check the file format.', 'error');
                 }
             };
-            
             reader.readAsText(file);
         }
 
-        // Setup auto-save listeners
-        function setupAutoSaveListeners() {
-            // Auto-save when inputs change (with debounce)
-            let saveTimeout;
-            const inputs = document.querySelectorAll('input, select, textarea');
-            
-            inputs.forEach(input => {
-                input.addEventListener('input', () => {
-                    clearTimeout(saveTimeout);
-                    saveTimeout = setTimeout(() => {
-                        saveLocalData();
-                    }, 1000);
-                });
-            });
+        function createBackup() {
+            exportAllData();
         }
 
-        // Show notification
-        function showNotification(message, type) {
+        function restoreBackup() {
+            document.getElementById('importFile').click();
+        }
+
+        function clearAllData() {
+            if (confirm('Are you sure you want to clear ALL data? This action cannot be undone!')) {
+                localStorage.clear();
+                priceData = {};
+                customers = [];
+                invoices = [];
+                financialEntries = [];
+                payables = [];
+                calculationHistory = [];
+                
+                initializeDefaultPriceData();
+                
+                if (isAdmin) {
+                    updateItemsList();
+                    updateCustomersList();
+                    updateInvoicesList();
+                    updateFinancialEntriesList();
+                }
+                
+                updateFinancialDashboard();
+                updatePayablesList();
+                updateHistory();
+                generateNextInvoiceNumber();
+                
+                showNotification('All data cleared successfully!', 'success');
+            }
+        }
+
+        // Utility functions
+        function showNotification(message, type = 'info') {
             const notification = document.getElementById('notification');
             notification.textContent = message;
             notification.className = `notification ${type}`;
@@ -3315,30 +2729,10 @@ function updateInvoiceLists() {
             }, 3000);
         }
 
-        // Initialize the app when DOM is loaded
-        window.onload = function() {
-            // Set current date for invoice and financial entry
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('invoiceDate').value = today;
-            document.getElementById('entryDate').value = today;
-            
-            // Setup item autocomplete for the first invoice item
-            const firstItemInput = document.querySelector('.item-name');
-            if (firstItemInput) {
-                setupItemAutocomplete(firstItemInput);
-            }
-            
-            // Update dashboard month
-            updateFinancialDashboard();
-        };
+        // Close notification when clicked
+        document.getElementById('notification').addEventListener('click', function() {
+            this.classList.remove('show');
+        });
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
