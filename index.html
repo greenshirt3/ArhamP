@@ -1167,7 +1167,19 @@
                             <i class="fas fa-upload"></i> Import Data
                         </button>
                     </div>
-                    
+                                        <!-- ADD THIS NEW CUSTOMER DATA SECTION -->
+                    <div class="import-export-section">
+                        <h3>Customer Data Export</h3>
+                        <div class="actions">
+                            <button class="btn btn-success" onclick="exportCustomerData()">
+                                <i class="fas fa-download"></i> Export Customer Data (JSON)
+                            </button>
+                            <button class="btn btn-primary" onclick="uploadCustomerDataToOneDrive()">
+                                <i class="fas fa-cloud-upload-alt"></i> Upload to OneDrive
+                            </button>
+                        </div>
+                        <p><small>Exports price categories and items for customer-facing applications</small></p>
+                    </div>
                     <div class="import-export-section">
                         <h3>Data Reset</h3>
                         <p>Warning: This will permanently delete all data. This action cannot be undone.</p>
@@ -2737,6 +2749,48 @@
             // This would convert data to Excel format
             // For now, we'll just export as JSON
             exportData();
+        }
+                function exportCustomerData() {
+            // Create public-facing data (excluding sensitive information)
+            const customerData = {
+                categories: categories,
+                lastUpdated: new Date().toISOString(),
+                version: "1.0"
+            };
+            
+            const dataStr = JSON.stringify(customerData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = 'customer-data.json';
+            link.click();
+            
+            showNotification('Customer data exported successfully!', 'success');
+        }
+
+        async function uploadCustomerDataToOneDrive() {
+            if (!isLoggedIn) {
+                showNotification('Please sign in to OneDrive first.', 'error');
+                return;
+            }
+            
+            try {
+                const customerData = {
+                    categories: categories,
+                    lastUpdated: new Date().toISOString(),
+                    version: "1.0"
+                };
+                
+                const jsonData = JSON.stringify(customerData, null, 2);
+                const blob = new Blob([jsonData], { type: 'application/json' });
+                
+                await uploadFileToOneDrive('customer-data.json', blob);
+                showNotification('Customer data uploaded to OneDrive!', 'success');
+            } catch (error) {
+                console.error('Customer data upload failed:', error);
+                showNotification('Failed to upload customer data.', 'error');
+            }
         }
 
         function importData() {
