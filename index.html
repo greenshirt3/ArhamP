@@ -1282,10 +1282,10 @@
         // Updated MSAL Configuration for OneDrive
         const msalConfig = {
             auth: {
-                clientId: "26b3dde9-366f-487b-a485-79d1bf1ab857", // Replace with your Azure AD app client ID
+                clientId: "dc99f921-91a5-429c-bed3-1a31490b0f91", // Replace with your Azure AD app client ID
                 authority: "https://login.microsoftonline.com/common",
-                redirectUri: "https://greenshirt3.github.io/ArhamP/"
-            },
+                 redirectUri: window.location.origin // This will auto-detect your GitHub Pages URL
+                 },
             cache: {
                 cacheLocation: "localStorage",
                 storeAuthStateInCookie: true,
