@@ -103,11 +103,56 @@
             font-weight: 500;
         }
         
+        /* New Navigation Bar */
+        .main-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary-light);
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            padding: 12px 24px;
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            background: var(--light);
+            color: var(--primary);
+        }
+        
+        .nav-btn.active {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+            box-shadow: 0 4px 10px rgba(0, 120, 212, 0.3);
+        }
+        
+        .nav-btn:hover:not(.active) {
+            background: var(--light);
+            color: var(--secondary);
+            border-color: var(--secondary);
+        }
+
+        /* View Containers */
+        .app-view {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .app-view.active {
+            display: block;
+        }
+        
         .cloud-section {
             background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
             padding: 25px;
             border-radius: var(--border-radius);
-            margin: 25px 0;
+            margin: 30px 0; /* Increased margin */
             border: 2px solid #e1e5e9;
             box-shadow: var(--box-shadow);
         }
@@ -205,25 +250,6 @@
         
         input:checked + .toggle-slider:before {
             transform: translateX(26px);
-        }
-        
-        /* Updated Grid for 3 Panels */
-        .content-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr; 
-            gap: 30px;
-        }
-
-        /* Adjustments for smaller screens */
-        @media (max-width: 1400px) {
-            .content-grid {
-                grid-template-columns: 1fr 1fr; /* Switch to 2 columns on medium screens */
-            }
-        }
-        @media (max-width: 1024px) {
-            .content-grid {
-                grid-template-columns: 1fr; /* Switch to 1 column on small screens */
-            }
         }
         
         .section-panel {
@@ -500,6 +526,7 @@
             border-radius: 8px;
             margin-bottom: 10px;
             border-left: 5px solid;
+            flex: 1 1 30%; /* For grid layout */
         }
         
         .dashboard-metric span {
@@ -529,6 +556,14 @@
         .metric-net {
             border-color: var(--warning);
             background-color: #fff8e1;
+        }
+        
+        /* New Dashboard Overview Grid */
+        .dashboard-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
         }
 
         /* Admin Panel Styling */
@@ -713,6 +748,15 @@
             background: var(--secondary);
         }
 
+        /* Invoice Payment Modal/Section Styling */
+        #paymentModal {
+            padding: 20px;
+            background: #ffe0b2;
+            border: 2px solid var(--warning);
+            border-radius: var(--border-radius);
+            margin-top: 20px;
+        }
+
         /* Item Editor Specific Styles */
         #itemEditor {
             border-top: 4px solid var(--warning);
@@ -740,10 +784,56 @@
             to { opacity: 1; }
         }
 
+        /* Print Media Queries for Invoice */
+        @media print {
+            body > *:not(.print-invoice-view) {
+                display: none !important;
+            }
+            .print-invoice-view {
+                display: block !important;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            .print-invoice-view .container, 
+            .print-invoice-view .section-panel {
+                box-shadow: none !important;
+                border: none !important;
+                padding: 0;
+            }
+            .print-invoice-view .actions, 
+            .print-invoice-view .form-group {
+                display: none;
+            }
+            .items-table th, .items-table td {
+                padding: 8px;
+            }
+            /* Ensure text inputs show as plain text */
+            .items-table input, .totals-section input {
+                border: none;
+                background: transparent;
+                padding: 0;
+            }
+            .invoice-header-info div {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                margin-bottom: 5px;
+                border-bottom: 1px solid #ccc;
+            }
+        }
+
+
         /* Responsive Adjustments */
         @media (max-width: 1024px) {
-            .content-grid {
-                grid-template-columns: 1fr;
+            .dashboard-grid {
+                flex-direction: column;
+            }
+            .dashboard-metric {
+                width: 100%;
             }
         }
 
@@ -762,7 +852,7 @@
             .actions {
                 flex-direction: column;
             }
-            .btn {
+            .btn, .nav-btn {
                 width: 100%;
             }
             .tabs {
@@ -782,43 +872,22 @@
             <p class="subtitle">Complete Price Calculator, Invoicing, and Financial Management</p>
         </header>
 
-        <div class="cloud-section">
-            <h2 class="section-title"><i class="fas fa-cloud"></i> OneDrive Cloud Sync</h2>
-            <div id="syncStatus" class="sync-status sync-offline">
-                <i class="fas fa-cloud"></i> Offline Mode - Data stored locally
-            </div>
-            
-            <div class="auto-sync-toggle">
-                <label class="toggle-switch">
-                    <input type="checkbox" id="autoSyncToggle" onchange="toggleAutoSync()">
-                    <span class="toggle-slider"></span>
-                </label>
-                <span>Auto-sync with OneDrive</span>
-                <span id="lastSyncTime" style="margin-left: auto; font-size: 0.9rem; color: var(--gray);"></span>
-            </div>
-            
-            <div class="actions">
-                <button class="btn btn-primary" onclick="loginToOneDrive()" id="loginBtn">
-                    <i class="fab fa-microsoft"></i> Sign in with Microsoft
-                </button>
-                <button class="btn btn-success" onclick="manualSyncToCloud()" id="syncBtn" style="display: none;">
-                    <i class="fas fa-cloud-upload-alt"></i> Sync Now
-                </button>
-                <button class="btn btn-secondary" onclick="manualSyncFromCloud()" id="downloadBtn" style="display: none;">
-                    <i class="fas fa-cloud-download-alt"></i> Download Latest
-                </button>
-                <button class="btn btn-danger" onclick="logoutFromOneDrive()" id="logoutBtn" style="display: none;">
-                    <i class="fas fa-sign-out-alt"></i> Sign Out
-                </button>
-            </div>
-            
-            <div id="userInfo" class="user-info" style="display: none;">
-                <h3><i class="fas fa-user"></i> Signed in as: <span id="userName"></span></h3>
-                <p>Your data is automatically synced across all devices via OneDrive.</p>
-            </div>
-        </div>
+        <nav class="main-nav">
+            <button class="nav-btn active" data-view="calculatorView" onclick="switchView('calculatorView', this)">
+                <i class="fas fa-calculator"></i> Price Calculator
+            </button>
+            <button class="nav-btn" data-view="invoiceView" onclick="switchView('invoiceView', this)">
+                <i class="fas fa-file-invoice-dollar"></i> Invoice System
+            </button>
+            <button class="nav-btn" data-view="financialView" onclick="switchView('financialView', this)">
+                <i class="fas fa-chart-line"></i> Financial Hub
+            </button>
+            <button class="nav-btn" data-view="adminView" onclick="switchView('adminView', this)" id="adminNavBtn" style="display: none;">
+                <i class="fas fa-cogs"></i> Admin Panel
+            </button>
+        </nav>
 
-        <div class="content-grid">
+        <div id="calculatorView" class="app-view active">
             <div class="section-panel">
                 <h2 class="section-title"><i class="fas fa-calculator"></i> Price Calculator</h2>
                 
@@ -876,112 +945,166 @@
             </div>
 
             <div class="section-panel">
+                <h2 class="section-title"><i class="fas fa-tachometer-alt"></i> Dashboard Overview</h2>
+                <h4>Today's Summary</h4>
+                <div id="dailyDashboardContainer" class="dashboard-grid"></div>
+                
+                <h4>Monthly Summary</h4>
+                <div id="monthlyDashboardContainer" class="dashboard-grid"></div>
+            </div>
+
+            <div class="section-panel">
+                <h2 class="section-title"><i class="fas fa-history"></i> Recent Activity</h2>
+                <div id="recentActivity"></div>
+            </div>
+        </div>
+
+        <div id="invoiceView" class="app-view">
+            <div class="section-panel print-invoice-view">
                 <h2 class="section-title"><i class="fas fa-file-invoice"></i> Invoice System</h2>
-                
-                <div class="form-group">
-                    <label for="invoiceCustomerName"><i class="fas fa-user"></i> Customer Name:</label>
-                    <div class="suggestion-container">
-                        <input type="text" id="invoiceCustomerName" placeholder="Start typing customer name..." autocomplete="off" list="customerNameList">
-                        <div id="customerSuggestions" class="customer-suggestions" style="display: none;"></div>
+
+                <div id="invoiceHeaderInfo" class="invoice-header-info" style="display: none; margin-bottom: 20px;">
                     </div>
-                </div>
                 
-                <div class="form-group">
-                    <label for="invoiceCustomerPhone"><i class="fas fa-phone"></i> Phone:</label>
-                    <input type="tel" id="invoiceCustomerPhone" placeholder="Customer phone number" list="customerPhoneList">
-                </div>
-                
-                <div class="form-group">
-                    <label for="invoiceNo"><i class="fas fa-hashtag"></i> Invoice Number:</label>
-                    <input type="text" id="invoiceNo" readonly>
-                </div>
-                
-                <div class="form-group">
-                    <label for="invoiceDate"><i class="fas fa-calendar"></i> Invoice Date:</label>
-                    <input type="date" id="invoiceDate">
-                </div>
-
-                <h3>Invoice Items</h3>
-                <table class="items-table">
-                    <thead>
-                        <tr>
-                            <th>Description</th>
-                            <th>Rate (Rs.)</th>
-                            <th>Qty</th>
-                            <th>Design Charges (Rs.)</th>
-                            <th>Amount</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="itemsTableBody">
-                        <tr>
-                            <td>
-                                <div style="position: relative;">
-                                    <input type="text" class="item-name" placeholder="Enter item description" autocomplete="off" list="invoiceItemList">
-                                </div>
-                            </td>
-                            <td><input type="number" class="item-rate" value="0" min="0" step="0.01" oninput="calculateTotal()"></td>
-                            <td><input type="number" class="item-quantity" value="1" min="1" oninput="calculateTotal()"></td>
-                            <td><input type="number" class="item-design-charges" value="0" min="0" step="0.01" oninput="calculateTotal()"></td>
-                            <td><input type="number" class="item-amount" value="0" readonly></td>
-                            <td><button type="button" class="btn btn-danger btn-sm" onclick="removeInvoiceItem(this)"><i class="fas fa-trash"></i></button></td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-                <div class="actions">
-                    <button class="btn btn-success" onclick="addInvoiceItem()">
-                        <i class="fas fa-plus"></i> Add Item
-                    </button>
-                    <button class="btn btn-secondary" onclick="calculateTotal()">
-                        <i class="fas fa-calculator"></i> Recalculate
-                    </button>
-                </div>
-
-                <div class="totals-section">
-                    <h3 class="section-title"><i class="fas fa-calculator"></i> Invoice Totals</h3>
-                    
-                    <div class="total-row">
-                        <span>Subtotal:</span>
-                        <span>Rs. <span id="subtotalAmount">0.00</span></span>
+                <div id="newInvoiceSection">
+                    <h3><i class="fas fa-plus-circle"></i> Create New Invoice</h3>
+                    <div class="form-group">
+                        <label for="invoiceCustomerName"><i class="fas fa-user"></i> Customer Name:</label>
+                        <div class="suggestion-container">
+                            <input type="text" id="invoiceCustomerName" placeholder="Start typing customer name..." autocomplete="off">
+                            <div id="customerSuggestions" class="customer-suggestions" style="display: none;"></div>
+                        </div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="taxRate">Tax Rate (%):</label>
-                        <input type="number" id="taxRate" value="0" min="0" max="100" step="0.1" oninput="calculateTotal()">
-                    </div>
-                    
-                    <div class="total-row">
-                        <span><strong>Total Amount:</strong></span>
-                        <span><strong>Rs. <span id="totalAmount">0.00</span></strong></span>
+                        <label for="invoiceCustomerPhone"><i class="fas fa-phone"></i> Phone:</label>
+                        <input type="tel" id="invoiceCustomerPhone" placeholder="Customer phone number" list="customerPhoneList">
                     </div>
                     
                     <div class="form-group">
-                        <label for="previousBalance">Previous Balance (Rs.):</label>
-                        <input type="number" id="previousBalance" value="0" min="0" step="0.01" oninput="calculateTotal()">
+                        <label for="invoiceNo"><i class="fas fa-hashtag"></i> Invoice Number:</label>
+                        <input type="text" id="invoiceNo" readonly>
                     </div>
                     
                     <div class="form-group">
-                        <label for="payment">Payment Received (Rs.):</label>
-                        <input type="number" id="payment" value="0" min="0" step="0.01" oninput="calculateTotal()">
+                        <label for="invoiceDate"><i class="fas fa-calendar"></i> Invoice Date:</label>
+                        <input type="date" id="invoiceDate">
                     </div>
+
+                    <h3>Invoice Items</h3>
+                    <table class="items-table">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Rate (Rs.)</th>
+                                <th>Qty</th>
+                                <th>Design Charges (Rs.)</th>
+                                <th>Amount</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="itemsTableBody">
+                            <tr>
+                                <td>
+                                    <div style="position: relative;">
+                                        <input type="text" class="item-name" placeholder="Enter item description" autocomplete="off" list="invoiceItemList">
+                                    </div>
+                                </td>
+                                <td><input type="number" class="item-rate" value="0" min="0" step="0.01" oninput="calculateTotal()"></td>
+                                <td><input type="number" class="item-quantity" value="1" min="1" oninput="calculateTotal()"></td>
+                                <td><input type="number" class="item-design-charges" value="0" min="0" step="0.01" oninput="calculateTotal()"></td>
+                                <td><input type="number" class="item-amount" value="0" readonly></td>
+                                <td><button type="button" class="btn btn-danger btn-sm" onclick="removeInvoiceItem(this)"><i class="fas fa-trash"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
                     
-                    <div class="total-row">
-                        <span><strong>Remaining Balance:</strong></span>
-                        <span><strong>Rs. <span id="remainingBalance">0.00</span></strong></span>
+                    <div class="actions">
+                        <button class="btn btn-success" onclick="addInvoiceItem()">
+                            <i class="fas fa-plus"></i> Add Item
+                        </button>
+                        <button class="btn btn-secondary" onclick="calculateTotal()">
+                            <i class="fas fa-calculator"></i> Recalculate
+                        </button>
+                    </div>
+
+                    <div class="totals-section">
+                        <h3 class="section-title"><i class="fas fa-calculator"></i> Invoice Totals</h3>
+                        
+                        <div class="total-row">
+                            <span>Subtotal:</span>
+                            <span>Rs. <span id="subtotalAmount">0.00</span></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="taxRate">Tax Rate (%):</label>
+                            <input type="number" id="taxRate" value="0" min="0" max="100" step="0.1" oninput="calculateTotal()">
+                        </div>
+                        
+                        <div class="total-row">
+                            <span><strong>Total Amount:</strong></span>
+                            <span><strong>Rs. <span id="totalAmount">0.00</span></strong></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="previousBalance">Previous Balance (Rs.):</label>
+                            <input type="number" id="previousBalance" value="0" min="0" step="0.01" oninput="calculateTotal()">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="payment">Payment Received (Rs.):</label>
+                            <input type="number" id="payment" value="0" min="0" step="0.01" oninput="calculateTotal()">
+                        </div>
+                        
+                        <div class="total-row">
+                            <span><strong>Remaining Balance:</strong></span>
+                            <span><strong>Rs. <span id="remainingBalance">0.00</span></strong></span>
+                        </div>
+                    </div>
+
+                    <div class="actions">
+                        <button class="btn btn-primary" onclick="saveInvoice()">
+                            <i class="fas fa-save"></i> Save Invoice
+                        </button>
+                        <button class="btn btn-secondary" onclick="printInvoice(null)">
+                            <i class="fas fa-print"></i> Print Preview
+                        </button>
+                        <button class="btn btn-warning" onclick="clearInvoice()">
+                            <i class="fas fa-trash"></i> Clear Invoice Form
+                        </button>
                     </div>
                 </div>
+                
+                <div id="invoicePaymentSection" class="section-panel" style="margin-top: 30px; background: #fffde7;">
+                    <h3><i class="fas fa-hand-holding-usd"></i> Customer Payment Ledger</h3>
+                    <div class="form-group">
+                        <label for="paymentCustomerSearch"><i class="fas fa-user-tag"></i> Customer Name:</label>
+                        <div class="suggestion-container">
+                            <input type="text" id="paymentCustomerSearch" placeholder="Search customer for payment..." autocomplete="off">
+                            <div id="paymentCustomerSuggestions" class="customer-suggestions" style="display: none;"></div>
+                        </div>
+                    </div>
+                    
+                    <div id="customerInvoicesList" style="margin-top: 15px;">
+                        </div>
 
-                <div class="actions">
-                    <button class="btn btn-primary" onclick="saveInvoice()">
-                        <i class="fas fa-save"></i> Save Invoice
-                    </button>
-                    <button class="btn btn-warning" onclick="clearInvoice()">
-                        <i class="fas fa-trash"></i> Clear Invoice Form
-                    </button>
+                    <div id="invoicePaymentInput" style="display: none; border-top: 2px solid #ccc; padding-top: 15px;">
+                        <h4><i class="fas fa-money-check-alt"></i> Record Payment for Invoice <span id="selectedInvoiceNo"></span></h4>
+                        <div class="form-group">
+                            <label for="paymentAmountInput">Payment Amount (Rs.):</label>
+                            <input type="number" id="paymentAmountInput" value="0" min="0" step="0.01">
+                        </div>
+                        <div class="actions">
+                            <button class="btn btn-success" onclick="recordInvoicePayment()">
+                                <i class="fas fa-receipt"></i> Record Payment
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
+        </div>
+
+        <div id="financialView" class="app-view">
             <div class="section-panel" id="FinancialHub">
                 <h2 class="section-title"><i class="fas fa-chart-line"></i> Financial Hub</h2>
                 
@@ -992,7 +1115,7 @@
                 </div>
 
                 <div id="dashboard" class="tab-content active" style="padding-top: 20px;">
-                    <h4>Summary for <span id="dashboardMonth"></span></h4>
+                    <h4>Summary for <span id="financialDashboardMonth"></span></h4>
                     <div id="financialDashboardContainer"></div>
                 </div>
 
@@ -1007,7 +1130,7 @@
                     </div>
                     
                     <div class="form-group" id="paymentPayableGroup" style="display:none;">
-                        <label for="paymentPayableSelect">For:</label>
+                        <label for="paymentPayableSelect">For Payable:</label>
                         <select id="paymentPayableSelect"></select>
                     </div>
                     
@@ -1077,188 +1200,221 @@
             </div>
         </div>
 
-        <div class="section-panel">
-            <h2 class="section-title"><i class="fas fa-history"></i> Recent Activity</h2>
-            <div id="recentActivity"></div>
-        </div>
-
-        <div class="section-panel">
-            <h2 class="section-title"><i class="fas fa-cogs"></i> Admin Panel</h2>
-            
-            <div class="login-section" id="adminLoginSection">
-                <h3>Admin Login</h3>
-                <div class="login-form">
-                    <div>
-                        <label for="adminUsername">Username:</label>
-                        <input type="text" id="adminUsername" placeholder="Enter username">
+        <div id="adminView" class="app-view">
+            <div class="section-panel">
+                <h2 class="section-title"><i class="fas fa-cogs"></i> Admin Panel</h2>
+                
+                <div class="login-section" id="adminLoginSection">
+                    <h3>Admin Login</h3>
+                    <div class="login-form">
+                        <div>
+                            <label for="adminUsername">Username:</label>
+                            <input type="text" id="adminUsername" placeholder="Enter username">
+                        </div>
+                        <div>
+                            <label for="adminPassword">Password:</label>
+                            <input type="password" id="adminPassword" placeholder="Enter password">
+                        </div>
+                        <button class="btn btn-primary" onclick="adminLogin()">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </button>
                     </div>
-                    <div>
-                        <label for="adminPassword">Password:</label>
-                        <input type="password" id="adminPassword" placeholder="Enter password">
+                </div>
+                
+                <div class="admin-panel" id="adminPanel">
+                    <div class="tabs">
+                        <div class="tab active" onclick="switchAdminTab(this, 'manageItems')">Manage Items</div>
+                        <div class="tab" onclick="switchAdminTab(this, 'manageCategories')">Manage Categories</div>
+                        <div class="tab" onclick="switchAdminTab(this, 'manageCustomers')">Manage Customers</div>
+                        <div class="tab" onclick="switchAdminTab(this, 'manageInvoices')">Manage Invoices</div>
+                        <div class="tab" onclick="switchAdminTab(this, 'manageFinancials')">Manage Financials</div>
+                        <div class="tab" onclick="switchAdminTab(this, 'dataBackup')">Data Backup</div>
                     </div>
-                    <button class="btn btn-primary" onclick="adminLogin()">
-                        <i class="fas fa-sign-in-alt"></i> Login
-                    </button>
+                    
+                    <div id="manageItems" class="tab-content active">
+                        <div class="admin-section">
+                            <h3>Add/Edit Item</h3>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label for="itemCategory">Category:</label>
+                                    <select id="itemCategory"></select>
+                                </div>
+                                <div class="form-field">
+                                    <label for="itemSubcategory">Subcategory:</label>
+                                    <select id="itemSubcategory"></select>
+                                </div>
+                                <div class="form-field">
+                                    <label for="itemNameAdmin">Item Name:</label>
+                                    <input type="text" id="itemNameAdmin">
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label for="itemBasePrice">Base Price (Rs.):</label>
+                                    <input type="number" id="itemBasePrice" value="0" min="0" step="0.01">
+                                </div>
+                                <div class="form-field">
+                                    <label for="itemUnit">Unit:</label>
+                                    <input type="text" id="itemUnit" placeholder="e.g., per page, per set">
+                                </div>
+                            </div>
+                            
+                            <h4>Price Tiers</h4>
+                            <div id="priceTiersContainer">
+                                <div class="tier-row">
+                                    <input type="number" class="tier-min" placeholder="Min Qty" min="1">
+                                    <input type="number" class="tier-max" placeholder="Max Qty" min="1">
+                                    <input type="number" class="tier-price" placeholder="Price" min="0" step="0.01">
+                                    <button class="btn btn-danger btn-sm" onclick="removeTierRow(this)"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                            
+                            <div class="actions">
+                                <button class="btn btn-success" onclick="addTierRow()">
+                                    <i class="fas fa-plus"></i> Add Tier
+                                </button>
+                                <button class="btn btn-primary" onclick="saveItem()">
+                                    <i class="fas fa-save"></i> Save Item
+                                </button>
+                                <button class="btn btn-warning" onclick="clearItemForm()">
+                                    <i class="fas fa-trash"></i> Clear Form
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="admin-section">
+                            <h3>Existing Items</h3>
+                            <div id="itemsList"></div>
+                        </div>
+                    </div>
+                    
+                    <div id="manageCategories" class="tab-content">
+                        <div class="admin-section">
+                            <h3>Add Category</h3>
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label for="newCategoryName">Category Name:</label>
+                                    <input type="text" id="newCategoryName" placeholder="e.g., Printing">
+                                </div>
+                                <div class="form-field">
+                                    <label for="newSubcategoryName">Subcategory Name:</label>
+                                    <input type="text" id="newSubcategoryName" placeholder="e.g., Business Cards">
+                                </div>
+                            </div>
+                            <button class="btn btn-success" onclick="addCategory()">
+                                <i class="fas fa-plus"></i> Add Category
+                            </button>
+                        </div>
+                        
+                        <div class="admin-section">
+                            <h3>Existing Categories</h3>
+                            <div id="categoriesList"></div>
+                        </div>
+                    </div>
+                    
+                    <div id="manageCustomers" class="tab-content">
+                        <div class="admin-section">
+                            <h3>Customer List</h3>
+                            <div id="customersList"></div>
+                        </div>
+                    </div>
+                    
+                    <div id="manageInvoices" class="tab-content">
+                        <div class="admin-section">
+                            <h3>Invoice History</h3>
+                            <div id="invoiceHistory"></div>
+                        </div>
+                    </div>
+                    
+                    <div id="manageFinancials" class="tab-content">
+                        <div class="admin-section">
+                            <h3>Financial Entries</h3>
+                            <div id="financialEntries"></div>
+                        </div>
+                    </div>
+                    
+                    <div id="dataBackup" class="tab-content">
+                        <div class="import-export-section">
+                            <h3>Data Export</h3>
+                            <div class="actions">
+                                <button class="btn btn-success" onclick="exportData()">
+                                    <i class="fas fa-download"></i> Export All Data
+                                </button>
+                                <button class="btn btn-primary" onclick="exportToExcel()">
+                                    <i class="fas fa-file-excel"></i> Export to Excel
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="import-export-section">
+                            <h3>Data Import</h3>
+                            <div class="form-group">
+                                <label for="importFile">Select JSON file:</label>
+                                <input type="file" id="importFile" accept=".json">
+                            </div>
+                            <button class="btn btn-warning" onclick="importData()">
+                                <i class="fas fa-upload"></i> Import Data
+                            </button>
+                        </div>
+                        
+                        <div class="import-export-section">
+                            <h3>Customer Data Export</h3>
+                            <div class="actions">
+                                <button class="btn btn-success" onclick="exportCustomerData()">
+                                    <i class="fas fa-download"></i> Export Customer Data (JSON)
+                                </button>
+                                <button class="btn btn-primary" onclick="uploadCustomerDataToOneDrive()">
+                                    <i class="fas fa-cloud-upload-alt"></i> Upload to OneDrive
+                                </button>
+                            </div>
+                            <p><small>Exports price categories and items for customer-facing applications</small></p>
+                        </div>
+                        <div class="import-export-section">
+                            <h3>Data Reset</h3>
+                            <p>Warning: This will permanently delete all data. This action cannot be undone.</p>
+                            <button class="btn btn-danger" onclick="resetData()">
+                                <i class="fas fa-trash"></i> Reset All Data
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+
+        <div class="cloud-section">
+            <h2 class="section-title"><i class="fas fa-cloud"></i> OneDrive Cloud Sync</h2>
+            <div id="syncStatus" class="sync-status sync-offline">
+                <i class="fas fa-cloud"></i> Offline Mode - Data stored locally
+            </div>
             
-            <div class="admin-panel" id="adminPanel">
-                <div class="tabs">
-                    <div class="tab active" onclick="switchAdminTab(this, 'manageItems')">Manage Items</div>
-                    <div class="tab" onclick="switchAdminTab(this, 'manageCategories')">Manage Categories</div>
-                    <div class="tab" onclick="switchAdminTab(this, 'manageCustomers')">Manage Customers</div>
-                    <div class="tab" onclick="switchAdminTab(this, 'manageInvoices')">Manage Invoices</div>
-                    <div class="tab" onclick="switchAdminTab(this, 'manageFinancials')">Manage Financials</div>
-                    <div class="tab" onclick="switchAdminTab(this, 'dataBackup')">Data Backup</div>
-                </div>
-                
-                <div id="manageItems" class="tab-content active">
-                    <div class="admin-section">
-                        <h3>Add/Edit Item</h3>
-                        <div class="form-row">
-                            <div class="form-field">
-                                <label for="itemCategory">Category:</label>
-                                <select id="itemCategory"></select>
-                            </div>
-                            <div class="form-field">
-                                <label for="itemSubcategory">Subcategory:</label>
-                                <select id="itemSubcategory"></select>
-                            </div>
-                            <div class="form-field">
-                                <label for="itemNameAdmin">Item Name:</label>
-                                <input type="text" id="itemNameAdmin">
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-field">
-                                <label for="itemBasePrice">Base Price (Rs.):</label>
-                                <input type="number" id="itemBasePrice" value="0" min="0" step="0.01">
-                            </div>
-                            <div class="form-field">
-                                <label for="itemUnit">Unit:</label>
-                                <input type="text" id="itemUnit" placeholder="e.g., per page, per set">
-                            </div>
-                        </div>
-                        
-                        <h4>Price Tiers</h4>
-                        <div id="priceTiersContainer">
-                            <div class="tier-row">
-                                <input type="number" class="tier-min" placeholder="Min Qty" min="1">
-                                <input type="number" class="tier-max" placeholder="Max Qty" min="1">
-                                <input type="number" class="tier-price" placeholder="Price" min="0" step="0.01">
-                                <button class="btn btn-danger btn-sm" onclick="removeTierRow(this)"><i class="fas fa-trash"></i></button>
-                            </div>
-                        </div>
-                        
-                        <div class="actions">
-                            <button class="btn btn-success" onclick="addTierRow()">
-                                <i class="fas fa-plus"></i> Add Tier
-                            </button>
-                            <button class="btn btn-primary" onclick="saveItem()">
-                                <i class="fas fa-save"></i> Save Item
-                            </button>
-                            <button class="btn btn-warning" onclick="clearItemForm()">
-                                <i class="fas fa-trash"></i> Clear Form
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="admin-section">
-                        <h3>Existing Items</h3>
-                        <div id="itemsList"></div>
-                    </div>
-                </div>
-                
-                <div id="manageCategories" class="tab-content">
-                    <div class="admin-section">
-                        <h3>Add Category</h3>
-                        <div class="form-row">
-                            <div class="form-field">
-                                <label for="newCategoryName">Category Name:</label>
-                                <input type="text" id="newCategoryName" placeholder="e.g., Printing">
-                            </div>
-                            <div class="form-field">
-                                <label for="newSubcategoryName">Subcategory Name:</label>
-                                <input type="text" id="newSubcategoryName" placeholder="e.g., Business Cards">
-                            </div>
-                        </div>
-                        <button class="btn btn-success" onclick="addCategory()">
-                            <i class="fas fa-plus"></i> Add Category
-                        </button>
-                    </div>
-                    
-                    <div class="admin-section">
-                        <h3>Existing Categories</h3>
-                        <div id="categoriesList"></div>
-                    </div>
-                </div>
-                
-                <div id="manageCustomers" class="tab-content">
-                    <div class="admin-section">
-                        <h3>Customer List</h3>
-                        <div id="customersList"></div>
-                    </div>
-                </div>
-                
-                <div id="manageInvoices" class="tab-content">
-                    <div class="admin-section">
-                        <h3>Invoice History</h3>
-                        <div id="invoiceHistory"></div>
-                    </div>
-                </div>
-                
-                <div id="manageFinancials" class="tab-content">
-                    <div class="admin-section">
-                        <h3>Financial Entries</h3>
-                        <div id="financialEntries"></div>
-                    </div>
-                </div>
-                
-                <div id="dataBackup" class="tab-content">
-                    <div class="import-export-section">
-                        <h3>Data Export</h3>
-                        <div class="actions">
-                            <button class="btn btn-success" onclick="exportData()">
-                                <i class="fas fa-download"></i> Export All Data
-                            </button>
-                            <button class="btn btn-primary" onclick="exportToExcel()">
-                                <i class="fas fa-file-excel"></i> Export to Excel
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="import-export-section">
-                        <h3>Data Import</h3>
-                        <div class="form-group">
-                            <label for="importFile">Select JSON file:</label>
-                            <input type="file" id="importFile" accept=".json">
-                        </div>
-                        <button class="btn btn-warning" onclick="importData()">
-                            <i class="fas fa-upload"></i> Import Data
-                        </button>
-                    </div>
-                    
-                    <div class="import-export-section">
-                        <h3>Customer Data Export</h3>
-                        <div class="actions">
-                            <button class="btn btn-success" onclick="exportCustomerData()">
-                                <i class="fas fa-download"></i> Export Customer Data (JSON)
-                            </button>
-                            <button class="btn btn-primary" onclick="uploadCustomerDataToOneDrive()">
-                                <i class="fas fa-cloud-upload-alt"></i> Upload to OneDrive
-                            </button>
-                        </div>
-                        <p><small>Exports price categories and items for customer-facing applications</small></p>
-                    </div>
-                    <div class="import-export-section">
-                        <h3>Data Reset</h3>
-                        <p>Warning: This will permanently delete all data. This action cannot be undone.</p>
-                        <button class="btn btn-danger" onclick="resetData()">
-                            <i class="fas fa-trash"></i> Reset All Data
-                        </button>
-                    </div>
-                </div>
+            <div class="auto-sync-toggle">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="autoSyncToggle" onchange="toggleAutoSync()">
+                    <span class="toggle-slider"></span>
+                </label>
+                <span>Auto-sync with OneDrive</span>
+                <span id="lastSyncTime" style="margin-left: auto; font-size: 0.9rem; color: var(--gray);"></span>
+            </div>
+            
+            <div class="actions">
+                <button class="btn btn-primary" onclick="loginToOneDrive()" id="loginBtn">
+                    <i class="fab fa-microsoft"></i> Sign in with Microsoft
+                </button>
+                <button class="btn btn-success" onclick="manualSyncToCloud()" id="syncBtn" style="display: none;">
+                    <i class="fas fa-cloud-upload-alt"></i> Sync Now
+                </button>
+                <button class="btn btn-secondary" onclick="manualSyncFromCloud()" id="downloadBtn" style="display: none;">
+                    <i class="fas fa-cloud-download-alt"></i> Download Latest
+                </button>
+                <button class="btn btn-danger" onclick="logoutFromOneDrive()" id="logoutBtn" style="display: none;">
+                    <i class="fas fa-sign-out-alt"></i> Sign Out
+                </button>
+            </div>
+            
+            <div id="userInfo" class="user-info" style="display: none;">
+                <h3><i class="fas fa-user"></i> Signed in as: <span id="userName"></span></h3>
+                <p>Your data is automatically synced across all devices via OneDrive.</p>
             </div>
         </div>
     </div>
@@ -1278,6 +1434,7 @@
         let autoSyncEnabled = false;
         let syncInProgress = false;
         let lastSyncTime = null;
+        let selectedInvoiceForPayment = null; // New global variable for invoice payments
         
         // Updated MSAL Configuration for OneDrive
         const msalConfig = {
@@ -1308,7 +1465,9 @@
                 loadData();
                 updateRecentActivity();
                 updateInvoiceNo();
-                updateDashboard();
+                updateDashboard('daily'); // Initial call for the new dashboard
+                updateDashboard('monthly'); // Initial call for the new dashboard
+                
                 document.getElementById('invoiceDate').valueAsDate = new Date();
                 document.getElementById('entryDate').valueAsDate = new Date();
                 
@@ -1329,9 +1488,41 @@
             }
         });
 
+        // SPA View Switching Function
+        function switchView(viewId, navButton) {
+            document.querySelectorAll('.app-view').forEach(view => {
+                view.classList.remove('active');
+            });
+            document.getElementById(viewId).classList.add('active');
+
+            document.querySelectorAll('.main-nav .nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            navButton.classList.add('active');
+
+            // Specific updates when switching views
+            if (viewId === 'calculatorView') {
+                updateDashboard('daily');
+                updateDashboard('monthly');
+                updateRecentActivity();
+            } else if (viewId === 'invoiceView') {
+                updateInvoiceNo();
+                // Ensure customer payment section is clean
+                document.getElementById('customerInvoicesList').innerHTML = '';
+                document.getElementById('paymentCustomerSearch').value = '';
+                document.getElementById('invoicePaymentInput').style.display = 'none';
+                selectedInvoiceForPayment = null;
+            } else if (viewId === 'financialView') {
+                updateFinancialDashboard();
+                updatePaymentPayableSelect();
+            } else if (viewId === 'adminView' && isAdmin) {
+                 loadAdminData();
+            }
+        }
+
         // Initialize the application
         function initializeApp() {
-            // Initialize categories if not present
+            // Initialize categories if not present (Existing logic preserved)
             if (!localStorage.getItem('categories')) {
                 const defaultCategories = {
                     "Printing": {
@@ -1434,6 +1625,9 @@
             
             // Set up customer name autocomplete
             setupCustomerAutocomplete();
+
+            // Set up payment customer search autocomplete (New)
+            setupPaymentCustomerSearch();
             
             // Set up item autocomplete for invoice
             setupItemAutocomplete();
@@ -1465,6 +1659,10 @@
                 }, 1000);
             }
         }
+
+        // --- Core Functions (Preserved/Modified) ---
+
+        // ... (loadSettings, saveSettings, toggleAutoSync, updateLastSyncTime, updateMainCategoryDropdown, updateSubcategories, updateItemsAndFields, updateQuantityInput, clearTierTag, updatePriceTierTag - All preserved) ...
 
         // Load settings
         function loadSettings() {
@@ -1689,7 +1887,8 @@
                     // Update UI
                     updateMainCategoryDropdown();
                     updateRecentActivity();
-                    updateDashboard();
+                    updateDashboard('daily');
+                    updateDashboard('monthly');
                     
                     lastSyncTime = cloudSyncTime;
                     saveSettings();
@@ -2120,7 +2319,8 @@
             }
         }
 
-        // Invoice System Functions
+        // --- Invoice System Functions (Enhanced) ---
+
         function setupCustomerAutocomplete() {
             const customerNameInput = document.getElementById('invoiceCustomerName');
             const customerSuggestions = document.getElementById('customerSuggestions');
@@ -2164,9 +2364,153 @@
             });
         }
 
+        function setupPaymentCustomerSearch() {
+            const customerNameInput = document.getElementById('paymentCustomerSearch');
+            const customerSuggestions = document.getElementById('paymentCustomerSuggestions');
+            
+            customerNameInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase();
+                customerSuggestions.innerHTML = '';
+                
+                if (query.length < 2) {
+                    customerSuggestions.style.display = 'none';
+                    return;
+                }
+                
+                const matches = customers.filter(customer => 
+                    customer.name.toLowerCase().includes(query)
+                );
+                
+                if (matches.length > 0) {
+                    matches.forEach(customer => {
+                        const div = document.createElement('div');
+                        div.className = 'customer-suggestion';
+                        div.textContent = `${customer.name} (${customer.phone || 'No Phone'})`;
+                        div.addEventListener('click', function() {
+                            customerNameInput.value = customer.name;
+                            customerSuggestions.style.display = 'none';
+                            loadCustomerInvoices(customer.name);
+                        });
+                        customerSuggestions.appendChild(div);
+                    });
+                    customerSuggestions.style.display = 'block';
+                } else {
+                    customerSuggestions.style.display = 'none';
+                }
+            });
+            
+            document.addEventListener('click', function(e) {
+                if (e.target !== customerNameInput) {
+                    customerSuggestions.style.display = 'none';
+                }
+            });
+        }
+
+        function loadCustomerInvoices(customerName) {
+            const container = document.getElementById('customerInvoicesList');
+            container.innerHTML = '';
+            document.getElementById('invoicePaymentInput').style.display = 'none';
+            selectedInvoiceForPayment = null;
+
+            const pendingInvoices = invoices.filter(inv => 
+                inv.customerName === customerName && inv.remainingBalance > 0
+            );
+
+            if (pendingInvoices.length === 0) {
+                container.innerHTML = `<p>No pending invoices found for ${customerName}.</p>`;
+                return;
+            }
+
+            pendingInvoices.forEach(invoice => {
+                const item = document.createElement('div');
+                item.className = 'history-item';
+                item.style.cursor = 'pointer';
+                item.onclick = () => selectInvoiceForPayment(invoice.invoiceNo);
+
+                item.innerHTML = `
+                    <div class="history-header">
+                        <span>${invoice.invoiceNo} - ${new Date(invoice.date).toLocaleDateString()}</span>
+                        <span>Total: Rs. ${invoice.total.toFixed(2)}</span>
+                    </div>
+                    <div class="history-details">
+                        <div>Remaining Balance: <strong style="color: var(--danger);">Rs. ${invoice.remainingBalance.toFixed(2)}</strong></div>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function selectInvoiceForPayment(invoiceNo) {
+            const invoice = invoices.find(inv => inv.invoiceNo === invoiceNo);
+            if (!invoice) return;
+
+            selectedInvoiceForPayment = invoice;
+            
+            document.getElementById('selectedInvoiceNo').textContent = invoiceNo;
+            document.getElementById('paymentAmountInput').value = invoice.remainingBalance.toFixed(2);
+            document.getElementById('invoicePaymentInput').style.display = 'block';
+            
+            // Highlight selected invoice
+            document.querySelectorAll('#customerInvoicesList .history-item').forEach(item => {
+                item.style.backgroundColor = 'white';
+            });
+            event.currentTarget.style.backgroundColor = '#e1f5fe';
+        }
+
+        function recordInvoicePayment() {
+            if (!selectedInvoiceForPayment) {
+                showNotification('Please select an invoice first.', 'error');
+                return;
+            }
+
+            const paymentAmount = parseFloat(document.getElementById('paymentAmountInput').value) || 0;
+            const invoiceNo = selectedInvoiceForPayment.invoiceNo;
+            
+            if (paymentAmount <= 0) {
+                showNotification('Payment amount must be greater than zero.', 'error');
+                return;
+            }
+
+            if (paymentAmount > selectedInvoiceForPayment.remainingBalance) {
+                showNotification('Payment amount exceeds the remaining balance.', 'warning');
+                return;
+            }
+
+            // Update invoice
+            selectedInvoiceForPayment.payment += paymentAmount;
+            selectedInvoiceForPayment.remainingBalance -= paymentAmount;
+
+            // Add financial entry for income
+            const financialEntry = {
+                id: Date.now(),
+                type: 'Income',
+                category: 'Income: Invoice Payment',
+                date: new Date().toISOString().split('T')[0], // Use today's date
+                amount: paymentAmount,
+                description: `Payment of Rs. ${paymentAmount.toFixed(2)} recorded for invoice ${invoiceNo} from ${selectedInvoiceForPayment.customerName}`,
+                createdAt: new Date().toISOString(),
+                invoiceNo: invoiceNo
+            };
+            
+            financialEntries.push(financialEntry);
+            
+            // Save data and update UI
+            saveData();
+            updateDashboard('daily');
+            updateDashboard('monthly');
+            addRecentActivity(`Recorded Rs. ${paymentAmount.toFixed(2)} payment for invoice ${invoiceNo}`, 'invoice');
+
+            // Clear payment section
+            document.getElementById('invoicePaymentInput').style.display = 'none';
+            document.getElementById('paymentCustomerSearch').value = '';
+            document.getElementById('customerInvoicesList').innerHTML = '';
+            selectedInvoiceForPayment = null;
+            
+            showNotification(`Payment of Rs. ${paymentAmount.toFixed(2)} recorded for invoice ${invoiceNo}!`, 'success');
+        }
+
         function setupItemAutocomplete() {
-            // This would set up autocomplete for invoice items
-            // Implementation would be similar to customer autocomplete
+            // Placeholder for future item autocomplete on invoice system
         }
 
         function addInvoiceItem() {
@@ -2317,15 +2661,33 @@
                     date: invoiceDate,
                     amount: payment,
                     description: `Payment for invoice ${invoiceNo} from ${customerName}`,
-                    createdAt: new Date().toISOString()
+                    createdAt: new Date().toISOString(),
+                    invoiceNo: invoiceNo
                 };
                 
                 financialEntries.push(financialEntry);
             }
+
+            // Add financial entry for sales (for dashboard metric)
+            const salesEntry = {
+                id: Date.now() + 1,
+                type: 'Sale',
+                category: 'Sale: Invoice Total',
+                date: invoiceDate,
+                amount: total,
+                description: `Sale generated from invoice ${invoiceNo}`,
+                createdAt: new Date().toISOString(),
+                invoiceNo: invoiceNo
+            };
+            financialEntries.push(salesEntry);
             
             // Save data
             saveData();
             
+            // Update dashboards
+            updateDashboard('daily');
+            updateDashboard('monthly');
+
             // Add to recent activity
             addRecentActivity(`Created invoice ${invoiceNo} for ${customerName}`, 'invoice');
             
@@ -2352,7 +2714,153 @@
             showNotification('Invoice form cleared.', 'info');
         }
 
-        // Financial Hub Functions
+        function printInvoice(invoiceNo) {
+            let invoiceToPrint;
+
+            if (invoiceNo) {
+                // Find existing invoice by number
+                invoiceToPrint = invoices.find(inv => inv.invoiceNo === invoiceNo);
+                if (!invoiceToPrint) {
+                    showNotification('Invoice not found.', 'error');
+                    return;
+                }
+            } else {
+                // Use current form data for a quote/preview
+                const customerName = document.getElementById('invoiceCustomerName').value || 'Guest Customer';
+                const customerPhone = document.getElementById('invoiceCustomerPhone').value || 'N/A';
+                const currentInvoiceNo = document.getElementById('invoiceNo').value;
+                const invoiceDate = document.getElementById('invoiceDate').value;
+                const subtotal = parseFloat(document.getElementById('subtotalAmount').textContent) || 0;
+                const total = parseFloat(document.getElementById('totalAmount').textContent) || 0;
+                const remainingBalance = parseFloat(document.getElementById('remainingBalance').textContent) || 0;
+                
+                const items = [];
+                document.querySelectorAll('#itemsTableBody tr').forEach(row => {
+                    const name = row.querySelector('.item-name').value;
+                    const rate = parseFloat(row.querySelector('.item-rate').value) || 0;
+                    const quantity = parseFloat(row.querySelector('.item-quantity').value) || 0;
+                    const designCharges = parseFloat(row.querySelector('.item-design-charges').value) || 0;
+                    
+                    if (name) {
+                        items.push({ name, rate, quantity, designCharges, amount: (rate * quantity) + designCharges });
+                    }
+                });
+
+                invoiceToPrint = {
+                    invoiceNo: currentInvoiceNo,
+                    customerName,
+                    customerPhone,
+                    date: invoiceDate,
+                    items,
+                    subtotal,
+                    total,
+                    remainingBalance
+                };
+            }
+
+            // Populate header info
+            const headerInfo = document.getElementById('invoiceHeaderInfo');
+            headerInfo.style.display = 'block';
+            headerInfo.innerHTML = `
+                <h2>Invoice / Quote</h2>
+                <div>
+                    <strong>Invoice No:</strong> <span>${invoiceToPrint.invoiceNo}</span>
+                </div>
+                <div>
+                    <strong>Date:</strong> <span>${new Date(invoiceToPrint.date).toLocaleDateString()}</span>
+                </div>
+                <div>
+                    <strong>Customer:</strong> <span>${invoiceToPrint.customerName}</span>
+                </div>
+                <div>
+                    <strong>Phone:</strong> <span>${invoiceToPrint.customerPhone}</span>
+                </div>
+            `;
+
+            // Populate items table
+            const tableBody = document.getElementById('itemsTableBody');
+            tableBody.innerHTML = '';
+            invoiceToPrint.items.forEach(item => {
+                tableBody.innerHTML += `
+                    <tr>
+                        <td>${item.name}</td>
+                        <td>${item.rate.toFixed(2)}</td>
+                        <td>${item.quantity}</td>
+                        <td>${item.designCharges.toFixed(2)}</td>
+                        <td>${item.amount.toFixed(2)}</td>
+                        <td></td> </tr>
+                `;
+            });
+
+            // Populate totals section (Simplified for print)
+            const totalsSection = document.querySelector('#newInvoiceSection .totals-section');
+            totalsSection.innerHTML = `
+                <div class="total-row">
+                    <span>Subtotal:</span>
+                    <span>Rs. ${invoiceToPrint.subtotal.toFixed(2)}</span>
+                </div>
+                <div class="total-row">
+                    <span>Tax:</span>
+                    <span>Rs. ${(invoiceToPrint.taxAmount || invoiceToPrint.total - invoiceToPrint.subtotal).toFixed(2)}</span>
+                </div>
+                <div class="total-row" style="border-top: 2px solid #333;">
+                    <span><strong>Total Amount:</strong></span>
+                    <span><strong>Rs. ${invoiceToPrint.total.toFixed(2)}</strong></span>
+                </div>
+                <div class="total-row">
+                    <span><strong>Remaining Balance:</strong></span>
+                    <span><strong>Rs. ${invoiceToPrint.remainingBalance.toFixed(2)}</strong></span>
+                </div>
+            `;
+
+            // Trigger print
+            window.print();
+
+            // Restore UI state after print (hide header, re-populate form if needed)
+            headerInfo.style.display = 'none';
+            // Note: Since the Invoice view uses a single .section-panel with all contents, 
+            // the `@media print` CSS rules will handle hiding the non-invoice parts,
+            // so we don't need extensive post-print restoration logic here, but we should restore the input form for a new invoice.
+            clearInvoice();
+            updateInvoiceNo();
+            totalsSection.innerHTML = `
+                <h3 class="section-title"><i class="fas fa-calculator"></i> Invoice Totals</h3>
+                
+                <div class="total-row">
+                    <span>Subtotal:</span>
+                    <span>Rs. <span id="subtotalAmount">0.00</span></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="taxRate">Tax Rate (%):</label>
+                    <input type="number" id="taxRate" value="0" min="0" max="100" step="0.1" oninput="calculateTotal()">
+                </div>
+                
+                <div class="total-row">
+                    <span><strong>Total Amount:</strong></span>
+                    <span><strong>Rs. <span id="totalAmount">0.00</span></strong></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="previousBalance">Previous Balance (Rs.):</label>
+                    <input type="number" id="previousBalance" value="0" min="0" step="0.01" oninput="calculateTotal()">
+                </div>
+                
+                <div class="form-group">
+                    <label for="payment">Payment Received (Rs.):</label>
+                    <input type="number" id="payment" value="0" min="0" step="0.01" oninput="calculateTotal()">
+                </div>
+                
+                <div class="total-row">
+                    <span><strong>Remaining Balance:</strong></span>
+                    <span><strong>Rs. <span id="remainingBalance">0.00</span></strong></span>
+                </div>
+            `;
+        }
+
+
+        // --- Financial Hub Functions (Modified/Enhanced Dashboard) ---
+
         function switchFinancialTab(tabElement, tabId) {
             // Hide all tab contents
             const tabContents = document.querySelectorAll('#FinancialHub .tab-content');
@@ -2361,7 +2869,7 @@
             });
             
             // Remove active class from all tabs
-            const tabs = document.querySelectorAll('#FinancialHub .tab');
+            const tabs = document.querySelectorAll('#FinancialHub .tabs .tab');
             tabs.forEach(tab => {
                 tab.classList.remove('active');
             });
@@ -2372,7 +2880,7 @@
             
             // Update dashboard if switching to it
             if (tabId === 'dashboard') {
-                updateDashboard();
+                updateFinancialDashboard();
             }
             
             // Update payables list if switching to it
@@ -2454,8 +2962,10 @@
             document.getElementById('entryAmount').value = 0;
             document.getElementById('entryDescription').value = '';
             
-            // Update dashboard
-            updateDashboard();
+            // Update dashboards
+            updateDashboard('daily');
+            updateDashboard('monthly');
+            updateFinancialDashboard();
             
             // Add to recent activity
             addRecentActivity(`Added ${entryType} entry: ${description}`, 'financial');
@@ -2533,10 +3043,125 @@
             });
         }
 
-        function updateDashboard() {
+        function filterEntries(period, type) {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.getMonth();
+            const todayStr = now.toISOString().split('T')[0];
+            
+            let filteredEntries = financialEntries;
+            
+            if (period === 'daily') {
+                filteredEntries = financialEntries.filter(entry => entry.date === todayStr);
+            } else if (period === 'monthly') {
+                filteredEntries = financialEntries.filter(entry => {
+                    const entryDate = new Date(entry.date);
+                    return entryDate.getFullYear() === year && entryDate.getMonth() === month;
+                });
+            }
+
+            if (type) {
+                return filteredEntries.filter(entry => entry.type === type);
+            }
+            return filteredEntries;
+        }
+
+        function updateDashboard(period) {
+            const entries = filterEntries(period);
+            const containerId = `${period}DashboardContainer`;
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            const income = entries
+                .filter(entry => entry.type === 'Income')
+                .reduce((sum, entry) => sum + entry.amount, 0);
+
+            const expenses = entries
+                .filter(entry => entry.type === 'Expense')
+                .reduce((sum, entry) => sum + entry.amount, 0);
+
+            const invoicePayments = entries
+                .filter(entry => entry.type === 'Income' && entry.category === 'Income: Invoice Payment')
+                .reduce((sum, entry) => sum + entry.amount, 0);
+
+            const supplierPayments = entries
+                .filter(entry => entry.type === 'Payment')
+                .reduce((sum, entry) => sum + entry.amount, 0);
+            
+            const sales = entries
+                .filter(entry => entry.type === 'Sale')
+                .reduce((sum, entry) => sum + entry.amount, 0);
+            
+            const purchases = entries
+                .filter(entry => entry.type === 'Expense' && entry.category.includes('Materials'))
+                .reduce((sum, entry) => sum + entry.amount, 0);
+            
+            const profit = sales - expenses - purchases; // Simplified business profit
+
+            let monthlyPayablesInfo = '';
+            if (period === 'monthly') {
+                const now = new Date();
+                const currentMonth = now.getMonth();
+                const currentYear = now.getFullYear();
+
+                const monthPayables = payables.filter(p => {
+                    const dueDate = new Date(p.dueDate);
+                    return dueDate.getFullYear() === currentYear && dueDate.getMonth() === currentMonth;
+                });
+                
+                const totalPayableAmount = monthPayables.reduce((sum, p) => sum + p.amount, 0);
+                const paidPayableAmount = monthPayables.reduce((sum, p) => sum + p.paidAmount, 0);
+                const remainingPayableAmount = monthPayables.reduce((sum, p) => sum + p.remainingAmount, 0);
+
+                monthlyPayablesInfo = `
+                    <div class="dashboard-metric metric-net">
+                        <span>Monthly Total Payables</span>
+                        <span class="metric-value">Rs. ${totalPayableAmount.toFixed(2)}</span>
+                    </div>
+                    <div class="dashboard-metric metric-profit">
+                        <span>Monthly Paid Payables</span>
+                        <span class="metric-value">Rs. ${paidPayableAmount.toFixed(2)}</span>
+                    </div>
+                    <div class="dashboard-metric metric-danger">
+                        <span>Monthly Remaining Payables</span>
+                        <span class="metric-value">Rs. ${remainingPayableAmount.toFixed(2)}</span>
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = `
+                ${period === 'monthly' ? monthlyPayablesInfo : ''}
+                <div class="dashboard-metric metric-income">
+                    <span>${period === 'daily' ? 'Daily' : 'Monthly'} Total Income</span>
+                    <span class="metric-value">Rs. ${income.toFixed(2)}</span>
+                </div>
+                <div class="dashboard-metric metric-expense">
+                    <span>${period === 'daily' ? 'Daily' : 'Monthly'} Total Expenses</span>
+                    <span class="metric-value">Rs. ${expenses.toFixed(2)}</span>
+                </div>
+                <div class="dashboard-metric metric-profit">
+                    <span>${period === 'daily' ? 'Daily' : 'Monthly'} Net Sales</span>
+                    <span class="metric-value">Rs. ${sales.toFixed(2)}</span>
+                </div>
+                <div class="dashboard-metric metric-income">
+                    <span>${period === 'daily' ? 'Daily' : 'Monthly'} Inv. Payments</span>
+                    <span class="metric-value">Rs. ${invoicePayments.toFixed(2)}</span>
+                </div>
+                <div class="dashboard-metric metric-expense">
+                    <span>${period === 'daily' ? 'Daily' : 'Monthly'} Purchases</span>
+                    <span class="metric-value">Rs. ${purchases.toFixed(2)}</span>
+                </div>
+                <div class="dashboard-metric metric-secondary">
+                    <span>${period === 'daily' ? 'Daily' : 'Monthly'} Net Profit</span>
+                    <span class="metric-value">Rs. ${profit.toFixed(2)}</span>
+                </div>
+            `;
+        }
+        
+        function updateFinancialDashboard() {
             const now = new Date();
             const currentMonth = now.toLocaleString('default', { month: 'long', year: 'numeric' });
-            document.getElementById('dashboardMonth').textContent = currentMonth;
+            document.getElementById('financialDashboardMonth').textContent = currentMonth;
             
             const currentMonthStr = now.getFullYear() + '-' + (now.getMonth() + 1).toString().padStart(2, '0');
             
@@ -2547,7 +3172,7 @@
                 return entryMonthStr === currentMonthStr;
             });
             
-            // Calculate totals
+            // Calculate totals (This is the simpler set for the financial hub tab)
             const income = monthEntries
                 .filter(entry => entry.type === 'Income')
                 .reduce((sum, entry) => sum + entry.amount, 0);
@@ -2566,17 +3191,19 @@
                     <span class="metric-value">Rs. ${income.toFixed(2)}</span>
                 </div>
                 <div class="dashboard-metric metric-expense">
-                    <span>Expenses</span>
+                    <span>Expenses/Payments</span>
                     <span class="metric-value">Rs. ${expenses.toFixed(2)}</span>
                 </div>
                 <div class="dashboard-metric metric-profit">
-                    <span>Profit</span>
+                    <span>Net Cash Flow</span>
                     <span class="metric-value">Rs. ${profit.toFixed(2)}</span>
                 </div>
             `;
         }
 
-        // Admin Panel Functions
+
+        // --- Admin Panel Functions (Preserved/Minorly Modified) ---
+
         function adminLogin() {
             const username = document.getElementById('adminUsername').value;
             const password = document.getElementById('adminPassword').value;
@@ -2586,10 +3213,13 @@
                 isAdmin = true;
                 document.getElementById('adminLoginSection').style.display = 'none';
                 document.getElementById('adminPanel').style.display = 'block';
+                document.getElementById('adminNavBtn').style.display = 'inline-flex'; // Show nav button
                 showNotification('Admin login successful!', 'success');
                 
                 // Load admin data
                 loadAdminData();
+                // Switch to the admin view
+                switchView('adminView', document.getElementById('adminNavBtn'));
             } else {
                 showNotification('Invalid username or password.', 'error');
             }
@@ -2603,7 +3233,7 @@
             });
             
             // Remove active class from all tabs
-            const tabs = document.querySelectorAll('#adminPanel .tab');
+            const tabs = document.querySelectorAll('#adminPanel .tabs .tab');
             tabs.forEach(tab => {
                 tab.classList.remove('active');
             });
@@ -2799,6 +3429,9 @@
             const item = categories[category][subcategory][itemName];
             
             document.getElementById('itemCategory').value = category;
+            // The itemSubcategory dropdown won't be populated automatically here, 
+            // so we manually populate it or trigger the change event on itemCategory
+            document.getElementById('itemCategory').dispatchEvent(new Event('change'));
             document.getElementById('itemSubcategory').value = subcategory;
             document.getElementById('itemNameAdmin').value = itemName;
             document.getElementById('itemBasePrice').value = item.basePrice;
@@ -2971,6 +3604,9 @@
                     <div class="history-details">
                         <div>Date: ${new Date(invoice.date).toLocaleDateString()}</div>
                         <div>Balance: Rs. ${invoice.remainingBalance.toFixed(2)}</div>
+                        <button class="btn btn-secondary btn-sm" onclick="printInvoice('${invoice.invoiceNo}')">
+                            <i class="fas fa-print"></i> Print
+                        </button>
                     </div>
                 `;
                 
@@ -2991,7 +3627,7 @@
                 const entryElement = document.createElement('div');
                 entryElement.className = 'history-item';
                 
-                const typeClass = entry.type === 'Income' ? 'sync-online' : 'sync-offline';
+                const typeClass = entry.type === 'Income' || entry.type === 'Sale' ? 'sync-online' : 'sync-offline';
                 
                 entryElement.innerHTML = `
                     <div class="history-header">
@@ -3115,7 +3751,8 @@
                     // Update UI
                     updateMainCategoryDropdown();
                     updateRecentActivity();
-                    updateDashboard();
+                    updateDashboard('daily');
+                    updateDashboard('monthly');
                     
                     // Clear file input
                     fileInput.value = '';
@@ -3136,7 +3773,8 @@
                 initializeApp();
                 loadData();
                 updateRecentActivity();
-                updateDashboard();
+                updateDashboard('daily');
+                updateDashboard('monthly');
                 
                 showNotification('All data has been reset.', 'info');
             }
