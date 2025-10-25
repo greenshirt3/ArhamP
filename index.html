@@ -505,19 +505,23 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        .customer-suggestion {
+        .customer-suggestion, .item-suggestion {
             padding: 10px;
             cursor: pointer;
             border-bottom: 1px solid #eee;
         }
         
-        .customer-suggestion:hover {
+        .customer-suggestion:hover, .item-suggestion:hover {
             background: #f5f5f5;
         }
         
         .suggestion-container {
             position: relative;
             flex: 2;
+        }
+        
+        .invoice-item-suggestion-container {
+            position: relative;
         }
 
         /* Financial Hub Styling */
@@ -756,7 +760,7 @@
             border-radius: var(--border-radius);
             margin-top: 20px;
         }
-
+        
         /* Item Editor Specific Styles */
         #itemEditor {
             border-top: 4px solid var(--warning);
@@ -805,7 +809,9 @@
                 padding: 0;
             }
             .print-invoice-view .actions, 
-            .print-invoice-view .form-group {
+            .print-invoice-view .form-group,
+            .print-invoice-view #invoicePaymentSection,
+            .print-invoice-view #invoiceDataTabs {
                 display: none;
             }
             .items-table th, .items-table td {
@@ -882,7 +888,7 @@
             <button class="nav-btn" data-view="financialView" onclick="switchView('financialView', this)">
                 <i class="fas fa-chart-line"></i> Financial Hub
             </button>
-            <button class="nav-btn" data-view="adminView" onclick="switchView('adminView', this)" id="adminNavBtn" style="display: none;">
+            <button class="nav-btn" data-view="adminView" onclick="switchView('adminView', this)" id="adminNavBtn">
                 <i class="fas fa-cogs"></i> Admin Panel
             </button>
         </nav>
@@ -960,14 +966,20 @@
         </div>
 
         <div id="invoiceView" class="app-view">
-            <div class="section-panel print-invoice-view">
-                <h2 class="section-title"><i class="fas fa-file-invoice"></i> Invoice System</h2>
+            
+            <div class="tabs" id="invoiceDataTabs">
+                <div class="tab active" onclick="switchInvoiceTab(this, 'newInvoiceSection')">Create New Invoice</div>
+                <div class="tab" onclick="switchInvoiceTab(this, 'invoicePaymentSection')">Customer Payment Ledger</div>
+                <div class="tab" onclick="switchInvoiceTab(this, 'previousInvoicesSection')">View Previous Invoices</div>
+            </div>
+
+            <div class="section-panel print-invoice-view" id="newInvoiceSection">
+                <h2 class="section-title"><i class="fas fa-file-invoice"></i> Create Invoice</h2>
 
                 <div id="invoiceHeaderInfo" class="invoice-header-info" style="display: none; margin-bottom: 20px;">
                     </div>
                 
-                <div id="newInvoiceSection">
-                    <h3><i class="fas fa-plus-circle"></i> Create New Invoice</h3>
+                <div>
                     <div class="form-group">
                         <label for="invoiceCustomerName"><i class="fas fa-user"></i> Customer Name:</label>
                         <div class="suggestion-container">
@@ -1006,8 +1018,9 @@
                         <tbody id="itemsTableBody">
                             <tr>
                                 <td>
-                                    <div style="position: relative;">
-                                        <input type="text" class="item-name" placeholder="Enter item description" autocomplete="off" list="invoiceItemList">
+                                    <div class="invoice-item-suggestion-container">
+                                        <input type="text" class="item-name" placeholder="Enter item description" autocomplete="off" oninput="showItemSuggestions(this)">
+                                        <div class="item-suggestions" style="display: none;"></div>
                                     </div>
                                 </td>
                                 <td><input type="number" class="item-rate" value="0" min="0" step="0.01" oninput="calculateTotal()"></td>
@@ -1074,33 +1087,39 @@
                         </button>
                     </div>
                 </div>
-                
-                <div id="invoicePaymentSection" class="section-panel" style="margin-top: 30px; background: #fffde7;">
-                    <h3><i class="fas fa-hand-holding-usd"></i> Customer Payment Ledger</h3>
-                    <div class="form-group">
-                        <label for="paymentCustomerSearch"><i class="fas fa-user-tag"></i> Customer Name:</label>
-                        <div class="suggestion-container">
-                            <input type="text" id="paymentCustomerSearch" placeholder="Search customer for payment..." autocomplete="off">
-                            <div id="paymentCustomerSuggestions" class="customer-suggestions" style="display: none;"></div>
-                        </div>
-                    </div>
-                    
-                    <div id="customerInvoicesList" style="margin-top: 15px;">
-                        </div>
-
-                    <div id="invoicePaymentInput" style="display: none; border-top: 2px solid #ccc; padding-top: 15px;">
-                        <h4><i class="fas fa-money-check-alt"></i> Record Payment for Invoice <span id="selectedInvoiceNo"></span></h4>
-                        <div class="form-group">
-                            <label for="paymentAmountInput">Payment Amount (Rs.):</label>
-                            <input type="number" id="paymentAmountInput" value="0" min="0" step="0.01">
-                        </div>
-                        <div class="actions">
-                            <button class="btn btn-success" onclick="recordInvoicePayment()">
-                                <i class="fas fa-receipt"></i> Record Payment
-                            </button>
-                        </div>
+            </div>
+            
+            <div class="section-panel" id="invoicePaymentSection" style="display: none;">
+                <h3><i class="fas fa-hand-holding-usd"></i> Customer Payment Ledger</h3>
+                <div class="form-group">
+                    <label for="paymentCustomerSearch"><i class="fas fa-user-tag"></i> Customer Name:</label>
+                    <div class="suggestion-container">
+                        <input type="text" id="paymentCustomerSearch" placeholder="Search customer for payment..." autocomplete="off">
+                        <div id="paymentCustomerSuggestions" class="customer-suggestions" style="display: none;"></div>
                     </div>
                 </div>
+                
+                <div id="customerInvoicesList" style="margin-top: 15px;">
+                    </div>
+
+                <div id="invoicePaymentInput" style="display: none; border-top: 2px solid #ccc; padding-top: 15px;">
+                    <h4><i class="fas fa-money-check-alt"></i> Record Payment for Invoice <span id="selectedInvoiceNo"></span></h4>
+                    <div class="form-group">
+                        <label for="paymentAmountInput">Payment Amount (Rs.):</label>
+                        <input type="number" id="paymentAmountInput" value="0" min="0" step="0.01">
+                    </div>
+                    <div class="actions">
+                        <button class="btn btn-success" onclick="recordInvoicePayment()">
+                            <i class="fas fa-receipt"></i> Record Payment
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-panel" id="previousInvoicesSection" style="display: none;">
+                <h3><i class="fas fa-history"></i> Previous Invoices and Customer Ledger</h3>
+                <div id="previousInvoicesList">
+                    </div>
             </div>
         </div>
 
@@ -1434,7 +1453,8 @@
         let autoSyncEnabled = false;
         let syncInProgress = false;
         let lastSyncTime = null;
-        let selectedInvoiceForPayment = null; // New global variable for invoice payments
+        let selectedInvoiceForPayment = null; 
+        let uniqueItems = {}; // New global to store all unique item data for autosuggest
         
         // Updated MSAL Configuration for OneDrive
         const msalConfig = {
@@ -1463,10 +1483,11 @@
                 await msalInstance.initialize();
                 initializeApp();
                 loadData();
+                updateUniqueItems(); // Populate unique items on load
                 updateRecentActivity();
                 updateInvoiceNo();
-                updateDashboard('daily'); // Initial call for the new dashboard
-                updateDashboard('monthly'); // Initial call for the new dashboard
+                updateDashboard('daily'); 
+                updateDashboard('monthly'); 
                 
                 document.getElementById('invoiceDate').valueAsDate = new Date();
                 document.getElementById('entryDate').valueAsDate = new Date();
@@ -1507,7 +1528,9 @@
                 updateRecentActivity();
             } else if (viewId === 'invoiceView') {
                 updateInvoiceNo();
-                // Ensure customer payment section is clean
+                // Ensure default invoice tab is active
+                switchInvoiceTab(document.querySelector('#invoiceDataTabs .tab:first-child'), 'newInvoiceSection');
+                // Clear customer payment search
                 document.getElementById('customerInvoicesList').innerHTML = '';
                 document.getElementById('paymentCustomerSearch').value = '';
                 document.getElementById('invoicePaymentInput').style.display = 'none';
@@ -1515,10 +1538,43 @@
             } else if (viewId === 'financialView') {
                 updateFinancialDashboard();
                 updatePaymentPayableSelect();
-            } else if (viewId === 'adminView' && isAdmin) {
-                 loadAdminData();
+            } else if (viewId === 'adminView') {
+                 // Check login status for Admin View
+                if (isAdmin) {
+                    document.getElementById('adminLoginSection').style.display = 'none';
+                    document.getElementById('adminPanel').style.display = 'block';
+                    loadAdminData();
+                } else {
+                    document.getElementById('adminLoginSection').style.display = 'block';
+                    document.getElementById('adminPanel').style.display = 'none';
+                }
             }
         }
+
+        // Invoice Sub-Tab Switching
+        function switchInvoiceTab(tabElement, tabId) {
+            // Hide all sub-sections
+            document.getElementById('newInvoiceSection').style.display = 'none';
+            document.getElementById('invoicePaymentSection').style.display = 'none';
+            document.getElementById('previousInvoicesSection').style.display = 'none';
+            
+            // Show selected section
+            document.getElementById(tabId).style.display = 'block';
+
+            // Remove active class from all sub-tabs
+            document.querySelectorAll('#invoiceDataTabs .tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Add active class to selected tab
+            tabElement.classList.add('active');
+
+            if (tabId === 'previousInvoicesSection') {
+                loadPreviousInvoices();
+            }
+        }
+
+        // --- Core Functions (Preserved/Modified) ---
 
         // Initialize the application
         function initializeApp() {
@@ -1626,11 +1682,8 @@
             // Set up customer name autocomplete
             setupCustomerAutocomplete();
 
-            // Set up payment customer search autocomplete (New)
+            // Set up payment customer search autocomplete 
             setupPaymentCustomerSearch();
-            
-            // Set up item autocomplete for invoice
-            setupItemAutocomplete();
         }
 
         // Load data from localStorage
@@ -1659,10 +1712,19 @@
                 }, 1000);
             }
         }
-
-        // --- Core Functions (Preserved/Modified) ---
-
-        // ... (loadSettings, saveSettings, toggleAutoSync, updateLastSyncTime, updateMainCategoryDropdown, updateSubcategories, updateItemsAndFields, updateQuantityInput, clearTierTag, updatePriceTierTag - All preserved) ...
+        
+        // Populate uniqueItems global object
+        function updateUniqueItems() {
+            uniqueItems = {};
+            for (const category in categories) {
+                for (const subcategory in categories[category]) {
+                    for (const itemName in categories[category][subcategory]) {
+                        // Store the item's details, primarily the basePrice
+                        uniqueItems[itemName] = categories[category][subcategory][itemName];
+                    }
+                }
+            }
+        }
 
         // Load settings
         function loadSettings() {
@@ -1885,6 +1947,7 @@
                     localStorage.setItem('recentActivity', JSON.stringify(recentActivity));
                     
                     // Update UI
+                    updateUniqueItems();
                     updateMainCategoryDropdown();
                     updateRecentActivity();
                     updateDashboard('daily');
@@ -2320,6 +2383,56 @@
         }
 
         // --- Invoice System Functions (Enhanced) ---
+        
+        // Function to show item suggestions in Invoice table
+        function showItemSuggestions(inputElement) {
+            const query = inputElement.value.toLowerCase();
+            const suggestionsContainer = inputElement.parentElement.querySelector('.item-suggestions');
+            suggestionsContainer.innerHTML = '';
+
+            if (query.length < 2) {
+                suggestionsContainer.style.display = 'none';
+                return;
+            }
+
+            const matches = Object.keys(uniqueItems).filter(itemName => 
+                itemName.toLowerCase().includes(query)
+            );
+
+            if (matches.length > 0) {
+                matches.forEach(itemName => {
+                    const itemData = uniqueItems[itemName];
+                    const div = document.createElement('div');
+                    div.className = 'item-suggestion';
+                    div.textContent = `${itemName} (Base: Rs. ${itemData.basePrice.toFixed(2)})`;
+                    div.onclick = function() {
+                        selectInvoiceItem(inputElement, itemName, itemData.basePrice);
+                    };
+                    suggestionsContainer.appendChild(div);
+                });
+                suggestionsContainer.style.display = 'block';
+            } else {
+                suggestionsContainer.style.display = 'none';
+            }
+        }
+
+        // Function to select an item from suggestions and populate rate
+        function selectInvoiceItem(inputElement, itemName, basePrice) {
+            const row = inputElement.closest('tr');
+            inputElement.value = itemName;
+            row.querySelector('.item-rate').value = basePrice.toFixed(2);
+            inputElement.parentElement.querySelector('.item-suggestions').style.display = 'none';
+            calculateTotal();
+        }
+
+        // Hide item suggestions when clicking outside
+        document.addEventListener('click', function(e) {
+            document.querySelectorAll('.item-suggestions').forEach(sugg => {
+                if (!sugg.contains(e.target) && e.target.className !== 'item-name') {
+                    sugg.style.display = 'none';
+                }
+            });
+        });
 
         function setupCustomerAutocomplete() {
             const customerNameInput = document.getElementById('invoiceCustomerName');
@@ -2400,7 +2513,7 @@
             });
             
             document.addEventListener('click', function(e) {
-                if (e.target !== customerNameInput) {
+                if (e.target !== customerNameInput && !customerSuggestions.contains(e.target)) {
                     customerSuggestions.style.display = 'none';
                 }
             });
@@ -2425,7 +2538,7 @@
                 const item = document.createElement('div');
                 item.className = 'history-item';
                 item.style.cursor = 'pointer';
-                item.onclick = () => selectInvoiceForPayment(invoice.invoiceNo);
+                item.onclick = () => selectInvoiceForPayment(invoice.invoiceNo, event.currentTarget);
 
                 item.innerHTML = `
                     <div class="history-header">
@@ -2440,7 +2553,7 @@
             });
         }
 
-        function selectInvoiceForPayment(invoiceNo) {
+        function selectInvoiceForPayment(invoiceNo, targetElement) {
             const invoice = invoices.find(inv => inv.invoiceNo === invoiceNo);
             if (!invoice) return;
 
@@ -2453,8 +2566,10 @@
             // Highlight selected invoice
             document.querySelectorAll('#customerInvoicesList .history-item').forEach(item => {
                 item.style.backgroundColor = 'white';
+                item.style.borderLeftColor = 'var(--secondary)';
             });
-            event.currentTarget.style.backgroundColor = '#e1f5fe';
+            targetElement.style.backgroundColor = '#e1f5fe';
+            targetElement.style.borderLeftColor = 'var(--warning)';
         }
 
         function recordInvoicePayment() {
@@ -2476,9 +2591,13 @@
                 return;
             }
 
-            // Update invoice
-            selectedInvoiceForPayment.payment += paymentAmount;
-            selectedInvoiceForPayment.remainingBalance -= paymentAmount;
+            // Find the invoice in the main array and update it
+            const index = invoices.findIndex(inv => inv.invoiceNo === invoiceNo);
+            if (index > -1) {
+                invoices[index].payment += paymentAmount;
+                invoices[index].remainingBalance -= paymentAmount;
+            }
+
 
             // Add financial entry for income
             const financialEntry = {
@@ -2500,18 +2619,52 @@
             updateDashboard('monthly');
             addRecentActivity(`Recorded Rs. ${paymentAmount.toFixed(2)} payment for invoice ${invoiceNo}`, 'invoice');
 
-            // Clear payment section
+            // Clear payment section and reload customer invoices
+            const customerName = document.getElementById('paymentCustomerSearch').value;
             document.getElementById('invoicePaymentInput').style.display = 'none';
-            document.getElementById('paymentCustomerSearch').value = '';
-            document.getElementById('customerInvoicesList').innerHTML = '';
             selectedInvoiceForPayment = null;
+            loadCustomerInvoices(customerName);
             
             showNotification(`Payment of Rs. ${paymentAmount.toFixed(2)} recorded for invoice ${invoiceNo}!`, 'success');
         }
 
-        function setupItemAutocomplete() {
-            // Placeholder for future item autocomplete on invoice system
+        // Loads a list of all invoices for the previousInvoicesSection tab
+        function loadPreviousInvoices() {
+            const container = document.getElementById('previousInvoicesList');
+            container.innerHTML = '<h4>All Invoices</h4>';
+
+            if (invoices.length === 0) {
+                container.innerHTML += '<p>No invoices found.</p>';
+                return;
+            }
+
+            invoices.sort((a, b) => b.id - a.id).forEach(invoice => {
+                const isPaid = invoice.remainingBalance <= 0;
+                const balanceClass = isPaid ? 'var(--success)' : 'var(--danger)';
+                const balanceText = isPaid ? 'Paid' : `Rs. ${invoice.remainingBalance.toFixed(2)} Due`;
+
+                const item = document.createElement('div');
+                item.className = 'history-item';
+
+                item.innerHTML = `
+                    <div class="history-header">
+                        <span>${invoice.invoiceNo} - ${invoice.customerName}</span>
+                        <span>Total: Rs. ${invoice.total.toFixed(2)}</span>
+                    </div>
+                    <div class="history-details">
+                        <div>Date: ${new Date(invoice.date).toLocaleDateString()}</div>
+                        <div>Balance: <strong style="color: ${balanceClass};">${balanceText}</strong></div>
+                        <div class="actions" style="margin: 10px 0 0 0;">
+                            <button class="btn btn-secondary btn-sm" onclick="printInvoice('${invoice.invoiceNo}')">
+                                <i class="fas fa-print"></i> Print
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
         }
+
 
         function addInvoiceItem() {
             const tableBody = document.getElementById('itemsTableBody');
@@ -2519,8 +2672,9 @@
             
             newRow.innerHTML = `
                 <td>
-                    <div style="position: relative;">
-                        <input type="text" class="item-name" placeholder="Enter item description" autocomplete="off" list="invoiceItemList">
+                    <div class="invoice-item-suggestion-container">
+                        <input type="text" class="item-name" placeholder="Enter item description" autocomplete="off" oninput="showItemSuggestions(this)">
+                        <div class="item-suggestions" style="display: none;"></div>
                     </div>
                 </td>
                 <td><input type="number" class="item-rate" value="0" min="0" step="0.01" oninput="calculateTotal()"></td>
@@ -2753,16 +2907,21 @@
                     date: invoiceDate,
                     items,
                     subtotal,
+                    taxAmount: total - subtotal,
                     total,
                     remainingBalance
                 };
             }
 
+            // Temporarily replace invoice item table content for printing
+            const originalTableBody = document.getElementById('itemsTableBody').innerHTML;
+            const originalTotalsSection = document.querySelector('#newInvoiceSection .totals-section').innerHTML;
+
             // Populate header info
             const headerInfo = document.getElementById('invoiceHeaderInfo');
             headerInfo.style.display = 'block';
             headerInfo.innerHTML = `
-                <h2>Invoice / Quote</h2>
+                <h2 style="text-align: center; margin-bottom: 20px;">Invoice / Quote</h2>
                 <div>
                     <strong>Invoice No:</strong> <span>${invoiceToPrint.invoiceNo}</span>
                 </div>
@@ -2778,19 +2937,23 @@
             `;
 
             // Populate items table
-            const tableBody = document.getElementById('itemsTableBody');
-            tableBody.innerHTML = '';
+            let printTableBody = '';
             invoiceToPrint.items.forEach(item => {
-                tableBody.innerHTML += `
+                printTableBody += `
                     <tr>
                         <td>${item.name}</td>
                         <td>${item.rate.toFixed(2)}</td>
                         <td>${item.quantity}</td>
                         <td>${item.designCharges.toFixed(2)}</td>
                         <td>${item.amount.toFixed(2)}</td>
-                        <td></td> </tr>
+                        <td style="display: none;"></td>
+                    </tr>
                 `;
             });
+            document.getElementById('itemsTableBody').innerHTML = printTableBody;
+            document.querySelector('.items-table th:last-child').style.display = 'none'; // Hide Action header
+            document.querySelectorAll('.items-table td:last-child').forEach(td => td.style.display = 'none'); // Hide Action button column
+
 
             // Populate totals section (Simplified for print)
             const totalsSection = document.querySelector('#newInvoiceSection .totals-section');
@@ -2809,53 +2972,27 @@
                 </div>
                 <div class="total-row">
                     <span><strong>Remaining Balance:</strong></span>
-                    <span><strong>Rs. ${invoiceToPrint.remainingBalance.toFixed(2)}</strong></span>
+                    <span><strong style="color: var(--danger);">Rs. ${invoiceToPrint.remainingBalance.toFixed(2)}</strong></span>
                 </div>
             `;
 
             // Trigger print
             window.print();
 
-            // Restore UI state after print (hide header, re-populate form if needed)
+            // Restore UI state after print
             headerInfo.style.display = 'none';
-            // Note: Since the Invoice view uses a single .section-panel with all contents, 
-            // the `@media print` CSS rules will handle hiding the non-invoice parts,
-            // so we don't need extensive post-print restoration logic here, but we should restore the input form for a new invoice.
-            clearInvoice();
-            updateInvoiceNo();
-            totalsSection.innerHTML = `
-                <h3 class="section-title"><i class="fas fa-calculator"></i> Invoice Totals</h3>
-                
-                <div class="total-row">
-                    <span>Subtotal:</span>
-                    <span>Rs. <span id="subtotalAmount">0.00</span></span>
-                </div>
-                
-                <div class="form-group">
-                    <label for="taxRate">Tax Rate (%):</label>
-                    <input type="number" id="taxRate" value="0" min="0" max="100" step="0.1" oninput="calculateTotal()">
-                </div>
-                
-                <div class="total-row">
-                    <span><strong>Total Amount:</strong></span>
-                    <span><strong>Rs. <span id="totalAmount">0.00</span></strong></span>
-                </div>
-                
-                <div class="form-group">
-                    <label for="previousBalance">Previous Balance (Rs.):</label>
-                    <input type="number" id="previousBalance" value="0" min="0" step="0.01" oninput="calculateTotal()">
-                </div>
-                
-                <div class="form-group">
-                    <label for="payment">Payment Received (Rs.):</label>
-                    <input type="number" id="payment" value="0" min="0" step="0.01" oninput="calculateTotal()">
-                </div>
-                
-                <div class="total-row">
-                    <span><strong>Remaining Balance:</strong></span>
-                    <span><strong>Rs. <span id="remainingBalance">0.00</span></strong></span>
-                </div>
-            `;
+            document.getElementById('itemsTableBody').innerHTML = originalTableBody;
+            totalsSection.innerHTML = originalTotalsSection;
+            document.querySelector('.items-table th:last-child').style.display = 'table-cell'; // Show Action header
+
+            // Re-attach event listeners for the restored items table
+            document.querySelectorAll('#itemsTableBody input.item-rate, #itemsTableBody input.item-quantity, #itemsTableBody input.item-design-charges').forEach(input => {
+                input.oninput = calculateTotal;
+            });
+            document.querySelectorAll('#itemsTableBody input.item-name').forEach(input => {
+                input.oninput = function() { showItemSuggestions(this); };
+            });
+            calculateTotal(); // Recalculate based on restored inputs
         }
 
 
@@ -2878,12 +3015,11 @@
             document.getElementById(tabId).classList.add('active');
             tabElement.classList.add('active');
             
-            // Update dashboard if switching to it
+            // Specific updates
             if (tabId === 'dashboard') {
                 updateFinancialDashboard();
             }
             
-            // Update payables list if switching to it
             if (tabId === 'managePayables') {
                 updatePayablesList();
             }
@@ -3106,7 +3242,9 @@
 
                 const monthPayables = payables.filter(p => {
                     const dueDate = new Date(p.dueDate);
-                    return dueDate.getFullYear() === currentYear && dueDate.getMonth() === currentMonth;
+                    // Filter payables that are due this month or were due previously and are still pending
+                    return (dueDate.getFullYear() === currentYear && dueDate.getMonth() === currentMonth) || 
+                           (dueDate < now && p.remainingAmount > 0);
                 });
                 
                 const totalPayableAmount = monthPayables.reduce((sum, p) => sum + p.amount, 0);
@@ -3202,7 +3340,7 @@
         }
 
 
-        // --- Admin Panel Functions (Preserved/Minorly Modified) ---
+        // --- Admin Panel Functions (Fixed Login) ---
 
         function adminLogin() {
             const username = document.getElementById('adminUsername').value;
@@ -3211,15 +3349,13 @@
             // Simple authentication (in a real app, this would be more secure)
             if (username === 'admin' && password === 'admin123') {
                 isAdmin = true;
+                // Update visibility for current view
                 document.getElementById('adminLoginSection').style.display = 'none';
                 document.getElementById('adminPanel').style.display = 'block';
-                document.getElementById('adminNavBtn').style.display = 'inline-flex'; // Show nav button
                 showNotification('Admin login successful!', 'success');
                 
                 // Load admin data
                 loadAdminData();
-                // Switch to the admin view
-                switchView('adminView', document.getElementById('adminNavBtn'));
             } else {
                 showNotification('Invalid username or password.', 'error');
             }
@@ -3280,7 +3416,7 @@
                 itemCategorySelect.appendChild(option);
             }
             
-            itemCategorySelect.addEventListener('change', function() {
+            itemCategorySelect.onchange = function() {
                 const category = this.value;
                 itemSubcategorySelect.innerHTML = '<option value="">Select Subcategory</option>';
                 
@@ -3292,7 +3428,9 @@
                         itemSubcategorySelect.appendChild(option);
                     }
                 }
-            });
+            };
+            // Trigger change event to load subcategories if a category is already selected (e.g., during edit)
+            itemCategorySelect.dispatchEvent(new Event('change'));
         }
 
         function addTierRow() {
@@ -3360,6 +3498,7 @@
             saveData();
             
             // Update UI
+            updateUniqueItems(); // Refresh unique items for invoice autosuggest
             updateMainCategoryDropdown();
             loadItemsList();
             clearItemForm();
@@ -3429,8 +3568,6 @@
             const item = categories[category][subcategory][itemName];
             
             document.getElementById('itemCategory').value = category;
-            // The itemSubcategory dropdown won't be populated automatically here, 
-            // so we manually populate it or trigger the change event on itemCategory
             document.getElementById('itemCategory').dispatchEvent(new Event('change'));
             document.getElementById('itemSubcategory').value = subcategory;
             document.getElementById('itemNameAdmin').value = itemName;
@@ -3478,6 +3615,7 @@
                 }
                 
                 saveData();
+                updateUniqueItems(); // Refresh unique items for invoice autosuggest
                 updateMainCategoryDropdown();
                 loadItemsList();
                 
@@ -3549,6 +3687,7 @@
             if (confirm(`Are you sure you want to delete the category "${category}" and all its subcategories and items?`)) {
                 delete categories[category];
                 saveData();
+                updateUniqueItems(); // Refresh unique items for invoice autosuggest
                 updateMainCategoryDropdown();
                 loadCategoriesList();
                 
@@ -3749,6 +3888,7 @@
                     saveData();
                     
                     // Update UI
+                    updateUniqueItems();
                     updateMainCategoryDropdown();
                     updateRecentActivity();
                     updateDashboard('daily');
