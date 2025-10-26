@@ -63,7 +63,38 @@
             position: relative;
             overflow: hidden;
         }
-        
+        /* Autocomplete Styling */
+.autocomplete-container {
+    position: relative;
+    flex: 2;
+}
+
+.autocomplete-suggestions {
+    position: absolute;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: none;
+}
+
+.autocomplete-suggestion {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.autocomplete-suggestion:hover {
+    background: #f5f5f5;
+}
+
+.autocomplete-suggestion:last-child {
+    border-bottom: none;
+}
         .container::before {
             content: '';
             position: absolute;
@@ -1003,10 +1034,10 @@
                     <h3><i class="fas fa-plus-circle"></i> Create New Invoice</h3>
                     <div class="form-group">
                         <label for="invoiceCustomerName"><i class="fas fa-user"></i> Customer Name:</label>
-                        <div class="suggestion-container">
-                            <input type="text" id="invoiceCustomerName" placeholder="Start typing customer name..." autocomplete="off">
-                            <div id="customerSuggestions" class="customer-suggestions" style="display: none;"></div>
-                        </div>
+                        <div class="autocomplete-container">
+    <input type="text" id="invoiceCustomerName" placeholder="Start typing customer name..." autocomplete="off">
+    <div id="customerSuggestions" class="autocomplete-suggestions"></div>
+</div>
                     </div>
                     
                     <div class="form-group">
@@ -1039,9 +1070,11 @@
                         <tbody id="itemsTableBody">
                             <tr>
                                 <td>
-                                    <div style="position: relative;">
-                                        <input type="text" class="item-name" placeholder="Enter item description" autocomplete="off" list="invoiceItemList">
-                                    </div>
+    <div class="autocomplete-container">
+        <input type="text" class="item-name" placeholder="Enter item description" autocomplete="off">
+        <div class="autocomplete-suggestions"></div>
+    </div>
+</td>
                                 </td>
                                 <td><input type="number" class="item-rate" value="0" min="0" step="0.01" oninput="calculateTotal()"></td>
                                 <td><input type="number" class="item-quantity" value="1" min="1" oninput="calculateTotal()"></td>
@@ -1710,37 +1743,40 @@
 
         // Initialize the application
         document.addEventListener('DOMContentLoaded', async function() {
-            try {
-                await msalInstance.initialize();
-                initializeApp();
-                loadData();
-                updateDashboard('daily');
-                updateDashboard('monthly');
-                updateFinancialDashboard();
-                updateInventoryDashboard();
-                
-                // Set today's date as default for invoice date
-                const today = new Date().toISOString().split('T')[0];
-                document.getElementById('invoiceDate').value = today;
-                document.getElementById('entryDate').value = today;
-                document.getElementById('poDate').value = today;
-                
-                // Load settings
-                loadSettings();
-                
-                // Check if user is already logged in
-                await checkLoginStatus();
-                
-                // Auto-sync on startup if enabled
-                if (autoSyncEnabled && isLoggedIn) {
-                    setTimeout(() => {
-                        autoSyncFromCloud();
-                    }, 2000);
-                }
-            } catch (error) {
-                console.error('App initialization failed:', error);
-            }
-        });
+    try {
+        await msalInstance.initialize();
+        initializeApp();
+        loadData();
+        updateDashboard('daily');
+        updateDashboard('monthly');
+        updateFinancialDashboard();
+        updateInventoryDashboard();
+        
+        // Set today's date as default for invoice date
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('invoiceDate').value = today;
+        document.getElementById('entryDate').value = today;
+        document.getElementById('poDate').value = today;
+        
+        // Load settings
+        loadSettings();
+        
+        // Check if user is already logged in
+        await checkLoginStatus();
+        
+        // ADD THIS LINE:
+        initializeAutocomplete(); // Initialize autocomplete functionality
+        
+        // Auto-sync on startup if enabled
+        if (autoSyncEnabled && isLoggedIn) {
+            setTimeout(() => {
+                autoSyncFromCloud();
+            }, 2000);
+        }
+    } catch (error) {
+        console.error('App initialization failed:', error);
+    }
+});
 
         // SPA View Switching Function
         function switchView(viewId, navButton) {
@@ -4651,6 +4687,113 @@
             
             reader.readAsText(file);
         }
+        // Initialize autocomplete for all input fields
+function initializeAutocomplete() {
+    // Customer name autocomplete
+    const customerInput = document.getElementById('invoiceCustomerName');
+    if (customerInput) {
+        customerInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            const suggestions = document.getElementById('customerSuggestions');
+            
+            suggestions.innerHTML = '';
+            
+            if (query.length < 2) {
+                suggestions.style.display = 'none';
+                return;
+            }
+            
+            // Filter customers based on query
+            const filteredCustomers = customers.filter(customer => 
+                customer.name.toLowerCase().includes(query)
+            );
+            
+            if (filteredCustomers.length === 0) {
+                suggestions.style.display = 'none';
+                return;
+            }
+            
+            // Create suggestion items
+            filteredCustomers.forEach(customer => {
+                const div = document.createElement('div');
+                div.className = 'autocomplete-suggestion';
+                div.textContent = customer.name;
+                div.addEventListener('click', function() {
+                    customerInput.value = customer.name;
+                    document.getElementById('invoiceCustomerPhone').value = customer.phone || '';
+                    suggestions.style.display = 'none';
+                });
+                suggestions.appendChild(div);
+            });
+            
+            suggestions.style.display = 'block';
+        });
+        
+        // Hide suggestions when clicking outside
+        document.addEventListener('click', function(e) {
+            if (e.target !== customerInput) {
+                document.getElementById('customerSuggestions').style.display = 'none';
+            }
+        });
+    }
+    
+    // Item name autocomplete for invoice items
+    document.addEventListener('input', function(e) {
+        if (e.target.classList.contains('item-name')) {
+            const query = e.target.value.toLowerCase();
+            const suggestions = e.target.parentNode.querySelector('.autocomplete-suggestions');
+            
+            suggestions.innerHTML = '';
+            
+            if (query.length < 2) {
+                suggestions.style.display = 'none';
+                return;
+            }
+            
+            // Get all item names from categories
+            let allItems = [];
+            for (const category in categories) {
+                for (const subcategory in categories[category]) {
+                    for (const itemName in categories[category][subcategory]) {
+                        allItems.push(itemName);
+                    }
+                }
+            }
+            
+            // Filter items based on query
+            const filteredItems = allItems.filter(item => 
+                item.toLowerCase().includes(query)
+            );
+            
+            if (filteredItems.length === 0) {
+                suggestions.style.display = 'none';
+                return;
+            }
+            
+            // Create suggestion items
+            filteredItems.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'autocomplete-suggestion';
+                div.textContent = item;
+                div.addEventListener('click', function() {
+                    e.target.value = item;
+                    suggestions.style.display = 'none';
+                });
+                suggestions.appendChild(div);
+            });
+            
+            suggestions.style.display = 'block';
+        }
+    });
+    
+    // Add autocomplete to all text inputs
+    const textInputs = document.querySelectorAll('input[type="text"], input[type="tel"], input[type="email"], textarea');
+    textInputs.forEach(input => {
+        if (!input.hasAttribute('autocomplete')) {
+            input.setAttribute('autocomplete', 'on');
+        }
+    });
+}
 
         function resetData() {
             if (confirm('Are you sure you want to reset all data? This action cannot be undone.')) {
