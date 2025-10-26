@@ -892,6 +892,9 @@
                 border-bottom: 1px solid #ccc;
             }
         }
+        admin-panel.active {
+    display: block !important;
+}
 
         /* Responsive Adjustments */
         @media (max-width: 1024px) {
@@ -951,9 +954,9 @@
             <button class="nav-btn" data-view="inventoryView" onclick="switchView('inventoryView', this)">
                 <i class="fas fa-boxes"></i> Inventory & Suppliers
             </button>
-            <button class="nav-btn" data-view="adminView" onclick="switchView('adminView', this)" id="adminNavBtn" style="display: none;">
-                <i class="fas fa-cogs"></i> Admin Panel
-            </button>
+            <button class="nav-btn" data-view="adminView" onclick="switchView('adminView', this)" id="adminNavBtn">
+    <i class="fas fa-cogs"></i> Admin Panel
+</button>
         </nav>
 
         <div id="calculatorView" class="app-view active">
@@ -1491,8 +1494,11 @@
                     </div>
                 </div>
                 
-                <div class="admin-panel" id="adminPanel">
-                    <div class="tabs">
+               <div class="admin-panel" id="adminPanel">
+    <div style="text-align: right; margin-bottom: 20px;">
+        <button class="btn btn-danger btn-sm" onclick="adminLogout()">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
                         <div class="tab active" onclick="switchAdminTab(this, 'manageItems')">Manage Items</div>
                         <div class="tab" onclick="switchAdminTab(this, 'manageCategories')">Manage Categories</div>
                         <div class="tab" onclick="switchAdminTab(this, 'manageCustomers')">Manage Customers</div>
@@ -1501,6 +1507,9 @@
                         <div class="tab" onclick="switchAdminTab(this, 'recentActivity')">Recent Activity</div>
                         <div class="tab" onclick="switchAdminTab(this, 'dataBackup')">Data Backup</div>
                     </div>
+
+
+
                     
                     <div id="manageItems" class="tab-content active">
                         <div class="admin-section">
@@ -1780,42 +1789,46 @@
 
         // SPA View Switching Function
         function switchView(viewId, navButton) {
-            document.querySelectorAll('.app-view').forEach(view => {
-                view.classList.remove('active');
-            });
-            document.getElementById(viewId).classList.add('active');
+    // Check if trying to access admin view without permission
+    if (viewId === 'adminView' && !isAdmin) {
+        showNotification('Please login to access admin panel.', 'warning');
+        return;
+    }
+    
+    document.querySelectorAll('.app-view').forEach(view => {
+        view.classList.remove('active');
+    });
+    document.getElementById(viewId).classList.add('active');
 
-            document.querySelectorAll('.main-nav .nav-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            navButton.classList.add('active');
+    document.querySelectorAll('.main-nav .nav-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    navButton.classList.add('active');
 
-            // Specific updates when switching views
-            if (viewId === 'calculatorView') {
-                updateDashboard('daily');
-                updateDashboard('monthly');
-            } else if (viewId === 'invoiceView') {
-                updateInvoiceNo();
-                // Ensure customer payment section is clean
-                document.getElementById('customerInvoicesList').innerHTML = '';
-                document.getElementById('paymentCustomerSearch').value = '';
-                document.getElementById('invoicePaymentInput').style.display = 'none';
-                selectedInvoiceForPayment = null;
-            } else if (viewId === 'financialView') {
-                updateFinancialDashboard();
-                updatePaymentPayableSelect();
-            } else if (viewId === 'inventoryView') {
-                updateInventoryDashboard();
-                loadInventoryItemsList();
-                loadSuppliersList();
-                loadPurchaseOrdersList();
-                populatePOSupplierSelect();
-                populatePOItemSelect();
-            } else if (viewId === 'adminView' && isAdmin) {
-                loadAdminData();
-            }
-        }
-
+    // Specific updates when switching views
+    if (viewId === 'calculatorView') {
+        updateDashboard('daily');
+        updateDashboard('monthly');
+    } else if (viewId === 'invoiceView') {
+        updateInvoiceNo();
+        document.getElementById('customerInvoicesList').innerHTML = '';
+        document.getElementById('paymentCustomerSearch').value = '';
+        document.getElementById('invoicePaymentInput').style.display = 'none';
+        selectedInvoiceForPayment = null;
+    } else if (viewId === 'financialView') {
+        updateFinancialDashboard();
+        updatePaymentPayableSelect();
+    } else if (viewId === 'inventoryView') {
+        updateInventoryDashboard();
+        loadInventoryItemsList();
+        loadSuppliersList();
+        loadPurchaseOrdersList();
+        populatePOSupplierSelect();
+        populatePOItemSelect();
+    } else if (viewId === 'adminView' && isAdmin) {
+        loadAdminData();
+    }
+}
         // Initialize the application
         function initializeApp() {
             // Initialize categories if not present
@@ -4071,25 +4084,42 @@
         // --- Admin Panel Functions ---
 
         function adminLogin() {
-            const username = document.getElementById('adminUsername').value;
-            const password = document.getElementById('adminPassword').value;
-            
-            // Simple authentication (in a real app, this would be more secure)
-            if (username === 'admin' && password === 'admin123') {
-                isAdmin = true;
-                document.getElementById('adminLoginSection').style.display = 'none';
-                document.getElementById('adminPanel').style.display = 'block';
-                document.getElementById('adminNavBtn').style.display = 'inline-flex'; // Show nav button
-                showNotification('Admin login successful!', 'success');
-                
-                // Load admin data
-                loadAdminData();
-                // Switch to the admin view
-                switchView('adminView', document.getElementById('adminNavBtn'));
-            } else {
-                showNotification('Invalid username or password.', 'error');
-            }
-        }
+    const username = document.getElementById('adminUsername').value;
+    const password = document.getElementById('adminPassword').value;
+    
+    // Simple authentication (in a real app, use more secure methods)
+    const validCredentials = [
+        { username: 'admin', password: 'admin123' },
+        { username: 'arham', password: 'printers123' },
+        { username: 'manager', password: 'manager123' }
+    ];
+    
+    const isValid = validCredentials.some(cred => 
+        cred.username === username && cred.password === password
+    );
+    
+    if (isValid) {
+        isAdmin = true;
+        document.getElementById('adminLoginSection').style.display = 'none';
+        document.getElementById('adminPanel').style.display = 'block';
+        document.getElementById('adminNavBtn').style.display = 'inline-flex';
+        
+        // Load admin data
+        loadAdminData();
+        
+        showNotification('Admin login successful! Welcome, ' + username, 'success');
+        
+        // Auto-switch to admin view after login
+        setTimeout(() => {
+            switchView('adminView', document.querySelector('[data-view="adminView"]'));
+        }, 500);
+        
+    } else {
+        showNotification('Invalid username or password.', 'error');
+        // Clear password field
+        document.getElementById('adminPassword').value = '';
+    }
+}
 
         function switchAdminTab(tabElement, tabId) {
             // Hide all tab contents
@@ -4134,6 +4164,23 @@
             loadFinancialEntries();
             loadAdminRecentActivity();
         }
+        function adminLogout() {
+    if (confirm('Are you sure you want to logout from admin panel?')) {
+        isAdmin = false;
+        document.getElementById('adminLoginSection').style.display = 'block';
+        document.getElementById('adminPanel').style.display = 'none';
+        document.getElementById('adminNavBtn').style.display = 'none';
+        
+        // Clear login form
+        document.getElementById('adminUsername').value = '';
+        document.getElementById('adminPassword').value = '';
+        
+        // Switch to calculator view
+        switchView('calculatorView', document.querySelector('[data-view="calculatorView"]'));
+        
+        showNotification('Admin logout successful!', 'info');
+    }
+}
 
         function populateCategoryDropdowns() {
             const itemCategorySelect = document.getElementById('itemCategory');
