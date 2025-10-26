@@ -493,7 +493,7 @@
             font-size: 1.1em;
         }
 
-        .customer-suggestions, .item-suggestions {
+        .customer-suggestions {
             position: absolute;
             background: white;
             border: 1px solid #ddd;
@@ -504,6 +504,19 @@
             width: 100%;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
+        .item-suggestions {
+    position: absolute;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    top: 100%;
+    left: 0;
+}
 
         .customer-suggestion {
             padding: 10px;
@@ -1885,16 +1898,45 @@
             
             // Populate main category dropdown
             updateMainCategoryDropdown();
-            
-            // Set up customer name autocomplete
-            setupCustomerAutocomplete();
-
-            // Set up payment customer search autocomplete
-            setupPaymentCustomerSearch();
-            
-            // Set up item autocomplete for invoice
-            setupItemAutocomplete();
-        }
+             setupCustomerAutocomplete();
+    setupPaymentCustomerSearch();
+    setupItemAutocomplete(); // Add this line
+    setupExpenseDescriptionAutocomplete();
+          function setupExpenseDescriptionAutocomplete() {
+    const expenseInput = document.getElementById('entryDescription');
+    if (!expenseInput) return;
+    
+    // Create datalist for common expense descriptions
+    const datalist = document.createElement('datalist');
+    datalist.id = 'expenseDescriptionList';
+    
+    const commonDescriptions = [
+        'Monthly shop rent',
+        'Electricity bill',
+        'Water bill',
+        'Internet bill',
+        'Employee salary',
+        'Raw material purchase',
+        'Transportation cost',
+        'Maintenance',
+        'Office supplies',
+        'Marketing expenses',
+        'Tax payment',
+        'Insurance premium',
+        'Loan repayment',
+        'Equipment purchase',
+        'Software subscription'
+    ];
+    
+    commonDescriptions.forEach(desc => {
+        const option = document.createElement('option');
+        option.value = desc;
+        datalist.appendChild(option);
+    });
+    
+    document.body.appendChild(datalist);
+    expenseInput.setAttribute('list', 'expenseDescriptionList');
+}
 
         // Load data from localStorage
         function loadData() {
@@ -2217,6 +2259,82 @@
             syncStatus.innerHTML = `<i class="fas fa-cloud"></i> ${message}`;
             syncStatus.className = `sync-status sync-${status}`;
         }
+        function setupItemAutocomplete() {
+    const itemNameInputs = document.querySelectorAll('.item-name');
+    
+    itemNameInputs.forEach(input => {
+        input.addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            const suggestionsContainer = this.parentNode.querySelector('.item-suggestions') || 
+                                       createItemSuggestionsContainer(this.parentNode);
+            
+            suggestionsContainer.innerHTML = '';
+            
+            if (query.length < 2) {
+                suggestionsContainer.style.display = 'none';
+                return;
+            }
+            
+            const matches = [];
+            
+            // Search through all categories for matching items
+            for (const category in categories) {
+                for (const subcategory in categories[category]) {
+                    for (const itemName in categories[category][subcategory]) {
+                        if (itemName.toLowerCase().includes(query)) {
+                            matches.push({
+                                name: itemName,
+                                category: category,
+                                subcategory: subcategory,
+                                item: categories[category][subcategory][itemName]
+                            });
+                        }
+                    }
+                }
+            }
+            
+            if (matches.length > 0) {
+                matches.forEach(match => {
+                    const div = document.createElement('div');
+                    div.className = 'customer-suggestion';
+                    div.textContent = `${match.name} (${match.category} > ${match.subcategory})`;
+                    div.addEventListener('click', function() {
+                        input.value = match.name;
+                        
+                        // Auto-fill rate based on item
+                        const row = input.closest('tr');
+                        const rateInput = row.querySelector('.item-rate');
+                        rateInput.value = match.item.basePrice;
+                        
+                        suggestionsContainer.style.display = 'none';
+                        calculateTotal(); // Recalculate if this is in invoice
+                    });
+                    suggestionsContainer.appendChild(div);
+                });
+                suggestionsContainer.style.display = 'block';
+            } else {
+                suggestionsContainer.style.display = 'none';
+            }
+        });
+    });
+    
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.classList.contains('item-name')) {
+            document.querySelectorAll('.item-suggestions').forEach(container => {
+                container.style.display = 'none';
+            });
+        }
+    });
+}
+
+function createItemSuggestionsContainer(parent) {
+    const container = document.createElement('div');
+    container.className = 'item-suggestions';
+    container.style.display = 'none';
+    parent.appendChild(container);
+    return container;
+}
 
         // Calculate price based on selected item and quantity
         function calculatePrice() {
@@ -2557,40 +2675,61 @@
         // --- Invoice System Functions (Enhanced) ---
 
         function setupCustomerAutocomplete() {
-            const customerNameInput = document.getElementById('invoiceCustomerName');
-            const customerSuggestions = document.getElementById('customerSuggestions');
-            
-            customerNameInput.addEventListener('input', function() {
-                const query = this.value.toLowerCase();
-                customerSuggestions.innerHTML = '';
-                
-                if (query.length < 2) {
+    const customerNameInput = document.getElementById('invoiceCustomerName');
+    const customerSuggestions = document.getElementById('customerSuggestions');
+    
+    customerNameInput.addEventListener('input', function() {
+        const query = this.value.toLowerCase();
+        customerSuggestions.innerHTML = '';
+        
+        if (query.length < 2) {
+            customerSuggestions.style.display = 'none';
+            return;
+        }
+        
+        const matches = customers.filter(customer => 
+            customer.name.toLowerCase().includes(query)
+        );
+        
+        if (matches.length > 0) {
+            matches.forEach(customer => {
+                const div = document.createElement('div');
+                div.className = 'customer-suggestion';
+                div.textContent = customer.name;
+                div.addEventListener('click', function() {
+                    customerNameInput.value = customer.name;
+                    document.getElementById('invoiceCustomerPhone').value = customer.phone || '';
                     customerSuggestions.style.display = 'none';
-                    return;
-                }
-                
-                const matches = customers.filter(customer => 
-                    customer.name.toLowerCase().includes(query)
-                );
-                
-                if (matches.length > 0) {
-                    matches.forEach(customer => {
-                        const div = document.createElement('div');
-                        div.className = 'customer-suggestion';
-                        div.textContent = customer.name;
-                        div.addEventListener('click', function() {
-                            customerNameInput.value = customer.name;
-                            document.getElementById('invoiceCustomerPhone').value = customer.phone || '';
-                            customerSuggestions.style.display = 'none';
-                        });
-                        customerSuggestions.appendChild(div);
-                    });
-                    customerSuggestions.style.display = 'block';
-                } else {
-                    customerSuggestions.style.display = 'none';
-                }
+                });
+                customerSuggestions.appendChild(div);
             });
-            
+            customerSuggestions.style.display = 'block';
+        } else {
+            customerSuggestions.style.display = 'none';
+        }
+    });
+    
+    // Create datalist for customer phones
+    const phoneDatalist = document.createElement('datalist');
+    phoneDatalist.id = 'customerPhoneList';
+    
+    customers.forEach(customer => {
+        if (customer.phone) {
+            const option = document.createElement('option');
+            option.value = customer.phone;
+            phoneDatalist.appendChild(option);
+        }
+    });
+    
+    document.body.appendChild(phoneDatalist);
+    
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+        if (e.target !== customerNameInput) {
+            customerSuggestions.style.display = 'none';
+        }
+    });
+}
             // Hide suggestions when clicking outside
             document.addEventListener('click', function(e) {
                 if (e.target !== customerNameInput) {
@@ -2749,25 +2888,29 @@
         }
 
         function addInvoiceItem() {
-            const tableBody = document.getElementById('itemsTableBody');
-            const newRow = document.createElement('tr');
-            
-            newRow.innerHTML = `
-                <td>
-                    <div style="position: relative;">
-                        <input type="text" class="item-name" placeholder="Enter item description" autocomplete="off" list="invoiceItemList">
-                    </div>
-                </td>
-                <td><input type="number" class="item-rate" value="0" min="0" step="0.01" oninput="calculateTotal()"></td>
-                <td><input type="number" class="item-quantity" value="1" min="1" oninput="calculateTotal()"></td>
-                <td><input type="number" class="item-design-charges" value="0" min="0" step="0.01" oninput="calculateTotal()"></td>
-                <td><input type="number" class="item-amount" value="0" readonly></td>
-                <td><button type="button" class="btn btn-danger btn-sm" onclick="removeInvoiceItem(this)"><i class="fas fa-trash"></i></button></td>
-            `;
-            
-            tableBody.appendChild(newRow);
-            calculateTotal();
-        }
+    const tableBody = document.getElementById('itemsTableBody');
+    const newRow = document.createElement('tr');
+    
+    newRow.innerHTML = `
+        <td>
+            <div style="position: relative;">
+                <input type="text" class="item-name" placeholder="Enter item description" autocomplete="off">
+                <div class="item-suggestions" style="display: none;"></div>
+            </div>
+        </td>
+        <td><input type="number" class="item-rate" value="0" min="0" step="0.01" oninput="calculateTotal()"></td>
+        <td><input type="number" class="item-quantity" value="1" min="1" oninput="calculateTotal()"></td>
+        <td><input type="number" class="item-design-charges" value="0" min="0" step="0.01" oninput="calculateTotal()"></td>
+        <td><input type="number" class="item-amount" value="0" readonly></td>
+        <td><button type="button" class="btn btn-danger btn-sm" onclick="removeInvoiceItem(this)"><i class="fas fa-trash"></i></button></td>
+    `;
+    
+    tableBody.appendChild(newRow);
+    
+    // Re-initialize autocomplete for the new input
+    setupItemAutocomplete();
+    calculateTotal();
+}
 
         function removeInvoiceItem(button) {
             const row = button.closest('tr');
