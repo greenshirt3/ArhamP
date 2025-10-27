@@ -892,8 +892,16 @@
                 border-bottom: 1px solid #ccc;
             }
         }
-        admin-panel.active {
+      .admin-panel.active {
     display: block !important;
+}
+
+#adminNavBtn {
+    display: none;
+}
+
+#adminNavBtn.active {
+    display: inline-flex;
 }
 
         /* Responsive Adjustments */
@@ -1729,6 +1737,29 @@
         let selectedInvoiceForPayment = null;
         let selectedSupplierForPayment = null;
         
+                // Add this function to make calculator items accessible in inventory
+        function getAllCalculatorItems() {
+            let allItems = [];
+            for (const category in categories) {
+                for (const subcategory in categories[category]) {
+                    for (const itemName in categories[category][subcategory]) {
+                        const item = categories[category][subcategory][itemName];
+                        allItems.push({
+                            name: itemName,
+                            category: category,
+                            subcategory: subcategory,
+                            basePrice: item.basePrice,
+                            unit: item.unit,
+                            priceTiers: item.priceTiers || []
+                        });
+                    }
+                }
+            }
+            return allItems;
+        }
+
+        // Enhanced autocomplete for inventory items
+        
         // Updated MSAL Configuration for OneDrive
         const msalConfig = {
             auth: {
@@ -1750,8 +1781,72 @@
         let isLoggedIn = false;
         let userName = "";
 
+        function setupInventoryAutocomplete() {
+            const inventoryItemInput = document.getElementById('inventoryItemName');
+            if (!inventoryItemInput) return;
+            
+            // Create suggestions container if it doesn't exist
+            let suggestionsContainer = inventoryItemInput.parentNode.querySelector('.autocomplete-suggestions');
+            if (!suggestionsContainer) {
+                suggestionsContainer = document.createElement('div');
+                suggestionsContainer.className = 'autocomplete-suggestions';
+                inventoryItemInput.parentNode.appendChild(suggestionsContainer);
+            }
+            
+            inventoryItemInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase();
+                suggestionsContainer.innerHTML = '';
+                
+                if (query.length < 2) {
+                    suggestionsContainer.style.display = 'none';
+                    return;
+                }
+                
+                // Get items from calculator AND inventory
+                const calculatorItems = getAllCalculatorItems();
+                const inventoryItemNames = inventoryItems.map(item => item.name.toLowerCase());
+                
+                // Combine and filter unique items
+                const allItems = calculatorItems.filter(item => 
+                    item.name.toLowerCase().includes(query) && 
+                    !inventoryItemNames.includes(item.name.toLowerCase())
+                );
+                
+                if (allItems.length === 0) {
+                    suggestionsContainer.style.display = 'none';
+                    return;
+                }
+                
+                // Create suggestion items
+                allItems.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'autocomplete-suggestion';
+                    div.innerHTML = `
+                        <strong>${item.name}</strong><br>
+                        <small>${item.category} > ${item.subcategory} | Rs. ${item.basePrice} per ${item.unit}</small>
+                    `;
+                    div.addEventListener('click', function() {
+                        inventoryItemInput.value = item.name;
+                        document.getElementById('inventoryCategory').value = item.category;
+                        document.getElementById('inventoryCost').value = item.basePrice;
+                        suggestionsContainer.style.display = 'none';
+                    });
+                    suggestionsContainer.appendChild(div);
+                });
+                
+                suggestionsContainer.style.display = 'block';
+            });
+            
+            // Hide suggestions when clicking outside
+            document.addEventListener('click', function(e) {
+                if (e.target !== inventoryItemInput) {
+                    suggestionsContainer.style.display = 'none';
+                }
+            });
+        }
+
         // Initialize the application
-        document.addEventListener('DOMContentLoaded', async function() {
+                document.addEventListener('DOMContentLoaded', async function() {
     try {
         await msalInstance.initialize();
         initializeApp();
@@ -1773,8 +1868,11 @@
         // Check if user is already logged in
         await checkLoginStatus();
         
-        // ADD THIS LINE:
-        initializeAutocomplete(); // Initialize autocomplete functionality
+        // Initialize autocomplete functionality
+        initializeAutocomplete();
+        
+        // ADD THIS LINE: Initialize inventory autocomplete
+        setupInventoryAutocomplete();
         
         // Auto-sync on startup if enabled
         if (autoSyncEnabled && isLoggedIn) {
@@ -1785,7 +1883,7 @@
     } catch (error) {
         console.error('App initialization failed:', error);
     }
-});
+   });
 
         // SPA View Switching Function
         function switchView(viewId, navButton) {
@@ -3561,7 +3659,7 @@
 
         // --- Inventory & Supplier Management Functions ---
 
-        function switchInventoryTab(tabElement, tabId) {
+                function switchInventoryTab(tabElement, tabId) {
             // Hide all tab contents
             const tabContents = document.querySelectorAll('#inventoryView .tab-content');
             tabContents.forEach(content => {
@@ -3577,6 +3675,13 @@
             // Show selected tab content and mark tab as active
             document.getElementById(tabId).classList.add('active');
             tabElement.classList.add('active');
+            
+            // ADD THIS: Reinitialize autocomplete when switching to manage inventory tab
+            if (tabId === 'manageInventory') {
+                setTimeout(() => {
+                    setupInventoryAutocomplete();
+                }, 100);
+            }
         }
 
         function updateInventoryDashboard() {
@@ -4101,8 +4206,8 @@
     if (isValid) {
         isAdmin = true;
         document.getElementById('adminLoginSection').style.display = 'none';
-        document.getElementById('adminPanel').style.display = 'block';
-        document.getElementById('adminNavBtn').style.display = 'inline-flex';
+        document.getElementById('adminPanel').classList.add('active');
+        document.getElementById('adminNavBtn').classList.add('active');
         
         // Load admin data
         loadAdminData();
@@ -4168,7 +4273,7 @@
     if (confirm('Are you sure you want to logout from admin panel?')) {
         isAdmin = false;
         document.getElementById('adminLoginSection').style.display = 'block';
-        document.getElementById('adminPanel').style.display = 'none';
+        document.getElementById('adminPanel').classList.remove('active');
         document.getElementById('adminNavBtn').style.display = 'none';
         
         // Clear login form
