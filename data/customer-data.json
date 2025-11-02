@@ -1,0 +1,592 @@
+{
+  "categories": {
+    "Offset Paper Printing": {
+      "LetterPads": {
+        "LetterPad 68g A4 Single Color": {
+          "basePrice": 2400,
+          "unit": "10"
+        },
+        "LetterPad 68g A4/2 Single Color": {
+          "basePrice": 1200,
+          "unit": "10"
+        },
+        "LetterPad 80g A4 Single Color": {
+          "basePrice": 4000,
+          "unit": "10"
+        },
+        "LetterPad 80g A4/2 Single Color": {
+          "basePrice": 2000,
+          "unit": "10"
+        },
+        "LetterPad 80g A4, 4 Color": {
+          "basePrice": 5400,
+          "unit": "10"
+        },
+        "LetterPad 80g A4/2, 4 Color": {
+          "basePrice": 2700,
+          "unit": "10"
+        },
+        "LetterPad 100g A4, 4 Color": {
+          "basePrice": 6500,
+          "unit": "10"
+        }
+      },
+      "Bill Books": {
+        "Bill Books, A4/2,68g, Single Color": {
+          "basePrice": 2000,
+          "unit": "10"
+        },
+        "Bill Books, A4,68g, Single Color": {
+          "basePrice": 4000,
+          "unit": "10"
+        },
+        "Bill Books, A4/2,80g, Single Color": {
+          "basePrice": 3000,
+          "unit": "10"
+        },
+        "Bill Books, A4/2,80g, 4 Color": {
+          "basePrice": 3500,
+          "unit": "10"
+        },
+        "Bill Books, A4/2,Art Paper 90g, 4 Color": {
+          "basePrice": 3500,
+          "unit": "10"
+        },
+        "Bill Books, 9x11,80g, 4 Color": {
+          "basePrice": 6800,
+          "unit": "10"
+        },
+        "Bill Books, 7x10,80g, 4 Color": {
+          "basePrice": 6600,
+          "unit": "10"
+        },
+        "Bill Book Carbonless 8.5x5.75": {
+          "basePrice": 3200,
+          "unit": "10"
+        }
+      },
+      "Visiting Cards": {
+        "V Card Shine": {
+          "basePrice": 800,
+          "unit": "100"
+        },
+        "Mat Card Single": {
+          "basePrice": 900,
+          "unit": "100"
+        },
+        "Mat Card Double": {
+          "basePrice": 1500,
+          "unit": "100"
+        },
+        "Mat Card Single Round": {
+          "basePrice": 1000,
+          "unit": "100"
+        },
+        "Mat Card Double Round": {
+          "basePrice": 1600,
+          "unit": "100"
+        },
+        "UV Vard Single": {
+          "basePrice": 1500,
+          "unit": "100"
+        },
+        "UV Vard Double": {
+          "basePrice": 2000,
+          "unit": "100"
+        },
+        "UV Vard Pasting": {
+          "basePrice": 3500,
+          "unit": "100"
+        }
+      },
+      "Ishtihars": {
+        "Ishtihar 68g A4/2, Single Color": {
+          "basePrice": 1200,
+          "unit": "10"
+        },
+        "Ishtihar 68g A4, Single Color": {
+          "basePrice": 2200,
+          "unit": "10"
+        },
+        "Ishtihar A4/2,80g, 4 Color": {
+          "basePrice": 2700,
+          "unit": "10"
+        },
+        "Ishtihar A4,80g, 4 Color": {
+          "basePrice": 5400,
+          "unit": "10"
+        },
+        "Ishtihar 10x7, 68g, Single Color": {
+          "basePrice": 1600,
+          "unit": "10"
+        },
+        "Pamphlet/Menu/Ishtihar, Art Paper A4/2,90g, 4 Color": {
+          "basePrice": 2700,
+          "unit": "10"
+        },
+        "Pamphlet/Menu/Ishtihar, A4 Art Paper,90g, 4 Color": {
+          "basePrice": 5400,
+          "unit": "10"
+        },
+        "Pamphlet/Menu/Ishtihar, A4/2 Art Paper,113g, 4 Color": {
+          "basePrice": 3500,
+          "unit": "10"
+        },
+        "Pamphlet/Menu/Ishtihar, A4 Art Paper,113g, 4 Color": {
+          "basePrice": 6000,
+          "unit": "10"
+        },
+        "Pamphlet/Menu/Ishtihar Doube Side, A4/2 Art Paper,113g, 4 Color": {
+          "basePrice": 4000,
+          "unit": "10"
+        },
+        "Pamphlet/Menu/Ishtihar Doube Side, A4 Art Paper,113g, 4 Color": {
+          "basePrice": 7000,
+          "unit": "10"
+        }
+      },
+      "Envelops": {
+        "Envelop 9x4,80g, Single Color": {
+          "basePrice": 4500,
+          "unit": "100"
+        },
+        "Envelop 9x4,80g, 4 Color": {
+          "basePrice": 6000,
+          "unit": "100"
+        },
+        "Envelop 7x5 Single Color": {
+          "basePrice": 0,
+          "unit": "100"
+        },
+        "Envelop 7x5 Four Color": {
+          "basePrice": 0,
+          "unit": "100"
+        }
+      },
+      "Receipt Book": {
+        "Receipt Book, 9x3.5, 68g, Single Color": {
+          "basePrice": 1200,
+          "unit": "10"
+        },
+        "Receipt Book, 9x3.5, 80g, 4 Color": {
+          "basePrice": 2800,
+          "unit": "10"
+        }
+      },
+      "File Cover": {
+        "File Cover Art Card A4, Starting from Pkr": {
+          "basePrice": 50,
+          "unit": "1"
+        },
+        "File Cover Art Card Legal , Starting from Pkr": {
+          "basePrice": 5500,
+          "unit": "1"
+        },
+        "File Cover Box Board A4, Starting from Pkr": {
+          "basePrice": 3000,
+          "unit": "1"
+        },
+        "File Cover Box Board Legal, Starting from Pkr": {
+          "basePrice": 3200,
+          "unit": "1"
+        }
+      },
+      "Wedding Cards": {}
+    },
+    "Stickers & Labels": {
+      "Stickers": {
+        "Sticker 3.5x2": {
+          "basePrice": 800,
+          "unit": "100"
+        },
+        "Sticker 3.5x4": {
+          "basePrice": 1600,
+          "unit": "100"
+        },
+        "Sticker 7x5": {
+          "basePrice": 4000,
+          "unit": "100"
+        },
+        "Sticker 7x10": {
+          "basePrice": 7000,
+          "unit": "100"
+        },
+        "Sticker 10x15": {
+          "basePrice": 14000,
+          "unit": "100"
+        }
+      },
+      "Stamps": {
+        "Stamp 1.45x0.55": {
+          "basePrice": 550,
+          "unit": "1"
+        },
+        "Stamps 1.8x0.7": {
+          "basePrice": 650,
+          "unit": "1"
+        },
+        "2.25x0.85": {
+          "basePrice": 850,
+          "unit": "1"
+        },
+        "Round 1 inch": {
+          "basePrice": 900,
+          "unit": "1"
+        },
+        "Round 1.25 inch": {
+          "basePrice": 1100,
+          "unit": "1"
+        },
+        "Stamp Round 1.6 inch": {
+          "basePrice": 1500,
+          "unit": "1"
+        },
+        "2.75x0.98": {
+          "basePrice": 1350,
+          "unit": "1"
+        },
+        "Round 2 inh": {
+          "basePrice": 2500,
+          "unit": "1"
+        },
+        "Date Wali Round 1.25 inch": {
+          "basePrice": 1600,
+          "unit": "1"
+        },
+        "Date Wali Round 1.5 inch": {
+          "basePrice": 1700,
+          "unit": "1"
+        },
+        "Date Wali Round 2 Inch": {
+          "basePrice": 2800,
+          "unit": "1"
+        },
+        "Date Wali Round 1.6 inch": {
+          "basePrice": 2500,
+          "unit": "1"
+        },
+        "Date Wali 1.57x0.92 inch": {
+          "basePrice": 1400,
+          "unit": "1"
+        },
+        "Date Wali 1.9x1.15 inch": {
+          "basePrice": 1600,
+          "unit": "1"
+        },
+        "Date Wali 2.2x1.25 inch": {
+          "basePrice": 2000,
+          "unit": "1"
+        },
+        "Date Wali 3x1.5 inch": {
+          "basePrice": 3000,
+          "unit": "1"
+        },
+        "Pocket Stamp 1.4x0.52 inch": {
+          "basePrice": 700,
+          "unit": "1"
+        },
+        "Pocket Stamp 1.75x0.7 inch": {
+          "basePrice": 950,
+          "unit": "1"
+        },
+        "Date Wali 1.75x1.15 (Without Ink)": {
+          "basePrice": 650,
+          "unit": "1"
+        },
+        "Only Date": {
+          "basePrice": 500,
+          "unit": "1"
+        },
+        "2.75x1.18": {
+          "basePrice": 1600,
+          "unit": "1"
+        },
+        "Oval Shape 2.15x1.37": {
+          "basePrice": 1900,
+          "unit": "1"
+        },
+        "PAID Stamp": {
+          "basePrice": 1600,
+          "unit": "1"
+        },
+        "Oval Shape 1.75x1.15": {
+          "basePrice": 1700,
+          "unit": "1"
+        },
+        "Only Date Auto": {
+          "basePrice": 750,
+          "unit": "1"
+        },
+        "3x1.5 inch": {
+          "basePrice": 2800,
+          "unit": "1"
+        }
+      }
+    },
+    "Photo Printing": {
+      "Photo Prints": {
+        "A4 Photo 1 Sided, Starting from Pkr": {
+          "basePrice": 100,
+          "unit": "1"
+        },
+        "A4 Photo Double Sided, Starting from Pkr": {
+          "basePrice": 120,
+          "unit": "1"
+        },
+        "A4 Sticker Print, Starting from Pkr": {
+          "basePrice": 100,
+          "unit": "1"
+        },
+        "7x5 Photo Print, Starting from Pkr": {
+          "basePrice": 60,
+          "unit": "1"
+        }
+      }
+    },
+    "Digital Printing": {
+      "Social Media": {
+        "Social Media Posts": {
+          "basePrice": 400,
+          "unit": "1"
+        },
+        "Social Media Posts (Alternative)": {
+          "basePrice": 300,
+          "unit": "1"
+        }
+      },
+      "China Prints": {},
+      "Star Prints": {},
+      "Venyl Prints": {},
+      "One Vision Prints": {},
+      "Backlit Prints": {}
+    },
+    "Promotional Products": {
+      "Apparel": {
+        "White Shirt Childrens": {
+          "basePrice": 300,
+          "unit": "1"
+        },
+        "White Shirt S,M,L": {
+          "basePrice": 350,
+          "unit": "1"
+        },
+        "White Shirt XL,XXL": {
+          "basePrice": 400,
+          "unit": "1"
+        },
+        "Cotton Shirt SML": {
+          "basePrice": 750,
+          "unit": "1"
+        },
+        "Cotton Shirt XL XXL": {
+          "basePrice": 850,
+          "unit": "1"
+        },
+        "Color Shirt SML": {
+          "basePrice": 950,
+          "unit": "1"
+        },
+        "Color Shirt XL XXL": {
+          "basePrice": 1100,
+          "unit": "1"
+        },
+        "Safety Jacket 60g": {
+          "basePrice": 300,
+          "unit": "1"
+        },
+        "Safety Jacket 120g": {
+          "basePrice": 450,
+          "unit": "1"
+        },
+        "White P Cap": {
+          "basePrice": 200,
+          "unit": "1"
+        },
+        "Color P Cap": {
+          "basePrice": 250,
+          "unit": "1"
+        }
+      },
+      "Mugs & Drinkware": {
+        "White Mug": {
+          "basePrice": 350,
+          "unit": "1"
+        },
+        "Inner Color Mug": {
+          "basePrice": 400,
+          "unit": "1"
+        },
+        "Mug Hear shape": {
+          "basePrice": 450,
+          "unit": "1"
+        },
+        "Magic Mug": {
+          "basePrice": 500,
+          "unit": "1"
+        },
+        "Spoon Mug": {
+          "basePrice": 500,
+          "unit": "1"
+        },
+        "Cup Pirch": {
+          "basePrice": 550,
+          "unit": "1"
+        },
+        "Bottle (Temperatur) 250ml": {
+          "basePrice": 750,
+          "unit": "1"
+        },
+        "Bottle Temperature White 250ml": {
+          "basePrice": 850,
+          "unit": "1"
+        },
+        "Bottle (Temperatur) 850ml": {
+          "basePrice": 1500,
+          "unit": "1"
+        },
+        "Coffee Mug (Temperatur)": {
+          "basePrice": 1150,
+          "unit": "1"
+        },
+        "Coffee Mug with dori": {
+          "basePrice": 1300,
+          "unit": "1"
+        }
+      },
+      "Jewelry & Accessories": {
+        "Ring": {
+          "basePrice": 100,
+          "unit": "1"
+        },
+        "Rolex Bracelet": {
+          "basePrice": 1000,
+          "unit": "1"
+        },
+        "Simple Bracelet": {
+          "basePrice": 750,
+          "unit": "1"
+        },
+        "Picture Locket Small": {
+          "basePrice": 350,
+          "unit": "1"
+        },
+        "Picture Locket Large": {
+          "basePrice": 400,
+          "unit": "1"
+        },
+        "Cough Bangle Round": {
+          "basePrice": 300,
+          "unit": "1"
+        },
+        "Bar Locket": {
+          "basePrice": 400,
+          "unit": "1"
+        },
+        "Chain Heart Shape": {
+          "basePrice": 400,
+          "unit": "1"
+        },
+        "Rope Bracelet": {
+          "basePrice": 350,
+          "unit": "1"
+        }
+      },
+      "Office Supplies": {
+        "Metal Pen mat 1": {
+          "basePrice": 100,
+          "unit": "1"
+        },
+        "Metal Pen mat 50": {
+          "basePrice": 4500,
+          "unit": "50"
+        },
+        "Metal Pen mat 100": {
+          "basePrice": 8500,
+          "unit": "100"
+        },
+        "Metal Pen+keyChain 1": {
+          "basePrice": 200,
+          "unit": "1"
+        },
+        "Metal Pen+keyChain 50": {
+          "basePrice": 8000,
+          "unit": "50"
+        },
+        "Metal Pen+keyChain 100": {
+          "basePrice": 15000,
+          "unit": "100"
+        },
+        "Shine Metal Pen": {
+          "basePrice": 100,
+          "unit": "1"
+        },
+        "Smart Metal Pen": {
+          "basePrice": 100,
+          "unit": "1"
+        },
+        "Mat Metal Pen": {
+          "basePrice": 100,
+          "unit": "1"
+        },
+        "Diamond Metal Pen": {
+          "basePrice": 200,
+          "unit": "1"
+        },
+        "Light Pen": {
+          "basePrice": 150,
+          "unit": "1"
+        },
+        "Pencil Tray Plastic a": {
+          "basePrice": 40,
+          "unit": "1"
+        },
+        "Pencil Tray Plastic b": {
+          "basePrice": 50,
+          "unit": "1"
+        },
+        "Pencil Tray Plastic c": {
+          "basePrice": 80,
+          "unit": "1"
+        },
+        "Pencil Tray Wooden": {
+          "basePrice": 100,
+          "unit": "1"
+        },
+        "Pencil Tray Wooden+Engraved": {
+          "basePrice": 150,
+          "unit": "1"
+        },
+        "PVC Card 1": {
+          "basePrice": 50,
+          "unit": "1"
+        },
+        "PVC Card 10": {
+          "basePrice": 100,
+          "unit": "10"
+        },
+        "PVC card+Dori+jacket minimum 10": {
+          "basePrice": 40,
+          "unit": "1"
+        },
+        "Photo+Frame 8x12": {
+          "basePrice": 450,
+          "unit": "1"
+        },
+        "Photo+Frame 12x18": {
+          "basePrice": 850,
+          "unit": "1"
+        },
+        "Badges Minimum 50": {
+          "basePrice": 50,
+          "unit": "1"
+        },
+        "Badges 100": {
+          "basePrice": 3000,
+          "unit": "100"
+        }
+      }
+    }
+  },
+  "lastUpdated": "2025-10-29T16:19:43.877Z",
+  "version": "1.0"
+}
