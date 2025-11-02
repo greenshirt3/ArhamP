@@ -1,37 +1,234 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Arham Printers</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; background: #e8f5e9; }
-header { background: #2e7d32; color: white; padding: 1rem; text-align: center; position: sticky; top: 0; z-index: 1000; }
-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; background: #a5d6a7; padding: 1rem; position: sticky; top: 60px; z-index: 999; }
-nav select, nav input { padding: 0.5rem; font-size: 1rem; border-radius: 5px; border: 1px solid #ccc; }
-section { padding: 1rem; border-bottom: 1px solid #c8e6c9; }
-.subcat-buttons button { margin: 0.2rem; padding: 0.5rem 1rem; background: #66bb6a; color: white; border: none; border-radius: 5px; cursor: pointer; }
-.subcat-buttons button:hover { background: #388e3c; }
-.product-row { display: flex; overflow-x: auto; gap: 1rem; padding: 1rem 0; }
-.product-card { background: white; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); min-width: 250px; transition: transform 0.3s ease; }
-.product-card:hover { transform: scale(1.05); }
-.product-card img { width: 100%; height: 200px; object-fit: cover; border-top-left-radius: 10px; border-top-right-radius: 10px; }
-.product-card-content { padding: 1rem; text-align: center; }
-.product-card h3 { margin: 0.5rem 0; font-size: 1rem; }
-.product-card p { margin: 0.5rem 0; color: #2e7d32; font-weight: bold; }
-.product-card button { background: #43a047; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; }
-footer { background: #2e7d32; color: white; text-align: center; padding: 2rem; }
-footer a { color: #c8e6c9; margin: 0 0.5rem; text-decoration: none; }
-.dark-mode { background: #263238; color: #eceff1; }
-.dark-mode header, .dark-mode footer { background: #1b5e20; }
-.dark-mode .product-card { background: #37474f; color: #eceff1; }
+/*
+    Refactored CSS for shop.html to use Anon Template Design
+    - Uses Anon's colors, typography, and box-shadows.
+*/
+
+:root {
+    --primary-color: hsl(200, 70%, 40%);  /* Professional Blue (New Brand Primary) */
+    --secondary-color: hsl(353, 100%, 78%); /* Soft Accent (Anon's Salmon Pink) */
+    --eerie-black: hsl(0, 0%, 13%);
+    --cultured: hsl(0, 0%, 93%);
+    --white: hsl(0, 100%, 100%);
+    --sonic-silver: hsl(0, 0%, 47%);
+    --weight-600: 600;
+    --border-radius-md: 10px;
+    --transition: all 0.3s ease;
+}
+
+body { 
+    font-family: 'Poppins', sans-serif; 
+    margin: 0; 
+    padding: 0; 
+    background: var(--cultured); 
+    color: var(--eerie-black);
+}
+
+header { 
+    background: var(--primary-color); 
+    color: var(--white); 
+    padding: 1.5rem 1rem; 
+    text-align: center; 
+    position: sticky; 
+    top: 0; 
+    z-index: 1000; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+header h1 { font-size: 1.8rem; margin: 0; font-weight: var(--weight-600); }
+header h2 { font-size: 1rem; opacity: 0.8; margin-top: 5px; }
+
+nav { 
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 1rem; 
+    background: var(--white); 
+    padding: 1rem; 
+    position: sticky; 
+    top: 90px; 
+    z-index: 999; 
+    border-bottom: 1px solid var(--cultured);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+nav select, nav input, nav button { 
+    padding: 0.7rem 1rem; 
+    font-size: 1rem; 
+    border-radius: var(--border-radius-md); 
+    border: 1px solid var(--cultured); 
+    color: var(--eerie-black);
+    background: var(--white);
+    transition: var(--transition);
+}
+
+nav button:hover { 
+    background: var(--cultured); 
+    border-color: var(--secondary-color);
+}
+
+section { 
+    padding: 2rem 1rem; 
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+section h2 { 
+    font-size: 1.5rem; 
+    color: var(--primary-color); 
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-weight: var(--weight-600);
+}
+
+.subcat-buttons { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 10px; 
+    margin-bottom: 20px; 
+}
+
+.subcat-buttons button { 
+    padding: 0.7rem 1.2rem; 
+    background: var(--secondary-color); 
+    color: var(--eerie-black); 
+    border: none; 
+    border-radius: var(--border-radius-md); 
+    cursor: pointer; 
+    font-weight: var(--weight-600);
+    transition: var(--transition);
+}
+
+.subcat-buttons button:hover { 
+    background: var(--primary-color); 
+    color: var(--white);
+}
+
+.product-row { 
+    display: flex; 
+    overflow-x: auto; 
+    gap: 20px; 
+    padding: 1rem 0; 
+    padding-bottom: 10px; 
+    scroll-snap-type: x mandatory;
+}
+
+.product-row::-webkit-scrollbar { height: 12px; }
+.product-row::-webkit-scrollbar-thumb {
+    background: hsl(0, 0%, 90%);
+    border-radius: 20px;
+}
+.product-row::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 80%); }
+
+.product-card { 
+    background: var(--white); 
+    border-radius: var(--border-radius-md); 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+    min-width: 250px; 
+    transition: transform 0.3s ease;
+    border: 1px solid var(--cultured);
+    scroll-snap-align: start;
+}
+
+.product-card:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+}
+
+.product-card img { 
+    width: 100%; 
+    height: 200px; 
+    object-fit: cover; 
+    border-top-left-radius: var(--border-radius-md); 
+    border-top-right-radius: var(--border-radius-md); 
+}
+
+.product-card-content { 
+    padding: 1rem; 
+    text-align: center; 
+}
+
+.product-card h3 { 
+    margin: 0.5rem 0; 
+    font-size: 1rem; 
+    font-weight: var(--weight-600); 
+    color: var(--eerie-black);
+}
+
+.product-card p { 
+    margin: 0.5rem 0 1rem 0; 
+    color: var(--primary-color); 
+    font-weight: var(--weight-600); 
+    font-size: 1.1rem;
+}
+
+.product-card button { 
+    background: var(--primary-color); 
+    color: white; 
+    border: none; 
+    padding: 0.7rem 1.5rem; 
+    border-radius: var(--border-radius-md); 
+    cursor: pointer; 
+    font-weight: var(--weight-600);
+    transition: var(--transition);
+}
+
+.product-card button:hover { 
+    background: var(--secondary-color);
+    color: var(--eerie-black);
+}
+
+footer { 
+    background: var(--eerie-black); 
+    color: var(--sonic-silver); 
+    text-align: center; 
+    padding: 3rem 2rem; 
+    margin-top: 30px;
+}
+
+footer a { 
+    color: var(--secondary-color); 
+    margin: 0 0.5rem; 
+    text-decoration: none; 
+    transition: var(--transition);
+}
+
+footer a:hover { color: var(--white); }
+
+.dark-mode { 
+    background: var(--eerie-black); 
+    color: var(--white); 
+}
+.dark-mode header, .dark-mode footer { 
+    background: hsl(0, 0%, 10%); 
+}
+.dark-mode .product-card { 
+    background: hsl(0, 0%, 20%); 
+    color: var(--white); 
+    border-color: hsl(0, 0%, 30%);
+}
+.dark-mode .subcat-buttons button {
+    background: var(--secondary-color);
+    color: var(--eerie-black);
+}
+.dark-mode .subcat-buttons button:hover {
+    background: var(--primary-color);
+    color: var(--white);
+}
 </style>
 </head>
 <body>
-<header><h1>Arham Printers</h1>
-<h2>Printing and Advertising Service</h2>
+<header>
+    <h1>Arham Printers</h1>
+    <h2>Printing and Advertising Service</h2>
 </header>
 <nav>
   <input type="text" placeholder="Search products...">
@@ -62,7 +259,7 @@ footer a { color: #c8e6c9; margin: 0 0.5rem; text-decoration: none; }
                     <button>Buy Now</button>
                 </div>
             </div><div class="product-card">
-                <img src="https://source.unsplash.com/250x200/?LetterPad+80g+A4/2,+4+Color" alt="LetterPad 80g A4/2, 4 Color">
+                <img src="https://source.unsplash.com/250x200/?LetterPad+80g+A4/2,4+Color" alt="LetterPad 80g A4/2, 4 Color">
                 <div class="product-card-content">
                     <h3>LetterPad 80g A4/2, 4 Color</h3>
                     <p>Rs. 2700 per 10</p>
@@ -104,7 +301,7 @@ footer a { color: #c8e6c9; margin: 0 0.5rem; text-decoration: none; }
                     <button>Buy Now</button>
                 </div>
             </div><div class="product-card">
-                <img src="https://source.unsplash.com/250x200/?Bill+Books,+A4/2,Art+Paper+90g,+4+Color" alt="Bill Books, A4/2,Art Paper 90g, 4 Color">
+                <img src="https://source.unsplash.com/250x200/?Bill+Books,+A4/2,Art+Paper+90g,+4+Color" alt="Bill Books, A4/2,Art+Paper+90g, 4 Color">
                 <div class="product-card-content">
                     <h3>Bill Books, A4/2,Art Paper 90g, 4 Color</h3>
                     <p>Rs. 3500 per 10</p>
