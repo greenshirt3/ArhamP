@@ -1,0 +1,1609 @@
+{
+  "categories": {
+    "Offset Paper Printing": {
+      "LetterPads": {
+        "LetterPad 68g A4 Single Color": {
+          "basePrice": 2400,
+          "unit": "10"
+        },
+        "LetterPad 68g A4/2 Single Color": {
+          "basePrice": 1200,
+          "unit": "10"
+        },
+        "LetterPad 80g A4 Single Color": {
+          "basePrice": 4000,
+          "unit": "10"
+        },
+        "LetterPad 80g A4/2 Single Color": {
+          "basePrice": 2000,
+          "unit": "10"
+        },
+        "LetterPad 80g A4, 4 Color": {
+          "basePrice": 5400,
+          "unit": "10"
+        },
+        "LetterPad 80g A4/2, 4 Color": {
+          "basePrice": 2700,
+          "unit": "10"
+        },
+        "LetterPad 100g A4, 4 Color": {
+          "basePrice": 6500,
+          "unit": "10"
+        }
+      },
+      "Bill Books": {
+        "Bill Books, A4/2,68g, Single Color": {
+          "basePrice": 2000,
+          "unit": "10"
+        },
+        "Bill Books, A4,68g, Single Color": {
+          "basePrice": 4000,
+          "unit": "10"
+        },
+        "Bill Books, A4/2,80g, Single Color": {
+          "basePrice": 3000,
+          "unit": "10"
+        },
+        "Bill Books, A4/2,80g, 4 Color": {
+          "basePrice": 3500,
+          "unit": "10"
+        },
+        "Bill Books, A4/2,Art Paper 90g, 4 Color": {
+          "basePrice": 3500,
+          "unit": "10"
+        },
+        "Bill Books, 9x11,80g, 4 Color": {
+          "basePrice": 6800,
+          "unit": "10"
+        },
+        "Bill Books, 7x10,80g, 4 Color": {
+          "basePrice": 6600,
+          "unit": "10"
+        },
+        "Bill Book Carbonless 8.5x5.75": {
+          "basePrice": 3200,
+          "unit": "10"
+        }
+      },
+      "Visiting Cards": {
+        "V Card Shine": {
+          "basePrice": 800,
+          "unit": "100"
+        },
+        "Mat Card Single": {
+          "basePrice": 900,
+          "unit": "100"
+        },
+        "Mat Card Double": {
+          "basePrice": 1500,
+          "unit": "100"
+        },
+        "Mat Card Single Round": {
+          "basePrice": 1000,
+          "unit": "100"
+        },
+        "Mat Card Double Round": {
+          "basePrice": 1600,
+          "unit": "100"
+        },
+        "UV Vard Single": {
+          "basePrice": 1500,
+          "unit": "100"
+        },
+        "UV Vard Double": {
+          "basePrice": 2000,
+          "unit": "100"
+        },
+        "UV Vard Pasting": {
+          "basePrice": 3500,
+          "unit": "100"
+        }
+      },
+      "Ishtihars": {
+        "Ishtihar 68g A4/2, Single Color": {
+          "basePrice": 1200,
+          "unit": "10"
+        },
+        "Ishtihar 68g A4, Single Color": {
+          "basePrice": 2200,
+          "unit": "10"
+        },
+        "Ishtihar A4/2,80g, 4 Color": {
+          "basePrice": 2700,
+          "unit": "10"
+        },
+        "Ishtihar A4,80g, 4 Color": {
+          "basePrice": 5400,
+          "unit": "10"
+        },
+        "Ishtihar 10x7, 68g, Single Color": {
+          "basePrice": 1600,
+          "unit": "10"
+        },
+        "Pamphlet/Menu/Ishtihar, Art Paper A4/2,90g, 4 Color": {
+          "basePrice": 2700,
+          "unit": "10"
+        },
+        "Pamphlet/Menu/Ishtihar, A4 Art Paper,90g, 4 Color": {
+          "basePrice": 5400,
+          "unit": "10"
+        },
+        "Pamphlet/Menu/Ishtihar, A4/2 Art Paper,113g, 4 Color": {
+          "basePrice": 3500,
+          "unit": "10"
+        },
+        "Pamphlet/Menu/Ishtihar, A4 Art Paper,113g, 4 Color": {
+          "basePrice": 6000,
+          "unit": "10"
+        },
+        "Pamphlet/Menu/Ishtihar Doube Side, A4/2 Art Paper,113g, 4 Color": {
+          "basePrice": 4000,
+          "unit": "10"
+        },
+        "Pamphlet/Menu/Ishtihar Doube Side, A4 Art Paper,113g, 4 Color": {
+          "basePrice": 7000,
+          "unit": "10"
+        }
+      },
+      "Envelops": {
+        "Envelop 9x4,80g, Single Color": {
+          "basePrice": 4500,
+          "unit": "100"
+        },
+        "Envelop 9x4,80g, 4 Color": {
+          "basePrice": 6000,
+          "unit": "100"
+        },
+        "Envelop 7x5 Single Color": {
+          "basePrice": 0,
+          "unit": "100"
+        },
+        "Envelop 7x5 Four Color": {
+          "basePrice": 0,
+          "unit": "100"
+        }
+      },
+      "Receipt Book": {
+        "Receipt Book, 9x3.5, 68g, Single Color": {
+          "basePrice": 1200,
+          "unit": "10"
+        },
+        "Receipt Book, 9x3.5, 80g, 4 Color": {
+          "basePrice": 2800,
+          "unit": "10"
+        }
+      },
+      "File Cover": {
+        "File Cover Art Card A4, Starting from Pkr": {
+          "basePrice": 50,
+          "unit": "1"
+        },
+        "File Cover Art Card Legal , Starting from Pkr": {
+          "basePrice": 5500,
+          "unit": "1"
+        },
+        "File Cover Box Board A4, Starting from Pkr": {
+          "basePrice": 3000,
+          "unit": "1"
+        },
+        "File Cover Box Board Legal, Starting from Pkr": {
+          "basePrice": 3200,
+          "unit": "1"
+        }
+      },
+      "Wedding Cards": {}
+    },
+    "Stickers & Labels": {
+      "Stickers": {
+        "Sticker 3.5x2": {
+          "basePrice": 800,
+          "unit": "100"
+        },
+        "Sticker 3.5x4": {
+          "basePrice": 1600,
+          "unit": "100"
+        },
+        "Sticker 7x5": {
+          "basePrice": 4000,
+          "unit": "100"
+        },
+        "Sticker 7x10": {
+          "basePrice": 7000,
+          "unit": "100"
+        },
+        "Sticker 10x15": {
+          "basePrice": 14000,
+          "unit": "100"
+        }
+      },
+      "Stamps": {
+        "Stamp 1.45x0.55": {
+          "basePrice": 550,
+          "unit": "1"
+        },
+        "Stamps 1.8x0.7": {
+          "basePrice": 650,
+          "unit": "1"
+        },
+        "2.25x0.85": {
+          "basePrice": 850,
+          "unit": "1"
+        },
+        "Round 1 inch": {
+          "basePrice": 900,
+          "unit": "1"
+        },
+        "Round 1.25 inch": {
+          "basePrice": 1100,
+          "unit": "1"
+        },
+        "Stamp Round 1.6 inch": {
+          "basePrice": 1500,
+          "unit": "1"
+        },
+        "2.75x0.98": {
+          "basePrice": 1350,
+          "unit": "1"
+        },
+        "Round 2 inh": {
+          "basePrice": 2500,
+          "unit": "1"
+        },
+        "Date Wali Round 1.25 inch": {
+          "basePrice": 1600,
+          "unit": "1"
+        },
+        "Date Wali Round 1.5 inch": {
+          "basePrice": 1700,
+          "unit": "1"
+        },
+        "Date Wali Round 2 Inch": {
+          "basePrice": 2800,
+          "unit": "1"
+        },
+        "Date Wali Round 1.6 inch": {
+          "basePrice": 2500,
+          "unit": "1"
+        },
+        "Date Wali 1.57x0.92 inch": {
+          "basePrice": 1400,
+          "unit": "1"
+        },
+        "Date Wali 1.9x1.15 inch": {
+          "basePrice": 1600,
+          "unit": "1"
+        },
+        "Date Wali 2.2x1.25 inch": {
+          "basePrice": 2000,
+          "unit": "1"
+        },
+        "Date Wali 3x1.5 inch": {
+          "basePrice": 3000,
+          "unit": "1"
+        },
+        "Pocket Stamp 1.4x0.52 inch": {
+          "basePrice": 700,
+          "unit": "1"
+        },
+        "Pocket Stamp 1.75x0.7 inch": {
+          "basePrice": 950,
+          "unit": "1"
+        },
+        "Date Wali 1.75x1.15 (Without Ink)": {
+          "basePrice": 650,
+          "unit": "1"
+        },
+        "Only Date": {
+          "basePrice": 500,
+          "unit": "1"
+        },
+        "2.75x1.18": {
+          "basePrice": 1600,
+          "unit": "1"
+        },
+        "Oval Shape 2.15x1.37": {
+          "basePrice": 1900,
+          "unit": "1"
+        },
+        "PAID Stamp": {
+          "basePrice": 1600,
+          "unit": "1"
+        },
+        "Oval Shape 1.75x1.15": {
+          "basePrice": 1700,
+          "unit": "1"
+        },
+        "Only Date Auto": {
+          "basePrice": 750,
+          "unit": "1"
+        },
+        "3x1.5 inch": {
+          "basePrice": 2800,
+          "unit": "1"
+        }
+      }
+    },
+    "Photo Printing": {
+      "Photo Prints": {
+        "A4 Photo 1 Sided, Starting from Pkr": {
+          "basePrice": 100,
+          "unit": "1"
+        },
+        "A4 Photo Double Sided, Starting from Pkr": {
+          "basePrice": 120,
+          "unit": "1"
+        },
+        "A4 Sticker Print, Starting from Pkr": {
+          "basePrice": 100,
+          "unit": "1"
+        },
+        "7x5 Photo Print, Starting from Pkr": {
+          "basePrice": 60,
+          "unit": "1"
+        }
+      }
+    },
+    "Digital Printing": {
+      "Social Media": {
+        "Social Media Posts": {
+          "basePrice": 400,
+          "unit": "1"
+        },
+        "Social Media Posts (Alternative)": {
+          "basePrice": 300,
+          "unit": "1"
+        }
+      },
+      "China Prints": {},
+      "Star Prints": {},
+      "Venyl Prints": {},
+      "One Vision Prints": {},
+      "Backlit Prints": {}
+    },
+    "Promotional Products": {
+      "Apparel": {
+        "White Shirt Childrens": {
+          "basePrice": 300,
+          "unit": "1"
+        },
+        "White Shirt S,M,L": {
+          "basePrice": 350,
+          "unit": "1"
+        },
+        "White Shirt XL,XXL": {
+          "basePrice": 400,
+          "unit": "1"
+        },
+        "Cotton Shirt SML": {
+          "basePrice": 750,
+          "unit": "1"
+        },
+        "Cotton Shirt XL XXL": {
+          "basePrice": 850,
+          "unit": "1"
+        },
+        "Color Shirt SML": {
+          "basePrice": 950,
+          "unit": "1"
+        },
+        "Color Shirt XL XXL": {
+          "basePrice": 1100,
+          "unit": "1"
+        },
+        "Safety Jacket 60g": {
+          "basePrice": 300,
+          "unit": "1"
+        },
+        "Safety Jacket 120g": {
+          "basePrice": 450,
+          "unit": "1"
+        },
+        "White P Cap": {
+          "basePrice": 200,
+          "unit": "1"
+        },
+        "Color P Cap": {
+          "basePrice": 250,
+          "unit": "1"
+        }
+      },
+      "Mugs & Drinkware": {
+        "White Mug": {
+          "basePrice": 350,
+          "unit": "1"
+        },
+        "Inner Color Mug": {
+          "basePrice": 400,
+          "unit": "1"
+        },
+        "Mug Hear shape": {
+          "basePrice": 450,
+          "unit": "1"
+        },
+        "Magic Mug": {
+          "basePrice": 500,
+          "unit": "1"
+        },
+        "Spoon Mug": {
+          "basePrice": 500,
+          "unit": "1"
+        },
+        "Cup Pirch": {
+          "basePrice": 550,
+          "unit": "1"
+        },
+        "Bottle (Temperatur) 250ml": {
+          "basePrice": 750,
+          "unit": "1"
+        },
+        "Bottle Temperature White 250ml": {
+          "basePrice": 850,
+          "unit": "1"
+        },
+        "Bottle (Temperatur) 850ml": {
+          "basePrice": 1500,
+          "unit": "1"
+        },
+        "Coffee Mug (Temperatur)": {
+          "basePrice": 1150,
+          "unit": "1"
+        },
+        "Coffee Mug with dori": {
+          "basePrice": 1300,
+          "unit": "1"
+        }
+      },
+      "Jewelry & Accessories": {
+        "Ring": {
+          "basePrice": 100,
+          "unit": "1"
+        },
+        "Rolex Bracelet": {
+          "basePrice": 1000,
+          "unit": "1"
+        },
+        "Simple Bracelet": {
+          "basePrice": 750,
+          "unit": "1"
+        },
+        "Picture Locket Small": {
+          "basePrice": 350,
+          "unit": "1"
+        },
+        "Picture Locket Large": {
+          "basePrice": 400,
+          "unit": "1"
+        },
+        "Cough Bangle Round": {
+          "basePrice": 300,
+          "unit": "1"
+        },
+        "Bar Locket": {
+          "basePrice": 400,
+          "unit": "1"
+        },
+        "Chain Heart Shape": {
+          "basePrice": 400,
+          "unit": "1"
+        },
+        "Rope Bracelet": {
+          "basePrice": 350,
+          "unit": "1"
+        }
+      },
+      "Office Supplies": {
+        "Metal Pen mat 1": {
+          "basePrice": 100,
+          "unit": "1"
+        },
+        "Metal Pen mat 50": {
+          "basePrice": 4500,
+          "unit": "50"
+        },
+        "Metal Pen mat 100": {
+          "basePrice": 8500,
+          "unit": "100"
+        },
+        "Metal Pen+keyChain 1": {
+          "basePrice": 200,
+          "unit": "1"
+        },
+        "Metal Pen+keyChain 50": {
+          "basePrice": 8000,
+          "unit": "50"
+        },
+        "Metal Pen+keyChain 100": {
+          "basePrice": 15000,
+          "unit": "100"
+        },
+        "Shine Metal Pen": {
+          "basePrice": 100,
+          "unit": "1"
+        },
+        "Smart Metal Pen": {
+          "basePrice": 100,
+          "unit": "1"
+        },
+        "Mat Metal Pen": {
+          "basePrice": 100,
+          "unit": "1"
+        },
+        "Diamond Metal Pen": {
+          "basePrice": 200,
+          "unit": "1"
+        },
+        "Light Pen": {
+          "basePrice": 150,
+          "unit": "1"
+        },
+        "Pencil Tray Plastic a": {
+          "basePrice": 40,
+          "unit": "1"
+        },
+        "Pencil Tray Plastic b": {
+          "basePrice": 50,
+          "unit": "1"
+        },
+        "Pencil Tray Plastic c": {
+          "basePrice": 80,
+          "unit": "1"
+        },
+        "Pencil Tray Wooden": {
+          "basePrice": 100,
+          "unit": "1"
+        },
+        "Pencil Tray Wooden+Engraved": {
+          "basePrice": 150,
+          "unit": "1"
+        },
+        "PVC Card 1": {
+          "basePrice": 50,
+          "unit": "1"
+        },
+        "PVC Card 10": {
+          "basePrice": 100,
+          "unit": "10"
+        },
+        "PVC card+Dori+jacket minimum 10": {
+          "basePrice": 40,
+          "unit": "1"
+        },
+        "Photo+Frame 8x12": {
+          "basePrice": 450,
+          "unit": "1"
+        },
+        "Photo+Frame 12x18": {
+          "basePrice": 850,
+          "unit": "1"
+        },
+        "Badges Minimum 50": {
+          "basePrice": 50,
+          "unit": "1"
+        },
+        "Badges 100": {
+          "basePrice": 3000,
+          "unit": "100"
+        }
+      }
+    }
+  },
+  "customers": [
+    {
+      "id": 1761319247647,
+      "name": "Raza Graphics",
+      "phone": "",
+      "createdAt": "2025-10-24T15:20:47.647Z"
+    },
+    {
+      "id": 1761434400070,
+      "name": "Lucky Furniture",
+      "phone": "",
+      "createdAt": "2025-10-25T23:20:00.070Z"
+    },
+    {
+      "id": 1761700922139,
+      "name": "Dc office Astor ",
+      "phone": "",
+      "createdAt": "2025-10-29T01:22:02.139Z"
+    },
+    {
+      "id": 1761843514379,
+      "name": "Iqra TF",
+      "phone": "",
+      "createdAt": "2025-10-30T16:58:34.379Z"
+    },
+    {
+      "id": 1762015301247,
+      "name": "Abdul Rahman",
+      "phone": "",
+      "createdAt": "2025-11-01T16:41:41.247Z"
+    },
+    {
+      "id": 1762015448102,
+      "name": "Gulzar Shb",
+      "phone": "",
+      "createdAt": "2025-11-01T16:44:08.102Z"
+    },
+    {
+      "id": 1762015508360,
+      "name": "30 Sindh",
+      "phone": "",
+      "createdAt": "2025-11-01T16:45:08.360Z"
+    },
+    {
+      "id": 1762015552574,
+      "name": "Ali Printers",
+      "phone": "",
+      "createdAt": "2025-11-01T16:45:52.574Z"
+    }
+  ],
+  "invoices": [
+    {
+      "id": 1761319247647,
+      "invoiceNo": "INV-0001",
+      "customerName": "Raza Graphics",
+      "customerPhone": "",
+      "date": "2025-10-23",
+      "items": [
+        {
+          "name": "China 2x3",
+          "rate": 144,
+          "quantity": 40,
+          "designCharges": 0,
+          "amount": 5760
+        }
+      ],
+      "subtotal": 5760,
+      "taxRate": 0,
+      "taxAmount": 0,
+      "total": 5760,
+      "previousBalance": 0,
+      "payment": 5760,
+      "remainingBalance": 0,
+      "createdAt": "2025-10-24T15:20:47.647Z"
+    },
+    {
+      "id": 1761434400070,
+      "invoiceNo": "INV-0001",
+      "customerName": "Lucky Furniture",
+      "customerPhone": "",
+      "date": "2025-10-25",
+      "items": [
+        {
+          "name": "Letterpad 68g A4 Half single Color",
+          "rate": 2500,
+          "quantity": 1,
+          "designCharges": 0,
+          "amount": 2500
+        },
+        {
+          "name": "Panaflex 4x4",
+          "rate": 800,
+          "quantity": 1,
+          "designCharges": 0,
+          "amount": 800
+        },
+        {
+          "name": "Visiting Card Shine",
+          "rate": 1800,
+          "quantity": 1,
+          "designCharges": 0,
+          "amount": 1800
+        }
+      ],
+      "subtotal": 5100,
+      "taxRate": 0,
+      "taxAmount": 0,
+      "total": 5100,
+      "previousBalance": 0,
+      "payment": 500,
+      "remainingBalance": 4600,
+      "createdAt": "2025-10-25T23:20:00.070Z"
+    },
+    {
+      "id": 1761700922142,
+      "invoiceNo": "INV-0002",
+      "customerName": "Dc office Astor ",
+      "customerPhone": "",
+      "date": "2025-10-29",
+      "items": [
+        {
+          "name": "Shields",
+          "rate": 3450,
+          "quantity": 30,
+          "designCharges": 0,
+          "amount": 103500
+        },
+        {
+          "name": "Bags",
+          "rate": 315,
+          "quantity": 100,
+          "designCharges": 0,
+          "amount": 31500
+        },
+        {
+          "name": "Folding Cards",
+          "rate": 67,
+          "quantity": 100,
+          "designCharges": 0,
+          "amount": 6700
+        },
+        {
+          "name": "Invitation Cards",
+          "rate": 55,
+          "quantity": 300,
+          "designCharges": 0,
+          "amount": 16500
+        },
+        {
+          "name": "Leather Folders",
+          "rate": 6500,
+          "quantity": 4,
+          "designCharges": 0,
+          "amount": 26000
+        }
+      ],
+      "subtotal": 184200,
+      "taxRate": 0,
+      "taxAmount": 0,
+      "total": 184200,
+      "previousBalance": 0,
+      "payment": 184200,
+      "remainingBalance": 0,
+      "createdAt": "2025-10-29T01:22:02.142Z"
+    },
+    {
+      "id": 1761843514380,
+      "invoiceNo": "INV-0001",
+      "customerName": "Iqra TF",
+      "customerPhone": "",
+      "date": "2025-10-30",
+      "items": [
+        {
+          "name": "Wedding Cards 1855",
+          "rate": 55,
+          "quantity": 100,
+          "designCharges": 0,
+          "amount": 5500
+        }
+      ],
+      "subtotal": 5500,
+      "taxRate": 0,
+      "taxAmount": 0,
+      "total": 5500,
+      "previousBalance": 0,
+      "payment": 5500,
+      "remainingBalance": 0,
+      "createdAt": "2025-10-30T16:58:34.380Z"
+    },
+    {
+      "id": 1762015301247,
+      "invoiceNo": "INV-0003",
+      "customerName": "Abdul Rahman",
+      "customerPhone": "",
+      "date": "2025-11-01",
+      "items": [
+        {
+          "name": "China",
+          "rate": 23,
+          "quantity": 78,
+          "designCharges": 0,
+          "amount": 1794
+        }
+      ],
+      "subtotal": 1794,
+      "taxRate": 0,
+      "taxAmount": 0,
+      "total": 1794,
+      "previousBalance": 0,
+      "payment": 1750,
+      "remainingBalance": 44,
+      "createdAt": "2025-11-01T16:41:41.247Z"
+    },
+    {
+      "id": 1762015448102,
+      "invoiceNo": "INV-0004",
+      "customerName": "Gulzar Shb",
+      "customerPhone": "",
+      "date": "2025-11-01",
+      "items": [
+        {
+          "name": "China",
+          "rate": 24,
+          "quantity": 81,
+          "designCharges": 0,
+          "amount": 1944
+        }
+      ],
+      "subtotal": 1944,
+      "taxRate": 0,
+      "taxAmount": 0,
+      "total": 1944,
+      "previousBalance": 0,
+      "payment": 0,
+      "remainingBalance": 1944,
+      "createdAt": "2025-11-01T16:44:08.102Z"
+    },
+    {
+      "id": 1762015508360,
+      "invoiceNo": "INV-0005",
+      "customerName": "30 Sindh",
+      "customerPhone": "",
+      "date": "2025-11-01",
+      "items": [
+        {
+          "name": "Shield ",
+          "rate": 2500,
+          "quantity": 2,
+          "designCharges": 0,
+          "amount": 5000
+        }
+      ],
+      "subtotal": 5000,
+      "taxRate": 0,
+      "taxAmount": 0,
+      "total": 5000,
+      "previousBalance": 0,
+      "payment": 0,
+      "remainingBalance": 5000,
+      "createdAt": "2025-11-01T16:45:08.360Z"
+    },
+    {
+      "id": 1762015552574,
+      "invoiceNo": "INV-0006",
+      "customerName": "Ali Printers",
+      "customerPhone": "",
+      "date": "2025-11-01",
+      "items": [
+        {
+          "name": "Shield",
+          "rate": 3500,
+          "quantity": 1,
+          "designCharges": 0,
+          "amount": 3500
+        }
+      ],
+      "subtotal": 3500,
+      "taxRate": 0,
+      "taxAmount": 0,
+      "total": 3500,
+      "previousBalance": 0,
+      "payment": 0,
+      "remainingBalance": 3500,
+      "createdAt": "2025-11-01T16:45:52.574Z"
+    }
+  ],
+  "financialEntries": [
+    {
+      "id": 1761418769717,
+      "type": "Income",
+      "category": "Income: Invoice Payment",
+      "date": "2025-10-25",
+      "amount": 5760,
+      "description": "Payment of Rs. 5760.00 recorded for invoice INV-0001 from Raza Graphics",
+      "createdAt": "2025-10-25T18:59:29.717Z",
+      "invoiceNo": "INV-0001"
+    },
+    {
+      "id": 1761418917254,
+      "type": "Expense",
+      "category": "Expense: Business Materials",
+      "date": "2025-10-25",
+      "amount": 1050,
+      "description": "Mug printing",
+      "createdAt": "2025-10-25T19:01:57.254Z"
+    },
+    {
+      "id": 1761434400070,
+      "type": "Income",
+      "category": "Income: Invoice Payment",
+      "date": "2025-10-25",
+      "amount": 500,
+      "description": "Payment for invoice INV-0001 from Lucky Furniture",
+      "createdAt": "2025-10-25T23:20:00.070Z",
+      "invoiceNo": "INV-0001"
+    },
+    {
+      "id": 1761434400071,
+      "type": "Sale",
+      "category": "Sale: Invoice Total",
+      "date": "2025-10-25",
+      "amount": 5100,
+      "description": "Sale generated from invoice INV-0001",
+      "createdAt": "2025-10-25T23:20:00.070Z",
+      "invoiceNo": "INV-0001"
+    },
+    {
+      "id": 1761577988411,
+      "type": "Payment",
+      "category": "Expense: Personal Bills",
+      "date": "2025-10-27",
+      "amount": 13000,
+      "description": "Credit card bill",
+      "createdAt": "2025-10-27T15:13:08.411Z",
+      "payableId": 1761318532671,
+      "payableDescription": "Credit Card"
+    },
+    {
+      "id": 1761578035087,
+      "type": "Payment",
+      "category": "Expense: Personal Bills",
+      "date": "2025-10-27",
+      "amount": 1500,
+      "description": "Ptcl bill",
+      "createdAt": "2025-10-27T15:13:55.087Z",
+      "payableId": 1761419313149,
+      "payableDescription": "PTCL Bill"
+    },
+    {
+      "id": 1761578295706,
+      "type": "Purchase",
+      "category": "Purchase: Raw Materials",
+      "date": "2025-10-27",
+      "amount": 20000,
+      "description": "Purchase order from Shah Baba Shield",
+      "createdAt": "2025-10-27T15:18:15.706Z"
+    },
+    {
+      "id": 1761700922142,
+      "type": "Income",
+      "category": "Income: Invoice Payment",
+      "date": "2025-10-29",
+      "amount": 184200,
+      "description": "Payment for invoice INV-0002 from Dc office Astor ",
+      "createdAt": "2025-10-29T01:22:02.142Z",
+      "invoiceNo": "INV-0002"
+    },
+    {
+      "id": 1761700922143,
+      "type": "Sale",
+      "category": "Sale: Product",
+      "date": "2025-10-29",
+      "amount": 184200,
+      "description": "Sale generated from invoice INV-0002",
+      "createdAt": "2025-10-29T01:22:02.142Z",
+      "invoiceNo": "INV-0002"
+    },
+    {
+      "id": 1761701185672,
+      "type": "Purchase",
+      "category": "Purchase: Raw Materials",
+      "date": "2025-10-29",
+      "amount": 89000,
+      "description": "Purchase order from Shah Baba Shield",
+      "createdAt": "2025-10-29T01:26:25.672Z"
+    },
+    {
+      "id": 1761701329564,
+      "type": "Payment",
+      "category": "Expense: Personal Other",
+      "date": "2025-10-28",
+      "amount": 9200,
+      "description": "Loan",
+      "createdAt": "2025-10-29T01:28:49.564Z",
+      "payableId": 1761318739868,
+      "payableDescription": "EasyPaisa Loan"
+    },
+    {
+      "id": 1761705772076,
+      "type": "Payment",
+      "category": "Expense: Personal Bills",
+      "date": "2025-10-25",
+      "amount": 15000,
+      "description": "Csd AC",
+      "createdAt": "2025-10-29T02:42:52.076Z",
+      "payableId": 1761705634939,
+      "payableDescription": "Musab CSD"
+    },
+    {
+      "id": 1761843514380,
+      "type": "Income",
+      "category": "Income: Invoice Payment",
+      "date": "2025-10-30",
+      "amount": 5500,
+      "description": "Payment for invoice INV-0001 from Iqra TF",
+      "createdAt": "2025-10-30T16:58:34.380Z",
+      "invoiceNo": "INV-0001"
+    },
+    {
+      "id": 1761843514381,
+      "type": "Sale",
+      "category": "Sale: Product",
+      "date": "2025-10-30",
+      "amount": 5500,
+      "description": "Sale generated from invoice INV-0001",
+      "createdAt": "2025-10-30T16:58:34.380Z",
+      "invoiceNo": "INV-0001"
+    },
+    {
+      "id": 1761843594760,
+      "type": "Expense",
+      "category": "Expense: Personal Other",
+      "date": "2025-10-30",
+      "amount": 4000,
+      "description": "Eye Glasses for me and khadija",
+      "createdAt": "2025-10-30T16:59:54.760Z"
+    },
+    {
+      "id": 1761843639195,
+      "type": "Expense",
+      "category": "Expense: Business Other",
+      "date": "2025-10-30",
+      "amount": 2000,
+      "description": "PC Tcs courier",
+      "createdAt": "2025-10-30T17:00:39.195Z"
+    },
+    {
+      "id": 1761843679047,
+      "type": "Expense",
+      "category": "Expense: Personal Transport",
+      "date": "2025-10-30",
+      "amount": 1500,
+      "description": "Bike Wiring Change",
+      "createdAt": "2025-10-30T17:01:19.047Z"
+    },
+    {
+      "id": 1761843711071,
+      "type": "Expense",
+      "category": "Expense: Personal Transport",
+      "date": "2025-10-30",
+      "amount": 200,
+      "description": "Bike Wash Servise",
+      "createdAt": "2025-10-30T17:01:51.071Z"
+    },
+    {
+      "id": 1761959707424,
+      "type": "Income",
+      "category": "Income: Army Pension",
+      "date": "2025-11-01",
+      "amount": 27000,
+      "description": "Pension",
+      "createdAt": "2025-11-01T01:15:07.424Z"
+    },
+    {
+      "id": 1762015301248,
+      "type": "Income",
+      "category": "Income: Invoice Payment",
+      "date": "2025-11-01",
+      "amount": 1750,
+      "description": "Payment for invoice INV-0003 from Abdul Rahman",
+      "createdAt": "2025-11-01T16:41:41.248Z",
+      "invoiceNo": "INV-0003"
+    },
+    {
+      "id": 1762015301249,
+      "type": "Sale",
+      "category": "Sale: Product",
+      "date": "2025-11-01",
+      "amount": 1794,
+      "description": "Sale generated from invoice INV-0003",
+      "createdAt": "2025-11-01T16:41:41.248Z",
+      "invoiceNo": "INV-0003"
+    },
+    {
+      "id": 1762015448103,
+      "type": "Sale",
+      "category": "Sale: Product",
+      "date": "2025-11-01",
+      "amount": 1944,
+      "description": "Sale generated from invoice INV-0004",
+      "createdAt": "2025-11-01T16:44:08.102Z",
+      "invoiceNo": "INV-0004"
+    },
+    {
+      "id": 1762015508362,
+      "type": "Sale",
+      "category": "Sale: Product",
+      "date": "2025-11-01",
+      "amount": 5000,
+      "description": "Sale generated from invoice INV-0005",
+      "createdAt": "2025-11-01T16:45:08.361Z",
+      "invoiceNo": "INV-0005"
+    },
+    {
+      "id": 1762015552575,
+      "type": "Sale",
+      "category": "Sale: Product",
+      "date": "2025-11-01",
+      "amount": 3500,
+      "description": "Sale generated from invoice INV-0006",
+      "createdAt": "2025-11-01T16:45:52.574Z",
+      "invoiceNo": "INV-0006"
+    },
+    {
+      "id": 1762016040975,
+      "type": "Purchase",
+      "category": "Purchase: Raw Materials",
+      "date": "2025-11-01",
+      "amount": 9000,
+      "description": "Purchase order from Shahbaz Brothers",
+      "createdAt": "2025-11-01T16:54:00.975Z"
+    }
+  ],
+  "payables": [
+    {
+      "id": 1761318532671,
+      "description": "Credit Card",
+      "amount": 20445,
+      "paidAmount": 13000,
+      "remainingAmount": 7445,
+      "dueDate": "2025-10-29",
+      "status": "Pending",
+      "createdAt": "2025-10-24T15:08:52.671Z"
+    },
+    {
+      "id": 1761318739868,
+      "description": "EasyPaisa Loan",
+      "amount": 9200,
+      "paidAmount": 9200,
+      "remainingAmount": 0,
+      "dueDate": "2025-10-29",
+      "status": "Paid",
+      "createdAt": "2025-10-24T15:12:19.868Z"
+    },
+    {
+      "id": 1761419313149,
+      "description": "PTCL Bill",
+      "amount": 4050,
+      "paidAmount": 1500,
+      "remainingAmount": 2550,
+      "dueDate": "2025-10-30",
+      "status": "Pending",
+      "createdAt": "2025-10-25T19:08:33.149Z"
+    },
+    {
+      "id": 1761701361076,
+      "description": "A Loan",
+      "amount": 70000,
+      "paidAmount": 0,
+      "remainingAmount": 70000,
+      "dueDate": "2025-11-07",
+      "status": "Pending",
+      "createdAt": "2025-10-29T01:29:21.076Z"
+    },
+    {
+      "id": 1761705634939,
+      "description": "Musab CSD",
+      "amount": 24000,
+      "paidAmount": 15000,
+      "remainingAmount": 9000,
+      "dueDate": "2025-11-30",
+      "status": "Pending",
+      "createdAt": "2025-10-29T02:40:34.939Z"
+    },
+    {
+      "id": 1761959403105,
+      "description": "Ayat School Fee",
+      "amount": 3220,
+      "paidAmount": 0,
+      "remainingAmount": 3220,
+      "dueDate": "2025-11-15",
+      "status": "Pending",
+      "createdAt": "2025-11-01T01:10:03.105Z"
+    },
+    {
+      "id": 1761959589515,
+      "description": "Eman School Fee ",
+      "amount": 1730,
+      "paidAmount": 0,
+      "remainingAmount": 1730,
+      "dueDate": "2025-11-15",
+      "status": "Pending",
+      "createdAt": "2025-11-01T01:13:09.515Z"
+    },
+    {
+      "id": 1761959639086,
+      "description": "Arham School Fee",
+      "amount": 2140,
+      "paidAmount": 0,
+      "remainingAmount": 2140,
+      "dueDate": "2025-11-15",
+      "status": "Pending",
+      "createdAt": "2025-11-01T01:13:59.086Z"
+    },
+    {
+      "id": 1761959677693,
+      "description": "Milk purchasing ",
+      "amount": 9000,
+      "paidAmount": 0,
+      "remainingAmount": 9000,
+      "dueDate": "2025-11-05",
+      "status": "Pending",
+      "createdAt": "2025-11-01T01:14:37.693Z"
+    },
+    {
+      "id": 1761959747514,
+      "description": "Mobile Instalment",
+      "amount": 1882,
+      "paidAmount": 0,
+      "remainingAmount": 1882,
+      "dueDate": "2025-11-07",
+      "status": "Pending",
+      "createdAt": "2025-11-01T01:15:47.514Z"
+    }
+  ],
+  "recentActivity": [
+    {
+      "id": 1762016040978,
+      "description": "Created purchase order from Shahbaz Brothers",
+      "type": "inventory",
+      "timestamp": "2025-11-01T16:54:00.978Z"
+    },
+    {
+      "id": 1762015552576,
+      "description": "Created invoice INV-0006 for Ali Printers",
+      "type": "invoice",
+      "timestamp": "2025-11-01T16:45:52.576Z"
+    },
+    {
+      "id": 1762015508362,
+      "description": "Created invoice INV-0005 for 30 Sindh",
+      "type": "invoice",
+      "timestamp": "2025-11-01T16:45:08.362Z"
+    },
+    {
+      "id": 1762015448104,
+      "description": "Created invoice INV-0004 for Gulzar Shb",
+      "type": "invoice",
+      "timestamp": "2025-11-01T16:44:08.104Z"
+    },
+    {
+      "id": 1762015301251,
+      "description": "Created invoice INV-0003 for Abdul Rahman",
+      "type": "invoice",
+      "timestamp": "2025-11-01T16:41:41.251Z"
+    },
+    {
+      "id": 1761959747517,
+      "description": "Added payable: Mobile Instalment",
+      "type": "financial",
+      "timestamp": "2025-11-01T01:15:47.517Z"
+    },
+    {
+      "id": 1761959707428,
+      "description": "Added Income entry: Pension",
+      "type": "financial",
+      "timestamp": "2025-11-01T01:15:07.428Z"
+    },
+    {
+      "id": 1761959677695,
+      "description": "Added payable: Milk purchasing ",
+      "type": "financial",
+      "timestamp": "2025-11-01T01:14:37.695Z"
+    },
+    {
+      "id": 1761959639090,
+      "description": "Added payable: Arham School Fee",
+      "type": "financial",
+      "timestamp": "2025-11-01T01:13:59.090Z"
+    },
+    {
+      "id": 1761959589518,
+      "description": "Added payable: Eman School Fee ",
+      "type": "financial",
+      "timestamp": "2025-11-01T01:13:09.518Z"
+    },
+    {
+      "id": 1761959403108,
+      "description": "Added payable: Ayat School Fee",
+      "type": "financial",
+      "timestamp": "2025-11-01T01:10:03.108Z"
+    },
+    {
+      "id": 1761843711074,
+      "description": "Added Expense entry: Bike Wash Servise",
+      "type": "financial",
+      "timestamp": "2025-10-30T17:01:51.074Z"
+    },
+    {
+      "id": 1761843679049,
+      "description": "Added Expense entry: Bike Wiring Change",
+      "type": "financial",
+      "timestamp": "2025-10-30T17:01:19.049Z"
+    },
+    {
+      "id": 1761843639197,
+      "description": "Added Expense entry: PC Tcs courier",
+      "type": "financial",
+      "timestamp": "2025-10-30T17:00:39.197Z"
+    },
+    {
+      "id": 1761843594761,
+      "description": "Added Expense entry: Eye Glasses for me and khadija",
+      "type": "financial",
+      "timestamp": "2025-10-30T16:59:54.761Z"
+    },
+    {
+      "id": 1761843514382,
+      "description": "Created invoice INV-0001 for Iqra TF",
+      "type": "invoice",
+      "timestamp": "2025-10-30T16:58:34.382Z"
+    },
+    {
+      "id": 1761705772081,
+      "description": "Added Payment entry: Csd AC",
+      "type": "financial",
+      "timestamp": "2025-10-29T02:42:52.081Z"
+    },
+    {
+      "id": 1761705634949,
+      "description": "Added payable: Musab CSD",
+      "type": "financial",
+      "timestamp": "2025-10-29T02:40:34.949Z"
+    },
+    {
+      "id": 1761701361079,
+      "description": "Added payable: A Loan",
+      "type": "financial",
+      "timestamp": "2025-10-29T01:29:21.079Z"
+    },
+    {
+      "id": 1761701329570,
+      "description": "Added Payment entry: Loan",
+      "type": "financial",
+      "timestamp": "2025-10-29T01:28:49.570Z"
+    },
+    {
+      "id": 1761701185674,
+      "description": "Created purchase order from Shah Baba Shield",
+      "type": "inventory",
+      "timestamp": "2025-10-29T01:26:25.674Z"
+    },
+    {
+      "id": 1761700922144,
+      "description": "Created invoice INV-0002 for Dc office Astor ",
+      "type": "invoice",
+      "timestamp": "2025-10-29T01:22:02.144Z"
+    },
+    {
+      "id": 1761578295709,
+      "description": "Created purchase order from Shah Baba Shield",
+      "type": "inventory",
+      "timestamp": "2025-10-27T15:18:15.709Z"
+    },
+    {
+      "id": 1761578035092,
+      "description": "Added Payment entry: Ptcl bill",
+      "type": "financial",
+      "timestamp": "2025-10-27T15:13:55.092Z"
+    },
+    {
+      "id": 1761577988419,
+      "description": "Added Payment entry: Credit card bill",
+      "type": "financial",
+      "timestamp": "2025-10-27T15:13:08.419Z"
+    },
+    {
+      "id": 1761434400073,
+      "description": "Created invoice INV-0001 for Lucky Furniture",
+      "type": "invoice",
+      "timestamp": "2025-10-25T23:20:00.073Z"
+    },
+    {
+      "id": 1761419313151,
+      "description": "Added payable: PTCL Bill",
+      "type": "financial",
+      "timestamp": "2025-10-25T19:08:33.151Z"
+    },
+    {
+      "id": 1761418917260,
+      "description": "Added Expense entry: Mug printing",
+      "type": "financial",
+      "timestamp": "2025-10-25T19:01:57.260Z"
+    },
+    {
+      "id": 1761418769719,
+      "description": "Recorded Rs. 5760.00 payment for invoice INV-0001",
+      "type": "invoice",
+      "timestamp": "2025-10-25T18:59:29.719Z"
+    },
+    {
+      "id": 1761381527777,
+      "description": "Calculated price for LetterPad 68g A4/2 Single Color",
+      "type": "calculator",
+      "timestamp": "2025-10-25T08:38:47.777Z"
+    },
+    {
+      "id": 1761381503764,
+      "description": "Calculated price for LetterPad 68g A4 Single Color",
+      "type": "calculator",
+      "timestamp": "2025-10-25T08:38:23.764Z"
+    },
+    {
+      "id": 1761319247649,
+      "description": "Created invoice INV-0001 for Raza Graphics",
+      "type": "invoice",
+      "timestamp": "2025-10-24T15:20:47.649Z"
+    },
+    {
+      "id": 1761318739870,
+      "description": "Added payable: EasyPaisa Loan",
+      "type": "financial",
+      "timestamp": "2025-10-24T15:12:19.870Z"
+    },
+    {
+      "id": 1761318532674,
+      "description": "Added payable: Credit Card",
+      "type": "financial",
+      "timestamp": "2025-10-24T15:08:52.674Z"
+    }
+  ],
+  "inventoryItems": [
+    {
+      "id": 1761549247455,
+      "name": "Shields",
+      "category": "Decor Items",
+      "stock": 60,
+      "minStock": 5,
+      "cost": 2300,
+      "createdAt": "2025-10-27T07:14:07.455Z",
+      "updatedAt": "2025-10-27T07:14:07.455Z"
+    },
+    {
+      "id": 1761549388998,
+      "name": "Art Paper Bags",
+      "category": "Decor Items",
+      "stock": 100,
+      "minStock": 5,
+      "cost": 100,
+      "createdAt": "2025-10-27T07:16:28.998Z",
+      "updatedAt": "2025-10-27T07:16:28.998Z"
+    },
+    {
+      "id": 1761549511047,
+      "name": "Folding Gift Cards",
+      "category": "Decor Items",
+      "stock": 100,
+      "minStock": 5,
+      "cost": 15,
+      "createdAt": "2025-10-27T07:18:31.047Z",
+      "updatedAt": "2025-10-27T07:18:31.047Z"
+    },
+    {
+      "id": 1761578202540,
+      "name": "Leather Folders",
+      "category": "Decor Items",
+      "stock": 8,
+      "minStock": 5,
+      "cost": 5000,
+      "createdAt": "2025-10-27T15:16:42.540Z",
+      "updatedAt": "2025-10-27T15:16:42.540Z"
+    },
+    {
+      "id": 1762015799474,
+      "name": "Pamphlet/Menu/Ishtihar, A4 Art Paper,113g, 4 Color",
+      "category": "Offset Paper Printing",
+      "stock": 1,
+      "minStock": 0,
+      "cost": 7000,
+      "createdAt": "2025-11-01T16:49:59.474Z",
+      "updatedAt": "2025-11-01T16:49:59.474Z"
+    },
+    {
+      "id": 1762015842989,
+      "name": "LetterPad 68g A4/2 Single Color",
+      "category": "Offset Paper Printing",
+      "stock": 1,
+      "minStock": 5,
+      "cost": 1200,
+      "createdAt": "2025-11-01T16:50:42.989Z",
+      "updatedAt": "2025-11-01T16:50:42.989Z"
+    },
+    {
+      "id": 1762015856747,
+      "name": "V Card Shine",
+      "category": "Offset Paper Printing",
+      "stock": 1,
+      "minStock": 5,
+      "cost": 800,
+      "createdAt": "2025-11-01T16:50:56.747Z",
+      "updatedAt": "2025-11-01T16:50:56.747Z"
+    }
+  ],
+  "suppliers": [
+    {
+      "id": 1761578110422,
+      "name": "Shah Baba Shield",
+      "contact": "",
+      "phone": "",
+      "email": "",
+      "address": "Lahore",
+      "createdAt": "2025-10-27T15:15:10.422Z",
+      "updatedAt": "2025-10-27T15:15:10.422Z"
+    },
+    {
+      "id": 1762015637962,
+      "name": "Shahbaz Brothers",
+      "contact": "",
+      "phone": "",
+      "email": "",
+      "address": "Lahore",
+      "createdAt": "2025-11-01T16:47:17.962Z",
+      "updatedAt": "2025-11-01T16:47:17.962Z"
+    }
+  ],
+  "purchaseOrders": [
+    {
+      "id": 1761578295706,
+      "supplierId": 1761578110422,
+      "supplierName": "Shah Baba Shield",
+      "date": "2025-10-27",
+      "items": [
+        {
+          "itemId": 1761578202540,
+          "itemName": "Leather Folders",
+          "quantity": 4,
+          "rate": 5000,
+          "amount": 20000
+        }
+      ],
+      "subtotal": 20000,
+      "previousBalance": 0,
+      "payment": 10000,
+      "remainingBalance": 10000,
+      "createdAt": "2025-10-27T15:18:15.706Z"
+    },
+    {
+      "id": 1761701185671,
+      "supplierId": 1761578110422,
+      "supplierName": "Shah Baba Shield",
+      "date": "2025-10-29",
+      "items": [
+        {
+          "itemId": 1761549247455,
+          "itemName": "Shields",
+          "quantity": 30,
+          "rate": 2300,
+          "amount": 69000
+        },
+        {
+          "itemId": 1761578202540,
+          "itemName": "Leather Folders",
+          "quantity": 4,
+          "rate": 5000,
+          "amount": 20000
+        }
+      ],
+      "subtotal": 89000,
+      "previousBalance": 0,
+      "payment": 89000,
+      "remainingBalance": 0,
+      "createdAt": "2025-10-29T01:26:25.671Z"
+    },
+    {
+      "id": 1762016040975,
+      "supplierId": 1762015637962,
+      "supplierName": "Shahbaz Brothers",
+      "date": "2025-11-01",
+      "items": [
+        {
+          "itemId": 1762015799474,
+          "itemName": "Pamphlet/Menu/Ishtihar, A4 Art Paper,113g, 4 Color",
+          "quantity": 1,
+          "rate": 7000,
+          "amount": 7000
+        },
+        {
+          "itemId": 1762015842989,
+          "itemName": "LetterPad 68g A4/2 Single Color",
+          "quantity": 1,
+          "rate": 1200,
+          "amount": 1200
+        },
+        {
+          "itemId": 1762015856747,
+          "itemName": "V Card Shine",
+          "quantity": 1,
+          "rate": 800,
+          "amount": 800
+        }
+      ],
+      "subtotal": 9000,
+      "previousBalance": 0,
+      "payment": 6000,
+      "remainingBalance": 3000,
+      "createdAt": "2025-11-01T16:54:00.975Z"
+    }
+  ],
+  "lastSync": "2025-11-02T12:33:13.748Z"
+}
