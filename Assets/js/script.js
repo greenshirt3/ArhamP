@@ -1,12 +1,34 @@
 'use strict';
 
-// Mobile menu functionality
+/*
+  --------------------------------------------------
+  # ANONYMOUS E-COMMERCE THEME BASE JAVASCRIPT
+  (Used for mobile menus, overlays, and accordion features)
+  --------------------------------------------------
+*/
+
+// modal variables (if used)
+const modal = document.querySelector('[data-modal]');
+const modalCloseBtn = document.querySelector('[data-modal-close]');
+const modalCloseOverlay = document.querySelector('[data-modal-overlay]');
+
+const modalCloseFunc = function () { 
+  if (modal) modal.classList.add('closed'); 
+}
+
+if (modalCloseOverlay) modalCloseOverlay.addEventListener('click', modalCloseFunc);
+if (modalCloseBtn) modalCloseBtn.addEventListener('click', modalCloseFunc);
+
+
+// mobile menu variables
 const mobileMenuOpenBtn = document.querySelectorAll('[data-mobile-menu-open-btn]');
 const mobileMenu = document.querySelectorAll('[data-mobile-menu]');
 const mobileMenuCloseBtn = document.querySelectorAll('[data-mobile-menu-close-btn]');
 const overlay = document.querySelector('[data-overlay]');
 
 for (let i = 0; i < mobileMenuOpenBtn.length; i++) {
+
+  // mobile menu function
   const mobileMenuCloseFunc = function () {
     mobileMenu[i].classList.remove('active');
     overlay.classList.remove('active');
@@ -19,31 +41,49 @@ for (let i = 0; i < mobileMenuOpenBtn.length; i++) {
 
   mobileMenuCloseBtn[i].addEventListener('click', mobileMenuCloseFunc);
   overlay.addEventListener('click', mobileMenuCloseFunc);
+
 }
 
-// Accordion functionality
+
+// accordion variables
 const accordionBtn = document.querySelectorAll('[data-accordion-btn]');
 const accordion = document.querySelectorAll('[data-accordion]');
 
 for (let i = 0; i < accordionBtn.length; i++) {
+
   accordionBtn[i].addEventListener('click', function () {
+
     const clickedBtn = this.nextElementSibling.classList.contains('active');
 
-    for (let i = 0; i < accordion.length; i++) {
+    for (let j = 0; j < accordion.length; j++) {
+
       if (clickedBtn) break;
 
-      if (accordion[i].classList.contains('active')) {
-        accordion[i].classList.remove('active');
-        accordionBtn[i].classList.remove('active');
+      if (accordion[j].classList.contains('active')) {
+
+        accordion[j].classList.remove('active');
+        accordionBtn[j].classList.remove('active');
+
       }
+
     }
 
     this.nextElementSibling.classList.toggle('active');
     this.classList.toggle('active');
+
   });
+
 }
 
-// Price Calculator Data
+
+/*
+  --------------------------------------------------
+  # ARHAM PRINTERS PRICE CALCULATOR LOGIC
+  (Combined from original embedded script)
+  --------------------------------------------------
+*/
+
+// Printing categories data
 const categories = {
   "Printing": {
     "Business Cards": {
@@ -131,53 +171,54 @@ const categories = {
   }
 };
 
-// Initialize calculator when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-  // Update subcategories based on selected main category
-  const mainCategorySelect = document.getElementById('mainCategory');
-  if (mainCategorySelect) {
-    mainCategorySelect.addEventListener('change', function() {
-      const mainCategory = this.value;
-      const subCategorySelect = document.getElementById('subCategory');
-      subCategorySelect.innerHTML = '<option value="">Select Subcategory</option>';
-      
-      if (mainCategory && categories[mainCategory]) {
-        for (const subcategory in categories[mainCategory]) {
-          const option = document.createElement('option');
-          option.value = subcategory;
-          option.textContent = subcategory;
-          subCategorySelect.appendChild(option);
-        }
-      }
-      
-      // Clear item dropdown
-      document.getElementById('itemName').innerHTML = '<option value="">Select Item</option>';
-    });
-  }
+// --- Event Listeners for Calculator Fields ---
 
-  // Update items based on selected subcategory
-  const subCategorySelect = document.getElementById('subCategory');
-  if (subCategorySelect) {
-    subCategorySelect.addEventListener('change', function() {
-      const mainCategory = document.getElementById('mainCategory').value;
-      const subCategory = this.value;
-      const itemNameSelect = document.getElementById('itemName');
-      itemNameSelect.innerHTML = '<option value="">Select Item</option>';
-      
-      if (mainCategory && subCategory && categories[mainCategory] && categories[mainCategory][subCategory]) {
-        for (const item in categories[mainCategory][subCategory]) {
-          const option = document.createElement('option');
-          option.value = item;
-          option.textContent = item;
-          itemNameSelect.appendChild(option);
-        }
-      }
-    });
-  }
+document.addEventListener('DOMContentLoaded', function() {
+    const mainCategorySelect = document.getElementById('mainCategory');
+    const subCategorySelect = document.getElementById('subCategory');
+    const itemNameSelect = document.getElementById('itemName');
+
+    // Initialize Main Category Listener
+    if (mainCategorySelect) {
+        mainCategorySelect.addEventListener('change', function() {
+            const mainCategory = this.value;
+            subCategorySelect.innerHTML = '<option value="">Select Subcategory</option>';
+            
+            if (mainCategory && categories[mainCategory]) {
+                for (const subcategory in categories[mainCategory]) {
+                    const option = document.createElement('option');
+                    option.value = subcategory;
+                    option.textContent = subcategory;
+                    subCategorySelect.appendChild(option);
+                }
+            }
+            itemNameSelect.innerHTML = '<option value="">Select Item</option>';
+        });
+    }
+
+    // Initialize Subcategory Listener
+    if (subCategorySelect) {
+        subCategorySelect.addEventListener('change', function() {
+            const mainCategory = mainCategorySelect.value;
+            const subCategory = this.value;
+            itemNameSelect.innerHTML = '<option value="">Select Item</option>';
+            
+            if (mainCategory && subCategory && categories[mainCategory] && categories[mainCategory][subCategory]) {
+                for (const item in categories[mainCategory][subCategory]) {
+                    const option = document.createElement('option');
+                    option.value = item;
+                    option.textContent = item;
+                    itemNameSelect.appendChild(option);
+                }
+            }
+        });
+    }
 });
 
-// Calculate price function
-function calculatePrice() {
+
+// --- Calculator Core Functions (now Global) ---
+
+window.calculatePrice = function() {
   const mainCategory = document.getElementById('mainCategory').value;
   const subCategory = document.getElementById('subCategory').value;
   const itemName = document.getElementById('itemName').value;
@@ -224,12 +265,14 @@ function calculatePrice() {
   document.getElementById('calculatorResult').style.display = 'block';
 }
 
-// Clear calculator function
-function clearCalculator() {
+window.clearCalculator = function() {
   document.getElementById('mainCategory').value = '';
   document.getElementById('subCategory').innerHTML = '<option value="">Select Subcategory</option>';
   document.getElementById('itemName').innerHTML = '<option value="">Select Item</option>';
   document.getElementById('quantity').value = 1;
   document.getElementById('designCharges').value = 0;
   document.getElementById('calculatorResult').style.display = 'none';
+
+  // Trigger change event to clear subcategory (if necessary, though logic handles it)
+  document.getElementById('mainCategory').dispatchEvent(new Event('change'));
 }
