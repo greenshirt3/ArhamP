@@ -1,533 +1,1091 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Arham Printers - Professional Printing Services in Pakistan</title>
-  
-  <link rel="shortcut icon" href="./assets/images/logo/favicon.ico" type="image/x-icon">
-  
-  <link rel="stylesheet" href="./assets/css/style-prefix.css">
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <title>Arham Printers - Professional Printing Services in Pakistan</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Printing Services, Business Cards, Stationery, Marketing Materials" name="keywords">
+    <meta content="Professional printing services in Pakistan for business cards, brochures, flyers, and more." name="description">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    
+    <style>
+        /* Additional styles for the enhanced functionality */
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .product-quantity {
+            width: 70px;
+            text-align: center;
+        }
+        .checkout-step {
+            display: none;
+        }
+        .checkout-step.active {
+            display: block;
+        }
+        .order-summary-item {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+        .cart-item {
+            transition: all 0.3s ease;
+        }
+        .cart-item.removing {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+    </style>
 </head>
 
 <body>
-  <div class="overlay" data-overlay></div>
-
-  <header>
-    <div class="header-top">
-      <div class="container">
-        <ul class="header-social-container">
-          <li>
-            <a href="#" class="social-link">
-              <ion-icon name="logo-facebook"></ion-icon>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="social-link">
-              <ion-icon name="logo-twitter"></ion-icon>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="social-link">
-              <ion-icon name="logo-instagram"></ion-icon>
-            </a>
-          </li>
-        </ul>
-
-        <div class="header-alert-news">
-          <p>
-            <b>100% Quality Guarantee</b>
-            | High-Quality prints every time.
-          </p>
+    <!-- Spinner -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
         </div>
-
-        <div class="header-top-actions">
-          <select name="currency">
-            <option value="pkr">PKR Rs</option>
-          </select>
-        </div>
-      </div>
     </div>
 
-    <div class="header-main">
-      <div class="container">
-        <a href="https://arhamprinters.pk/" class="header-logo">
-          <img src="./assets/images/logo/logo.svg" alt="Arham Printers Logo" width="120" height="36">
-        </a>
-
-        <div class="header-search-container">
-          <input type="search" name="search" class="search-field" placeholder="Search printing services...">
-          <button class="search-btn">
-            <ion-icon name="search-outline"></ion-icon>
-          </button>
-        </div>
-
-        <div class="header-user-actions">
-          <button class="action-btn" onclick="window.location.href='./admin.html'">
-            <ion-icon name="person-outline"></ion-icon>
-          </button>
-          <button class="action-btn" onclick="window.location.href='tel:+923001234567'">
-            <ion-icon name="call-outline"></ion-icon>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <nav class="desktop-navigation-menu">
-      <div class="container">
-        <ul class="desktop-menu-category-list">
-          <li class="menu-category">
-            <a href="#home" class="menu-title">Home</a>
-          </li>
-          <li class="menu-category">
-            <a href="#services" class="menu-title">Printing Services</a>
-            <div class="dropdown-panel">
-              <ul class="dropdown-panel-list">
-                <li class="menu-title">
-                  <a href="#">Business Printing</a>
-                </li>
-                <li class="panel-list-item">
-                  <a href="#">Business Cards</a>
-                </li>
-                <li class="panel-list-item">
-                  <a href="#">Letterheads</a>
-                </li>
-                <li class="panel-list-item">
-                  <a href="#">Envelopes</a>
-                </li>
-                <li class="panel-list-item">
-                  <a href="#">Brochures</a>
-                </li>
-              </ul>
-              <ul class="dropdown-panel-list">
-                <li class="menu-title">
-                  <a href="#">Marketing Materials</a>
-                </li>
-                <li class="panel-list-item">
-                  <a href="#">Flyers</a>
-                </li>
-                <li class="panel-list-item">
-                  <a href="#">Posters</a>
-                </li>
-                <li class="panel-list-item">
-                  <a href="#">Banners</a>
-                </li>
-                <li class="panel-list-item">
-                  <a href="#">Stickers</a>
-                </li>
-              </ul>
-              <ul class="dropdown-panel-list">
-                <li class="menu-title">
-                  <a href="#">Photocopy Services</a>
-                </li>
-                <li class="panel-list-item">
-                  <a href="#">Black & White</a>
-                </li>
-                <li class="panel-list-item">
-                  <a href="#">Color Copies</a>
-                </li>
-                <li class="panel-list-item">
-                  <a href="#">Large Format</a>
-                </li>
-              </ul>
+    <!-- Top Bar -->
+    <div class="container-fluid bg-dark text-white-50 py-2 px-0 d-none d-lg-block">
+        <div class="row gx-0 align-items-center">
+            <div class="col-lg-7 px-5 text-start">
+                <div class="h-100 d-inline-flex align-items-center me-4">
+                    <small class="fa fa-phone-alt me-2"></small>
+                    <small>+92 333 4444555</small>
+                </div>
+                <div class="h-100 d-inline-flex align-items-center me-4">
+                    <small class="far fa-envelope-open me-2"></small>
+                    <small>info@arhamprinters.pk</small>
+                </div>
+                <div class="h-100 d-inline-flex align-items-center me-4">
+                    <small class="far fa-clock me-2"></small>
+                    <small>Mon - Fri : 09 AM - 09 PM</small>
+                </div>
             </div>
-          </li>
-          <li class="menu-category">
-            <a href="#" class="menu-title">Design Services</a>
-          </li>
-          <li class="menu-category">
-            <a href="#" class="menu-title">About Us</a>
-          </li>
-          <li class="menu-category">
-            <a href="#contact" class="menu-title">Contact</a>
-          </li>
-        </ul>
-      </div>
+            <div class="col-lg-5 px-5 text-end">
+                <div class="h-100 d-inline-flex align-items-center">
+                    <a class="text-white-50 ms-4" href=""><i class="fab fa-facebook-f"></i></a>
+                    <a class="text-white-50 ms-4" href=""><i class="fab fa-twitter"></i></a>
+                    <a class="text-white-50 ms-4" href=""><i class="fab fa-linkedin-in"></i></a>
+                    <a class="text-white-50 ms-4" href=""><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5">
+        <a href="#" class="navbar-brand d-flex align-items-center" onclick="showSection('home')">
+            <h1 class="m-0 text-primary"><i class="fa fa-print me-3"></i>Arham Printers</h1>
+        </a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav mx-auto bg-light pe-4 py-3 py-lg-0">
+                <a href="#" class="nav-item nav-link active" onclick="showSection('home')">Home</a>
+                <a href="#" class="nav-item nav-link" onclick="showSection('services')">Services</a>
+                <a href="#" class="nav-item nav-link" onclick="showSection('products')">Products</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
+                    <div class="dropdown-menu bg-light border-0 m-0">
+                        <a href="#" class="dropdown-item" onclick="showSection('products')">All Products</a>
+                        <a href="#" class="dropdown-item" onclick="showSection('cart')">Cart</a>
+                        <a href="#" class="dropdown-item" onclick="showSection('checkout')">Checkout</a>
+                    </div>
+                </div>
+                <a href="#" class="nav-item nav-link" onclick="showSection('contact')">Contact</a>
+            </div>
+            <div class="h-100 d-lg-inline-flex align-items-center">
+                <a class="btn-sm-square bg-white text-primary rounded-circle me-4 position-relative" href="#" onclick="showSection('cart')">
+                    <i class="fa fa-shopping-bag"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </a>
+                <a href="#" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block" onclick="showSection('contact')">Get a Quote<i
+                        class="fa fa-arrow-right ms-3"></i></a>
+            </div>
+        </div>
     </nav>
 
-    <div class="mobile-bottom-navigation">
-      <button class="action-btn" data-mobile-menu-open-btn>
-        <ion-icon name="menu-outline"></ion-icon>
-      </button>
-      <button class="action-btn" onclick="window.location.href='tel:+923001234567'">
-        <ion-icon name="call-outline"></ion-icon>
-      </button>
-      <button class="action-btn" onclick="window.location.href='https://arhamprinters.pk/'">
-        <ion-icon name="home-outline"></ion-icon>
-      </button>
-      <button class="action-btn" onclick="window.location.href='./admin.html'">
-        <ion-icon name="person-outline"></ion-icon>
-      </button>
-      <button class="action-btn" data-mobile-menu-open-btn>
-        <ion-icon name="grid-outline"></ion-icon>
-      </button>
+    <!-- Home Section -->
+    <section id="home-section" class="section active">
+        <div class="container-fluid hero-header bg-light py-5">
+            <div class="container py-5">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-6">
+                        <h1 class="display-4 mb-3 animated slideInDown">The Future of <span class="text-primary">Printing</span> is Here</h1>
+                        <p class="animated slideInDown">Experience professional quality and stunning designs for all your business needs—from letterheads to marketing materials. Arham Printers delivers excellence.</p>
+                        <a href="#" class="btn btn-primary py-3 px-5 animated slideInDown" onclick="showSection('products')">Explore Now</a>
+                    </div>
+                    <div class="col-lg-6 animated fadeIn">
+                        <div class="owl-carousel header-carousel">
+                            <div class="owl-carousel-item">
+                                <img class="img-fluid" src="img/carousel-1.png" alt="Printing Services">
+                            </div>
+                            <div class="owl-carousel-item">
+                                <img class="img-fluid" src="img/carousel-2.png" alt="Business Printing">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Services Preview -->
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div class="mx-auto text-center mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                    <h1 class="display-5 mb-3">Professional Printing Services</h1>
+                    <p class="mb-0">From business stationery to vibrant marketing flyers, we cover all your printing needs with precision and speed.</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="service-item bg-light p-4">
+                            <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-4"
+                                style="width: 60px; height: 60px;">
+                                <i class="fa fa-print text-primary fs-4"></i>
+                            </div>
+                            <h5 class="mb-3">Offset Printing</h5>
+                            <p class="mb-0">High-volume, superior quality printing for books, brochures, and stationery.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="service-item bg-light p-4">
+                            <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-4"
+                                style="width: 60px; height: 60px;">
+                                <i class="fa fa-copy text-primary fs-4"></i>
+                            </div>
+                            <h5 class="mb-3">Digital Printing</h5>
+                            <p class="mb-0">Fast, on-demand printing for short runs and personalized marketing materials.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                        <div class="service-item bg-light p-4">
+                            <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-4"
+                                style="width: 60px; height: 60px;">
+                                <i class="fa fa-id-card text-primary fs-4"></i>
+                            </div>
+                            <h5 class="mb-3">Custom Stationery</h5>
+                            <p class="mb-0">Design and print of business cards, letterheads, envelopes, and official documents.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                        <div class="service-item bg-light p-4">
+                            <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-4"
+                                style="width: 60px; height: 60px;">
+                                <i class="fa fa-boxes text-primary fs-4"></i>
+                            </div>
+                            <h5 class="mb-3">Packaging Solutions</h5>
+                            <p class="mb-0">Branded boxes, custom labels, and durable packaging for your product line.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-5">
+                    <a href="#" class="btn btn-primary py-3 px-5" onclick="showSection('services')">View All Services</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services-section" class="section">
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Our Services</h1>
+            <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+                <li class="breadcrumb-item"><a href="#" onclick="showSection('home')">Home</a></li>
+                <li class="breadcrumb-item active text-white">Services</li>
+            </ol>
+        </div>
+
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div class="row g-4">
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="service-item bg-light p-4 text-center">
+                            <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-4 mx-auto"
+                                style="width: 80px; height: 80px;">
+                                <i class="fa fa-print text-primary fs-2"></i>
+                            </div>
+                            <h4 class="mb-3">Offset Printing</h4>
+                            <p class="mb-4">High-volume, superior quality printing for books, brochures, and stationery with precise color matching and consistency.</p>
+                            <a href="#" class="btn btn-primary" onclick="showSection('contact')">Get Quote</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="service-item bg-light p-4 text-center">
+                            <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-4 mx-auto"
+                                style="width: 80px; height: 80px;">
+                                <i class="fa fa-copy text-primary fs-2"></i>
+                            </div>
+                            <h4 class="mb-3">Digital Printing</h4>
+                            <p class="mb-4">Fast, on-demand printing for short runs and personalized marketing materials with quick turnaround times.</p>
+                            <a href="#" class="btn btn-primary" onclick="showSection('contact')">Get Quote</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                        <div class="service-item bg-light p-4 text-center">
+                            <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-4 mx-auto"
+                                style="width: 80px; height: 80px;">
+                                <i class="fa fa-id-card text-primary fs-2"></i>
+                            </div>
+                            <h4 class="mb-3">Custom Stationery</h4>
+                            <p class="mb-4">Design and print of business cards, letterheads, envelopes, and official documents to represent your brand professionally.</p>
+                            <a href="#" class="btn btn-primary" onclick="showSection('contact')">Get Quote</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="service-item bg-light p-4 text-center">
+                            <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-4 mx-auto"
+                                style="width: 80px; height: 80px;">
+                                <i class="fa fa-boxes text-primary fs-2"></i>
+                            </div>
+                            <h4 class="mb-3">Packaging Solutions</h4>
+                            <p class="mb-4">Branded boxes, custom labels, and durable packaging for your product line that stands out on shelves.</p>
+                            <a href="#" class="btn btn-primary" onclick="showSection('contact')">Get Quote</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="service-item bg-light p-4 text-center">
+                            <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-4 mx-auto"
+                                style="width: 80px; height: 80px;">
+                                <i class="fa fa-file-alt text-primary fs-2"></i>
+                            </div>
+                            <h4 class="mb-3">Brochures & Flyers</h4>
+                            <p class="mb-4">Eye-catching marketing materials designed to promote your business and capture customer attention.</p>
+                            <a href="#" class="btn btn-primary" onclick="showSection('contact')">Get Quote</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                        <div class="service-item bg-light p-4 text-center">
+                            <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-4 mx-auto"
+                                style="width: 80px; height: 80px;">
+                                <i class="fa fa-images text-primary fs-2"></i>
+                            </div>
+                            <h4 class="mb-3">Large Format Printing</h4>
+                            <p class="mb-4">Banners, posters, and signage in large formats for events, retail spaces, and promotional activities.</p>
+                            <a href="#" class="btn btn-primary" onclick="showSection('contact')">Get Quote</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products-section" class="section">
+                <div class="container-fluid bg-light py-5">
+            <div class="container py-5">
+                    <div class="row g-4" id="product-list-container"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Section -->
+    <section id="cart-section" class="section">
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Shopping Cart</h1>
+            <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+                <li class="breadcrumb-item"><a href="#" onclick="showSection('home')">Home</a></li>
+                <li class="breadcrumb-item active text-white">Cart</li>
+            </ol>
+        </div>
+
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div id="cart-items-container">
+                    <!-- Cart items will be dynamically inserted here -->
+                    <div class="text-center py-5" id="empty-cart-message">
+                        <i class="fas fa-shopping-cart fa-4x text-muted mb-4"></i>
+                        <h3 class="text-muted">Your cart is empty</h3>
+                        <p class="text-muted">Add some products to your cart to see them here</p>
+                        <a href="#" class="btn btn-primary mt-3" onclick="showSection('products')">Continue Shopping</a>
+                    </div>
+                </div>
+                
+                <div class="row mt-5" id="cart-actions" style="display: none;">
+                    <div class="col-md-8">
+                        <div class="d-flex">
+                            <input type="text" class="form-control me-2" placeholder="Coupon Code" id="coupon-code">
+                            <button class="btn btn-primary" onclick="applyCoupon()">Apply Coupon</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="bg-light rounded p-4">
+                            <h4 class="mb-4">Cart Total</h4>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span>Subtotal:</span>
+                                <span id="cart-subtotal">$0.00</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span>Shipping:</span>
+                                <span id="cart-shipping">$3.00</span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between mb-3">
+                                <strong>Total:</strong>
+                                <strong id="cart-total">$3.00</strong>
+                            </div>
+                            <button class="btn btn-primary w-100 mt-3" onclick="showSection('checkout')">Proceed to Checkout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checkout Section -->
+    <section id="checkout-section" class="section">
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Checkout</h1>
+            <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+                <li class="breadcrumb-item"><a href="#" onclick="showSection('home')">Home</a></li>
+                <li class="breadcrumb-item"><a href="#" onclick="showSection('cart')">Cart</a></li>
+                <li class="breadcrumb-item active text-white">Checkout</li>
+            </ol>
+        </div>
+
+        <div class="container-fluid bg-light py-5">
+            <div class="container py-5">
+                <!-- Checkout Steps -->
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <ul class="nav nav-pills justify-content-center">
+                            <li class="nav-item mx-2">
+                                <a class="nav-link active" href="#" onclick="showCheckoutStep(1)">Billing Details</a>
+                            </li>
+                            <li class="nav-item mx-2">
+                                <a class="nav-link" href="#" onclick="showCheckoutStep(2)">Payment Method</a>
+                            </li>
+                            <li class="nav-item mx-2">
+                                <a class="nav-link" href="#" onclick="showCheckoutStep(3)">Order Review</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row g-5">
+                    <!-- Billing Details -->
+                    <div class="col-lg-8">
+                        <div id="checkout-step-1" class="checkout-step active">
+                            <h3 class="mb-4">Billing Details</h3>
+                            <form id="billing-form">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">First Name *</label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Last Name *</label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Company Name</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Address *</label>
+                                        <input type="text" class="form-control" placeholder="House Number Street Name" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Town/City *</label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Postcode/Zip *</label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Phone *</label>
+                                        <input type="tel" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Email Address *</label>
+                                        <input type="email" class="form-control" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="create-account">
+                                            <label class="form-check-label" for="create-account">Create an account?</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="different-address">
+                                            <label class="form-check-label" for="different-address">Ship to a different address?</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Order Notes (Optional)</label>
+                                        <textarea class="form-control" rows="4" placeholder="Notes about your order"></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="button" class="btn btn-primary" onclick="showCheckoutStep(2)">Continue to Payment</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Payment Method -->
+                        <div id="checkout-step-2" class="checkout-step">
+                            <h3 class="mb-4">Payment Method</h3>
+                            <div class="mb-4">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="radio" name="payment-method" id="bank-transfer" checked>
+                                    <label class="form-check-label" for="bank-transfer">
+                                        Direct Bank Transfer
+                                    </label>
+                                </div>
+                                <p class="ps-4 text-muted">Make your payment directly into our bank account. Please use your Order ID as the payment reference.</p>
+                                
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="radio" name="payment-method" id="check-payments">
+                                    <label class="form-check-label" for="check-payments">
+                                        Check Payments
+                                    </label>
+                                </div>
+                                
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="radio" name="payment-method" id="cash-on-delivery">
+                                    <label class="form-check-label" for="cash-on-delivery">
+                                        Cash on Delivery
+                                    </label>
+                                </div>
+                                
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="radio" name="payment-method" id="paypal">
+                                    <label class="form-check-label" for="paypal">
+                                        PayPal
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-secondary" onclick="showCheckoutStep(1)">Back</button>
+                                <button type="button" class="btn btn-primary" onclick="showCheckoutStep(3)">Continue to Review</button>
+                            </div>
+                        </div>
+
+                        <!-- Order Review -->
+                        <div id="checkout-step-3" class="checkout-step">
+                            <h3 class="mb-4">Order Review</h3>
+                            <div class="mb-4">
+                                <h5>Billing Details</h5>
+                                <div id="billing-details-review" class="bg-light p-3 rounded">
+                                    <!-- Billing details will be populated here -->
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <h5>Payment Method</h5>
+                                <div id="payment-method-review" class="bg-light p-3 rounded">
+                                    <!-- Payment method will be populated here -->
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-secondary" onclick="showCheckoutStep(2)">Back</button>
+                                <button type="button" class="btn btn-primary" onclick="placeOrder()">Place Order</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Order Summary -->
+                    <div class="col-lg-4">
+                        <div class="bg-white rounded p-4 sticky-top" style="top: 100px;">
+                            <h4 class="mb-4">Order Summary</h4>
+                            <div id="checkout-order-items">
+                                <!-- Order items will be populated here -->
+                            </div>
+                            <div class="d-flex justify-content-between mt-3">
+                                <span>Subtotal:</span>
+                                <span id="checkout-subtotal">$0.00</span>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <span>Shipping:</span>
+                                <span id="checkout-shipping">$3.00</span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between mt-2">
+                                <strong>Total:</strong>
+                                <strong id="checkout-total">$3.00</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact-section" class="section">
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Contact Us</h1>
+            <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+                <li class="breadcrumb-item"><a href="#" onclick="showSection('home')">Home</a></li>
+                <li class="breadcrumb-item active text-white">Contact</li>
+            </ol>
+        </div>
+
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div class="row g-4">
+                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="bg-light p-4 rounded">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
+                                    style="width: 60px; height: 60px;">
+                                    <i class="fa fa-map-marker-alt text-primary fs-4"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <h5 class="mb-2">Our Location</h5>
+                                    <p class="mb-0">123 Main Street, Lahore, Pakistan</p>
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
+                                    style="width: 60px; height: 60px;">
+                                    <i class="fa fa-phone-alt text-primary fs-4"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <h5 class="mb-2">Call Us</h5>
+                                    <p class="mb-0">+92 333 4444555</p>
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex align-items-center">
+                                <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
+                                    style="width: 60px; height: 60px;">
+                                    <i class="fa fa-envelope text-primary fs-4"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <h5 class="mb-2">Email Us</h5>
+                                    <p class="mb-0">info@arhamprinters.pk</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="bg-light p-4 rounded">
+                            <form id="contact-form">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border-0" id="name" placeholder="Your Name" required>
+                                            <label for="name">Your Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="email" class="form-control border-0" id="email" placeholder="Your Email" required>
+                                            <label for="email">Your Email</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border-0" id="subject" placeholder="Subject" required>
+                                            <label for="subject">Subject</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <textarea class="form-control border-0" placeholder="Leave a message here" id="message" style="height: 150px" required></textarea>
+                                            <label for="message">Message</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="btn btn-primary w-100 py-3" type="submit">Send Message</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div class="container-fluid bg-dark footer pt-5 wow fadeIn" data-wow-delay="0.1s" style="margin-top: 150px;">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-white mb-4">Arham Printers</h5>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Main Street, Lahore, Pakistan</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+92 333 4444555</p>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@arhamprinters.pk</p>
+                    <div class="d-flex pt-2">
+                        <a class="btn btn-square btn-outline-light rounded-circle me-1" href=""><i
+                                class="fab fa-twitter"></i></a>
+                        <a class="btn btn-square btn-outline-light rounded-circle me-1" href=""><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-square btn-outline-light rounded-circle me-1" href=""><i
+                                class="fab fa-youtube"></i></a>
+                        <a class="btn btn-square btn-outline-light rounded-circle me-0" href=""><i
+                                class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-white mb-4">Quick Links</h5>
+                    <a class="btn btn-link" href="#" onclick="showSection('home')">Home</a>
+                    <a class="btn btn-link" href="#" onclick="showSection('services')">Services</a>
+                    <a class="btn btn-link" href="#" onclick="showSection('products')">Products</a>
+                    <a class="btn btn-link" href="#" onclick="showSection('contact')">Contact Us</a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-white mb-4">Popular Products</h5>
+                    <a class="btn btn-link" href="#" onclick="showSection('products')">Business Cards</a>
+                    <a class="btn btn-link" href="#" onclick="showSection('products')">Brochures & Flyers</a>
+                    <a class="btn btn-link" href="#" onclick="showSection('products')">Custom Letterheads</a>
+                    <a class="btn btn-link" href="#" onclick="showSection('products')">Vinyl Banners</a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-white mb-4">Newsletter</h5>
+                    <p>Subscribe to get updates on new products and offers.</p>
+                    <div class="position-relative w-100">
+                        <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text"
+                            placeholder="Your email" id="newsletter-email">
+                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2" onclick="subscribeNewsletter()">SignUp</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        <span class="text-white"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Arham Printers</a>, All right
+                            reserved.</span>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end text-white">
+                        Designed By <a class="border-bottom text-white" href="https://htmlcodex.com">HTML Codex</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <nav class="mobile-navigation-menu has-scrollbar" data-mobile-menu>
-      <div class="menu-top">
-        <h2 class="menu-title">Menu</h2>
-        <button class="menu-close-btn" data-mobile-menu-close-btn>
-          <ion-icon name="close-outline"></ion-icon>
-        </button>
-      </div>
-      </nav>
-  </header>
+    <a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
 
-  <main>
-    <div class="banner">
-      <div class="container">
-        <div class="slider-container has-scrollbar">
-          <div class="slider-item">
-            <img src="./assets/images/banner-1.jpg" alt="Professional Printing Services" class="banner-img">
-            <div class="banner-content">
-              <p class="banner-subtitle">Quality Printing</p>
-              <h2 class="banner-title">Professional Business Printing</h2>
-              <p class="banner-text">
-                Starting at Rs. <b>500</b>.00
-              </p>
-              <a href="#calculator" class="banner-btn">Get Quote</a>
-            </div>
-          </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
 
-          <div class="slider-item">
-            <img src="./assets/images/banner-2.jpg" alt="Fast Photocopy Services" class="banner-img">
-            <div class="banner-content">
-              <p class="banner-subtitle">Quick Service</p>
-              <h2 class="banner-title">Photocopy & Printing</h2>
-              <p class="banner-text">
-                Starting at Rs. <b>5</b>.00 per page
-              </p>
-              <a href="#calculator" class="banner-btn">Order Now</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <script>
+    // --- Configuration ---
+    // The public file containing all prices. This must be pushed to GitHub with the code.
+    const PUBLIC_DATA_URL = 'customer-data.json'; 
+    let allProducts = {}; // Will store the fetched product data for cart reference
 
-    <div class="container" id="services">
-      <h2 class="title" style="text-align: center; margin: 40px 0 20px;">Our Printing Services</h2>
-      
-      <div class="printing-categories">
-        <div class="printing-category">
-          <h3>Printing</h3>
-          
-          <div class="printing-subcategory">
-            <h4>Business Cards</h4>
-            <ul class="printing-items">
-              <li class="printing-item">
-                <span class="item-name">Standard Business Card</span>
-                <span class="item-price">Rs. 500</span>
-              </li>
-              <li class="printing-item">
-                <span class="item-name">Premium Business Card</span>
-                <span class="item-price">Rs. 800</span>
-              </li>
-            </ul>
-          </div>
-          
-          <div class="printing-subcategory">
-            <h4>Flyers</h4>
-            <ul class="printing-items">
-              <li class="printing-item">
-                <span class="item-name">A4 Flyer</span>
-                <span class="item-price">Rs. 300</span>
-              </li>
-              <li class="printing-item">
-                <span class="item-name">A5 Flyer</span>
-                <span class="item-price">Rs. 200</span>
-              </li>
-            </ul>
-          </div>
-        </div>
+    // Cart functionality
+    let cart = [];
+
+    // --- Core Functions ---
+
+    // Function to fetch the price data and render products
+    async function fetchAndRenderProducts() {
+        let categories;
+        try {
+            const response = await fetch(PUBLIC_DATA_URL);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            categories = data.categories;
+        } catch (error) {
+            console.error("Failed to fetch or parse shop data:", error);
+            const container = document.getElementById('product-list-container');
+            if (container) {
+                container.innerHTML = '<p class="text-danger text-center w-100 mt-5">Failed to load current prices. Please check the data source.</p>';
+            }
+            return;
+        }
+
+        const container = document.getElementById('product-list-container');
+        if (!container) return; 
+
+        container.innerHTML = ''; 
+        let delay = 0.1;
+
+        // Loop through the CATEGORIES object structure from your JSON
+        for (const categoryKey in categories) {
+            const category = categories[categoryKey];
+            for (const subcategoryKey in category) {
+                const subcategory = category[subcategoryKey];
+                for (const itemName in subcategory) {
+                    const item = subcategory[itemName];
+                    
+                    // Store product details globally for use in addToCart (Crucial fix)
+                    allProducts[itemName] = {
+                        name: itemName,
+                        price: item.basePrice,
+                        unit: item.unit,
+                        category: categoryKey,
+                        subcategory: subcategoryKey,
+                        imageFile: item.imageFile || 'placeholder.jpg'
+                    };
+
+                    // Skip items with a base price of 0 (e.g., placeholders or quotes)
+                    if (item.basePrice <= 0) continue; 
+                    
+                    const priceFormatted = item.basePrice.toLocaleString('en-PK', { style: 'currency', currency: 'PKR', minimumFractionDigits: 0 });
+
+                    const productHTML = `
+                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="${delay.toFixed(1)}s">
+                            <div class="product-item rounded">
+                                <div class="product-item-inner border rounded">
+                                    <div class="product-item-inner-item">
+                                        <img src="img/products/${item.imageFile || 'placeholder.jpg'}" class="img-fluid w-100 rounded-top" alt="${itemName}">
+                                        <div class="product-new">${subcategoryKey}</div>
+                                        <div class="product-details">
+                                            <a href="#" onclick="showAlert('Viewing details for ${itemName}')"><i class="fa fa-eye fa-1x"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="text-center rounded-bottom p-4">
+                                        <a href="#" class="d-block mb-2">${categoryKey}</a>
+                                        <a href="#" class="d-block h4">${itemName}</a>
+                                        <span class="text-primary fs-5">${priceFormatted}</span>
+                                        <p class="text-muted"><small>per ${item.unit}</small></p>
+                                    </div>
+                                </div>
+                                <div class="product-item-add border border-top-0 rounded-bottom text-center p-4 pt-0">
+                                    <button class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4" 
+                                        onclick="addToCart('${itemName}')">
+                                        <i class="fas fa-shopping-cart me-2"></i> Add To Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    container.innerHTML += productHTML;
+                    delay = Math.min(0.5, delay + 0.1); 
+                }
+            }
+        }
+        // Re-initialize animations
+        if (typeof WOW !== 'undefined') { new WOW().init(); }
+    }
+
+
+    // Show/hide sections
+    function showSection(sectionName) {
+        // Hide all sections
+        document.querySelectorAll('.section').forEach(section => {
+            section.classList.remove('active');
+        });
         
-        <div class="printing-category">
-          <h3>Photocopy</h3>
-          
-          <div class="printing-subcategory">
-            <h4>Black & White</h4>
-            <ul class="printing-items">
-              <li class="printing-item">
-                <span class="item-name">A4 B&W</span>
-                <span class="item-price">Rs. 5</span>
-              </li>
-              <li class="printing-item">
-                <span class="item-name">A3 B&W</span>
-                <span class="item-price">Rs. 10</span>
-              </li>
-            </ul>
-          </div>
-          
-          <div class="printing-subcategory">
-            <h4>Color</h4>
-            <ul class="printing-items">
-              <li class="printing-item">
-                <span class="item-name">A4 Color</span>
-                <span class="item-price">Rs. 20</span>
-              </li>
-              <li class="printing-item">
-                <span class="item-name">A3 Color</span>
-                <span class="item-price">Rs. 40</span>
-              </li>
-            </ul>
-          </div>
-        </div>
+        // Show selected section
+        document.getElementById(sectionName + '-section').classList.add('active');
         
-        <div class="printing-category">
-          <h3>Design Services</h3>
-          
-          <div class="printing-subcategory">
-            <h4>Graphic Design</h4>
-            <ul class="printing-items">
-              <li class="printing-item">
-                <span class="item-name">Logo Design</span>
-                <span class="item-price">Rs. 1500</span>
-              </li>
-              <li class="printing-item">
-                <span class="item-name">Business Card Design</span>
-                <span class="item-price">Rs. 500</span>
-              </li>
-              <li class="printing-item">
-                <span class="item-name">Flyer Design</span>
-                <span class="item-price">Rs. 800</span>
-              </li>
-              <li class="printing-item">
-                <span class="item-name">Brochure Design</span>
-                <span class="item-price">Rs. 1200</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+        // Update navigation active state
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+        });
+        
+        // Scroll to top
+        window.scrollTo(0, 0);
+        
+        // Update cart display if showing cart section
+        if (sectionName === 'cart') {
+            updateCartDisplay();
+        }
+        
+        // Update checkout display if showing checkout section
+        if (sectionName === 'checkout') {
+            updateCheckoutDisplay();
+        }
+    }
+    
+    // Add product to cart (Now looks up product details from allProducts object)
+    function addToCart(name) {
+        const product = allProducts[name];
+        if (!product) {
+            showAlert('Error: Product not found in data.', 'error');
+            return;
+        }
 
-    <div class="container" id="calculator">
-      <div class="price-calculator">
-        <h2 class="calculator-title">Instant Price Calculator</h2>
-        <div class="calculator-form">
-          <div class="form-group">
-            <label for="mainCategory">Main Category</label>
-            <select id="mainCategory">
-              <option value="">Select Category</option>
-              <option value="Printing">Printing</option>
-              <option value="Photocopy">Photocopy</option>
-            </select>
-          </div>
-          
-          <div class="form-group">
-            <label for="subCategory">Subcategory</label>
-            <select id="subCategory">
-              <option value="">Select Subcategory</option>
-            </select>
-          </div>
-          
-          <div class="form-group">
-            <label for="itemName">Item Name</label>
-            <select id="itemName">
-              <option value="">Select Item</option>
-            </select>
-          </div>
-          
-          <div class="form-group">
-            <label for="quantity">Quantity</label>
-            <input type="number" id="quantity" value="1" min="1">
-          </div>
-          
-          <div class="form-group">
-            <label for="designCharges">Design Charges (Rs.)</label>
-            <input type="number" id="designCharges" value="0" min="0">
-          </div>
-          
-          <div class="calculator-actions">
-            <button class="btn-calculate" onclick="calculatePrice()">Calculate Price</button>
-            <button class="btn-reset" onclick="clearCalculator()">Reset</button>
-          </div>
-          
-          <div class="calculator-result" id="calculatorResult">
-            <h4>Price Calculation Result</h4>
-            <div id="resultContent"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="service">
-        <h2 class="title">Our Services</h2>
-        <div class="service-container">
-          <a href="#" class="service-item">
-            <div class="service-icon">
-              <ion-icon name="print-outline"></ion-icon>
+        const existingItem = cart.find(item => item.name === name);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+                name: product.name,
+                price: product.price,
+                imageFile: product.imageFile, // Correctly store the file name
+                quantity: 1
+            });
+        }
+        
+        updateCartBadge();
+        showAlert('Product added to cart!', 'success');
+    }
+    
+    // Update cart badge
+    function updateCartBadge() {
+        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+        document.getElementById('cartBadge').textContent = totalItems;
+    }
+    
+    // Update cart display
+    function updateCartDisplay() {
+        const container = document.getElementById('cart-items-container');
+        const actions = document.getElementById('cart-actions');
+        const emptyMessage = document.getElementById('empty-cart-message');
+        
+        if (cart.length === 0) {
+            emptyMessage.style.display = 'block';
+            actions.style.display = 'none';
+            container.innerHTML = '';
+            container.appendChild(emptyMessage);
+            return;
+        }
+        
+        emptyMessage.style.display = 'none';
+        actions.style.display = 'flex';
+        
+        let html = '';
+        let subtotal = 0;
+        
+        cart.forEach((item, index) => {
+            const itemTotal = item.price * item.quantity;
+            subtotal += itemTotal;
+            
+            const priceFormatted = item.price.toLocaleString('en-PK', { style: 'currency', currency: 'PKR', minimumFractionDigits: 0 });
+            const totalFormatted = itemTotal.toLocaleString('en-PK', { style: 'currency', currency: 'PKR', minimumFractionDigits: 0 });
+            
+            html += `
+            <div class="cart-item border rounded p-3 mb-3" id="cart-item-${index}">
+                <div class="row align-items-center">
+                    <div class="col-md-2">
+                        <img src="img/products/${item.imageFile || 'placeholder.jpg'}" class="img-fluid w-100 rounded-top" alt="${item.name}">
+                    </div>
+                    <div class="col-md-4">
+                        <h5 class="mb-1">${item.name}</h5>
+                        <p class="mb-0 text-muted">${priceFormatted}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <button class="btn btn-outline-secondary" type="button" onclick="updateQuantity(${index}, -1)">-</button>
+                            <input type="text" class="form-control text-center product-quantity" value="${item.quantity}" readonly>
+                            <button class="btn btn-outline-secondary" type="button" onclick="updateQuantity(${index}, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <h5 class="mb-0">${totalFormatted}</h5>
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-link text-danger" onclick="removeFromCart(${index})">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="service-content">
-              <h3 class="service-title">Quality Printing</h3>
-              <p class="service-desc">High-quality prints every time</p>
+            `;
+        });
+        
+        container.innerHTML = html;
+        
+        // Update totals
+        const shipping = 300.00; // Assuming a fixed shipping fee in PKR
+        const total = subtotal + shipping;
+        
+        document.getElementById('cart-subtotal').textContent = subtotal.toLocaleString('en-PK', { style: 'currency', currency: 'PKR', minimumFractionDigits: 0 });
+        document.getElementById('cart-total').textContent = total.toLocaleString('en-PK', { style: 'currency', currency: 'PKR', minimumFractionDigits: 0 });
+        document.getElementById('cart-shipping').textContent = shipping.toLocaleString('en-PK', { style: 'currency', currency: 'PKR', minimumFractionDigits: 0 });
+    }
+    
+    // Update item quantity
+    function updateQuantity(index, change) {
+        if (cart[index].quantity + change > 0) {
+            cart[index].quantity += change;
+            updateCartDisplay();
+            updateCartBadge();
+        }
+    }
+    
+    // Remove item from cart
+    function removeFromCart(index) {
+        const itemElement = document.getElementById(`cart-item-${index}`);
+        itemElement.classList.add('removing');
+        
+        setTimeout(() => {
+            cart.splice(index, 1);
+            updateCartDisplay();
+            updateCartBadge();
+            showAlert('Product removed from cart', 'info');
+        }, 300);
+    }
+    
+    // Apply coupon
+    function applyCoupon() {
+        const couponCode = document.getElementById('coupon-code').value;
+        if (couponCode.toUpperCase() === 'SAVE10') {
+            showAlert('Coupon applied! 10% discount added.', 'success');
+            // Recalculate totals here if needed
+            updateCartDisplay();
+        } else {
+            showAlert('Invalid coupon code', 'error');
+        }
+    }
+    
+    // Checkout functionality
+    function showCheckoutStep(step) {
+        // Hide all steps
+        document.querySelectorAll('.checkout-step').forEach(step => {
+            step.classList.remove('active');
+        });
+        
+        // Show selected step
+        document.getElementById(`checkout-step-${step}`).classList.add('active');
+        
+        // Update checkout display
+        updateCheckoutDisplay();
+    }
+    
+    // Update checkout display
+    function updateCheckoutDisplay() {
+        // Update order items in checkout
+        const container = document.getElementById('checkout-order-items');
+        let html = '';
+        let subtotal = 0;
+        
+        cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            subtotal += itemTotal;
+            
+            const totalFormatted = itemTotal.toLocaleString('en-PK', { style: 'currency', currency: 'PKR', minimumFractionDigits: 0 });
+
+            html += `
+            <div class="order-summary-item">
+                <div class="d-flex justify-content-between">
+                    <span>${item.name} x ${item.quantity}</span>
+                    <span>${totalFormatted}</span>
+                </div>
             </div>
-          </a>
-
-          <a href="#" class="service-item">
-            <div class="service-icon">
-              <ion-icon name="time-outline"></ion-icon>
-            </div>
-            <div class="service-content">
-              <h3 class="service-title">Fast Delivery</h3>
-              <p class="service-desc">24-hour delivery available</p>
-            </div>
-          </a>
-
-          <a href="#" class="service-item">
-            <div class="service-icon">
-              <ion-icon name="diamond-outline"></ion-icon>
-            </div>
-            <div class="service-content">
-              <h3 class="service-title">Premium Materials</h3>
-              <p class="service-desc">Best quality paper & ink</p>
-            </div>
-          </a>
-
-          <a href="#" class="service-item">
-            <div class="service-icon">
-              <ion-icon name="color-palette-outline"></ion-icon>
-            </div>
-            <div class="service-content">
-              <h3 class="service-title">Design Services</h3>
-              <p class="service-desc">Professional design assistance</p>
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <footer id="contact">
-    <div class="footer-nav">
-      <div class="container">
-        <ul class="footer-nav-list">
-          <li class="footer-nav-item">
-            <h2 class="nav-title">Printing Services</h2>
-          </li>
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Business Cards</a>
-          </li>
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Flyers & Brochures</a>
-          </li>
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Posters & Banners</a>
-          </li>
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Photocopy Services</a>
-          </li>
-        </ul>
-
-        <ul class="footer-nav-list">
-          <li class="footer-nav-item">
-            <h2 class="nav-title">Information</h2>
-          </li>
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">About Us</a>
-          </li>
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Contact Us</a>
-          </li>
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Privacy Policy</a>
-          </li>
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Terms & Conditions</a>
-          </li>
-        </ul>
-
-        <ul class="footer-nav-list">
-          <li class="footer-nav-item">
-            <h2 class="nav-title">Customer Service</h2>
-          </li>
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">FAQs</a>
-          </li>
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Delivery Information</a>
-          </li>
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Returns Policy</a>
-          </li>
-          <li class="footer-nav-item">
-            <a href="#" class="footer-nav-link">Discounts</a>
-          </li>
-        </ul>
-
-        <ul class="footer-nav-list">
-          <li class="footer-nav-item">
-            <h2 class="nav-title">Contact Us</h2>
-          </li>
-          <li class="footer-nav-item flex">
-            <div class="icon-box">
-              <ion-icon name="location-outline"></ion-icon>
-            </div>
-            <address class="content">
-              Shop No. 5, Commercial Area<br>
-              Near Main Market, Your City
-            </address>
-          </li>
-          <li class="footer-nav-item flex">
-            <div class="icon-box">
-              <ion-icon name="call-outline"></ion-icon>
-            </div>
-            <a href="tel:+923001234567" class="footer-nav-link">+92 300 1234567</a>
-          </li>
-          <li class="footer-nav-item flex">
-            <div class="icon-box">
-              <ion-icon name="mail-outline"></ion-icon>
-            </div>
-            <a href="mailto:info@arhamprinter.pk" class="footer-nav-link">info@arhamprinter.pk</a>
-          </li>
-        </ul>
-
-        <ul class="footer-nav-list">
-          <li class="footer-nav-item">
-            <h2 class="nav-title">Follow Us</h2>
-          </li>
-          <li>
-            <ul class="social-link">
-              <li class="footer-nav-item">
-                <a href="#" class="footer-nav-link">
-                  <ion-icon name="logo-facebook"></ion-icon>
-                </a>
-              </li>
-              <li class="footer-nav-item">
-                <a href="#" class="footer-nav-link">
-                  <ion-icon name="logo-instagram"></ion-icon>
-                </a>
-              </li>
-              <li class="footer-nav-item">
-                <a href="#" class="footer-nav-link">
-                  <ion-icon name="logo-twitter"></ion-icon>
-                </a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      <div class="container">
-        <p class="copyright">
-          Copyright &copy; 2023 <a href="#">Arham Printers</a>. All rights reserved.
-        </p>
-      </div>
-    </div>
-  </footer>
-
-  <a href="./admin.html" class="admin-link">Admin Panel</a>
-
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-  
-  <script src="./assets/js/script.js"></script>
+            `;
+        });
+        
+        container.innerHTML = html;
+        
+        // Update totals
+        const shipping = 300.00;
+        const total = subtotal + shipping;
+        
+        document.getElementById('checkout-subtotal').textContent = subtotal.toLocaleString('en-PK', { style: 'currency', currency: 'PKR', minimumFractionDigits: 0 });
+        document.getElementById('checkout-total').textContent = total.toLocaleString('en-PK', { style: 'currency', currency: 'PKR', minimumFractionDigits: 0 });
+        document.getElementById('checkout-shipping').textContent = shipping.toLocaleString('en-PK', { style: 'currency', currency: 'PKR', minimumFractionDigits: 0 });
+    }
+    
+    // Place order
+    function placeOrder() {
+        if (cart.length === 0) {
+            showAlert('Your cart is empty', 'error');
+            return;
+        }
+        
+        // NOTE: In a static site, you must use a form-to-email service here (like Formspree/Netlify Forms)
+        // to capture the final order details from the form and the cart object.
+        showAlert('Order placed successfully! Thank you for your purchase.', 'success');
+        
+        // Clear cart
+        cart = [];
+        updateCartBadge();
+        
+        // Redirect to home after a delay
+        setTimeout(() => {
+            showSection('home');
+        }, 3000);
+    }
+    
+    // Subscribe to newsletter
+    function subscribeNewsletter() {
+        const email = document.getElementById('newsletter-email').value;
+        if (email && validateEmail(email)) {
+            showAlert('Thank you for subscribing to our newsletter!', 'success');
+            document.getElementById('newsletter-email').value = '';
+        } else {
+            showAlert('Please enter a valid email address', 'error');
+        }
+    }
+    
+    // Contact form submission
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        showAlert('Your message has been sent successfully! We will get back to you soon.', 'success');
+        this.reset();
+    });
+    
+    // Helper functions
+    function showAlert(message, type) {
+        const alert = document.createElement('div');
+        alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
+        alert.style.top = '20px';
+        alert.style.right = '20px';
+        alert.style.zIndex = '9999';
+        alert.style.minWidth = '300px';
+        alert.innerHTML = `
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        document.body.appendChild(alert);
+        
+        setTimeout(() => {
+            if (alert.parentNode) {
+                alert.parentNode.removeChild(alert);
+            }
+        }, 5000);
+    }
+    
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+        updateCartBadge();
+        fetchAndRenderProducts(); // Fetch and display products on load
+        new WOW().init();
+    });
+</script>
 </body>
+
 </html>

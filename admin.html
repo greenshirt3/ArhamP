@@ -578,6 +578,10 @@
             border-color: var(--danger);
             background-color: #fde2e2;
         }
+        .metric-danger {
+    border-color: var(--danger);
+    background-color: #fde2e2;
+}
         
         .metric-profit {
             border-color: var(--secondary);
@@ -1077,7 +1081,6 @@
         <div class="autocomplete-suggestions"></div>
     </div>
 </td>
-                                </td>
                                 <td><input type="number" class="item-rate" value="0" min="0" step="0.01" oninput="calculateTotal()"></td>
                                 <td><input type="number" class="item-quantity" value="1" min="1" oninput="calculateTotal()"></td>
                                 <td><input type="number" class="item-design-charges" value="0" min="0" step="0.01" oninput="calculateTotal()"></td>
@@ -1493,178 +1496,185 @@
                     </div>
                 </div>
                 
-               <div class="admin-panel active" id="adminPanel">
+               <div class="admin-panel" id="adminPanel" style="display: none;">
     <div style="text-align: right; margin-bottom: 20px;">
         <button class="btn btn-danger btn-sm" onclick="adminLogout()">
             <i class="fas fa-sign-out-alt"></i> Logout
         </button>
-                        <div class="tab active" onclick="switchAdminTab(this, 'manageItems')">Manage Items</div>
-                        <div class="tab" onclick="switchAdminTab(this, 'manageCategories')">Manage Categories</div>
-                        <div class="tab" onclick="switchAdminTab(this, 'manageCustomers')">Manage Customers</div>
-                        <div class="tab" onclick="switchAdminTab(this, 'manageInvoices')">Manage Invoices</div>
-                        <div class="tab" onclick="switchAdminTab(this, 'manageFinancials')">Manage Financials</div>
-                        <div class="tab" onclick="switchAdminTab(this, 'recentActivity')">Recent Activity</div>
-                        <div class="tab" onclick="switchAdminTab(this, 'dataBackup')">Data Backup</div>
-                    </div>
+    </div>
+    
+    <div class="tabs">
+        <div class="tab active" onclick="switchAdminTab(this, 'manageItems')">Manage Items</div>
+        <div class="tab" onclick="switchAdminTab(this, 'manageCategories')">Manage Categories</div>
+        <div class="tab" onclick="switchAdminTab(this, 'manageCustomers')">Manage Customers</div>
+        <div class="tab" onclick="switchAdminTab(this, 'manageInvoices')">Manage Invoices</div>
+        <div class="tab" onclick="switchAdminTab(this, 'manageFinancials')">Manage Financials</div>
+        <div class="tab" onclick="switchAdminTab(this, 'recentActivity')">Recent Activity</div>
+        <div class="tab" onclick="switchAdminTab(this, 'dataBackup')">Data Backup</div>
+    </div>
 
-
-
-                    
-                    <div id="manageItems" class="tab-content active">
-                        <div class="admin-section">
-                            <h3>Add/Edit Item</h3>
-                            <div class="form-row">
-                                <div class="form-field">
-                                    <label for="itemCategory">Category:</label>
-                                    <select id="itemCategory"></select>
-                                </div>
-                                <div class="form-field">
-                                    <label for="itemSubcategory">Subcategory:</label>
-                                    <select id="itemSubcategory"></select>
-                                </div>
-                                <div class="form-field">
-                                    <label for="itemNameAdmin">Item Name:</label>
-                                    <input type="text" id="itemNameAdmin">
-                                </div>
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-field">
-                                    <label for="itemBasePrice">Base Price (Rs.):</label>
-                                    <input type="number" id="itemBasePrice" value="0" min="0" step="0.01">
-                                </div>
-                                <div class="form-field">
-                                    <label for="itemUnit">Unit:</label>
-                                    <input type="text" id="itemUnit" placeholder="e.g., per page, per set">
-                                </div>
-                            </div>
-                            
-                            <h4>Price Tiers</h4>
-                            <div id="priceTiersContainer">
-                                <div class="tier-row">
-                                    <input type="number" class="tier-min" placeholder="Min Qty" min="1">
-                                    <input type="number" class="tier-max" placeholder="Max Qty" min="1">
-                                    <input type="number" class="tier-price" placeholder="Price" min="0" step="0.01">
-                                    <button class="btn btn-danger btn-sm" onclick="removeTierRow(this)"><i class="fas fa-trash"></i></button>
-                                </div>
-                            </div>
-                            
-                            <div class="actions">
-                                <button class="btn btn-success" onclick="addTierRow()">
-                                    <i class="fas fa-plus"></i> Add Tier
-                                </button>
-                                <button class="btn btn-primary" onclick="saveItem()">
-                                    <i class="fas fa-save"></i> Save Item
-                                </button>
-                                <button class="btn btn-warning" onclick="clearItemForm()">
-                                    <i class="fas fa-trash"></i> Clear Form
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="admin-section">
-                            <h3>Existing Items</h3>
-                            <div id="itemsList" class="scrollable-container"></div>
-                        </div>
-                    </div>
-                    
-                    <div id="manageCategories" class="tab-content">
-                        <div class="admin-section">
-                            <h3>Add Category</h3>
-                            <div class="form-row">
-                                <div class="form-field">
-                                    <label for="newCategoryName">Category Name:</label>
-                                    <input type="text" id="newCategoryName" placeholder="e.g., Printing">
-                                </div>
-                                <div class="form-field">
-                                    <label for="newSubcategoryName">Subcategory Name:</label>
-                                    <input type="text" id="newSubcategoryName" placeholder="e.g., Business Cards">
-                                </div>
-                            </div>
-                            <button class="btn btn-success" onclick="addCategory()">
-                                <i class="fas fa-plus"></i> Add Category
-                            </button>
-                        </div>
-                        
-                        <div class="admin-section">
-                            <h3>Existing Categories</h3>
-                            <div id="categoriesList" class="scrollable-container"></div>
-                        </div>
-                    </div>
-                    
-                    <div id="manageCustomers" class="tab-content">
-                        <div class="admin-section">
-                            <h3>Customer List</h3>
-                            <div id="customersList" class="scrollable-container"></div>
-                        </div>
-                    </div>
-                    
-                    <div id="manageInvoices" class="tab-content">
-                        <div class="admin-section">
-                            <h3>Invoice History</h3>
-                            <div id="invoiceHistory" class="scrollable-container"></div>
-                        </div>
-                    </div>
-                    
-                    <div id="manageFinancials" class="tab-content">
-                        <div class="admin-section">
-                            <h3>Financial Entries</h3>
-                            <div id="financialEntries" class="scrollable-container"></div>
-                        </div>
-                    </div>
-                    
-                    <div id="recentActivity" class="tab-content">
-                        <div class="admin-section">
-                            <h3>Recent Activity (Last 2 Days)</h3>
-                            <div id="adminRecentActivity" class="scrollable-container"></div>
-                        </div>
-                    </div>
-                    
-                    <div id="dataBackup" class="tab-content">
-                        <div class="import-export-section">
-                            <h3>Data Export</h3>
-                            <div class="actions">
-                                <button class="btn btn-success" onclick="exportData()">
-                                    <i class="fas fa-download"></i> Export All Data
-                                </button>
-                                <button class="btn btn-primary" onclick="exportToExcel()">
-                                    <i class="fas fa-file-excel"></i> Export to Excel
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="import-export-section">
-                            <h3>Data Import</h3>
-                            <div class="form-group">
-                                <label for="importFile">Select JSON file:</label>
-                                <input type="file" id="importFile" accept=".json">
-                            </div>
-                            <button class="btn btn-warning" onclick="importData()">
-                                <i class="fas fa-upload"></i> Import Data
-                            </button>
-                        </div>
-                        
-                        <div class="import-export-section">
-                            <h3>Customer Data Export</h3>
-                            <div class="actions">
-                                <button class="btn btn-success" onclick="exportCustomerData()">
-                                    <i class="fas fa-download"></i> Export Customer Data (JSON)
-                                </button>
-                                <button class="btn btn-primary" onclick="uploadCustomerDataToOneDrive()">
-                                    <i class="fas fa-cloud-upload-alt"></i> Upload to OneDrive
-                                </button>
-                            </div>
-                            <p><small>Exports price categories and items for customer-facing applications</small></p>
-                        </div>
-                        <div class="import-export-section">
-                            <h3>Data Reset</h3>
-                            <p>Warning: This will permanently delete all data. This action cannot be undone.</p>
-                            <button class="btn btn-danger" onclick="resetData()">
-                                <i class="fas fa-trash"></i> Reset All Data
-                            </button>
-                        </div>
-                    </div>
+    <div id="manageItems" class="tab-content active">
+        <div class="admin-section">
+            <h3>Add/Edit Item</h3>
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="itemCategory">Category:</label>
+                    <select id="itemCategory"></select>
                 </div>
+                <div class="form-field">
+                    <label for="itemSubcategory">Subcategory:</label>
+                    <select id="itemSubcategory"></select>
+                </div>
+                <div class="form-field">
+                    <label for="itemNameAdmin">Item Name:</label>
+                    <input type="text" id="itemNameAdmin">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="itemImageFile">Image File Name (e.g., product-name.jpg):</label>
+                    <input type="text" id="itemImageFile" placeholder="e.g., v-card-shine.jpg">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="itemBasePrice">Base Price (Rs.):</label>
+                    <input type="number" id="itemBasePrice" value="0" min="0" step="0.01">
+                </div>
+                <div class="form-field">
+                    <label for="itemUnit">Unit:</label>
+                    <input type="text" id="itemUnit" placeholder="e.g., per page, per set">
+                </div>
+            </div>
+            
+            <h4>Price Tiers</h4>
+            <div id="priceTiersContainer">
+                <div class="tier-row">
+                    <input type="number" class="tier-min" placeholder="Min Qty" min="1">
+                    <input type="number" class="tier-max" placeholder="Max Qty" min="1">
+                    <input type="number" class="tier-price" placeholder="Price" min="0" step="0.01">
+                    <button class="btn btn-danger btn-sm" onclick="removeTierRow(this)"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+            
+            <div class="actions">
+                <button class="btn btn-success" onclick="addTierRow()">
+                    <i class="fas fa-plus"></i> Add Tier
+                </button>
+                <button class="btn btn-primary" onclick="saveItem()">
+                    <i class="fas fa-save"></i> Save Item
+                </button>
+                <button class="btn btn-warning" onclick="clearItemForm()">
+                    <i class="fas fa-trash"></i> Clear Form
+                </button>
+            </div>
+        </div>
+        
+        <div class="admin-section">
+            <h3>Existing Items</h3>
+            <div id="itemsList" class="scrollable-container"></div>
+        </div>
+    </div>
+    
+    <div id="manageCategories" class="tab-content">
+        <div class="admin-section">
+            <h3>Add Category</h3>
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="newCategoryName">Category Name:</label>
+                    <input type="text" id="newCategoryName" placeholder="e.g., Printing">
+                </div>
+                <div class="form-field">
+                    <label for="newSubcategoryName">Subcategory Name:</label>
+                    <input type="text" id="newSubcategoryName" placeholder="e.g., Business Cards">
+                </div>
+            </div>
+            <button class="btn btn-success" onclick="addCategory()">
+                <i class="fas fa-plus"></i> Add Category
+            </button>
+        </div>
+        
+        <div class="admin-section">
+            <h3>Existing Categories</h3>
+            <div id="categoriesList" class="scrollable-container"></div>
+        </div>
+    </div>
+    
+    <div id="manageCustomers" class="tab-content">
+        <div class="admin-section">
+            <h3>Customer List</h3>
+            <div id="customersList" class="scrollable-container"></div>
+        </div>
+    </div>
+    
+    <div id="manageInvoices" class="tab-content">
+        <div class="admin-section">
+            <h3>Invoice History</h3>
+            <div id="invoiceHistory" class="scrollable-container"></div>
+        </div>
+    </div>
+    
+    <div id="manageFinancials" class="tab-content">
+        <div class="admin-section">
+            <h3>Financial Entries</h3>
+            <div id="financialEntries" class="scrollable-container"></div>
+        </div>
+    </div>
+    
+    <div id="recentActivity" class="tab-content">
+        <div class="admin-section">
+            <h3>Recent Activity (Last 2 Days)</h3>
+            <div id="adminRecentActivity" class="scrollable-container"></div>
+        </div>
+    </div>
+    
+    <div id="dataBackup" class="tab-content">
+        <div class="import-export-section">
+            <h3>Data Export</h3>
+            <div class="actions">
+                <button class="btn btn-success" onclick="exportData()">
+                    <i class="fas fa-download"></i> Export All Data
+                </button>
+                <button class="btn btn-primary" onclick="exportToExcel()">
+                    <i class="fas fa-file-excel"></i> Export to Excel
+                </button>
+            </div>
+        </div>
+        
+        <div class="import-export-section">
+            <h3>Data Import</h3>
+            <div class="form-group">
+                <label for="importFile">Select JSON file:</label>
+                <input type="file" id="importFile" accept=".json">
+            </div>
+            <button class="btn btn-warning" onclick="importData()">
+                <i class="fas fa-upload"></i> Import Data
+            </button>
+        </div>
+        
+        <div class="import-export-section">
+            <h3>Customer Data Export</h3>
+            <div class="actions">
+                <button class="btn btn-success" onclick="exportCustomerData()">
+                    <i class="fas fa-download"></i> Export Customer Data (JSON)
+                </button>
+                <button class="btn btn-primary" onclick="uploadCustomerDataToOneDrive()">
+                    <i class="fas fa-cloud-upload-alt"></i> Upload to OneDrive
+                </button>
+            </div>
+            <p><small>Exports price categories and items for customer-facing applications</small></p>
+        </div>
+        <div class="import-export-section">
+            <h3>Data Reset</h3>
+            <p>Warning: This will permanently delete all data. This action cannot be undone.</p>
+            <button class="btn btn-danger" onclick="resetData()">
+                <i class="fas fa-trash"></i> Reset All Data
+            </button>
+        </div>
+    </div>
+</div>
             </div>
         </div>
 
@@ -1718,7 +1728,7 @@
         let inventoryItems = [];
         let suppliers = [];
         let purchaseOrders = [];
-        let isAdmin = true;
+        let isAdmin = false;
         let currentEditingItem = null;
         let currentEditingInventoryItem = null;
         let currentEditingSupplier = null;
@@ -1728,7 +1738,7 @@
         let selectedInvoiceForPayment = null;
         let selectedSupplierForPayment = null;
         
-                // Add this function to make calculator items accessible in inventory
+        // Add this function to make calculator items accessible in inventory
         function getAllCalculatorItems() {
             let allItems = [];
             for (const category in categories) {
@@ -1837,87 +1847,88 @@
         }
 
         // Initialize the application
-                document.addEventListener('DOMContentLoaded', async function() {
-    try {
-        await msalInstance.initialize();
-        initializeApp();
-        loadData();
-        updateDashboard('daily');
-        updateDashboard('monthly');
-        updateFinancialDashboard();
-        updateInventoryDashboard();
-        
-        // Set today's date as default for invoice date
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('invoiceDate').value = today;
-        document.getElementById('entryDate').value = today;
-        document.getElementById('poDate').value = today;
-        
-        // Load settings
-        loadSettings();
-        
-        // Check if user is already logged in
-        await checkLoginStatus();
-        
-        // Initialize autocomplete functionality
-        initializeAutocomplete();
-        
-        // ADD THIS LINE: Initialize inventory autocomplete
-        setupInventoryAutocomplete();
-        
-        // Auto-sync on startup if enabled
-        if (autoSyncEnabled && isLoggedIn) {
-            setTimeout(() => {
-                autoSyncFromCloud();
-            }, 2000);
-        }
-    } catch (error) {
-        console.error('App initialization failed:', error);
-    }
-   });
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                await msalInstance.initialize();
+                initializeApp();
+                loadData();
+                updateDashboard('daily');
+                updateDashboard('monthly');
+                updateFinancialDashboard();
+                updateInventoryDashboard();
+                
+                // Set today's date as default for invoice date
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('invoiceDate').value = today;
+                document.getElementById('entryDate').value = today;
+                document.getElementById('poDate').value = today;
+                
+                // Load settings
+                loadSettings();
+                
+                // Check if user is already logged in
+                await checkLoginStatus();
+                
+                // Initialize autocomplete functionality
+                initializeAutocomplete();
+                
+                // ADD THIS LINE: Initialize inventory autocomplete
+                setupInventoryAutocomplete();
+                
+                // Auto-sync on startup if enabled
+                if (autoSyncEnabled && isLoggedIn) {
+                    setTimeout(() => {
+                        autoSyncFromCloud();
+                    }, 2000);
+                }
+            } catch (error) {
+                console.error('App initialization failed:', error);
+            }
+        });
 
         // SPA View Switching Function
         function switchView(viewId, navButton) {
-    // Check if trying to access admin view without permission
-    if (viewId === 'adminView' && !isAdmin) {
-        showNotification('Please login to access admin panel.', 'warning');
-        return;
-    }
-    
-    document.querySelectorAll('.app-view').forEach(view => {
-        view.classList.remove('active');
-    });
-    document.getElementById(viewId).classList.add('active');
+            // Check if trying to access admin view without permission
+            if (viewId === 'adminView' && !isAdmin) {
+                showNotification('Please login to access admin panel.', 'warning');
+                return;
+            }
+            
+            document.querySelectorAll('.app-view').forEach(view => {
+                view.classList.remove('active');
+            });
+            document.getElementById(viewId).classList.add('active');
 
-    document.querySelectorAll('.main-nav .nav-btn').forEach(btn => {
-        btn.classList.remove('active');
-    });
-    navButton.classList.add('active');
+            document.querySelectorAll('.main-nav .nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            navButton.classList.add('active');
 
-    // Specific updates when switching views
-    if (viewId === 'calculatorView') {
-        updateDashboard('daily');
-        updateDashboard('monthly');
-    } else if (viewId === 'invoiceView') {
-        updateInvoiceNo();
-        document.getElementById('customerInvoicesList').innerHTML = '';
-        document.getElementById('paymentCustomerSearch').value = '';
-        document.getElementById('invoicePaymentInput').style.display = 'none';
-        selectedInvoiceForPayment = null;
-    } else if (viewId === 'financialView') {
-        updateFinancialDashboard();
-        updatePaymentPayableSelect();
-    } else if (viewId === 'inventoryView') {
-        updateInventoryDashboard();
-        loadInventoryItemsList();
-        loadSuppliersList();
-        loadPurchaseOrdersList();
-        populatePOSupplierSelect();
-        populatePOItemSelect();
-    } else if (viewId === 'adminView' && isAdmin) {
-        loadAdminData();
-    }
-}
+            // Specific updates when switching views
+            if (viewId === 'calculatorView') {
+                updateDashboard('daily');
+                updateDashboard('monthly');
+            } else if (viewId === 'invoiceView') {
+                updateInvoiceNo();
+                document.getElementById('customerInvoicesList').innerHTML = '';
+                document.getElementById('paymentCustomerSearch').value = '';
+                document.getElementById('invoicePaymentInput').style.display = 'none';
+                selectedInvoiceForPayment = null;
+            } else if (viewId === 'financialView') {
+                updateFinancialDashboard();
+                updatePaymentPayableSelect();
+            } else if (viewId === 'inventoryView') {
+                updateInventoryDashboard();
+                loadInventoryItemsList();
+                loadSuppliersList();
+                loadPurchaseOrdersList();
+                populatePOSupplierSelect();
+                populatePOItemSelect();
+            } else if (viewId === 'adminView' && isAdmin) {
+                loadAdminData();
+            }
+        }
+
         // Initialize the application
         function initializeApp() {
             // Initialize categories if not present
@@ -3650,7 +3661,7 @@
 
         // --- Inventory & Supplier Management Functions ---
 
-                function switchInventoryTab(tabElement, tabId) {
+        function switchInventoryTab(tabElement, tabId) {
             // Hide all tab contents
             const tabContents = document.querySelectorAll('#inventoryView .tab-content');
             tabContents.forEach(content => {
@@ -4180,42 +4191,42 @@
         // --- Admin Panel Functions ---
 
         function adminLogin() {
-    const username = document.getElementById('adminUsername').value;
-    const password = document.getElementById('adminPassword').value;
-    
-    // Simple authentication (in a real app, use more secure methods)
-    const validCredentials = [
-        { username: 'admin', password: 'admin123' },
-        { username: 'arham', password: 'printers123' },
-        { username: 'manager', password: 'manager123' }
-    ];
-    
-    const isValid = validCredentials.some(cred => 
-        cred.username === username && cred.password === password
-    );
-    
-    if (isValid) {
-        isAdmin = true;
-        document.getElementById('adminLoginSection').style.display = 'none';
-        document.getElementById('adminPanel').classList.add('active');
-        document.getElementById('adminNavBtn').classList.add('active');
-        
-        // Load admin data
-        loadAdminData();
-        
-        showNotification('Admin login successful! Welcome, ' + username, 'success');
-        
-        // Auto-switch to admin view after login
-        setTimeout(() => {
-            switchView('adminView', document.querySelector('[data-view="adminView"]'));
-        }, 500);
-        
-    } else {
-        showNotification('Invalid username or password.', 'error');
-        // Clear password field
-        document.getElementById('adminPassword').value = '';
-    }
-}
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
+            
+            // Simple authentication (in a real app, use more secure methods)
+            const validCredentials = [
+                { username: 'admin', password: 'admin123' },
+                { username: 'arham', password: 'printers123' },
+                { username: 'manager', password: 'manager123' }
+            ];
+            
+            const isValid = validCredentials.some(cred => 
+                cred.username === username && cred.password === password
+            );
+            
+            if (isValid) {
+                isAdmin = true;
+                document.getElementById('adminLoginSection').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                document.getElementById('adminNavBtn').style.display = 'inline-flex';
+                
+                // Load admin data
+                loadAdminData();
+                
+                showNotification('Admin login successful! Welcome, ' + username, 'success');
+                
+                // Auto-switch to admin view after login
+                setTimeout(() => {
+                    switchView('adminView', document.querySelector('[data-view="adminView"]'));
+                }, 500);
+                
+            } else {
+                showNotification('Invalid username or password.', 'error');
+                // Clear password field
+                document.getElementById('adminPassword').value = '';
+            }
+        }
 
         function switchAdminTab(tabElement, tabId) {
             // Hide all tab contents
@@ -4260,23 +4271,24 @@
             loadFinancialEntries();
             loadAdminRecentActivity();
         }
+        
         function adminLogout() {
-    if (confirm('Are you sure you want to logout from admin panel?')) {
-        isAdmin = false;
-        document.getElementById('adminLoginSection').style.display = 'block';
-        document.getElementById('adminPanel').classList.remove('active');
-        document.getElementById('adminNavBtn').style.display = 'none';
-        
-        // Clear login form
-        document.getElementById('adminUsername').value = '';
-        document.getElementById('adminPassword').value = '';
-        
-        // Switch to calculator view
-        switchView('calculatorView', document.querySelector('[data-view="calculatorView"]'));
-        
-        showNotification('Admin logout successful!', 'info');
-    }
-}
+            if (confirm('Are you sure you want to logout from admin panel?')) {
+                isAdmin = false;
+                document.getElementById('adminLoginSection').style.display = 'block';
+                document.getElementById('adminPanel').style.display = 'none';
+                document.getElementById('adminNavBtn').style.display = 'none';
+                
+                // Clear login form
+                document.getElementById('adminUsername').value = '';
+                document.getElementById('adminPassword').value = '';
+                
+                // Switch to calculator view
+                switchView('calculatorView', document.querySelector('[data-view="calculatorView"]'));
+                
+                showNotification('Admin logout successful!', 'info');
+            }
+        }
 
         function populateCategoryDropdowns() {
             const itemCategorySelect = document.getElementById('itemCategory');
@@ -4331,6 +4343,7 @@
             const itemName = document.getElementById('itemNameAdmin').value;
             const basePrice = parseFloat(document.getElementById('itemBasePrice').value) || 0;
             const unit = document.getElementById('itemUnit').value;
+            const imageFile = document.getElementById('itemImageFile').value;
             
             if (!category || !subcategory || !itemName || basePrice <= 0 || !unit) {
                 showNotification('Please fill all fields with valid values.', 'error');
@@ -4366,6 +4379,7 @@
             categories[category][subcategory][itemName] = {
                 basePrice,
                 unit,
+                imageFile: imageFile || '',
                 priceTiers: priceTiers.length > 0 ? priceTiers : undefined
             };
             
@@ -4385,6 +4399,7 @@
             document.getElementById('itemNameAdmin').value = '';
             document.getElementById('itemBasePrice').value = 0;
             document.getElementById('itemUnit').value = '';
+            document.getElementById('itemImageFile').value = '';
             document.getElementById('priceTiersContainer').innerHTML = `
                 <div class="tier-row">
                     <input type="number" class="tier-min" placeholder="Min Qty" min="1">
@@ -4427,6 +4442,7 @@
                             </div>
                             <div class="history-details">
                                 <div>Base Price: Rs. ${item.basePrice.toFixed(2)} per ${item.unit}</div>
+                                <div>Image: ${item.imageFile || 'No image'}</div>
                                 ${tiersInfo}
                             </div>
                         `;
@@ -4446,6 +4462,7 @@
             document.getElementById('itemCategory').dispatchEvent(new Event('change'));
             document.getElementById('itemSubcategory').value = subcategory;
             document.getElementById('itemNameAdmin').value = itemName;
+            document.getElementById('itemImageFile').value = item.imageFile || '';
             document.getElementById('itemBasePrice').value = item.basePrice;
             document.getElementById('itemUnit').value = item.unit;
             
@@ -4830,113 +4847,114 @@
             
             reader.readAsText(file);
         }
-        // Initialize autocomplete for all input fields
-function initializeAutocomplete() {
-    // Customer name autocomplete
-    const customerInput = document.getElementById('invoiceCustomerName');
-    if (customerInput) {
-        customerInput.addEventListener('input', function() {
-            const query = this.value.toLowerCase();
-            const suggestions = document.getElementById('customerSuggestions');
-            
-            suggestions.innerHTML = '';
-            
-            if (query.length < 2) {
-                suggestions.style.display = 'none';
-                return;
-            }
-            
-            // Filter customers based on query
-            const filteredCustomers = customers.filter(customer => 
-                customer.name.toLowerCase().includes(query)
-            );
-            
-            if (filteredCustomers.length === 0) {
-                suggestions.style.display = 'none';
-                return;
-            }
-            
-            // Create suggestion items
-            filteredCustomers.forEach(customer => {
-                const div = document.createElement('div');
-                div.className = 'autocomplete-suggestion';
-                div.textContent = customer.name;
-                div.addEventListener('click', function() {
-                    customerInput.value = customer.name;
-                    document.getElementById('invoiceCustomerPhone').value = customer.phone || '';
-                    suggestions.style.display = 'none';
-                });
-                suggestions.appendChild(div);
-            });
-            
-            suggestions.style.display = 'block';
-        });
         
-        // Hide suggestions when clicking outside
-        document.addEventListener('click', function(e) {
-            if (e.target !== customerInput) {
-                document.getElementById('customerSuggestions').style.display = 'none';
-            }
-        });
-    }
-    
-    // Item name autocomplete for invoice items
-    document.addEventListener('input', function(e) {
-        if (e.target.classList.contains('item-name')) {
-            const query = e.target.value.toLowerCase();
-            const suggestions = e.target.parentNode.querySelector('.autocomplete-suggestions');
-            
-            suggestions.innerHTML = '';
-            
-            if (query.length < 2) {
-                suggestions.style.display = 'none';
-                return;
-            }
-            
-            // Get all item names from categories
-            let allItems = [];
-            for (const category in categories) {
-                for (const subcategory in categories[category]) {
-                    for (const itemName in categories[category][subcategory]) {
-                        allItems.push(itemName);
+        // Initialize autocomplete for all input fields
+        function initializeAutocomplete() {
+            // Customer name autocomplete
+            const customerInput = document.getElementById('invoiceCustomerName');
+            if (customerInput) {
+                customerInput.addEventListener('input', function() {
+                    const query = this.value.toLowerCase();
+                    const suggestions = document.getElementById('customerSuggestions');
+                    
+                    suggestions.innerHTML = '';
+                    
+                    if (query.length < 2) {
+                        suggestions.style.display = 'none';
+                        return;
                     }
-                }
-            }
-            
-            // Filter items based on query
-            const filteredItems = allItems.filter(item => 
-                item.toLowerCase().includes(query)
-            );
-            
-            if (filteredItems.length === 0) {
-                suggestions.style.display = 'none';
-                return;
-            }
-            
-            // Create suggestion items
-            filteredItems.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'autocomplete-suggestion';
-                div.textContent = item;
-                div.addEventListener('click', function() {
-                    e.target.value = item;
-                    suggestions.style.display = 'none';
+                    
+                    // Filter customers based on query
+                    const filteredCustomers = customers.filter(customer => 
+                        customer.name.toLowerCase().includes(query)
+                    );
+                    
+                    if (filteredCustomers.length === 0) {
+                        suggestions.style.display = 'none';
+                        return;
+                    }
+                    
+                    // Create suggestion items
+                    filteredCustomers.forEach(customer => {
+                        const div = document.createElement('div');
+                        div.className = 'autocomplete-suggestion';
+                        div.textContent = customer.name;
+                        div.addEventListener('click', function() {
+                            customerInput.value = customer.name;
+                            document.getElementById('invoiceCustomerPhone').value = customer.phone || '';
+                            suggestions.style.display = 'none';
+                        });
+                        suggestions.appendChild(div);
+                    });
+                    
+                    suggestions.style.display = 'block';
                 });
-                suggestions.appendChild(div);
+                
+                // Hide suggestions when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (e.target !== customerInput) {
+                        document.getElementById('customerSuggestions').style.display = 'none';
+                    }
+                });
+            }
+            
+            // Item name autocomplete for invoice items
+            document.addEventListener('input', function(e) {
+                if (e.target.classList.contains('item-name')) {
+                    const query = e.target.value.toLowerCase();
+                    const suggestions = e.target.parentNode.querySelector('.autocomplete-suggestions');
+                    
+                    suggestions.innerHTML = '';
+                    
+                    if (query.length < 2) {
+                        suggestions.style.display = 'none';
+                        return;
+                    }
+                    
+                    // Get all item names from categories
+                    let allItems = [];
+                    for (const category in categories) {
+                        for (const subcategory in categories[category]) {
+                            for (const itemName in categories[category][subcategory]) {
+                                allItems.push(itemName);
+                            }
+                        }
+                    }
+                    
+                    // Filter items based on query
+                    const filteredItems = allItems.filter(item => 
+                        item.toLowerCase().includes(query)
+                    );
+                    
+                    if (filteredItems.length === 0) {
+                        suggestions.style.display = 'none';
+                        return;
+                    }
+                    
+                    // Create suggestion items
+                    filteredItems.forEach(item => {
+                        const div = document.createElement('div');
+                        div.className = 'autocomplete-suggestion';
+                        div.textContent = item;
+                        div.addEventListener('click', function() {
+                            e.target.value = item;
+                            suggestions.style.display = 'none';
+                        });
+                        suggestions.appendChild(div);
+                    });
+                    
+                    suggestions.style.display = 'block';
+                }
             });
             
-            suggestions.style.display = 'block';
+            // Add autocomplete to all text inputs
+            const textInputs = document.querySelectorAll('input[type="text"], input[type="tel"], input[type="email"], textarea');
+            textInputs.forEach(input => {
+                if (!input.hasAttribute('autocomplete')) {
+                    input.setAttribute('autocomplete', 'on');
+                }
+            });
         }
-    });
-    
-    // Add autocomplete to all text inputs
-    const textInputs = document.querySelectorAll('input[type="text"], input[type="tel"], input[type="email"], textarea');
-    textInputs.forEach(input => {
-        if (!input.hasAttribute('autocomplete')) {
-            input.setAttribute('autocomplete', 'on');
-        }
-    });
-}
 
         function resetData() {
             if (confirm('Are you sure you want to reset all data? This action cannot be undone.')) {

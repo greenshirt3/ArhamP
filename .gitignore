@@ -1,0 +1,31 @@
+# -----------------------------
+# 1. Critical Security Exclusion
+# -----------------------------
+# This file contains ALL your sensitive business data (invoices, customers, financials, inventory). 
+# It must NEVER be committed to a public GitHub repo. It should only live on OneDrive.
+ArhamPrintersData.json
+
+# -----------------------------
+# 2. Local Environment Files (Commonly Ignored)
+# -----------------------------
+# macOS/Linux system files
+.DS_Store
+*.swp
+
+# Windows system files
+Thumbs.db
+
+# VS Code and other IDE environment files
+.vscode/
+.idea/
+
+# Node modules (if you ever use NPM/JavaScript build tools)
+node_modules/
+
+# -----------------------------
+# 3. Temporary and Cache Files
+# -----------------------------
+# Backup files often created by editors
+*~
+*.bak
+*.tmp
