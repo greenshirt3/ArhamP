@@ -70,7 +70,6 @@
 </head>
 
 <body>
-    <!-- Spinner -->
     <div id="spinner"
         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -78,7 +77,6 @@
         </div>
     </div>
 
-    <!-- Top Bar -->
     <div class="container-fluid bg-dark text-white-50 py-2 px-0 d-none d-lg-block">
         <div class="row gx-0 align-items-center">
             <div class="col-lg-7 px-5 text-start">
@@ -106,9 +104,8 @@
         </div>
     </div>
 
-    <!-- Navigation -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5">
-        <a href="#" class="navbar-brand d-flex align-items-center" onclick="showSection('home')">
+        <a href="#home-section" class="navbar-brand d-flex align-items-center" onclick="showSection('home')">
             <h1 class="m-0 text-primary"><i class="fa fa-print me-3"></i>Arham Printers</h1>
         </a>
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -116,13 +113,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto bg-light pe-4 py-3 py-lg-0">
-                <a href="#" class="nav-item nav-link active" onclick="showSection('home')">Home</a>
-                <a href="#" class="nav-item nav-link" onclick="showSection('services')">Services</a>
-                <a href="#" class="nav-item nav-link" onclick="showSection('products')">Products</a>
+                <a href="#home-section" class="nav-item nav-link active" onclick="showSection('home')">Home</a>
+                <a href="#offset-printing-products" class="nav-item nav-link" onclick="showSection('home')">Products</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
                     <div class="dropdown-menu bg-light border-0 m-0">
-                        <a href="#" class="dropdown-item" onclick="showSection('products')">All Products</a>
+                        <a href="#offset-printing-products" class="dropdown-item" onclick="showSection('home')">Offset & Stationery</a>
+                        <a href="#digital-printing-products" class="dropdown-item" onclick="showSection('home')">Digital & Photo</a>
+                        <a href="#large-format-products" class="dropdown-item" onclick="showSection('home')">Banners & Merchandise</a>
                         <a href="#" class="dropdown-item" onclick="showSection('cart')">Cart</a>
                         <a href="#" class="dropdown-item" onclick="showSection('checkout')">Checkout</a>
                     </div>
@@ -140,7 +138,6 @@
         </div>
     </nav>
 
-    <!-- Home Section -->
     <section id="home-section" class="section active">
         <div class="container-fluid hero-header bg-light py-5">
             <div class="container py-5">
@@ -148,7 +145,7 @@
                     <div class="col-lg-6">
                         <h1 class="display-4 mb-3 animated slideInDown">The Future of <span class="text-primary">Printing</span> is Here</h1>
                         <p class="animated slideInDown">Experience professional quality and stunning designs for all your business needs—from letterheads to marketing materials. Arham Printers delivers excellence.</p>
-                        <a href="#" class="btn btn-primary py-3 px-5 animated slideInDown" onclick="showSection('products')">Explore Now</a>
+                        <a href="#offset-printing-products" class="btn btn-primary py-3 px-5 animated slideInDown" onclick="showSection('home')">Explore Products</a>
                     </div>
                     <div class="col-lg-6 animated fadeIn">
                         <div class="owl-carousel header-carousel">
@@ -164,15 +161,15 @@
             </div>
         </div>
 
-        <!-- Services Preview -->
         <div class="container-fluid py-5">
             <div class="container py-5">
                 <div class="mx-auto text-center mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                     <h1 class="display-5 mb-3">Professional Printing Services</h1>
-                    <p class="mb-0">From business stationery to vibrant marketing flyers, we cover all your printing needs with precision and speed.</p>
+                    <p class="mb-0">From business stationery to vibrant marketing flyers, we cover all your printing needs with precision and speed. Scroll down to shop by category!</p>
                 </div>
                 <div class="row g-4">
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <a href="#offset-printing-products">
                         <div class="service-item bg-light p-4">
                             <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-4"
                                 style="width: 60px; height: 60px;">
@@ -181,8 +178,10 @@
                             <h5 class="mb-3">Offset Printing</h5>
                             <p class="mb-0">High-volume, superior quality printing for books, brochures, and stationery.</p>
                         </div>
+                        </a>
                     </div>
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                         <a href="#digital-printing-products">
                         <div class="service-item bg-light p-4">
                             <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-4"
                                 style="width: 60px; height: 60px;">
@@ -191,8 +190,10 @@
                             <h5 class="mb-3">Digital Printing</h5>
                             <p class="mb-0">Fast, on-demand printing for short runs and personalized marketing materials.</p>
                         </div>
+                         </a>
                     </div>
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                        <a href="#offset-printing-products">
                         <div class="service-item bg-light p-4">
                             <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-4"
                                 style="width: 60px; height: 60px;">
@@ -201,564 +202,483 @@
                             <h5 class="mb-3">Custom Stationery</h5>
                             <p class="mb-0">Design and print of business cards, letterheads, envelopes, and official documents.</p>
                         </div>
+                        </a>
                     </div>
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                         <a href="#large-format-products">
                         <div class="service-item bg-light p-4">
                             <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-4"
                                 style="width: 60px; height: 60px;">
                                 <i class="fa fa-boxes text-primary fs-4"></i>
                             </div>
-                            <h5 class="mb-3">Packaging Solutions</h5>
+                            <h5 class="mb-3">Merchandise & Large Format</h5>
                             <p class="mb-0">Branded boxes, custom labels, and durable packaging for your product line.</p>
                         </div>
+                        </a>
                     </div>
-                </div>
-                <div class="text-center mt-5">
-                    <a href="#" class="btn btn-primary py-3 px-5" onclick="showSection('services')">View All Services</a>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services-section" class="section">
-        <div class="container-fluid page-header py-5">
-            <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Our Services</h1>
-            <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
-                <li class="breadcrumb-item"><a href="#" onclick="showSection('home')">Home</a></li>
-                <li class="breadcrumb-item active text-white">Services</li>
-            </ol>
-        </div>
-
-        <div class="container-fluid py-5">
+        
+        <div class="container-fluid py-5" id="offset-printing-products">
             <div class="container py-5">
-                <div class="row g-4">
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="service-item bg-light p-4 text-center">
-                            <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-4 mx-auto"
-                                style="width: 80px; height: 80px;">
-                                <i class="fa fa-print text-primary fs-2"></i>
+                <div class="mx-auto text-center mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
+                    <h1 class="display-5 mb-3">Offset Printing & Stationery Products <i class="fa fa-print text-primary fs-2"></i></h1>
+                    <p class="mb-0">High-volume, superior quality printing for books, brochures, and custom business stationery.</p>
+                </div>
+                <div class='row'>
+                    
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/LetterPads.jpg' onerror="this.onerror=null;this.src='img/products/LetterPads.png';" class='card-img-top' alt='LetterPads'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>LetterPads</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="2400">LetterPad 68g A4 Single Color - PKR 2400</option><option value="1200">LetterPad 68g A4/2 Single Color - PKR 1200</option><option value="4000">LetterPad 80g A4 Single Color - PKR 4000</option><option value="2000">LetterPad 80g A4/2 Single Color - PKR 2000</option><option value="5400">LetterPad 80g A4, 4 Color - PKR 5400</option><option value="2700">LetterPad 80g A4/2, 4 Color - PKR 2700</option><option value="6500">LetterPad 100g A4, 4 Color - PKR 6500</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
                             </div>
-                            <h4 class="mb-3">Offset Printing</h4>
-                            <p class="mb-4">High-volume, superior quality printing for books, brochures, and stationery with precise color matching and consistency.</p>
-                            <a href="#" class="btn btn-primary" onclick="showSection('contact')">Get Quote</a>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="service-item bg-light p-4 text-center">
-                            <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-4 mx-auto"
-                                style="width: 80px; height: 80px;">
-                                <i class="fa fa-copy text-primary fs-2"></i>
+                    
+                
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/Ishtihar.jpg' onerror="this.onerror=null;this.src='img/products/Ishtihar.png';" class='card-img-top' alt='Ishtihar'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>Ishtihar</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="1200">Ishtihar 68g A4/2, Single Color - PKR 1200</option><option value="2200">Ishtihar 68g A4, Single Color - PKR 2200</option><option value="2700">Ishtihar A4/2,80g, 4 Color - PKR 2700</option><option value="5400">Ishtihar A4,80g, 4 Color - PKR 5400</option><option value="1600">Ishtihar 10x7, 68g, Single Color - PKR 1600</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
                             </div>
-                            <h4 class="mb-3">Digital Printing</h4>
-                            <p class="mb-4">Fast, on-demand printing for short runs and personalized marketing materials with quick turnaround times.</p>
-                            <a href="#" class="btn btn-primary" onclick="showSection('contact')">Get Quote</a>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="service-item bg-light p-4 text-center">
-                            <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-4 mx-auto"
-                                style="width: 80px; height: 80px;">
-                                <i class="fa fa-id-card text-primary fs-2"></i>
+                    
+                
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/Pamphlet/Menu.jpg' onerror="this.onerror=null;this.src='img/products/Pamphlet/Menu.png';" class='card-img-top' alt='Pamphlet/Menu'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>Pamphlet/Menu</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="2700">Pamphlet/Menu/Ishtihar, Art Paper A4/2,90g, 4 Color - PKR 2700</option><option value="5400">Pamphlet/Menu/Ishtihar, A4 Art Paper,90g, 4 Color - PKR 5400</option><option value="3500">Pamphlet/Menu/Ishtihar, A4/2 Art Paper,113g, 4 Color - PKR 3500</option><option value="6000">Pamphlet/Menu/Ishtihar, A4 Art Paper,113g, 4 Color - PKR 6000</option><option value="4000">Pamphlet/Menu/Ishtihar Doube Side, A4/2 Art Paper,113g, 4 Color - PKR 4000</option><option value="7000">Pamphlet/Menu/Ishtihar Doube Side, A4 Art Paper,113g, 4 Color - PKR 7000</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
                             </div>
-                            <h4 class="mb-3">Custom Stationery</h4>
-                            <p class="mb-4">Design and print of business cards, letterheads, envelopes, and official documents to represent your brand professionally.</p>
-                            <a href="#" class="btn btn-primary" onclick="showSection('contact')">Get Quote</a>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="service-item bg-light p-4 text-center">
-                            <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-4 mx-auto"
-                                style="width: 80px; height: 80px;">
-                                <i class="fa fa-boxes text-primary fs-2"></i>
+                    
+                </div>
+                <div class='row'>
+                
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/Envelop.jpg' onerror="this.onerror=null;this.src='img/products/Envelop.png';" class='card-img-top' alt='Envelop'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>Envelop</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="4500">Envelop 9x4,80g, Single Color - PKR 4500</option><option value="6000">Envelop 9x4,80g, 4 Color - PKR 6000</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
                             </div>
-                            <h4 class="mb-3">Packaging Solutions</h4>
-                            <p class="mb-4">Branded boxes, custom labels, and durable packaging for your product line that stands out on shelves.</p>
-                            <a href="#" class="btn btn-primary" onclick="showSection('contact')">Get Quote</a>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="service-item bg-light p-4 text-center">
-                            <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-4 mx-auto"
-                                style="width: 80px; height: 80px;">
-                                <i class="fa fa-file-alt text-primary fs-2"></i>
+                    
+                
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/Visiting Cards.jpg' onerror="this.onerror=null;this.src='img/products/Visiting Cards.png';" class='card-img-top' alt='Visiting Cards'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>Visiting Cards</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="800">V Card Shine - PKR 800</option><option value="900">Mat Card Single - PKR 900</option><option value="1500">Mat Card Double - PKR 1500</option><option value="1000">Mat Card Single Round - PKR 1000</option><option value="1600">Mat Card Double Round - PKR 1600</option><option value="1500">UV Vard Single - PKR 1500</option><option value="2000">UV Vard Double - PKR 2000</option><option value="3500">UV Vard Pasting - PKR 3500</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
                             </div>
-                            <h4 class="mb-3">Brochures & Flyers</h4>
-                            <p class="mb-4">Eye-catching marketing materials designed to promote your business and capture customer attention.</p>
-                            <a href="#" class="btn btn-primary" onclick="showSection('contact')">Get Quote</a>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="service-item bg-light p-4 text-center">
-                            <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-4 mx-auto"
-                                style="width: 80px; height: 80px;">
-                                <i class="fa fa-images text-primary fs-2"></i>
+                    
+                
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/Bill Books.jpg' onerror="this.onerror=null;this.src='img/products/Bill Books.png';" class='card-img-top' alt='Bill Books'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>Bill Books</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="2000">Bill Books, A4/2,68g, Single Color - PKR 2000</option><option value="4000">Bill Books, A4,68g, Single Color - PKR 4000</option><option value="3000">Bill Books, A4/2,80g, Single Color - PKR 3000</option><option value="3500">Bill Books, A4/2,80g, 4 Color - PKR 3500</option><option value="3500">Bill Books, A4/2,Art Paper 90g, 4 Color - PKR 3500</option><option value="6800">Bill Books, 9x11,80g, 4 Color - PKR 6800</option><option value="6600">Bill Books, 7x10,80g, 4 Color - PKR 6600</option><option value="3200">Bill Book Carbonless 8.5x5.75 - PKR 3200</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
                             </div>
-                            <h4 class="mb-3">Large Format Printing</h4>
-                            <p class="mb-4">Banners, posters, and signage in large formats for events, retail spaces, and promotional activities.</p>
-                            <a href="#" class="btn btn-primary" onclick="showSection('contact')">Get Quote</a>
+                        </div>
+                    </div>
+                </div>
+                <div class='row'>
+                
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/Receipt Book.jpg' onerror="this.onerror=null;this.src='img/products/Receipt Book.png';" class='card-img-top' alt='Receipt Book'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>Receipt Book</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="1200">Receipt Book, 9x3.5, 68g, Single Color - PKR 1200</option><option value="2800">Receipt Book, 9x3.5, 80g, 4 Color - PKR 2800</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/File Cover.jpg' onerror="this.onerror=null;this.src='img/products/File Cover.png';" class='card-img-top' alt='File Cover'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>File Cover</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="50">File Cover Art Card A4, Starting from Pkr - PKR 50</option><option value="5500">File Cover Art Card Legal , Starting from Pkr - PKR 5500</option><option value="3000">File Cover Box Board A4, Starting from Pkr - PKR 3000</option><option value="3200">File Cover Box Board Legal, Starting from Pkr - PKR 3200</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/Rubber Stamp.jpg' onerror="this.onerror=null;this.src='img/products/Rubber Stamp.png';" class='card-img-top' alt='Rubber Stamp'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>Rubber Stamp</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="550">Stamp 1.45x0.55 - PKR 550</option><option value="650">Stamps 1.8x0.7 - PKR 650</option><option value="850">2.25x0.85 - PKR 850</option><option value="900">Round 1 inch - PKR 900</option><option value="1100">Round 1.25 inch - PKR 1100</option><option value="1500">Stamp Round 1.6 inch - PKR 1500</option><option value="1350">2.75x0.98 - PKR 1350</option><option value="2500">Round 2 inh - PKR 2500</option><option value="1600">Date Wali Round 1.25 inch - PKR 1600</option><option value="1700">Date Wali Round 1.5 inch - PKR 1700</option><option value="2800">Date Wali Round 2 Inch - PKR 2800</option><option value="2500">Date Wali Round 1.6 inch - PKR 2500</option><option value="1400">Date Wali 1.57x0.92 inch - PKR 1400</option><option value="1600">Date Wali 1.9x1.15 inch - PKR 1600</option><option value="2000">Date Wali 2.2x1.25 inch - PKR 2000</option><option value="3000">Date Wali 3x1.5 inch - PKR 3000</option><option value="700">Pocket Stamp 1.4x0.52 inch - PKR 700</option><option value="950">Pocket Stamp 1.75x0.7 inch - PKR 950</option><option value="650">Date Wali 1.75x1.15 (Without Ink) - PKR 650</option><option value="500">Only Date - PKR 500</option><option value="1600">2.75x1.18 - PKR 1600</option><option value="1900">Oval Shape 2.15x1.37 - PKR 1900</option><option value="1600">PAID Stamp - PKR 1600</option><option value="1700">Oval Shape 1.75x1.15 - PKR 1700</option><option value="750">Only Date Auto - PKR 750</option><option value="2800">3x1.5 inch - PKR 2800</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container-fluid py-5" id="digital-printing-products">
+            <div class="container py-5">
+                <div class="mx-auto text-center mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
+                    <h1 class="display-5 mb-3">Digital & Small Format Products <i class="fa fa-copy text-primary fs-2"></i></h1>
+                    <p class="mb-0">Fast, on-demand printing for stickers, photos, design work, and PVC cards.</p>
+                </div>
+                <div class='row'>
+                    
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/Sticker Print.jpg' onerror="this.onerror=null;this.src='img/products/Sticker Print.png';" class='card-img-top' alt='Sticker Print'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>Sticker Print</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="800">Sticker 3.5x2 - PKR 800</option><option value="1600">Sticker 3.5x4 - PKR 1600</option><option value="4000">Sticker 7x5 - PKR 4000</option><option value="7000">Sticker 7x10 - PKR 7000</option><option value="14000">Sticker 10x15 - PKR 14000</option><option value="100">A4 Sticker Print, Starting from Pkr - PKR 100</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/Photo Print.jpg' onerror="this.onerror=null;this.src='img/products/Photo Print.png';" class='card-img-top' alt='Photo Print'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>Photo Print</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="100">A4 Photo 1 Sided, Starting from Pkr - PKR 100</option><option value="120">A4 Photo Double Sided, Starting from Pkr - PKR 120</option><option value="60">7x5 Photo Print, Starting from Pkr - PKR 60</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/Design Only.jpg' onerror="this.onerror=null;this.src='img/products/Design Only.png';" class='card-img-top' alt='Design Only'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>Design Only</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="400">Social Media Posts - PKR 400</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='row'>
+
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/PVC Cards.jpg' onerror="this.onerror=null;this.src='img/products/PVC Cards.png';" class='card-img-top' alt='PVC Cards'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>PVC Cards</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="50">PVC Card 1 - PKR 50</option><option value="100">PVC Card 10 - PKR 100</option><option value="40">PVC card+Dori+jacket minimum 10 - PKR 40</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/Photo Frames.jpg' onerror="this.onerror=null;this.src='img/products/Photo Frames.png';" class='card-img-top' alt='Photo Frames'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>Photo Frames</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="450">Photo+Frame 8x12 - PKR 450</option><option value="850">Photo+Frame 12x18 - PKR 850</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/Badges.jpg' onerror="this.onerror=null;this.src='img/products/Badges.png';" class='card-img-top' alt='Badges'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>Badges</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="50">Badges Minimum 50 - PKR 50</option><option value="3000">Badges 100 - PKR 3000</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Products Section -->
-    <section id="products-section" class="section">
-                <div class="container-fluid bg-light py-5">
+        <div class="container-fluid bg-light py-5" id="large-format-products">
             <div class="container py-5">
-                    <div class="row g-4" id="product-list-container"></div>
-                    <div class='row'>
+                <div class="mx-auto text-center mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
+                    <h1 class="display-5 mb-3">Large Format & Branded Merchandise <i class="fa fa-boxes text-primary fs-2"></i></h1>
+                    <p class="mb-0">Banners, signage, and custom branded products like shirts, mugs, and keychains.</p>
+                </div>
+                <div class='row'>
+                
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/China.jpg' onerror="this.onerror=null;this.src='img/products/China.png';" class='card-img-top' alt='China'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>China (Large Format)</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="140">China2x2 - PKR 140</option><option value="210">China2x3 - PKR 210</option><option value="280">China2x4 - PKR 280</option><option value="350">China2x5 - PKR 350</option><option value="420">China2x6 - PKR 420</option><option value="490">China2x7 - PKR 490</option><option value="560">China2x8 - PKR 560</option><option value="630">China2x9 - PKR 630</option><option value="700">China2x10 - PKR 700</option><option value="770">China2x11 - PKR 770</option><option value="840">China2x12 - PKR 840</option><option value="910">China2x13 - PKR 910</option><option value="175">China2.5x2 - PKR 175</option><option value="262.5">China2.5x3 - PKR 262.5</option><option value="350">China2.5x4 - PKR 350</option><option value="437.5">China2.5x5 - PKR 437.5</option><option value="525">China2.5x6 - PKR 525</option><option value="612.5">China2.5x7 - PKR 612.5</option><option value="700">China2.5x8 - PKR 700</option><option value="787.5">China2.5x9 - PKR 787.5</option><option value="875">China2.5x10 - PKR 875</option><option value="315">China3x3 - PKR 315</option><option value="420">China3x4 - PKR 420</option><option value="525">China3x5 - PKR 525</option><option value="630">China3x6 - PKR 630</option><option value="735">China3x7 - PKR 735</option><option value="840">China3x8 - PKR 840</option><option value="945">China3x9 - PKR 945</option><option value="1050">China3x10 - PKR 1050</option><option value="1155">China3x11 - PKR 1155</option><option value="1260">China3x12 - PKR 1260</option><option value="1365">China3x13 - PKR 1365</option><option value="245">China3.5x2 - PKR 245</option><option value="367.5">China3.5x3 - PKR 367.5</option><option value="490">China3.5x4 - PKR 490</option><option value="612.5">China3.5x5 - PKR 612.5</option><option value="735">China3.5x6 - PKR 735</option><option value="857.5">China3.5x7 - PKR 857.5</option><option value="980">China3.5x8 - PKR 980</option><option value="1102.5">China3.5x9 - PKR 1102.5</option><option value="1225">China3.5x10 - PKR 1225</option><option value="140">China4x1 - PKR 140</option><option value="280">China4x2 - PKR 280</option><option value="420">China4x3 - PKR 420</option><option value="560">China4x4 - PKR 560</option><option value="700">China4x5 - PKR 700</option><option value="840">China4x6 - PKR 840</option><option value="980">China4x7 - PKR 980</option><option value="1120">China4x8 - PKR 1120</option><option value="1260">China4x9 - PKR 1260</option><option value="1400">China4x10 - PKR 1400</option><option value="1540">China4x11 - PKR 1540</option><option value="1680">China4x12 - PKR 1680</option><option value="1820">China4x13 - PKR 1820</option><option value="175">China5x1 - PKR 175</option><option value="350">China5x2 - PKR 350</option><option value="525">China5x3 - PKR 525</option><option value="700">China5x4 - PKR 700</option><option value="875">China5x5 - PKR 875</option><option value="1050">China5x6 - PKR 1050</option><option value="1225">China5x7 - PKR 1225</option><option value="1400">China5x8 - PKR 1400</option><option value="1575">China5x9 - PKR 1575</option><option value="1750">China5x10 - PKR 1750</option><option value="1925">China5x11 - PKR 1925</option><option value="2100">China5x12 - PKR 2100</option><option value="210">China6x1 - PKR 210</option><option value="420">China6x2 - PKR 420</option><option value="630">China6x3 - PKR 630</option><option value="840">China6x4 - PKR 840</option><option value="1050">China6x5 - PKR 1050</option><option value="1260">China6x6 - PKR 1260</option><option value="1470">China6x7 - PKR 1470</option><option value="1680">China6x8 - PKR 1680</option><option value="1890">China6x9 - PKR 1890</option><option value="2100">China6x10 - PKR 2100</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/Star.jpg' onerror="this.onerror=null;this.src='img/products/Star.png';" class='card-img-top' alt='Star'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>Star (Large Format)</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="280">Star2x2 - PKR 280</option><option value="420">Star2x3 - PKR 420</option><option value="560">Star2x4 - PKR 560</option><option value="700">Star2x5 - PKR 700</option><option value="840">Star2x6 - PKR 840</option><option value="980">Star2x7 - PKR 980</option><option value="1120">Star2x8 - PKR 1120</option><option value="1260">Star2x9 - PKR 1260</option><option value="1400">Star2x10 - PKR 1400</option><option value="1540">Star2x11 - PKR 1540</option><option value="1680">Star2x12 - PKR 1680</option><option value="1820">Star2x13 - PKR 1820</option><option value="350">Star2.5x2 - PKR 350</option><option value="525">Star2.5x3 - PKR 525</option><option value="700">Star2.5x4 - PKR 700</option><option value="875">Star2.5x5 - PKR 875</option><option value="1050">Star2.5x6 - PKR 1050</option><option value="1225">Star2.5x7 - PKR 1225</option><option value="1400">Star2.5x8 - PKR 1400</option><option value="1575">Star2.5x9 - PKR 1575</option><option value="1750">Star2.5x10 - PKR 1750</option><option value="630">Star3x3 - PKR 630</option><option value="840">Star3x4 - PKR 840</option><option value="1050">Star3x5 - PKR 1050</option><option value="1260">Star3x6 - PKR 1260</option><option value="1470">Star3x7 - PKR 1470</option><option value="1680">Star3x8 - PKR 1680</option><option value="1890">Star3x9 - PKR 1890</option><option value="2100">Star3x10 - PKR 2100</option><option value="2310">Star3x11 - PKR 2310</option><option value="2520">Star3x12 - PKR 2520</option><option value="2730">Star3x13 - PKR 2730</option><option value="490">Star3.5x2 - PKR 490</option><option value="735">Star3.5x3 - PKR 735</option><option value="980">Star3.5x4 - PKR 980</option><option value="1225">Star3.5x5 - PKR 1225</option><option value="1470">Star3.5x6 - PKR 1470</option><option value="1715">Star3.5x7 - PKR 1715</option><option value="1960">Star3.5x8 - PKR 1960</option><option value="2205">Star3.5x9 - PKR 2205</option><option value="2450">Star3.5x10 - PKR 2450</option><option value="280">Star4x1 - PKR 280</option><option value="560">Star4x2 - PKR 560</option><option value="840">Star4x3 - PKR 840</option><option value="1120">Star4x4 - PKR 1120</option><option value="1400">Star4x5 - PKR 1400</option><option value="1680">Star4x6 - PKR 1680</option><option value="1960">Star4x7 - PKR 1960</option><option value="2240">Star4x8 - PKR 2240</option><option value="2520">Star4x9 - PKR 2520</option><option value="2800">Star4x10 - PKR 2800</option><option value="3080">Star4x11 - PKR 3080</option><option value="3360">Star4x12 - PKR 3360</option><option value="3640">Star4x13 - PKR 3640</option><option value="350">Star5x1 - PKR 350</option><option value="700">Star5x2 - PKR 700</option><option value="1050">Star5x3 - PKR 1050</option><option value="1400">Star5x4 - PKR 1400</option><option value="1750">Star5x5 - PKR 1750</option><option value="2100">Star5x6 - PKR 2100</option><option value="2450">Star5x7 - PKR 2450</option><option value="2800">Star5x8 - PKR 2800</option><option value="3150">Star5x9 - PKR 3150</option><option value="3500">Star5x10 - PKR 3500</option><option value="3850">Star5x11 - PKR 3850</option><option value="4200">Star5x12 - PKR 4200</option><option value="420">Star6x1 - PKR 420</option><option value="840">Star6x2 - PKR 840</option><option value="1260">Star6x3 - PKR 1260</option><option value="1680">Star6x4 - PKR 1680</option><option value="2100">Star6x5 - PKR 2100</option><option value="2520">Star6x6 - PKR 2520</option><option value="2940">Star6x7 - PKR 2940</option><option value="3360">Star6x8 - PKR 3360</option><option value="3780">Star6x9 - PKR 3780</option><option value="4200">Star6x10 - PKR 4200</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/Venyl.jpg' onerror="this.onerror=null;this.src='img/products/Venyl.png';" class='card-img-top' alt='Venyl'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>Venyl (Large Format)</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="400">Venyl2x2 - PKR 400</option><option value="600">Venyl2x3 - PKR 600</option><option value="800">Venyl2x4 - PKR 800</option><option value="1000">Venyl2x5 - PKR 1000</option><option value="1200">Venyl2x6 - PKR 1200</option><option value="1400">Venyl2x7 - PKR 1400</option><option value="1600">Venyl2x8 - PKR 1600</option><option value="1800">Venyl2x9 - PKR 1800</option><option value="2000">Venyl2x10 - PKR 2000</option><option value="2200">Venyl2x11 - PKR 2200</option><option value="2400">Venyl2x12 - PKR 2400</option><option value="2600">Venyl2x13 - PKR 2600</option><option value="500">Venyl2.5x2 - PKR 500</option><option value="750">Venyl2.5x3 - PKR 750</option><option value="1000">Venyl2.5x4 - PKR 1000</option><option value="1250">Venyl2.5x5 - PKR 1250</option><option value="1500">Venyl2.5x6 - PKR 1500</option><option value="1750">Venyl2.5x7 - PKR 1750</option><option value="2000">Venyl2.5x8 - PKR 2000</option><option value="2250">Venyl2.5x9 - PKR 2250</option><option value="2500">Venyl2.5x10 - PKR 2500</option><option value="900">Venyl3x3 - PKR 900</option><option value="1200">Venyl3x4 - PKR 1200</option><option value="1500">Venyl3x5 - PKR 1500</option><option value="1800">Venyl3x6 - PKR 1800</option><option value="2100">Venyl3x7 - PKR 2100</option><option value="2400">Venyl3x8 - PKR 2400</option><option value="2700">Venyl3x9 - PKR 2700</option><option value="3000">Venyl3x10 - PKR 3000</option><option value="3300">Venyl3x11 - PKR 3300</option><option value="3600">Venyl3x12 - PKR 3600</option><option value="3900">Venyl3x13 - PKR 3900</option><option value="700">Venyl3.5x2 - PKR 700</option><option value="1050">Venyl3.5x3 - PKR 1050</option><option value="1400">Venyl3.5x4 - PKR 1400</option><option value="1750">Venyl3.5x5 - PKR 1750</option><option value="2100">Venyl3.5x6 - PKR 2100</option><option value="2450">Venyl3.5x7 - PKR 2450</option><option value="2800">Venyl3.5x8 - PKR 2800</option><option value="3150">Venyl3.5x9 - PKR 3150</option><option value="3500">Venyl3.5x10 - PKR 3500</option><option value="400">Venyl4x1 - PKR 400</option><option value="800">Venyl4x2 - PKR 800</option><option value="1200">Venyl4x3 - PKR 1200</option><option value="1600">Venyl4x4 - PKR 1600</option><option value="2000">Venyl4x5 - PKR 2000</option><option value="2400">Venyl4x6 - PKR 2400</option><option value="2800">Venyl4x7 - PKR 2800</option><option value="3200">Venyl4x8 - PKR 3200</option><option value="3600">Venyl4x9 - PKR 3600</option><option value="4000">Venyl4x10 - PKR 4000</option><option value="4400">Venyl4x11 - PKR 4400</option><option value="4800">Venyl4x12 - PKR 4800</option><option value="5200">Venyl4x13 - PKR 5200</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class='row'>
 
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/LetterPads.jpg' onerror="this.onerror=null;this.src='img/products/LetterPads.png';" class='card-img-top' alt='LetterPads'>
-            <div class='card-body'>
-                <h5 class='card-title'>LetterPads</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="2400">LetterPad 68g A4 Single Color - PKR 2400</option><option value="1200">LetterPad 68g A4/2 Single Color - PKR 1200</option><option value="4000">LetterPad 80g A4 Single Color - PKR 4000</option><option value="2000">LetterPad 80g A4/2 Single Color - PKR 2000</option><option value="5400">LetterPad 80g A4, 4 Color - PKR 5400</option><option value="2700">LetterPad 80g A4/2, 4 Color - PKR 2700</option><option value="6500">LetterPad 100g A4, 4 Color - PKR 6500</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/One Vision.jpg' onerror="this.onerror=null;this.src='img/products/One Vision.png';" class='card-img-top' alt='One Vision'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>One Vision (Large Format)</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="400">One Vision2x2 - PKR 400</option><option value="600">One Vision2x3 - PKR 600</option><option value="800">One Vision2x4 - PKR 800</option><option value="1000">One Vision2x5 - PKR 1000</option><option value="1200">One Vision2x6 - PKR 1200</option><option value="1400">One Vision2x7 - PKR 1400</option><option value="1600">One Vision2x8 - PKR 1600</option><option value="1800">One Vision2x9 - PKR 1800</option><option value="2000">One Vision2x10 - PKR 2000</option><option value="2200">One Vision2x11 - PKR 2200</option><option value="2400">One Vision2x12 - PKR 2400</option><option value="2600">One Vision2x13 - PKR 2600</option><option value="500">One Vision2.5x2 - PKR 500</option><option value="750">One Vision2.5x3 - PKR 750</option><option value="1000">One Vision2.5x4 - PKR 1000</option><option value="1250">One Vision2.5x5 - PKR 1250</option><option value="1500">One Vision2.5x6 - PKR 1500</option><option value="1750">One Vision2.5x7 - PKR 1750</option><option value="2000">One Vision2.5x8 - PKR 2000</option><option value="2250">One Vision2.5x9 - PKR 2250</option><option value="2500">One Vision2.5x10 - PKR 2500</option><option value="900">One Vision3x3 - PKR 900</option><option value="1200">One Vision3x4 - PKR 1200</option><option value="1500">One Vision3x5 - PKR 1500</option><option value="1800">One Vision3x6 - PKR 1800</option><option value="2100">One Vision3x7 - PKR 2100</option><option value="2400">One Vision3x8 - PKR 2400</option><option value="2700">One Vision3x9 - PKR 2700</option><option value="3000">One Vision3x10 - PKR 3000</option><option value="3300">One Vision3x11 - PKR 3300</option><option value="3600">One Vision3x12 - PKR 3600</option><option value="3900">One Vision3x13 - PKR 3900</option><option value="700">One Vision3.5x2 - PKR 700</option><option value="1050">One Vision3.5x3 - PKR 1050</option><option value="1400">One Vision3.5x4 - PKR 1400</option><option value="1750">One Vision3.5x5 - PKR 1750</option><option value="2100">One Vision3.5x6 - PKR 2100</option><option value="2450">One Vision3.5x7 - PKR 2450</option><option value="2800">One Vision3.5x8 - PKR 2800</option><option value="3150">One Vision3.5x9 - PKR 3150</option><option value="3500">One Vision3.5x10 - PKR 3500</option><option value="400">One Vision4x1 - PKR 400</option><option value="800">One Vision4x2 - PKR 800</option><option value="1200">One Vision4x3 - PKR 1200</option><option value="1600">One Vision4x4 - PKR 1600</option><option value="2000">One Vision4x5 - PKR 2000</option><option value="2400">One Vision4x6 - PKR 2400</option><option value="2800">One Vision4x7 - PKR 2800</option><option value="3200">One Vision4x8 - PKR 3200</option><option value="3600">One Vision4x9 - PKR 3600</option><option value="4000">One Vision4x10 - PKR 4000</option><option value="4400">One Vision4x11 - PKR 4400</option><option value="4800">One Vision4x12 - PKR 4800</option><option value="5200">One Vision4x13 - PKR 5200</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/Backlit.jpg' onerror="this.onerror=null;this.src='img/products/Backlit.png';" class='card-img-top' alt='Backlit'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>Backlit (Large Format)</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="520">Backlit2x2 - PKR 520</option><option value="780">Backlit2x3 - PKR 780</option><option value="1040">Backlit2x4 - PKR 1040</option><option value="1300">Backlit2x5 - PKR 1300</option><option value="1560">Backlit2x6 - PKR 1560</option><option value="1820">Backlit2x7 - PKR 1820</option><option value="2080">Backlit2x8 - PKR 2080</option><option value="2340">Backlit2x9 - PKR 2340</option><option value="2600">Backlit2x10 - PKR 2600</option><option value="2860">Backlit2x11 - PKR 2860</option><option value="3120">Backlit2x12 - PKR 3120</option><option value="3380">Backlit2x13 - PKR 3380</option><option value="650">Backlit2.5x2 - PKR 650</option><option value="975">Backlit2.5x3 - PKR 975</option><option value="1300">Backlit2.5x4 - PKR 1300</option><option value="1625">Backlit2.5x5 - PKR 1625</option><option value="1950">Backlit2.5x6 - PKR 1950</option><option value="2275">Backlit2.5x7 - PKR 2275</option><option value="2600">Backlit2.5x8 - PKR 2600</option><option value="2925">Backlit2.5x9 - PKR 2925</option><option value="3250">Backlit2.5x10 - PKR 3250</option><option value="1170">Backlit3x3 - PKR 1170</option><option value="1560">Backlit3x4 - PKR 1560</option><option value="1950">Backlit3x5 - PKR 1950</option><option value="2340">Backlit3x6 - PKR 2340</option><option value="2730">Backlit3x7 - PKR 2730</option><option value="3120">Backlit3x8 - PKR 3120</option><option value="3510">Backlit3x9 - PKR 3510</option><option value="3900">Backlit3x10 - PKR 3900</option><option value="4290">Backlit3x11 - PKR 4290</option><option value="4680">Backlit3x12 - PKR 4680</option><option value="5070">Backlit3x13 - PKR 5070</option><option value="910">Backlit3.5x2 - PKR 910</option><option value="1365">Backlit3.5x3 - PKR 1365</option><option value="1820">Backlit3.5x4 - PKR 1820</option><option value="2275">Backlit3.5x5 - PKR 2275</option><option value="2730">Backlit3.5x6 - PKR 2730</option><option value="3185">Backlit3.5x7 - PKR 3185</option><option value="3640">Backlit3.5x8 - PKR 3640</option><option value="4095">Backlit3.5x9 - PKR 4095</option><option value="4550">Backlit3.5x10 - PKR 4550</option><option value="520">Backlit4x1 - PKR 520</option><option value="1040">Backlit4x2 - PKR 1040</option><option value="1560">Backlit4x3 - PKR 1560</option><option value="2080">Backlit4x4 - PKR 2080</option><option value="2600">Backlit4x5 - PKR 2600</option><option value="3120">Backlit4x6 - PKR 3120</option><option value="3640">Backlit4x7 - PKR 3640</option><option value="4160">Backlit4x8 - PKR 4160</option><option value="4680">Backlit4x9 - PKR 4680</option><option value="5200">Backlit4x10 - PKR 5200</option><option value="5720">Backlit4x11 - PKR 5720</option><option value="6240">Backlit4x12 - PKR 6240</option><option value="6760">Backlit4x13 - PKR 6760</option><option value="650">Backlit5x1 - PKR 650</option><option value="1300">Backlit5x2 - PKR 1300</option><option value="1950">Backlit5x3 - PKR 1950</option><option value="2600">Backlit5x4 - PKR 2600</option><option value="3250">Backlit5x5 - PKR 3250</option><option value="3900">Backlit5x6 - PKR 3900</option><option value="4550">Backlit5x7 - PKR 4550</option><option value="5200">Backlit5x8 - PKR 5200</option><option value="5850">Backlit5x9 - PKR 5850</option><option value="6500">Backlit5x10 - PKR 6500</option><option value="7150">Backlit5x11 - PKR 7150</option><option value="7800">Backlit5x12 - PKR 7800</option><option value="780">Backlit6x1 - PKR 780</option><option value="1560">Backlit6x2 - PKR 1560</option><option value="2340">Backlit6x3 - PKR 2340</option><option value="3120">Backlit6x4 - PKR 3120</option><option value="3900">Backlit6x5 - PKR 3900</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='row'>
+                    
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/Shirts.jpg' onerror="this.onerror=null;this.src='img/products/Shirts.png';" class='card-img-top' alt='Shirts'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>Shirts</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="300">White Shirt Childrens - PKR 300</option><option value="350">White Shirt S,M,L - PKR 350</option><option value="400">White Shirt XL,XXL - PKR 400</option><option value="750">Cotton Shirt SML - PKR 750</option><option value="850">Cotton Shirt XL XXL - PKR 850</option><option value="950">Color Shirt SML - PKR 950</option><option value="1100">Color Shirt XL XXL - PKR 1100</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/Safety Jacket.jpg' onerror="this.onerror=null;this.src='img/products/Safety Jacket.png';" class='card-img-top' alt='Safety Jacket'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>Safety Jacket</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="300">Safety Jacket 60g - PKR 300</option><option value="450">Safety Jacket 120g - PKR 450</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/Caps.jpg' onerror="this.onerror=null;this.src='img/products/Caps.png';" class='card-img-top' alt='Caps'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>Caps</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="200">White P Cap - PKR 200</option><option value="250">Color P Cap - PKR 250</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='row'>
+                    
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/Mugs.jpg' onerror="this.onerror=null;this.src='img/products/Mugs.png';" class='card-img-top' alt='Mugs'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>Mugs</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="350">White Mug - PKR 350</option><option value="400">Inner Color Mug - PKR 400</option><option value="450">Mug Hear shape - PKR 450</option><option value="500">Magic Mug - PKR 500</option><option value="500">Spoon Mug - PKR 500</option><option value="550">Cup Pirch - PKR 550</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/Bottles.jpg' onerror="this.onerror=null;this.src='img/products/Bottles.png';" class='card-img-top' alt='Bottles'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>Bottles</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="750">Bottle (Temperatur) 250ml - PKR 750</option><option value="850">Bottle Temperature White 250ml - PKR 850</option><option value="1500">Bottle (Temperatur) 850ml - PKR 1500</option><option value="1150">Coffee Mug (Temperatur) - PKR 1150</option><option value="1300">Coffee Mug with dori - PKR 1300</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/Jewelry.jpg' onerror="this.onerror=null;this.src='img/products/Jewelry.png';" class='card-img-top' alt='Jewelry'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>Jewelry</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="100">Ring - PKR 100</option><option value="1000">Rolex Bracelet - PKR 1000</option><option value="750">Simple Bracelet - PKR 750</option><option value="350">Picture Locket Small - PKR 350</option><option value="400">Picture Locket Large - PKR 400</option><option value="300">Cough Bangle Round - PKR 300</option><option value="400">Bar Locket - PKR 400</option><option value="400">Chain Heart Shape - PKR 400</option><option value="350">Rope Bracelet - PKR 350</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='row'>
 
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Ishtihar.jpg' onerror="this.onerror=null;this.src='img/products/Ishtihar.png';" class='card-img-top' alt='Ishtihar'>
-            <div class='card-body'>
-                <h5 class='card-title'>Ishtihar</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="1200">Ishtihar 68g A4/2, Single Color - PKR 1200</option><option value="2200">Ishtihar 68g A4, Single Color - PKR 2200</option><option value="2700">Ishtihar A4/2,80g, 4 Color - PKR 2700</option><option value="5400">Ishtihar A4,80g, 4 Color - PKR 5400</option><option value="1600">Ishtihar 10x7, 68g, Single Color - PKR 1600</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Pamphlet/Menu.jpg' onerror="this.onerror=null;this.src='img/products/Pamphlet/Menu.png';" class='card-img-top' alt='Pamphlet/Menu'>
-            <div class='card-body'>
-                <h5 class='card-title'>Pamphlet/Menu</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="2700">Pamphlet/Menu/Ishtihar, Art Paper A4/2,90g, 4 Color - PKR 2700</option><option value="5400">Pamphlet/Menu/Ishtihar, A4 Art Paper,90g, 4 Color - PKR 5400</option><option value="3500">Pamphlet/Menu/Ishtihar, A4/2 Art Paper,113g, 4 Color - PKR 3500</option><option value="6000">Pamphlet/Menu/Ishtihar, A4 Art Paper,113g, 4 Color - PKR 6000</option><option value="4000">Pamphlet/Menu/Ishtihar Doube Side, A4/2 Art Paper,113g, 4 Color - PKR 4000</option><option value="7000">Pamphlet/Menu/Ishtihar Doube Side, A4 Art Paper,113g, 4 Color - PKR 7000</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-</div>
-<div class='row'>
-
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Envelop.jpg' onerror="this.onerror=null;this.src='img/products/Envelop.png';" class='card-img-top' alt='Envelop'>
-            <div class='card-body'>
-                <h5 class='card-title'>Envelop</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="4500">Envelop 9x4,80g, Single Color - PKR 4500</option><option value="6000">Envelop 9x4,80g, 4 Color - PKR 6000</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Visiting Cards.jpg' onerror="this.onerror=null;this.src='img/products/Visiting Cards.png';" class='card-img-top' alt='Visiting Cards'>
-            <div class='card-body'>
-                <h5 class='card-title'>Visiting Cards</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="800">V Card Shine - PKR 800</option><option value="900">Mat Card Single - PKR 900</option><option value="1500">Mat Card Double - PKR 1500</option><option value="1000">Mat Card Single Round - PKR 1000</option><option value="1600">Mat Card Double Round - PKR 1600</option><option value="1500">UV Vard Single - PKR 1500</option><option value="2000">UV Vard Double - PKR 2000</option><option value="3500">UV Vard Pasting - PKR 3500</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Sticker Print.jpg' onerror="this.onerror=null;this.src='img/products/Sticker Print.png';" class='card-img-top' alt='Sticker Print'>
-            <div class='card-body'>
-                <h5 class='card-title'>Sticker Print</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="800">Sticker 3.5x2 - PKR 800</option><option value="1600">Sticker 3.5x4 - PKR 1600</option><option value="4000">Sticker 7x5 - PKR 4000</option><option value="7000">Sticker 7x10 - PKR 7000</option><option value="14000">Sticker 10x15 - PKR 14000</option><option value="100">A4 Sticker Print, Starting from Pkr - PKR 100</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-</div>
-<div class='row'>
-
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Bill Books.jpg' onerror="this.onerror=null;this.src='img/products/Bill Books.png';" class='card-img-top' alt='Bill Books'>
-            <div class='card-body'>
-                <h5 class='card-title'>Bill Books</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="2000">Bill Books, A4/2,68g, Single Color - PKR 2000</option><option value="4000">Bill Books, A4,68g, Single Color - PKR 4000</option><option value="3000">Bill Books, A4/2,80g, Single Color - PKR 3000</option><option value="3500">Bill Books, A4/2,80g, 4 Color - PKR 3500</option><option value="3500">Bill Books, A4/2,Art Paper 90g, 4 Color - PKR 3500</option><option value="6800">Bill Books, 9x11,80g, 4 Color - PKR 6800</option><option value="6600">Bill Books, 7x10,80g, 4 Color - PKR 6600</option><option value="3200">Bill Book Carbonless 8.5x5.75 - PKR 3200</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Receipt Book.jpg' onerror="this.onerror=null;this.src='img/products/Receipt Book.png';" class='card-img-top' alt='Receipt Book'>
-            <div class='card-body'>
-                <h5 class='card-title'>Receipt Book</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="1200">Receipt Book, 9x3.5, 68g, Single Color - PKR 1200</option><option value="2800">Receipt Book, 9x3.5, 80g, 4 Color - PKR 2800</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Photo Print.jpg' onerror="this.onerror=null;this.src='img/products/Photo Print.png';" class='card-img-top' alt='Photo Print'>
-            <div class='card-body'>
-                <h5 class='card-title'>Photo Print</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="100">A4 Photo 1 Sided, Starting from Pkr - PKR 100</option><option value="120">A4 Photo Double Sided, Starting from Pkr - PKR 120</option><option value="60">7x5 Photo Print, Starting from Pkr - PKR 60</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-</div>
-<div class='row'>
-
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/File Cover.jpg' onerror="this.onerror=null;this.src='img/products/File Cover.png';" class='card-img-top' alt='File Cover'>
-            <div class='card-body'>
-                <h5 class='card-title'>File Cover</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="50">File Cover Art Card A4, Starting from Pkr - PKR 50</option><option value="5500">File Cover Art Card Legal , Starting from Pkr - PKR 5500</option><option value="3000">File Cover Box Board A4, Starting from Pkr - PKR 3000</option><option value="3200">File Cover Box Board Legal, Starting from Pkr - PKR 3200</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Rubber Stamp.jpg' onerror="this.onerror=null;this.src='img/products/Rubber Stamp.png';" class='card-img-top' alt='Rubber Stamp'>
-            <div class='card-body'>
-                <h5 class='card-title'>Rubber Stamp</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="550">Stamp 1.45x0.55 - PKR 550</option><option value="650">Stamps 1.8x0.7 - PKR 650</option><option value="850">2.25x0.85 - PKR 850</option><option value="900">Round 1 inch - PKR 900</option><option value="1100">Round 1.25 inch - PKR 1100</option><option value="1500">Stamp Round 1.6 inch - PKR 1500</option><option value="1350">2.75x0.98 - PKR 1350</option><option value="2500">Round 2 inh - PKR 2500</option><option value="1600">Date Wali Round 1.25 inch - PKR 1600</option><option value="1700">Date Wali Round 1.5 inch - PKR 1700</option><option value="2800">Date Wali Round 2 Inch - PKR 2800</option><option value="2500">Date Wali Round 1.6 inch - PKR 2500</option><option value="1400">Date Wali 1.57x0.92 inch - PKR 1400</option><option value="1600">Date Wali 1.9x1.15 inch - PKR 1600</option><option value="2000">Date Wali 2.2x1.25 inch - PKR 2000</option><option value="3000">Date Wali 3x1.5 inch - PKR 3000</option><option value="700">Pocket Stamp 1.4x0.52 inch - PKR 700</option><option value="950">Pocket Stamp 1.75x0.7 inch - PKR 950</option><option value="650">Date Wali 1.75x1.15 (Without Ink) - PKR 650</option><option value="500">Only Date - PKR 500</option><option value="1600">2.75x1.18 - PKR 1600</option><option value="1900">Oval Shape 2.15x1.37 - PKR 1900</option><option value="1600">PAID Stamp - PKR 1600</option><option value="1700">Oval Shape 1.75x1.15 - PKR 1700</option><option value="750">Only Date Auto - PKR 750</option><option value="2800">3x1.5 inch - PKR 2800</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Design Only.jpg' onerror="this.onerror=null;this.src='img/products/Design Only.png';" class='card-img-top' alt='Design Only'>
-            <div class='card-body'>
-                <h5 class='card-title'>Design Only</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="400">Social Media Posts - PKR 400</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-</div>
-<div class='row'>
-
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/China.jpg' onerror="this.onerror=null;this.src='img/products/China.png';" class='card-img-top' alt='China'>
-            <div class='card-body'>
-                <h5 class='card-title'>China</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="140">China2x2 - PKR 140</option><option value="210">China2x3 - PKR 210</option><option value="280">China2x4 - PKR 280</option><option value="350">China2x5 - PKR 350</option><option value="420">China2x6 - PKR 420</option><option value="490">China2x7 - PKR 490</option><option value="560">China2x8 - PKR 560</option><option value="630">China2x9 - PKR 630</option><option value="700">China2x10 - PKR 700</option><option value="770">China2x11 - PKR 770</option><option value="840">China2x12 - PKR 840</option><option value="910">China2x13 - PKR 910</option><option value="175">China2.5x2 - PKR 175</option><option value="262.5">China2.5x3 - PKR 262.5</option><option value="350">China2.5x4 - PKR 350</option><option value="437.5">China2.5x5 - PKR 437.5</option><option value="525">China2.5x6 - PKR 525</option><option value="612.5">China2.5x7 - PKR 612.5</option><option value="700">China2.5x8 - PKR 700</option><option value="787.5">China2.5x9 - PKR 787.5</option><option value="875">China2.5x10 - PKR 875</option><option value="315">China3x3 - PKR 315</option><option value="420">China3x4 - PKR 420</option><option value="525">China3x5 - PKR 525</option><option value="630">China3x6 - PKR 630</option><option value="735">China3x7 - PKR 735</option><option value="840">China3x8 - PKR 840</option><option value="945">China3x9 - PKR 945</option><option value="1050">China3x10 - PKR 1050</option><option value="1155">China3x11 - PKR 1155</option><option value="1260">China3x12 - PKR 1260</option><option value="1365">China3x13 - PKR 1365</option><option value="245">China3.5x2 - PKR 245</option><option value="367.5">China3.5x3 - PKR 367.5</option><option value="490">China3.5x4 - PKR 490</option><option value="612.5">China3.5x5 - PKR 612.5</option><option value="735">China3.5x6 - PKR 735</option><option value="857.5">China3.5x7 - PKR 857.5</option><option value="980">China3.5x8 - PKR 980</option><option value="1102.5">China3.5x9 - PKR 1102.5</option><option value="1225">China3.5x10 - PKR 1225</option><option value="140">China4x1 - PKR 140</option><option value="280">China4x2 - PKR 280</option><option value="420">China4x3 - PKR 420</option><option value="560">China4x4 - PKR 560</option><option value="700">China4x5 - PKR 700</option><option value="840">China4x6 - PKR 840</option><option value="980">China4x7 - PKR 980</option><option value="1120">China4x8 - PKR 1120</option><option value="1260">China4x9 - PKR 1260</option><option value="1400">China4x10 - PKR 1400</option><option value="1540">China4x11 - PKR 1540</option><option value="1680">China4x12 - PKR 1680</option><option value="1820">China4x13 - PKR 1820</option><option value="175">China5x1 - PKR 175</option><option value="350">China5x2 - PKR 350</option><option value="525">China5x3 - PKR 525</option><option value="700">China5x4 - PKR 700</option><option value="875">China5x5 - PKR 875</option><option value="1050">China5x6 - PKR 1050</option><option value="1225">China5x7 - PKR 1225</option><option value="1400">China5x8 - PKR 1400</option><option value="1575">China5x9 - PKR 1575</option><option value="1750">China5x10 - PKR 1750</option><option value="1925">China5x11 - PKR 1925</option><option value="2100">China5x12 - PKR 2100</option><option value="210">China6x1 - PKR 210</option><option value="420">China6x2 - PKR 420</option><option value="630">China6x3 - PKR 630</option><option value="840">China6x4 - PKR 840</option><option value="1050">China6x5 - PKR 1050</option><option value="1260">China6x6 - PKR 1260</option><option value="1470">China6x7 - PKR 1470</option><option value="1680">China6x8 - PKR 1680</option><option value="1890">China6x9 - PKR 1890</option><option value="2100">China6x10 - PKR 2100</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Star.jpg' onerror="this.onerror=null;this.src='img/products/Star.png';" class='card-img-top' alt='Star'>
-            <div class='card-body'>
-                <h5 class='card-title'>Star</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="280">Star2x2 - PKR 280</option><option value="420">Star2x3 - PKR 420</option><option value="560">Star2x4 - PKR 560</option><option value="700">Star2x5 - PKR 700</option><option value="840">Star2x6 - PKR 840</option><option value="980">Star2x7 - PKR 980</option><option value="1120">Star2x8 - PKR 1120</option><option value="1260">Star2x9 - PKR 1260</option><option value="1400">Star2x10 - PKR 1400</option><option value="1540">Star2x11 - PKR 1540</option><option value="1680">Star2x12 - PKR 1680</option><option value="1820">Star2x13 - PKR 1820</option><option value="350">Star2.5x2 - PKR 350</option><option value="525">Star2.5x3 - PKR 525</option><option value="700">Star2.5x4 - PKR 700</option><option value="875">Star2.5x5 - PKR 875</option><option value="1050">Star2.5x6 - PKR 1050</option><option value="1225">Star2.5x7 - PKR 1225</option><option value="1400">Star2.5x8 - PKR 1400</option><option value="1575">Star2.5x9 - PKR 1575</option><option value="1750">Star2.5x10 - PKR 1750</option><option value="630">Star3x3 - PKR 630</option><option value="840">Star3x4 - PKR 840</option><option value="1050">Star3x5 - PKR 1050</option><option value="1260">Star3x6 - PKR 1260</option><option value="1470">Star3x7 - PKR 1470</option><option value="1680">Star3x8 - PKR 1680</option><option value="1890">Star3x9 - PKR 1890</option><option value="2100">Star3x10 - PKR 2100</option><option value="2310">Star3x11 - PKR 2310</option><option value="2520">Star3x12 - PKR 2520</option><option value="2730">Star3x13 - PKR 2730</option><option value="490">Star3.5x2 - PKR 490</option><option value="735">Star3.5x3 - PKR 735</option><option value="980">Star3.5x4 - PKR 980</option><option value="1225">Star3.5x5 - PKR 1225</option><option value="1470">Star3.5x6 - PKR 1470</option><option value="1715">Star3.5x7 - PKR 1715</option><option value="1960">Star3.5x8 - PKR 1960</option><option value="2205">Star3.5x9 - PKR 2205</option><option value="2450">Star3.5x10 - PKR 2450</option><option value="280">Star4x1 - PKR 280</option><option value="560">Star4x2 - PKR 560</option><option value="840">Star4x3 - PKR 840</option><option value="1120">Star4x4 - PKR 1120</option><option value="1400">Star4x5 - PKR 1400</option><option value="1680">Star4x6 - PKR 1680</option><option value="1960">Star4x7 - PKR 1960</option><option value="2240">Star4x8 - PKR 2240</option><option value="2520">Star4x9 - PKR 2520</option><option value="2800">Star4x10 - PKR 2800</option><option value="3080">Star4x11 - PKR 3080</option><option value="3360">Star4x12 - PKR 3360</option><option value="3640">Star4x13 - PKR 3640</option><option value="350">Star5x1 - PKR 350</option><option value="700">Star5x2 - PKR 700</option><option value="1050">Star5x3 - PKR 1050</option><option value="1400">Star5x4 - PKR 1400</option><option value="1750">Star5x5 - PKR 1750</option><option value="2100">Star5x6 - PKR 2100</option><option value="2450">Star5x7 - PKR 2450</option><option value="2800">Star5x8 - PKR 2800</option><option value="3150">Star5x9 - PKR 3150</option><option value="3500">Star5x10 - PKR 3500</option><option value="3850">Star5x11 - PKR 3850</option><option value="4200">Star5x12 - PKR 4200</option><option value="420">Star6x1 - PKR 420</option><option value="840">Star6x2 - PKR 840</option><option value="1260">Star6x3 - PKR 1260</option><option value="1680">Star6x4 - PKR 1680</option><option value="2100">Star6x5 - PKR 2100</option><option value="2520">Star6x6 - PKR 2520</option><option value="2940">Star6x7 - PKR 2940</option><option value="3360">Star6x8 - PKR 3360</option><option value="3780">Star6x9 - PKR 3780</option><option value="4200">Star6x10 - PKR 4200</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Venyl.jpg' onerror="this.onerror=null;this.src='img/products/Venyl.png';" class='card-img-top' alt='Venyl'>
-            <div class='card-body'>
-                <h5 class='card-title'>Venyl</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="400">Venyl2x2 - PKR 400</option><option value="600">Venyl2x3 - PKR 600</option><option value="800">Venyl2x4 - PKR 800</option><option value="1000">Venyl2x5 - PKR 1000</option><option value="1200">Venyl2x6 - PKR 1200</option><option value="1400">Venyl2x7 - PKR 1400</option><option value="1600">Venyl2x8 - PKR 1600</option><option value="1800">Venyl2x9 - PKR 1800</option><option value="2000">Venyl2x10 - PKR 2000</option><option value="2200">Venyl2x11 - PKR 2200</option><option value="2400">Venyl2x12 - PKR 2400</option><option value="2600">Venyl2x13 - PKR 2600</option><option value="500">Venyl2.5x2 - PKR 500</option><option value="750">Venyl2.5x3 - PKR 750</option><option value="1000">Venyl2.5x4 - PKR 1000</option><option value="1250">Venyl2.5x5 - PKR 1250</option><option value="1500">Venyl2.5x6 - PKR 1500</option><option value="1750">Venyl2.5x7 - PKR 1750</option><option value="2000">Venyl2.5x8 - PKR 2000</option><option value="2250">Venyl2.5x9 - PKR 2250</option><option value="2500">Venyl2.5x10 - PKR 2500</option><option value="900">Venyl3x3 - PKR 900</option><option value="1200">Venyl3x4 - PKR 1200</option><option value="1500">Venyl3x5 - PKR 1500</option><option value="1800">Venyl3x6 - PKR 1800</option><option value="2100">Venyl3x7 - PKR 2100</option><option value="2400">Venyl3x8 - PKR 2400</option><option value="2700">Venyl3x9 - PKR 2700</option><option value="3000">Venyl3x10 - PKR 3000</option><option value="3300">Venyl3x11 - PKR 3300</option><option value="3600">Venyl3x12 - PKR 3600</option><option value="3900">Venyl3x13 - PKR 3900</option><option value="700">Venyl3.5x2 - PKR 700</option><option value="1050">Venyl3.5x3 - PKR 1050</option><option value="1400">Venyl3.5x4 - PKR 1400</option><option value="1750">Venyl3.5x5 - PKR 1750</option><option value="2100">Venyl3.5x6 - PKR 2100</option><option value="2450">Venyl3.5x7 - PKR 2450</option><option value="2800">Venyl3.5x8 - PKR 2800</option><option value="3150">Venyl3.5x9 - PKR 3150</option><option value="3500">Venyl3.5x10 - PKR 3500</option><option value="400">Venyl4x1 - PKR 400</option><option value="800">Venyl4x2 - PKR 800</option><option value="1200">Venyl4x3 - PKR 1200</option><option value="1600">Venyl4x4 - PKR 1600</option><option value="2000">Venyl4x5 - PKR 2000</option><option value="2400">Venyl4x6 - PKR 2400</option><option value="2800">Venyl4x7 - PKR 2800</option><option value="3200">Venyl4x8 - PKR 3200</option><option value="3600">Venyl4x9 - PKR 3600</option><option value="4000">Venyl4x10 - PKR 4000</option><option value="4400">Venyl4x11 - PKR 4400</option><option value="4800">Venyl4x12 - PKR 4800</option><option value="5200">Venyl4x13 - PKR 5200</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-</div>
-<div class='row'>
-
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/One Vision.jpg' onerror="this.onerror=null;this.src='img/products/One Vision.png';" class='card-img-top' alt='One Vision'>
-            <div class='card-body'>
-                <h5 class='card-title'>One Vision</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="400">One Vision2x2 - PKR 400</option><option value="600">One Vision2x3 - PKR 600</option><option value="800">One Vision2x4 - PKR 800</option><option value="1000">One Vision2x5 - PKR 1000</option><option value="1200">One Vision2x6 - PKR 1200</option><option value="1400">One Vision2x7 - PKR 1400</option><option value="1600">One Vision2x8 - PKR 1600</option><option value="1800">One Vision2x9 - PKR 1800</option><option value="2000">One Vision2x10 - PKR 2000</option><option value="2200">One Vision2x11 - PKR 2200</option><option value="2400">One Vision2x12 - PKR 2400</option><option value="2600">One Vision2x13 - PKR 2600</option><option value="500">One Vision2.5x2 - PKR 500</option><option value="750">One Vision2.5x3 - PKR 750</option><option value="1000">One Vision2.5x4 - PKR 1000</option><option value="1250">One Vision2.5x5 - PKR 1250</option><option value="1500">One Vision2.5x6 - PKR 1500</option><option value="1750">One Vision2.5x7 - PKR 1750</option><option value="2000">One Vision2.5x8 - PKR 2000</option><option value="2250">One Vision2.5x9 - PKR 2250</option><option value="2500">One Vision2.5x10 - PKR 2500</option><option value="900">One Vision3x3 - PKR 900</option><option value="1200">One Vision3x4 - PKR 1200</option><option value="1500">One Vision3x5 - PKR 1500</option><option value="1800">One Vision3x6 - PKR 1800</option><option value="2100">One Vision3x7 - PKR 2100</option><option value="2400">One Vision3x8 - PKR 2400</option><option value="2700">One Vision3x9 - PKR 2700</option><option value="3000">One Vision3x10 - PKR 3000</option><option value="3300">One Vision3x11 - PKR 3300</option><option value="3600">One Vision3x12 - PKR 3600</option><option value="3900">One Vision3x13 - PKR 3900</option><option value="700">One Vision3.5x2 - PKR 700</option><option value="1050">One Vision3.5x3 - PKR 1050</option><option value="1400">One Vision3.5x4 - PKR 1400</option><option value="1750">One Vision3.5x5 - PKR 1750</option><option value="2100">One Vision3.5x6 - PKR 2100</option><option value="2450">One Vision3.5x7 - PKR 2450</option><option value="2800">One Vision3.5x8 - PKR 2800</option><option value="3150">One Vision3.5x9 - PKR 3150</option><option value="3500">One Vision3.5x10 - PKR 3500</option><option value="400">One Vision4x1 - PKR 400</option><option value="800">One Vision4x2 - PKR 800</option><option value="1200">One Vision4x3 - PKR 1200</option><option value="1600">One Vision4x4 - PKR 1600</option><option value="2000">One Vision4x5 - PKR 2000</option><option value="2400">One Vision4x6 - PKR 2400</option><option value="2800">One Vision4x7 - PKR 2800</option><option value="3200">One Vision4x8 - PKR 3200</option><option value="3600">One Vision4x9 - PKR 3600</option><option value="4000">One Vision4x10 - PKR 4000</option><option value="4400">One Vision4x11 - PKR 4400</option><option value="4800">One Vision4x12 - PKR 4800</option><option value="5200">One Vision4x13 - PKR 5200</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Backlit.jpg' onerror="this.onerror=null;this.src='img/products/Backlit.png';" class='card-img-top' alt='Backlit'>
-            <div class='card-body'>
-                <h5 class='card-title'>Backlit</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="520">Backlit2x2 - PKR 520</option><option value="780">Backlit2x3 - PKR 780</option><option value="1040">Backlit2x4 - PKR 1040</option><option value="1300">Backlit2x5 - PKR 1300</option><option value="1560">Backlit2x6 - PKR 1560</option><option value="1820">Backlit2x7 - PKR 1820</option><option value="2080">Backlit2x8 - PKR 2080</option><option value="2340">Backlit2x9 - PKR 2340</option><option value="2600">Backlit2x10 - PKR 2600</option><option value="2860">Backlit2x11 - PKR 2860</option><option value="3120">Backlit2x12 - PKR 3120</option><option value="3380">Backlit2x13 - PKR 3380</option><option value="650">Backlit2.5x2 - PKR 650</option><option value="975">Backlit2.5x3 - PKR 975</option><option value="1300">Backlit2.5x4 - PKR 1300</option><option value="1625">Backlit2.5x5 - PKR 1625</option><option value="1950">Backlit2.5x6 - PKR 1950</option><option value="2275">Backlit2.5x7 - PKR 2275</option><option value="2600">Backlit2.5x8 - PKR 2600</option><option value="2925">Backlit2.5x9 - PKR 2925</option><option value="3250">Backlit2.5x10 - PKR 3250</option><option value="1170">Backlit3x3 - PKR 1170</option><option value="1560">Backlit3x4 - PKR 1560</option><option value="1950">Backlit3x5 - PKR 1950</option><option value="2340">Backlit3x6 - PKR 2340</option><option value="2730">Backlit3x7 - PKR 2730</option><option value="3120">Backlit3x8 - PKR 3120</option><option value="3510">Backlit3x9 - PKR 3510</option><option value="3900">Backlit3x10 - PKR 3900</option><option value="4290">Backlit3x11 - PKR 4290</option><option value="4680">Backlit3x12 - PKR 4680</option><option value="5070">Backlit3x13 - PKR 5070</option><option value="910">Backlit3.5x2 - PKR 910</option><option value="1365">Backlit3.5x3 - PKR 1365</option><option value="1820">Backlit3.5x4 - PKR 1820</option><option value="2275">Backlit3.5x5 - PKR 2275</option><option value="2730">Backlit3.5x6 - PKR 2730</option><option value="3185">Backlit3.5x7 - PKR 3185</option><option value="3640">Backlit3.5x8 - PKR 3640</option><option value="4095">Backlit3.5x9 - PKR 4095</option><option value="4550">Backlit3.5x10 - PKR 4550</option><option value="520">Backlit4x1 - PKR 520</option><option value="1040">Backlit4x2 - PKR 1040</option><option value="1560">Backlit4x3 - PKR 1560</option><option value="2080">Backlit4x4 - PKR 2080</option><option value="2600">Backlit4x5 - PKR 2600</option><option value="3120">Backlit4x6 - PKR 3120</option><option value="3640">Backlit4x7 - PKR 3640</option><option value="4160">Backlit4x8 - PKR 4160</option><option value="4680">Backlit4x9 - PKR 4680</option><option value="5200">Backlit4x10 - PKR 5200</option><option value="5720">Backlit4x11 - PKR 5720</option><option value="6240">Backlit4x12 - PKR 6240</option><option value="6760">Backlit4x13 - PKR 6760</option><option value="650">Backlit5x1 - PKR 650</option><option value="1300">Backlit5x2 - PKR 1300</option><option value="1950">Backlit5x3 - PKR 1950</option><option value="2600">Backlit5x4 - PKR 2600</option><option value="3250">Backlit5x5 - PKR 3250</option><option value="3900">Backlit5x6 - PKR 3900</option><option value="4550">Backlit5x7 - PKR 4550</option><option value="5200">Backlit5x8 - PKR 5200</option><option value="5850">Backlit5x9 - PKR 5850</option><option value="6500">Backlit5x10 - PKR 6500</option><option value="7150">Backlit5x11 - PKR 7150</option><option value="7800">Backlit5x12 - PKR 7800</option><option value="780">Backlit6x1 - PKR 780</option><option value="1560">Backlit6x2 - PKR 1560</option><option value="2340">Backlit6x3 - PKR 2340</option><option value="3120">Backlit6x4 - PKR 3120</option><option value="3900">Backlit6x5 - PKR 3900</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Shirts.jpg' onerror="this.onerror=null;this.src='img/products/Shirts.png';" class='card-img-top' alt='Shirts'>
-            <div class='card-body'>
-                <h5 class='card-title'>Shirts</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="300">White Shirt Childrens - PKR 300</option><option value="350">White Shirt S,M,L - PKR 350</option><option value="400">White Shirt XL,XXL - PKR 400</option><option value="750">Cotton Shirt SML - PKR 750</option><option value="850">Cotton Shirt XL XXL - PKR 850</option><option value="950">Color Shirt SML - PKR 950</option><option value="1100">Color Shirt XL XXL - PKR 1100</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-</div>
-<div class='row'>
-
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Safety Jacket.jpg' onerror="this.onerror=null;this.src='img/products/Safety Jacket.png';" class='card-img-top' alt='Safety Jacket'>
-            <div class='card-body'>
-                <h5 class='card-title'>Safety Jacket</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="300">Safety Jacket 60g - PKR 300</option><option value="450">Safety Jacket 120g - PKR 450</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Caps.jpg' onerror="this.onerror=null;this.src='img/products/Caps.png';" class='card-img-top' alt='Caps'>
-            <div class='card-body'>
-                <h5 class='card-title'>Caps</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="200">White P Cap - PKR 200</option><option value="250">Color P Cap - PKR 250</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Mugs.jpg' onerror="this.onerror=null;this.src='img/products/Mugs.png';" class='card-img-top' alt='Mugs'>
-            <div class='card-body'>
-                <h5 class='card-title'>Mugs</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="350">White Mug - PKR 350</option><option value="400">Inner Color Mug - PKR 400</option><option value="450">Mug Hear shape - PKR 450</option><option value="500">Magic Mug - PKR 500</option><option value="500">Spoon Mug - PKR 500</option><option value="550">Cup Pirch - PKR 550</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-</div>
-<div class='row'>
-
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Bottles.jpg' onerror="this.onerror=null;this.src='img/products/Bottles.png';" class='card-img-top' alt='Bottles'>
-            <div class='card-body'>
-                <h5 class='card-title'>Bottles</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="750">Bottle (Temperatur) 250ml - PKR 750</option><option value="850">Bottle Temperature White 250ml - PKR 850</option><option value="1500">Bottle (Temperatur) 850ml - PKR 1500</option><option value="1150">Coffee Mug (Temperatur) - PKR 1150</option><option value="1300">Coffee Mug with dori - PKR 1300</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Jewelry.jpg' onerror="this.onerror=null;this.src='img/products/Jewelry.png';" class='card-img-top' alt='Jewelry'>
-            <div class='card-body'>
-                <h5 class='card-title'>Jewelry</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="100">Ring - PKR 100</option><option value="1000">Rolex Bracelet - PKR 1000</option><option value="750">Simple Bracelet - PKR 750</option><option value="350">Picture Locket Small - PKR 350</option><option value="400">Picture Locket Large - PKR 400</option><option value="300">Cough Bangle Round - PKR 300</option><option value="400">Bar Locket - PKR 400</option><option value="400">Chain Heart Shape - PKR 400</option><option value="350">Rope Bracelet - PKR 350</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Pens.jpg' onerror="this.onerror=null;this.src='img/products/Pens.png';" class='card-img-top' alt='Pens'>
-            <div class='card-body'>
-                <h5 class='card-title'>Pens</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="100">Metal Pen mat 1 - PKR 100</option><option value="4500">Metal Pen mat 50 - PKR 4500</option><option value="8500">Metal Pen mat 100 - PKR 8500</option><option value="200">Metal Pen+keyChain 1 - PKR 200</option><option value="8000">Metal Pen+keyChain 50 - PKR 8000</option><option value="15000">Metal Pen+keyChain 100 - PKR 15000</option><option value="100">Shine Metal Pen - PKR 100</option><option value="100">Smart Metal Pen - PKR 100</option><option value="100">Mat Metal Pen - PKR 100</option><option value="200">Diamond Metal Pen - PKR 200</option><option value="150">Light Pen - PKR 150</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-</div>
-<div class='row'>
-
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Pencil Trays.jpg' onerror="this.onerror=null;this.src='img/products/Pencil Trays.png';" class='card-img-top' alt='Pencil Trays'>
-            <div class='card-body'>
-                <h5 class='card-title'>Pencil Trays</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="40">Pencil Tray Plastic a - PKR 40</option><option value="50">Pencil Tray Plastic b - PKR 50</option><option value="80">Pencil Tray Plastic c - PKR 80</option><option value="100">Pencil Tray Wooden - PKR 100</option><option value="150">Pencil Tray Wooden+Engraved - PKR 150</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/PVC Cards.jpg' onerror="this.onerror=null;this.src='img/products/PVC Cards.png';" class='card-img-top' alt='PVC Cards'>
-            <div class='card-body'>
-                <h5 class='card-title'>PVC Cards</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="50">PVC Card 1 - PKR 50</option><option value="100">PVC Card 10 - PKR 100</option><option value="40">PVC card+Dori+jacket minimum 10 - PKR 40</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Photo Frames.jpg' onerror="this.onerror=null;this.src='img/products/Photo Frames.png';" class='card-img-top' alt='Photo Frames'>
-            <div class='card-body'>
-                <h5 class='card-title'>Photo Frames</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="450">Photo+Frame 8x12 - PKR 450</option><option value="850">Photo+Frame 12x18 - PKR 850</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-</div>
-<div class='row'>
-
-    <div class='col-md-4 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Badges.jpg' onerror="this.onerror=null;this.src='img/products/Badges.png';" class='card-img-top' alt='Badges'>
-            <div class='card-body'>
-                <h5 class='card-title'>Badges</h5>
-                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
-                    <option selected disabled>Select an item</option>
-                    <option value="50">Badges Minimum 50 - PKR 50</option><option value="3000">Badges 100 - PKR 3000</option>
-                </select>
-                <p class='mt-2 text-primary fw-bold'></p>
-            </div>
-        </div>
-    </div>
-    
-</div>
-
-
-
-
-
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/Pens.jpg' onerror="this.onerror=null;this.src='img/products/Pens.png';" class='card-img-top' alt='Pens'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>Pens</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="100">Metal Pen mat 1 - PKR 100</option><option value="4500">Metal Pen mat 50 - PKR 4500</option><option value="8500">Metal Pen mat 100 - PKR 8500</option><option value="200">Metal Pen+keyChain 1 - PKR 200</option><option value="8000">Metal Pen+keyChain 50 - PKR 8000</option><option value="15000">Metal Pen+keyChain 100 - PKR 15000</option><option value="100">Shine Metal Pen - PKR 100</option><option value="100">Smart Metal Pen - PKR 100</option><option value="100">Mat Metal Pen - PKR 100</option><option value="200">Diamond Metal Pen - PKR 200</option><option value="150">Light Pen - PKR 150</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                
+                    <div class='col-md-4 mb-4'>
+                        <div class='card h-100 shadow-sm'>
+                            <img src='img/products/Pencil Trays.jpg' onerror="this.onerror=null;this.src='img/products/Pencil Trays.png';" class='card-img-top' alt='Pencil Trays'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>Pencil Trays</h5>
+                                <select class='form-select' onchange="this.nextElementSibling.innerText='Price: PKR ' + this.value">
+                                    <option selected disabled>Select an item</option>
+                                    <option value="40">Pencil Tray Plastic a - PKR 40</option><option value="50">Pencil Tray Plastic b - PKR 50</option><option value="80">Pencil Tray Plastic c - PKR 80</option><option value="100">Pencil Tray Wooden - PKR 100</option><option value="150">Pencil Tray Wooden+Engraved - PKR 150</option>
+                                </select>
+                                <p class='mt-2 text-primary fw-bold'></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Cart Section -->
     <section id="cart-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Shopping Cart</h1>
@@ -771,12 +691,11 @@
         <div class="container-fluid py-5">
             <div class="container py-5">
                 <div id="cart-items-container">
-                    <!-- Cart items will be dynamically inserted here -->
                     <div class="text-center py-5" id="empty-cart-message">
                         <i class="fas fa-shopping-cart fa-4x text-muted mb-4"></i>
                         <h3 class="text-muted">Your cart is empty</h3>
                         <p class="text-muted">Add some products to your cart to see them here</p>
-                        <a href="#" class="btn btn-primary mt-3" onclick="showSection('products')">Continue Shopping</a>
+                        <a href="#offset-printing-products" class="btn btn-primary mt-3" onclick="showSection('home')">Continue Shopping</a>
                     </div>
                 </div>
                 
@@ -811,7 +730,6 @@
         </div>
     </section>
 
-    <!-- Checkout Section -->
     <section id="checkout-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Checkout</h1>
@@ -824,7 +742,6 @@
 
         <div class="container-fluid bg-light py-5">
             <div class="container py-5">
-                <!-- Checkout Steps -->
                 <div class="row mb-5">
                     <div class="col-12">
                         <ul class="nav nav-pills justify-content-center">
@@ -842,7 +759,6 @@
                 </div>
 
                 <div class="row g-5">
-                    <!-- Billing Details -->
                     <div class="col-lg-8">
                         <div id="checkout-step-1" class="checkout-step active">
                             <h3 class="mb-4">Billing Details</h3>
@@ -903,7 +819,6 @@
                             </form>
                         </div>
 
-                        <!-- Payment Method -->
                         <div id="checkout-step-2" class="checkout-step">
                             <h3 class="mb-4">Payment Method</h3>
                             <div class="mb-4">
@@ -942,20 +857,17 @@
                             </div>
                         </div>
 
-                        <!-- Order Review -->
                         <div id="checkout-step-3" class="checkout-step">
                             <h3 class="mb-4">Order Review</h3>
                             <div class="mb-4">
                                 <h5>Billing Details</h5>
                                 <div id="billing-details-review" class="bg-light p-3 rounded">
-                                    <!-- Billing details will be populated here -->
-                                </div>
+                                    </div>
                             </div>
                             <div class="mb-4">
                                 <h5>Payment Method</h5>
                                 <div id="payment-method-review" class="bg-light p-3 rounded">
-                                    <!-- Payment method will be populated here -->
-                                </div>
+                                    </div>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <button type="button" class="btn btn-secondary" onclick="showCheckoutStep(2)">Back</button>
@@ -964,13 +876,11 @@
                         </div>
                     </div>
 
-                    <!-- Order Summary -->
                     <div class="col-lg-4">
                         <div class="bg-white rounded p-4 sticky-top" style="top: 100px;">
                             <h4 class="mb-4">Order Summary</h4>
                             <div id="checkout-order-items">
-                                <!-- Order items will be populated here -->
-                            </div>
+                                </div>
                             <div class="d-flex justify-content-between mt-3">
                                 <span>Subtotal:</span>
                                 <span id="checkout-subtotal">$0.00</span>
@@ -991,7 +901,6 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Contact Us</h1>
@@ -1081,7 +990,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <div class="container-fluid bg-dark footer pt-5 wow fadeIn" data-wow-delay="0.1s" style="margin-top: 150px;">
         <div class="container py-5">
             <div class="row g-5">
@@ -1104,16 +1012,15 @@
                 <div class="col-lg-3 col-md-6">
                     <h5 class="text-white mb-4">Quick Links</h5>
                     <a class="btn btn-link" href="#" onclick="showSection('home')">Home</a>
-                    <a class="btn btn-link" href="#" onclick="showSection('services')">Services</a>
-                    <a class="btn btn-link" href="#" onclick="showSection('products')">Products</a>
+                    <a class="btn btn-link" href="#offset-printing-products" onclick="showSection('home')">Products</a>
                     <a class="btn btn-link" href="#" onclick="showSection('contact')">Contact Us</a>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h5 class="text-white mb-4">Popular Products</h5>
-                    <a class="btn btn-link" href="#" onclick="showSection('products')">Business Cards</a>
-                    <a class="btn btn-link" href="#" onclick="showSection('products')">Brochures & Flyers</a>
-                    <a class="btn btn-link" href="#" onclick="showSection('products')">Custom Letterheads</a>
-                    <a class="btn btn-link" href="#" onclick="showSection('products')">Vinyl Banners</a>
+                    <a class="btn btn-link" href="#offset-printing-products" onclick="showSection('home')">Business Cards</a>
+                    <a class="btn btn-link" href="#offset-printing-products" onclick="showSection('home')">Brochures & Flyers</a>
+                    <a class="btn btn-link" href="#offset-printing-products" onclick="showSection('home')">Custom Letterheads</a>
+                    <a class="btn btn-link" href="#large-format-products" onclick="showSection('home')">Vinyl Banners</a>
                 </div>
                 
             </div>
@@ -1156,7 +1063,8 @@
 
     // --- Core Functions ---
 
-    // Function to fetch the price data and render products
+    // Function to fetch the price data and render products (No change needed, but removing dynamic rendering call as products are now static HTML)
+    // NOTE: If you decide to add more products, you will add them manually above in the grouped sections.
     async function fetchAndRenderProducts() {
         let categories;
         try {
@@ -1168,20 +1076,11 @@
             categories = data.categories;
         } catch (error) {
             console.error("Failed to fetch or parse shop data:", error);
-            const container = document.getElementById('product-list-container');
-            if (container) {
-                container.innerHTML = '<p class="text-danger text-center w-100 mt-5">Failed to load current prices. Please check the data source.</p>';
-            }
+            // The static product cards ensure content is visible even if JSON fails.
             return;
         }
 
-        const container = document.getElementById('product-list-container');
-        if (!container) return; 
-
-        container.innerHTML = ''; 
-        let delay = 0.1;
-
-        // Loop through the CATEGORIES object structure from your JSON
+        // We still need this loop to populate the allProducts object for the cart/checkout functions
         for (const categoryKey in categories) {
             const category = categories[categoryKey];
             for (const subcategoryKey in category) {
@@ -1189,7 +1088,6 @@
                 for (const itemName in subcategory) {
                     const item = subcategory[itemName];
                     
-                    // Store product details globally for use in addToCart (Crucial fix)
                     allProducts[itemName] = {
                         name: itemName,
                         price: item.basePrice,
@@ -1198,45 +1096,10 @@
                         subcategory: subcategoryKey,
                         imageFile: item.imageFile || 'placeholder.jpg'
                     };
-
-                    // Skip items with a base price of 0 (e.g., placeholders or quotes)
-                    if (item.basePrice <= 0) continue; 
-                    
-                    const priceFormatted = item.basePrice.toLocaleString('en-PK', { style: 'currency', currency: 'PKR', minimumFractionDigits: 0 });
-
-                    const productHTML = `
-                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="${delay.toFixed(1)}s">
-                            <div class="product-item rounded">
-                                <div class="product-item-inner border rounded">
-                                    <div class="product-item-inner-item">
-                                        <img src="img/products/${item.imageFile || 'placeholder.jpg'}" class="img-fluid w-100 rounded-top" alt="${itemName}">
-                                        <div class="product-new">${subcategoryKey}</div>
-                                        <div class="product-details">
-                                            <a href="#" onclick="showAlert('Viewing details for ${itemName}')"><i class="fa fa-eye fa-1x"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="text-center rounded-bottom p-4">
-                                        <a href="#" class="d-block mb-2">${categoryKey}</a>
-                                        <a href="#" class="d-block h4">${itemName}</a>
-                                        <span class="text-primary fs-5">${priceFormatted}</span>
-                                        <p class="text-muted"><small>per ${item.unit}</small></p>
-                                    </div>
-                                </div>
-                                <div class="product-item-add border border-top-0 rounded-bottom text-center p-4 pt-0">
-                                    <button class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4" 
-                                        onclick="addToCart('${itemName}')">
-                                        <i class="fas fa-shopping-cart me-2"></i> Add To Cart
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    
-                    container.innerHTML += productHTML;
-                    delay = Math.min(0.5, delay + 0.1); 
                 }
             }
         }
+        
         // Re-initialize animations
         if (typeof WOW !== 'undefined') { new WOW().init(); }
     }
@@ -1257,7 +1120,7 @@
             link.classList.remove('active');
         });
         
-        // Scroll to top
+        // Scroll to top or specific anchor if provided (browser handles anchors automatically)
         window.scrollTo(0, 0);
         
         // Update cart display if showing cart section
@@ -1267,7 +1130,15 @@
         
         // Update checkout display if showing checkout section
         if (sectionName === 'checkout') {
+            showCheckoutStep(1); // Ensure it defaults to step 1
             updateCheckoutDisplay();
+        }
+        
+        // Set 'Home' as active class if Home section is shown
+        if (sectionName === 'home') {
+             document.querySelector('.nav-item.nav-link[href="#home-section"]').classList.add('active');
+        } else {
+             document.querySelector(`.nav-item.nav-link[onclick="showSection('${sectionName}')"]`)?.classList.add('active');
         }
     }
     
@@ -1520,7 +1391,7 @@
     // Initialize
     document.addEventListener('DOMContentLoaded', function() {
         updateCartBadge();
-        fetchAndRenderProducts(); // Fetch and display products on load
+        fetchAndRenderProducts(); // Fetch data and populate allProducts object on load
         new WOW().init();
     });
 </script>
