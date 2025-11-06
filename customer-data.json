@@ -1,187 +1,4362 @@
 {
-  "categories": {
-    "Offset Paper Printing": {
-      "LetterPads": {
-        "LetterPad 68g A4 Single Color": { "basePrice": 2400, "unit": "10", "imageFile": "letterpad-68g-a4-single-color.jpg" },
-        "LetterPad 68g A4/2 Single Color": { "basePrice": 1200, "unit": "10", "imageFile": "letterpad-68g-a4-half-single-color.jpg" },
-        "LetterPad 80g A4 Single Color": { "basePrice": 4000, "unit": "10", "imageFile": "letterpad-80g-a4-single-color.jpg" },
-        "LetterPad 80g A4/2 Single Color": { "basePrice": 2000, "unit": "10", "imageFile": "letterpad-80g-a4-half-single-color.jpg" },
-        "LetterPad 80g A4, 4 Color": { "basePrice": 5400, "unit": "10", "imageFile": "letterpad-80g-a4-4-color.jpg" },
-        "LetterPad 80g A4/2, 4 Color": { "basePrice": 2700, "unit": "10", "imageFile": "letterpad-80g-a4-half-4-color.jpg" },
-        "LetterPad 100g A4, 4 Color": { "basePrice": 6500, "unit": "10", "imageFile": "letterpad-100g-a4-4-color.jpg" }
+  "calculatorData": {
+    "categories": [
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Visiting Cards"
       },
-      "Bill Books": {
-        "Bill Books, A4/2,68g, Single Color": { "basePrice": 2000, "unit": "10", "imageFile": "bill-books-a4-half-68g-single-color.jpg" },
-        "Bill Books, A4,68g, Single Color": { "basePrice": 4000, "unit": "10", "imageFile": "bill-books-a4-68g-single-color.jpg" },
-        "Bill Books, A4/2,80g, Single Color": { "basePrice": 3000, "unit": "10", "imageFile": "bill-books-a4-half-80g-single-color.jpg" },
-        "Bill Books, A4/2,80g, 4 Color": { "basePrice": 3500, "unit": "10", "imageFile": "bill-books-a4-half-80g-4-color.jpg" },
-        "Bill Books, A4/2,Art Paper 90g, 4 Color": { "basePrice": 3500, "unit": "10", "imageFile": "bill-books-a4-half-art-paper-90g-4-color.jpg" },
-        "Bill Books, 9x11,80g, 4 Color": { "basePrice": 6800, "unit": "10", "imageFile": "bill-books-9x11-80g-4-color.jpg" },
-        "Bill Books, 7x10,80g, 4 Color": { "basePrice": 6600, "unit": "10", "imageFile": "bill-books-7x10-80g-4-color.jpg" },
-        "Bill Book Carbonless 8.5x5.75": { "basePrice": 3200, "unit": "10", "imageFile": "bill-book-carbonless-85x575.jpg" }
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "LetterPads"
       },
-      "Visiting Cards": {
-        "V Card Shine": { "basePrice": 800, "unit": "100", "imageFile": "v-card-shine.jpg" },
-        "Mat Card Single": { "basePrice": 900, "unit": "100", "imageFile": "mat-card-single.jpg" },
-        "Mat Card Double": { "basePrice": 1500, "unit": "100", "imageFile": "mat-card-double.jpg" },
-        "Mat Card Single Round": { "basePrice": 1000, "unit": "100", "imageFile": "mat-card-single-round.jpg" },
-        "Mat Card Double Round": { "basePrice": 1600, "unit": "100", "imageFile": "mat-card-double-round.jpg" },
-        "UV Vard Single": { "basePrice": 1500, "unit": "100", "imageFile": "uv-vard-single.jpg" },
-        "UV Vard Double": { "basePrice": 2000, "unit": "100", "imageFile": "uv-vard-double.jpg" },
-        "UV Vard Pasting": { "basePrice": 3500, "unit": "100", "imageFile": "uv-vard-pasting.jpg" }
+      {
+        "mainCategory": "Offset Paper Printing", 
+        "subcategory": "Ishtihar"
       },
-      "Ishtihars": {
-        "Ishtihar 68g A4/2, Single Color": { "basePrice": 1200, "unit": "10", "imageFile": "ishtihar-68g-a4-half-single-color.jpg" },
-        "Ishtihar 68g A4, Single Color": { "basePrice": 2200, "unit": "10", "imageFile": "ishtihar-68g-a4-single-color.jpg" },
-        "Ishtihar A4/2,80g, 4 Color": { "basePrice": 2700, "unit": "10", "imageFile": "ishtihar-a4-half-80g-4-color.jpg" },
-        "Ishtihar A4,80g, 4 Color": { "basePrice": 5400, "unit": "10", "imageFile": "ishtihar-a4-80g-4-color.jpg" },
-        "Ishtihar 10x7, 68g, Single Color": { "basePrice": 1600, "unit": "10", "imageFile": "ishtihar-10x7-68g-single-color.jpg" },
-        "Pamphlet/Menu/Ishtihar, Art Paper A4/2,90g, 4 Color": { "basePrice": 2700, "unit": "10", "imageFile": "pamphlet-menu-ishtihar-a4-half-90g-4-color.jpg" },
-        "Pamphlet/Menu/Ishtihar, A4 Art Paper,90g, 4 Color": { "basePrice": 5400, "unit": "10", "imageFile": "pamphlet-menu-ishtihar-a4-90g-4-color.jpg" },
-        "Pamphlet/Menu/Ishtihar, A4/2 Art Paper,113g, 4 Color": { "basePrice": 3500, "unit": "10", "imageFile": "pamphlet-menu-ishtihar-a4-half-113g-4-color.jpg" },
-        "Pamphlet/Menu/Ishtihar, A4 Art Paper,113g, 4 Color": { "basePrice": 6000, "unit": "10", "imageFile": "pamphlet-menu-ishtihar-a4-113g-4-color.jpg" },
-        "Pamphlet/Menu/Ishtihar Doube Side, A4/2 Art Paper,113g, 4 Color": { "basePrice": 4000, "unit": "10", "imageFile": "pamphlet-menu-ishtihar-double-side-a4-half-113g-4-color.jpg" },
-        "Pamphlet/Menu/Ishtihar Doube Side, A4 Art Paper,113g, 4 Color": { "basePrice": 7000, "unit": "10", "imageFile": "pamphlet-menu-ishtihar-double-side-a4-113g-4-color.jpg" }
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Pamphlet/Menu"
       },
-      "Envelops": {
-        "Envelop 9x4,80g, Single Color": { "basePrice": 4500, "unit": "100", "imageFile": "envelop-9x4-80g-single-color.jpg" },
-        "Envelop 9x4,80g, 4 Color": { "basePrice": 6000, "unit": "100", "imageFile": "envelop-9x4-80g-4-color.jpg" },
-        "Envelop 7x5 Single Color": { "basePrice": 0, "unit": "100", "imageFile": "envelop-7x5-single-color.jpg" },
-        "Envelop 7x5 Four Color": { "basePrice": 0, "unit": "100", "imageFile": "envelop-7x5-four-color.jpg" }
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Envelop"
       },
-      "Receipt Book": {
-        "Receipt Book, 9x3.5, 68g, Single Color": { "basePrice": 1200, "unit": "10", "imageFile": "receipt-book-9x35-68g-single-color.jpg" },
-        "Receipt Book, 9x3.5, 80g, 4 Color": { "basePrice": 2800, "unit": "10", "imageFile": "receipt-book-9x35-80g-4-color.jpg" }
+      {
+        "mainCategory": "Offset Paper Printing", 
+        "subcategory": "Bill Books"
       },
-      "File Cover": {
-        "File Cover Art Card A4, Starting from Pkr": { "basePrice": 50, "unit": "1", "imageFile": "file-cover-art-card-a4-starting-from-pkr.jpg" },
-        "File Cover Art Card Legal , Starting from Pkr": { "basePrice": 5500, "unit": "1", "imageFile": "file-cover-art-card-legal-starting-from-pkr.jpg" },
-        "File Cover Box Board A4, Starting from Pkr": { "basePrice": 3000, "unit": "1", "imageFile": "file-cover-box-board-a4-starting-from-pkr.jpg" },
-        "File Cover Box Board Legal, Starting from Pkr": { "basePrice": 3200, "unit": "1", "imageFile": "file-cover-box-board-legal-starting-from-pkr.jpg" }
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Receipt Book"
       },
-      "Wedding Cards": {}
-    },
-    "Stickers & Labels": {
-      "Stickers": {
-        "Sticker 3.5x2": { "basePrice": 800, "unit": "100", "imageFile": "sticker-35x2.jpg" },
-        "Sticker 3.5x4": { "basePrice": 1600, "unit": "100", "imageFile": "sticker-35x4.jpg" },
-        "Sticker 7x5": { "basePrice": 4000, "unit": "100", "imageFile": "sticker-7x5.jpg" },
-        "Sticker 7x10": { "basePrice": 7000, "unit": "100", "imageFile": "sticker-7x10.jpg" },
-        "Sticker 10x15": { "basePrice": 14000, "unit": "100", "imageFile": "sticker-10x15.jpg" }
+      {
+        "mainCategory": "Digital Printing",
+        "subcategory": "Photo Print"
       },
-      "Stamps": {
-        "Stamp 1.45x0.55": { "basePrice": 550, "unit": "1", "imageFile": "stamp-145x055.jpg" },
-        "Stamps 1.8x0.7": { "basePrice": 650, "unit": "1", "imageFile": "stamps-18x07.jpg" },
-        "2.25x0.85": { "basePrice": 850, "unit": "1", "imageFile": "225x085.jpg" },
-        "Round 1 inch": { "basePrice": 900, "unit": "1", "imageFile": "round-1-inch.jpg" },
-        "Round 1.25 inch": { "basePrice": 1100, "unit": "1", "imageFile": "round-125-inch.jpg" },
-        "Stamp Round 1.6 inch": { "basePrice": 1500, "unit": "1", "imageFile": "stamp-round-16-inch.jpg" },
-        "2.75x0.98": { "basePrice": 1350, "unit": "1", "imageFile": "275x098.jpg" },
-        "Round 2 inh": { "basePrice": 2500, "unit": "1", "imageFile": "round-2-inh.jpg" },
-        "Date Wali Round 1.25 inch": { "basePrice": 1600, "unit": "1", "imageFile": "date-wali-round-125-inch.jpg" },
-        "Date Wali Round 1.5 inch": { "basePrice": 1700, "unit": "1", "imageFile": "date-wali-round-15-inch.jpg" },
-        "Date Wali Round 2 Inch": { "basePrice": 2800, "unit": "1", "imageFile": "date-wali-round-2-inch.jpg" },
-        "Date Wali Round 1.6 inch": { "basePrice": 2500, "unit": "1", "imageFile": "date-wali-round-16-inch.jpg" },
-        "Date Wali 1.57x0.92 inch": { "basePrice": 1400, "unit": "1", "imageFile": "date-wali-157x092-inch.jpg" },
-        "Date Wali 1.9x1.15 inch": { "basePrice": 1600, "unit": "1", "imageFile": "date-wali-19x115-inch.jpg" },
-        "Date Wali 2.2x1.25 inch": { "basePrice": 2000, "unit": "1", "imageFile": "date-wali-22x125-inch.jpg" },
-        "Date Wali 3x1.5 inch": { "basePrice": 3000, "unit": "1", "imageFile": "date-wali-3x15-inch.jpg" },
-        "Pocket Stamp 1.4x0.52 inch": { "basePrice": 700, "unit": "1", "imageFile": "pocket-stamp-14x052-inch.jpg" },
-        "Pocket Stamp 1.75x0.7 inch": { "basePrice": 950, "unit": "1", "imageFile": "pocket-stamp-175x07-inch.jpg" },
-        "Date Wali 1.75x1.15 (Without Ink)": { "basePrice": 650, "unit": "1", "imageFile": "date-wali-175x115-without-ink.jpg" },
-        "Only Date": { "basePrice": 500, "unit": "1", "imageFile": "only-date.jpg" },
-        "2.75x1.18": { "basePrice": 1600, "unit": "1", "imageFile": "275x118.jpg" },
-        "Oval Shape 2.15x1.37": { "basePrice": 1900, "unit": "1", "imageFile": "oval-shape-215x137.jpg" },
-        "PAID Stamp": { "basePrice": 1600, "unit": "1", "imageFile": "paid-stamp.jpg" },
-        "Oval Shape 1.75x1.15": { "basePrice": 1700, "unit": "1", "imageFile": "oval-shape-175x115.jpg" },
-        "Only Date Auto": { "basePrice": 750, "unit": "1", "imageFile": "only-date-auto.jpg" },
-        "3x1.5 inch": { "basePrice": 2800, "unit": "1", "imageFile": "3x15-inch.jpg" }
+      {
+        "mainCategory": "Digital Printing",
+        "subcategory": "Sticker Print"
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "File Cover"
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp"
+      },
+      {
+        "mainCategory": "Social Media",
+        "subcategory": "Design Only"
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China"
+      },
+      {
+        "mainCategory": "Panaflex", 
+        "subcategory": "Star"
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl"
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision"
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit"
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Shirts"
+      },
+      {
+        "mainCategory": "Promotional Items", 
+        "subcategory": "Safety Jacket"
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Caps"
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Mugs"
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Bottles"
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Jewelry"
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Pens"
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Pencil Trays"
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "PVC Cards"
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Photo Frames"
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Badges"
       }
-    },
-    "Photo Printing": {
-      "Photo Prints": {
-        "A4 Photo 1 Sided, Starting from Pkr": { "basePrice": 100, "unit": "1", "imageFile": "a4-photo-1-sided-starting-from-pkr.jpg" },
-        "A4 Photo Double Sided, Starting from Pkr": { "basePrice": 120, "unit": "1", "imageFile": "a4-photo-double-sided-starting-from-pkr.jpg" },
-        "A4 Sticker Print, Starting from Pkr": { "basePrice": 100, "unit": "1", "imageFile": "a4-sticker-print-starting-from-pkr.jpg" },
-        "7x5 Photo Print, Starting from Pkr": { "basePrice": 60, "unit": "1", "imageFile": "7x5-photo-print-starting-from-pkr.jpg" }
+    ],
+    "items": [
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "LetterPads",
+        "itemName": "LetterPad 68g A4 Single Color",
+        "price": 2400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "LetterPads", 
+        "itemName": "LetterPad 68g A4/2 Single Color",
+        "price": 1200,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "LetterPads",
+        "itemName": "LetterPad 80g A4 Single Color",
+        "price": 4000,
+        "type": "fixed", 
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "LetterPads",
+        "itemName": "LetterPad 80g A4/2 Single Color",
+        "price": 2000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "LetterPads",
+        "itemName": "LetterPad 80g A4, 4 Color",
+        "price": 5400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "LetterPads",
+        "itemName": "LetterPad 80g A4/2, 4 Color",
+        "price": 2700,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "LetterPads",
+        "itemName": "LetterPad 100g A4, 4 Color",
+        "price": 6500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Ishtihar",
+        "itemName": "Ishtihar 68g A4/2, Single Color",
+        "price": 1200,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Ishtihar",
+        "itemName": "Ishtihar 68g A4, Single Color",
+        "price": 2200,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Ishtihar",
+        "itemName": "Ishtihar A4/2,80g, 4 Color",
+        "price": 2700,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Ishtihar",
+        "itemName": "Ishtihar A4,80g, 4 Color",
+        "price": 5400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Ishtihar",
+        "itemName": "Ishtihar 10x7, 68g, Single Color",
+        "price": 1600,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Pamphlet/Menu",
+        "itemName": "Pamphlet/Menu/Ishtihar, Art Paper A4/2,90g, 4 Color",
+        "price": 2700,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Pamphlet/Menu",
+        "itemName": "Pamphlet/Menu/Ishtihar, A4 Art Paper,90g, 4 Color",
+        "price": 5400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Pamphlet/Menu",
+        "itemName": "Pamphlet/Menu/Ishtihar, A4/2 Art Paper,113g, 4 Color",
+        "price": 3500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Pamphlet/Menu",
+        "itemName": "Pamphlet/Menu/Ishtihar, A4 Art Paper,113g, 4 Color",
+        "price": 6000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Pamphlet/Menu",
+        "itemName": "Pamphlet/Menu/Ishtihar Doube Side, A4/2 Art Paper,113g, 4 Color",
+        "price": 4000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Pamphlet/Menu",
+        "itemName": "Pamphlet/Menu/Ishtihar Doube Side, A4 Art Paper,113g, 4 Color",
+        "price": 7000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Envelop",
+        "itemName": "Envelop 9x4,80g, Single Color",
+        "price": 4500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Envelop",
+        "itemName": "Envelop 9x4,80g, 4 Color",
+        "price": 6000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Visiting Cards",
+        "itemName": "V Card Shine",
+        "price": 800,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Visiting Cards",
+        "itemName": "Mat Card Single",
+        "price": 900,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Visiting Cards",
+        "itemName": "Mat Card Double",
+        "price": 1500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Visiting Cards",
+        "itemName": "Mat Card Single Round",
+        "price": 1000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Visiting Cards",
+        "itemName": "Mat Card Double Round",
+        "price": 1600,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Visiting Cards",
+        "itemName": "UV Vard Single",
+        "price": 1500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Visiting Cards",
+        "itemName": "UV Vard Double",
+        "price": 2000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Visiting Cards",
+        "itemName": "UV Vard Pasting",
+        "price": 3500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Digital Printing",
+        "subcategory": "Sticker Print",
+        "itemName": "Sticker 3.5x2",
+        "price": 800,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Digital Printing",
+        "subcategory": "Sticker Print",
+        "itemName": "Sticker 3.5x4",
+        "price": 1600,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Digital Printing",
+        "subcategory": "Sticker Print",
+        "itemName": "Sticker 7x5",
+        "price": 4000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Digital Printing",
+        "subcategory": "Sticker Print",
+        "itemName": "Sticker 7x10",
+        "price": 7000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Digital Printing",
+        "subcategory": "Sticker Print",
+        "itemName": "Sticker 10x15",
+        "price": 14000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Bill Books",
+        "itemName": "Bill Books, A4/2,68g, Single Color",
+        "price": 2000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Bill Books",
+        "itemName": "Bill Books, A4,68g, Single Color",
+        "price": 4000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Bill Books",
+        "itemName": "Bill Books, A4/2,80g, Single Color",
+        "price": 3000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Bill Books",
+        "itemName": "Bill Books, A4/2,80g, 4 Color",
+        "price": 3500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Bill Books",
+        "itemName": "Bill Books, A4/2,Art Paper 90g, 4 Color",
+        "price": 3500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Bill Books",
+        "itemName": "Bill Books, 9x11,80g, 4 Color",
+        "price": 6800,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Bill Books",
+        "itemName": "Bill Books, 7x10,80g, 4 Color",
+        "price": 6600,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Bill Books",
+        "itemName": "Bill Book Carbonless 8.5x5.75",
+        "price": 3200,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Receipt Book",
+        "itemName": "Receipt Book, 9x3.5, 68g, Single Color",
+        "price": 1200,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "Receipt Book",
+        "itemName": "Receipt Book, 9x3.5, 80g, 4 Color",
+        "price": 2800,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Digital Printing",
+        "subcategory": "Photo Print",
+        "itemName": "A4 Photo 1 Sided, Starting from Pkr",
+        "price": 100,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Digital Printing",
+        "subcategory": "Photo Print",
+        "itemName": "A4 Photo Double Sided, Starting from Pkr",
+        "price": 120,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Digital Printing",
+        "subcategory": "Sticker Print",
+        "itemName": "A4 Sticker Print, Starting from Pkr",
+        "price": 100,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Digital Printing",
+        "subcategory": "Photo Print",
+        "itemName": "7x5 Photo Print, Starting from Pkr",
+        "price": 60,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "File Cover",
+        "itemName": "File Cover Art Card A4, Starting from Pkr",
+        "price": 50,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "File Cover",
+        "itemName": "File Cover Art Card Legal , Starting from Pkr",
+        "price": 5500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "File Cover",
+        "itemName": "File Cover Box Board A4, Starting from Pkr",
+        "price": 3000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Offset Paper Printing",
+        "subcategory": "File Cover",
+        "itemName": "File Cover Box Board Legal, Starting from Pkr",
+        "price": 3200,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp",
+        "itemName": "Stamp 1.45x0.55",
+        "price": 550,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp",
+        "itemName": "Stamps 1.8x0.7",
+        "price": 650,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp",
+        "itemName": "2.25x0.85",
+        "price": 850,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp",
+        "itemName": "Round 1 inch",
+        "price": 900,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp",
+        "itemName": "Round 1.25 inch",
+        "price": 1100,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp",
+        "itemName": "Stamp Round 1.6 inch",
+        "price": 1500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp",
+        "itemName": "2.75x0.98",
+        "price": 1350,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp",
+        "itemName": "Round 2 inh",
+        "price": 2500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp",
+        "itemName": "Date Wali Round 1.25 inch",
+        "price": 1600,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp",
+        "itemName": "Date Wali Round 1.5 inch",
+        "price": 1700,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp",
+        "itemName": "Date Wali Round 2 Inch",
+        "price": 2800,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp",
+        "itemName": "Date Wali Round 1.6 inch",
+        "price": 2500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp",
+        "itemName": "Date Wali 1.57x0.92 inch",
+        "price": 1400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp",
+        "itemName": "Date Wali 1.9x1.15 inch",
+        "price": 1600,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp",
+        "itemName": "Date Wali 2.2x1.25 inch",
+        "price": 2000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp",
+        "itemName": "Date Wali 3x1.5 inch",
+        "price": 3000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp",
+        "itemName": "Pocket Stamp 1.4x0.52 inch",
+        "price": 700,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp",
+        "itemName": "Pocket Stamp 1.75x0.7 inch",
+        "price": 950,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp",
+        "itemName": "Date Wali 1.75x1.15 (Without Ink)",
+        "price": 650,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp",
+        "itemName": "Only Date",
+        "price": 500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp",
+        "itemName": "2.75x1.18",
+        "price": 1600,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp",
+        "itemName": "Oval Shape 2.15x1.37",
+        "price": 1900,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp",
+        "itemName": "PAID Stamp",
+        "price": 1600,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp",
+        "itemName": "Oval Shape 1.75x1.15",
+        "price": 1700,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp",
+        "itemName": "Only Date Auto",
+        "price": 750,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Stamp",
+        "subcategory": "Rubber Stamp",
+        "itemName": "3x1.5 inch",
+        "price": 2800,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Social Media",
+        "subcategory": "Design Only",
+        "itemName": "Social Media Posts",
+        "price": 400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China2x2",
+        "price": 140,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China2x3",
+        "price": 210,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China2x4",
+        "price": 280,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China2x5",
+        "price": 350,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China2x6",
+        "price": 420,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China2x7",
+        "price": 490,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China2x8",
+        "price": 560,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China2x9",
+        "price": 630,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China2x10",
+        "price": 700,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China2x11",
+        "price": 770,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China2x12",
+        "price": 840,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China2x13",
+        "price": 910,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China2.5x2",
+        "price": 175,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China2.5x3",
+        "price": 262.5,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China2.5x4",
+        "price": 350,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China2.5x5",
+        "price": 437.5,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China2.5x6",
+        "price": 525,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China2.5x7",
+        "price": 612.5,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China2.5x8",
+        "price": 700,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China2.5x9",
+        "price": 787.5,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China2.5x10",
+        "price": 875,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China3x3",
+        "price": 315,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China3x4",
+        "price": 420,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China3x5",
+        "price": 525,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China3x6",
+        "price": 630,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China3x7",
+        "price": 735,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China3x8",
+        "price": 840,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China3x9",
+        "price": 945,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China3x10",
+        "price": 1050,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China3x11",
+        "price": 1155,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China3x12",
+        "price": 1260,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China3x13",
+        "price": 1365,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China3.5x2",
+        "price": 245,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China3.5x3",
+        "price": 367.5,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China3.5x4",
+        "price": 490,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China3.5x5",
+        "price": 612.5,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China3.5x6",
+        "price": 735,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China3.5x7",
+        "price": 857.5,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China3.5x8",
+        "price": 980,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China3.5x9",
+        "price": 1102.5,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China3.5x10",
+        "price": 1225,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China4x1",
+        "price": 140,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China4x2",
+        "price": 280,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China4x3",
+        "price": 420,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China4x4",
+        "price": 560,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China4x5",
+        "price": 700,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China4x6",
+        "price": 840,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China4x7",
+        "price": 980,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China4x8",
+        "price": 1120,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China4x9",
+        "price": 1260,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China4x10",
+        "price": 1400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China4x11",
+        "price": 1540,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China4x12",
+        "price": 1680,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China4x13",
+        "price": 1820,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China5x1",
+        "price": 175,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China5x2",
+        "price": 350,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China5x3",
+        "price": 525,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China5x4",
+        "price": 700,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China5x5",
+        "price": 875,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China5x6",
+        "price": 1050,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China5x7",
+        "price": 1225,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China5x8",
+        "price": 1400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China5x9",
+        "price": 1575,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China5x10",
+        "price": 1750,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China5x11",
+        "price": 1925,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China5x12",
+        "price": 2100,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China6x1",
+        "price": 210,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China6x2",
+        "price": 420,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China6x3",
+        "price": 630,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China6x4",
+        "price": 840,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China6x5",
+        "price": 1050,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China6x6",
+        "price": 1260,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China6x7",
+        "price": 1470,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China6x8",
+        "price": 1680,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China6x9",
+        "price": 1890,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "China",
+        "itemName": "China6x10",
+        "price": 2100,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star2x2",
+        "price": 280,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star2x3",
+        "price": 420,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star2x4",
+        "price": 560,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star2x5",
+        "price": 700,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star2x6",
+        "price": 840,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star2x7",
+        "price": 980,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star2x8",
+        "price": 1120,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star2x9",
+        "price": 1260,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star2x10",
+        "price": 1400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star2x11",
+        "price": 1540,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star2x12",
+        "price": 1680,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star2x13",
+        "price": 1820,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star2.5x2",
+        "price": 350,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star2.5x3",
+        "price": 525,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star2.5x4",
+        "price": 700,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star2.5x5",
+        "price": 875,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star2.5x6",
+        "price": 1050,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star2.5x7",
+        "price": 1225,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star2.5x8",
+        "price": 1400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star2.5x9",
+        "price": 1575,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star2.5x10",
+        "price": 1750,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star3x3",
+        "price": 630,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star3x4",
+        "price": 840,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star3x5",
+        "price": 1050,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star3x6",
+        "price": 1260,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star3x7",
+        "price": 1470,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star3x8",
+        "price": 1680,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star3x9",
+        "price": 1890,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star3x10",
+        "price": 2100,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star3x11",
+        "price": 2310,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star3x12",
+        "price": 2520,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star3x13",
+        "price": 2730,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star3.5x2",
+        "price": 490,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star3.5x3",
+        "price": 735,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star3.5x4",
+        "price": 980,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star3.5x5",
+        "price": 1225,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star3.5x6",
+        "price": 1470,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star3.5x7",
+        "price": 1715,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star3.5x8",
+        "price": 1960,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star3.5x9",
+        "price": 2205,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star3.5x10",
+        "price": 2450,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star4x1",
+        "price": 280,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star4x2",
+        "price": 560,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star4x3",
+        "price": 840,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star4x4",
+        "price": 1120,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star4x5",
+        "price": 1400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star4x6",
+        "price": 1680,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star4x7",
+        "price": 1960,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star4x8",
+        "price": 2240,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star4x9",
+        "price": 2520,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star4x10",
+        "price": 2800,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star4x11",
+        "price": 3080,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star4x12",
+        "price": 3360,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star4x13",
+        "price": 3640,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star5x1",
+        "price": 350,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star5x2",
+        "price": 700,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star5x3",
+        "price": 1050,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star5x4",
+        "price": 1400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star5x5",
+        "price": 1750,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star5x6",
+        "price": 2100,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star5x7",
+        "price": 2450,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star5x8",
+        "price": 2800,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star5x9",
+        "price": 3150,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star5x10",
+        "price": 3500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star5x11",
+        "price": 3850,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star5x12",
+        "price": 4200,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star6x1",
+        "price": 420,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star6x2",
+        "price": 840,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star6x3",
+        "price": 1260,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star6x4",
+        "price": 1680,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star6x5",
+        "price": 2100,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star6x6",
+        "price": 2520,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star6x7",
+        "price": 2940,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star6x8",
+        "price": 3360,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star6x9",
+        "price": 3780,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Star",
+        "itemName": "Star6x10",
+        "price": 4200,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl2x2",
+        "price": 400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl2x3",
+        "price": 600,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl2x4",
+        "price": 800,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl2x5",
+        "price": 1000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl2x6",
+        "price": 1200,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl2x7",
+        "price": 1400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl2x8",
+        "price": 1600,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl2x9",
+        "price": 1800,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl2x10",
+        "price": 2000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl2x11",
+        "price": 2200,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl2x12",
+        "price": 2400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl2x13",
+        "price": 2600,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl2.5x2",
+        "price": 500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl2.5x3",
+        "price": 750,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl2.5x4",
+        "price": 1000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl2.5x5",
+        "price": 1250,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl2.5x6",
+        "price": 1500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl2.5x7",
+        "price": 1750,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl2.5x8",
+        "price": 2000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl2.5x9",
+        "price": 2250,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl2.5x10",
+        "price": 2500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl3x3",
+        "price": 900,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl3x4",
+        "price": 1200,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl3x5",
+        "price": 1500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl3x6",
+        "price": 1800,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl3x7",
+        "price": 2100,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl3x8",
+        "price": 2400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl3x9",
+        "price": 2700,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl3x10",
+        "price": 3000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl3x11",
+        "price": 3300,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl3x12",
+        "price": 3600,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl3x13",
+        "price": 3900,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl3.5x2",
+        "price": 700,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl3.5x3",
+        "price": 1050,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl3.5x4",
+        "price": 1400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl3.5x5",
+        "price": 1750,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl3.5x6",
+        "price": 2100,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl3.5x7",
+        "price": 2450,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl3.5x8",
+        "price": 2800,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl3.5x9",
+        "price": 3150,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl3.5x10",
+        "price": 3500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl4x1",
+        "price": 400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl4x2",
+        "price": 800,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl4x3",
+        "price": 1200,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl4x4",
+        "price": 1600,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl4x5",
+        "price": 2000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl4x6",
+        "price": 2400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl4x7",
+        "price": 2800,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl4x8",
+        "price": 3200,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl4x9",
+        "price": 3600,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl4x10",
+        "price": 4000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl4x11",
+        "price": 4400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl4x12",
+        "price": 4800,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Venyl",
+        "itemName": "Venyl4x13",
+        "price": 5200,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision2x2",
+        "price": 400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision2x3",
+        "price": 600,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision2x4",
+        "price": 800,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision2x5",
+        "price": 1000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision2x6",
+        "price": 1200,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision2x7",
+        "price": 1400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision2x8",
+        "price": 1600,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision2x9",
+        "price": 1800,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision2x10",
+        "price": 2000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision2x11",
+        "price": 2200,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision2x12",
+        "price": 2400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision2x13",
+        "price": 2600,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision2.5x2",
+        "price": 500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision2.5x3",
+        "price": 750,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision2.5x4",
+        "price": 1000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision2.5x5",
+        "price": 1250,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision2.5x6",
+        "price": 1500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision2.5x7",
+        "price": 1750,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision2.5x8",
+        "price": 2000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision2.5x9",
+        "price": 2250,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision2.5x10",
+        "price": 2500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision3x3",
+        "price": 900,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision3x4",
+        "price": 1200,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision3x5",
+        "price": 1500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision3x6",
+        "price": 1800,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision3x7",
+        "price": 2100,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision3x8",
+        "price": 2400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision3x9",
+        "price": 2700,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision3x10",
+        "price": 3000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision3x11",
+        "price": 3300,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision3x12",
+        "price": 3600,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision3x13",
+        "price": 3900,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision3.5x2",
+        "price": 700,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision3.5x3",
+        "price": 1050,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision3.5x4",
+        "price": 1400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision3.5x5",
+        "price": 1750,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision3.5x6",
+        "price": 2100,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision3.5x7",
+        "price": 2450,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision3.5x8",
+        "price": 2800,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision3.5x9",
+        "price": 3150,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision3.5x10",
+        "price": 3500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision4x1",
+        "price": 400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision4x2",
+        "price": 800,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision4x3",
+        "price": 1200,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision4x4",
+        "price": 1600,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision4x5",
+        "price": 2000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision4x6",
+        "price": 2400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision4x7",
+        "price": 2800,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision4x8",
+        "price": 3200,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision4x9",
+        "price": 3600,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision4x10",
+        "price": 4000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision4x11",
+        "price": 4400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision4x12",
+        "price": 4800,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "One Vision",
+        "itemName": "One Vision4x13",
+        "price": 5200,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit2x2",
+        "price": 520,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit2x3",
+        "price": 780,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit2x4",
+        "price": 1040,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit2x5",
+        "price": 1300,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit2x6",
+        "price": 1560,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit2x7",
+        "price": 1820,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit2x8",
+        "price": 2080,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit2x9",
+        "price": 2340,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit2x10",
+        "price": 2600,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit2x11",
+        "price": 2860,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit2x12",
+        "price": 3120,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit2x13",
+        "price": 3380,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit2.5x2",
+        "price": 650,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit2.5x3",
+        "price": 975,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit2.5x4",
+        "price": 1300,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit2.5x5",
+        "price": 1625,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit2.5x6",
+        "price": 1950,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit2.5x7",
+        "price": 2275,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit2.5x8",
+        "price": 2600,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit2.5x9",
+        "price": 2925,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit2.5x10",
+        "price": 3250,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit3x3",
+        "price": 1170,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit3x4",
+        "price": 1560,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit3x5",
+        "price": 1950,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit3x6",
+        "price": 2340,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit3x7",
+        "price": 2730,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit3x8",
+        "price": 3120,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit3x9",
+        "price": 3510,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit3x10",
+        "price": 3900,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit3x11",
+        "price": 4290,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit3x12",
+        "price": 4680,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit3x13",
+        "price": 5070,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit3.5x2",
+        "price": 910,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit3.5x3",
+        "price": 1365,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit3.5x4",
+        "price": 1820,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit3.5x5",
+        "price": 2275,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit3.5x6",
+        "price": 2730,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit3.5x7",
+        "price": 3185,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit3.5x8",
+        "price": 3640,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit3.5x9",
+        "price": 4095,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit3.5x10",
+        "price": 4550,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit4x1",
+        "price": 520,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit4x2",
+        "price": 1040,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit4x3",
+        "price": 1560,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit4x4",
+        "price": 2080,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit4x5",
+        "price": 2600,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit4x6",
+        "price": 3120,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit4x7",
+        "price": 3640,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit4x8",
+        "price": 4160,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit4x9",
+        "price": 4680,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit4x10",
+        "price": 5200,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit4x11",
+        "price": 5720,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit4x12",
+        "price": 6240,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit4x13",
+        "price": 6760,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit5x1",
+        "price": 650,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit5x2",
+        "price": 1300,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit5x3",
+        "price": 1950,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit5x4",
+        "price": 2600,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit5x5",
+        "price": 3250,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit5x6",
+        "price": 3900,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit5x7",
+        "price": 4550,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit5x8",
+        "price": 5200,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit5x9",
+        "price": 5850,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit5x10",
+        "price": 6500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit5x11",
+        "price": 7150,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit5x12",
+        "price": 7800,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit6x1",
+        "price": 780,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit6x2",
+        "price": 1560,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit6x3",
+        "price": 2340,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit6x4",
+        "price": 3120,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Panaflex",
+        "subcategory": "Backlit",
+        "itemName": "Backlit6x5",
+        "price": 3900,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Shirts",
+        "itemName": "White Shirt Childrens",
+        "price": 300,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Shirts",
+        "itemName": "White Shirt S,M,L",
+        "price": 350,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Shirts",
+        "itemName": "White Shirt XL,XXL",
+        "price": 400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Shirts",
+        "itemName": "Cotton Shirt SML",
+        "price": 750,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Shirts",
+        "itemName": "Cotton Shirt XL XXL",
+        "price": 850,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Shirts",
+        "itemName": "Color Shirt SML",
+        "price": 950,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Shirts",
+        "itemName": "Color Shirt XL XXL",
+        "price": 1100,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Safety Jacket",
+        "itemName": "Safety Jacket 60g",
+        "price": 300,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Safety Jacket",
+        "itemName": "Safety Jacket 120g",
+        "price": 450,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Caps",
+        "itemName": "White P Cap",
+        "price": 200,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Caps",
+        "itemName": "Color P Cap",
+        "price": 250,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Mugs",
+        "itemName": "White Mug",
+        "price": 350,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Mugs",
+        "itemName": "Inner Color Mug",
+        "price": 400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Mugs",
+        "itemName": "Mug Hear shape",
+        "price": 450,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Mugs",
+        "itemName": "Magic Mug",
+        "price": 500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Mugs",
+        "itemName": "Spoon Mug",
+        "price": 500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Mugs",
+        "itemName": "Cup Pirch",
+        "price": 550,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Bottles",
+        "itemName": "Bottle (Temperatur) 250ml",
+        "price": 750,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Bottles",
+        "itemName": "Bottle Temperature White 250ml",
+        "price": 850,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Bottles",
+        "itemName": "Bottle (Temperatur) 850ml",
+        "price": 1500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Bottles",
+        "itemName": "Coffee Mug (Temperatur)",
+        "price": 1150,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Bottles",
+        "itemName": "Coffee Mug with dori",
+        "price": 1300,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Jewelry",
+        "itemName": "Ring",
+        "price": 100,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Jewelry",
+        "itemName": "Rolex Bracelet",
+        "price": 1000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Jewelry",
+        "itemName": "Simple Bracelet",
+        "price": 750,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Jewelry",
+        "itemName": "Picture Locket Small",
+        "price": 350,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Jewelry",
+        "itemName": "Picture Locket Large",
+        "price": 400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Jewelry",
+        "itemName": "Cough Bangle Round",
+        "price": 300,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Jewelry",
+        "itemName": "Bar Locket",
+        "price": 400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Jewelry",
+        "itemName": "Chain Heart Shape",
+        "price": 400,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Jewelry",
+        "itemName": "Rope Bracelet",
+        "price": 350,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Pens",
+        "itemName": "Metal Pen mat 1",
+        "price": 100,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Pens",
+        "itemName": "Metal Pen mat 50",
+        "price": 4500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Pens",
+        "itemName": "Metal Pen mat 100",
+        "price": 8500,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Pens",
+        "itemName": "Metal Pen+keyChain 1",
+        "price": 200,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Pens",
+        "itemName": "Metal Pen+keyChain 50",
+        "price": 8000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Pens",
+        "itemName": "Metal Pen+keyChain 100",
+        "price": 15000,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Pens",
+        "itemName": "Shine Metal Pen",
+        "price": 100,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Pens",
+        "itemName": "Smart Metal Pen",
+        "price": 100,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Pens",
+        "itemName": "Mat Metal Pen",
+        "price": 100,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Pens",
+        "itemName": "Diamond Metal Pen",
+        "price": 200,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Pens",
+        "itemName": "Light Pen",
+        "price": 150,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Pencil Trays",
+        "itemName": "Pencil Tray Plastic a",
+        "price": 40,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Pencil Trays",
+        "itemName": "Pencil Tray Plastic b",
+        "price": 50,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Pencil Trays",
+        "itemName": "Pencil Tray Plastic c",
+        "price": 80,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Pencil Trays",
+        "itemName": "Pencil Tray Wooden",
+        "price": 100,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Pencil Trays",
+        "itemName": "Pencil Tray Wooden+Engraved",
+        "price": 150,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "PVC Cards",
+        "itemName": "PVC Card 1",
+        "price": 50,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "PVC Cards",
+        "itemName": "PVC Card 10",
+        "price": 100,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "PVC Cards",
+        "itemName": "PVC card+Dori+jacket minimum 10",
+        "price": 40,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Photo Frames",
+        "itemName": "Photo+Frame 8x12",
+        "price": 450,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Photo Frames",
+        "itemName": "Photo+Frame 12x18",
+        "price": 850,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Badges",
+        "itemName": "Badges Minimum 50",
+        "price": 50,
+        "type": "fixed",
+        "designCharges": 0
+      },
+      {
+        "mainCategory": "Promotional Items",
+        "subcategory": "Badges",
+        "itemName": "Badges 100",
+        "price": 3000,
+        "type": "fixed",
+        "designCharges": 0
       }
-    },
-    "Digital Printing": {
-      "Social Media": {
-        "Social Media Posts": { "basePrice": 400, "unit": "1", "imageFile": "social-media-posts.jpg" },
-        "Social Media Posts (Alternative)": { "basePrice": 300, "unit": "1", "imageFile": "social-media-posts-alternative.jpg" }
-      },
-      "China Prints": {},
-      "Star Prints": {},
-      "Venyl Prints": {},
-      "One Vision Prints": {},
-      "Backlit Prints": {}
-    },
-    "Promotional Products": {
-      "Apparel": {
-        "White Shirt Childrens": { "basePrice": 300, "unit": "1", "imageFile": "white-shirt-childrens.jpg" },
-        "White Shirt S,M,L": { "basePrice": 350, "unit": "1", "imageFile": "white-shirt-s-m-l.jpg" },
-        "White Shirt XL,XXL": { "basePrice": 400, "unit": "1", "imageFile": "white-shirt-xl-xxl.jpg" },
-        "Cotton Shirt SML": { "basePrice": 750, "unit": "1", "imageFile": "cotton-shirt-sml.jpg" },
-        "Cotton Shirt XL XXL": { "basePrice": 850, "unit": "1", "imageFile": "cotton-shirt-xl-xxl.jpg" },
-        "Color Shirt SML": { "basePrice": 950, "unit": "1", "imageFile": "color-shirt-sml.jpg" },
-        "Color Shirt XL XXL": { "basePrice": 1100, "unit": "1", "imageFile": "color-shirt-xl-xxl.jpg" },
-        "Safety Jacket 60g": { "basePrice": 300, "unit": "1", "imageFile": "safety-jacket-60g.jpg" },
-        "Safety Jacket 120g": { "basePrice": 450, "unit": "1", "imageFile": "safety-jacket-120g.jpg" },
-        "White P Cap": { "basePrice": 200, "unit": "1", "imageFile": "white-p-cap.jpg" },
-        "Color P Cap": { "basePrice": 250, "unit": "1", "imageFile": "color-p-cap.jpg" }
-      },
-      "Mugs & Drinkware": {
-        "White Mug": { "basePrice": 350, "unit": "1", "imageFile": "white-mug.jpg" },
-        "Inner Color Mug": { "basePrice": 400, "unit": "1", "imageFile": "inner-color-mug.jpg" },
-        "Mug Hear shape": { "basePrice": 450, "unit": "1", "imageFile": "mug-hear-shape.jpg" },
-        "Magic Mug": { "basePrice": 500, "unit": "1", "imageFile": "magic-mug.jpg" },
-        "Spoon Mug": { "basePrice": 500, "unit": "1", "imageFile": "spoon-mug.jpg" },
-        "Cup Pirch": { "basePrice": 550, "unit": "1", "imageFile": "cup-pirch.jpg" },
-        "Bottle (Temperatur) 250ml": { "basePrice": 750, "unit": "1", "imageFile": "bottle-temperatur-250ml.jpg" },
-        "Bottle Temperature White 250ml": { "basePrice": 850, "unit": "1", "imageFile": "bottle-temperature-white-250ml.jpg" },
-        "Bottle (Temperatur) 850ml": { "basePrice": 1500, "unit": "1", "imageFile": "bottle-temperatur-850ml.jpg" },
-        "Coffee Mug (Temperatur)": { "basePrice": 1150, "unit": "1", "imageFile": "coffee-mug-temperatur.jpg" },
-        "Coffee Mug with dori": { "basePrice": 1300, "unit": "1", "imageFile": "coffee-mug-with-dori.jpg" }
-      },
-      "Jewelry & Accessories": {
-        "Ring": { "basePrice": 100, "unit": "1", "imageFile": "ring.jpg" },
-        "Rolex Bracelet": { "basePrice": 1000, "unit": "1", "imageFile": "rolex-bracelet.jpg" },
-        "Simple Bracelet": { "basePrice": 750, "unit": "1", "imageFile": "simple-bracelet.jpg" },
-        "Picture Locket Small": { "basePrice": 350, "unit": "1", "imageFile": "picture-locket-small.jpg" },
-        "Picture Locket Large": { "basePrice": 400, "unit": "1", "imageFile": "picture-locket-large.jpg" },
-        "Cough Bangle Round": { "basePrice": 300, "unit": "1", "imageFile": "cough-bangle-round.jpg" },
-        "Bar Locket": { "basePrice": 400, "unit": "1", "imageFile": "bar-locket.jpg" },
-        "Chain Heart Shape": { "basePrice": 400, "unit": "1", "imageFile": "chain-heart-shape.jpg" },
-        "Rope Bracelet": { "basePrice": 350, "unit": "1", "imageFile": "rope-bracelet.jpg" }
-      },
-      "Office Supplies": {
-        "Metal Pen mat 1": { "basePrice": 100, "unit": "1", "imageFile": "metal-pen-mat-1.jpg" },
-        "Metal Pen mat 50": { "basePrice": 4500, "unit": "50", "imageFile": "metal-pen-mat-50.jpg" },
-        "Metal Pen mat 100": { "basePrice": 8500, "unit": "100", "imageFile": "metal-pen-mat-100.jpg" },
-        "Metal Pen+keyChain 1": { "basePrice": 200, "unit": "1", "imageFile": "metal-pen-keychain-1.jpg" },
-        "Metal Pen+keyChain 50": { "basePrice": 8000, "unit": "50", "imageFile": "metal-pen-keychain-50.jpg" },
-        "Metal Pen+keyChain 100": { "basePrice": 15000, "unit": "100", "imageFile": "metal-pen-keychain-100.jpg" },
-        "Shine Metal Pen": { "basePrice": 100, "unit": "1", "imageFile": "shine-metal-pen.jpg" },
-        "Smart Metal Pen": { "basePrice": 100, "unit": "1", "imageFile": "smart-metal-pen.jpg" },
-        "Mat Metal Pen": { "basePrice": 100, "unit": "1", "imageFile": "mat-metal-pen.jpg" },
-        "Diamond Metal Pen": { "basePrice": 200, "unit": "1", "imageFile": "diamond-metal-pen.jpg" },
-        "Light Pen": { "basePrice": 150, "unit": "1", "imageFile": "light-pen.jpg" },
-        "Pencil Tray Plastic a": { "basePrice": 40, "unit": "1", "imageFile": "pencil-tray-plastic-a.jpg" },
-        "Pencil Tray Plastic b": { "basePrice": 50, "unit": "1", "imageFile": "pencil-tray-plastic-b.jpg" },
-        "Pencil Tray Plastic c": { "basePrice": 80, "unit": "1", "imageFile": "pencil-tray-plastic-c.jpg" },
-        "Pencil Tray Wooden": { "basePrice": 100, "unit": "1", "imageFile": "pencil-tray-wooden.jpg" },
-        "Pencil Tray Wooden+Engraved": { "basePrice": 150, "unit": "1", "imageFile": "pencil-tray-wooden-engraved.jpg" },
-        "PVC Card 1": { "basePrice": 50, "unit": "1", "imageFile": "pvc-card-1.jpg" },
-        "PVC Card 10": { "basePrice": 100, "unit": "10", "imageFile": "pvc-card-10.jpg" },
-        "PVC card+Dori+jacket minimum 10": { "basePrice": 40, "unit": "1", "imageFile": "pvc-card-dori-jacket-minimum-10.jpg" },
-        "Photo+Frame 8x12": { "basePrice": 450, "unit": "1", "imageFile": "photo-frame-8x12.jpg" },
-        "Photo+Frame 12x18": { "basePrice": 850, "unit": "1", "imageFile": "photo-frame-12x18.jpg" },
-        "Badges Minimum 50": { "basePrice": 50, "unit": "1", "imageFile": "badges-minimum-50.jpg" },
-        "Badges 100": { "basePrice": 3000, "unit": "100", "imageFile": "badges-100.jpg" }
-      }
+    ],
+    "settings": {
+      "rent": 200,
+      "profitMargin": 25
     }
   },
-  "lastUpdated": "2025-11-04T12:30:00.000Z",
-  "version": "1.0"
+  "history": [
+    {
+      "itemName": "Mat Double Side",
+      "quantity": 1,
+      "designCharges": 0,
+      "total": 0,
+      "timestamp": "19/10/2025, 17:14:27"
+    }
+  ],
+  "invoices": [],
+  "customers": [],
+  "expenses": [],
+  "budget": {
+    "business": 50000,
+    "personal": 30000
+  },
+  "datalists": {
+    "newMainCategoryList": [
+      "Offset Paper Printing",
+      "Digital Printing",
+      "Sign Boards",
+      "Social Media",
+      "Stamp",
+      "Promotional Items"
+    ],
+    "newSubCategoryList": [
+      "Visiting Cards",
+      "LetterPads",
+      "Ishtihar",
+      "Pamphlet/Menu",
+      "Envelop",
+      "Bill Books",
+      "Receipt Book",
+      "File Cover",
+      "Photo Print",
+      "Sticker Print",
+      "Rubber Stamp",
+      "Design Only",
+      "China",
+      "Star",
+      "Venyl",
+      "One Vision",
+      "Backlit",
+      "Shirts",
+      "Safety Jacket",
+      "Caps",
+      "Mugs",
+      "Bottles",
+      "Jewelry",
+      "Pens",
+      "Pencil Trays",
+      "PVC Cards",
+      "Photo Frames",
+      "Badges"
+    ],
+    "newItemNameList": [
+      "Mat Double Side",
+      "Gloss Single Side",
+      "A4 Size",
+      "3x6 Panaflex",
+      "Facebook Ad",
+      "Business Card Design",
+      "LetterPad 68g A4 Single Color",
+      "LetterPad 68g A4/2 Single Color",
+      "LetterPad 80g A4 Single Color",
+      "LetterPad 80g A4/2 Single Color",
+      "LetterPad 80g A4, 4 Color",
+      "LetterPad 80g A4/2, 4 Color",
+      "LetterPad 100g A4, 4 Color",
+      "Ishtihar 68g A4/2, Single Color",
+      "Ishtihar 68g A4, Single Color",
+      "Ishtihar A4/2,80g, 4 Color",
+      "Ishtihar A4,80g, 4 Color",
+      "Ishtihar 10x7, 68g, Single Color",
+      "Pamphlet/Menu/Ishtihar, Art Paper A4/2,90g, 4 Color",
+      "Pamphlet/Menu/Ishtihar, A4 Art Paper,90g, 4 Color",
+      "Pamphlet/Menu/Ishtihar, A4/2 Art Paper,113g, 4 Color",
+      "Pamphlet/Menu/Ishtihar, A4 Art Paper,113g, 4 Color",
+      "Pamphlet/Menu/Ishtihar Doube Side, A4/2 Art Paper,113g, 4 Color",
+      "Pamphlet/Menu/Ishtihar Doube Side, A4 Art Paper,113g, 4 Color",
+      "Envelop 9x4,80g, Single Color",
+      "Envelop 9x4,80g, 4 Color",
+      "V Card Shine",
+      "Mat Card Single",
+      "Mat Card Double",
+      "Mat Card Single Round",
+      "Mat Card Double Round",
+      "UV Vard Single",
+      "UV Vard Double",
+      "UV Vard Pasting",
+      "Sticker 3.5x2",
+      "Sticker 3.5x4",
+      "Sticker 7x5",
+      "Sticker 7x10",
+      "Sticker 10x15",
+      "Bill Books, A4/2,68g, Single Color",
+      "Bill Books, A4,68g, Single Color",
+      "Bill Books, A4/2,80g, Single Color",
+      "Bill Books, A4/2,80g, 4 Color",
+      "Bill Books, A4/2,Art Paper 90g, 4 Color",
+      "Bill Books, 9x11,80g, 4 Color",
+      "Bill Books, 7x10,80g, 4 Color",
+      "Bill Book Carbonless 8.5x5.75",
+      "Receipt Book, 9x3.5, 68g, Single Color",
+      "Receipt Book, 9x3.5, 80g, 4 Color",
+      "A4 Photo 1 Sided, Starting from Pkr",
+      "A4 Photo Double Sided, Starting from Pkr",
+      "A4 Sticker Print, Starting from Pkr",
+      "7x5 Photo Print, Starting from Pkr",
+      "File Cover Art Card A4, Starting from Pkr",
+      "File Cover Art Card Legal , Starting from Pkr",
+      "File Cover Box Board A4, Starting from Pkr",
+      "File Cover Box Board Legal, Starting from Pkr",
+      "Stamp 1.45x0.55",
+      "Stamps 1.8x0.7",
+      "2.25x0.85",
+      "Round 1 inch",
+      "Round 1.25 inch",
+      "Stamp Round 1.6 inch",
+      "2.75x0.98",
+      "Round 2 inh",
+      "Date Wali Round 1.25 inch",
+      "Date Wali Round 1.5 inch",
+      "Date Wali Round 2 Inch",
+      "Date Wali Round 1.6 inch",
+      "Date Wali 1.57x0.92 inch",
+      "Date Wali 1.9x1.15 inch",
+      "Date Wali 2.2x1.25 inch",
+      "Date Wali 3x1.5 inch",
+      "Pocket Stamp 1.4x0.52 inch",
+      "Pocket Stamp 1.75x0.7 inch",
+      "Date Wali 1.75x1.15 (Without Ink)",
+      "Only Date",
+      "2.75x1.18",
+      "Oval Shape 2.15x1.37",
+      "PAID Stamp",
+      "Oval Shape 1.75x1.15",
+      "Only Date Auto",
+      "3x1.5 inch",
+      "Social Media Posts",
+      "China2x2",
+      "China2x3",
+      "China2x4",
+      "China2x5",
+      "China2x6",
+      "China2x7",
+      "China2x8",
+      "China2x9",
+      "China2x10",
+      "China2x11",
+      "China2x12",
+      "China2x13",
+      "China2.5x2",
+      "China2.5x3",
+      "China2.5x4",
+      "China2.5x5",
+      "China2.5x6",
+      "China2.5x7",
+      "China2.5x8",
+      "China2.5x9",
+      "China2.5x10",
+      "China3x3",
+      "China3x4",
+      "China3x5",
+      "China3x6",
+      "China3x7",
+      "China3x8",
+      "China3x9",
+      "China3x10",
+      "China3x11",
+      "China3x12",
+      "China3x13",
+      "China3.5x2",
+      "China3.5x3",
+      "China3.5x4",
+      "China3.5x5",
+      "China3.5x6",
+      "China3.5x7",
+      "China3.5x8",
+      "China3.5x9",
+      "China3.5x10",
+      "China4x1",
+      "China4x2",
+      "China4x3",
+      "China4x4",
+      "China4x5",
+      "China4x6",
+      "China4x7",
+      "China4x8",
+      "China4x9",
+      "China4x10",
+      "China4x11",
+      "China4x12",
+      "China4x13",
+      "China5x1",
+      "China5x2",
+      "China5x3",
+      "China5x4",
+      "China5x5",
+      "China5x6",
+      "China5x7",
+      "China5x8",
+      "China5x9",
+      "China5x10",
+      "China5x11",
+      "China5x12",
+      "China6x1",
+      "China6x2",
+      "China6x3",
+      "China6x4",
+      "China6x5",
+      "China6x6",
+      "China6x7",
+      "China6x8",
+      "China6x9",
+      "China6x10",
+      "Star2x2",
+      "Star2x3",
+      "Star2x4",
+      "Star2x5",
+      "Star2x6",
+      "Star2x7",
+      "Star2x8",
+      "Star2x9",
+      "Star2x10",
+      "Star2x11",
+      "Star2x12",
+      "Star2x13",
+      "Star2.5x2",
+      "Star2.5x3",
+      "Star2.5x4",
+      "Star2.5x5",
+      "Star2.5x6",
+      "Star2.5x7",
+      "Star2.5x8",
+      "Star2.5x9",
+      "Star2.5x10",
+      "Star3x3",
+      "Star3x4",
+      "Star3x5",
+      "Star3x6",
+      "Star3x7",
+      "Star3x8",
+      "Star3x9",
+      "Star3x10",
+      "Star3x11",
+      "Star3x12",
+      "Star3x13",
+      "Star3.5x2",
+      "Star3.5x3",
+      "Star3.5x4",
+      "Star3.5x5",
+      "Star3.5x6",
+      "Star3.5x7",
+      "Star3.5x8",
+      "Star3.5x9",
+      "Star3.5x10",
+      "Star4x1",
+      "Star4x2",
+      "Star4x3",
+      "Star4x4",
+      "Star4x5",
+      "Star4x6",
+      "Star4x7",
+      "Star4x8",
+      "Star4x9",
+      "Star4x10",
+      "Star4x11",
+      "Star4x12",
+      "Star4x13",
+      "Star5x1",
+      "Star5x2",
+      "Star5x3",
+      "Star5x4",
+      "Star5x5",
+      "Star5x6",
+      "Star5x7",
+      "Star5x8",
+      "Star5x9",
+      "Star5x10",
+      "Star5x11",
+      "Star5x12",
+      "Star6x1",
+      "Star6x2",
+      "Star6x3",
+      "Star6x4",
+      "Star6x5",
+      "Star6x6",
+      "Star6x7",
+      "Star6x8",
+      "Star6x9",
+      "Star6x10",
+      "Venyl2x2",
+      "Venyl2x3",
+      "Venyl2x4",
+      "Venyl2x5",
+      "Venyl2x6",
+      "Venyl2x7",
+      "Venyl2x8",
+      "Venyl2x9",
+      "Venyl2x10",
+      "Venyl2x11",
+      "Venyl2x12",
+      "Venyl2x13",
+      "Venyl2.5x2",
+      "Venyl2.5x3",
+      "Venyl2.5x4",
+      "Venyl2.5x5",
+      "Venyl2.5x6",
+      "Venyl2.5x7",
+      "Venyl2.5x8",
+      "Venyl2.5x9",
+      "Venyl2.5x10",
+      "Venyl3x3",
+      "Venyl3x4",
+      "Venyl3x5",
+      "Venyl3x6",
+      "Venyl3x7",
+      "Venyl3x8",
+      "Venyl3x9",
+      "Venyl3x10",
+      "Venyl3x11",
+      "Venyl3x12",
+      "Venyl3x13",
+      "Venyl3.5x2",
+      "Venyl3.5x3",
+      "Venyl3.5x4",
+      "Venyl3.5x5",
+      "Venyl3.5x6",
+      "Venyl3.5x7",
+      "Venyl3.5x8",
+      "Venyl3.5x9",
+      "Venyl3.5x10",
+      "Venyl4x1",
+      "Venyl4x2",
+      "Venyl4x3",
+      "Venyl4x4",
+      "Venyl4x5",
+      "Venyl4x6",
+      "Venyl4x7",
+      "Venyl4x8",
+      "Venyl4x9",
+      "Venyl4x10",
+      "Venyl4x11",
+      "Venyl4x12",
+      "Venyl4x13",
+      "One Vision2x2",
+      "One Vision2x3",
+      "One Vision2x4",
+      "One Vision2x5",
+      "One Vision2x6",
+      "One Vision2x7",
+      "One Vision2x8",
+      "One Vision2x9",
+      "One Vision2x10",
+      "One Vision2x11",
+      "One Vision2x12",
+      "One Vision2x13",
+      "One Vision2.5x2",
+      "One Vision2.5x3",
+      "One Vision2.5x4",
+      "One Vision2.5x5",
+      "One Vision2.5x6",
+      "One Vision2.5x7",
+      "One Vision2.5x8",
+      "One Vision2.5x9",
+      "One Vision2.5x10",
+      "One Vision3x3",
+      "One Vision3x4",
+      "One Vision3x5",
+      "One Vision3x6",
+      "One Vision3x7",
+      "One Vision3x8",
+      "One Vision3x9",
+      "One Vision3x10",
+      "One Vision3x11",
+      "One Vision3x12",
+      "One Vision3x13",
+      "One Vision3.5x2",
+      "One Vision3.5x3",
+      "One Vision3.5x4",
+      "One Vision3.5x5",
+      "One Vision3.5x6",
+      "One Vision3.5x7",
+      "One Vision3.5x8",
+      "One Vision3.5x9",
+      "One Vision3.5x10",
+      "One Vision4x1",
+      "One Vision4x2",
+      "One Vision4x3",
+      "One Vision4x4",
+      "One Vision4x5",
+      "One Vision4x6",
+      "One Vision4x7",
+      "One Vision4x8",
+      "One Vision4x9",
+      "One Vision4x10",
+      "One Vision4x11",
+      "One Vision4x12",
+      "One Vision4x13",
+      "Backlit2x2",
+      "Backlit2x3",
+      "Backlit2x4",
+      "Backlit2x5",
+      "Backlit2x6",
+      "Backlit2x7",
+      "Backlit2x8",
+      "Backlit2x9",
+      "Backlit2x10",
+      "Backlit2x11",
+      "Backlit2x12",
+      "Backlit2x13",
+      "Backlit2.5x2",
+      "Backlit2.5x3",
+      "Backlit2.5x4",
+      "Backlit2.5x5",
+      "Backlit2.5x6",
+      "Backlit2.5x7",
+      "Backlit2.5x8",
+      "Backlit2.5x9",
+      "Backlit2.5x10",
+      "Backlit3x3",
+      "Backlit3x4",
+      "Backlit3x5",
+      "Backlit3x6",
+      "Backlit3x7",
+      "Backlit3x8",
+      "Backlit3x9",
+      "Backlit3x10",
+      "Backlit3x11",
+      "Backlit3x12",
+      "Backlit3x13",
+      "Backlit3.5x2",
+      "Backlit3.5x3",
+      "Backlit3.5x4",
+      "Backlit3.5x5",
+      "Backlit3.5x6",
+      "Backlit3.5x7",
+      "Backlit3.5x8",
+      "Backlit3.5x9",
+      "Backlit3.5x10",
+      "Backlit4x1",
+      "Backlit4x2",
+      "Backlit4x3",
+      "Backlit4x4",
+      "Backlit4x5",
+      "Backlit4x6",
+      "Backlit4x7",
+      "Backlit4x8",
+      "Backlit4x9",
+      "Backlit4x10",
+      "Backlit4x11",
+      "Backlit4x12",
+      "Backlit4x13",
+      "Backlit5x1",
+      "Backlit5x2",
+      "Backlit5x3",
+      "Backlit5x4",
+      "Backlit5x5",
+      "Backlit5x6",
+      "Backlit5x7",
+      "Backlit5x8",
+      "Backlit5x9",
+      "Backlit5x10",
+      "Backlit5x11",
+      "Backlit5x12",
+      "Backlit6x1",
+      "Backlit6x2",
+      "Backlit6x3",
+      "Backlit6x4",
+      "Backlit6x5",
+      "White Shirt Childrens",
+      "White Shirt S,M,L",
+      "White Shirt XL,XXL",
+      "Cotton Shirt SML",
+      "Cotton Shirt XL XXL",
+      "Color Shirt SML",
+      "Color Shirt XL XXL",
+      "Safety Jacket 60g",
+      "Safety Jacket 120g",
+      "White P Cap",
+      "Color P Cap",
+      "White Mug",
+      "Inner Color Mug",
+      "Mug Hear shape",
+      "Magic Mug",
+      "Spoon Mug",
+      "Cup Pirch",
+      "Bottle (Temperatur) 250ml",
+      "Bottle Temperature White 250ml",
+      "Bottle (Temperatur) 850ml",
+      "Coffee Mug (Temperatur)",
+      "Coffee Mug with dori",
+      "Ring",
+      "Rolex Bracelet",
+      "Simple Bracelet",
+      "Picture Locket Small",
+      "Picture Locket Large",
+      "Cough Bangle Round",
+      "Bar Locket",
+      "Chain Heart Shape",
+      "Rope Bracelet",
+      "Metal Pen mat 1",
+      "Metal Pen mat 50",
+      "Metal Pen mat 100",
+      "Metal Pen+keyChain 1",
+      "Metal Pen+keyChain 50",
+      "Metal Pen+keyChain 100",
+      "Shine Metal Pen",
+      "Smart Metal Pen",
+      "Mat Metal Pen",
+      "Diamond Metal Pen",
+      "Light Pen",
+      "Pencil Tray Plastic a",
+      "Pencil Tray Plastic b",
+      "Pencil Tray Plastic c",
+      "Pencil Tray Wooden",
+      "Pencil Tray Wooden+Engraved",
+      "PVC Card 1",
+      "PVC Card 10",
+      "PVC card+Dori+jacket minimum 10",
+      "Photo+Frame 8x12",
+      "Photo+Frame 12x18",
+      "Badges Minimum 50",
+      "Badges 100"
+    ],
+    "expenseDescriptionList": [
+      "A4 paper ream purchase",
+      "Electricity bill (shop)",
+      "Staff salary - Jan",
+      "Diesel for generator"
+    ]
+  },
+  "lastSync": "2025-10-19T12:16:12.838Z"
 }
