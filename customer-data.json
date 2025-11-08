@@ -6,7 +6,7 @@
       {
         "subcategory": "China",
         "itemName": "China Banner (Area Rate)",
-        "price": 38, /* Base Rate per sq ft (Rs. 35-40 range) */
+        "price": 38, /* Average Base Rate per sq ft (Rs. 35-40 range) */
         "isAreaBased": true
       },
       {
@@ -18,7 +18,7 @@
       {
         "subcategory": "3D Wallpaper",
         "itemName": "3D Wallpaper (Area Rate)",
-        "price": 50, /* Base Rate per sq ft (Rs. 45-55 range) */
+        "price": 50, /* Average Base Rate per sq ft (Rs. 45-55 range) */
         "isAreaBased": true,
         "minArea": 100 /* Minimum area constraint for a single wall */
       },
@@ -35,7 +35,7 @@
         ]
       },
       
-      /* --- OTHER STANDARD/FLAT ITEMS (Example Entries) --- */
+      /* --- OTHER STANDARD/FLAT ITEMS (Example Entries from previous data) --- */
       { "subcategory": "LetterPads", "itemName": "LetterPad 80g A4, 4 Color", "price": 5400 },
       { "subcategory": "LetterPads", "itemName": "LetterPad 68g A4, Single Color", "price": 4000 },
       { "subcategory": "Visiting Cards", "itemName": "Mat Card Double Round", "price": 1600 },
@@ -48,5 +48,16 @@
       "profitMargin": 25
     }
   },
-  "lastSync": "2025-11-09T03:35:00Z"
+  
+  /* --- Keeping other data structures simple/empty for integration --- */
+  "history": [],
+  "invoices": [],
+  "customers": [],
+  "financialEntries": [],
+  "payables": [],
+  "recentActivity": [],
+  "inventoryItems": [],
+  "suppliers": [],
+  "purchaseOrders": [],
+  "lastSync": "2025-11-09T03:46:00Z"
 }
