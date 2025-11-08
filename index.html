@@ -966,73 +966,109 @@
     }
 
     // 4. Navigate to and Populate Product Detail Page
-    function showProductDetails(productName) {
-        const name = productName.replace(/\\/g, ''); 
-        const productData = allProductGroups[name];
-        currentProduct = productData;
-        currentSelectedVariations = {}; // Reset selections
+    // 4. Navigate to and Populate Product Detail Page
+function showProductDetails(productName) {
+    const name = productName.replace(/\\/g, ''); 
+    const productData = allProductGroups[name];
+    currentProduct = productData;
+    currentSelectedVariations = {}; // Reset selections
 
-        if (!currentProduct) {
-            showAlert(`Product "${name}" details not found.`, 'error');
-            return;
-        }
-
-        // Update headers and image
-        document.getElementById('detail-product-name-header').textContent = currentProduct.baseName;
-        document.getElementById('detail-product-name-body').textContent = currentProduct.baseName;
-        const imagePath = `img/products/${currentProduct.imageFile}`;
-        document.getElementById('detail-product-image').src = imagePath;
-        document.getElementById('detail-product-image').onerror = function() { 
-             this.src = `img/products/${currentProduct.baseName.replace(/\//g, '-')}.png`; 
-        };
-
-        const areaInputs = document.getElementById('custom-area-inputs');
-        const standardOptions = document.getElementById('standard-options-fields');
-        const optionsContainer = document.getElementById('standard-options-fields');
-        
-        // Reset all forms/warnings
-        document.getElementById('finalPriceBox').style.display = 'none';
-        document.getElementById('selectionWarning').textContent = "Please enter dimensions/quantity or select all options above to see the final price.";
-        document.getElementById('selectionWarning').classList.remove('alert-danger');
-        document.getElementById('selectionWarning').classList.add('alert-info');
-        document.getElementById('selectionWarning').style.display = 'block';
-
-
-        // Check if the product requires AREA-BASED input (Wallpaper/Panaflex)
-        if (currentProduct.isAreaBased) {
-            areaInputs.style.display = 'block';
-            standardOptions.style.display = 'none';
-            
-            // Reset inputs and warnings
-            document.getElementById('input-width').value = '';
-            document.getElementById('input-height').value = '';
-            document.getElementById('input-custom-qty').value = 1;
-            document.getElementById('areaDisplay').textContent = '';
-            document.getElementById('areaConstraintWarning').style.display = 'none';
-            document.getElementById('designFeeDisplay').textContent = 'Design Fee: Calculating...';
-            document.getElementById('designFeeDisplay').classList.remove('alert-danger');
-            document.getElementById('designFeeDisplay').classList.add('alert-warning');
-            
-            // Immediately run price update for initial state
-            updateFinalPrice();
-
-        } else {
-            // Standard Tiered Item (Rendering Clickable Cards)
-            areaInputs.style.display = 'none';
-            standardOptions.style.display = 'block';
-            
-            // Render standard card options (logic omitted for brevity, assuming existing logic remains)
-            optionsContainer.innerHTML = 'Standard item options here...'; // Placeholder
-            // NOTE: You would insert the logic from the previous step here to render the cards.
-
-            // Reset price area
-            document.getElementById('finalPriceBox').style.display = 'none';
-            document.getElementById('selectionWarning').style.display = 'block';
-        }
-
-        showSection('product-detail');
+    if (!currentProduct) {
+        showAlert(`Product "${name}" details not found.`, 'error');
+        return;
     }
 
+    // Update headers and image
+    document.getElementById('detail-product-name-header').textContent = currentProduct.baseName;
+    document.getElementById('detail-product-name-body').textContent = currentProduct.baseName;
+    const imagePath = `img/products/${currentProduct.imageFile}`;
+    document.getElementById('detail-product-image').src = imagePath;
+    document.getElementById('detail-product-image').onerror = function() { 
+         this.src = `img/products/${currentProduct.baseName.replace(/\//g, '-')}.png`; 
+    };
+
+    const areaInputs = document.getElementById('custom-area-inputs');
+    const standardOptions = document.getElementById('standard-options-fields');
+    const optionsContainer = document.getElementById('standard-options-fields');
+    
+    // Reset all forms/warnings
+    document.getElementById('finalPriceBox').style.display = 'none';
+    document.getElementById('selectionWarning').textContent = "Please enter dimensions/quantity or select all options above to see the final price.";
+    document.getElementById('selectionWarning').classList.remove('alert-danger');
+    document.getElementById('selectionWarning').classList.add('alert-info');
+    document.getElementById('selectionWarning').style.display = 'block';
+
+
+    // 🛑 START CORE LOGIC: Area-Based vs. Standard 🛑
+
+    if (currentProduct.isAreaBased) {
+        // --- AREA-BASED SETUP (Panaflex/Wallpaper) ---
+        areaInputs.style.display = 'block';
+        standardOptions.style.display = 'none';
+        
+        // Reset inputs and warnings
+        document.getElementById('input-width').value = '';
+        document.getElementById('input-height').value = '';
+        document.getElementById('input-custom-qty').value = 1;
+        document.getElementById('areaDisplay').textContent = '';
+        document.getElementById('areaConstraintWarning').style.display = 'none';
+        document.getElementById('designFeeDisplay').textContent = 'Design Fee: Calculating...';
+        document.getElementById('designFeeDisplay').classList.remove('alert-danger');
+        document.getElementById('designFeeDisplay').classList.add('alert-warning');
+        
+        // Immediately run price update for initial state
+        updateFinalPrice();
+
+    } else {
+        // --- STANDARD TIERED ITEM SETUP (LetterPads, Mugs, etc.) ---
+        areaInputs.style.display = 'none';
+        standardOptions.style.display = 'block';
+        optionsContainer.innerHTML = ''; // Clear previous contents
+
+        // Determine unique attribute keys and render clickable cards
+        const availableAttributes = {};
+        currentProduct.combinations.forEach(c => {
+            Object.keys(c).filter(key => key !== 'Price' && key !== 'FullName').forEach(key => {
+                if (!availableAttributes[key]) availableAttributes[key] = new Set();
+                availableAttributes[key].add(c[key]);
+            });
+        });
+        
+        // Render groups of unique values for each attribute
+        Object.keys(availableAttributes).forEach((attrKey, groupIndex) => {
+            const uniqueValues = Array.from(availableAttributes[attrKey]);
+            const sanitizedKey = attrKey.replace(/\s/g, '');
+            
+            let groupHTML = `
+                <div class="product-option-group" data-option-key="${sanitizedKey}">
+                    <label>${attrKey}:</label>
+                    <div class="d-flex flex-wrap gap-3" id="choices-${sanitizedKey}">
+            `;
+            
+            uniqueValues.forEach(value => {
+                const inputId = `${sanitizedKey}-${value.replace(/\s|\/|\\|\(|\)/g, '-')}`;
+                
+                groupHTML += `
+                    <label class="choice-card" for="${inputId}">
+                        <input type="radio" id="${inputId}" name="option-${sanitizedKey}" value="${value}" 
+                               onchange="handleCardSelection('${sanitizedKey}', '${value}')">
+                        <span class="label-text">${value}</span>
+                    </label>
+                `;
+            });
+
+            groupHTML += `</div></div>`;
+            optionsContainer.innerHTML += groupHTML;
+        });
+
+        // Reset price area to hide price until selection is made
+        document.getElementById('finalPriceBox').style.display = 'none';
+        document.getElementById('selectionWarning').style.display = 'block';
+    }
+
+    showSection('product-detail');
+        }
+        
     // --- Price Update and Calculation Logic (New Hybrid Logic) ---
     
     function getDesignFee(quantity) {
