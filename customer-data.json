@@ -2,28 +2,26 @@
   "calculatorData": {
     "items": [
       
-      /* --- AREA-BASED TEMPLATES (Base Product Entries and Rates) --- */
       {
         "subcategory": "China",
         "itemName": "China Banner (Area Rate)",
-        "price": 38, /* Average Base Rate per sq ft (Rs. 35-40 range) */
+        "price": 38,
         "isAreaBased": true
       },
       {
         "subcategory": "Star",
         "itemName": "Star Banner (Area Rate)",
-        "price": 100, /* Base Rate per sq ft */
+        "price": 100,
         "isAreaBased": true
       },
       {
         "subcategory": "3D Wallpaper",
         "itemName": "3D Wallpaper (Area Rate)",
-        "price": 50, /* Average Base Rate per sq ft (Rs. 45-55 range) */
+        "price": 50,
         "isAreaBased": true,
-        "minArea": 100 /* Minimum area constraint for a single wall */
+        "minArea": 100
       },
       
-      /* --- DESIGN & QUANTITY TIERS (Metadata for Area Calculation) --- */
       {
         "subcategory": "PanaflexDesignTiers",
         "itemName": "Design Tier Rates",
@@ -35,7 +33,6 @@
         ]
       },
       
-      /* --- OTHER STANDARD/FLAT ITEMS (Example Entries from previous data) --- */
       { "subcategory": "LetterPads", "itemName": "LetterPad 80g A4, 4 Color", "price": 5400 },
       { "subcategory": "LetterPads", "itemName": "LetterPad 68g A4, Single Color", "price": 4000 },
       { "subcategory": "Visiting Cards", "itemName": "Mat Card Double Round", "price": 1600 },
@@ -48,8 +45,6 @@
       "profitMargin": 25
     }
   },
-  
-  /* --- Keeping other data structures simple/empty for integration --- */
   "history": [],
   "invoices": [],
   "customers": [],
