@@ -1,9 +1,7 @@
 {
   "calculatorData": {
     "items": [
-      
-      /* --- AREA-BASED TEMPLATES & RATES --- */
-      {
+       {
         "subcategory": "China",
         "itemName": "China Banner (Area Rate)",
         "price": 38,
@@ -23,7 +21,6 @@
         "minArea": 100
       },
       
-      /* --- DESIGN & QUANTITY TIER METADATA (Used by updateFinalPrice()) --- */
       {
         "subcategory": "PanaflexDesignTiers",
         "itemName": "Design Tier Rates",
@@ -35,7 +32,7 @@
         ]
       },
       
-      /* --- OFFSET & STATIONERY (Standard Price Tiers) --- */
+      
       
       { "subcategory": "LetterPads", "itemName": "LetterPad 68g A4, Single Color", "price": 2400 },
       { "subcategory": "LetterPads", "itemName": "LetterPad 80g A4, 4 Color", "price": 5400 },
@@ -59,7 +56,6 @@
       
       { "subcategory": "Receipt Book", "itemName": "Receipt Book 9x3.5, 80g, 4 Color", "price": 2800 },
       
-      /* --- DIGITAL & PROMOTIONAL ITEMS --- */
       
       { "subcategory": "File Cover", "itemName": "File Cover Art Card A4", "price": 50 },
       { "subcategory": "Rubber Stamp", "itemName": "Stamp Round 1.6 inch", "price": 1500 },
@@ -70,7 +66,6 @@
       { "subcategory": "Photo Frames", "itemName": "Photo+Frame 8x12", "price": 450 },
       { "subcategory": "Badges", "itemName": "Badges Minimum 50", "price": 50 },
       
-      /* --- MERCHANDISE EXAMPLES --- */
       
       { "subcategory": "Shirts", "itemName": "White Shirt S,M,L (Cotton)", "price": 750 },
       { "subcategory": "Safety Jacket", "itemName": "Safety Jacket 60g", "price": 300 },
