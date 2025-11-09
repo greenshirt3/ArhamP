@@ -1,0 +1,2127 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Arham Printers - Printing and Advertising Service</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Printing Services, Business Cards, Stationery, Marketing Materials" name="keywords">
+    <meta content="Professional printing services in Pakistan for business cards, brochures, flyers, and more." name="description">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    
+    <style>
+        /* Additional styles for the enhanced functionality */
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .product-quantity {
+            width: 70px;
+            text-align: center;
+        }
+        .checkout-step {
+            display: none;
+        }
+        .checkout-step.active {
+            display: block;
+        }
+        .order-summary-item {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+        .cart-item {
+            transition: all 0.3s ease;
+        }
+        .cart-item.removing {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+    <div class="container-fluid bg-dark text-white-50 py-2 px-0 d-none d-lg-block">
+        <div class="row gx-0 align-items-center">
+            <div class="col-lg-7 px-5 text-start">
+                <div class="h-100 d-inline-flex align-items-center me-4">
+                    <small class="fa fa-phone-alt me-2"></small>
+                    <small>+92 300 6238233</small>
+                </div>
+                <div class="h-100 d-inline-flex align-items-center me-4">
+                    <small class="far fa-envelope-open me-2"></small>
+                    <small>info@arhamprinters.pk</small>
+                </div>
+                <div class="h-100 d-inline-flex align-items-center me-4">
+                    <small class="far fa-clock me-2"></small>
+                    <small>Mon - Fri : 09 AM - 09 PM</small>
+                </div>
+            </div>
+            <div class="col-lg-5 px-5 text-end">
+                <div class="h-100 d-inline-flex align-items-center">
+                    <a class="text-white-50 ms-4" href=""><i class="fab fa-facebook-f"></i></a>
+                    <a class="text-white-50 ms-4" href=""><i class="fab fa-twitter"></i></a>
+                    <a class="text-white-50 ms-4" href=""><i class="fab fa-linkedin-in"></i></a>
+                    <a class="text-white-50 ms-4" href=""><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5">
+        <a href="#home-section" class="navbar-brand d-flex align-items-center" onclick="showSection('home')">
+            <h1 class="m-0 text-primary"><i class="fa fa-print me-3"></i>Arham Printers</h1>
+        </a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav mx-auto bg-light pe-4 py-3 py-lg-0">
+                <a href="#home-section" class="nav-item nav-link active" onclick="showSection('home')">Home</a>
+                <a href="#offset-printing-products" class="nav-item nav-link" onclick="showSection('home')">Products</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
+                    <div class="dropdown-menu bg-light border-0 m-0">
+                        <a href="#offset-printing-products" class="dropdown-item" onclick="showSection('home')">Offset & Stationery</a>
+                        <a href="#digital-printing-products" class="dropdown-item" onclick="showSection('home')">Digital & Photo</a>
+                        <a href="#large-format-products" class="dropdown-item" onclick="showSection('home')">Banners & Merchandise</a>
+                        <a href="#" class="dropdown-item" onclick="showSection('cart')">Cart</a>
+                        <a href="#" class="dropdown-item" onclick="showSection('checkout')">Checkout</a>
+                    </div>
+                </div>
+                <a href="#" class="nav-item nav-link" onclick="showSection('contact')">Contact</a>
+            </div>
+            <div class="h-100 d-lg-inline-flex align-items-center">
+                <a class="btn-sm-square bg-white text-primary rounded-circle me-4 position-relative" href="#" onclick="showSection('cart')">
+                    <i class="fa fa-shopping-bag"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </a>
+                <a href="#" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block" onclick="showSection('contact')">Get a Quote<i
+                        class="fa fa-arrow-right ms-3"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home-section" class="section active">
+        <div class="container-fluid hero-header bg-light py-5">
+            <div class="container py-5">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-6">
+                        <h1 class="display-4 mb-3 animated slideInDown">The Future of <span class="text-primary">Printing</span> is Here</h1>
+                        <p class="animated slideInDown">Experience professional quality and stunning designs for all your business needs—from letterheads to marketing materials. Arham Printers delivers excellence.</p>
+                        <a href="#offset-printing-products" class="btn btn-primary py-3 px-5 animated slideInDown" onclick="showSection('home')">Explore Products</a>
+                    </div>
+                    <div class="col-lg-6 animated fadeIn">
+                        <div class="owl-carousel header-carousel">
+                            <div class="owl-carousel-item">
+                                <img class="img-fluid" src="img/carousel-1.png" alt="Printing Services">
+                            </div>
+                            <div class="owl-carousel-item">
+                                <img class="img-fluid" src="img/carousel-2.png" alt="Business Printing">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+ <!-- Searvices Start -->
+    <div class="container-fluid px-0">
+        <div class="row g-0">
+            <div class="col-6 col-md-4 col-lg-2 border-start border-end wow fadeInUp" data-wow-delay="0.1s">
+                <div class="p-4">
+                    <div class="d-inline-flex align-items-center">
+                        <i class="fa fa-sync-alt fa-2x text-primary"></i>
+                        <div class="ms-4">
+                            <h6 class="text-uppercase mb-2">Free Return</h6>
+                            <p class="mb-0">30 days money back guarantee!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2 border-end wow fadeInUp" data-wow-delay="0.2s">
+                <div class="p-4">
+                    <div class="d-flex align-items-center">
+                        <i class="fab fa-telegram-plane fa-2x text-primary"></i>
+                        <div class="ms-4">
+                            <h6 class="text-uppercase mb-2">Free Shipping</h6>
+                            <p class="mb-0">Free shipping on all order</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2 border-end wow fadeInUp" data-wow-delay="0.3s">
+                <div class="p-4">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-life-ring fa-2x text-primary"></i>
+                        <div class="ms-4">
+                            <h6 class="text-uppercase mb-2">Support 24/7</h6>
+                            <p class="mb-0">We support online 24 hrs a day</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2 border-end wow fadeInUp" data-wow-delay="0.4s">
+                <div class="p-4">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-credit-card fa-2x text-primary"></i>
+                        <div class="ms-4">
+                            <h6 class="text-uppercase mb-2">Receive Gift Card</h6>
+                            <p class="mb-0">Recieve gift all over oder $50</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2 border-end wow fadeInUp" data-wow-delay="0.5s">
+                <div class="p-4">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-lock fa-2x text-primary"></i>
+                        <div class="ms-4">
+                            <h6 class="text-uppercase mb-2">Secure Payment</h6>
+                            <p class="mb-0">We Value Your Security</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2 border-end wow fadeInUp" data-wow-delay="0.6s">
+                <div class="p-4">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-blog fa-2x text-primary"></i>
+                        <div class="ms-4">
+                            <h6 class="text-uppercase mb-2">Online Service</h6>
+                            <p class="mb-0">Free return products in 30 days</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Searvices End -->
+    <!-- Shop Page Start -->
+    <div class="container-fluid shop py-5">
+        <div class="container py-5">
+            <div class="row g-4">
+                <div class="col-lg-3 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="product-categories mb-4">
+                        <h4>Products Categories</h4>
+                        <ul class="list-unstyled">
+                            <li>
+                                <div class="categories-item">
+                                    <a href="#" class="text-dark"><i class="fas fa-apple-alt text-secondary me-2"></i>
+                                        Accessories</a>
+                                    <span>(3)</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="categories-item">
+                                    <a href="#" class="text-dark"><i class="fas fa-apple-alt text-secondary me-2"></i>
+                                        Electronics & Computer</a>
+                                    <span>(5)</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="categories-item">
+                                    <a href="#" class="text-dark"><i
+                                            class="fas fa-apple-alt text-secondary me-2"></i>Laptops & Desktops</a>
+                                    <span>(2)</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="categories-item">
+                                    <a href="#" class="text-dark"><i
+                                            class="fas fa-apple-alt text-secondary me-2"></i>Mobiles & Tablets</a>
+                                    <span>(8)</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="categories-item">
+                                    <a href="#" class="text-dark"><i
+                                            class="fas fa-apple-alt text-secondary me-2"></i>SmartPhone & Smart TV</a>
+                                    <span>(5)</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="price mb-4">
+                        <h4 class="mb-2">Price</h4>
+                        <input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="0" max="500"
+                            value="0" oninput="amount.value=rangeInput.value">
+                        <output id="amount" name="amount" min-velue="0" max-value="500" for="rangeInput">0</output>
+                        <div class=""></div>
+                    </div>
+                    <div class="product-color mb-3">
+                        <h4>Select By Color</h4>
+                        <ul class="list-unstyled">
+                            <li>
+                                <div class="product-color-item">
+                                    <a href="#" class="text-dark"><i class="fas fa-apple-alt text-secondary me-2"></i>
+                                        Gold</a>
+                                    <span>(1)</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="product-color-item">
+                                    <a href="#" class="text-dark"><i class="fas fa-apple-alt text-secondary me-2"></i>
+                                        Green</a>
+                                    <span>(1)</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="product-color-item">
+                                    <a href="#" class="text-dark"><i class="fas fa-apple-alt text-secondary me-2"></i>
+                                        White</a>
+                                    <span>(1)</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="additional-product mb-4">
+                        <h4>Additional Products</h4>
+                        <div class="additional-product-item">
+                            <input type="radio" class="me-2" id="Categories-1" name="Categories-1" value="Beverages">
+                            <label for="Categories-1" class="text-dark"> Accessories</label>
+                        </div>
+                        <div class="additional-product-item">
+                            <input type="radio" class="me-2" id="Categories-2" name="Categories-1" value="Beverages">
+                            <label for="Categories-2" class="text-dark"> Electronics & Computer</label>
+                        </div>
+                        <div class="additional-product-item">
+                            <input type="radio" class="me-2" id="Categories-3" name="Categories-1" value="Beverages">
+                            <label for="Categories-3" class="text-dark"> Laptops & Desktops</label>
+                        </div>
+                        <div class="additional-product-item">
+                            <input type="radio" class="me-2" id="Categories-4" name="Categories-1" value="Beverages">
+                            <label for="Categories-4" class="text-dark"> Mobiles & Tablets</label>
+                        </div>
+                        <div class="additional-product-item">
+                            <input type="radio" class="me-2" id="Categories-5" name="Categories-1" value="Beverages">
+                            <label for="Categories-5" class="text-dark"> SmartPhone & Smart TV</label>
+                        </div>
+                    </div>
+                    <div class="featured-product mb-4">
+                        <h4 class="mb-3">Featured products</h4>
+                        <div class="featured-product-item">
+                            <div class="rounded me-4" style="width: 100px; height: 100px;">
+                                <img src="img/product-3.png" class="img-fluid rounded" alt="Image">
+                            </div>
+                            <div>
+                                <h6 class="mb-2">SmartPhone</h6>
+                                <div class="d-flex mb-2">
+                                    <i class="fa fa-star text-secondary"></i>
+                                    <i class="fa fa-star text-secondary"></i>
+                                    <i class="fa fa-star text-secondary"></i>
+                                    <i class="fa fa-star text-secondary"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="d-flex mb-2">
+                                    <h5 class="fw-bold me-2">2.99 $</h5>
+                                    <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="featured-product-item">
+                            <div class="rounded me-4" style="width: 100px; height: 100px;">
+                                <img src="img/product-4.png" class="img-fluid rounded" alt="Image">
+                            </div>
+                            <div>
+                                <h6 class="mb-2">Smart Camera</h6>
+                                <div class="d-flex mb-2">
+                                    <i class="fa fa-star text-secondary"></i>
+                                    <i class="fa fa-star text-secondary"></i>
+                                    <i class="fa fa-star text-secondary"></i>
+                                    <i class="fa fa-star text-secondary"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="d-flex mb-2">
+                                    <h5 class="fw-bold me-2">2.99 $</h5>
+                                    <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="featured-product-item">
+                            <div class="rounded me-4" style="width: 100px; height: 100px;">
+                                <img src="img/product-5.png" class="img-fluid rounded" alt="Image">
+                            </div>
+                            <div>
+                                <h6 class="mb-2">Camera Leance</h6>
+                                <div class="d-flex mb-2">
+                                    <i class="fa fa-star text-secondary"></i>
+                                    <i class="fa fa-star text-secondary"></i>
+                                    <i class="fa fa-star text-secondary"></i>
+                                    <i class="fa fa-star text-secondary"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="d-flex mb-2">
+                                    <h5 class="fw-bold me-2">2.99 $</h5>
+                                    <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center my-4">
+                            <a href="#" class="btn btn-primary px-4 py-3 rounded-pill w-100">Vew More</a>
+                        </div>
+                    </div>
+                    <a href="#">
+                        <div class="position-relative">
+                            <img src="img/product-banner-2.jpg" class="img-fluid w-100 rounded" alt="Image">
+                            <div class="text-center position-absolute d-flex flex-column align-items-center justify-content-center rounded p-4"
+                                style="width: 100%; height: 100%; top: 0; right: 0; background: rgba(242, 139, 0, 0.3);">
+                                <h5 class="display-6 text-primary">SALE</h5>
+                                <h4 class="text-secondary">Get UP To 50% Off</h4>
+                                <a href="#" class="btn btn-primary rounded-pill px-4">Shop Now</a>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="product-tags py-4">
+                        <h4 class="mb-3">PRODUCT TAGS</h4>
+                        <div class="product-tags-items bg-light rounded p-3">
+                            <a href="#" class="border rounded py-1 px-2 mb-2">New</a>
+                            <a href="#" class="border rounded py-1 px-2 mb-2">brand</a>
+                            <a href="#" class="border rounded py-1 px-2 mb-2">black</a>
+                            <a href="#" class="border rounded py-1 px-2 mb-2">white</a>
+                            <a href="#" class="border rounded py-1 px-2 mb-2">tablats</a>
+                            <a href="#" class="border rounded py-1 px-2 mb-2">phone</a>
+                            <a href="#" class="border rounded py-1 px-2 mb-2">camera</a>
+                            <a href="#" class="border rounded py-1 px-2 mb-2">drone</a>
+                            <a href="#" class="border rounded py-1 px-2 mb-2">talevision</a>
+                            <a href="#" class="border rounded py-1 px-2 mb-2">slaes</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="rounded mb-4 position-relative">
+                        <img src="img/product-banner-3.jpg" class="img-fluid rounded w-100" style="height: 250px;"
+                            alt="Image">
+                        <div class="position-absolute rounded d-flex flex-column align-items-center justify-content-center text-center"
+                            style="width: 100%; height: 250px; top: 0; left: 0; background: rgba(242, 139, 0, 0.3);">
+                            <h4 class="display-5 text-primary">SALE</h4>
+                            <h3 class="display-4 text-white mb-4">Get UP To 50% Off</h3>
+                            <a href="#" class="btn btn-primary rounded-pill">Shop Now</a>
+                        </div>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-xl-7">
+                            <div class="input-group w-100 mx-auto d-flex">
+                                <input type="search" class="form-control p-3" placeholder="keywords"
+                                    aria-describedby="search-icon-1">
+                                <span id="search-icon-1" class="input-group-text p-3"><i
+                                        class="fa fa-search"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 text-end">
+                            <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between">
+                                <label for="electronics">Sort By:</label>
+                                <select id="electronics" name="electronicslist"
+                                    class="border-0 form-select-sm bg-light me-3" form="electronicsform">
+                                    <option value="volvo">Default Sorting</option>
+                                    <option value="volv">Nothing</option>
+                                    <option value="sab">Popularity</option>
+                                    <option value="saab">Newness</option>
+                                    <option value="opel">Average Rating</option>
+                                    <option value="audio">Low to high</option>
+                                    <option value="audi">High to low</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-xl-2">
+                            <ul class="nav nav-pills d-inline-flex text-center py-2 px-2 rounded bg-light mb-4">
+                                <li class="nav-item me-4">
+                                    <a class="bg-light" data-bs-toggle="pill" href="#tab-5">
+                                        <i class="fas fa-th fa-3x text-primary"></i>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="bg-light" data-bs-toggle="pill" href="#tab-6">
+                                        <i class="fas fa-bars fa-3x text-primary"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        <div id="tab-5" class="tab-pane fade show p-0 active">
+                            <div class="row g-4 product">
+                                <div class="col-lg-4">
+                                    <div class="product-item rounded wow fadeInUp" data-wow-delay="0.1s">
+                                        <div class="product-item-inner border rounded">
+                                            <div class="product-item-inner-item">
+                                                <img src="img/product-3.png" class="img-fluid w-100 rounded-top" alt="">
+                                                <div class="product-new">New</div>
+                                                <div class="product-details">
+                                                    <a href="#"><i class="fa fa-eye fa-1x"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="text-center rounded-bottom p-4">
+                                                <a href="#" class="d-block mb-2">SmartPhone</a>
+                                                <a href="#" class="d-block h4">Apple iPad Mini <br> G2356</a>
+                                                <del class="me-2 fs-5">$1,250.00</del>
+                                                <span class="text-primary fs-5">$1,050.00</span>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
+                                            <a href="#"
+                                                class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
+                                                    class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex">
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                                <div class="d-flex">
+                                                    <a href="#"
+                                                        class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                                            class="rounded-circle btn-sm-square border"><i
+                                                                class="fas fa-random"></i></i></a>
+                                                    <a href="#"
+                                                        class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                                            class="rounded-circle btn-sm-square border"><i
+                                                                class="fas fa-heart"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="product-item rounded wow fadeInUp" data-wow-delay="0.3s">
+                                        <div class="product-item-inner border rounded">
+                                            <div class="product-item-inner-item">
+                                                <img src="img/product-4.png" class="img-fluid w-100 rounded-top" alt="">
+                                                <div class="product-new">New</div>
+                                                <div class="product-details">
+                                                    <a href="#"><i class="fa fa-eye fa-1x"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="text-center rounded-bottom p-4">
+                                                <a href="#" class="d-block mb-2">SmartPhone</a>
+                                                <a href="#" class="d-block h4">Apple iPad Mini <br> G2356</a>
+                                                <del class="me-2 fs-5">$1,250.00</del>
+                                                <span class="text-primary fs-5">$1,050.00</span>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
+                                            <a href="#"
+                                                class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
+                                                    class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex">
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                                <div class="d-flex">
+                                                    <a href="#"
+                                                        class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                                            class="rounded-circle btn-sm-square border"><i
+                                                                class="fas fa-random"></i></i></a>
+                                                    <a href="#"
+                                                        class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                                            class="rounded-circle btn-sm-square border"><i
+                                                                class="fas fa-heart"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="product-item rounded wow fadeInUp" data-wow-delay="0.5s">
+                                        <div class="product-item-inner border rounded">
+                                            <div class="product-item-inner-item">
+                                                <img src="img/product-5.png" class="img-fluid w-100 rounded-top" alt="">
+                                                <div class="product-new">New</div>
+                                                <div class="product-details">
+                                                    <a href="#"><i class="fa fa-eye fa-1x"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="text-center rounded-bottom p-4">
+                                                <a href="#" class="d-block mb-2">SmartPhone</a>
+                                                <a href="#" class="d-block h4">Apple iPad Mini <br> G2356</a>
+                                                <del class="me-2 fs-5">$1,250.00</del>
+                                                <span class="text-primary fs-5">$1,050.00</span>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
+                                            <a href="#"
+                                                class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
+                                                    class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex">
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                                <div class="d-flex">
+                                                    <a href="#"
+                                                        class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                                            class="rounded-circle btn-sm-square border"><i
+                                                                class="fas fa-random"></i></i></a>
+                                                    <a href="#"
+                                                        class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                                            class="rounded-circle btn-sm-square border"><i
+                                                                class="fas fa-heart"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="product-item rounded wow fadeInUp" data-wow-delay="0.1s">
+                                        <div class="product-item-inner border rounded">
+                                            <div class="product-item-inner-item">
+                                                <img src="img/product-6.png" class="img-fluid w-100 rounded-top" alt="">
+                                                <div class="product-new">New</div>
+                                                <div class="product-details">
+                                                    <a href="#"><i class="fa fa-eye fa-1x"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="text-center rounded-bottom p-4">
+                                                <a href="#" class="d-block mb-2">SmartPhone</a>
+                                                <a href="#" class="d-block h4">Apple iPad Mini <br> G2356</a>
+                                                <del class="me-2 fs-5">$1,250.00</del>
+                                                <span class="text-primary fs-5">$1,050.00</span>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
+                                            <a href="#"
+                                                class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
+                                                    class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex">
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                                <div class="d-flex">
+                                                    <a href="#"
+                                                        class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                                            class="rounded-circle btn-sm-square border"><i
+                                                                class="fas fa-random"></i></i></a>
+                                                    <a href="#"
+                                                        class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                                            class="rounded-circle btn-sm-square border"><i
+                                                                class="fas fa-heart"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="product-item rounded wow fadeInUp" data-wow-delay="0.3s">
+                                        <div class="product-item-inner border rounded">
+                                            <div class="product-item-inner-item">
+                                                <img src="img/product-7.png" class="img-fluid w-100 rounded-top" alt="">
+                                                <div class="product-new">New</div>
+                                                <div class="product-details">
+                                                    <a href="#"><i class="fa fa-eye fa-1x"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="text-center rounded-bottom p-4">
+                                                <a href="#" class="d-block mb-2">SmartPhone</a>
+                                                <a href="#" class="d-block h4">Apple iPad Mini <br> G2356</a>
+                                                <del class="me-2 fs-5">$1,250.00</del>
+                                                <span class="text-primary fs-5">$1,050.00</span>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
+                                            <a href="#"
+                                                class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
+                                                    class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex">
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                                <div class="d-flex">
+                                                    <a href="#"
+                                                        class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                                            class="rounded-circle btn-sm-square border"><i
+                                                                class="fas fa-random"></i></i></a>
+                                                    <a href="#"
+                                                        class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                                            class="rounded-circle btn-sm-square border"><i
+                                                                class="fas fa-heart"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="product-item rounded wow fadeInUp" data-wow-delay="0.5s">
+                                        <div class="product-item-inner border rounded">
+                                            <div class="product-item-inner-item">
+                                                <img src="img/product-8.png" class="img-fluid w-100 rounded-top" alt="">
+                                                <div class="product-new">New</div>
+                                                <div class="product-details">
+                                                    <a href="#"><i class="fa fa-eye fa-1x"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="text-center rounded-bottom p-4">
+                                                <a href="#" class="d-block mb-2">SmartPhone</a>
+                                                <a href="#" class="d-block h4">Apple iPad Mini <br> G2356</a>
+                                                <del class="me-2 fs-5">$1,250.00</del>
+                                                <span class="text-primary fs-5">$1,050.00</span>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
+                                            <a href="#"
+                                                class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
+                                                    class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex">
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                                <div class="d-flex">
+                                                    <a href="#"
+                                                        class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                                            class="rounded-circle btn-sm-square border"><i
+                                                                class="fas fa-random"></i></i></a>
+                                                    <a href="#"
+                                                        class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                                            class="rounded-circle btn-sm-square border"><i
+                                                                class="fas fa-heart"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="product-item rounded wow fadeInUp" data-wow-delay="0.1s">
+                                        <div class="product-item-inner border rounded">
+                                            <div class="product-item-inner-item">
+                                                <img src="img/product-9.png" class="img-fluid w-100 rounded-top" alt="">
+                                                <div class="product-new">New</div>
+                                                <div class="product-details">
+                                                    <a href="#"><i class="fa fa-eye fa-1x"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="text-center rounded-bottom p-4">
+                                                <a href="#" class="d-block mb-2">SmartPhone</a>
+                                                <a href="#" class="d-block h4">Apple iPad Mini <br> G2356</a>
+                                                <del class="me-2 fs-5">$1,250.00</del>
+                                                <span class="text-primary fs-5">$1,050.00</span>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
+                                            <a href="#"
+                                                class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
+                                                    class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex">
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                                <div class="d-flex">
+                                                    <a href="#"
+                                                        class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                                            class="rounded-circle btn-sm-square border"><i
+                                                                class="fas fa-random"></i></i></a>
+                                                    <a href="#"
+                                                        class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                                            class="rounded-circle btn-sm-square border"><i
+                                                                class="fas fa-heart"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="product-item rounded wow fadeInUp" data-wow-delay="0.3s">
+                                        <div class="product-item-inner border rounded">
+                                            <div class="product-item-inner-item">
+                                                <img src="img/product-10.png" class="img-fluid w-100 rounded-top"
+                                                    alt="">
+                                                <div class="product-new">New</div>
+                                                <div class="product-details">
+                                                    <a href="#"><i class="fa fa-eye fa-1x"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="text-center rounded-bottom p-4">
+                                                <a href="#" class="d-block mb-2">SmartPhone</a>
+                                                <a href="#" class="d-block h4">Apple iPad Mini <br> G2356</a>
+                                                <del class="me-2 fs-5">$1,250.00</del>
+                                                <span class="text-primary fs-5">$1,050.00</span>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
+                                            <a href="#"
+                                                class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
+                                                    class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex">
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                                <div class="d-flex">
+                                                    <a href="#"
+                                                        class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                                            class="rounded-circle btn-sm-square border"><i
+                                                                class="fas fa-random"></i></i></a>
+                                                    <a href="#"
+                                                        class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                                            class="rounded-circle btn-sm-square border"><i
+                                                                class="fas fa-heart"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="product-item rounded wow fadeInUp" data-wow-delay="0.5s">
+                                        <div class="product-item-inner border rounded">
+                                            <div class="product-item-inner-item">
+                                                <img src="img/product-11.png" class="img-fluid w-100 rounded-top"
+                                                    alt="">
+                                                <div class="product-new">New</div>
+                                                <div class="product-details">
+                                                    <a href="#"><i class="fa fa-eye fa-1x"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="text-center rounded-bottom p-4">
+                                                <a href="#" class="d-block mb-2">SmartPhone</a>
+                                                <a href="#" class="d-block h4">Apple iPad Mini <br> G2356</a>
+                                                <del class="me-2 fs-5">$1,250.00</del>
+                                                <span class="text-primary fs-5">$1,050.00</span>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
+                                            <a href="#"
+                                                class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
+                                                    class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex">
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                                <div class="d-flex">
+                                                    <a href="#"
+                                                        class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                                            class="rounded-circle btn-sm-square border"><i
+                                                                class="fas fa-random"></i></i></a>
+                                                    <a href="#"
+                                                        class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                                            class="rounded-circle btn-sm-square border"><i
+                                                                class="fas fa-heart"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
+                                    <div class="pagination d-flex justify-content-center mt-5">
+                                        <a href="#" class="rounded">&laquo;</a>
+                                        <a href="#" class="active rounded">1</a>
+                                        <a href="#" class="rounded">2</a>
+                                        <a href="#" class="rounded">3</a>
+                                        <a href="#" class="rounded">4</a>
+                                        <a href="#" class="rounded">5</a>
+                                        <a href="#" class="rounded">6</a>
+                                        <a href="#" class="rounded">&raquo;</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="tab-6" class="products tab-pane fade show p-0">
+                            <div class="row g-4 products-mini">
+                                <div class="col-lg-6">
+                                    <div class="products-mini-item border">
+                                        <div class="row g-0">
+                                            <div class="col-5">
+                                                <div class="products-mini-img border-end h-100">
+                                                    <img src="img/product-3.png" class="img-fluid w-100 h-100"
+                                                        alt="Image">
+                                                    <div class="products-mini-icon rounded-circle bg-primary">
+                                                        <a href="#"><i class="fa fa-eye fa-1x text-white"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="products-mini-content p-3">
+                                                    <a href="#" class="d-block mb-2">SmartPhone</a>
+                                                    <a href="#" class="d-block h4">Apple iPad Mini <br> G2356</a>
+                                                    <del class="me-2 fs-5">$1,250.00</del>
+                                                    <span class="text-primary fs-5">$1,050.00</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="products-mini-add border p-3">
+                                            <a href="#"
+                                                class="btn btn-primary border-secondary rounded-pill py-2 px-4"><i
+                                                    class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
+                                            <div class="d-flex">
+                                                <a href="#"
+                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                                        class="rounded-circle btn-sm-square border"><i
+                                                            class="fas fa-random"></i></i></a>
+                                                <a href="#"
+                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                                        class="rounded-circle btn-sm-square border"><i
+                                                            class="fas fa-heart"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="products-mini-item border">
+                                        <div class="row g-0">
+                                            <div class="col-5">
+                                                <div class="products-mini-img border-end h-100">
+                                                    <img src="img/product-4.png" class="img-fluid w-100 h-100"
+                                                        alt="Image">
+                                                    <div class="products-mini-icon rounded-circle bg-primary">
+                                                        <a href="#"><i class="fa fa-eye fa-1x text-white"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="products-mini-content p-3">
+                                                    <a href="#" class="d-block mb-2">SmartPhone</a>
+                                                    <a href="#" class="d-block h4">Apple iPad Mini <br> G2356</a>
+                                                    <del class="me-2 fs-5">$1,250.00</del>
+                                                    <span class="text-primary fs-5">$1,050.00</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="products-mini-add border p-3">
+                                            <a href="#"
+                                                class="btn btn-primary border-secondary rounded-pill py-2 px-4"><i
+                                                    class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
+                                            <div class="d-flex">
+                                                <a href="#"
+                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                                        class="rounded-circle btn-sm-square border"><i
+                                                            class="fas fa-random"></i></i></a>
+                                                <a href="#"
+                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                                        class="rounded-circle btn-sm-square border"><i
+                                                            class="fas fa-heart"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="products-mini-item border">
+                                        <div class="row g-0">
+                                            <div class="col-5">
+                                                <div class="products-mini-img border-end h-100">
+                                                    <img src="img/product-5.png" class="img-fluid w-100 h-100"
+                                                        alt="Image">
+                                                    <div class="products-mini-icon rounded-circle bg-primary">
+                                                        <a href="#"><i class="fa fa-eye fa-1x text-white"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="products-mini-content p-3">
+                                                    <a href="#" class="d-block mb-2">SmartPhone</a>
+                                                    <a href="#" class="d-block h4">Apple iPad Mini <br> G2356</a>
+                                                    <del class="me-2 fs-5">$1,250.00</del>
+                                                    <span class="text-primary fs-5">$1,050.00</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="products-mini-add border p-3">
+                                            <a href="#"
+                                                class="btn btn-primary border-secondary rounded-pill py-2 px-4"><i
+                                                    class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
+                                            <div class="d-flex">
+                                                <a href="#"
+                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                                        class="rounded-circle btn-sm-square border"><i
+                                                            class="fas fa-random"></i></i></a>
+                                                <a href="#"
+                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                                        class="rounded-circle btn-sm-square border"><i
+                                                            class="fas fa-heart"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="products-mini-item border">
+                                        <div class="row g-0">
+                                            <div class="col-5">
+                                                <div class="products-mini-img border-end h-100">
+                                                    <img src="img/product-6.png" class="img-fluid w-100 h-100"
+                                                        alt="Image">
+                                                    <div class="products-mini-icon rounded-circle bg-primary">
+                                                        <a href="#"><i class="fa fa-eye fa-1x text-white"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="products-mini-content p-3">
+                                                    <a href="#" class="d-block mb-2">SmartPhone</a>
+                                                    <a href="#" class="d-block h4">Apple iPad Mini <br> G2356</a>
+                                                    <del class="me-2 fs-5">$1,250.00</del>
+                                                    <span class="text-primary fs-5">$1,050.00</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="products-mini-add border p-3">
+                                            <a href="#"
+                                                class="btn btn-primary border-secondary rounded-pill py-2 px-4"><i
+                                                    class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
+                                            <div class="d-flex">
+                                                <a href="#"
+                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                                        class="rounded-circle btn-sm-square border"><i
+                                                            class="fas fa-random"></i></i></a>
+                                                <a href="#"
+                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                                        class="rounded-circle btn-sm-square border"><i
+                                                            class="fas fa-heart"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="products-mini-item border">
+                                        <div class="row g-0">
+                                            <div class="col-5">
+                                                <div class="products-mini-img border-end h-100">
+                                                    <img src="img/product-7.png" class="img-fluid w-100 h-100"
+                                                        alt="Image">
+                                                    <div class="products-mini-icon rounded-circle bg-primary">
+                                                        <a href="#"><i class="fa fa-eye fa-1x text-white"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="products-mini-content p-3">
+                                                    <a href="#" class="d-block mb-2">SmartPhone</a>
+                                                    <a href="#" class="d-block h4">Apple iPad Mini <br> G2356</a>
+                                                    <del class="me-2 fs-5">$1,250.00</del>
+                                                    <span class="text-primary fs-5">$1,050.00</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="products-mini-add border p-3">
+                                            <a href="#"
+                                                class="btn btn-primary border-secondary rounded-pill py-2 px-4"><i
+                                                    class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
+                                            <div class="d-flex">
+                                                <a href="#"
+                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                                        class="rounded-circle btn-sm-square border"><i
+                                                            class="fas fa-random"></i></i></a>
+                                                <a href="#"
+                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                                        class="rounded-circle btn-sm-square border"><i
+                                                            class="fas fa-heart"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="products-mini-item border">
+                                        <div class="row g-0">
+                                            <div class="col-5">
+                                                <div class="products-mini-img border-end h-100">
+                                                    <img src="img/product-8.png" class="img-fluid w-100 h-100"
+                                                        alt="Image">
+                                                    <div class="products-mini-icon rounded-circle bg-primary">
+                                                        <a href="#"><i class="fa fa-eye fa-1x text-white"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="products-mini-content p-3">
+                                                    <a href="#" class="d-block mb-2">SmartPhone</a>
+                                                    <a href="#" class="d-block h4">Apple iPad Mini <br> G2356</a>
+                                                    <del class="me-2 fs-5">$1,250.00</del>
+                                                    <span class="text-primary fs-5">$1,050.00</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="products-mini-add border p-3">
+                                            <a href="#"
+                                                class="btn btn-primary border-secondary rounded-pill py-2 px-4"><i
+                                                    class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
+                                            <div class="d-flex">
+                                                <a href="#"
+                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                                        class="rounded-circle btn-sm-square border"><i
+                                                            class="fas fa-random"></i></i></a>
+                                                <a href="#"
+                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                                        class="rounded-circle btn-sm-square border"><i
+                                                            class="fas fa-heart"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="products-mini-item border">
+                                        <div class="row g-0">
+                                            <div class="col-5">
+                                                <div class="products-mini-img border-end h-100">
+                                                    <img src="img/product-9.png" class="img-fluid w-100 h-100"
+                                                        alt="Image">
+                                                    <div class="products-mini-icon rounded-circle bg-primary">
+                                                        <a href="#"><i class="fa fa-eye fa-1x text-white"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="products-mini-content p-3">
+                                                    <a href="#" class="d-block mb-2">SmartPhone</a>
+                                                    <a href="#" class="d-block h4">Apple iPad Mini <br> G2356</a>
+                                                    <del class="me-2 fs-5">$1,250.00</del>
+                                                    <span class="text-primary fs-5">$1,050.00</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="products-mini-add border p-3">
+                                            <a href="#"
+                                                class="btn btn-primary border-secondary rounded-pill py-2 px-4"><i
+                                                    class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
+                                            <div class="d-flex">
+                                                <a href="#"
+                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                                        class="rounded-circle btn-sm-square border"><i
+                                                            class="fas fa-random"></i></i></a>
+                                                <a href="#"
+                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                                        class="rounded-circle btn-sm-square border"><i
+                                                            class="fas fa-heart"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="products-mini-item border">
+                                        <div class="row g-0">
+                                            <div class="col-5">
+                                                <div class="products-mini-img border-end h-100">
+                                                    <img src="img/product-12.png" class="img-fluid w-100 h-100"
+                                                        alt="Image">
+                                                    <div class="products-mini-icon rounded-circle bg-primary">
+                                                        <a href="#"><i class="fa fa-eye fa-1x text-white"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="products-mini-content p-3">
+                                                    <a href="#" class="d-block mb-2">SmartPhone</a>
+                                                    <a href="#" class="d-block h4">Apple iPad Mini <br> G2356</a>
+                                                    <del class="me-2 fs-5">$1,250.00</del>
+                                                    <span class="text-primary fs-5">$1,050.00</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="products-mini-add border p-3">
+                                            <a href="#"
+                                                class="btn btn-primary border-secondary rounded-pill py-2 px-4"><i
+                                                    class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
+                                            <div class="d-flex">
+                                                <a href="#"
+                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                                        class="rounded-circle btn-sm-square border"><i
+                                                            class="fas fa-random"></i></i></a>
+                                                <a href="#"
+                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                                        class="rounded-circle btn-sm-square border"><i
+                                                            class="fas fa-heart"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="products-mini-item border">
+                                        <div class="row g-0">
+                                            <div class="col-5">
+                                                <div class="products-mini-img border-end h-100">
+                                                    <img src="img/product-13.png" class="img-fluid w-100 h-100"
+                                                        alt="Image">
+                                                    <div class="products-mini-icon rounded-circle bg-primary">
+                                                        <a href="#"><i class="fa fa-eye fa-1x text-white"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="products-mini-content p-3">
+                                                    <a href="#" class="d-block mb-2">SmartPhone</a>
+                                                    <a href="#" class="d-block h4">Apple iPad Mini <br> G2356</a>
+                                                    <del class="me-2 fs-5">$1,250.00</del>
+                                                    <span class="text-primary fs-5">$1,050.00</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="products-mini-add border p-3">
+                                            <a href="#"
+                                                class="btn btn-primary border-secondary rounded-pill py-2 px-4"><i
+                                                    class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
+                                            <div class="d-flex">
+                                                <a href="#"
+                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                                        class="rounded-circle btn-sm-square border"><i
+                                                            class="fas fa-random"></i></i></a>
+                                                <a href="#"
+                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                                        class="rounded-circle btn-sm-square border"><i
+                                                            class="fas fa-heart"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="products-mini-item border">
+                                        <div class="row g-0">
+                                            <div class="col-5">
+                                                <div class="products-mini-img border-end h-100">
+                                                    <img src="img/product-14.png" class="img-fluid w-100 h-100"
+                                                        alt="Image">
+                                                    <div class="products-mini-icon rounded-circle bg-primary">
+                                                        <a href="#"><i class="fa fa-eye fa-1x text-white"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="products-mini-content p-3">
+                                                    <a href="#" class="d-block mb-2">SmartPhone</a>
+                                                    <a href="#" class="d-block h4">Apple iPad Mini <br> G2356</a>
+                                                    <del class="me-2 fs-5">$1,250.00</del>
+                                                    <span class="text-primary fs-5">$1,050.00</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="products-mini-add border p-3">
+                                            <a href="#"
+                                                class="btn btn-primary border-secondary rounded-pill py-2 px-4"><i
+                                                    class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
+                                            <div class="d-flex">
+                                                <a href="#"
+                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                                        class="rounded-circle btn-sm-square border"><i
+                                                            class="fas fa-random"></i></i></a>
+                                                <a href="#"
+                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                                        class="rounded-circle btn-sm-square border"><i
+                                                            class="fas fa-heart"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="products-mini-item border">
+                                        <div class="row g-0">
+                                            <div class="col-5">
+                                                <div class="products-mini-img border-end h-100">
+                                                    <img src="img/product-15.png" class="img-fluid w-100 h-100"
+                                                        alt="Image">
+                                                    <div class="products-mini-icon rounded-circle bg-primary">
+                                                        <a href="#"><i class="fa fa-eye fa-1x text-white"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="products-mini-content p-3">
+                                                    <a href="#" class="d-block mb-2">SmartPhone</a>
+                                                    <a href="#" class="d-block h4">Apple iPad Mini <br> G2356</a>
+                                                    <del class="me-2 fs-5">$1,250.00</del>
+                                                    <span class="text-primary fs-5">$1,050.00</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="products-mini-add border p-3">
+                                            <a href="#"
+                                                class="btn btn-primary border-secondary rounded-pill py-2 px-4"><i
+                                                    class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
+                                            <div class="d-flex">
+                                                <a href="#"
+                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                                        class="rounded-circle btn-sm-square border"><i
+                                                            class="fas fa-random"></i></i></a>
+                                                <a href="#"
+                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                                        class="rounded-circle btn-sm-square border"><i
+                                                            class="fas fa-heart"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="products-mini-item border">
+                                        <div class="row g-0">
+                                            <div class="col-5">
+                                                <div class="products-mini-img border-end h-100">
+                                                    <img src="img/product-16.png" class="img-fluid w-100 h-100"
+                                                        alt="Image">
+                                                    <div class="products-mini-icon rounded-circle bg-primary">
+                                                        <a href="#"><i class="fa fa-eye fa-1x text-white"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="products-mini-content p-3">
+                                                    <a href="#" class="d-block mb-2">SmartPhone</a>
+                                                    <a href="#" class="d-block h4">Apple iPad Mini <br> G2356</a>
+                                                    <del class="me-2 fs-5">$1,250.00</del>
+                                                    <span class="text-primary fs-5">$1,050.00</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="products-mini-add border p-3">
+                                            <a href="#"
+                                                class="btn btn-primary border-secondary rounded-pill py-2 px-4"><i
+                                                    class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
+                                            <div class="d-flex">
+                                                <a href="#"
+                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                                        class="rounded-circle btn-sm-square border"><i
+                                                            class="fas fa-random"></i></i></a>
+                                                <a href="#"
+                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                                        class="rounded-circle btn-sm-square border"><i
+                                                            class="fas fa-heart"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
+                                    <div class="pagination d-flex justify-content-center mt-5">
+                                        <a href="#" class="rounded">&laquo;</a>
+                                        <a href="#" class="active rounded">1</a>
+                                        <a href="#" class="rounded">2</a>
+                                        <a href="#" class="rounded">3</a>
+                                        <a href="#" class="rounded">4</a>
+                                        <a href="#" class="rounded">5</a>
+                                        <a href="#" class="rounded">6</a>
+                                        <a href="#" class="rounded">&raquo;</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Shop Page End -->
+ <section id="cart-section" class="section">
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Shopping Cart</h1>
+            <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+                <li class="breadcrumb-item"><a href="#" onclick="showSection('home')">Home</a></li>
+                <li class="breadcrumb-item active text-white">Cart</li>
+            </ol>
+        </div>
+
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div id="cart-items-container">
+                    <div class="text-center py-5" id="empty-cart-message">
+                        <i class="fas fa-shopping-cart fa-4x text-muted mb-4"></i>
+                        <h3 class="text-muted">Your cart is empty</h3>
+                        <p class="text-muted">Add some products to your cart to see them here</p>
+                        <a href="#offset-printing-products" class="btn btn-primary mt-3" onclick="showSection('home')">Continue Shopping</a>
+                    </div>
+                </div>
+                
+                <div class="row mt-5" id="cart-actions" style="display: none;">
+                    <div class="col-md-8">
+                        <div class="d-flex">
+                            <input type="text" class="form-control me-2" placeholder="Coupon Code" id="coupon-code">
+                            <button class="btn btn-primary" onclick="applyCoupon()">Apply Coupon</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="bg-light rounded p-4">
+                            <h4 class="mb-4">Cart Total</h4>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span>Subtotal:</span>
+                                <span id="cart-subtotal">$0.00</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span>Shipping:</span>
+                                <span id="cart-shipping">$3.00</span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between mb-3">
+                                <strong>Total:</strong>
+                                <strong id="cart-total">$3.00</strong>
+                            </div>
+                            <button class="btn btn-primary w-100 mt-3" onclick="showSection('checkout')">Proceed to Checkout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="checkout-section" class="section">
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Checkout</h1>
+            <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+                <li class="breadcrumb-item"><a href="#" onclick="showSection('home')">Home</a></li>
+                <li class="breadcrumb-item"><a href="#" onclick="showSection('cart')">Cart</a></li>
+                <li class="breadcrumb-item active text-white">Checkout</li>
+            </ol>
+        </div>
+
+        <div class="container-fluid bg-light py-5">
+            <div class="container py-5">
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <ul class="nav nav-pills justify-content-center">
+                            <li class="nav-item mx-2">
+                                <a class="nav-link active" href="#" onclick="showCheckoutStep(1)">Billing Details</a>
+                            </li>
+                            <li class="nav-item mx-2">
+                                <a class="nav-link" href="#" onclick="showCheckoutStep(2)">Payment Method</a>
+                            </li>
+                            <li class="nav-item mx-2">
+                                <a class="nav-link" href="#" onclick="showCheckoutStep(3)">Order Review</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row g-5">
+                    <div class="col-lg-8">
+                        <div id="checkout-step-1" class="checkout-step active">
+                            <h3 class="mb-4">Billing Details</h3>
+                            <form id="billing-form">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">First Name *</label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Last Name *</label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Company Name</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Address *</label>
+                                        <input type="text" class="form-control" placeholder="House Number Street Name" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Town/City *</label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Postcode/Zip *</label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Phone *</label>
+                                        <input type="tel" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Email Address *</label>
+                                        <input type="email" class="form-control" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="create-account">
+                                            <label class="form-check-label" for="create-account">Create an account?</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="different-address">
+                                            <label class="form-check-label" for="different-address">Ship to a different address?</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Order Notes (Optional)</label>
+                                        <textarea class="form-control" rows="4" placeholder="Notes about your order"></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="button" class="btn btn-primary" onclick="showCheckoutStep(2)">Continue to Payment</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div id="checkout-step-2" class="checkout-step">
+                            <h3 class="mb-4">Payment Method</h3>
+                            <div class="mb-4">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="radio" name="payment-method" id="bank-transfer" checked>
+                                    <label class="form-check-label" for="bank-transfer">
+                                        Direct Bank Transfer
+                                    </label>
+                                </div>
+                                <p class="ps-4 text-muted">Make your payment directly into our bank account. Please use your Order ID as the payment reference.</p>
+                                
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="radio" name="payment-method" id="check-payments">
+                                    <label class="form-check-label" for="check-payments">
+                                        Check Payments
+                                    </label>
+                                </div>
+                                
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="radio" name="payment-method" id="cash-on-delivery">
+                                    <label class="form-check-label" for="cash-on-delivery">
+                                        Cash on Delivery
+                                    </label>
+                                </div>
+                                
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="radio" name="payment-method" id="paypal">
+                                    <label class="form-check-label" for="paypal">
+                                        PayPal
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-secondary" onclick="showCheckoutStep(1)">Back</button>
+                                <button type="button" class="btn btn-primary" onclick="showCheckoutStep(3)">Continue to Review</button>
+                            </div>
+                        </div>
+
+                        <div id="checkout-step-3" class="checkout-step">
+                            <h3 class="mb-4">Order Review</h3>
+                            <div class="mb-4">
+                                <h5>Billing Details</h5>
+                                <div id="billing-details-review" class="bg-light p-3 rounded">
+                                    </div>
+                            </div>
+                            <div class="mb-4">
+                                <h5>Payment Method</h5>
+                                <div id="payment-method-review" class="bg-light p-3 rounded">
+                                    </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-secondary" onclick="showCheckoutStep(2)">Back</button>
+                                <button type="button" class="btn btn-primary" onclick="placeOrder()">Place Order</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="bg-white rounded p-4 sticky-top" style="top: 100px;">
+                            <h4 class="mb-4">Order Summary</h4>
+                            <div id="checkout-order-items">
+                                </div>
+                            <div class="d-flex justify-content-between mt-3">
+                                <span>Subtotal:</span>
+                                <span id="checkout-subtotal">$0.00</span>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <span>Shipping:</span>
+                                <span id="checkout-shipping">$3.00</span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between mt-2">
+                                <strong>Total:</strong>
+                                <strong id="checkout-total">$3.00</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact-section" class="section">
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Contact Us</h1>
+            <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+                <li class="breadcrumb-item"><a href="#" onclick="showSection('home')">Home</a></li>
+                <li class="breadcrumb-item active text-white">Contact</li>
+            </ol>
+        </div>
+
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div class="row g-4">
+                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="bg-light p-4 rounded">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
+                                    style="width: 60px; height: 60px;">
+                                    <i class="fa fa-map-marker-alt text-primary fs-4"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <h5 class="mb-2">Our Location</h5>
+                                    <p class="mb-0">Domela Chowk,Tanda Road, Jalalpur Jattan</p>
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
+                                    style="width: 60px; height: 60px;">
+                                    <i class="fa fa-phone-alt text-primary fs-4"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <h5 class="mb-2">Call Us</h5>
+                                    <p class="mb-0">+92 300 6238233</p>
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex align-items-center">
+                                <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
+                                    style="width: 60px; height: 60px;">
+                                    <i class="fa fa-envelope text-primary fs-4"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <h5 class="mb-2">Email Us</h5>
+                                    <p class="mb-0">info@arhamprinters.pk</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="bg-light p-4 rounded">
+                            <form id="contact-form">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border-0" id="name" placeholder="Your Name" required>
+                                            <label for="name">Your Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="email" class="form-control border-0" id="email" placeholder="Your Email" required>
+                                            <label for="email">Your Email</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border-0" id="subject" placeholder="Subject" required>
+                                            <label for="subject">Subject</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <textarea class="form-control border-0" placeholder="Leave a message here" id="message" style="height: 150px" required></textarea>
+                                            <label for="message">Message</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="btn btn-primary w-100 py-3" type="submit">Send Message</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+        <div class="container-fluid copyright">
+            <div class="container">
+                <div class="row">
+                   <div class="col-12 text-center mb-3 mb-md-0">
+                        <span class="text-white">
+                    <a href="#" class="text-white">
+                        <i class="fas fa-copyright text-light me-2"></i>
+                        Arham Printers
+                    </a>, All rights reserved 2025.
+                </span>
+                    </div>
+                                    </div>
+            </div>
+        </div>
+    </div>
+<!-- Footer Start -->
+    <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
+        <div class="container py-5">
+            <div class="row g-4 rounded mb-5" style="background: rgba(255, 255, 255, .03);">
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="rounded p-4">
+                        <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
+                            style="width: 70px; height: 70px;">
+                            <i class="fas fa-map-marker-alt fa-2x text-primary"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white">Address</h4>
+                            <p class="mb-2">123 Street New York.USA</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="rounded p-4">
+                        <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
+                            style="width: 70px; height: 70px;">
+                            <i class="fas fa-envelope fa-2x text-primary"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white">Mail Us</h4>
+                            <p class="mb-2">info@example.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="rounded p-4">
+                        <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
+                            style="width: 70px; height: 70px;">
+                            <i class="fa fa-phone-alt fa-2x text-primary"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white">Telephone</h4>
+                            <p class="mb-2">(+012) 3456 7890</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="rounded p-4">
+                        <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
+                            style="width: 70px; height: 70px;">
+                            <i class="fab fa-firefox-browser fa-2x text-primary"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white">Yoursite@ex.com</h4>
+                            <p class="mb-2">(+012) 3456 7890</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid copyright">
+            <div class="container">
+                <div class="row">
+                   <div class="col-12 text-center mb-3 mb-md-0">
+                        <span class="text-white">
+                    <a href="#" class="text-white">
+                        <i class="fas fa-copyright text-light me-2"></i>
+                        Arham Printers
+                    </a>, All rights reserved 2025.
+                </span>
+                    </div>
+                                    </div>
+            </div>
+        </div>
+    
+    <a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+    // --- Configuration ---
+    const PUBLIC_DATA_URL = 'customer-data.json'; 
+    let allProducts = {};
+    let cart = [];
+
+    // --- NEW FUNCTIONS FOR OPTIONS AND ADD TO CART (Defined first to ensure global accessibility for inline calls) ---
+
+    // Helper function to update the price display on selection
+    function updatePriceDisplay(priceElementId, priceValue) {
+        const priceElement = document.getElementById(priceElementId);
+        if (priceElement) {
+            const formattedPrice = parseFloat(priceValue).toLocaleString('en-PK', { style: 'currency', currency: 'PKR', minimumFractionDigits: 0 });
+            priceElement.innerText = `Price: ${formattedPrice}`;
+        }
+    }
+
+    // New Function for Products with Options (Reads selection and adds to cart)
+    function addToCartWithOptions(productName, selectElementId) {
+        // Dependencies: cart, allProducts, showAlert, updateCartBadge
+        const selectElement = document.getElementById(selectElementId);
+        if (!selectElement || selectElement.value === 'Select an item') {
+            showAlert('Please select a specific option first.', 'error');
+            return;
+        }
+
+        const selectedPrice = parseFloat(selectElement.value);
+        const selectedOptionText = selectElement.options[selectElement.selectedIndex].text;
+        
+        // Use the selected text as the full name for the cart item (cleaning up the price part)
+        const fullName = selectedOptionText.replace(/ - PKR \d+[\.,]?\d*$/, '').trim(); 
+
+        const productBase = allProducts[productName] || {};
+
+        const existingItem = cart.find(item => item.name === fullName);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+                name: fullName,
+                price: selectedPrice,
+                imageFile: productBase.imageFile || 'placeholder.jpg',
+                quantity: 1
+            });
+        }
+        
+        updateCartBadge();
+        showAlert(`'${fullName}' added to cart!`, 'success');
+    }
+
+    // --- Core Functions (Retained original logic) ---
+
+    async function fetchAndRenderProducts() {
+        let categories;
+        try {
+            const response = await fetch(PUBLIC_DATA_URL);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            categories = data.categories;
+        } catch (error) {
+            console.error("Failed to fetch or parse shop data:", error);
+            return;
+        }
+
+        // We need this loop to populate the allProducts object for the cart/checkout functions
+        for (const categoryKey in categories) {
+            const category = categories[categoryKey];
+            for (const subcategoryKey in category) {
+                const subcategory = category[subcategoryKey];
+                for (const itemName in subcategory) {
+                    const item = subcategory[itemName];
+                    
+                    allProducts[itemName] = {
+                        name: itemName,
+                        price: item.basePrice,
+                        unit: item.unit,
+                        category: categoryKey,
+                        subcategory: subcategoryKey,
+                        imageFile: item.imageFile || 'placeholder.jpg'
+                    };
+                }
+            }
+        }
+        
+        if (typeof WOW !== 'undefined') { new WOW().init(); }
+    }
+
+
+    function showSection(sectionName) {
+        document.querySelectorAll('.section').forEach(section => {
+            section.classList.remove('active');
+        });
+        
+        document.getElementById(sectionName + '-section').classList.add('active');
+        
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+        });
+        
+        window.scrollTo(0, 0);
+        
+        if (sectionName === 'cart') {
+            updateCartDisplay();
+        }
+        
+        if (sectionName === 'checkout') {
+            showCheckoutStep(1); 
+            updateCheckoutDisplay();
+        }
+        
+        if (sectionName === 'home') {
+             document.querySelector('.nav-item.nav-link[href="#home-section"]').classList.add('active');
+        } else {
+             document.querySelector(`.nav-item.nav-link[onclick="showSection('${sectionName}')"]`)?.classList.add('active');
+        }
+    }
+    
+    // Original addToCart function is no longer used for the static cards with options, but kept for legacy/placeholder logic.
+    function addToCart(name) {
+        const product = allProducts[name];
+        if (!product) {
+            showAlert('Error: Product not found in data.', 'error');
+            return;
+        }
+
+        const existingItem = cart.find(item => item.name === name);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+                name: product.name,
+                price: product.price,
+                imageFile: product.imageFile,
+                quantity: 1
+            });
+        }
+        
+        updateCartBadge();
+        showAlert('Product added to cart!', 'success');
+    }
+    
+    function updateCartBadge() {
+        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+        document.getElementById('cartBadge').textContent = totalItems;
+    }
+    
+    function updateCartDisplay() {
+        const container = document.getElementById('cart-items-container');
+        const actions = document.getElementById('cart-actions');
+        const emptyMessage = document.getElementById('empty-cart-message');
+        
+        if (cart.length === 0) {
+            emptyMessage.style.display = 'block';
+            actions.style.display = 'none';
+            container.innerHTML = '';
+            container.appendChild(emptyMessage);
+            return;
+        }
+        
+        emptyMessage.style.display = 'none';
+        actions.style.display = 'flex';
+        
+        let html = '';
+        let subtotal = 0;
+        
+        cart.forEach((item, index) => {
+            const itemTotal = item.price * item.quantity;
+            subtotal += itemTotal;
+            
+            const priceFormatted = item.price.toLocaleString('en-PK', { style: 'currency', currency: 'PKR', minimumFractionDigits: 0 });
+            const totalFormatted = itemTotal.toLocaleString('en-PK', { style: 'currency', currency: 'PKR', minimumFractionDigits: 0 });
+            
+            html += `
+            <div class="cart-item border rounded p-3 mb-3" id="cart-item-${index}">
+                <div class="row align-items-center">
+                    <div class="col-md-2">
+                        <img src="img/products/${item.imageFile || 'placeholder.jpg'}" class="img-fluid w-100 rounded-top" alt="${item.name}">
+                    </div>
+                    <div class="col-md-4">
+                        <h5 class="mb-1">${item.name}</h5>
+                        <p class="mb-0 text-muted">${priceFormatted}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <button class="btn btn-outline-secondary" type="button" onclick="updateQuantity(${index}, -1)">-</button>
+                            <input type="text" class="form-control text-center product-quantity" value="${item.quantity}" readonly>
+                            <button class="btn btn-outline-secondary" type="button" onclick="updateQuantity(${index}, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <h5 class="mb-0">${totalFormatted}</h5>
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-link text-danger" onclick="removeFromCart(${index})">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            `;
+        });
+        
+        container.innerHTML = html;
+        
+        const shipping = 300.00; 
+        const total = subtotal + shipping;
+        
+        document.getElementById('cart-subtotal').textContent = subtotal.toLocaleString('en-PK', { style: 'currency', currency: 'PKR', minimumFractionDigits: 0 });
+        document.getElementById('cart-total').textContent = total.toLocaleString('en-PK', { style: 'currency', currency: 'PKR', minimumFractionDigits: 0 });
+        document.getElementById('cart-shipping').textContent = shipping.toLocaleString('en-PK', { style: 'currency', currency: 'PKR', minimumFractionDigits: 0 });
+    }
+    
+    function updateQuantity(index, change) {
+        if (cart[index].quantity + change > 0) {
+            cart[index].quantity += change;
+            updateCartDisplay();
+            updateCartBadge();
+        }
+    }
+    
+    function removeFromCart(index) {
+        const itemElement = document.getElementById(`cart-item-${index}`);
+        itemElement.classList.add('removing');
+        
+        setTimeout(() => {
+            cart.splice(index, 1);
+            updateCartDisplay();
+            updateCartBadge();
+            showAlert('Product removed from cart', 'info');
+        }, 300);
+    }
+    
+    function applyCoupon() {
+        const couponCode = document.getElementById('coupon-code').value;
+        if (couponCode.toUpperCase() === 'SAVE10') {
+            showAlert('Coupon applied! 10% discount added.', 'success');
+            updateCartDisplay();
+        } else {
+            showAlert('Invalid coupon code', 'error');
+        }
+    }
+    
+    function showCheckoutStep(step) {
+        document.querySelectorAll('.checkout-step').forEach(step => {
+            step.classList.remove('active');
+        });
+        
+        document.getElementById(`checkout-step-${step}`).classList.add('active');
+        
+        updateCheckoutDisplay();
+    }
+    
+    function updateCheckoutDisplay() {
+        const container = document.getElementById('checkout-order-items');
+        let html = '';
+        let subtotal = 0;
+        
+        cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            subtotal += itemTotal;
+            
+            const totalFormatted = itemTotal.toLocaleString('en-PK', { style: 'currency', currency: 'PKR', minimumFractionDigits: 0 });
+
+            html += `
+            <div class="order-summary-item">
+                <div class="d-flex justify-content-between">
+                    <span>${item.name} x ${item.quantity}</span>
+                    <span>${totalFormatted}</span>
+                </div>
+            </div>
+            `;
+        });
+        
+        container.innerHTML = html;
+        
+        const shipping = 300.00;
+        const total = subtotal + shipping;
+        
+        document.getElementById('checkout-subtotal').textContent = subtotal.toLocaleString('en-PK', { style: 'currency', currency: 'PKR', minimumFractionDigits: 0 });
+        document.getElementById('checkout-total').textContent = total.toLocaleString('en-PK', { style: 'currency', currency: 'PKR', minimumFractionDigits: 0 });
+        document.getElementById('checkout-shipping').textContent = shipping.toLocaleString('en-PK', { style: 'currency', currency: 'PKR', minimumFractionDigits: 0 });
+    }
+    
+    function placeOrder() {
+        if (cart.length === 0) {
+            showAlert('Your cart is empty', 'error');
+            return;
+        }
+        
+        showAlert('Order placed successfully! Thank you for your purchase.', 'success');
+        
+        cart = [];
+        updateCartBadge();
+        
+        setTimeout(() => {
+            showSection('home');
+        }, 3000);
+    }
+    
+    function subscribeNewsletter() {
+        const email = document.getElementById('newsletter-email').value;
+        if (email && validateEmail(email)) {
+            showAlert('Thank you for subscribing to our newsletter!', 'success');
+            document.getElementById('newsletter-email').value = '';
+        } else {
+            showAlert('Please enter a valid email address', 'error');
+        }
+    }
+    
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        showAlert('Your message has been sent successfully! We will get back to you soon.', 'success');
+        this.reset();
+    });
+    
+    function showAlert(message, type) {
+        const alert = document.createElement('div');
+        alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
+        alert.style.top = '20px';
+        alert.style.right = '20px';
+        alert.style.zIndex = '9999';
+        alert.style.minWidth = '300px';
+        alert.innerHTML = `
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        document.body.appendChild(alert);
+        
+        setTimeout(() => {
+            if (alert.parentNode) {
+                alert.parentNode.removeChild(alert);
+            }
+        }, 5000);
+    }
+    
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+        updateCartBadge();
+        fetchAndRenderProducts(); 
+        new WOW().init();
+    });
+</script>
+</body>
+
+</html>
