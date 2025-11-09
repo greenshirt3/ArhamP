@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>All Products - Arham Printers</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Full catalog of printing and advertising products from Arham Printers." name="description">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        /* Ensuring primary colors are available for consistency */
+        :root {
+            --bs-primary: #f28b00; 
+            --bs-secondary: #0087a3; 
+        }
+        .product-section {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        .product-section:last-child {
+            border-bottom: none;
+        }
+        .category-title {
+            border-left: 5px solid var(--bs-primary);
+            padding-left: 15px;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            color: var(--bs-dark);
+        }
+        .product-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .mobile-product-grid {
+            /* On mobile, ensures 3 products per row (33.33% width) */
+            --bs-gutter-x: 0.5rem; /* Reduce spacing on mobile */
+        }
+        @media (max-width: 575.98px) {
+            .mobile-product-grid > * {
+                flex: 0 0 auto;
+                width: 33.333333%; 
+            }
+            .product-card .card-title {
+                font-size: 0.7rem; 
+                margin-bottom: 0.2rem;
+            }
+            .product-card .card-text {
+                font-size: 0.6rem; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5">
+        </nav>
+    <div class="container-fluid page-header py-5 mb-5" style="background-color: var(--bs-secondary);">
+        <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Our Product Catalog</h1>
+        <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active text-white">Products</li>
+        </ol>
+    </div>
+    <div class="container py-5">
+        <div id="product-catalog-display">
+            <h2 class="text-center text-muted">Loading Products...</h2>
+        </div>
+    </div>
+    <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
+        </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
