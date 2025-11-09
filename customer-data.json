@@ -2,7 +2,7 @@
   "calculatorData": {
     "items": [
       
-      /* --- Business Essentials --- */
+     
       { "mainCategory": "Business Essentials", "subcategory": "LetterPads", "itemName": "LetterPad 68g A4, Single Color", "price": 4000 },
       { "mainCategory": "Business Essentials", "subcategory": "LetterPads", "itemName": "LetterPad 80g A4, 4 Color", "price": 5400 },
       { "mainCategory": "Business Essentials", "subcategory": "Envelop", "itemName": "Envelop 9x4, 80g, Single Color", "price": 4500 },
@@ -10,7 +10,7 @@
       { "mainCategory": "Business Essentials", "subcategory": "Visiting Cards", "itemName": "Mat Card Double Round", "price": 1600 },
       { "mainCategory": "Business Essentials", "subcategory": "Visiting Cards", "itemName": "UV Vard Pasting Premium", "price": 3500 },
       
-      /* --- Office Essentials --- */
+      
       { "mainCategory": "Office Essentials", "subcategory": "Bill Books", "itemName": "Bill Books A4/2, 68g, Single Color", "price": 2000 },
       { "mainCategory": "Office Essentials", "subcategory": "Bill Books", "itemName": "Bill Book Carbonless 8.5x5.75", "price": 3200 },
       { "mainCategory": "Office Essentials", "subcategory": "Receipt Book", "itemName": "Receipt Book 9x3.5, 80g, 4 Color", "price": 2800 },
@@ -18,7 +18,7 @@
       { "mainCategory": "Office Essentials", "subcategory": "Pencil Trays", "itemName": "Pencil Tray Wooden", "price": 100 },
       { "mainCategory": "Office Essentials", "subcategory": "Folders", "itemName": "Standard Folder Art Card", "price": 150 },
       
-      /* --- Marketing Essentials --- */
+      
       { "mainCategory": "Marketing Essentials", "subcategory": "Ishtihar", "itemName": "Ishtihar 68g A4, Single Color", "price": 2200 },
       { "mainCategory": "Marketing Essentials", "subcategory": "Ishtihar", "itemName": "Ishtihar 80g A4/2, 4 Color", "price": 2700 },
       { "mainCategory": "Marketing Essentials", "subcategory": "Pamphlet/Menu", "itemName": "Pamphlet/Menu 90g Art Paper, Single Sided, 4 Color", "price": 5400 },
@@ -38,22 +38,22 @@
         "isAreaBased": true
       },
       
-      /* --- Digital Printing --- */
+      
       { "mainCategory": "Digital Printing", "subcategory": "Sticker Print", "itemName": "Sticker 3.5x4", "price": 1600 },
       { "mainCategory": "Digital Printing", "subcategory": "Design Only", "itemName": "Social Media Posts (Single Design)", "price": 400 },
       { "mainCategory": "Digital Printing", "subcategory": "PVC Cards", "itemName": "PVC Card 10", "price": 100 },
 
-      /* --- Photo Printing --- */
+      
       { "mainCategory": "Photo Printing", "subcategory": "Photo Print", "itemName": "A4 Photo 1 Sided", "price": 100 },
       { "mainCategory": "Photo Printing", "subcategory": "Photo Frames", "itemName": "Photo+Frame 8x12", "price": 450 },
       
-      /* --- Promotional Items --- */
+      
       { "mainCategory": "Promotional Items", "subcategory": "Mugs", "itemName": "Magic Mug", "price": 500 },
       { "mainCategory": "Promotional Items", "subcategory": "Shirts", "itemName": "White Shirt S,M,L (Cotton)", "price": 750 },
       { "mainCategory": "Promotional Items", "subcategory": "Caps", "itemName": "Color P Cap", "price": 250 },
       { "mainCategory": "Promotional Items", "subcategory": "Badges", "itemName": "Badges Minimum 50", "price": 50 },
 
-      /* --- Shields, Souvenirs, Flags, Box Packaging, Wallpaper (New Categories) --- */
+     
       { 
         "mainCategory": "Shields", 
         "subcategory": "Wooden Shields", 
@@ -87,7 +87,7 @@
         "minArea": 100
       },
       
-      /* --- DESIGN TIER METADATA (Required by index.html JS logic) --- */
+      
       {
         "mainCategory": "System Data",
         "subcategory": "PanaflexDesignTiers",
