@@ -1,6 +1,17 @@
 (function ($) {
     "use strict";
 
+    // --- GLOBAL CONFIGURATION ---
+    const WHATSAPP_NUMBER = '923006238233'; // Your WhatsApp Number (Used across all submission handlers)
+
+    // Function to generate a unique, user-facing order ID
+    // This is used for all custom orders and quote requests to ensure tracking consistency.
+    function generateOrderId() {
+        var timestamp = new Date().getTime().toString().slice(-6);
+        var random = Math.random().toString(36).substring(2, 5).toUpperCase();
+        return 'P-' + timestamp + '-' + random;
+    }
+    
     // --- EXISTING ARHAM PRINTERS SITE LOGIC ---
 
     // Spinner
@@ -177,23 +188,22 @@
 
     // --- NEW PRINT ORDER LOGIC ---
     
-    const WHATSAPP_NUMBER = '923006238233'; // Your WhatsApp Number (NO plus or spaces)
-
     // Wait for the document to be fully ready
     $(document).ready(function() {
-        // Check if the current page is the print order form by looking for the form ID
+        // Set year in footer
+        $('#currentYear').text(new Date().getFullYear());
+        
+        // Check if the current page is the print order form
         if ($('#printOrderForm').length) {
             initializePrintOrderForm();
         }
+        
+        // Attach universal handlers to forms in index.html
+        $('#quote-form').on('submit', handleQuoteSubmission);
+        $('#contact-form-whatsapp').on('submit', handleContactSubmission);
     });
 
     function initializePrintOrderForm() {
-        // Set the current year in the footer
-        var currentYearElement = $('#currentYear');
-        if (currentYearElement.length) {
-            currentYearElement.text(new Date().getFullYear());
-        }
-
         // Set the unique order ID
         var orderIdInput = $('#orderId');
         if (orderIdInput.length) {
@@ -205,13 +215,6 @@
         
         // Attach listener to update price whenever an option changes
         $('#printOrderForm').on('change', updatePrice);
-    }
-
-    // Function to generate a unique, user-facing order ID
-    function generateOrderId() {
-        var timestamp = new Date().getTime().toString().slice(-6);
-        var random = Math.random().toString(36).substring(2, 5).toUpperCase();
-        return 'P-' + timestamp + '-' + random;
     }
 
     // Function to update the estimated price based on selections
@@ -240,7 +243,9 @@
         }
     }
 
-    // --- WhatsApp Submission Handler ---
+    // --- WhatsApp Submission Handlers ---
+
+    // 1. Handler for the new Print Order Page (print-order.html)
     window.handlePrintOrderSubmission = function(e) {
         e.preventDefault();
 
@@ -286,6 +291,54 @@
         // 3. Encode and Redirect
         var whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
         window.open(whatsappLink, '_blank');
+    }
+    
+    // 2. Handler for the Get Custom Quote Form (index.html)
+    function handleQuoteSubmission(e) {
+        e.preventDefault();
+        
+        // Generate universal ID for tracking
+        var orderId = generateOrderId();
+        
+        var name = $('#quote-name').val();
+        var phone = $('#quote-phone').val();
+        var product = $('#quote-product').val();
+        var quantity = $('#quote-quantity').val();
+        var details = $('#quote-details').val();
+        
+        var whatsappMessage = `*NEW ARHAM QUOTE REQUEST (WEB)*\n`;
+        whatsappMessage += `*Order ID:* ${orderId}\n`;
+        whatsappMessage += `*Customer:* ${name}\n`;
+        whatsappMessage += `*Phone (Contact):* ${phone}\n`;
+        whatsappMessage += `*Product Type:* ${product}\n`;
+        whatsappMessage += `*Quantity/Area:* ${quantity}\n`;
+        whatsappMessage += `*Specifications:* ${details}`;
+        
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+
+        // Optional: Add a success message (if your site supports it)
+        // showAlert('Quote submitted via WhatsApp! We will contact you shortly.', 'success');
+        $('#quote-form').trigger('reset');
+    }
+    
+    // 3. Handler for the Contact Form (index.html)
+    function handleContactSubmission(e) {
+        e.preventDefault();
+        
+        var name = $('#contact-name').val();
+        var subject = $('#contact-subject').val();
+        var message = $('#contact-message').val();
+
+        var whatsappMessage = `*NEW ARHAM CONTACT MESSAGE (WEB)*\n`;
+        whatsappMessage += `*Sender:* ${name}\n`;
+        whatsappMessage += `*Subject:* ${subject}\n`;
+        whatsappMessage += `*Message:* ${message}`;
+        
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+
+        // Optional: Add a success message
+        // showAlert('Message sent via WhatsApp!', 'success');
+        $('#contact-form-whatsapp').trigger('reset');
     }
 
 })(jQuery);
