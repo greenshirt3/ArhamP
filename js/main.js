@@ -5,14 +5,14 @@
     const WHATSAPP_NUMBER = '923006238233'; // Your WhatsApp Number (Used across all submission handlers)
 
     // Function to generate a unique, user-facing order ID
-    // This is used for all custom orders and quote requests to ensure tracking consistency.
+    // Used for all custom orders and quote requests to ensure tracking consistency.
     function generateOrderId() {
         var timestamp = new Date().getTime().toString().slice(-6);
         var random = Math.random().toString(36).substring(2, 5).toUpperCase();
         return 'P-' + timestamp + '-' + random;
     }
-    
-    // --- EXISTING ARHAM PRINTERS SITE LOGIC ---
+
+    // --- EXISTING ARHAM PRINTERS SITE LOGIC (LAYOUT & CAROUSELS) ---
 
     // Spinner
     var spinner = function () {
