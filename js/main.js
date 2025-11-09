@@ -1,6 +1,8 @@
 (function ($) {
     "use strict";
 
+    // --- EXISTING ARHAM PRINTERS SITE LOGIC ---
+
     // Spinner
     var spinner = function () {
         setTimeout(function () {
@@ -173,7 +175,117 @@
     });
 
 
-   
+    // --- NEW PRINT ORDER LOGIC ---
+    
+    const WHATSAPP_NUMBER = '923006238233'; // Your WhatsApp Number (NO plus or spaces)
+
+    // Wait for the document to be fully ready
+    $(document).ready(function() {
+        // Check if the current page is the print order form by looking for the form ID
+        if ($('#printOrderForm').length) {
+            initializePrintOrderForm();
+        }
+    });
+
+    function initializePrintOrderForm() {
+        // Set the current year in the footer
+        var currentYearElement = $('#currentYear');
+        if (currentYearElement.length) {
+            currentYearElement.text(new Date().getFullYear());
+        }
+
+        // Set the unique order ID
+        var orderIdInput = $('#orderId');
+        if (orderIdInput.length) {
+            orderIdInput.val(generateOrderId());
+        }
+        
+        // Calculate and display initial price
+        updatePrice();
+        
+        // Attach listener to update price whenever an option changes
+        $('#printOrderForm').on('change', updatePrice);
+    }
+
+    // Function to generate a unique, user-facing order ID
+    function generateOrderId() {
+        var timestamp = new Date().getTime().toString().slice(-6);
+        var random = Math.random().toString(36).substring(2, 5).toUpperCase();
+        return 'P-' + timestamp + '-' + random;
+    }
+
+    // Function to update the estimated price based on selections
+    function updatePrice() {
+        // This is a client-side PLACEHOLDER for visual feedback only.
+        
+        var quantityInput = $('#quantity');
+        if (!quantityInput.length) return;
+
+        var quantity = parseInt(quantityInput.val()) || 1;
+        var size = $('input[name="size"]:checked').val() || 'A4';
+        var color = $('input[name="color"]:checked').val() || 'B&W';
+        
+        // Base rate logic (simplified for placeholder)
+        var baseRate = (size === 'A4') ? 0.15 : 0.35; // Base price per sheet
+        if (color === 'Colour') {
+            baseRate *= 3; // Color costs more
+        }
+        
+        var fixedFee = 2.50; // Standard service fee
+        var calculatedPrice = (baseRate * quantity) + fixedFee; 
+        
+        var totalPriceElement = $('#totalPrice');
+        if (totalPriceElement.length) {
+            totalPriceElement.text('£' + calculatedPrice.toFixed(2));
+        }
+    }
+
+    // --- WhatsApp Submission Handler ---
+    window.handlePrintOrderSubmission = function(e) {
+        e.preventDefault();
+
+        // 1. Collect all data
+        var orderId = $('#orderId').val();
+        var customerName = $('#customerName').val();
+        var customerEmail = $('#customerEmail').val() || 'N/A';
+        var totalPrice = $('#totalPrice').text();
+
+        var printDetails = {
+            'ID': orderId,
+            'Name': customerName,
+            'Email': customerEmail,
+            'Colour': $('input[name="color"]:checked').val(),
+            'Siding': $('input[name="siding"]:checked').val(),
+            'Size': $('input[name="size"]:checked').val(),
+            'Paper Type': $('#paperType').val(),
+            'Quantity': $('#quantity').val(),
+            'Binding': $('#binding').val(),
+            'Lamination': $('input[name="lamination"]:checked').val()
+        };
+
+        // 2. Construct the WhatsApp Message
+        var message = `*NEW ARHAM PRINT ORDER (WEB)* 🚀\n`;
+        message += `-------------------------------------------\n`;
+        message += `*Order ID:* ${printDetails.ID}\n`;
+        message += `*Customer:* ${printDetails.Name}\n`;
+        message += `*Email:* ${printDetails.Email}\n`;
+        message += `-------------------------------------------\n`;
+        message += `*ORDER DETAILS:*\n`;
+        message += `\n*Colour:* ${printDetails.Colour}`;
+        message += `\n*Siding:* ${printDetails.Siding}`;
+        message += `\n*Size:* ${printDetails.Size}`;
+        message += `\n*Paper:* ${printDetails['Paper Type']}`;
+        message += `\n*Quantity:* ${printDetails.Quantity} copies`;
+        message += `\n*Binding:* ${printDetails.Binding}`;
+        message += `\n*Lamination:* ${printDetails.Lamination}`;
+        message += `\n\n*EST. PRICE:* ${totalPrice}`;
+        message += `\n-------------------------------------------\n`;
+        message += `*ACTION REQUIRED:* Please reply to this message with your DOCUMENT/PHOTO FILES attached immediately to confirm and proceed with printing!`;
+
+
+        // 3. Encode and Redirect
+        var whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+        window.open(whatsappLink, '_blank');
+    }
 
 })(jQuery);
-
