@@ -1,19 +1,85 @@
 {
   "calculatorData": {
     "items": [
-       {
+      
+      /* --- Business Essentials --- */
+      { "mainCategory": "Business Essentials", "subcategory": "LetterPads", "itemName": "LetterPad 68g A4, Single Color", "price": 4000 },
+      { "mainCategory": "Business Essentials", "subcategory": "LetterPads", "itemName": "LetterPad 80g A4, 4 Color", "price": 5400 },
+      { "mainCategory": "Business Essentials", "subcategory": "Envelop", "itemName": "Envelop 9x4, 80g, Single Color", "price": 4500 },
+      { "mainCategory": "Business Essentials", "subcategory": "Envelop", "itemName": "Envelop 9x4, 80g, 4 Color", "price": 6000 },
+      { "mainCategory": "Business Essentials", "subcategory": "Visiting Cards", "itemName": "Mat Card Double Round", "price": 1600 },
+      { "mainCategory": "Business Essentials", "subcategory": "Visiting Cards", "itemName": "UV Vard Pasting Premium", "price": 3500 },
+      
+      /* --- Office Essentials --- */
+      { "mainCategory": "Office Essentials", "subcategory": "Bill Books", "itemName": "Bill Books A4/2, 68g, Single Color", "price": 2000 },
+      { "mainCategory": "Office Essentials", "subcategory": "Bill Books", "itemName": "Bill Book Carbonless 8.5x5.75", "price": 3200 },
+      { "mainCategory": "Office Essentials", "subcategory": "Receipt Book", "itemName": "Receipt Book 9x3.5, 80g, 4 Color", "price": 2800 },
+      { "mainCategory": "Office Essentials", "subcategory": "Rubber Stamp", "itemName": "Stamp Round 1.6 inch", "price": 1500 },
+      { "mainCategory": "Office Essentials", "subcategory": "Pencil Trays", "itemName": "Pencil Tray Wooden", "price": 100 },
+      { "mainCategory": "Office Essentials", "subcategory": "Folders", "itemName": "Standard Folder Art Card", "price": 150 },
+      
+      /* --- Marketing Essentials --- */
+      { "mainCategory": "Marketing Essentials", "subcategory": "Ishtihar", "itemName": "Ishtihar 68g A4, Single Color", "price": 2200 },
+      { "mainCategory": "Marketing Essentials", "subcategory": "Ishtihar", "itemName": "Ishtihar 80g A4/2, 4 Color", "price": 2700 },
+      { "mainCategory": "Marketing Essentials", "subcategory": "Pamphlet/Menu", "itemName": "Pamphlet/Menu 90g Art Paper, Single Sided, 4 Color", "price": 5400 },
+      { "mainCategory": "Marketing Essentials", "subcategory": "Pamphlet/Menu", "itemName": "Pamphlet/Menu 113g Art Paper, Double Sided, 4 Color", "price": 7000 },
+      {
+        "mainCategory": "Marketing Essentials",
         "subcategory": "China",
         "itemName": "China Banner (Area Rate)",
         "price": 38,
         "isAreaBased": true
       },
       {
+        "mainCategory": "Marketing Essentials",
         "subcategory": "Star",
         "itemName": "Star Banner (Area Rate)",
         "price": 100,
         "isAreaBased": true
       },
-      {
+      
+      /* --- Digital Printing --- */
+      { "mainCategory": "Digital Printing", "subcategory": "Sticker Print", "itemName": "Sticker 3.5x4", "price": 1600 },
+      { "mainCategory": "Digital Printing", "subcategory": "Design Only", "itemName": "Social Media Posts (Single Design)", "price": 400 },
+      { "mainCategory": "Digital Printing", "subcategory": "PVC Cards", "itemName": "PVC Card 10", "price": 100 },
+
+      /* --- Photo Printing --- */
+      { "mainCategory": "Photo Printing", "subcategory": "Photo Print", "itemName": "A4 Photo 1 Sided", "price": 100 },
+      { "mainCategory": "Photo Printing", "subcategory": "Photo Frames", "itemName": "Photo+Frame 8x12", "price": 450 },
+      
+      /* --- Promotional Items --- */
+      { "mainCategory": "Promotional Items", "subcategory": "Mugs", "itemName": "Magic Mug", "price": 500 },
+      { "mainCategory": "Promotional Items", "subcategory": "Shirts", "itemName": "White Shirt S,M,L (Cotton)", "price": 750 },
+      { "mainCategory": "Promotional Items", "subcategory": "Caps", "itemName": "Color P Cap", "price": 250 },
+      { "mainCategory": "Promotional Items", "subcategory": "Badges", "itemName": "Badges Minimum 50", "price": 50 },
+
+      /* --- Shields, Souvenirs, Flags, Box Packaging, Wallpaper (New Categories) --- */
+      { 
+        "mainCategory": "Shields", 
+        "subcategory": "Wooden Shields", 
+        "itemName": "Wooden Shield Engraved", 
+        "price": 1200 
+      },
+      { 
+        "mainCategory": "Souvenirs", 
+        "subcategory": "Keychains", 
+        "itemName": "Metal Keychain Custom Shape", 
+        "price": 150 
+      },
+      { 
+        "mainCategory": "Flags and Fabric", 
+        "subcategory": "Banners", 
+        "itemName": "Fabric Banner 6x3ft", 
+        "price": 900 
+      },
+      { 
+        "mainCategory": "Box Packaging", 
+        "subcategory": "Custom Boxes", 
+        "itemName": "Small Custom Box (Min Qty 100)", 
+        "price": 50 
+      },
+      { 
+        "mainCategory": "3D Wallpaper", 
         "subcategory": "3D Wallpaper",
         "itemName": "3D Wallpaper (Area Rate)",
         "price": 50,
@@ -21,7 +87,9 @@
         "minArea": 100
       },
       
+      /* --- DESIGN TIER METADATA (Required by index.html JS logic) --- */
       {
+        "mainCategory": "System Data",
         "subcategory": "PanaflexDesignTiers",
         "itemName": "Design Tier Rates",
         "tiers": [
@@ -30,52 +98,7 @@
           {"minQty": 16, "maxQty": 25, "designFee": 1000},
           {"minQty": 26, "maxQty": 50, "designFee": 1500}
         ]
-      },
-      
-      
-      
-      { "subcategory": "LetterPads", "itemName": "LetterPad 68g A4, Single Color", "price": 2400 },
-      { "subcategory": "LetterPads", "itemName": "LetterPad 80g A4, 4 Color", "price": 5400 },
-      { "subcategory": "LetterPads", "itemName": "LetterPad 100g A4, 4 Color", "price": 6500 },
-      
-      { "subcategory": "Ishtihar", "itemName": "Ishtihar 68g A4, Single Color", "price": 2200 },
-      { "subcategory": "Ishtihar", "itemName": "Ishtihar 80g A4/2, 4 Color", "price": 2700 },
-      
-      { "subcategory": "Pamphlet/Menu", "itemName": "Pamphlet/Menu 90g Art Paper, Single Sided, 4 Color", "price": 5400 },
-      { "subcategory": "Pamphlet/Menu", "itemName": "Pamphlet/Menu 113g Art Paper, Double Sided, 4 Color", "price": 7000 },
-
-      { "subcategory": "Envelop", "itemName": "Envelop 9x4, 80g, Single Color", "price": 4500 },
-      { "subcategory": "Envelop", "itemName": "Envelop 9x4, 80g, 4 Color", "price": 6000 },
-      
-      { "subcategory": "Visiting Cards", "itemName": "V Card Shine", "price": 800 },
-      { "subcategory": "Visiting Cards", "itemName": "Mat Card Double Round", "price": 1600 },
-      { "subcategory": "Visiting Cards", "itemName": "UV Vard Pasting Premium", "price": 3500 },
-      
-      { "subcategory": "Bill Books", "itemName": "Bill Books A4/2, 68g, Single Color", "price": 2000 },
-      { "subcategory": "Bill Books", "itemName": "Bill Book Carbonless 8.5x5.75", "price": 3200 },
-      
-      { "subcategory": "Receipt Book", "itemName": "Receipt Book 9x3.5, 80g, 4 Color", "price": 2800 },
-      
-      
-      { "subcategory": "File Cover", "itemName": "File Cover Art Card A4", "price": 50 },
-      { "subcategory": "Rubber Stamp", "itemName": "Stamp Round 1.6 inch", "price": 1500 },
-      { "subcategory": "Sticker Print", "itemName": "Sticker 3.5x4", "price": 1600 },
-      { "subcategory": "Photo Print", "itemName": "A4 Photo 1 Sided", "price": 100 },
-      { "subcategory": "Design Only", "itemName": "Social Media Posts (Single Design)", "price": 400 },
-      { "subcategory": "PVC Cards", "itemName": "PVC Card 10", "price": 100 },
-      { "subcategory": "Photo Frames", "itemName": "Photo+Frame 8x12", "price": 450 },
-      { "subcategory": "Badges", "itemName": "Badges Minimum 50", "price": 50 },
-      
-      
-      { "subcategory": "Shirts", "itemName": "White Shirt S,M,L (Cotton)", "price": 750 },
-      { "subcategory": "Safety Jacket", "itemName": "Safety Jacket 60g", "price": 300 },
-      { "subcategory": "Caps", "itemName": "Color P Cap", "price": 250 },
-      { "subcategory": "Mugs", "itemName": "Magic Mug", "price": 500 },
-      { "subcategory": "Bottles", "itemName": "Bottle (Temperatur) 250ml", "price": 750 },
-      { "subcategory": "Jewelry", "itemName": "Rope Bracelet", "price": 350 },
-      { "subcategory": "Pens", "itemName": "Metal Pen mat 50", "price": 4500 },
-      { "subcategory": "Pencil Trays", "itemName": "Pencil Tray Wooden", "price": 100 }
-
+      }
     ],
     "settings": {
       "rent": 200,
@@ -91,5 +114,5 @@
   "inventoryItems": [],
   "suppliers": [],
   "purchaseOrders": [],
-  "lastSync": "2025-11-09T04:45:00Z"
+  "lastSync": "2025-11-09T05:40:00Z"
 }
