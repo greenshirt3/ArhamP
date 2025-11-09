@@ -89,20 +89,28 @@
             display: block;
             font-size: 1.1rem;
         }
+        .print-card {
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            background: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+        .print-card:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 
 <body>
-    <!-- Spinner Start -->
-        <div id="spinner"
+    <div id="spinner"
         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
             <span class="sr-only">Loading...</span>
         </div>
     </div>
-    <!-- Spinner End -->
-
-    <!-- Topbar Start -->
     <div class="container-fluid bg-dark text-white-50 py-2 px-0 d-none d-lg-block">
         <div class="row gx-0 align-items-center">
             <div class="col-lg-7 px-5 text-start">
@@ -129,9 +137,6 @@
             </div>
         </div>
     </div>
-    <!-- Topbar End -->
-
-    <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5">
         <a href="#home-section" class="navbar-brand d-flex align-items-center" onclick="showSection('home')">
             <h1 class="m-0 text-primary"><i class="fa fa-print me-3"></i>Arham Printers</h1>
@@ -142,21 +147,14 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto bg-light pe-4 py-3 py-lg-0">
                 <a href="#home-section" class="nav-item nav-link active" onclick="showSection('home')">Home</a>
-                <a href="products.html" class="nav-item nav-link">Products</a>
+                <a href="#shop-catalog" class="nav-item nav-link" onclick="showSection('home')">Products</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
                     <div class="dropdown-menu bg-light border-0 m-0">
-                        <a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('3D Wallpaper')">3D Wallpaper</a>
-                        <a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Box Packaging')">Box Packaging</a>
                         <a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Business Essentials')">Business Essentials</a>
-                        <a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Digital Printing')">Digital Printing</a>
-                        <a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Flags and Fabric')">Flags and Fabric</a>
                         <a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Marketing Essentials')">Marketing Essentials</a>
-                        <a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Office Essentials')">Office Essentials</a>
-                        <a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Photo Printing')">Photo Printing</a>
                         <a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Promotional Items')">Promotional Items</a>
-                        <a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Shields')">Shields</a>
-                        <a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Souvenirs')">Souvenirs</a>
+                        <a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Shields')">Shields & Souvenirs</a>
                         <div class="dropdown-divider"></div>
                         <a href="#" class="dropdown-item" onclick="showSection('quote')">Get Custom Quote</a>
                     </div>
@@ -164,20 +162,15 @@
                 <a href="#" class="nav-item nav-link" onclick="showSection('contact')">Contact</a>
             </div>
             <div class="h-100 d-lg-inline-flex align-items-center">
-                <!-- Shopping bag icon now serves as the WhatsApp Order trigger -->
                 <a class="btn-sm-square bg-white text-primary rounded-circle me-4 position-relative" href="#" onclick="showSection('quote')">
                     <i class="fas fa-file-invoice"></i>
                 </a>
-                <a href="#" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block" onclick="showSection('contact')">Get a Quote<i
+                <a href="#" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block" onclick="showSection('quote')">Get a Quote<i
                         class="fa fa-arrow-right ms-3"></i></a>
             </div>
         </div>
     </nav>
-    <!-- Navbar End -->
-
-    <!-- Home Section Start (Hero + Catalog) -->
     <section id="home-section" class="section active">
-        <!-- Hero Header Start -->
         <div class="container-fluid hero-header bg-light py-5">
             <div class="container py-5">
                 <div class="row g-5 align-items-center">
@@ -199,7 +192,20 @@
                 </div>
             </div>
         </div>
-        <!-- Services Strip Start -->
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="print-card bg-light wow fadeInUp" data-wow-delay="0.1s">
+                        <i class="fas fa-file-pdf fa-3x text-secondary mb-3"></i>
+                        <h3 class="mb-3">Need Quick Document & Photo Prints?</h3>
+                        <p class="text-muted">Upload your files now for fast, high-quality printing, binding, and finishing.</p>
+                        <button class="btn btn-primary py-3 px-5" onclick="showSection('print-service')">
+                            Print Your Documents & Photos
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="container-fluid px-0">
             <div class="row g-0">
                 <div class="col-6 col-md-4 col-lg-2 border-start border-end wow fadeInUp" data-wow-delay="0.1s">
@@ -270,43 +276,45 @@
                 </div>
             </div>
         </div>
-        <!-- Services Strip End -->
-<div class="container-fluid services-categories py-5" id="services-categories">
+        <div class="container-fluid shop py-5" id="shop-catalog">
             <div class="container py-5">
-                <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                    <h1 class="display-5 mb-3">Our Printing Services & Product Categories</h1>
-                    <p class="mb-0">Explore our full range of professional printing and advertising solutions.</p>
+                <div class="row g-4">
+                    <div class="col-lg-3 wow fadeInUp" data-wow-delay="0.1s">
+                         <div class="product-categories mb-4">
+                            <h4>Products Categories</h4>
+                            <ul class="list-unstyled" id="productCategoriesList">
+                                </ul>
+                        </div>
+                        <div class="price mb-4">
+                            <h4 class="mb-2">Price Range (PKR)</h4>
+                            <input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="0" max="10000"
+                                value="0" oninput="amount.value=rangeInput.value">
+                            <output id="amount" name="amount" min-velue="0" max-value="10000" for="rangeInput">0</output>
+                            <div class=""></div>
+                        </div>
+                        
+                        <a href="#">
+                            <div class="position-relative">
+                                <img src="img/product-banner-2.jpg" class="img-fluid w-100 rounded" alt="Image">
+                                <div class="text-center position-absolute d-flex flex-column align-items-center justify-content-center rounded p-4"
+                                    style="width: 100%; height: 100%; top: 0; right: 0; background: rgba(242, 139, 0, 0.3);">
+                                    <h5 class="display-6 text-primary">SALE</h5>
+                                    <h4 class="text-secondary">Get UP To 50% Off</h4>
+                                    <a href="#" class="btn btn-primary rounded-pill px-4">Shop Now</a>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="col-lg-9 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="row g-4" id="main-product-catalog">
+                            </div>
+                    </div>
                 </div>
-                <div class="row g-4 justify-content-center" id="index-categories-list">
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='/products.html?category=Business Essentials'">
-                            <div class="card-body">
-                                <i class="fas fa-briefcase fa-3x text-primary mb-3"></i>
-                                <h5 class="card-title mb-0">Business Essentials</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='/products.html?category=Marketing Essentials'">
-                            <div class="card-body">
-                                <i class="fas fa-bullhorn fa-3x text-primary mb-3"></i>
-                                <h5 class="card-title mb-0">Marketing Essentials</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='/products.html?category=Digital Printing'">
-                            <div class="card-body">
-                                <i class="fas fa-print fa-3x text-primary mb-3"></i>
-                                <h5 class="card-title mb-0">Digital Printing</h5>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
             </div>
         </div>
-        
-    <!-- Product Detail Section Start (New Separate Page) -->
+        </section>
+
     <section id="product-detail-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s" id="detail-product-name-header">Product Details</h1>
@@ -319,18 +327,15 @@
         <div class="container-fluid py-5">
             <div class="container py-5">
                 <div class="row g-5">
-                    <!-- Product Image -->
                     <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="d-flex justify-content-center">
                             <img id="detail-product-image" src="img/placeholder.jpg" class="img-fluid rounded" alt="Product Image" style="max-height: 400px;">
                         </div>
                     </div>
                     
-                    <!-- Product Options and Price -->
                     <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
                         <h2 class="fw-bold mb-4" id="detail-product-name-body">Product Name</h2>
                         
-                        <!-- Custom Area Inputs (Panaflex/Wallpaper) -->
                         <div id="custom-area-inputs" style="display: none;">
                             <div class="product-option-group" data-option-key="Dimensions">
                                 <label>Wall/Piece Dimensions (Feet):</label>
@@ -351,17 +356,13 @@
                             <div class="alert alert-danger mt-3" id="areaConstraintWarning" style="display: none;"></div>
                         </div>
 
-                        <!-- Standard Selector Fields (For regular tiered items) -->
                         <div id="standard-options-fields">
-                            <!-- Dynamic Options (Clickable Cards) will be loaded here for non-area items -->
-                        </div>
+                            </div>
 
-                        <!-- Final Price Box (Visible after validation) -->
                         <div class="final-price-box" id="finalPriceBox">
                             <h4 class="mb-2">Final Price</h4>
                             <h3 class="display-6 fw-bold" id="finalPriceDisplay">PKR 0</h3>
                             
-                            <!-- Add to Cart button now triggers WhatsApp submission -->
                             <button class="btn btn-secondary py-2 px-4 w-100 mt-3" onclick="addToCartFromDetails()">
                                 <i class="fab fa-whatsapp me-2"></i> Place Order via WhatsApp
                             </button>
@@ -375,9 +376,121 @@
             </div>
         </div>
     </section>
-    <!-- Product Detail Section End -->
-    
-    <!-- Custom Quote Section Start -->
+    <section id="print-service-section" class="section">
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Print Your Documents</h1>
+            <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+                <li class="breadcrumb-item"><a href="#" onclick="showSection('home')">Home</a></li>
+                <li class="breadcrumb-item active text-white">Quick Print</li>
+            </ol>
+        </div>
+
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div class="row g-5">
+                    
+                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="bg-light p-4 rounded sticky-top" style="top: 100px;">
+                            <h4 class="mb-4 text-primary"><i class="fas fa-upload me-2"></i> Step 1: Upload Files</h4>
+                            <p>Upload your PDF or image files. Please ensure documents are finalized before uploading.</p>
+                            <input type="file" id="print-file-upload" class="form-control" multiple accept=".pdf,.jpg,.jpeg,.png">
+                            
+                            <h4 class="mt-4 mb-3 text-primary"><i class="fas fa-file-alt me-2"></i> File Summary</h4>
+                            <ul id="file-list-summary" class="list-unstyled">
+                                <li class="text-muted">No files selected.</li>
+                            </ul>
+                            
+                            <hr>
+                            <div class="alert alert-info" role="alert">
+                                **File Limits:** Max 50 pages per file. Total upload size limit applies.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.3s">
+                        <form id="quick-print-form">
+                            <h3 class="mb-4 text-dark"><i class="fas fa-cogs me-2"></i> Step 2: Configure Print Options</h3>
+                            
+                            <div class="product-option-group">
+                                <label>1. Paper Size & Stock:</label>
+                                <div class="d-flex flex-wrap gap-3">
+                                    <label class="choice-card" for="size-a4"><input type="radio" id="size-a4" name="print-size" value="A4" required><span class="label-text">A4 (8.3" x 11.7")</span></label>
+                                    <label class="choice-card" for="size-a3"><input type="radio" id="size-a3" name="print-size" value="A3"><span class="label-text">A3 (11.7" x 16.5")</span></label>
+                                    <label class="choice-card" for="size-legal"><input type="radio" id="size-legal" name="print-size" value="Legal"><span class="label-text">Legal (8.5" x 14")</span></label>
+                                </div>
+                            </div>
+                            
+                            <div class="product-option-group">
+                                <label>2. Colour & Sides:</label>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="d-block mb-2">Printing:</label>
+                                        <div class="d-flex gap-3">
+                                            <label class="choice-card" for="color-bw"><input type="radio" id="color-bw" name="print-color" value="Black & White" required><span class="label-text">Black & White</span></label>
+                                            <label class="choice-card" for="color-full"><input type="radio" id="color-full" name="print-color" value="Full Colour"><span class="label-text">Full Colour</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="d-block mb-2">Layout:</label>
+                                        <div class="d-flex gap-3">
+                                            <label class="choice-card" for="side-single"><input type="radio" id="side-single" name="print-side" value="Single-Sided" required><span class="label-text">Single-Sided</span></label>
+                                            <label class="choice-card" for="side-double"><input type="radio" id="side-double" name="print-side" value="Double-Sided"><span class="label-text">Double-Sided</span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="product-option-group">
+                                <label>3. Finishing & Binding (Optional):</label>
+                                <select class="form-select mb-3" id="binding-type">
+                                    <option value="None" selected>No Binding/Stapling</option>
+                                    <option value="Saddle Stitch">Saddle Stitch (Stapled)</option>
+                                    <option value="Comb Binding">Comb Binding (Spiral)</option>
+                                    <option value="Wire Binding">Wire Binding</option>
+                                </select>
+                                
+                                <select class="form-select" id="laminate-type">
+                                    <option value="None" selected>No Lamination/Cover</option>
+                                    <option value="Matt Cover">Matt Lamination Cover</option>
+                                    <option value="Gloss Cover">Gloss Lamination Cover</option>
+                                </select>
+                            </div>
+                            
+                            <h3 class="mt-5 mb-4 text-dark"><i class="fas fa-user-check me-2"></i> Step 3: Contact & Order</h3>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="print-customer-name" placeholder="Your Name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="tel" class="form-control" id="print-customer-phone" placeholder="WhatsApp Number" required>
+                                </div>
+                                <div class="col-12">
+                                    <textarea class="form-control" id="print-notes" rows="3" placeholder="Any special instructions or delivery details?"></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-secondary w-100 py-3" type="submit">
+                                        <i class="fab fa-whatsapp me-2"></i> Request Quote & Final Print Price
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        
+                        <div class="mt-5 p-4 bg-white rounded border">
+                            <h4 class="text-secondary">Terms & Conditions</h4>
+                            <p class="small text-muted">By submitting, you agree to the following:</p>
+                            <ul class="small text-muted text-start">
+                                <li>All prices are estimates. Final price confirmed upon review of uploaded files.</li>
+                                <li>Minimum print quantity/order value may apply.</li>
+                                <li>We reserve the right to decline print jobs containing illegal or inappropriate content.</li>
+                                <li>Files must be finalized and print-ready (preferably PDF format).</li>
+                                <li>File security is maintained, but ensure sensitive files are handled appropriately before uploading.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <section id="quote-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Get a Custom Quote</h1>
@@ -436,10 +549,6 @@
             </div>
         </div>
     </section>
-    <!-- Custom Quote Section End -->
-
-
-    <!-- Contact Section Start -->
     <section id="contact-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Contact Us</h1>
@@ -491,7 +600,6 @@
                     
                     <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="bg-light p-4 rounded">
-                            <!-- Submission for Contact is routed to WhatsApp -->
                             <form id="contact-form-whatsapp">
                                 <h3 class="mb-4">Send a Direct Message</h3>
                                 <div class="row g-3">
@@ -524,22 +632,9 @@
             </div>
         </div>
     </section>
-    <!-- Contact Section End -->
-
-collection.</p>
-    <section id="print-service-card" style="background-color: #ffc107; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-    <h2 style="color: #dc3545; font-size: 1.8em; margin-bottom: 10px;">**📄 Need Prints? Fast & Professional.**</h2>
-    <p style="font-size: 1.1em; margin-bottom: 25px;">Upload your documents, reports, and photos for custom printing. Secure, easy, and delivered fast.</p>
-    <a href="/print-order.html" class="print-button" 
-       style="background-color: #007bff; color: white; padding: 15px 40px; text-decoration: none; font-weight: bold; font-size: 1.2em; border-radius: 5px; display: inline-block; transition: background-color 0.3s;">
-        **✅ Print Your Documents and Photos**
-    </a>
-</section>
-    <!-- Footer Start -->
     <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
         <div class="container py-5">
             <div class="row g-4">
-                <!-- Contact Details -->
                 <div class="col-md-6 col-lg-6 col-xl-3">
                     <div class="rounded p-4">
                         <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
@@ -565,7 +660,6 @@ collection.</p>
                     </div>
                 </div>
                 
-                <!-- Direct WhatsApp Contact (Replaced Quick Links) -->
                 <div class="col-md-6 col-lg-6 col-xl-3">
                     <div class="rounded p-4">
                         <a href="https://wa.me/923006238233" target="_blank" class="text-decoration-none">
@@ -583,7 +677,6 @@ collection.</p>
                     </div>
                 </div>
                 
-                <!-- Social Links -->
                 <div class="col-md-6 col-lg-6 col-xl-3">
                     <div class="rounded p-4">
                         <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
@@ -623,12 +716,8 @@ collection.</p>
             </div>
         </div>
     </div>
-    <!-- Footer End -->
-
-
     <a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
 
-    <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="lib/wow/wow.min.js"></script>
@@ -638,11 +727,10 @@ collection.</p>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
 
-    <!-- Custom Script Block (V5.0 - Hybrid Pricing and WhatsApp Integration) -->
     <script>
     // --- Configuration ---
     const PUBLIC_DATA_URL = 'customer-data.json'; 
-    const WHATSAPP_NUMBER = '923006238233'; // Your WhatsApp Number (No plus or spaces for URL API)
+    const WHATSAPP_NUMBER = '923006238233'; 
     
     let allProducts = {}; 
     let currentProduct = null; 
@@ -682,6 +770,7 @@ collection.</p>
         // Set up form submission handlers for WhatsApp routing
         document.getElementById('quote-form').addEventListener('submit', handleQuoteSubmission);
         document.getElementById('contact-form-whatsapp').addEventListener('submit', handleContactSubmission);
+        document.getElementById('quick-print-form').addEventListener('submit', handlePrintServiceSubmission); // NEW HANDLER
     }
     
     // Function to populate the sidebar with the new main categories
@@ -1043,7 +1132,7 @@ collection.</p>
             document.getElementById('areaDisplay').textContent = `Area per piece: ${itemArea.toFixed(2)} sq ft | Total Area: ${totalArea.toFixed(2)} sq ft`;
 
             if (currentProduct.baseName === '3D Wallpaper' && quantity === 1 && itemArea < minArea) {
-                document.getElementById('areaConstraintWarning').textContent = `Minimum order area for a single wall is ${minArea} sq ft. Current size (${itemArea.toFixed(2)} sq ft) is too small. Please contact customer support.`;
+                document.getElementById('areaConstraintWarning').textContent = `Minimum order area for a single wall is ${minArea} sq ft. Current size (${itemArea.toFixed(2)} sq ft) is too small. Contact customer support for custom quote.`;
                 document.getElementById('areaConstraintWarning').style.display = 'block';
                 document.getElementById('designFeeDisplay').textContent = 'Design Fee: Cannot calculate due to area constraint.';
                 return; 
@@ -1137,7 +1226,7 @@ collection.</p>
         const totalPrice = parseFloat(finalPriceText.replace('PKR', '').replace(/,/g, '').trim()) || 0;
         
         if (totalPrice === 0 || document.getElementById('finalPriceBox').style.display === 'none') {
-             showAlert('Please configure the product and ensure the final price is calculated before ordering.', 'error');
+             showAlert('Please configure the product to see the final price before ordering.', 'error');
              return;
         }
 
@@ -1164,7 +1253,7 @@ collection.</p>
     }
     
     
-    // --- WhatsApp Submission Logic ---
+    // --- WhatsApp Submission Handlers ---
 
     // 1. General Order Submission (from product page)
     function submitOrderViaWhatsApp(itemDetails, totalPrice) {
@@ -1230,6 +1319,56 @@ collection.</p>
         document.getElementById('quote-form').reset();
     }
 
+    // 4. Print Service Submission Handler (NEW)
+    function handlePrintServiceSubmission(e) {
+        e.preventDefault();
+        
+        const files = document.getElementById('print-file-upload').files;
+        const numFiles = files.length;
+        const fileNames = Array.from(files).map(f => f.name).join(', ');
+        
+        const size = document.querySelector('input[name="print-size"]:checked')?.value || 'N/A';
+        const color = document.querySelector('input[name="print-color"]:checked')?.value || 'N/A';
+        const sides = document.querySelector('input[name="print-side"]:checked')?.value || 'N/A';
+        const binding = document.getElementById('binding-type').value;
+        const laminate = document.getElementById('laminate-type').value;
+
+        const customerName = document.getElementById('print-customer-name').value;
+        const customerPhone = document.getElementById('print-customer-phone').value;
+        const notes = document.getElementById('print-notes').value;
+
+        let whatsappMessage = `*NEW DOCUMENT PRINT ORDER (WEB)*\n`;
+        whatsappMessage += `*Customer:* ${customerName}\n`;
+        whatsappMessage += `*Phone:* ${customerPhone}\n`;
+        whatsappMessage += `*--- Print Specs ---*\n`;
+        whatsappMessage += `*Files:* ${numFiles} file(s) - Please send files immediately.\n`;
+        whatsappMessage += `*Size:* ${size}\n`;
+        whatsappMessage += `*Color:* ${color}\n`;
+        whatsappMessage += `*Sides:* ${sides}\n`;
+        whatsappMessage += `*Finish:* Binding (${binding}), Cover (${laminate})\n`;
+        whatsappMessage += `*Notes:* ${notes || 'None'}\n\n`;
+        whatsappMessage += `_Please manually calculate final price based on specs and contact customer to receive files._`;
+
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+        showAlert('Print Order details sent. Please send your files via WhatsApp now!', 'success');
+        document.getElementById('quick-print-form').reset();
+    }
+    
+    // Update the list of files in the Print Document section
+    document.getElementById('print-file-upload').addEventListener('change', function() {
+        const container = document.getElementById('file-list-summary');
+        container.innerHTML = '';
+        const files = this.files;
+        if (files.length === 0) {
+            container.innerHTML = '<li class="text-muted">No files selected.</li>';
+            return;
+        }
+        
+        for (let i = 0; i < files.length; i++) {
+            container.innerHTML += `<li><i class="fas fa-check-circle text-success me-2"></i> ${files[i].name} (${(files[i].size / 1024 / 1024).toFixed(2)} MB)</li>`;
+        }
+    });
+
 
     // --- UI/Navigation Functions ---
     
@@ -1258,7 +1397,7 @@ collection.</p>
         const alert = document.createElement('div');
         alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
         alert.style.top = '20px';
-        alert.style.right = '20px';
+        alert.right = '20px';
         alert.style.zIndex = '9999';
         alert.style.minWidth = '300px';
         alert.innerHTML = `
@@ -1273,7 +1412,7 @@ collection.</p>
             }
         }, 5000);
     }
-
+    
     document.addEventListener('DOMContentLoaded', initialAppLoad);
 </script>
 </body>
