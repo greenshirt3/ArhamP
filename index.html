@@ -93,12 +93,16 @@
 </head>
 
 <body>
+    <!-- Spinner Start -->
     <div id="spinner"
         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
             <span class="sr-only">Loading...</span>
         </div>
     </div>
+    <!-- Spinner End -->
+
+    <!-- Topbar Start -->
     <div class="container-fluid bg-dark text-white-50 py-2 px-0 d-none d-lg-block">
         <div class="row gx-0 align-items-center">
             <div class="col-lg-7 px-5 text-start">
@@ -125,6 +129,9 @@
             </div>
         </div>
     </div>
+    <!-- Topbar End -->
+
+    <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5">
         <a href="#home-section" class="navbar-brand d-flex align-items-center" onclick="showSection('home')">
             <h1 class="m-0 text-primary"><i class="fa fa-print me-3"></i>Arham Printers</h1>
@@ -139,26 +146,32 @@
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
                     <div class="dropdown-menu bg-light border-0 m-0">
+                        <!-- New Categorized Links -->
                         <a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Business Essentials')">Business Essentials</a>
                         <a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Marketing Essentials')">Marketing Essentials</a>
                         <a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Promotional Items')">Promotional Items</a>
                         <a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Shields')">Shields & Souvenirs</a>
                         <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item" onclick="submitOrderViaWhatsApp()">Order on WhatsApp</a>
+                        <a href="#" class="dropdown-item" onclick="showSection('quote')">Get Custom Quote</a>
                     </div>
                 </div>
                 <a href="#" class="nav-item nav-link" onclick="showSection('contact')">Contact</a>
             </div>
             <div class="h-100 d-lg-inline-flex align-items-center">
-                <a class="btn-sm-square bg-white text-primary rounded-circle me-4 position-relative" href="#" onclick="submitOrderViaWhatsApp()">
-                    <i class="fab fa-whatsapp"></i>
+                <!-- Shopping bag icon now serves as the WhatsApp Order trigger -->
+                <a class="btn-sm-square bg-white text-primary rounded-circle me-4 position-relative" href="#" onclick="showSection('quote')">
+                    <i class="fas fa-file-invoice"></i>
                 </a>
                 <a href="#" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block" onclick="showSection('contact')">Get a Quote<i
                         class="fa fa-arrow-right ms-3"></i></a>
             </div>
         </div>
     </nav>
+    <!-- Navbar End -->
+
+    <!-- Home Section Start (Hero + Catalog) -->
     <section id="home-section" class="section active">
+        <!-- Hero Header Start -->
         <div class="container-fluid hero-header bg-light py-5">
             <div class="container py-5">
                 <div class="row g-5 align-items-center">
@@ -180,6 +193,9 @@
                 </div>
             </div>
         </div>
+        <!-- Hero Header End -->
+
+        <!-- Services Strip Start -->
         <div class="container-fluid px-0">
             <div class="row g-0">
                 <div class="col-6 col-md-4 col-lg-2 border-start border-end wow fadeInUp" data-wow-delay="0.1s">
@@ -250,14 +266,19 @@
                 </div>
             </div>
         </div>
+        <!-- Services Strip End -->
+
+        <!-- Shop Catalog Start (Simplified Grid View) -->
         <div class="container-fluid shop py-5" id="shop-catalog">
             <div class="container py-5">
                 <div class="row g-4">
+                    <!-- Sidebar Filters - Retained for layout consistency -->
                     <div class="col-lg-3 wow fadeInUp" data-wow-delay="0.1s">
                          <div class="product-categories mb-4">
                             <h4>Products Categories</h4>
                             <ul class="list-unstyled" id="productCategoriesList">
-                                </ul>
+                                <!-- Dynamically filled with Main Categories -->
+                            </ul>
                         </div>
                         <div class="price mb-4">
                             <h4 class="mb-2">Price Range (PKR)</h4>
@@ -280,15 +301,19 @@
                         </a>
                     </div>
                     
+                    <!-- Product Display Section (Simplified Catalog) -->
                     <div class="col-lg-9 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="row g-4" id="main-product-catalog">
-                            </div>
+                            <!-- Products will be dynamically inserted here by JS -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        </section>
+        <!-- Shop Catalog End -->
+    </section>
 
+    <!-- Product Detail Section Start (New Separate Page) -->
     <section id="product-detail-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s" id="detail-product-name-header">Product Details</h1>
@@ -301,15 +326,18 @@
         <div class="container-fluid py-5">
             <div class="container py-5">
                 <div class="row g-5">
+                    <!-- Product Image -->
                     <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="d-flex justify-content-center">
                             <img id="detail-product-image" src="img/placeholder.jpg" class="img-fluid rounded" alt="Product Image" style="max-height: 400px;">
                         </div>
                     </div>
                     
+                    <!-- Product Options and Price -->
                     <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
                         <h2 class="fw-bold mb-4" id="detail-product-name-body">Product Name</h2>
                         
+                        <!-- Custom Area Inputs (Panaflex/Wallpaper) -->
                         <div id="custom-area-inputs" style="display: none;">
                             <div class="product-option-group" data-option-key="Dimensions">
                                 <label>Wall/Piece Dimensions (Feet):</label>
@@ -330,13 +358,17 @@
                             <div class="alert alert-danger mt-3" id="areaConstraintWarning" style="display: none;"></div>
                         </div>
 
+                        <!-- Standard Selector Fields (For regular tiered items) -->
                         <div id="standard-options-fields">
-                            </div>
+                            <!-- Dynamic Options (Clickable Cards) will be loaded here for non-area items -->
+                        </div>
 
+                        <!-- Final Price Box (Visible after validation) -->
                         <div class="final-price-box" id="finalPriceBox">
                             <h4 class="mb-2">Final Price</h4>
                             <h3 class="display-6 fw-bold" id="finalPriceDisplay">PKR 0</h3>
                             
+                            <!-- Add to Cart button now triggers WhatsApp submission -->
                             <button class="btn btn-secondary py-2 px-4 w-100 mt-3" onclick="addToCartFromDetails()">
                                 <i class="fab fa-whatsapp me-2"></i> Place Order via WhatsApp
                             </button>
@@ -350,6 +382,71 @@
             </div>
         </div>
     </section>
+    <!-- Product Detail Section End -->
+    
+    <!-- Custom Quote Section Start -->
+    <section id="quote-section" class="section">
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Get a Custom Quote</h1>
+            <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+                <li class="breadcrumb-item"><a href="#" onclick="showSection('home')">Home</a></li>
+                <li class="breadcrumb-item active text-white">Quote</li>
+            </ol>
+        </div>
+
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div class="row g-4 justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="bg-light p-4 rounded">
+                            <form id="quote-form">
+                                <h3 class="mb-4">Quick Inquiry</h3>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border-0" id="quote-name" placeholder="Your Name" required>
+                                            <label for="quote-name">Your Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="tel" class="form-control border-0" id="quote-phone" placeholder="WhatsApp Phone" required>
+                                            <label for="quote-phone">WhatsApp Phone</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border-0" id="quote-product" placeholder="Product Name (e.g., Visiting Cards, 3D Wallpaper)">
+                                            <label for="quote-product">Product Name / Type</label>
+                                        </div>
+                                    </div>
+                                     <div class="col-12">
+                                        <div class="form-floating">
+                                            <input type="number" class="form-control border-0" id="quote-quantity" placeholder="Quantity or Total Area (e.g., 500 cards, 100 sq ft)">
+                                            <label for="quote-quantity">Quantity / Estimated Area</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <textarea class="form-control border-0" placeholder="Details of your inquiry (Size, Finish, Quality, Message)" id="quote-details" style="height: 150px" required></textarea>
+                                            <label for="quote-details">Inquiry Message / Specifications</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="btn btn-primary w-100 py-3" type="submit">Submit Quote via WhatsApp</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Custom Quote Section End -->
+
+
+    <!-- Contact Section Start -->
     <section id="contact-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Contact Us</h1>
@@ -401,34 +498,30 @@
                     
                     <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="bg-light p-4 rounded">
-                            <form id="contact-form">
+                            <!-- Submission for Contact is routed to WhatsApp -->
+                            <form id="contact-form-whatsapp">
+                                <h3 class="mb-4">Send a Direct Message</h3>
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control border-0" id="name" placeholder="Your Name" required>
-                                            <label for="name">Your Name</label>
+                                            <input type="text" class="form-control border-0" id="contact-name" placeholder="Your Name" required>
+                                            <label for="contact-name">Your Name</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="email" class="form-control border-0" id="email" placeholder="Your Email" required>
-                                            <label for="email">Your Email</label>
+                                            <input type="text" class="form-control border-0" id="contact-subject" placeholder="Subject" required>
+                                            <label for="contact-subject">Subject</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control border-0" id="subject" placeholder="Subject" required>
-                                            <label for="subject">Subject</label>
+                                            <textarea class="form-control border-0" placeholder="Leave a message here" id="contact-message" style="height: 150px" required></textarea>
+                                            <label for="contact-message">Message</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <div class="form-floating">
-                                            <textarea class="form-control border-0" placeholder="Leave a message here" id="message" style="height: 150px" required></textarea>
-                                            <label for="message">Message</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <button class="btn btn-primary w-100 py-3" type="submit">Send Message</button>
+                                        <button class="btn btn-primary w-100 py-3" type="submit">Send Message via WhatsApp</button>
                                     </div>
                                 </div>
                             </form>
@@ -438,9 +531,14 @@
             </div>
         </div>
     </section>
+    <!-- Contact Section End -->
+
+
+    <!-- Footer Start -->
     <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
         <div class="container py-5">
-            <div class="row g-4 rounded mb-5" style="background: rgba(255, 255, 255, .03);">
+            <div class="row g-4">
+                <!-- Contact Details -->
                 <div class="col-md-6 col-lg-6 col-xl-3">
                     <div class="rounded p-4">
                         <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
@@ -465,18 +563,26 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- Direct WhatsApp Contact (Replaced Quick Links) -->
                 <div class="col-md-6 col-lg-6 col-xl-3">
                     <div class="rounded p-4">
-                        <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
-                            style="width: 70px; height: 70px;">
-                            <i class="fa fa-phone-alt fa-2x text-primary"></i>
-                        </div>
+                        <a href="https://wa.me/923006238233" target="_blank" class="text-decoration-none">
+                            <div class="rounded-circle bg-success d-flex align-items-center justify-content-center mb-4"
+                                style="width: 70px; height: 70px;">
+                                <i class="fab fa-whatsapp fa-2x text-white"></i>
+                            </div>
+                        </a>
                         <div>
-                            <h4 class="text-white">Telephone</h4>
-                            <p class="mb-2">+92 300 6238233</p>
+                            <h4 class="text-white">Direct Contact</h4>
+                            <a href="https://wa.me/923006238233" target="_blank" class="text-white-50 text-decoration-none">
+                                <p class="mb-2">+92 300 6238233</p>
+                            </a>
                         </div>
                     </div>
                 </div>
+                
+                <!-- Social Links -->
                 <div class="col-md-6 col-lg-6 col-xl-3">
                     <div class="rounded p-4">
                         <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
@@ -516,8 +622,12 @@
             </div>
         </div>
     </div>
+    <!-- Footer End -->
+
+
     <a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
 
+    <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="lib/wow/wow.min.js"></script>
@@ -527,13 +637,13 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
 
+    <!-- Custom Script Block (V5.0 - Hybrid Pricing and WhatsApp Integration) -->
     <script>
     // --- Configuration ---
     const PUBLIC_DATA_URL = 'customer-data.json'; 
-    const WHATSAPP_NUMBER = '+923006238233'; // Your WhatsApp Number
+    const WHATSAPP_NUMBER = '923006238233'; // Your WhatsApp Number (No plus or spaces for URL API)
     
     let allProducts = {}; 
-    let cart = []; // Cart is now purely for temporary staging before WhatsApp submission
     let currentProduct = null; 
 
     // Global stores for pricing logic
@@ -567,6 +677,10 @@
         if (typeof WOW !== 'undefined') { new WOW().init(); }
         
         document.getElementById('home-section').classList.add('active');
+
+        // Set up form submission handlers for WhatsApp routing
+        document.getElementById('quote-form').addEventListener('submit', handleQuoteSubmission);
+        document.getElementById('contact-form-whatsapp').addEventListener('submit', handleContactSubmission);
     }
     
     // Function to populate the sidebar with the new main categories
@@ -576,7 +690,7 @@
         
         const categoriesSet = new Set();
         Object.values(allProductGroups).forEach(group => {
-            if (group.mainCategory && group.mainCategory !== "PanaflexDesignTiers") {
+            if (group.mainCategory && group.mainCategory !== "System Data") {
                 categoriesSet.add(group.mainCategory);
             }
         });
@@ -593,7 +707,6 @@
             `;
         });
     }
-
 
     // Helper function to smartly parse the flat item name into attributes
     function parseAttributes(baseName, fullName) {
@@ -656,15 +769,14 @@
 
             // 3. Group the data by base product (subcategory) for the catalog
             if (!productGroups[baseName]) {
-                // Determine the mainCategory for grouping in the catalog view
-                const mainCat = rawData.calculatorData.items.find(i => i.subcategory === baseName && i.mainCategory)?.mainCategory || 'Uncategorized';
+                const mainCat = item.mainCategory || 'Uncategorized';
 
                 productGroups[baseName] = {
                     baseName: baseName,
                     minPrice: item.price,
                     imageFile: `${baseName.replace(/\//g, '-')}.jpg`,
                     isAreaBased: item.isAreaBased || false,
-                    mainCategory: mainCat, // NEW: Store the main category
+                    mainCategory: mainCat,
                     combinations: [] 
                 };
             }
@@ -689,57 +801,26 @@
 
     // --- Render Simplified Main Catalog ---
     function renderMainCatalog(productGroups) {
-        const container = document.getElementById('main-product-catalog');
-        let html = '';
-
-        // Products should be rendered based on the keys available in the productGroups object
-        const productKeys = Object.keys(productGroups).filter(key => key !== "PanaflexDesignTiers");
-        
-        const getMinPrice = (baseName) => {
-            const group = allProductGroups[baseName];
-            if (!group || group.combinations.length === 0) return 40; 
-            if (group.isAreaBased && areaBasedMeta[baseName]) return areaBasedMeta[baseName].rate;
-            return group.combinations.reduce((min, combo) => Math.min(min, combo.Price), Infinity);
-        };
-
-
-        productKeys.forEach(key => {
-            const product = productGroups[key];
-            const imagePath = `img/products/${product.imageFile}`;
-            const displayPrice = getMinPrice(key);
-            const pricePrefix = product.isAreaBased ? 'Rate/Sq Ft: PKR' : 'Starting from: PKR';
-            const buttonText = product.isAreaBased ? 'Configure Area' : 'View Details';
-
-            html += `
-            <div class='col-md-4 col-sm-6 mb-4'>
-                <div class='card h-100 shadow-sm'>
-                    <img src='${imagePath}' onerror="this.onerror=null;this.src='img/products/${key.replace(/\//g, '-')}.png';" class='card-img-top' alt='${product.baseName}'>
-                    <div class='card-body text-center'>
-                        <h5 class='card-title'>${product.baseName}</h5>
-                        <p class='mt-2 text-primary fw-bold'>${pricePrefix} ${displayPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}</p>
-                        <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('${product.baseName.replace(/\//g, '\\/')}')"><i class="fas fa-search me-2"></i> ${buttonText}</button>
-                    </div>
-                </div>
-            </div>
-            `;
-        });
-        
-        container.innerHTML = html;
+        // Renders all products initially
+        filterCatalog(null); 
     }
 
     // New function to filter the product catalog by the top-level mainCategory
-    function filterCatalog(mainCategory) {
+    function filterCatalog(mainCategory = null) {
         showSection('home');
         const container = document.getElementById('main-product-catalog');
         let html = '';
         const productGroups = allProductGroups;
         
-        const filteredKeys = Object.keys(productGroups).filter(key => 
-            productGroups[key].mainCategory === mainCategory && key !== "PanaflexDesignTiers"
-        );
+        const filteredKeys = Object.keys(productGroups).filter(key => {
+            const product = productGroups[key];
+            if (key === "PanaflexDesignTiers") return false;
+            if (!mainCategory) return true; // Show all products
+            return product.mainCategory === mainCategory;
+        });
 
         if (filteredKeys.length === 0) {
-            container.innerHTML = `<h3 class="text-center w-100 py-5">No products found in "${mainCategory}".</h3>`;
+            container.innerHTML = `<h3 class="text-center w-100 py-5">No products found in "${mainCategory || 'catalog'}".</h3>`;
             return;
         }
         
@@ -780,7 +861,7 @@
         const name = productName.replace(/\\/g, ''); 
         const productData = allProductGroups[name];
         currentProduct = productData;
-        currentSelectedVariations = {}; // Reset selections
+        currentSelectedVariations = {}; 
 
         if (!currentProduct) {
             showAlert(`Product "${name}" details not found.`, 'error');
@@ -798,9 +879,7 @@
 
         const areaInputs = document.getElementById('custom-area-inputs');
         const standardOptions = document.getElementById('standard-options-fields');
-        const optionsContainer = document.getElementById('standard-options-fields');
         
-        // Reset all forms/warnings
         document.getElementById('finalPriceBox').style.display = 'none';
         document.getElementById('selectionWarning').textContent = "Please enter dimensions/quantity or select all options above to see the final price.";
         document.getElementById('selectionWarning').classList.remove('alert-danger');
@@ -808,7 +887,7 @@
         document.getElementById('selectionWarning').style.display = 'block';
 
 
-        // 🛑 START CORE LOGIC: Area-Based vs. Standard 🛑
+        // 🛑 CORE LOGIC: Area-Based vs. Standard 🛑
 
         if (currentProduct.isAreaBased) {
             // --- AREA-BASED SETUP (Panaflex/Wallpaper) ---
@@ -825,16 +904,14 @@
             document.getElementById('designFeeDisplay').classList.remove('alert-danger');
             document.getElementById('designFeeDisplay').classList.add('alert-warning');
             
-            // Immediately run price update for initial state
             updateFinalPrice();
 
         } else {
-            // --- STANDARD TIERED ITEM SETUP (LetterPads, Mugs, etc.) ---
+            // --- STANDARD TIERED ITEM SETUP ---
             areaInputs.style.display = 'none';
             standardOptions.style.display = 'block';
-            optionsContainer.innerHTML = ''; // Clear previous contents
+            standardOptions.innerHTML = ''; 
 
-            // Determine unique attribute keys (excluding price and internal full name)
             const allAttributes = currentProduct.combinations.map(c => c.attributes || c);
             const attributeKeys = Object.keys(allAttributes[0] || {}).filter(key => key !== 'Price' && key !== 'FullName' && allAttributes.some(a => a[key] !== 'Area Rate'));
 
@@ -871,11 +948,11 @@
                 });
 
                 groupHTML += `</div></div>`;
-                optionsContainer.innerHTML += groupHTML;
+                standardOptions.innerHTML += groupHTML;
             });
 
             // Add quantity selector for standard items
-            optionsContainer.innerHTML += `
+            standardOptions.innerHTML += `
                  <div class="product-option-group" data-option-key="QuantitySelector">
                     <label>Quantity:</label>
                     <div class="input-group">
@@ -886,7 +963,6 @@
                 </div>
             `;
             
-            // Reset price area to hide price until selection is made
             document.getElementById('finalPriceBox').style.display = 'none';
             document.getElementById('selectionWarning').style.display = 'block';
         }
@@ -907,10 +983,8 @@
     function handleCardSelection(key, value) {
         const sanitizedKey = key;
         
-        // 1. Update selection state
         currentSelectedVariations[sanitizedKey] = value;
         
-        // 2. Update card appearance
         document.querySelectorAll(`input[name="option-${sanitizedKey}"]`).forEach(input => {
             input.closest('.choice-card').classList.remove('selected');
         });
@@ -919,7 +993,6 @@
             selectedInput.closest('.choice-card').classList.add('selected');
         }
 
-        // 3. Update the price display
         updateFinalPrice();
     }
     
@@ -933,7 +1006,6 @@
         
         if (tier) return tier.designFee;
         
-        // Max limit: If quantity exceeds the max tier (e.g., > 50)
         const maxTier = designTiers.reduce((max, t) => t.maxQty > max.maxQty ? t : max, {maxQty: 0, designFee: 0});
         if (quantity > maxTier.maxQty) return maxTier.designFee;
 
@@ -993,7 +1065,7 @@
             document.getElementById('finalPriceBox').style.display = 'block';
             document.getElementById('selectionWarning').style.display = 'none';
 
-            return; // Exit calculation for area-based items
+            return; 
         } 
         
         // 2. Standard Tiered Products (Find price based on card selections)
@@ -1057,17 +1129,17 @@
     }
 
 
-    // --- Add to Cart Logic (Replaced with Direct WhatsApp Submission) ---
+    // --- Add to Cart Logic (WhatsApp Routing) ---
+
     function addToCartFromDetails() {
         const finalPriceText = document.getElementById('finalPriceDisplay').textContent;
         const totalPrice = parseFloat(finalPriceText.replace('PKR', '').replace(/,/g, '').trim()) || 0;
         
-        if (totalPrice === 0) {
-             showAlert('Please configure the product to see the final price before ordering.', 'error');
+        if (totalPrice === 0 || document.getElementById('finalPriceBox').style.display === 'none') {
+             showAlert('Please configure the product and ensure the final price is calculated before ordering.', 'error');
              return;
         }
 
-        let orderDetails = '';
         let itemDetails = '';
         
         if (currentProduct.isAreaBased) {
@@ -1080,50 +1152,85 @@
             itemDetails = `\n*Product:* ${currentProduct.baseName} (Area-Based)\n*Dimensions:* ${width}ft x ${height}ft\n*Quantity:* ${quantity} piece(s)\n*Total Area:* ${totalArea.toFixed(2)} sq ft\n*Price:* ${finalPriceText} (Includes Design Fee: ${designFeeDisplay.split('+')[1]?.trim() || 'N/A'})`;
             
         } else {
-            // Standard Item Details (collect selections)
             const quantity = parseInt(document.getElementById('input-standard-qty').value) || 1;
             const details = Object.entries(currentSelectedVariations)
                 .map(([key, val]) => `\n- ${key.replace(/[A-Z]/g, ' $&').trim()}: ${val}`);
             
-            itemDetails = `\n*Product:* ${currentProduct.baseName} (Standard)\n*Selections:*${details.join('')}\n*Quantity:* ${quantity} unit(s)\n*Unit Price:* ${finalPriceText}\n*Total Price:* ${finalPriceText}`;
+            itemDetails = `\n*Product:* ${currentProduct.baseName} (Standard)\n*Selections:*${details.join('')}\n*Quantity:* ${quantity} unit(s)\n*Total Price:* ${finalPriceText}`;
         }
         
-        // Call the final WhatsApp submission function
         submitOrderViaWhatsApp(itemDetails, totalPrice);
     }
     
     
     // --- WhatsApp Submission Logic ---
 
-    function submitOrderViaWhatsApp(itemDetails = null, totalPrice = 0) {
+    // 1. General Order Submission (from product page)
+    function submitOrderViaWhatsApp(itemDetails, totalPrice) {
         
-        if (!itemDetails) {
-            showAlert('Please configure and click the "Place Order" button on the product page.', 'info');
-            return;
-        }
-        
-        // 1. Construct the detailed message
         let message = `*NEW ARHAM PRINTERS ORDER REQUEST (WEB)*\n`;
         message += `-------------------------------------------\n`;
         message += `${itemDetails}\n`;
         message += `-------------------------------------------\n`;
         message += `*CONFIRMED TOTAL:* ${document.getElementById('finalPriceDisplay').textContent}\n\n`;
-        message += `_Please confirm this order, dimensions, and arrange final payment via bank transfer or Cash on Delivery._\n\n`;
+        message += `_Please confirm this order, dimensions, and arrange final payment._\n\n`;
         message += `Customer is waiting for contact.`;
 
 
-        // 2. Encode message and open WhatsApp link
         const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
         window.open(whatsappLink, '_blank');
         
         showAlert('Opening WhatsApp chat now. Your order details have been prepared!', 'success');
         
-        // Redirect back to home after order initiation
         setTimeout(() => {
              showSection('home');
         }, 1500);
     }
+    
+    // 2. Contact Form Submission Handler
+    function handleContactSubmission(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('contact-name').value;
+        const subject = document.getElementById('contact-subject').value;
+        const message = document.getElementById('contact-message').value;
 
+        let whatsappMessage = `*NEW CONTACT MESSAGE (WEB)*\n`;
+        whatsappMessage += `*Sender:* ${name}\n`;
+        whatsappMessage += `*Subject:* ${subject}\n`;
+        whatsappMessage += `*Message:* ${message}`;
+        
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+
+        showAlert('Message sent via WhatsApp!', 'success');
+        document.getElementById('contact-form-whatsapp').reset();
+    }
+    
+    // 3. Get A Quote Submission Handler
+    function handleQuoteSubmission(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('quote-name').value;
+        const phone = document.getElementById('quote-phone').value;
+        const product = document.getElementById('quote-product').value;
+        const quantity = document.getElementById('quote-quantity').value;
+        const details = document.getElementById('quote-details').value;
+        
+        let whatsappMessage = `*NEW QUOTE REQUEST (WEB)*\n`;
+        whatsappMessage += `*Customer:* ${name}\n`;
+        whatsappMessage += `*Phone (Contact):* ${phone}\n`;
+        whatsappMessage += `*Product Type:* ${product}\n`;
+        whatsappMessage += `*Quantity/Area:* ${quantity}\n`;
+        whatsappMessage += `*Specifications:* ${details}`;
+        
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+
+        showAlert('Quote submitted via WhatsApp! We will contact you shortly.', 'success');
+        document.getElementById('quote-form').reset();
+    }
+
+
+    // --- UI/Navigation Functions ---
     
     function showSection(sectionName) {
         document.querySelectorAll('.section').forEach(section => {
@@ -1146,7 +1253,6 @@
         }
     }
     
-    // Remaining helper functions (showAlert, etc.) remain intact
     function showAlert(message, type) {
         const alert = document.createElement('div');
         alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
@@ -1166,12 +1272,6 @@
             }
         }, 5000);
     }
-
-    document.getElementById('contact-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        showAlert('Your message has been sent successfully! We will get back to you soon.', 'success');
-        this.reset();
-    });
 
     document.addEventListener('DOMContentLoaded', initialAppLoad);
 </script>
