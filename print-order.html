@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Print Order Form</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f9; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        h1, h2 { color: #333; }
+        .config-section { border: 1px solid #ddd; padding: 20px; margin-bottom: 25px; border-radius: 6px; }
+        .config-section h3 { margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 10px; color: #007bff; }
+        .option-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; color: #555; }
+        input[type="radio"], input[type="number"], select { margin-right: 10px; }
+        .file-upload-area { border: 2px dashed #007bff; padding: 40px; text-align: center; margin-bottom: 20px; cursor: pointer; background-color: #eaf6ff; border-radius: 6px; }
+        .price-summary { background-color: #d4edda; color: #155724; padding: 15px; border-radius: 6px; text-align: right; font-size: 1.2em; font-weight: bold; margin-bottom: 20px; }
+        .btn-checkout { background-color: #28a745; color: white; padding: 15px 30px; border: none; border-radius: 5px; font-size: 1.1em; cursor: pointer; width: 100%; transition: background-color 0.3s; }
+        .btn-checkout:hover { background-color: #1e7e34; }
+        .terms-box { font-size: 0.9em; color: #666; margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; }
+        .terms-content { margin-top: 40px; padding: 20px; background-color: #fff; border: 1px solid #ddd; border-radius: 6px; }
+        .terms-content h2 { border-bottom: 2px solid #007bff; padding-bottom: 5px; color: #007bff; }
+        .terms-content h4 { color: #555; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📑 Custom Document & Photo Prints</h1>
+        <p>Select your specifications, upload your files, and complete your order.</p>
+
+        <form id="printOrderForm" action="/api/process-print-order" method="POST" enctype="multipart/form-data">
+            
+            <div class="config-section">
+                <h3>1. Print Specifications</h3>
+                
+                <div class="option-group">
+                    <label>Print Colour</label>
+                    <input type="radio" name="color" value="B&W" checked> Black & White
+                    <input type="radio" name="color" value="Color"> Colour
+                </div>
+
+                <div class="option-group">
+                    <label>Print Siding</label>
+                    <input type="radio" name="siding" value="Single" checked> Single Sided
+                    <input type="radio" name="siding" value="Double"> Double Sided
+                </div>
+
+                <div class="option-group">
+                    <label>Paper Size</label>
+                    <input type="radio" name="size" value="A4" checked> A4
+                    <input type="radio" name="size" value="A3"> A3
+                </div>
+
+                <div class="option-group">
+                    <label for="paperType">Paper Type / Weight</label>
+                    <select id="paperType" name="paperType" required>
+                        <option value="80g_Plain">80g Plain (Basic use)</option>
+                        <option value="90g_Bright">90g Bright White (Vivid Text/Reports)</option>
+                        <option value="160g_Card">160g Card (Invitations/Covers)</option>
+                        <option value="170g_Silk">170g Silk Finish (Graphics/Flyers)</option>
+                    </select>
+                </div>
+                
+                <div class="option-group">
+                    <label for="quantity">Number of Copies (Quantity)</label>
+                    <input type="number" id="quantity" name="quantity" value="1" min="1" required>
+                </div>
+            </div>
+
+            <div class="config-section">
+                <h3>2. Optional Finishing & Contact</h3>
+                <div class="option-group">
+                    <label for="binding">Binding</label>
+                    <select id="binding" name="binding">
+                        <option value="None">No Binding</option>
+                        <option value="Comb_Black">Comb Binding (Black)</option>
+                        <option value="Comb_White">Comb Binding (White)</option>
+                    </select>
+                </div>
+                <div class="option-group">
+                    <label>Lamination</label>
+                    <input type="radio" name="lamination" value="None" checked> Do not include lamination
+                    <input type="radio" name="lamination" value="Laminate"> Include Lamination
+                </div>
+                
+                <div class="option-group">
+                    <label for="customerEmail">📧 Your Email for Order Updates</label>
+                    <input type="email" id="customerEmail" name="customerEmail" placeholder="e.g., yourname@example.com" required>
+                </div>
+                <input type="hidden" name="orderId" id="orderId">
+            </div>
+
+            <div class="config-section">
+                <h3>3. Upload Your Document(s)</h3>
+                <div class="file-upload-area" onclick="document.getElementById('fileUpload').click();">
+                    <p><strong>Drag & Drop Your Files Here</strong> or click to browse.</p>
+                    <p style="font-size:0.8em;">Accepted formats: PDF (Recommended), JPG, PNG, DOCX, PPTX.</p>
+                </div>
+                <input type="file" id="fileUpload" name="files[]" multiple required style="display: none;">
+            </div>
+
+            <div class="price-summary">
+                Estimated Price: <span id="totalPrice">Calculating...</span>
+            </div>
+
+            <button type="submit" class="btn-checkout">🚀 Proceed to Secure Checkout (and Pay)</button>
+
+            <div class="terms-box">
+                By clicking checkout, you agree to our <a href="#terms-section">Print Service Terms & Conditions</a>.
+            </div>
+        </form>
+
+        <div id="terms-section" class="terms-content">
+            <h2>📜 Print Service Terms and Conditions</h2>
+            
+            <h4>1. File Submission & Quality</h4>
+            <ul>
+                <li>**File Format:** We strongly recommend submitting files in **PDF format** for the highest compatibility and print quality. We also accept JPG, PNG, DOCX, and PPTX.</li>
+                <li>**Preparation:** All documents must be **unzipped and free of password protection**. The customer is responsible for ensuring the file is correctly sized (e.g., an A4 file for A4 prints).</li>
+                <li>**Borderless Printing:** We are unable to offer borderless (full bleed) printing via this standard online service. A small white margin will be applied to all prints.</li>
+            </ul>
+
+            <h4>2. Content & Order Restriction</h4>
+            <ul>
+                <li>**Inappropriate Content:** We reserve the right to decline any order that, in our sole judgment, contains offensive, inflammatory, discriminatory, illegal, or otherwise inappropriate content.</li>
+            </ul>
+
+            <h4>3. Payment & Refunds</h4>
+            <ul>
+                <li>**Non-Refundable:** All print orders are considered **non-refundable** once the printing process has commenced.</li>
+                <li>**Quality Guarantee:** If you encounter any issues with the print quality due to our error, we are happy to provide a **free reprint** if the issue is reported within **24 hours** of collection or delivery.</li>
+            </ul>
+
+            <h4>4. Data Security (GDPR Compliance)</h4>
+            <ul>
+                <li>**Digital File Retention:** To protect your privacy, all digital files uploaded to our OneDrive folder will be automatically deleted from our server/cloud storage after **7 days** from order completion.</li>
+                <li>**Uncollected Prints:** Physical documents that are uncollected will be securely shredded in accordance with GDPR after **30 days** of the order date. No refund will be issued for uncollected prints.</li>
+            </ul>
+        </div>
+        </div>
+    <script>
+        // Placeholder JavaScript for Order ID and Price Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            function generateOrderId() {
+                const timestamp = Date.now().toString().slice(-6);
+                const random = Math.random().toString(36).substring(2, 5).toUpperCase();
+                return `P-${timestamp}-${random}`;
+            }
+            document.getElementById('orderId').value = generateOrderId();
+        });
+        
+        function updatePrice() {
+            // Placeholder logic: This must be finalized and secured on your backend.
+            const quantity = document.getElementById('quantity').value;
+            const size = document.querySelector('input[name="size"]:checked').value;
+            let basePrice = (size === 'A4') ? 0.20 : 0.40;
+            const fixedFee = 2.50; 
+            let finalPrice = (basePrice * quantity) + fixedFee; 
+            document.getElementById('totalPrice').textContent = `£${finalPrice.toFixed(2)}`;
+        }
+        document.addEventListener('DOMContentLoaded', updatePrice);
+        document.getElementById('printOrderForm').addEventListener('change', updatePrice);
+    </script>
+</body>
+</html>
