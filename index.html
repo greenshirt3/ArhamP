@@ -142,7 +142,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto bg-light pe-4 py-3 py-lg-0">
                 <a href="#home-section" class="nav-item nav-link active" onclick="showSection('home')">Home</a>
-                <a href="#shop-catalog" class="nav-item nav-link" onclick="showSection('home')">Products</a>
+                <a href="products.html" class="nav-item nav-link">Products</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
                     <div class="dropdown-menu bg-light border-0 m-0">
@@ -271,52 +271,41 @@
             </div>
         </div>
         <!-- Services Strip End -->
-
-        <!-- Shop Catalog Start (Simplified Grid View) -->
-        <div class="container-fluid shop py-5" id="shop-catalog">
+<div class="container-fluid services-categories py-5" id="services-categories">
             <div class="container py-5">
-                <div class="row g-4">
-                    <!-- Sidebar Filters - Retained for layout consistency -->
-                    <div class="col-lg-3 wow fadeInUp" data-wow-delay="0.1s">
-                         <div class="product-categories mb-4">
-                            <h4>Products Categories</h4>
-                            <ul class="list-unstyled" id="productCategoriesList">
-                                <!-- Dynamically filled with Main Categories -->
-                            </ul>
-                        </div>
-                        <div class="price mb-4">
-                            <h4 class="mb-2">Price Range (PKR)</h4>
-                            <input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="0" max="10000"
-                                value="0" oninput="amount.value=rangeInput.value">
-                            <output id="amount" name="amount" min-velue="0" max-value="10000" for="rangeInput">0</output>
-                            <div class=""></div>
-                        </div>
-                        
-                        <a href="#">
-                            <div class="position-relative">
-                                <img src="img/product-banner-2.jpg" class="img-fluid w-100 rounded" alt="Image">
-                                <div class="text-center position-absolute d-flex flex-column align-items-center justify-content-center rounded p-4"
-                                    style="width: 100%; height: 100%; top: 0; right: 0; background: rgba(242, 139, 0, 0.3);">
-                                    <h5 class="display-6 text-primary">SALE</h5>
-                                    <h4 class="text-secondary">Get UP To 50% Off</h4>
-                                    <a href="#" class="btn btn-primary rounded-pill px-4">Shop Now</a>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <!-- Product Display Section (Simplified Catalog) -->
-                    <div class="col-lg-9 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="row g-4" id="main-product-catalog">
-                            <!-- Products will be dynamically inserted here by JS -->
-                        </div>
-                    </div>
+                <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                    <h1 class="display-5 mb-3">Our Printing Services & Product Categories</h1>
+                    <p class="mb-0">Explore our full range of professional printing and advertising solutions.</p>
                 </div>
+                <div class="row g-4 justify-content-center" id="index-categories-list">
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='/products.html?category=Business Essentials'">
+                            <div class="card-body">
+                                <i class="fas fa-briefcase fa-3x text-primary mb-3"></i>
+                                <h5 class="card-title mb-0">Business Essentials</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='/products.html?category=Marketing Essentials'">
+                            <div class="card-body">
+                                <i class="fas fa-bullhorn fa-3x text-primary mb-3"></i>
+                                <h5 class="card-title mb-0">Marketing Essentials</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='/products.html?category=Digital Printing'">
+                            <div class="card-body">
+                                <i class="fas fa-print fa-3x text-primary mb-3"></i>
+                                <h5 class="card-title mb-0">Digital Printing</h5>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
             </div>
         </div>
-        <!-- Shop Catalog End -->
-    </section>
-
+        
     <!-- Product Detail Section Start (New Separate Page) -->
     <section id="product-detail-section" class="section">
         <div class="container-fluid page-header py-5">
