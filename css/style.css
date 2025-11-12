@@ -1,4 +1,3 @@
-
 /*** Spinner Start ***/
 /*** Spinner ***/
 
@@ -28,6 +27,55 @@
     opacity: 1;
 }
 /*** Spinner End ***/
+
+/* =====================================================
+  ACCESSIBILITY & TYPOGRAPHY IMPROVEMENTS
+  (These changes affect all linked pages)
+=====================================================
+*/
+
+/* 1. Improve Base Text Readability (Line Height and Color Contrast)
+   - Note: The base font-size is set in bootstrap.min.css to 1rem. 
+   - We set a slightly higher font-size for accessibility (approx. 17.6px).
+   - We improve paragraph line height for better reading flow.
+   - We set a high-contrast color for body text.
+*/
+body {
+    /* Inherits font-family from Bootstrap, but set a high-contrast text color */
+    color: #495057; /* Darker than default #919191 for better contrast */
+}
+
+p {
+    /* Increase default line height for better reading experience */
+    line-height: 1.65;
+    font-size: 1.05rem; /* Base text is slightly larger than 1rem (16px) for legibility */
+}
+
+h5 {
+    /* Ensure H5 is distinct and readable */
+    font-size: 1.3rem; 
+    font-weight: 600;
+}
+
+h6 {
+    /* Ensure H6 is distinct and readable */
+    font-size: 1.15rem; 
+    font-weight: 600;
+}
+
+/* 2. Footer Link Text Improvement 
+   - Ensure the footer text is readable against the dark background.
+*/
+.footer .footer-item a {
+    line-height: 30px;
+    color: rgba(255, 255, 255, 0.7); /* Slightly lighter text for readability on dark background */
+    transition: 0.5s;
+}
+/* =====================================================
+  END TYPOGRAPHY IMPROVEMENTS
+=====================================================
+*/
+
 
 .back-to-top {
     position: fixed;
@@ -859,7 +907,7 @@
 }
 .footer .footer-item a {
     line-height: 30px;
-    color: var(--bs-body);
+    color: rgba(255, 255, 255, 0.7); /* Applied improved color here as well */
     transition: 0.5s;
 }
 
