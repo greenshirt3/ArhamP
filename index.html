@@ -163,8 +163,7 @@
                         <div class="dropdown-divider"></div>
                         <a href="#" class="dropdown-item" onclick="showSection('quote')">Get Custom Quote</a>
                     </div>
-                </div>
-                <a href="#" class="nav-item nav-link" onclick="showSection('contact')">Contact</a>
+                </div><a href="#contact-section" class="nav-item nav-link" onclick="showSection('contact')">Contact</a>
             </div>
             <div class="h-100 d-lg-inline-flex align-items-center">
                 <!-- Shopping bag icon now serves as the WhatsApp Order trigger -->
@@ -1243,27 +1242,30 @@
 
     // --- UI/Navigation Functions ---
     
-    function showSection(sectionName) {
-        document.querySelectorAll('.section').forEach(section => {
-            section.classList.remove('active');
-        });
-        
-        document.getElementById(sectionName + '-section').classList.add('active');
-        
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.classList.remove('active');
-        });
-        
-        window.scrollTo(0, 0);
-        
-        if (sectionName === 'home') {
-             const homeLink = document.querySelector('.nav-item.nav-link[href="#home-section"]');
-             if (homeLink) homeLink.classList.add('active');
-        } else {
-             document.querySelector(`.nav-item.nav-link[onclick="showSection('${sectionName}')"]`)?.classList.add('active');
-        }
+   function showSection(sectionName) {
+    document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+    });
+    
+    // Ensure the section name is correctly concatenated with '-section'
+    const sectionElement = document.getElementById(sectionName + '-section');
+    if (sectionElement) {
+        sectionElement.classList.add('active');
     }
     
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+    });
+    
+    window.scrollTo(0, 0);
+    
+    if (sectionName === 'home') {
+         const homeLink = document.querySelector('.nav-item.nav-link[href="#home-section"]');
+         if (homeLink) homeLink.classList.add('active');
+    } else {
+         document.querySelector(`.nav-item.nav-link[onclick="showSection('${sectionName}')"]`)?.classList.add('active');
+    }
+}    
     function showAlert(message, type) {
         const alert = document.createElement('div');
         alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
