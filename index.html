@@ -163,16 +163,15 @@
                         <div class="dropdown-divider"></div>
                         <a href="#" class="dropdown-item" onclick="showSection('quote')">Get Custom Quote</a>
                     </div>
-                </div>
-                <a href="#" class="nav-item nav-link" onclick="showSection('contact')">Contact</a>
+                </div><a href="#contact-section" class="nav-item nav-link" onclick="showSection('contact')">Contact</a>
             </div>
             <div class="h-100 d-lg-inline-flex align-items-center">
+                <!-- Shopping bag icon now serves as the WhatsApp Order trigger -->
                 <a class="btn-sm-square bg-white text-primary rounded-circle me-4 position-relative" href="#" onclick="showSection('quote')">
                     <i class="fas fa-file-invoice"></i>
                 </a>
                 <a href="#" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block" onclick="showSection('contact')">Get a Quote<i
                         class="fa fa-arrow-right ms-3"></i></a>
-            </div>
             </div>
         </div>
     </nav>
@@ -205,8 +204,8 @@
 <div class="container-fluid services-categories py-5" id="services-categories">
             <div class="container py-5">
                 <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                    <h4 class="display-5 mb-3">Our Core Printing Services & Product Categories</h4>
-                    <p class="mb-0">Find exactly what you need, from business essentials to custom advertising solutions.</p>
+                    <h1 class="display-5 mb-3">Our Printing Services & Product Categories</h1>
+                    <p class="mb-0">Explore our full range of professional printing and advertising solutions.</p>
                 </div>
                 <div class="row g-4 justify-content-center" id="index-categories-list">
                     <div class="col-lg-4 col-md-6 col-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -314,15 +313,87 @@
                         </div>
                     </div>
 
-                  </div>
+                    </div>
             </div>
         </div>
         
-   <section id="quote-section" class="section">
+    <!-- Product Detail Section Start (New Separate Page) -->
+    <section id="product-detail-section" class="section">
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s" id="detail-product-name-header">Product Details</h1>
+            <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+                <li class="breadcrumb-item"><a href="#" onclick="showSection('home')">Home</a></li>
+                <li class="breadcrumb-item active text-white">Details</li>
+            </ol>
+        </div>
+
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <!-- Product Image -->
+                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="d-flex justify-content-center">
+                            <img id="detail-product-image" src="img/placeholder.jpg" class="img-fluid rounded" alt="Product Image" style="max-height: 400px;">
+                        </div>
+                    </div>
+                    
+                    <!-- Product Options and Price -->
+                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <h2 class="fw-bold mb-4" id="detail-product-name-body">Product Name</h2>
+                        
+                        <!-- Custom Area Inputs (Panaflex/Wallpaper) -->
+                        <div id="custom-area-inputs" style="display: none;">
+                            <div class="product-option-group" data-option-key="Dimensions">
+                                <label>Wall/Piece Dimensions (Feet):</label>
+                                <div class="d-flex gap-3">
+                                    <input type="number" id="input-width" min="1" placeholder="Width" class="form-control" oninput="updateFinalPrice()">
+                                    <span class="align-self-center">x</span>
+                                    <input type="number" id="input-height" min="1" placeholder="Height" class="form-control" oninput="updateFinalPrice()">
+                                </div>
+                                <small class="text-muted mt-2 d-block" id="areaDisplay"></small>
+                            </div>
+                            
+                            <div class="product-option-group" data-option-key="Quantity">
+                                <label>Number of Pieces/Walls:</label>
+                                <input type="number" id="input-custom-qty" min="1" value="1" class="form-control" oninput="updateFinalPrice()">
+                            </div>
+                            
+                            <div class="alert alert-warning mt-3" id="designFeeDisplay"></div>
+                            <div class="alert alert-danger mt-3" id="areaConstraintWarning" style="display: none;"></div>
+                        </div>
+
+                        <!-- Standard Selector Fields (For regular tiered items) -->
+                        <div id="standard-options-fields">
+                            <!-- Dynamic Options (Clickable Cards) will be loaded here for non-area items -->
+                        </div>
+
+                        <!-- Final Price Box (Visible after validation) -->
+                        <div class="final-price-box" id="finalPriceBox">
+                            <h4 class="mb-2">Final Price</h4>
+                            <h3 class="display-6 fw-bold" id="finalPriceDisplay">PKR 0</h3>
+                            
+                            <!-- Add to Cart button now triggers WhatsApp submission -->
+                            <button class="btn btn-secondary py-2 px-4 w-100 mt-3" onclick="addToCartFromDetails()">
+                                <i class="fab fa-whatsapp me-2"></i> Place Order via WhatsApp
+                            </button>
+                        </div>
+                        
+                        <div class="alert alert-info mt-3" id="selectionWarning" style="display: block;">
+                            Please enter dimensions/quantity or select all options above to see the final price.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Product Detail Section End -->
+    
+    <!-- Custom Quote Section Start -->
+    <section id="quote-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Get a Custom Quote</h1>
             <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="#" onclick="showSection('home')">Home</a></li>
                 <li class="breadcrumb-item active text-white">Quote</li>
             </ol>
         </div>
@@ -376,11 +447,15 @@
             </div>
         </div>
     </section>
+    <!-- Custom Quote Section End -->
+
+
+    <!-- Contact Section Start -->
     <section id="contact-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Contact Us</h1>
             <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="#" onclick="showSection('home')">Home</a></li>
                 <li class="breadcrumb-item active text-white">Contact</li>
             </ol>
         </div>
@@ -427,7 +502,8 @@
                     
                     <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="bg-light p-4 rounded">
-                            <form id="contact-form-whatsapp" onsubmit="handleContactSubmission(event)">
+                            <!-- Submission for Contact is routed to WhatsApp -->
+                           <form id="contact-form-whatsapp" onsubmit="handleContactSubmission(event)">
                                 <h3 class="mb-4">Send a Direct Message</h3>
                                 <div class="row g-3">
                                     <div class="col-md-6">
@@ -459,8 +535,7 @@
             </div>
         </div>
     </section>
-   
-     <section id="print-service-card" style="background-color: #ffc107; padding: 40px 20px; margin-bottom: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+  <section id="print-service-card" style="background-color: #ffc107; padding: 40px 20px; margin-bottom: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
   <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; align-items: center;">
     
     <!-- Column 1: Image -->
@@ -476,8 +551,8 @@
 
   <!-- Text and Button Section -->
   <div style="text-align: center; margin-top: 30px;">
-    <h2 style="color: #dc3545; font-size: 1.8em; margin-bottom: 10px;">Print Your Documents and Photos.</h2>
-    <p style="font-size: 1.1em; margin-bottom: 25px;">Upload your documents, reports, and photos for custom printing. Secure, easy, and get delivered at your Doorstep.</p>
+    <h2 style="color: #dc3545; font-size: 1.8em; margin-bottom: 10px;">📄 Need Prints? Fast & Professional.</h2>
+    <p style="font-size: 1.1em; margin-bottom: 25px;">Upload your documents, reports, and photos for custom printing. Secure, easy, and delivered fast.</p>
     <a href="/print-order.html" class="print-button"
        style="background-color: #007bff; color: white; padding: 15px 40px; text-decoration: none; font-weight: bold; font-size: 1.2em; border-radius: 5px; display: inline-block; transition: background-color 0.3s;">
       ✅ Print Your Documents and Photos
@@ -1214,6 +1289,29 @@
     document.addEventListener('DOMContentLoaded', initialAppLoad);
 </script>
 </div>
+
+<script>
+function sendQuote() {
+  const name = document.querySelector('#quote-name').value;
+  const phone = document.querySelector('#quote-phone').value;
+  const product = document.querySelector('#quote-product').value;
+  const qty = document.querySelector('#quote-qty').value;
+  const msg = document.querySelector('#quote-msg').value;
+
+  const text = `Name: ${name}%0APhone: ${phone}%0AProduct: ${product}%0AQuantity: ${qty}%0AMessage: ${msg}`;
+  window.open(`https://wa.me/923006238233?text=${text}`, '_blank');
+}
+
+function sendContact() {
+  const name = document.querySelector('#contact-name').value;
+  const email = document.querySelector('#contact-email').value;
+  const message = document.querySelector('#contact-message').value;
+
+  const text = `Contact Request%0AName: ${name}%0AEmail: ${email}%0AMessage: ${message}`;
+  window.open(`https://wa.me/923006238233?text=${text}`, '_blank');
+}
+</script>
+
 </body>
 
 </html>
