@@ -204,8 +204,8 @@
 <div class="container-fluid services-categories py-5" id="services-categories">
             <div class="container py-5">
                 <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                    <h1 class="display-5 mb-3">Our Printing Services & Product Categories</h1>
-                    <p class="mb-0">Explore our full range of professional printing and advertising solutions.</p>
+                    <h3 class="display-5 mb-3">Our Core Printing Services & Product Categories</h3>
+                    <p class="mb-0">Find exactly what you need, from business essentials to custom advertising solutions.</p>
                 </div>
                 <div class="row g-4 justify-content-center" id="index-categories-list">
                     <div class="col-lg-4 col-md-6 col-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -387,155 +387,149 @@
         </div>
     </section>
     <!-- Product Detail Section End -->
-    
-    <!-- Custom Quote Section Start -->
     <section id="quote-section" class="section">
-        <div class="container-fluid page-header py-5">
-            <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Get a Custom Quote</h1>
-            <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
-                <li class="breadcrumb-item"><a href="#" onclick="showSection('home')">Home</a></li>
-                <li class="breadcrumb-item active text-white">Quote</li>
-            </ol>
-        </div>
+    <div class="container-fluid page-header py-5">
+        <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Get a Custom Quote</h1>
+        <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+            <li class="breadcrumb-item"><a href="#" onclick="showSection('home')">Home</a></li>
+            <li class="breadcrumb-item active text-white">Quote</li>
+        </ol>
+    </div>
 
-        <div class="container-fluid py-5">
-            <div class="container py-5">
-                <div class="row g-4 justify-content-center">
-                    <div class="col-lg-8">
-                        <div class="bg-light p-4 rounded">
-                            <form id="quote-form" onsubmit="handleQuoteSubmission(event)">
-                                <h3 class="mb-4">Quick Inquiry</h3>
-                                <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control border-0" id="quote-name" placeholder="Your Name" required>
-                                            <label for="quote-name">Your Name</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-floating">
-                                            <input type="tel" class="form-control border-0" id="quote-phone" placeholder="WhatsApp Phone" required>
-                                            <label for="quote-phone">WhatsApp Phone</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control border-0" id="quote-product" placeholder="Product Name (e.g., Visiting Cards, 3D Wallpaper)">
-                                            <label for="quote-product">Product Name / Type</label>
-                                        </div>
-                                    </div>
-                                     <div class="col-12">
-                                        <div class="form-floating">
-                                            <input type="number" class="form-control border-0" id="quote-quantity" placeholder="Quantity or Total Area (e.g., 500 cards, 100 sq ft)">
-                                            <label for="quote-quantity">Quantity / Estimated Area</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-floating">
-                                            <textarea class="form-control border-0" placeholder="Details of your inquiry (Size, Finish, Quality, Message)" id="quote-details" style="height: 150px" required></textarea>
-                                            <label for="quote-details">Inquiry Message / Specifications</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <button class="btn btn-primary w-100 py-3" type="submit">Submit Quote via WhatsApp</button>
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row g-4 justify-content-center">
+                <div class="col-lg-8">
+                    <div class="bg-light p-4 rounded">
+                        <form id="quote-form" onsubmit="handleQuoteSubmission(event)">
+                            <h3 class="mb-4">Quick Inquiry</h3>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control border-0" id="quote-name" placeholder="Your Name" required>
+                                        <label for="quote-name">Your Name</label>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="tel" class="form-control border-0" id="quote-phone" placeholder="WhatsApp Phone" required>
+                                        <label for="quote-phone">WhatsApp Phone</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control border-0" id="quote-product" placeholder="Product Name (e.g., Visiting Cards, 3D Wallpaper)">
+                                        <label for="quote-product">Product Name / Type</label>
+                                    </div>
+                                </div>
+                                 <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control border-0" id="quote-quantity" placeholder="Quantity or Total Area (e.g., 500 cards, 100 sq ft)">
+                                        <label for="quote-quantity">Quantity / Estimated Area</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <textarea class="form-control border-0" placeholder="Details of your inquiry (Size, Finish, Quality, Message)" id="quote-details" style="height: 150px" required></textarea>
+                                        <label for="quote-details">Inquiry Message / Specifications</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-primary w-100 py-3" type="submit">Submit Quote via WhatsApp</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- Custom Quote Section End -->
+    </div>
+</section>
+<section id="contact-section" class="section">
+    <div class="container-fluid page-header py-5">
+        <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Contact Us</h1>
+        <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+            <li class="breadcrumb-item"><a href="#" onclick="showSection('home')">Home</a></li>
+            <li class="breadcrumb-item active text-white">Contact</li>
+        </ol>
+    </div>
 
-
-    <!-- Contact Section Start -->
-    <section id="contact-section" class="section">
-        <div class="container-fluid page-header py-5">
-            <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Contact Us</h1>
-            <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
-                <li class="breadcrumb-item"><a href="#" onclick="showSection('home')">Home</a></li>
-                <li class="breadcrumb-item active text-white">Contact</li>
-            </ol>
-        </div>
-
-        <div class="container-fluid py-5">
-            <div class="container py-5">
-                <div class="row g-4">
-                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="bg-light p-4 rounded">
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
-                                    style="width: 60px; height: 60px;">
-                                    <i class="fa fa-map-marker-alt text-primary fs-4"></i>
-                                </div>
-                                <div class="ms-4">
-                                    <h5 class="mb-2">Our Location</h5>
-                                    <p class="mb-0">Domela Chowk,Tanda Road, Jalalpur Jattan</p>
-                                </div>
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row g-4">
+                <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="bg-light p-4 rounded">
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
+                                style="width: 60px; height: 60px;">
+                                <i class="fa fa-map-marker-alt text-primary fs-4"></i>
                             </div>
-                            
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
-                                    style="width: 60px; height: 60px;">
-                                    <i class="fa fa-phone-alt text-primary fs-4"></i>
-                                </div>
-                                <div class="ms-4">
-                                    <h5 class="mb-2">Call Us</h5>
-                                    <p class="mb-0">+92 300 6238233</p>
-                                </div>
+                            <div class="ms-4">
+                                <h5 class="mb-2">Our Location</h5>
+                                <p class="mb-0">Domela Chowk,Tanda Road, Jalalpur Jattan</p>
                             </div>
-                            
-                            <div class="d-flex align-items-center">
-                                <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
-                                    style="width: 60px; height: 60px;">
-                                    <i class="fa fa-envelope text-primary fs-4"></i>
-                                </div>
-                                <div class="ms-4">
-                                    <h5 class="mb-2">Email Us</h5>
-                                    <p class="mb-0">info@arhamprinters.pk</p>
-                                </div>
+                        </div>
+                        
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
+                                style="width: 60px; height: 60px;">
+                                <i class="fa fa-phone-alt text-primary fs-4"></i>
+                            </div>
+                            <div class="ms-4">
+                                <h5 class="mb-2">Call Us</h5>
+                                <p class="mb-0">+92 300 6238233</p>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex align-items-center">
+                            <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
+                                style="width: 60px; height: 60px;">
+                                <i class="fa fa-envelope text-primary fs-4"></i>
+                            </div>
+                            <div class="ms-4">
+                                <h5 class="mb-2">Email Us</h5>
+                                <p class="mb-0">info@arhamprinters.pk</p>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="bg-light p-4 rounded">
-                            <!-- Submission for Contact is routed to WhatsApp -->
-                           <form id="contact-form-whatsapp" onsubmit="handleContactSubmission(event)">
-                                <h3 class="mb-4">Send a Direct Message</h3>
-                                <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control border-0" id="contact-name" placeholder="Your Name" required>
-                                            <label for="contact-name">Your Name</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control border-0" id="contact-subject" placeholder="Subject" required>
-                                            <label for="contact-subject">Subject</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-floating">
-                                            <textarea class="form-control border-0" placeholder="Leave a message here" id="contact-message" style="height: 150px" required></textarea>
-                                            <label for="contact-message">Message</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <button class="btn btn-primary w-100 py-3" type="submit">Send Message via WhatsApp</button>
+                </div>
+                
+                <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="bg-light p-4 rounded">
+                        <form id="contact-form-whatsapp" onsubmit="handleContactSubmission(event)">
+                            <h3 class="mb-4">Send a Direct Message</h3>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control border-0" id="contact-name" placeholder="Your Name" required>
+                                        <label for="contact-name">Your Name</label>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control border-0" id="contact-subject" placeholder="Subject" required>
+                                        <label for="contact-subject">Subject</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <textarea class="form-control border-0" placeholder="Leave a message here" id="contact-message" style="height: 150px" required></textarea>
+                                        <label for="contact-message">Message</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-primary w-100 py-3" type="submit">Send Message via WhatsApp</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-  <section id="print-service-card" style="background-color: #ffc107; padding: 40px 20px; margin-bottom: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+    </div>
+</section>
+    <!-- Custom Quote Section Start -->
+     <section id="print-service-card" style="background-color: #ffc107; padding: 40px 20px; margin-bottom: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
   <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; align-items: center;">
     
     <!-- Column 1: Image -->
@@ -551,8 +545,8 @@
 
   <!-- Text and Button Section -->
   <div style="text-align: center; margin-top: 30px;">
-    <h2 style="color: #dc3545; font-size: 1.8em; margin-bottom: 10px;">📄 Need Prints? Fast & Professional.</h2>
-    <p style="font-size: 1.1em; margin-bottom: 25px;">Upload your documents, reports, and photos for custom printing. Secure, easy, and delivered fast.</p>
+    <h2 style="color: #dc3545; font-size: 1.8em; margin-bottom: 10px;">Print Your Documents and Photos.</h2>
+    <p style="font-size: 1.1em; margin-bottom: 25px;">Upload your documents, reports, and photos for custom printing. Secure, easy, and get delivered at your Doorstep.</p>
     <a href="/print-order.html" class="print-button"
        style="background-color: #007bff; color: white; padding: 15px 40px; text-decoration: none; font-weight: bold; font-size: 1.2em; border-radius: 5px; display: inline-block; transition: background-color 0.3s;">
       ✅ Print Your Documents and Photos
