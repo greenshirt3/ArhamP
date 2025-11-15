@@ -317,7 +317,61 @@
             </div>
         </div>
         
-    <!-- Product Detail Section Start (New Separate Page) -->
+        <!-- Quick Access Buttons for Contact and Quote -->
+        <div class="container mt-5">
+            <div class="row text-center">
+                <div class="col-md-6 mb-4">
+                    <div class="bg-light p-4 rounded">
+                        <i class="fas fa-file-invoice fa-2x text-primary mb-3"></i>
+                        <h5>Need a Custom Quote?</h5>
+                        <p>Get pricing for custom projects</p>
+                        <button class="btn btn-primary" onclick="showSection('quote')">Get Quote</button>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="bg-light p-4 rounded">
+                        <i class="fas fa-headset fa-2x text-primary mb-3"></i>
+                        <h5>Contact Support</h5>
+                        <p>Have questions? We're here to help</p>
+                        <button class="btn btn-outline-primary" onclick="showSection('contact')">Contact Us</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+
+    <!-- Shop Catalog Section -->
+    <section id="shop-catalog-section" class="section">
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Product Catalog</h1>
+            <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+                <li class="breadcrumb-item"><a href="#" onclick="showSection('home')">Home</a></li>
+                <li class="breadcrumb-item active text-white">Products</li>
+            </ol>
+        </div>
+
+        <div class="container py-5">
+            <div class="row g-4">
+                <div class="col-lg-3">
+                    <div class="bg-light p-4 rounded mb-4 wow fadeInUp" data-wow-delay="0.1s">
+                        <h4 class="mb-4">Product Categories</h4>
+                        <ul class="list-unstyled" id="productCategoriesList">
+                            <!-- Categories will be populated by JavaScript -->
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-9">
+                    <div class="row g-4" id="main-product-catalog">
+                        <!-- Products will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Product Detail Section Start -->
     <section id="product-detail-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s" id="detail-product-name-header">Product Details</h1>
@@ -449,7 +503,6 @@
     </section>
     <!-- Custom Quote Section End -->
 
-
     <!-- Contact Section Start -->
     <section id="contact-section" class="section">
         <div class="container-fluid page-header py-5">
@@ -535,105 +588,107 @@
             </div>
         </div>
     </section>
-  <section id="print-service-card" style="background-color: #ffc107; padding: 40px 20px; margin-bottom: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-  <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; align-items: center;">
-    
-    <!-- Column 1: Image -->
-    <div style="flex: 1 1 300px; text-align: center;">
-      <img src="img/print ad.jpg" alt="Print Sample 1" style="width: 100%; max-width: 300px; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 8px;">
-    </div>
 
-    <!-- Column 2: Image -->
-    <div style="flex: 1 1 300px; text-align: center;">
-      <img src="image2.jpg" alt="Print Sample 2" style="width: 100%; max-width: 300px; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 8px;">
-    </div>
-  </div>
+    <!-- Print Service Card -->
+    <section id="print-service-card" style="background-color: #ffc107; padding: 40px 20px; margin-bottom: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+      <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; align-items: center;">
+        
+        <!-- Column 1: Image -->
+        <div style="flex: 1 1 300px; text-align: center;">
+          <img src="img/print ad.jpg" alt="Print Sample 1" style="width: 100%; max-width: 300px; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 8px;">
+        </div>
 
-  <!-- Text and Button Section -->
-  <div style="text-align: center; margin-top: 30px;">
-    <h2 style="color: #dc3545; font-size: 1.8em; margin-bottom: 10px;">📄 Need Prints? Fast & Professional.</h2>
-    <p style="font-size: 1.1em; margin-bottom: 25px;">Upload your documents, reports, and photos for custom printing. Secure, easy, and delivered fast.</p>
-    <a href="/print-order.html" class="print-button"
-       style="background-color: #007bff; color: white; padding: 15px 40px; text-decoration: none; font-weight: bold; font-size: 1.2em; border-radius: 5px; display: inline-block; transition: background-color 0.3s;">
-      ✅ Print Your Documents and Photos
-    </a>
-  </div>
-</section>
-<!-- Footer Start -->
-<div class="container-fluid footer py-2 wow fadeIn" data-wow-delay="0.2s">
-  <div class="container py-2">
-    <div class="row g-3">
-      <!-- Address -->
-      <div class="col-6 col-md-3">
-        <div class="rounded p-2 d-flex flex-column align-items-center">
-          <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
-            <i class="fas fa-map-marker-alt fa-2x text-primary" style="line-height: 1;"></i>
-          </div>
-          <h6 class="text-white mt-1 mb-1">Address</h6>
-          <p class="text-white fw-bold mb-1 small text-center">Domela Chowk, Tanda Road, Jalalpur Jattan</p>
+        <!-- Column 2: Image -->
+        <div style="flex: 1 1 300px; text-align: center;">
+          <img src="image2.jpg" alt="Print Sample 2" style="width: 100%; max-width: 300px; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 8px;">
         </div>
       </div>
 
-      <!-- Mail -->
-      <div class="col-6 col-md-3">
-        <div class="rounded p-2 d-flex flex-column align-items-center">
-          <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
-            <i class="fas fa-envelope fa-2x text-primary" style="line-height: 1;"></i>
-          </div>
-          <h6 class="text-white mt-1 mb-1">Mail Us</h6>
-          <p class="text-white fw-bold mb-1 small text-center">info@arhamprinters.pk</p>
-        </div>
+      <!-- Text and Button Section -->
+      <div style="text-align: center; margin-top: 30px;">
+        <h2 style="color: #dc3545; font-size: 1.8em; margin-bottom: 10px;">📄 Need Prints? Fast & Professional.</h2>
+        <p style="font-size: 1.1em; margin-bottom: 25px;">Upload your documents, reports, and photos for custom printing. Secure, easy, and delivered fast.</p>
+        <a href="/print-order.html" class="print-button"
+           style="background-color: #007bff; color: white; padding: 15px 40px; text-decoration: none; font-weight: bold; font-size: 1.2em; border-radius: 5px; display: inline-block; transition: background-color 0.3s;">
+          ✅ Print Your Documents and Photos
+        </a>
       </div>
+    </section>
 
-      <!-- WhatsApp -->
-      <div class="col-6 col-md-3">
-        <div class="rounded p-2 d-flex flex-column align-items-center">
-          <a href="https://wa.me/923006238233" target="_blank" class="text-decoration-none">
-            <div class="rounded-circle bg-success d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
-              <i class="fab fa-whatsapp fa-2x text-white" style="line-height: 1;"></i>
+    <!-- Footer Start -->
+    <div class="container-fluid footer py-2 wow fadeIn" data-wow-delay="0.2s">
+      <div class="container py-2">
+        <div class="row g-3">
+          <!-- Address -->
+          <div class="col-6 col-md-3">
+            <div class="rounded p-2 d-flex flex-column align-items-center">
+              <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
+                <i class="fas fa-map-marker-alt fa-2x text-primary" style="line-height: 1;"></i>
+              </div>
+              <h6 class="text-white mt-1 mb-1">Address</h6>
+              <p class="text-white fw-bold mb-1 small text-center">Domela Chowk, Tanda Road, Jalalpur Jattan</p>
             </div>
-          </a>
-          <h6 class="text-white mt-1 mb-1">Direct Contact</h6>
-          <a href="https://wa.me/923006238233" target="_blank" class="text-white-50 text-decoration-none">
-            <p class="text-white fw-bold mb-1 small text-center">+92 300 6238233</p>
-          </a>
+          </div>
+
+          <!-- Mail -->
+          <div class="col-6 col-md-3">
+            <div class="rounded p-2 d-flex flex-column align-items-center">
+              <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
+                <i class="fas fa-envelope fa-2x text-primary" style="line-height: 1;"></i>
+              </div>
+              <h6 class="text-white mt-1 mb-1">Mail Us</h6>
+              <p class="text-white fw-bold mb-1 small text-center">info@arhamprinters.pk</p>
+            </div>
+          </div>
+
+          <!-- WhatsApp -->
+          <div class="col-6 col-md-3">
+            <div class="rounded p-2 d-flex flex-column align-items-center">
+              <a href="https://wa.me/923006238233" target="_blank" class="text-decoration-none">
+                <div class="rounded-circle bg-success d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
+                  <i class="fab fa-whatsapp fa-2x text-white" style="line-height: 1;"></i>
+                </div>
+              </a>
+              <h6 class="text-white mt-1 mb-1">Direct Contact</h6>
+              <a href="https://wa.me/923006238233" target="_blank" class="text-white-50 text-decoration-none">
+                <p class="text-white fw-bold mb-1 small text-center">+92 300 6238233</p>
+              </a>
+            </div>
+          </div>
+
+          <!-- Social -->
+          <div class="col-6 col-md-3">
+            <div class="rounded p-2 d-flex flex-column align-items-center">
+              <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
+                <i class="fab fa-facebook-f fa-2x text-primary" style="line-height: 1;"></i>
+              </div>
+              <h6 class="text-white mt-1 mb-1">Follow Us</h6>
+              <div class="d-flex justify-content-center gap-1">
+                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i class="fab fa-twitter"></i></a>
+                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i class="fab fa-facebook-f"></i></a>
+                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i class="fab fa-youtube"></i></a>
+                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Social -->
-      <div class="col-6 col-md-3">
-        <div class="rounded p-2 d-flex flex-column align-items-center">
-          <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
-            <i class="fab fa-facebook-f fa-2x text-primary" style="line-height: 1;"></i>
-          </div>
-          <h6 class="text-white mt-1 mb-1">Follow Us</h6>
-          <div class="d-flex justify-content-center gap-1">
-            <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i class="fab fa-twitter"></i></a>
-            <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i class="fab fa-facebook-f"></i></a>
-            <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i class="fab fa-youtube"></i></a>
-            <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i class="fab fa-linkedin-in"></i></a>
+      <!-- Copyright -->
+      <div class="container-fluid copyright py-2">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 text-center">
+              <span class="text-white small">
+                <i class="fas fa-copyright text-light me-1"></i>
+                Arham Printers, All rights reserved 2025.
+              </span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- Copyright -->
-  <div class="container-fluid copyright py-2">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 text-center">
-          <span class="text-white small">
-            <i class="fas fa-copyright text-light me-1"></i>
-            Arham Printers, All rights reserved 2025.
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Footer End -->
-<!-- Footer End -->
+    <!-- Footer End -->
 
     <a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
 
@@ -750,7 +805,6 @@
         return attributes;
     }
 
-
     // Initial setup to categorize all product items and extract pricing metadata
     function initialProductSetup(rawData) {
         const productGroups = {};
@@ -808,7 +862,6 @@
         return productGroups;
     }
 
-
     // --- Render Simplified Main Catalog ---
     function renderMainCatalog(productGroups) {
         // Renders all products initially
@@ -817,7 +870,7 @@
 
     // New function to filter the product catalog by the top-level mainCategory
     function filterCatalog(mainCategory = null) {
-        showSection('home');
+        showSection('shop-catalog');
         const container = document.getElementById('main-product-catalog');
         let html = '';
         const productGroups = allProductGroups;
@@ -865,7 +918,6 @@
         container.innerHTML = html;
     }
 
-
     // 4. Navigate to and Populate Product Detail Page
     function showProductDetails(productName) {
         const name = productName.replace(/\\/g, ''); 
@@ -896,9 +948,7 @@
         document.getElementById('selectionWarning').classList.add('alert-info');
         document.getElementById('selectionWarning').style.display = 'block';
 
-
         // 🛑 CORE LOGIC: Area-Based vs. Standard 🛑
-
         if (currentProduct.isAreaBased) {
             // --- AREA-BASED SETUP (Panaflex/Wallpaper) ---
             areaInputs.style.display = 'block';
@@ -1006,7 +1056,6 @@
         updateFinalPrice();
     }
     
-
     // --- Price Update and Calculation Logic (New Hybrid Logic) ---
     
     function getDesignFee(quantity) {
@@ -1138,9 +1187,7 @@
         }
     }
 
-
     // --- Add to Cart Logic (WhatsApp Routing) ---
-
     function addToCartFromDetails() {
         const finalPriceText = document.getElementById('finalPriceDisplay').textContent;
         const totalPrice = parseFloat(finalPriceText.replace('PKR', '').replace(/,/g, '').trim()) || 0;
@@ -1172,7 +1219,6 @@
         submitOrderViaWhatsApp(itemDetails, totalPrice);
     }
     
-    
     // --- WhatsApp Submission Logic ---
 
     // 1. General Order Submission (from product page)
@@ -1185,7 +1231,6 @@
         message += `*CONFIRMED TOTAL:* ${document.getElementById('finalPriceDisplay').textContent}\n\n`;
         message += `_Please confirm this order, dimensions, and arrange final payment._\n\n`;
         message += `Customer is waiting for contact.`;
-
 
         const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
         window.open(whatsappLink, '_blank');
@@ -1239,33 +1284,34 @@
         document.getElementById('quote-form').reset();
     }
 
-
     // --- UI/Navigation Functions ---
-    
-   function showSection(sectionName) {
-    document.querySelectorAll('.section').forEach(section => {
-        section.classList.remove('active');
-    });
-    
-    // Ensure the section name is correctly concatenated with '-section'
-    const sectionElement = document.getElementById(sectionName + '-section');
-    if (sectionElement) {
-        sectionElement.classList.add('active');
+    function showSection(sectionName) {
+        // Hide all sections
+        document.querySelectorAll('.section').forEach(section => {
+            section.classList.remove('active');
+        });
+        
+        // Show the selected section
+        const sectionElement = document.getElementById(sectionName + '-section');
+        if (sectionElement) {
+            sectionElement.classList.add('active');
+        }
+        
+        // Update active nav link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+        });
+        
+        // Set the clicked nav link as active
+        if (sectionName === 'home') {
+            document.querySelector('.nav-item.nav-link[onclick="showSection(\'home\')"]')?.classList.add('active');
+        } else if (sectionName === 'contact') {
+            document.querySelector('.nav-item.nav-link[onclick="showSection(\'contact\')"]')?.classList.add('active');
+        }
+        
+        window.scrollTo(0, 0);
     }
     
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.classList.remove('active');
-    });
-    
-    window.scrollTo(0, 0);
-    
-    if (sectionName === 'home') {
-         const homeLink = document.querySelector('.nav-item.nav-link[href="#home-section"]');
-         if (homeLink) homeLink.classList.add('active');
-    } else {
-         document.querySelector(`.nav-item.nav-link[onclick="showSection('${sectionName}')"]`)?.classList.add('active');
-    }
-}    
     function showAlert(message, type) {
         const alert = document.createElement('div');
         alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
@@ -1289,29 +1335,5 @@
     document.addEventListener('DOMContentLoaded', initialAppLoad);
 </script>
 </div>
-
-<script>
-function sendQuote() {
-  const name = document.querySelector('#quote-name').value;
-  const phone = document.querySelector('#quote-phone').value;
-  const product = document.querySelector('#quote-product').value;
-  const qty = document.querySelector('#quote-qty').value;
-  const msg = document.querySelector('#quote-msg').value;
-
-  const text = `Name: ${name}%0APhone: ${phone}%0AProduct: ${product}%0AQuantity: ${qty}%0AMessage: ${msg}`;
-  window.open(`https://wa.me/923006238233?text=${text}`, '_blank');
-}
-
-function sendContact() {
-  const name = document.querySelector('#contact-name').value;
-  const email = document.querySelector('#contact-email').value;
-  const message = document.querySelector('#contact-message').value;
-
-  const text = `Contact Request%0AName: ${name}%0AEmail: ${email}%0AMessage: ${message}`;
-  window.open(`https://wa.me/923006238233?text=${text}`, '_blank');
-}
-</script>
-
 </body>
-
 </html>

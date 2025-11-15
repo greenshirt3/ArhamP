@@ -160,7 +160,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto bg-light pe-4 py-3 py-lg-0">
                 <a href="index.html" class="nav-item nav-link">Home</a>
-                <a href="index.html#shop-catalog" class="nav-item nav-link">Products</a>
+                <a href="products.html" class="nav-item nav-link">Products</a>
                 <a href="index.html#contact-section" class="nav-item nav-link">Contact</a>
             </div>
              <div class="h-100 d-lg-inline-flex align-items-center">
@@ -291,8 +291,8 @@
                                 <div class="row g-3 align-items-center justify-content-center">
                                     <div class="col-md-6">
                                         <div class="price-summary">
-                                            Estimated Price: <span id="totalPrice" class="text-white">£0.00</span>
-                                            <p class="small text-white-75 mb-0 mt-1">Includes £2.50 fixed service fee.</p>
+                                            Estimated Price: <span id="totalPrice" class="text-white">Calculating...</span>
+                                            <p class="small text-white-75 mb-0 mt-1">Final price confirmed after file review</p>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -438,5 +438,98 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     
     <script src="js/main.js"></script>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Handle print order submission
+        function handlePrintOrderSubmission(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('customerName').value;
+            const email = document.getElementById('customerEmail').value;
+            const color = document.querySelector('input[name="color"]:checked').value;
+            const siding = document.querySelector('input[name="siding"]:checked').value;
+            const size = document.querySelector('input[name="size"]:checked').value;
+            const paperType = document.getElementById('paperType').value;
+            const quantity = document.getElementById('quantity').value;
+            const binding = document.getElementById('binding').value;
+            const lamination = document.querySelector('input[name="lamination"]:checked').value;
+            
+            // Generate order ID
+            const orderId = 'PRINT-' + Date.now().toString().slice(-6);
+            document.getElementById('orderId').value = orderId;
+            
+            // Create WhatsApp message
+            let message = `*NEW PRINT ORDER REQUEST - ARHAM PRINTERS*\n\n`;
+            message += `*Order ID:* ${orderId}\n`;
+            message += `*Customer Name:* ${name}\n`;
+            message += `*Email:* ${email || 'Not provided'}\n\n`;
+            message += `*PRINT SPECIFICATIONS:*\n`;
+            message += `• Print Color: ${color}\n`;
+            message += `• Print Siding: ${siding}\n`;
+            message += `• Paper Size: ${size}\n`;
+            message += `• Paper Type: ${paperType}\n`;
+            message += `• Quantity: ${quantity} copies\n`;
+            message += `• Binding: ${binding}\n`;
+            message += `• Lamination: ${lamination}\n\n`;
+            message += `*INSTRUCTIONS:*\n`;
+            message += `Please attach your document files in this WhatsApp chat.\n`;
+            message += `We accept: PDF, JPG, PNG, DOCX, PPTX files.\n\n`;
+            message += `We will review your files and confirm the final price shortly.`;
+            
+            // Open WhatsApp
+            window.open(`https://wa.me/923006238233?text=${encodeURIComponent(message)}`, '_blank');
+            
+            // Show confirmation
+            alert('Opening WhatsApp with your order details. Please attach your files in the chat.');
+            
+            // Reset form after submission
+            setTimeout(() => {
+                document.getElementById('printOrderForm').reset();
+            }, 2000);
+        }
+
+        // Initialize WOW animations
+        if (typeof WOW !== 'undefined') {
+            new WOW().init();
+        }
+
+        // Calculate estimated price based on selections
+        function calculateEstimatedPrice() {
+            const color = document.querySelector('input[name="color"]:checked').value;
+            const siding = document.querySelector('input[name="siding"]:checked').value;
+            const size = document.querySelector('input[name="size"]:checked').value;
+            const quantity = parseInt(document.getElementById('quantity').value) || 1;
+            
+            // Base pricing logic (simplified)
+            let basePrice = 0;
+            
+            if (color === 'Black & White') {
+                basePrice = size === 'A4' ? 5 : 10; // PKR per page
+            } else {
+                basePrice = size === 'A4' ? 20 : 40; // PKR per page for color
+            }
+            
+            if (siding === 'Double Sided') {
+                basePrice *= 1.5;
+            }
+            
+            const totalPrice = basePrice * quantity;
+            document.getElementById('totalPrice').textContent = `PKR ${totalPrice.toLocaleString()}`;
+        }
+
+        // Add event listeners for price calculation
+        document.querySelectorAll('input[name="color"], input[name="siding"], input[name="size"]').forEach(input => {
+            input.addEventListener('change', calculateEstimatedPrice);
+        });
+        
+        document.getElementById('quantity').addEventListener('input', calculateEstimatedPrice);
+
+        // Initialize price on load
+        document.addEventListener('DOMContentLoaded', calculateEstimatedPrice);
+    </script>
 </body>
 </html>
