@@ -516,277 +516,42 @@
 
     // --- Core Functions ---
 
-// --- Configuration ---
-const PUBLIC_DATA_URL = 'customer-data.json'; 
-const WHATSAPP_NUMBER = '923006238233';
-
-let allProducts = {}; 
-let currentProduct = null; 
-let allProductGroups = {};
-let currentSelectedVariations = {}; 
-let designTiers = []; 
-let areaBasedMeta = {}; 
-
-// --- Core Functions ---
-
-async function initialAppLoad() {
-    console.log('Starting data load from:', PUBLIC_DATA_URL);
-    
-    let rawData;
-    try {
-        const response = await fetch(PUBLIC_DATA_URL);
-        console.log('Fetch response status:', response.status);
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        rawData = await response.json();
-        console.log('Data loaded successfully:', rawData);
-        
-    } catch (error) {
-        console.error("Failed to load shop data:", error);
-        showAlert("Failed to load product data. Please check if customer-data.json exists and is accessible.", 'error');
-        
-        // Create fallback data structure to prevent complete failure
-        rawData = {
-            calculatorData: {
-                items: []
+    async function initialAppLoad() {
+        let rawData;
+        try {
+            const response = await fetch(PUBLIC_DATA_URL);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-        };
-        
-        // Show fallback message in catalog
-        const container = document.getElementById('main-product-catalog');
-        if (container) {
-            container.innerHTML = `
-                <div class="col-12 text-center py-5">
-                    <div class="alert alert-warning">
-                        <h4>⚠️ Data Loading Issue</h4>
-                        <p>Unable to load product data. Please check:</p>
-                        <ul class="text-start">
-                            <li>customer-data.json file exists in the root directory</li>
-                            <li>File contains valid JSON data</li>
-                            <li>No CORS restrictions if running locally</li>
-                        </ul>
-                        <p class="mt-3">
-                            <a href="index.html#contact-section" class="btn btn-primary">Contact Support</a>
-                        </p>
-                    </div>
-                </div>
-            `;
+            rawData = await response.json();
+        } catch (error) {
+            console.error("Failed to load shop data:", error);
+            showAlert("Failed to load product data. Check the developer console.", 'error');
+            return;
         }
-        return;
-    }
-    
-    try {
+        
         const productGroups = initialProductSetup(rawData);
         
-        if (typeof renderMainCatalog === 'function') {
-            renderMainCatalog(productGroups);
-        }
+        // Populate sidebar categories
+        populateSidebarCategories();
         
-        // Populate sidebar categories for filtering
-        if (typeof populateSidebarCategories === 'function') {
-            populateSidebarCategories();
-        }
+        if (typeof WOW !== 'undefined') { new WOW().init(); }
         
-        if (typeof WOW !== 'undefined') { 
-            new WOW().init(); 
-        }
+        // --- Product.html specific load logic ---
+        const urlParams = new URLSearchParams(window.location.search);
+        const initialCategory = urlParams.get('category');
         
-        // Set up form submission handlers
-        const quoteForm = document.getElementById('quote-form');
-        const contactForm = document.getElementById('contact-form-whatsapp');
+        showSection('shop-catalog'); // Ensure catalog is shown first
         
-        if (quoteForm) {
-            quoteForm.addEventListener('submit', handleQuoteSubmission);
-        }
-        if (contactForm) {
-            contactForm.addEventListener('submit', handleContactSubmission);
-        }
-        
-        console.log('App initialization completed successfully');
-        
-    } catch (setupError) {
-        console.error("Error during app setup:", setupError);
-        showAlert("Error setting up product catalog. Please check the console for details.", 'error');
-    }
-}
+        // Filter catalog based on URL parameter, otherwise show all
+        filterCatalog(initialCategory); 
+        // ---------------------------------------
 
-// Enhanced error handling for product setup
-function initialProductSetup(rawData) {
-    console.log('Starting product setup with data:', rawData);
-    
-    const productGroups = {};
-    
-    if (!rawData.calculatorData || !Array.isArray(rawData.calculatorData.items)) {
-        console.error('Invalid data structure: calculatorData.items not found');
-        showAlert('Product data format is invalid. Please check customer-data.json structure.', 'error');
-        return productGroups;
+        // Set up form submission handlers for WhatsApp routing
+        document.getElementById('quote-form').addEventListener('submit', handleQuoteSubmission);
+        document.getElementById('contact-form-whatsapp').addEventListener('submit', handleContactSubmission);
     }
     
-    rawData.calculatorData.items.forEach(item => {
-        try {
-            const baseName = item.subcategory;
-            const fullName = item.itemName;
-
-            // 1. Capture Design Tiers and Area-Based Metadata
-            if (baseName === "PanaflexDesignTiers" && item.tiers) {
-                designTiers = item.tiers;
-                return; 
-            }
-            if (item.isAreaBased) {
-                areaBasedMeta[baseName] = { 
-                    rate: item.price, 
-                    minArea: item.minArea || 0 
-                };
-            }
-
-            // 2. Map all items to a flattened allProducts (for cart lookups)
-            allProducts[fullName] = {
-                price: item.price,
-                imageFile: `${baseName.replace(/\//g, '-')}.jpg` 
-            };
-
-            // 3. Group the data by base product (subcategory) for the catalog
-            if (!productGroups[baseName]) {
-                const mainCat = item.mainCategory || 'Uncategorized';
-
-                productGroups[baseName] = {
-                    baseName: baseName,
-                    minPrice: item.price,
-                    imageFile: `${baseName.replace(/\//g, '-')}.jpg`,
-                    isAreaBased: item.isAreaBased || false,
-                    mainCategory: mainCat,
-                    combinations: [] 
-                };
-            }
-
-            // Update minimum price
-            if (item.price < productGroups[baseName].minPrice) {
-                productGroups[baseName].minPrice = item.price;
-            }
-
-            // 4. Parse attributes for rendering standard variations
-            const attributes = parseAttributes(baseName, fullName);
-
-            productGroups[baseName].combinations.push(attributes);
-            allProducts[fullName].attributes = attributes;
-            allProducts[fullName].imageFile = productGroups[baseName].imageFile;
-            
-        } catch (itemError) {
-            console.error('Error processing item:', item, itemError);
-        }
-    });
-    
-    allProductGroups = productGroups;
-    console.log('Product groups created:', productGroups);
-    return productGroups;
-}
-
-// Enhanced filterCatalog with error handling
-function filterCatalog(mainCategory = null) {
-    console.log('Filtering catalog for:', mainCategory);
-    
-    // Determine which section to show based on current page
-    if (typeof showSection === 'function') {
-        showSection('shop-catalog');
-    }
-    
-    const container = document.getElementById('main-product-catalog');
-    if (!container) {
-        console.error('Main product catalog container not found');
-        return;
-    }
-    
-    let html = '';
-    const productGroups = allProductGroups;
-    
-    // Check if we have any product data
-    if (Object.keys(productGroups).length === 0) {
-        container.innerHTML = `
-            <div class="col-12 text-center py-5">
-                <div class="alert alert-info">
-                    <h4>No Product Data Available</h4>
-                    <p>Please ensure customer-data.json is properly configured.</p>
-                    <button class="btn btn-primary mt-2" onclick="location.reload()">Reload Page</button>
-                </div>
-            </div>
-        `;
-        return;
-    }
-    
-    const filteredKeys = Object.keys(productGroups).filter(key => {
-        const product = productGroups[key];
-        if (key === "PanaflexDesignTiers") return false;
-        if (!mainCategory) return true; // Show all products
-        return product.mainCategory === mainCategory;
-    });
-
-    if (filteredKeys.length === 0) {
-        container.innerHTML = `
-            <div class="col-12 text-center py-5">
-                <h3>No products found in "${mainCategory || 'catalog'}".</h3>
-                <p class="text-muted">Try selecting a different category.</p>
-            </div>
-        `;
-        return;
-    }
-    
-    const getMinPrice = (baseName) => {
-        const group = allProductGroups[baseName];
-        if (!group || group.combinations.length === 0) return 40; 
-        if (group.isAreaBased && areaBasedMeta[baseName]) return areaBasedMeta[baseName].rate;
-        return group.combinations.reduce((min, combo) => Math.min(min, combo.Price), Infinity);
-    };
-
-    filteredKeys.forEach(key => {
-        try {
-            const product = productGroups[key];
-            const imagePath = `img/products/${product.imageFile}`;
-            const displayPrice = getMinPrice(key);
-            const pricePrefix = product.isAreaBased ? 'Rate/Sq Ft: PKR' : 'Starting from: PKR';
-            const buttonText = product.isAreaBased ? 'Configure Area' : 'View Details';
-
-            html += `
-            <div class='col-md-4 col-sm-6 mb-4'>
-                <div class='card h-100 shadow-sm'>
-                    <img src='${imagePath}' 
-                         onerror="this.onerror=null;this.src='img/placeholder.jpg';" 
-                         class='card-img-top' 
-                         alt='${product.baseName}'
-                         style="height: 200px; object-fit: cover;">
-                    <div class='card-body text-center'>
-                        <h5 class='card-title'>${product.baseName}</h5>
-                        <p class='mt-2 text-primary fw-bold'>${pricePrefix} ${displayPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}</p>
-                        <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('${product.baseName.replace(/\//g, '\\/')}')">
-                            <i class="fas fa-search me-2"></i> ${buttonText}
-                        </button>
-                    </div>
-                </div>
-            </div>
-            `;
-        } catch (productError) {
-            console.error('Error rendering product:', key, productError);
-        }
-    });
-    
-    container.innerHTML = html;
-}
-
-// Debug function - call this in browser console to check status
-window.debugApp = function() {
-    console.log('=== APP DEBUG INFO ===');
-    console.log('allProductGroups:', allProductGroups);
-    console.log('allProducts:', allProducts);
-    console.log('Current URL:', window.location.href);
-    console.log('Data URL:', PUBLIC_DATA_URL);
-    console.log('designTiers:', designTiers);
-    console.log('areaBasedMeta:', areaBasedMeta);
-};
-
-// Test data loading immediately
-console.log('App script loaded, starting initialization...');
     // Function to populate the sidebar with the new main categories
     function populateSidebarCategories() {
         const container = document.getElementById('productCategoriesList');
