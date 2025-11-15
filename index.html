@@ -93,17 +93,13 @@
 </head>
 
 <body>
-    <!-- Spinner Start -->
-     <div class="container">
+    <div class="container">
     <div id="spinner"
         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
             <span class="sr-only">Loading...</span>
         </div>
     </div>
-    <!-- Spinner End -->
-
-    <!-- Topbar Start -->
     <div class="container-fluid bg-dark text-white-50 py-2 px-0 d-none d-lg-block">
         <div class="row gx-0 align-items-center">
             <div class="col-lg-7 px-5 text-start">
@@ -130,9 +126,6 @@
             </div>
         </div>
     </div>
-    <!-- Topbar End -->
-
-    <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5">
         <a href="#home-section" class="navbar-brand d-flex align-items-center" onclick="showSection('home')">
             <h1 class="m-0 text-primary"><i class="fa fa-print me-3"></i>Arham Printers</h1>
@@ -147,26 +140,25 @@
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
                     <div class="dropdown-menu bg-light border-0 m-0">
-                         <a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Business Essentials')">Business Essentials</a>
-                         <a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Marketing Essentials')">Marketing Essentials</a>
-                         <a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Office Essentials')">Office Essentials</a>
-<a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Wedding Invitation Cards')">Wedding Invitation Cards</a>
- <a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Digital Printing')">Panaflex Printing</a>
-<a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Photo Printing')">Photo Printing</a>
- <a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('3D Wallpaper')">3D Wallpaper</a>
- <a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Promotional Items')">Promotional Items</a>
-<a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Shields')">Shields</a>
-<a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Souvenirs')">Souvenirs</a>
-<a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Flags and Fabric')">Flags and Fabric</a>
-<a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Box Packaging')">Box Packaging</a>
-<a href="#shop-catalog" class="dropdown-item" onclick="filterCatalog('Marketing and Advertising')">Marketing and Advertising</a>
+                         <a href="products.html?category=Business Essentials" class="dropdown-item">Business Essentials</a>
+                         <a href="products.html?category=Marketing Essentials" class="dropdown-item">Marketing Essentials</a>
+                         <a href="products.html?category=Office Essentials" class="dropdown-item">Office Essentials</a>
+<a href="products.html?category=Wedding Invitation Cards" class="dropdown-item">Wedding Invitation Cards</a>
+ <a href="products.html?category=Digital Printing" class="dropdown-item">Panaflex Printing</a>
+<a href="products.html?category=Photo Printing" class="dropdown-item">Photo Printing</a>
+ <a href="products.html?category=3D Wallpaper" class="dropdown-item">3D Wallpaper</a>
+ <a href="products.html?category=Promotional Items" class="dropdown-item">Promotional Items</a>
+<a href="products.html?category=Shields" class="dropdown-item">Shields</a>
+<a href="products.html?category=Souvenirs" class="dropdown-item">Souvenirs</a>
+<a href="products.html?category=Flags and Fabric" class="dropdown-item">Flags and Fabric</a>
+<a href="products.html?category=Box Packaging" class="dropdown-item">Box Packaging</a>
+<a href="products.html?category=Marketing and Advertising" class="dropdown-item">Marketing and Advertising</a>
                         <div class="dropdown-divider"></div>
                         <a href="#" class="dropdown-item" onclick="showSection('quote')">Get Custom Quote</a>
                     </div>
                 </div><a href="#contact-section" class="nav-item nav-link" onclick="showSection('contact')">Contact</a>
             </div>
             <div class="h-100 d-lg-inline-flex align-items-center">
-                <!-- Shopping bag icon now serves as the WhatsApp Order trigger -->
                 <a class="btn-sm-square bg-white text-primary rounded-circle me-4 position-relative" href="#" onclick="showSection('quote')">
                     <i class="fas fa-file-invoice"></i>
                 </a>
@@ -175,18 +167,14 @@
             </div>
         </div>
     </nav>
-    <!-- Navbar End -->
-
-    <!-- Home Section Start (Hero + Catalog) -->
     <section id="home-section" class="section active">
-        <!-- Hero Header Start -->
         <div class="container-fluid hero-header bg-light py-5">
             <div class="container py-5">
                 <div class="row g-5 align-items-center">
                     <div class="col-lg-6">
                         <h1 class="display-4 mb-3 animated slideInDown">The Future of <span class="text-primary">Printing</span> is Here</h1>
                         <p class="animated slideInDown">Experience professional quality and stunning designs for all your business needs—from letterheads to marketing materials. Arham Printers delivers excellence.</p>
-                        <a href="#shop-catalog" class="btn btn-primary py-3 px-5 animated slideInDown" onclick="showSection('home')">Explore Products</a>
+                        <a href="products.html" class="btn btn-primary py-3 px-5 animated slideInDown">Explore Products</a>
                     </div>
                     <div class="col-lg-6 animated fadeIn">
                         <div class="owl-carousel header-carousel">
@@ -209,7 +197,7 @@
                 </div>
                 <div class="row g-4 justify-content-center" id="index-categories-list">
                     <div class="col-lg-4 col-md-6 col-6 wow fadeInUp" data-wow-delay="0.1s">
-                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='/products.html?category=Business Essentials'">
+                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='products.html?category=Business Essentials'">
                             <div class="card-body">
                                 <i class="fas fa-briefcase fa-3x text-primary mb-3"></i>
                                 <h5 class="card-title mb-0">Business Essentials</h5>
@@ -217,7 +205,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-6 wow fadeInUp" data-wow-delay="0.1s">
-                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='/products.html?category=Marketing Essentials'">
+                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='products.html?category=Marketing Essentials'">
                             <div class="card-body">
                                 <i class="fas fa-bullhorn fa-3x text-primary mb-3"></i>
                                 <h5 class="card-title mb-0">Marketing Essentials</h5>
@@ -225,7 +213,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-6 wow fadeInUp" data-wow-delay="0.1s">
-                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='/products.html?category=Office Essentials'">
+                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='products.html?category=Office Essentials'">
                             <div class="card-body">
                                 <i class="fas fa-print fa-3x text-primary mb-3"></i>
                                 <h5 class="card-title mb-0">Office Essentials</h5>
@@ -233,15 +221,15 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-6 wow fadeInUp" data-wow-delay="0.1s">
-  <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='/products.html?category=Wedding Invitation Cards'">
+  <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='products.html?category=Wedding Invitation Cards'">
     <div class="card-body">
-      <img src="/img/wedding-card.jpg" alt="Wedding Invitation Cards" class="img-fluid mb-2" style="max-height: 180px; object-fit: cover;">
+      <img src="img/wedding-card.jpg" alt="Wedding Invitation Cards" class="img-fluid mb-2" style="max-height: 180px; object-fit: cover;">
       <h5 class="card-title mt-2 mb-0">Wedding Invitation Cards</h5>
     </div>
   </div>
 </div>
                     <div class="col-lg-4 col-md-6 col-6 wow fadeInUp" data-wow-delay="0.3s">
-                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='/products.html?category=Panaflex Printing'">
+                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='products.html?category=Digital Printing'">
                             <div class="card-body">
                                 <i class="fas fa-print fa-3x text-primary mb-3"></i>
                                 <h5 class="card-title mb-0">Panaflex Printing</h5>
@@ -249,7 +237,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-6 wow fadeInUp" data-wow-delay="0.3s">
-                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='/products.html?category=Photo Printing'">
+                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='products.html?category=Photo Printing'">
                             <div class="card-body">
                                 <i class="fas fa-print fa-3x text-primary mb-3"></i>
                                 <h5 class="card-title mb-0">Photo Printing</h5>
@@ -257,7 +245,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-6 wow fadeInUp" data-wow-delay="0.3s">
-                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='/products.html?category=3D Wallpaper'">
+                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='products.html?category=3D Wallpaper'">
                             <div class="card-body">
                                 <i class="fas fa-print fa-3x text-primary mb-3"></i>
                                 <h5 class="card-title mb-0">3D Wallpaper</h5>
@@ -265,7 +253,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-6 wow fadeInUp" data-wow-delay="0.3s">
-                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='/products.html?category=Promotional Items'">
+                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='products.html?category=Promotional Items'">
                             <div class="card-body">
                                 <i class="fas fa-print fa-3x text-primary mb-3"></i>
                                 <h5 class="card-title mb-0">Promotional Items</h5>
@@ -273,7 +261,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-6 wow fadeInUp" data-wow-delay="0.5s">
-                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='/products.html?category=Shields'">
+                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='products.html?category=Shields'">
                             <div class="card-body">
                                 <i class="fas fa-print fa-3x text-primary mb-3"></i>
                                 <h5 class="card-title mb-0">Shields</h5>
@@ -281,7 +269,7 @@
                         </div>
                     </div>
                      <div class="col-lg-4 col-md-6 col-6 wow fadeInUp" data-wow-delay="0.5s">
-                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='/products.html?category=Souvenirs'">
+                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='products.html?category=Souvenirs'">
                             <div class="card-body">
                                 <i class="fas fa-print fa-3x text-primary mb-3"></i>
                                 <h5 class="card-title mb-0">Souvenirs</h5>
@@ -289,7 +277,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-6 wow fadeInUp" data-wow-delay="0.5s">
-                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='/products.html?category=Flags and Fabric'">
+                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='products.html?category=Flags and Fabric'">
                             <div class="card-body">
                                 <i class="fas fa-print fa-3x text-primary mb-3"></i>
                                 <h5 class="card-title mb-0">Flags and Fabric</h5>
@@ -297,7 +285,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-6 wow fadeInUp" data-wow-delay="0.5s">
-                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='/products.html?category=Box Packaging'">
+                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='products.html?category=Box Packaging'">
                             <div class="card-body">
                                 <i class="fas fa-print fa-3x text-primary mb-3"></i>
                                 <h5 class="card-title mb-0">Box Packaging</h5>
@@ -305,7 +293,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-6 wow fadeInUp" data-wow-delay="0.5s">
-                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='/products.html?category=Marketing and Advertising'">
+                         <div class="card h-100 shadow-sm category-card text-center" style="cursor: pointer;" onclick="window.location.href='products.html?category=Marketing and Advertising'">
                             <div class="card-body">
                                 <i class="fas fa-print fa-3x text-primary mb-3"></i>
                                 <h5 class="card-title mb-0">Marketing and Advertising</h5>
@@ -317,7 +305,6 @@
             </div>
         </div>
         
-        <!-- Quick Access Buttons for Contact and Quote -->
         <div class="container mt-5">
             <div class="row text-center">
                 <div class="col-md-6 mb-4">
@@ -341,7 +328,6 @@
         
     </section>
 
-    <!-- Shop Catalog Section -->
     <section id="shop-catalog-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Product Catalog</h1>
@@ -357,21 +343,18 @@
                     <div class="bg-light p-4 rounded mb-4 wow fadeInUp" data-wow-delay="0.1s">
                         <h4 class="mb-4">Product Categories</h4>
                         <ul class="list-unstyled" id="productCategoriesList">
-                            <!-- Categories will be populated by JavaScript -->
-                        </ul>
+                            </ul>
                     </div>
                 </div>
 
                 <div class="col-lg-9">
                     <div class="row g-4" id="main-product-catalog">
-                        <!-- Products will be populated by JavaScript -->
-                    </div>
+                        </div>
                 </div>
             </div>
         </div>
     </section>
     
-    <!-- Product Detail Section Start -->
     <section id="product-detail-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s" id="detail-product-name-header">Product Details</h1>
@@ -384,18 +367,15 @@
         <div class="container-fluid py-5">
             <div class="container py-5">
                 <div class="row g-5">
-                    <!-- Product Image -->
                     <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="d-flex justify-content-center">
                             <img id="detail-product-image" src="img/placeholder.jpg" class="img-fluid rounded" alt="Product Image" style="max-height: 400px;">
                         </div>
                     </div>
                     
-                    <!-- Product Options and Price -->
                     <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
                         <h2 class="fw-bold mb-4" id="detail-product-name-body">Product Name</h2>
                         
-                        <!-- Custom Area Inputs (Panaflex/Wallpaper) -->
                         <div id="custom-area-inputs" style="display: none;">
                             <div class="product-option-group" data-option-key="Dimensions">
                                 <label>Wall/Piece Dimensions (Feet):</label>
@@ -416,17 +396,13 @@
                             <div class="alert alert-danger mt-3" id="areaConstraintWarning" style="display: none;"></div>
                         </div>
 
-                        <!-- Standard Selector Fields (For regular tiered items) -->
                         <div id="standard-options-fields">
-                            <!-- Dynamic Options (Clickable Cards) will be loaded here for non-area items -->
-                        </div>
+                            </div>
 
-                        <!-- Final Price Box (Visible after validation) -->
                         <div class="final-price-box" id="finalPriceBox">
                             <h4 class="mb-2">Final Price</h4>
                             <h3 class="display-6 fw-bold" id="finalPriceDisplay">PKR 0</h3>
                             
-                            <!-- Add to Cart button now triggers WhatsApp submission -->
                             <button class="btn btn-secondary py-2 px-4 w-100 mt-3" onclick="addToCartFromDetails()">
                                 <i class="fab fa-whatsapp me-2"></i> Place Order via WhatsApp
                             </button>
@@ -440,9 +416,6 @@
             </div>
         </div>
     </section>
-    <!-- Product Detail Section End -->
-    
-    <!-- Custom Quote Section Start -->
     <section id="quote-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Get a Custom Quote</h1>
@@ -501,9 +474,6 @@
             </div>
         </div>
     </section>
-    <!-- Custom Quote Section End -->
-
-    <!-- Contact Section Start -->
     <section id="contact-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Contact Us</h1>
@@ -555,8 +525,7 @@
                     
                     <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="bg-light p-4 rounded">
-                            <!-- Submission for Contact is routed to WhatsApp -->
-                           <form id="contact-form-whatsapp" onsubmit="handleContactSubmission(event)">
+                            <form id="contact-form-whatsapp" onsubmit="handleContactSubmission(event)">
                                 <h3 class="mb-4">Send a Direct Message</h3>
                                 <div class="row g-3">
                                     <div class="col-md-6">
@@ -589,37 +558,31 @@
         </div>
     </section>
 
-    <!-- Print Service Card -->
     <section id="print-service-card" style="background-color: #ffc107; padding: 40px 20px; margin-bottom: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
       <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; align-items: center;">
         
-        <!-- Column 1: Image -->
         <div style="flex: 1 1 300px; text-align: center;">
           <img src="img/print ad.jpg" alt="Print Sample 1" style="width: 100%; max-width: 300px; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 8px;">
         </div>
 
-        <!-- Column 2: Image -->
         <div style="flex: 1 1 300px; text-align: center;">
           <img src="image2.jpg" alt="Print Sample 2" style="width: 100%; max-width: 300px; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 8px;">
         </div>
       </div>
 
-      <!-- Text and Button Section -->
       <div style="text-align: center; margin-top: 30px;">
         <h2 style="color: #dc3545; font-size: 1.8em; margin-bottom: 10px;">📄 Need Prints? Fast & Professional.</h2>
         <p style="font-size: 1.1em; margin-bottom: 25px;">Upload your documents, reports, and photos for custom printing. Secure, easy, and delivered fast.</p>
-        <a href="/print-order.html" class="print-button"
+        <a href="print-order.html" class="print-button"
            style="background-color: #007bff; color: white; padding: 15px 40px; text-decoration: none; font-weight: bold; font-size: 1.2em; border-radius: 5px; display: inline-block; transition: background-color 0.3s;">
           ✅ Print Your Documents and Photos
         </a>
       </div>
     </section>
 
-    <!-- Footer Start -->
     <div class="container-fluid footer py-2 wow fadeIn" data-wow-delay="0.2s">
       <div class="container py-2">
         <div class="row g-3">
-          <!-- Address -->
           <div class="col-6 col-md-3">
             <div class="rounded p-2 d-flex flex-column align-items-center">
               <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
@@ -630,7 +593,6 @@
             </div>
           </div>
 
-          <!-- Mail -->
           <div class="col-6 col-md-3">
             <div class="rounded p-2 d-flex flex-column align-items-center">
               <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
@@ -641,7 +603,6 @@
             </div>
           </div>
 
-          <!-- WhatsApp -->
           <div class="col-6 col-md-3">
             <div class="rounded p-2 d-flex flex-column align-items-center">
               <a href="https://wa.me/923006238233" target="_blank" class="text-decoration-none">
@@ -656,7 +617,6 @@
             </div>
           </div>
 
-          <!-- Social -->
           <div class="col-6 col-md-3">
             <div class="rounded p-2 d-flex flex-column align-items-center">
               <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
@@ -674,7 +634,6 @@
         </div>
       </div>
 
-      <!-- Copyright -->
       <div class="container-fluid copyright py-2">
         <div class="container">
           <div class="row">
@@ -688,11 +647,8 @@
         </div>
       </div>
     </div>
-    <!-- Footer End -->
-
     <a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
 
-    <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="lib/wow/wow.min.js"></script>
@@ -702,7 +658,6 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
 
-    <!-- Custom Script Block (V5.0 - Hybrid Pricing and WhatsApp Integration) -->
     <script>
     // --- Configuration ---
     const PUBLIC_DATA_URL = 'customer-data.json'; 
@@ -734,10 +689,11 @@
         }
         
         const productGroups = initialProductSetup(rawData);
-        renderMainCatalog(productGroups);
         
-        // Populate sidebar categories for filtering
-        populateSidebarCategories();
+        // **MODIFICATION:** Commenting out these lines to prevent the catalog section 
+        // from being rendered and displayed on the Home page immediately.
+        // renderMainCatalog(productGroups); 
+        // populateSidebarCategories(); 
         
         if (typeof WOW !== 'undefined') { new WOW().init(); }
         
