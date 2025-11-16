@@ -6,7 +6,8 @@
     <title>Arham Printers - Product Catalog</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Printing Services, Business Cards, Stationery, Marketing Materials, Full Catalog" name="keywords">
-    <meta content="Explore the full range of professional printing services and product catalog from Arham Printers." name="description">
+    <meta content="Explore the full range of professional printing services and product catalog from Arham Printers."
+        name="description">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,15 +23,17 @@
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    
+
     <style>
         /* General Layout and Utility Styles */
         .section {
             display: none;
         }
+
         .section.active {
             display: block;
         }
+
         .final-price-box {
             background: var(--bs-primary);
             color: white;
@@ -38,8 +41,9 @@
             border-radius: 8px;
             margin-top: 1.5rem;
             text-align: center;
-            display: none; 
+            display: none;
         }
+
         .final-price-box h4 {
             color: white;
         }
@@ -55,33 +59,40 @@
             flex-grow: 1;
             min-width: 120px;
         }
+
         .choice-card:hover {
             border-color: var(--bs-secondary);
             background-color: #fff8f8;
         }
+
         .choice-card.selected {
             border-color: var(--bs-primary);
             background-color: var(--bs-primary);
             color: white;
             box-shadow: 0 0 10px rgba(242, 139, 0, 0.3);
         }
+
         .choice-card input[type="radio"] {
             display: none;
         }
+
         .choice-card .label-text {
             font-weight: 500;
             color: var(--bs-dark);
             display: block;
         }
+
         .choice-card.selected .label-text {
             color: white;
         }
+
         .product-option-group {
             margin-bottom: 1.5rem;
             padding: 0.75rem;
             border: 1px solid #ddd;
             border-radius: 8px;
         }
+
         .product-option-group label {
             font-weight: 600;
             color: var(--bs-dark);
@@ -89,1033 +100,1087 @@
             display: block;
             font-size: 1.1rem;
         }
+        
+        /* New Card Style Fixes for Image/Card Size */
+        .card-img-top {
+            width: 100%;
+            height: 180px; /* Uniform height for catalog images */
+            object-fit: cover;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-    <div id="spinner"
-        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
-    <div class="container-fluid bg-dark text-white-50 py-2 px-0 d-none d-lg-block">
-        <div class="row gx-0 align-items-center">
-            <div class="col-lg-7 px-5 text-start">
-                <div class="h-100 d-inline-flex align-items-center me-4">
-                    <small class="fa fa-phone-alt me-2"></small>
-                    <small>+92 300 6238233</small>
-                </div>
-                <div class="h-100 d-inline-flex align-items-center me-4">
-                    <small class="far fa-envelope-open me-2"></small>
-                    <small>info@arhamprinters.pk</small>
-                </div>
-                <div class="h-100 d-inline-flex align-items-center me-4">
-                    <small class="far fa-clock me-2"></small>
-                    <small>Mon - Fri : 09 AM - 09 PM</small>
-                </div>
-            </div>
-            <div class="col-lg-5 px-5 text-end">
-                <div class="h-100 d-inline-flex align-items-center">
-                    <a class="text-white-50 ms-4" href=""><i class="fab fa-facebook-f"></i></a>
-                    <a class="text-white-50 ms-4" href=""><i class="fab fa-twitter"></i></a>
-                    <a class="text-white-50 ms-4" href=""><i class="fab fa-linkedin-in"></i></a>
-                    <a class="text-white-50 ms-4" href=""><i class="fab fa-instagram"></i></a>
-                </div>
+        <div id="spinner"
+            class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
             </div>
         </div>
-    </div>
-    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5">
-        <a href="index.html" class="navbar-brand d-flex align-items-center">
-            <h1 class="m-0 text-primary"><i class="fa fa-print me-3"></i>Arham Printers</h1>
-        </a>
-        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav mx-auto bg-light pe-4 py-3 py-lg-0">
-                <a href="index.html" class="nav-item nav-link">Home</a>
-                <a href="#" class="nav-item nav-link active" onclick="showSection('shop-catalog')">Products</a>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
-                    <div class="dropdown-menu bg-light border-0 m-0">
-                         <a href="#" class="dropdown-item" onclick="filterCatalog('Business Essentials')">Business Essentials</a>
-                         <a href="#" class="dropdown-item" onclick="filterCatalog('Marketing Essentials')">Marketing Essentials</a>
-                         <a href="#" class="dropdown-item" onclick="filterCatalog('Office Essentials')">Office Essentials</a>
-                        <a href="#" class="dropdown-item" onclick="filterCatalog('Wedding Invitation Cards')">Wedding Invitation Cards</a>
-                        <a href="#" class="dropdown-item" onclick="filterCatalog('Panaflex Printing')">Panaflex Printing</a>
-                        <a href="#" class="dropdown-item" onclick="filterCatalog('Photo Printing')">Photo Printing</a>
-                        <a href="#" class="dropdown-item" onclick="filterCatalog('3D Wallpaper')">3D Wallpaper</a>
-                        <a href="#" class="dropdown-item" onclick="filterCatalog('Promotional Items')">Promotional Items</a>
-                        <a href="#" class="dropdown-item" onclick="filterCatalog('Shields')">Shields</a>
-                        <a href="#" class="dropdown-item" onclick="filterCatalog('Souvenirs')">Souvenirs</a>
-                        <a href="#" class="dropdown-item" onclick="filterCatalog('Flags and Fabric')">Flags and Fabric</a>
-                        <a href="#" class="dropdown-item" onclick="filterCatalog('Box Packaging')">Box Packaging</a>
-                        <a href="#" class="dropdown-item" onclick="filterCatalog('Marketing and Advertising')">Marketing and Advertising</a>
-                        <div class="dropdown-divider"></div>
-                        <a href="index.html#quote-section" class="dropdown-item">Get Custom Quote</a>
+        <div class="container-fluid bg-dark text-white-50 py-2 px-0 d-none d-lg-block">
+            <div class="row gx-0 align-items-center">
+                <div class="col-lg-7 px-5 text-start">
+                    <div class="h-100 d-inline-flex align-items-center me-4">
+                        <small class="fa fa-phone-alt me-2"></small>
+                        <small>+92 300 6238233</small>
+                    </div>
+                    <div class="h-100 d-inline-flex align-items-center me-4">
+                        <small class="far fa-envelope-open me-2"></small>
+                        <small>info@arhamprinters.pk</small>
+                    </div>
+                    <div class="h-100 d-inline-flex align-items-center me-4">
+                        <small class="far fa-clock me-2"></small>
+                        <small>Mon - Fri : 09 AM - 09 PM</small>
                     </div>
                 </div>
-                <a href="index.html#contact-section" class="nav-item nav-link">Contact</a>
-            </div>
-            <div class="h-100 d-lg-inline-flex align-items-center">
-                <a class="btn-sm-square bg-white text-primary rounded-circle me-4 position-relative" href="index.html#quote-section">
-                    <i class="fas fa-file-invoice"></i>
-                </a>
-                <a href="index.html#contact-section" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block">Get a Quote<i
-                        class="fa fa-arrow-right ms-3"></i></a>
-            </div>
-        </div>
-    </nav>
-    <section id="shop-catalog-section" class="section active">
-        <div class="container-fluid page-header py-5">
-            <h2 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Products and Services</h2>
-           </div>
-
-        <div class="container py-5">
-            <div class="row g-4">
-                <div class="col-lg-3">
-                    <div class="bg-light p-4 rounded mb-4 wow fadeInUp" data-wow-delay="0.1s">
-                        <h4 class="mb-4">Product Categories</h4>
-                        <ul class="list-unstyled" id="productCategoriesList">
-                            </ul>
-                    </div>
-                </div>
-
-                <div class="col-lg-9">
-                    <div class="row g-4" id="main-product-catalog">
-                        </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="container mt-5">
-            <div class="text-center mb-4">
-                <h3>Need Custom Document Printing?</h3>
-                <p class="text-muted">Upload your documents, reports, and photos for professional printing</p>
-                <a href="print-order.html" class="btn btn-warning btn-lg">
-                    <i class="fas fa-print me-2"></i>Print Documents & Photos
-                </a>
-            </div>
-        </div>
-    </section>
-    <section id="product-detail-section" class="section">
-        <div class="container-fluid page-header py-5">
-            <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s" id="detail-product-name-header">Product Details</h1>
-            <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
-                <li class="breadcrumb-item"><a href="#" onclick="showSection('shop-catalog')">Home</a></li>
-                <li class="breadcrumb-item active text-white">Details</li>
-            </ol>
-        </div>
-
-        <div class="container-fluid py-5">
-            <div class="container py-5">
-                <div class="row g-5">
-                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="d-flex justify-content-center">
-                            <img id="detail-product-image" src="img/placeholder.jpg" class="img-fluid rounded" alt="Product Image" style="max-height: 400px;">
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <h2 class="fw-bold mb-4" id="detail-product-name-body">Product Name</h2>
-                        
-                        <div id="custom-area-inputs" style="display: none;">
-                            <div class="product-option-group" data-option-key="Dimensions">
-                                <label>Wall/Piece Dimensions (Feet):</label>
-                                <div class="d-flex gap-3">
-                                    <input type="number" id="input-width" min="1" placeholder="Width" class="form-control" oninput="updateFinalPrice()">
-                                    <span class="align-self-center">x</span>
-                                    <input type="number" id="input-height" min="1" placeholder="Height" class="form-control" oninput="updateFinalPrice()">
-                                </div>
-                                <small class="text-muted mt-2 d-block" id="areaDisplay"></small>
-                            </div>
-                            
-                            <div class="product-option-group" data-option-key="Quantity">
-                                <label>Number of Pieces/Walls:</label>
-                                <input type="number" id="input-custom-qty" min="1" value="1" class="form-control" oninput="updateFinalPrice()">
-                            </div>
-                            
-                            <!-- Design Fee Removed based on new JSON structure -->
-                            <div class="alert alert-danger mt-3" id="areaConstraintWarning" style="display: none;"></div>
-                        </div>
-
-                        <div id="standard-options-fields">
-                            </div>
-
-                        <div class="final-price-box" id="finalPriceBox">
-                            <h4 class="mb-2">Final Price (PKR)</h4>
-                            <h3 class="display-6 fw-bold" id="finalPriceDisplay">PKR 0</h3>
-                            
-                            <button class="btn btn-secondary py-2 px-4 w-100 mt-3" onclick="addToCartFromDetails()">
-                                <i class="fab fa-whatsapp me-2"></i> Place Order via WhatsApp
-                            </button>
-                        </div>
-                        
-                        <div class="alert alert-info mt-3" id="selectionWarning" style="display: block;">
-                            Please enter dimensions/quantity or select all options above to see the final price.
-                        </div>
+                <div class="col-lg-5 px-5 text-end">
+                    <div class="h-100 d-inline-flex align-items-center">
+                        <a class="text-white-50 ms-4" href=""><i class="fab fa-facebook-f"></i></a>
+                        <a class="text-white-50 ms-4" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="text-white-50 ms-4" href=""><i class="fab fa-linkedin-in"></i></a>
+                        <a class="text-white-50 ms-4" href=""><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    
-    <section id="quote-section" class="section">
-        <div class="container-fluid page-header py-5">
-            <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Get a Custom Quote</h1>
-            <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active text-white">Quote</li>
-            </ol>
-        </div>
-
-        <div class="container-fluid py-5">
-            <div class="container py-5">
-                <div class="row g-4 justify-content-center">
-                    <div class="col-lg-8">
-                        <div class="bg-light p-4 rounded">
-                            <form id="quote-form" onsubmit="handleQuoteSubmission(event)">
-                                <h3 class="mb-4">Quick Inquiry</h3>
-                                <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control border-0" id="quote-name" placeholder="Your Name" required>
-                                            <label for="quote-name">Your Name</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-floating">
-                                            <input type="tel" class="form-control border-0" id="quote-phone" placeholder="WhatsApp Phone" required>
-                                            <label for="quote-phone">WhatsApp Phone</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control border-0" id="quote-product" placeholder="Product Name (e.g., Visiting Cards, 3D Wallpaper)">
-                                            <label for="quote-product">Product Name / Type</label>
-                                        </div>
-                                    </div>
-                                     <div class="col-12">
-                                        <div class="form-floating">
-                                            <input type="number" class="form-control border-0" id="quote-quantity" placeholder="Quantity or Total Area (e.g., 500 cards, 100 sq ft)">
-                                            <label for="quote-quantity">Quantity / Estimated Area</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-floating">
-                                            <textarea class="form-control border-0" placeholder="Details of your inquiry (Size, Finish, Quality, Message)" id="quote-details" style="height: 150px" required></textarea>
-                                            <label for="quote-details">Inquiry Message / Specifications</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <button class="btn btn-primary w-100 py-3" type="submit">Submit Quote via WhatsApp</button>
-                                    </div>
-                                </div>
-                            </form>
+        <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5">
+            <a href="index.html" class="navbar-brand d-flex align-items-center">
+                <h1 class="m-0 text-primary"><i class="fa fa-print me-3"></i>Arham Printers</h1>
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav mx-auto bg-light pe-4 py-3 py-lg-0">
+                    <a href="index.html" class="nav-item nav-link">Home</a>
+                    <a href="#" class="nav-item nav-link active" onclick="showSection('shop-catalog')">Products</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
+                        <div class="dropdown-menu bg-light border-0 m-0">
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Business Essentials')">Business Essentials</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Marketing Essentials')">Marketing Essentials</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Office Essentials')">Office Essentials</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Wedding Invitation Cards')">Wedding Invitation Cards</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Panaflex Printing')">Panaflex Printing</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Photo Printing')">Photo Printing</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('3D Wallpaper')">3D Wallpaper</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Promotional Items')">Promotional Items</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Shields')">Shields</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Souvenirs')">Souvenirs</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Flags and Fabric')">Flags and Fabric</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Box Packaging')">Box Packaging</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Marketing and Advertising')">Marketing and Advertising</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item" onclick="showSection('quote')">Get Custom Quote</a> 
                         </div>
                     </div>
+                    <a href="#" class="nav-item nav-link" onclick="showSection('contact')">Contact</a> 
+                </div>
+                <div class="h-100 d-lg-inline-flex align-items-center">
+                    <a class="btn-sm-square bg-white text-primary rounded-circle me-4 position-relative" href="#" onclick="showSection('quote')">
+                        <i class="fas fa-file-invoice"></i>
+                    </a>
+                    <a href="#" onclick="showSection('quote')" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block">Get a Quote<i
+                            class="fa fa-arrow-right ms-3"></i></a>
                 </div>
             </div>
-        </div>
-    </section>
-    <section id="contact-section" class="section">
-        <div class="container-fluid page-header py-5">
-            <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Contact Us</h1>
-            <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active text-white">Contact</li>
-            </ol>
-        </div>
+        </nav>
+        <section id="shop-catalog-section" class="section active">
 
-        <div class="container-fluid py-5">
+            <div class="container-fluid page-header py-5">
+                <h2 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Products and Services</h2>
+            </div>
+
             <div class="container py-5">
                 <div class="row g-4">
-                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="bg-light p-4 rounded">
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
-                                    style="width: 60px; height: 60px;">
-                                    <i class="fa fa-map-marker-alt text-primary fs-4"></i>
+                    <div class="col-lg-3">
+                        <div class="bg-light p-4 rounded mb-4 wow fadeInUp" data-wow-delay="0.1s">
+                            <h4 class="mb-4">Product Categories</h4>
+                            <ul class="list-unstyled" id="productCategoriesList">
+                                </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-9">
+                        <div class="row g-4" id="main-product-catalog">
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container mt-5">
+                <div class="text-center mb-4">
+                    <h3>Need Custom Document Printing?</h3>
+                    <p class="text-muted">Upload your documents, reports, and photos for professional printing</p>
+                    <a href="print-order.html" class="btn btn-warning btn-lg">
+                        <i class="fas fa-print me-2"></i>Print Documents & Photos
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section id="product-detail-section" class="section">
+            <div class="container-fluid page-header py-5">
+                <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s"
+                    id="detail-product-name-header">Product Details</h1>
+                <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+                    <li class="breadcrumb-item"><a href="#" onclick="showSection('shop-catalog')">Products</a></li>
+                    <li class="breadcrumb-item active text-white">Details</li>
+                </ol>
+            </div>
+
+            <div class="container-fluid py-5">
+                <div class="container py-5">
+                    <div class="row g-5">
+                        <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="d-flex justify-content-center">
+                                <img id="detail-product-image" src="img/placeholder.jpg" class="img-fluid rounded"
+                                    alt="Product Image" style="max-height: 400px; object-fit: cover;">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                            <h2 class="fw-bold mb-4" id="detail-product-name-body">Product Name</h2>
+
+                            <div id="custom-area-inputs" style="display: none;">
+                                <div class="product-option-group" data-option-key="Dimensions">
+                                    <label>Wall/Piece Dimensions (Feet):</label>
+                                    <div class="d-flex gap-3">
+                                        <input type="number" id="input-width" min="1" placeholder="Width"
+                                            class="form-control" oninput="updateFinalPrice()">
+                                        <span class="align-self-center">x</span>
+                                        <input type="number" id="input-height" min="1" placeholder="Height"
+                                            class="form-control" oninput="updateFinalPrice()">
+                                    </div>
+                                    <small class="text-muted mt-2 d-block" id="areaDisplay"></small>
                                 </div>
-                                <div class="ms-4">
-                                    <h5 class="mb-2">Our Location</h5>
-                                    <p class="mb-0">Domela Chowk,Tanda Road, Jalalpur Jattan</p>
+
+                                <div class="product-option-group" data-option-key="Quantity">
+                                    <label>Number of Pieces/Walls:</label>
+                                    <input type="number" id="input-custom-qty" min="1" value="1" class="form-control"
+                                        oninput="updateFinalPrice()">
+                                </div>
+
+                                <div class="alert alert-danger mt-3" id="areaConstraintWarning" style="display: none;">
                                 </div>
                             </div>
-                            
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
-                                    style="width: 60px; height: 60px;">
-                                    <i class="fa fa-phone-alt text-primary fs-4"></i>
-                                </div>
-                                <div class="ms-4">
-                                    <h5 class="mb-2">Call Us</h5>
-                                    <p class="mb-0">+92 300 6238233</p>
-                                </div>
+
+                            <div id="standard-options-fields">
                             </div>
-                            
-                            <div class="d-flex align-items-center">
-                                <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
-                                    style="width: 60px; height: 60px;">
-                                    <i class="fa fa-envelope text-primary fs-4"></i>
-                                </div>
-                                <div class="ms-4">
-                                    <h5 class="mb-2">Email Us</h5>
-                                    <p class="mb-0">info@arhamprinters.pk</p>
-                                </div>
+
+                            <div class="final-price-box" id="finalPriceBox">
+                                <h4 class="mb-2">Final Price (PKR)</h4>
+                                <h3 class="display-6 fw-bold" id="finalPriceDisplay">PKR 0</h3>
+
+                                <button class="btn btn-secondary py-2 px-4 w-100 mt-3" onclick="addToCartFromDetails()">
+                                    <i class="fab fa-whatsapp me-2"></i> Place Order via WhatsApp
+                                </button>
+                            </div>
+
+                            <div class="alert alert-info mt-3" id="selectionWarning" style="display: block;">
+                                Please enter dimensions/quantity or select all options above to see the final price.
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="bg-light p-4 rounded">
-                            <form id="contact-form-whatsapp" onsubmit="handleContactSubmission(event)">
-                                <h3 class="mb-4">Send a Direct Message</h3>
-                                <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control border-0" id="contact-name" placeholder="Your Name" required>
-                                            <label for="contact-name">Your Name</label>
+                </div>
+            </div>
+        </section>
+        <section id="quote-section" class="section">
+            <div class="container-fluid page-header py-5">
+                <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Get a Custom Quote</h1>
+                <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+                    <li class="breadcrumb-item"><a href="#" onclick="showSection('shop-catalog')">Products</a></li>
+                    <li class="breadcrumb-item active text-white">Quote</li>
+                </ol>
+            </div>
+
+            <div class="container-fluid py-5">
+                <div class="container py-5">
+                    <div class="row g-4 justify-content-center">
+                        <div class="col-lg-8">
+                            <div class="bg-light p-4 rounded">
+                                <form id="quote-form">
+                                    <h3 class="mb-4">Quick Inquiry</h3>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control border-0" id="quote-name"
+                                                    placeholder="Your Name" required>
+                                                <label for="quote-name">Your Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input type="tel" class="form-control border-0" id="quote-phone"
+                                                    placeholder="WhatsApp Phone" required>
+                                                <label for="quote-phone">WhatsApp Phone</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control border-0" id="quote-product"
+                                                    placeholder="Product Name (e.g., Visiting Cards, 3D Wallpaper)">
+                                                <label for="quote-product">Product Name / Type</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-floating">
+                                                <input type="number" class="form-control border-0" id="quote-quantity"
+                                                    placeholder="Quantity or Total Area (e.g., 500 cards, 100 sq ft)">
+                                                <label for="quote-quantity">Quantity / Estimated Area</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-floating">
+                                                <textarea class="form-control border-0"
+                                                    placeholder="Details of your inquiry (Size, Finish, Quality, Message)"
+                                                    id="quote-details" style="height: 150px" required></textarea>
+                                                <label for="quote-details">Inquiry Message / Specifications</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <button class="btn btn-primary w-100 py-3" type="submit">Submit Quote via
+                                                WhatsApp</button>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control border-0" id="contact-subject" placeholder="Subject" required>
-                                            <label for="contact-subject">Subject</label>
-                                        </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="contact-section" class="section">
+            <div class="container-fluid page-header py-5">
+                <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Contact Us</h1>
+                <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+                    <li class="breadcrumb-item"><a href="#" onclick="showSection('shop-catalog')">Products</a></li>
+                    <li class="breadcrumb-item active text-white">Contact</li>
+                </ol>
+            </div>
+
+            <div class="container-fluid py-5">
+                <div class="container py-5">
+                    <div class="row g-4">
+                        <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="bg-light p-4 rounded">
+                                <div class="d-flex align-items-center mb-4">
+                                    <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
+                                        style="width: 60px; height: 60px;">
+                                        <i class="fa fa-map-marker-alt text-primary fs-4"></i>
                                     </div>
-                                    <div class="col-12">
-                                        <div class="form-floating">
-                                            <textarea class="form-control border-0" placeholder="Leave a message here" id="contact-message" style="height: 150px" required></textarea>
-                                            <label for="contact-message">Message</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <button class="btn btn-primary w-100 py-3" type="submit">Send Message via WhatsApp</button>
+                                    <div class="ms-4">
+                                        <h5 class="mb-2">Our Location</h5>
+                                        <p class="mb-0">Domela Chowk,Tanda Road, Jalalpur Jattan</p>
                                     </div>
                                 </div>
-                            </form>
+
+                                <div class="d-flex align-items-center mb-4">
+                                    <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
+                                        style="width: 60px; height: 60px;">
+                                        <i class="fa fa-phone-alt text-primary fs-4"></i>
+                                    </div>
+                                    <div class="ms-4">
+                                        <h5 class="mb-2">Call Us</h5>
+                                        <p class="mb-0">+92 300 6238233</p>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex align-items-center">
+                                    <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
+                                        style="width: 60px; height: 60px;">
+                                        <i class="fa fa-envelope text-primary fs-4"></i>
+                                    </div>
+                                    <div class="ms-4">
+                                        <h5 class="mb-2">Email Us</h5>
+                                        <p class="mb-0">info@arhamprinters.pk</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.3s">
+                            <div class="bg-light p-4 rounded">
+                                <form id="contact-form-whatsapp">
+                                    <h3 class="mb-4">Send a Direct Message</h3>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control border-0" id="contact-name"
+                                                    placeholder="Your Name" required>
+                                                <label for="contact-name">Your Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control border-0" id="contact-subject"
+                                                    placeholder="Subject" required>
+                                                <label for="contact-subject">Subject</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-floating">
+                                                <textarea class="form-control border-0" placeholder="Leave a message here"
+                                                    id="contact-message" style="height: 150px" required></textarea>
+                                                <label for="contact-message">Message</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <button class="btn btn-primary w-100 py-3" type="submit">Send Message via
+                                                WhatsApp</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="container-fluid footer py-2 wow fadeIn" data-wow-delay="0.2s">
+            <div class="container py-2">
+                <div class="row g-3">
+                    <div class="col-6 col-md-3">
+                        <div class="rounded p-2 d-flex flex-column align-items-center">
+                            <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto"
+                                style="width: 56px; height: 56px;">
+                                <i class="fas fa-map-marker-alt fa-2x text-primary" style="line-height: 1;"></i>
+                            </div>
+                            <h6 class="text-white mt-1 mb-1">Address</h6>
+                            <p class="text-white fw-bold mb-1 small text-center">Domela Chowk, Tanda Road, Jalalpur Jattan
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <div class="rounded p-2 d-flex flex-column align-items-center">
+                            <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto"
+                                style="width: 56px; height: 56px;">
+                                <i class="fas fa-envelope fa-2x text-primary" style="line-height: 1;"></i>
+                            </div>
+                            <h6 class="text-white mt-1 mb-1">Mail Us</h6>
+                            <p class="text-white fw-bold mb-1 small text-center">info@arhamprinters.pk</p>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <div class="rounded p-2 d-flex flex-column align-items-center">
+                            <a href="https://wa.me/923006238233" target="_blank" class="text-decoration-none">
+                                <div class="rounded-circle bg-success d-flex align-items-center justify-content-center mb-2 mx-auto"
+                                    style="width: 56px; height: 56px;">
+                                    <i class="fab fa-whatsapp fa-2x text-white" style="line-height: 1;"></i>
+                                </div>
+                            </a>
+                            <h6 class="text-white mt-1 mb-1">Direct Contact</h6>
+                            <a href="https://wa.me/923006238233" target="_blank"
+                                class="text-white-50 text-decoration-none">
+                                <p class="text-white fw-bold mb-1 small text-center">+92 300 6238233</p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <div class="rounded p-2 d-flex flex-column align-items-center">
+                            <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto"
+                                style="width: 56px; height: 56px;">
+                                <i class="fab fa-facebook-f fa-2x text-primary" style="line-height: 1;"></i>
+                            </div>
+                            <h6 class="text-white mt-1 mb-1">Follow Us</h6>
+                            <div class="d-flex justify-content-center gap-1">
+                                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i
+                                        class="fab fa-twitter"></i></a>
+                                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i
+                                        class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i
+                                        class="fab fa-youtube"></i></a>
+                                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i
+                                        class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid copyright py-2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <span class="text-white small">
+                                <i class="fas fa-copyright text-light me-1"></i>
+                                Arham Printers, All rights reserved 2025.
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-   <div class="container-fluid footer py-2 wow fadeIn" data-wow-delay="0.2s">
-      <div class="container py-2">
-        <div class="row g-3">
-          <div class="col-6 col-md-3">
-            <div class="rounded p-2 d-flex flex-column align-items-center">
-              <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
-                <i class="fas fa-map-marker-alt fa-2x text-primary" style="line-height: 1;"></i>
-              </div>
-              <h6 class="text-white mt-1 mb-1">Address</h6>
-              <p class="text-white fw-bold mb-1 small text-center">Domela Chowk, Tanda Road, Jalalpur Jattan</p>
-            </div>
-          </div>
-
-          <div class="col-6 col-md-3">
-            <div class="rounded p-2 d-flex flex-column align-items-center">
-              <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
-                <i class="fas fa-envelope fa-2x text-primary" style="line-height: 1;"></i>
-              </div>
-              <h6 class="text-white mt-1 mb-1">Mail Us</h6>
-              <p class="text-white fw-bold mb-1 small text-center">info@arhamprinters.pk</p>
-            </div>
-          </div>
-
-          <div class="col-6 col-md-3">
-            <div class="rounded p-2 d-flex flex-column align-items-center">
-              <a href="https://wa.me/923006238233" target="_blank" class="text-decoration-none">
-                <div class="rounded-circle bg-success d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
-                  <i class="fab fa-whatsapp fa-2x text-white" style="line-height: 1;"></i>
-                </div>
-              </a>
-              <h6 class="text-white mt-1 mb-1">Direct Contact</h6>
-              <a href="https://wa.me/923006238233" target="_blank" class="text-white-50 text-decoration-none">
-                <p class="text-white fw-bold mb-1 small text-center">+92 300 6238233</p>
-              </a>
-            </div>
-          </div>
-
-          <div class="col-6 col-md-3">
-            <div class="rounded p-2 d-flex flex-column align-items-center">
-              <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
-                <i class="fab fa-facebook-f fa-2x text-primary" style="line-height: 1;"></i>
-              </div>
-              <h6 class="text-white mt-1 mb-1">Follow Us</h6>
-              <div class="d-flex justify-content-center gap-1">
-                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i class="fab fa-twitter"></i></a>
-                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i class="fab fa-facebook-f"></i></a>
-                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i class="fab fa-youtube"></i></a>
-                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i class="fab fa-linkedin-in"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="container-fluid copyright py-2">
-        <div class="container">
-          <div class="row">
-            <div class="col-12 text-center">
-              <span class="text-white small">
-                <i class="fas fa-copyright text-light me-1"></i>
-                Arham Printers, All rights reserved 2025.
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> 
         <a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/wow/wow.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/counterup/counterup.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="js/main.js"></script>
 
-    <script>
-    // --- Configuration ---
-    const PUBLIC_DATA_URL = 'pricing.json'; 
-    const WHATSAPP_NUMBER = '923006238233'; 
-    
-    let allProducts = {}; 
-    let currentProduct = null; 
+        <script>
+            // --- Configuration ---
+            const PUBLIC_DATA_URL = 'pricing.json';
+            const WHATSAPP_NUMBER = '923006238233';
 
-    // Global stores for pricing logic
-    let allProductGroups = {};
-    let currentSelectedVariations = {}; 
-    
-    // Placeholder structure for area based logic (if needed, extracted from JSON)
-    let areaBasedMeta = {}; 
+            let allProducts = {};
+            let currentProduct = null;
 
-    // --- Core Functions ---
+            // Global stores for pricing logic
+            let allProductGroups = {};
+            let currentSelectedVariations = {};
 
-    async function initialAppLoad() {
-        let rawData;
-        try {
-            const response = await fetch(PUBLIC_DATA_URL);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            rawData = await response.json();
-        } catch (error) {
-            console.error("Failed to load shop data:", error);
-            showAlert("Failed to load product data. Check the developer console.", 'error');
-            return;
-        }
-        
-        initialProductSetup(rawData);
-        
-        // Populate sidebar categories on products.html
-        populateSidebarCategories();
-        
-        if (typeof WOW !== 'undefined') { new WOW().init(); }
-        
-        // --- Product.html specific load logic ---
-        const urlParams = new URLSearchParams(window.location.search);
-        const initialCategory = urlParams.get('category');
-        
-        showSection('shop-catalog'); // Ensure catalog is shown first
-        
-        // Filter catalog based on URL parameter, otherwise show all
-        filterCatalog(initialCategory); 
-        // ---------------------------------------
+            // Placeholder structure for area based logic (if needed, extracted from JSON)
+            let areaBasedMeta = {};
 
-        // Set up form submission handlers for WhatsApp routing
-        document.getElementById('quote-form').addEventListener('submit', handleQuoteSubmission);
-        document.getElementById('contact-form-whatsapp').addEventListener('submit', handleContactSubmission);
-    }
-    
-    // Function to populate the sidebar with the new main categories
-    function populateSidebarCategories() {
-        const container = document.getElementById('productCategoriesList');
-        container.innerHTML = '';
-        
-        const categoriesSet = new Set();
-        Object.values(allProductGroups).forEach(group => {
-            if (group.mainCategory && group.mainCategory !== "System Data") {
-                categoriesSet.add(group.mainCategory);
-            }
-        });
+            // --- Core Functions ---
 
-        Array.from(categoriesSet).sort().forEach(category => {
-            container.innerHTML += `
-                <li>
-                    <div class="categories-item">
-                        <a href="#" class="text-dark" onclick="event.preventDefault(); filterCatalog('${category}')">
-                            <i class="fas fa-tags text-primary me-2"></i> ${category}
-                        </a>
-                    </div>
-                </li>
-            `;
-        });
-    }
-
-    // --- Data Preprocessing for Complex JSON ---
-
-    function flattenAndCategorize(data) {
-        const productGroups = {};
-        
-        // Loop through Main Categories (Office Essentials, Marketing Essentials, etc.)
-        Object.keys(data).forEach(mainCategoryKey => {
-            
-            // Skip the digital printing tiers
-            if (mainCategoryKey === "Digital Printing Pricing" || mainCategoryKey === "Area-Based Pricing") {
-                return;
-            }
-            
-            const categoryData = data[mainCategoryKey];
-            
-            // Loop through Sub Categories (Letterpads, Envelops, etc.)
-            Object.keys(categoryData).forEach(subCategoryKey => {
-                const subCategoryData = categoryData[subCategoryKey];
-                
-                // Initialize product group structure
-                if (!productGroups[subCategoryKey]) {
-                    productGroups[subCategoryKey] = {
-                        baseName: subCategoryKey,
-                        minPrice: Infinity,
-                        imageFile: `${subCategoryKey.replace(/\s|\//g, '-')}.jpg`,
-                        isAreaBased: false,
-                        mainCategory: mainCategoryKey,
-                        combinations: [] 
-                    };
+            async function initialAppLoad() {
+                let rawData;
+                try {
+                    const response = await fetch(PUBLIC_DATA_URL);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    rawData = await response.json();
+                } catch (error) {
+                    console.error("Failed to load shop data:", error);
+                    showAlert("Failed to load product data. Check the developer console.", 'error');
+                    return;
                 }
 
-                // Loop through Level 1 (e.g., Size like "5.75x9" or "Custom")
-                Object.keys(subCategoryData).forEach(level1Key => {
-                    const level1Data = subCategoryData[level1Key];
-                    
-                    // Loop through Level 2 (e.g., Material/GSM like "68 gms" or "Standard")
-                    Object.keys(level1Data).forEach(level2Key => {
-                        const level2Data = level1Data[level2Key];
-                        
-                        // Loop through final price array (Combinations)
-                        if (Array.isArray(level2Data)) {
-                            level2Data.forEach(combo => {
-                                // Extract price and clean up attributes
-                                const price = combo.price_per_unit || 0; 
-                                
-                                if (price > 0) {
-                                    const attributes = {
-                                        'Size': level1Key,
-                                        'Material/Stock': level2Key,
-                                        'Price': price,
-                                        'FullName': `${subCategoryKey} ${level1Key} ${level2Key}`
-                                    };
-                                    
-                                    // Add other relevant keys (e.g., Printing Color, Shape)
-                                    if (combo['Printing Color']) attributes['Printing Color'] = combo['Printing Color'];
-                                    if (combo['Color']) attributes['Color'] = combo['Color'];
-                                    if (combo['Sides']) attributes['Sides'] = combo['Sides'];
-                                    if (combo['Material']) attributes['Material'] = combo['Material'];
-                                    if (combo['Shape']) attributes['Shape'] = combo['Shape'];
-                                    if (combo['Finish']) attributes['Finish'] = combo['Finish'];
-                                    if (combo['accessories']) attributes['Accessories'] = combo['accessories'];
+                initialProductSetup(rawData);
 
-                                    // Store combination
-                                    productGroups[subCategoryKey].combinations.push(attributes);
-                                    
-                                    // Update min price
-                                    if (price < productGroups[subCategoryKey].minPrice) {
-                                        productGroups[subCategoryKey].minPrice = price;
-                                    }
-                                }
-                            });
-                        }
-                    });
-                });
-            });
-        });
+                // Populate sidebar categories on products.html
+                populateSidebarCategories();
 
-        return productGroups;
-    }
+                if (typeof WOW !== 'undefined') { new WOW().init(); }
 
-    function initialProductSetup(rawData) {
-        // Handle Area-Based Pricing separately
-        areaBasedMeta = rawData["Area-Based Pricing"] || {};
-        
-        // Flatten and categorize standard products
-        allProductGroups = flattenAndCategorize(rawData);
-    }
+                // --- Product.html specific load logic ---
+                const urlParams = new URLSearchParams(window.location.search);
+                const initialCategory = urlParams.get('category');
 
+                showSection('shop-catalog'); // Ensure catalog is shown first
 
-    // New function to filter the product catalog by the top-level mainCategory
-    function filterCatalog(mainCategory = null) {
-        showSection('shop-catalog'); // Ensure we are on the catalog page
-        const container = document.getElementById('main-product-catalog');
-        let html = '';
-        const productGroups = allProductGroups;
-        
-        const filteredKeys = Object.keys(productGroups).filter(key => {
-            const product = productGroups[key];
-            if (!mainCategory) return true; // Show all products
-            return product.mainCategory === mainCategory;
-        });
+                // Filter catalog based on URL parameter, otherwise show all
+                filterCatalog(initialCategory);
+                // ---------------------------------------
 
-        if (filteredKeys.length === 0) {
-            container.innerHTML = `<h3 class="text-center w-100 py-5">No products found in "${mainCategory || 'catalog'}".</h3>`;
-            return;
-        }
-        
-        const getMinPrice = (baseName) => {
-            const group = allProductGroups[baseName];
-            if (!group || group.combinations.length === 0) return 'TBD'; 
-            
-            const areaMeta = areaBasedMeta[baseName];
-            if (areaMeta && areaMeta.is_area_based) return areaMeta.rate;
-            
-            // Return lowest combination price
-            const minPrice = group.combinations.reduce((min, combo) => Math.min(min, combo.Price), Infinity);
-            return isFinite(minPrice) ? minPrice : 'TBD';
-        };
-
-        filteredKeys.forEach(key => {
-            const product = productGroups[key];
-            const imagePath = `img/products/${product.imageFile}`;
-            const displayPrice = getMinPrice(key);
-            
-            const areaMeta = areaBasedMeta[key];
-            const isAreaBased = areaMeta && areaMeta.is_area_based;
-
-            const pricePrefix = isAreaBased ? 'Rate/Sq Ft: PKR' : 'Starting from: PKR';
-            const buttonText = isAreaBased ? 'Configure Area' : 'View Details';
-            
-            const priceDisplay = (typeof displayPrice === 'number') ? displayPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 }) : displayPrice;
-
-            html += `
-            <div class='col-md-4 col-sm-6 mb-4'>
-                <div class='card h-100 shadow-sm'>
-                    <img src='${imagePath}' onerror="this.onerror=null;this.src='img/products/${key.replace(/\s|\//g, '-')}.png';" class='card-img-top' alt='${product.baseName}'>
-                    <div class='card-body text-center'>
-                        <h5 class='card-title'>${product.baseName}</h5>
-                        <p class='mt-2 text-primary fw-bold'>${pricePrefix} ${priceDisplay}</p>
-                        <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('${product.baseName.replace(/\s|\//g, '\\/')}')"><i class="fas fa-search me-2"></i> ${buttonText}</button>
-                    </div>
-                </div>
-            </div>
-            `;
-        });
-        
-        container.innerHTML = html;
-    }
-
-    // 4. Navigate to and Populate Product Detail Page
-    function showProductDetails(productName) {
-        const name = productName.replace(/\\/g, ''); 
-        const productData = allProductGroups[name];
-        currentProduct = productData;
-        currentSelectedVariations = {}; 
-
-        if (!currentProduct) {
-            showAlert(`Product "${name}" details not found.`, 'error');
-            return;
-        }
-
-        // Update headers and image
-        document.getElementById('detail-product-name-header').textContent = currentProduct.baseName;
-        document.getElementById('detail-product-name-body').textContent = currentProduct.baseName;
-        const imagePath = `img/products/${currentProduct.imageFile}`;
-        document.getElementById('detail-product-image').src = imagePath;
-        document.getElementById('detail-product-image').onerror = function() { 
-             this.src = `img/products/${currentProduct.baseName.replace(/\s|\//g, '-')}.png`; 
-        };
-
-        const areaInputs = document.getElementById('custom-area-inputs');
-        const standardOptions = document.getElementById('standard-options-fields');
-        
-        document.getElementById('finalPriceBox').style.display = 'none';
-        document.getElementById('selectionWarning').textContent = "Please enter dimensions/quantity or select all options above to see the final price.";
-        document.getElementById('selectionWarning').classList.remove('alert-danger');
-        document.getElementById('selectionWarning').classList.add('alert-info');
-        document.getElementById('selectionWarning').style.display = 'block';
-
-        const areaMeta = areaBasedMeta[currentProduct.baseName];
-        const isAreaBased = areaMeta && areaMeta.is_area_based;
-        
-        // 🛑 CORE LOGIC: Area-Based vs. Standard 🛑
-        if (isAreaBased) {
-            // --- AREA-BASED SETUP (Panaflex/Wallpaper) ---
-            areaInputs.style.display = 'block';
-            standardOptions.style.display = 'none';
-            
-            // Set input listeners to trigger updateFinalPrice()
-            ['input-width', 'input-height', 'input-custom-qty'].forEach(id => {
-                 document.getElementById(id).oninput = updateFinalPrice;
-            });
-            
-            // Reset inputs and warnings
-            document.getElementById('input-width').value = '';
-            document.getElementById('input-height').value = '';
-            document.getElementById('input-custom-qty').value = 1;
-            document.getElementById('areaDisplay').textContent = '';
-            document.getElementById('areaConstraintWarning').style.display = 'none';
-            
-            // The JSON does not include design tiers anymore, hide related warning and text
-            const designFeeDisplay = document.getElementById('designFeeDisplay');
-            if (designFeeDisplay) designFeeDisplay.style.display = 'none'; 
-            
-            updateFinalPrice();
-
-        } else {
-            // --- STANDARD TIERED ITEM SETUP ---
-            areaInputs.style.display = 'none';
-            standardOptions.style.display = 'block';
-            standardOptions.innerHTML = ''; 
-
-            const allCombinations = currentProduct.combinations || [];
-            if (allCombinations.length === 0 || !allCombinations[0]) {
-                 standardOptions.innerHTML = `<p class="alert alert-warning">No configurations found for this product. Please use the Quote form.</p>`;
-                 return;
+                // Set up form submission handlers for WhatsApp routing
+                document.getElementById('quote-form').addEventListener('submit', handleQuoteSubmission);
+                document.getElementById('contact-form-whatsapp').addEventListener('submit', handleContactSubmission);
             }
 
-            // Determine unique attribute keys excluding price/name
-            const attributeKeys = Object.keys(allCombinations[0]).filter(key => key !== 'Price' && key !== 'FullName');
+            // Function to populate the sidebar with the new main categories
+            function populateSidebarCategories() {
+                const container = document.getElementById('productCategoriesList');
+                container.innerHTML = '';
 
-            const availableAttributes = {};
-            attributeKeys.forEach(key => availableAttributes[key] = new Set());
-
-            allCombinations.forEach(c => {
-                attributeKeys.forEach(key => {
-                    if (c[key]) availableAttributes[key].add(c[key]);
+                const categoriesSet = new Set();
+                Object.values(allProductGroups).forEach(group => {
+                    if (group.mainCategory && group.mainCategory !== "System Data") {
+                        categoriesSet.add(group.mainCategory);
+                    }
                 });
-            });
-            
-            // Render groups of unique values for each attribute
-            Object.keys(availableAttributes).forEach((attrKey) => {
-                const uniqueValues = Array.from(availableAttributes[attrKey]);
-                const sanitizedKey = attrKey.replace(/\s|\/|\(|\)/g, '');
-                
-                let groupHTML = `
-                    <div class="product-option-group" data-option-key="${sanitizedKey}">
-                        <label>${attrKey}:</label>
-                        <div class="d-flex flex-wrap gap-3" id="choices-${sanitizedKey}">
-                `;
-                
-                uniqueValues.forEach(value => {
-                    const inputId = `${sanitizedKey}-${value.replace(/\s|\/|\\|\(|\)/g, '-')}`;
-                    
-                    groupHTML += `
-                        <label class="choice-card" for="${inputId}">
-                            <input type="radio" id="${inputId}" name="option-${sanitizedKey}" value="${value}" 
-                                   onchange="handleCardSelection('${sanitizedKey}', '${value}')">
-                            <span class="label-text">${value}</span>
-                        </label>
+
+                Array.from(categoriesSet).sort().forEach(category => {
+                    container.innerHTML += `
+                        <li>
+                            <div class="categories-item">
+                                <a href="#" class="text-dark" onclick="event.preventDefault(); filterCatalog('${category}')">
+                                    <i class="fas fa-tags text-primary me-2"></i> ${category}
+                                </a>
+                            </div>
+                        </li>
+                    `;
+                });
+            }
+
+            // --- Data Preprocessing for Complex JSON ---
+
+            function flattenAndCategorize(data) {
+                const productGroups = {};
+
+                // Loop through Main Categories (Office Essentials, Marketing Essentials, etc.)
+                Object.keys(data).forEach(mainCategoryKey => {
+
+                    // Skip the digital printing tiers
+                    if (mainCategoryKey === "Digital Printing Pricing" || mainCategoryKey === "Area-Based Pricing") {
+                        return;
+                    }
+
+                    const categoryData = data[mainCategoryKey];
+
+                    // Loop through Sub Categories (Letterpads, Envelops, etc.)
+                    Object.keys(categoryData).forEach(subCategoryKey => {
+                        const subCategoryData = categoryData[subCategoryKey];
+
+                        // Initialize product group structure
+                        if (!productGroups[subCategoryKey]) {
+                            productGroups[subCategoryKey] = {
+                                baseName: subCategoryKey,
+                                minPrice: Infinity,
+                                imageFile: `${subCategoryKey.replace(/\s|\//g, '-')}.jpg`,
+                                isAreaBased: false,
+                                mainCategory: mainCategoryKey,
+                                combinations: []
+                            };
+                        }
+
+                        // Loop through Level 1 (e.g., Size like "5.75x9" or "Custom")
+                        Object.keys(subCategoryData).forEach(level1Key => {
+                            const level1Data = subCategoryData[level1Key];
+
+                            // Loop through Level 2 (e.g., Material/GSM like "68 gms" or "Standard")
+                            Object.keys(level1Data).forEach(level2Key => {
+                                const level2Data = level1Data[level2Key];
+
+                                // Loop through final price array (Combinations)
+                                if (Array.isArray(level2Data)) {
+                                    level2Data.forEach(combo => {
+                                        // Extract price and clean up attributes
+                                        const price = combo.price_per_unit || 0;
+
+                                        if (price > 0) {
+                                            const attributes = {
+                                                'Size': level1Key,
+                                                'Material/Stock': level2Key,
+                                                'Price': price,
+                                                'FullName': `${subCategoryKey} ${level1Key} ${level2Key}`
+                                            };
+
+                                            // Add other relevant keys (e.g., Printing Color, Shape)
+                                            if (combo['Printing Color']) attributes['Printing Color'] = combo['Printing Color'];
+                                            if (combo['Color']) attributes['Color'] = combo['Color'];
+                                            if (combo['Sides']) attributes['Sides'] = combo['Sides'];
+                                            if (combo['Material']) attributes['Material'] = combo['Material'];
+                                            if (combo['Shape']) attributes['Shape'] = combo['Shape'];
+                                            if (combo['Finish']) attributes['Finish'] = combo['Finish'];
+                                            if (combo['accessories']) attributes['Accessories'] = combo['accessories'];
+
+                                            // Store combination
+                                            productGroups[subCategoryKey].combinations.push(attributes);
+
+                                            // Update min price
+                                            if (price < productGroups[subCategoryKey].minPrice) {
+                                                productGroups[subCategoryKey].minPrice = price;
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        });
+                    });
+                });
+
+                return productGroups;
+            }
+
+            function initialProductSetup(rawData) {
+                // Handle Area-Based Pricing separately
+                areaBasedMeta = rawData["Area-Based Pricing"] || {};
+
+                // Flatten and categorize standard products
+                allProductGroups = flattenAndCategorize(rawData);
+            }
+
+
+            // New function to filter the product catalog by the top-level mainCategory
+            function filterCatalog(mainCategory = null) {
+                showSection('shop-catalog'); // Ensure we are on the catalog page
+                const container = document.getElementById('main-product-catalog');
+                let html = '';
+                const productGroups = allProductGroups;
+
+                const filteredKeys = Object.keys(productGroups).filter(key => {
+                    const product = productGroups[key];
+                    if (!mainCategory) return true; // Show all products
+                    return product.mainCategory === mainCategory;
+                });
+
+                if (filteredKeys.length === 0) {
+                    container.innerHTML = `<h3 class="text-center w-100 py-5">No products found in "${mainCategory || 'catalog'}".</h3>`;
+                    return;
+                }
+
+                const getMinPrice = (baseName) => {
+                    const group = allProductGroups[baseName];
+                    if (!group || group.combinations.length === 0) return 'TBD';
+
+                    const areaMeta = areaBasedMeta[baseName];
+                    if (areaMeta && areaMeta.is_area_based) return areaMeta.rate;
+
+                    // Return lowest combination price
+                    const minPrice = group.combinations.reduce((min, combo) => Math.min(min, combo.Price), Infinity);
+                    return isFinite(minPrice) ? minPrice : 'TBD';
+                };
+
+                filteredKeys.forEach(key => {
+                    const product = productGroups[key];
+                    const imagePath = `img/products/${product.imageFile}`;
+                    const displayPrice = getMinPrice(key);
+
+                    const areaMeta = areaBasedMeta[key];
+                    const isAreaBased = areaMeta && areaMeta.is_area_based;
+
+                    const pricePrefix = isAreaBased ? 'Rate/Sq Ft: PKR' : 'Starting from: PKR';
+                    const buttonText = isAreaBased ? 'Configure Area' : 'View Details';
+
+                    const priceDisplay = (typeof displayPrice === 'number') ? displayPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 }) : displayPrice;
+
+                    // 🛑 CORRECTED: Applied new card styling and responsiveness 🛑
+                    html += `
+                        <div class="col-6 col-md-4 wow fadeInUp">
+                            <div class="card border-0 shadow-sm">
+                                <img src='${imagePath}' onerror="this.onerror=null;this.src='img/products/${key.replace(/\s|\//g, '-')}.png';" class='card-img-top' alt='${product.baseName}'>
+                                
+                                <div class='card-body text-center p-2'>
+                                    <h6 class='card-title text-dark mb-0'>${product.baseName}</h6>
+                                    <p class='text-primary fw-bold mb-0 small'>${pricePrefix} ${priceDisplay}</p>
+                                </div>
+                                
+                                <div class="card-footer bg-primary text-white text-center p-2" onclick="showProductDetails('${product.baseName.replace(/\s|\//g, '\\/')}')">
+                                    <a href="#" class="btn btn-sm btn-light text-primary w-100">${buttonText}</a>
+                                </div>
+                            </div>
+                        </div>
                     `;
                 });
 
-                groupHTML += `</div></div>`;
-                standardOptions.innerHTML += groupHTML;
-            });
-
-            // Add quantity selector for standard items
-            standardOptions.innerHTML += `
-                 <div class="product-option-group" data-option-key="QuantitySelector">
-                    <label>Quantity:</label>
-                    <div class="input-group">
-                        <button class="btn btn-outline-secondary" type="button" onclick="updateQuantityStandard(-1)">-</button>
-                        <input type="number" id="input-standard-qty" min="1" value="1" class="form-control text-center" oninput="updateFinalPrice()">
-                        <button class="btn btn-outline-secondary" type="button" onclick="updateQuantityStandard(1)">+</button>
-                    </div>
-                </div>
-            `;
-            
-            document.getElementById('finalPriceBox').style.display = 'none';
-            document.getElementById('selectionWarning').style.display = 'block';
-        }
-
-        showSection('product-detail');
-    }
-    
-    // Helper for quantity buttons on standard items
-    function updateQuantityStandard(change) {
-        const input = document.getElementById('input-standard-qty');
-        let quantity = parseInt(input.value) || 1;
-        quantity = Math.max(1, quantity + change);
-        input.value = quantity;
-        updateFinalPrice();
-    }
-    
-    // New handler function for card clicks (Standard Items)
-    function handleCardSelection(key, value) {
-        const sanitizedKey = key;
-        
-        currentSelectedVariations[sanitizedKey] = value;
-        
-        document.querySelectorAll(`input[name="option-${sanitizedKey}"]`).forEach(input => {
-            input.closest('.choice-card').classList.remove('selected');
-        });
-        const selectedInput = document.querySelector(`input[name="option-${sanitizedKey}"][value="${value}"]`);
-        if (selectedInput) {
-            selectedInput.closest('.choice-card').classList.add('selected');
-        }
-
-        updateFinalPrice();
-    }
-    
-    // --- Price Update and Calculation Logic (Handles both types) ---
-    
-    function updateFinalPrice() {
-        
-        const isAreaBased = currentProduct && areaBasedMeta[currentProduct.baseName] && areaBasedMeta[currentProduct.baseName].is_area_based;
-
-        // 1. Handle Area-Based Products 
-        if (isAreaBased) {
-            const width = parseFloat(document.getElementById('input-width').value) || 0;
-            const height = parseFloat(document.getElementById('input-height').value) || 0;
-            const quantity = parseInt(document.getElementById('input-custom-qty').value) || 0;
-
-            const rateMeta = areaBasedMeta[currentProduct.baseName];
-            const baseRate = rateMeta ? rateMeta.rate : 0;
-            const minArea = rateMeta ? rateMeta.min_area || 0 : 0;
-            
-            document.getElementById('finalPriceBox').style.display = 'none';
-            document.getElementById('areaConstraintWarning').style.display = 'none';
-            document.getElementById('selectionWarning').style.display = 'block';
-            
-            if (width <= 0 || height <= 0 || quantity <= 0 || baseRate === 0) {
-                document.getElementById('selectionWarning').textContent = "Please enter valid dimensions and quantity to calculate price.";
-                document.getElementById('areaDisplay').textContent = '';
-                return;
+                container.innerHTML = html;
             }
 
-            const itemArea = width * height;
-            const totalArea = itemArea * quantity;
-            document.getElementById('areaDisplay').textContent = `Area per piece: ${itemArea.toFixed(2)} sq ft | Total Area: ${totalArea.toFixed(2)} sq ft`;
+            // 4. Navigate to and Populate Product Detail Page
+            function showProductDetails(productName) {
+                const name = productName.replace(/\\/g, '');
+                const productData = allProductGroups[name];
+                currentProduct = productData;
+                currentSelectedVariations = {};
 
-            if (totalArea < minArea) {
-                document.getElementById('areaConstraintWarning').textContent = `Minimum order area for this product is ${minArea} sq ft. Current total area (${totalArea.toFixed(2)} sq ft) is too small.`;
-                document.getElementById('areaConstraintWarning').style.display = 'block';
-                return; 
-            }
-            
-            const totalPrice = totalArea * baseRate;
-            
-            document.getElementById('finalPriceDisplay').textContent = `PKR ${totalPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
-            document.getElementById('finalPriceBox').style.display = 'block';
-            document.getElementById('selectionWarning').style.display = 'none';
-
-            return; 
-        } 
-        
-        // 2. Standard Tiered Products 
-        
-        const quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 1;
-        const allCombinations = currentProduct?.combinations || [];
-        
-        if (allCombinations.length === 0) return;
-
-        const requiredKeys = Object.keys(allCombinations[0]).filter(key => key !== 'Price' && key !== 'FullName');
-        
-        let selectedAttributes = {};
-        let allSelected = true;
-
-        requiredKeys.forEach(key => {
-            const sanitizedKey = key.replace(/\s|\/|\(|\)/g, '');
-            if (!currentSelectedVariations[sanitizedKey]) {
-                allSelected = false;
-            } else {
-                selectedAttributes[key] = currentSelectedVariations[sanitizedKey];
-            }
-        });
-
-        if (!allSelected) {
-            document.getElementById('finalPriceBox').style.display = 'none';
-            document.getElementById('selectionWarning').textContent = "Please select all required options.";
-            document.getElementById('selectionWarning').style.display = 'block';
-            return;
-        }
-
-        // B. Find matching combination price
-        let finalProductCombination = null;
-        allCombinations.forEach(combo => {
-            let matches = true;
-            requiredKeys.forEach(key => {
-                if (combo[key] !== selectedAttributes[key]) {
-                    matches = false;
+                if (!currentProduct) {
+                    showAlert(`Product "${name}" details not found.`, 'error');
+                    return;
                 }
-            });
-            if (matches) {
-                finalProductCombination = combo;
+
+                // Update headers and image
+                document.getElementById('detail-product-name-header').textContent = currentProduct.baseName;
+                document.getElementById('detail-product-name-body').textContent = currentProduct.baseName;
+                const imagePath = `img/products/${currentProduct.imageFile}`;
+                document.getElementById('detail-product-image').src = imagePath;
+                document.getElementById('detail-product-image').onerror = function () {
+                    this.src = `img/products/${currentProduct.baseName.replace(/\s|\//g, '-')}.png`;
+                };
+
+                const areaInputs = document.getElementById('custom-area-inputs');
+                const standardOptions = document.getElementById('standard-options-fields');
+
+                document.getElementById('finalPriceBox').style.display = 'none';
+                document.getElementById('selectionWarning').textContent = "Please enter dimensions/quantity or select all options above to see the final price.";
+                document.getElementById('selectionWarning').classList.remove('alert-danger');
+                document.getElementById('selectionWarning').classList.add('alert-info');
+                document.getElementById('selectionWarning').style.display = 'block';
+
+                const areaMeta = areaBasedMeta[currentProduct.baseName];
+                const isAreaBased = areaMeta && areaMeta.is_area_based;
+
+                // 🛑 CORE LOGIC: Area-Based vs. Standard 🛑
+                if (isAreaBased) {
+                    // --- AREA-BASED SETUP (Panaflex/Wallpaper) ---
+                    areaInputs.style.display = 'block';
+                    standardOptions.style.display = 'none';
+
+                    // Set input listeners to trigger updateFinalPrice()
+                    ['input-width', 'input-height', 'input-custom-qty'].forEach(id => {
+                        document.getElementById(id).oninput = updateFinalPrice;
+                    });
+
+                    // Reset inputs and warnings
+                    document.getElementById('input-width').value = '';
+                    document.getElementById('input-height').value = '';
+                    document.getElementById('input-custom-qty').value = 1;
+                    document.getElementById('areaDisplay').textContent = '';
+                    document.getElementById('areaConstraintWarning').style.display = 'none';
+
+                    // The JSON does not include design tiers anymore, hide related warning and text
+                    const designFeeDisplay = document.getElementById('designFeeDisplay');
+                    if (designFeeDisplay) designFeeDisplay.style.display = 'none';
+
+                    updateFinalPrice();
+
+                } else {
+                    // --- STANDARD TIERED ITEM SETUP ---
+                    areaInputs.style.display = 'none';
+                    standardOptions.style.display = 'block';
+                    standardOptions.innerHTML = '';
+
+                    const allCombinations = currentProduct.combinations || [];
+                    if (allCombinations.length === 0 || !allCombinations[0]) {
+                        standardOptions.innerHTML = `<p class="alert alert-warning">No configurations found for this product. Please use the Quote form.</p>`;
+                        return;
+                    }
+
+                    // Determine unique attribute keys excluding price/name
+                    const attributeKeys = Object.keys(allCombinations[0]).filter(key => key !== 'Price' && key !== 'FullName');
+
+                    const availableAttributes = {};
+                    attributeKeys.forEach(key => availableAttributes[key] = new Set());
+
+                    allCombinations.forEach(c => {
+                        attributeKeys.forEach(key => {
+                            if (c[key]) availableAttributes[key].add(c[key]);
+                        });
+                    });
+
+                    // Render groups of unique values for each attribute
+                    Object.keys(availableAttributes).forEach((attrKey) => {
+                        const uniqueValues = Array.from(availableAttributes[attrKey]);
+                        const sanitizedKey = attrKey.replace(/\s|\/|\(|\)/g, '');
+
+                        let groupHTML = `
+                            <div class="product-option-group" data-option-key="${sanitizedKey}">
+                                <label>${attrKey}:</label>
+                                <div class="d-flex flex-wrap gap-3" id="choices-${sanitizedKey}">
+                        `;
+
+                        uniqueValues.forEach(value => {
+                            const inputId = `${sanitizedKey}-${value.replace(/\s|\/|\\|\(|\)/g, '-')}`;
+
+                            groupHTML += `
+                                <label class="choice-card" for="${inputId}">
+                                    <input type="radio" id="${inputId}" name="option-${sanitizedKey}" value="${value}" 
+                                        onchange="handleCardSelection('${sanitizedKey}', '${value}')">
+                                    <span class="label-text">${value}</span>
+                                </label>
+                            `;
+                        });
+
+                        groupHTML += `</div></div>`;
+                        standardOptions.innerHTML += groupHTML;
+                    });
+
+                    // Add quantity selector for standard items
+                    standardOptions.innerHTML += `
+                            <div class="product-option-group" data-option-key="QuantitySelector">
+                                <label>Quantity:</label>
+                                <div class="input-group">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="updateQuantityStandard(-1)">-</button>
+                                    <input type="number" id="input-standard-qty" min="1" value="1" class="form-control text-center" oninput="updateFinalPrice()">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="updateQuantityStandard(1)">+</button>
+                                </div>
+                            </div>
+                        `;
+
+                    document.getElementById('finalPriceBox').style.display = 'none';
+                    document.getElementById('selectionWarning').style.display = 'block';
+                }
+
+                showSection('product-detail');
             }
-        });
-        
-        // C. Calculate and Display
-        if (finalProductCombination) {
-            const unitPrice = finalProductCombination.Price;
-            const totalPrice = unitPrice * quantity;
-            
-            document.getElementById('finalPriceDisplay').textContent = `PKR ${totalPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
-            document.getElementById('finalPriceBox').style.display = 'block';
-            document.getElementById('selectionWarning').style.display = 'none';
 
-        } else {
-            document.getElementById('selectionWarning').textContent = "Selected combination not available. Try another mix.";
-            document.getElementById('selectionWarning').classList.remove('alert-info');
-            document.getElementById('selectionWarning').classList.add('alert-danger');
-            document.getElementById('finalPriceBox').style.display = 'none';
-            document.getElementById('selectionWarning').style.display = 'block';
-        }
-    }
-
-    // --- WhatsApp Submission Logic ---
-    function addToCartFromDetails() {
-        const finalPriceText = document.getElementById('finalPriceDisplay').textContent;
-        const totalPrice = parseFloat(finalPriceText.replace('PKR', '').replace(/,/g, '').trim()) || 0;
-        
-        if (totalPrice === 0 || document.getElementById('finalPriceBox').style.display === 'none') {
-             showAlert('Please configure the product and ensure the final price is calculated before ordering.', 'error');
-             return;
-        }
-
-        let itemDetails = '';
-        const isAreaBased = currentProduct && areaBasedMeta[currentProduct.baseName] && areaBasedMeta[currentProduct.baseName].is_area_based;
-
-        if (isAreaBased) {
-            const width = parseFloat(document.getElementById('input-width').value) || 0;
-            const height = parseFloat(document.getElementById('input-height').value) || 0;
-            const quantity = parseInt(document.getElementById('input-custom-qty').value) || 0;
-            const totalArea = (width * height) * quantity;
-            
-            itemDetails = `\n*Product:* ${currentProduct.baseName} (Area-Based)\n*Dimensions:* ${width}ft x ${height}ft\n*Quantity:* ${quantity} piece(s)\n*Total Area:* ${totalArea.toFixed(2)} sq ft\n*Price:* ${finalPriceText}`;
-            
-        } else {
-            const quantity = parseInt(document.getElementById('input-standard-qty').value) || 1;
-            const details = Object.entries(currentSelectedVariations)
-                .map(([key, val]) => `\n- ${key.replace(/[A-Z]/g, ' $&').trim()}: ${val}`);
-            
-            itemDetails = `\n*Product:* ${currentProduct.baseName} (Standard)\n*Selections:*${details.join('')}\n*Quantity:* ${quantity} unit(s)\n*Total Price:* ${finalPriceText}`;
-        }
-        
-        submitOrderViaWhatsApp(itemDetails, totalPrice);
-    }
-    
-    // 1. General Order Submission (from product page)
-    function submitOrderViaWhatsApp(itemDetails, totalPrice) {
-        
-        let message = `*NEW ARHAM PRINTERS ORDER REQUEST (WEB)*\n`;
-        message += `-------------------------------------------\n`;
-        message += `${itemDetails}\n`;
-        message += `-------------------------------------------\n`;
-        message += `*CONFIRMED TOTAL (Excl. Delivery):* ${document.getElementById('finalPriceDisplay').textContent}\n\n`;
-        message += `_ACTION REQUIRED: Please provide your full name and delivery address for final price confirmation and delivery charge calculation._\n\n`;
-        message += `Customer is waiting for contact.`;
-
-        const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-        window.open(whatsappLink, '_blank');
-        
-        showAlert('Opening WhatsApp chat now. Your order details have been prepared!', 'success');
-        
-        setTimeout(() => {
-             // After order, go back to catalog view
-             showSection('shop-catalog');
-             filterCatalog(null); // Reload all products
-        }, 1500);
-    }
-    
-    // 2. Contact Form Submission Handler
-    function handleContactSubmission(e) {
-        e.preventDefault();
-        
-        const name = document.getElementById('contact-name').value;
-        const subject = document.getElementById('contact-subject').value;
-        const message = document.getElementById('contact-message').value;
-
-        let whatsappMessage = `*NEW CONTACT MESSAGE (WEB)*\n`;
-        whatsappMessage += `*Sender:* ${name}\n`;
-        whatsappMessage += `*Subject:* ${subject}\n`;
-        whatsappMessage += `*Message:* ${message}`;
-        
-        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
-
-        showAlert('Message sent via WhatsApp!', 'success');
-        document.getElementById('contact-form-whatsapp').reset();
-    }
-    
-    // 3. Get A Quote Submission Handler
-    function handleQuoteSubmission(e) {
-        e.preventDefault();
-        
-        const name = document.getElementById('quote-name').value;
-        const phone = document.getElementById('quote-phone').value;
-        const product = document.getElementById('quote-product').value;
-        const quantity = document.getElementById('quote-quantity').value;
-        const details = document.getElementById('quote-details').value;
-        
-        let whatsappMessage = `*NEW QUOTE REQUEST (WEB)*\n`;
-        whatsappMessage += `*Customer:* ${name}\n`;
-        whatsappMessage += `*Phone (Contact):* ${phone}\n`;
-        whatsappMessage += `*Product Type:* ${product}\n`;
-        whatsappMessage += `*Quantity/Area:* ${quantity}\n`;
-        whatsappMessage += `*Specifications:* ${details}`;
-        
-        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
-
-        showAlert('Quote submitted via WhatsApp! We will contact you shortly.', 'success');
-        document.getElementById('quote-form').reset();
-    }
-
-    // --- UI/Navigation Functions ---
-    function showSection(sectionName) {
-        // Hide all sections
-        document.querySelectorAll('.section').forEach(section => {
-            section.classList.remove('active');
-        });
-        
-        // Show the selected section
-        const sectionElement = document.getElementById(sectionName + '-section');
-        if (sectionElement) {
-            sectionElement.classList.add('active');
-        } else {
-             console.error(`Section with ID ${sectionName}-section not found.`);
-             // Default to showing catalog if a section is missing
-             document.getElementById('shop-catalog-section').classList.add('active');
-        }
-        
-        // Update active nav link
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.classList.remove('active');
-        });
-        
-        // Set the clicked nav link as active
-        const navLink = document.querySelector(`.navbar-nav a[onclick="showSection('${sectionName}')"]`);
-        if (navLink) {
-             navLink.classList.add('active');
-        }
-        
-        window.scrollTo(0, 0);
-    }
-    
-    function showAlert(message, type) {
-        const alert = document.createElement('div');
-        alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
-        alert.style.top = '20px';
-        alert.style.right = '20px';
-        alert.style.zIndex = '9999';
-        alert.style.minWidth = '300px';
-        alert.innerHTML = `
-            ${message}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        `;
-        document.body.appendChild(alert);
-        
-        setTimeout(() => {
-            if (alert.parentNode) {
-                alert.parentNode.removeChild(alert);
+            // Helper for quantity buttons on standard items
+            function updateQuantityStandard(change) {
+                const input = document.getElementById('input-standard-qty');
+                let quantity = parseInt(input.value) || 1;
+                quantity = Math.max(1, quantity + change);
+                input.value = quantity;
+                updateFinalPrice();
             }
-        }, 5000);
-    }
 
-    document.addEventListener('DOMContentLoaded', initialAppLoad);
-</script>
-</div>
+            // New handler function for card clicks (Standard Items)
+            function handleCardSelection(key, value) {
+                const sanitizedKey = key;
+
+                currentSelectedVariations[sanitizedKey] = value;
+
+                document.querySelectorAll(`input[name="option-${sanitizedKey}"]`).forEach(input => {
+                    input.closest('.choice-card').classList.remove('selected');
+                });
+                const selectedInput = document.querySelector(`input[name="option-${sanitizedKey}"][value="${value}"]`);
+                if (selectedInput) {
+                    selectedInput.closest('.choice-card').classList.add('selected');
+                }
+
+                updateFinalPrice();
+            }
+
+            // --- Price Update and Calculation Logic (Handles both types) ---
+
+            function updateFinalPrice() {
+
+                const isAreaBased = currentProduct && areaBasedMeta[currentProduct.baseName] && areaBasedMeta[currentProduct.baseName].is_area_based;
+
+                // 1. Handle Area-Based Products 
+                if (isAreaBased) {
+                    const width = parseFloat(document.getElementById('input-width').value) || 0;
+                    const height = parseFloat(document.getElementById('input-height').value) || 0;
+                    const quantity = parseInt(document.getElementById('input-custom-qty').value) || 0;
+
+                    const rateMeta = areaBasedMeta[currentProduct.baseName];
+                    const baseRate = rateMeta ? rateMeta.rate : 0;
+                    const minArea = rateMeta ? rateMeta.min_area || 0 : 0;
+
+                    document.getElementById('finalPriceBox').style.display = 'none';
+                    document.getElementById('areaConstraintWarning').style.display = 'none';
+                    document.getElementById('selectionWarning').style.display = 'block';
+
+                    if (width <= 0 || height <= 0 || quantity <= 0 || baseRate === 0) {
+                        document.getElementById('selectionWarning').textContent = "Please enter valid dimensions and quantity to calculate price.";
+                        document.getElementById('areaDisplay').textContent = '';
+                        return;
+                    }
+
+                    const itemArea = width * height;
+                    const totalArea = itemArea * quantity;
+                    document.getElementById('areaDisplay').textContent = `Area per piece: ${itemArea.toFixed(2)} sq ft | Total Area: ${totalArea.toFixed(2)} sq ft`;
+
+                    if (totalArea < minArea) {
+                        document.getElementById('areaConstraintWarning').textContent = `Minimum order area for this product is ${minArea} sq ft. Current total area (${totalArea.toFixed(2)} sq ft) is too small.`;
+                        document.getElementById('areaConstraintWarning').style.display = 'block';
+                        return;
+                    }
+
+                    const totalPrice = totalArea * baseRate;
+
+                    document.getElementById('finalPriceDisplay').textContent = `PKR ${totalPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
+                    document.getElementById('finalPriceBox').style.display = 'block';
+                    document.getElementById('selectionWarning').style.display = 'none';
+
+                    return;
+                }
+
+                // 2. Standard Tiered Products 
+
+                const quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 1;
+                const allCombinations = currentProduct?.combinations || [];
+
+                if (allCombinations.length === 0) return;
+
+                const requiredKeys = Object.keys(allCombinations[0]).filter(key => key !== 'Price' && key !== 'FullName');
+
+                let selectedAttributes = {};
+                let allSelected = true;
+
+                requiredKeys.forEach(key => {
+                    const sanitizedKey = key.replace(/\s|\/|\(|\)/g, '');
+                    // The original key from the combination object is used for comparison
+                    if (!currentSelectedVariations[sanitizedKey]) {
+                        allSelected = false;
+                    } else {
+                        // Map the user selection back to the original key name
+                        selectedAttributes[key] = currentSelectedVariations[sanitizedKey];
+                    }
+                });
+
+
+                if (!allSelected) {
+                    document.getElementById('finalPriceBox').style.display = 'none';
+                    document.getElementById('selectionWarning').textContent = "Please select all required options.";
+                    document.getElementById('selectionWarning').style.display = 'block';
+                    return;
+                }
+
+                // B. Find matching combination price
+                let finalProductCombination = null;
+                allCombinations.forEach(combo => {
+                    let matches = true;
+                    requiredKeys.forEach(key => {
+                        if (combo[key] !== selectedAttributes[key]) {
+                            matches = false;
+                        }
+                    });
+                    if (matches) {
+                        finalProductCombination = combo;
+                    }
+                });
+
+                // C. Calculate and Display
+                if (finalProductCombination) {
+                    const unitPrice = finalProductCombination.Price;
+                    const totalPrice = unitPrice * quantity;
+
+                    document.getElementById('finalPriceDisplay').textContent = `PKR ${totalPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
+                    document.getElementById('finalPriceBox').style.display = 'block';
+                    document.getElementById('selectionWarning').style.display = 'none';
+
+                } else {
+                    document.getElementById('selectionWarning').textContent = "Selected combination not available. Try another mix.";
+                    document.getElementById('selectionWarning').classList.remove('alert-info');
+                    document.getElementById('selectionWarning').classList.add('alert-danger');
+                    document.getElementById('finalPriceBox').style.display = 'none';
+                    document.getElementById('selectionWarning').style.display = 'block';
+                }
+            }
+
+            // --- WhatsApp Submission Logic ---
+            function addToCartFromDetails() {
+                const finalPriceText = document.getElementById('finalPriceDisplay').textContent;
+                const totalPrice = parseFloat(finalPriceText.replace('PKR', '').replace(/,/g, '').trim()) || 0;
+
+                if (totalPrice === 0 || document.getElementById('finalPriceBox').style.display === 'none') {
+                    showAlert('Please configure the product and ensure the final price is calculated before ordering.', 'error');
+                    return;
+                }
+
+                let itemDetails = '';
+                const isAreaBased = currentProduct && areaBasedMeta[currentProduct.baseName] && areaBasedMeta[currentProduct.baseName].is_area_based;
+
+                if (isAreaBased) {
+                    const width = parseFloat(document.getElementById('input-width').value) || 0;
+                    const height = parseFloat(document.getElementById('input-height').value) || 0;
+                    const quantity = parseInt(document.getElementById('input-custom-qty').value) || 0;
+                    const totalArea = (width * height) * quantity;
+
+                    itemDetails = `\n*Product:* ${currentProduct.baseName} (Area-Based)\n*Dimensions:* ${width}ft x ${height}ft\n*Quantity:* ${quantity} piece(s)\n*Total Area:* ${totalArea.toFixed(2)} sq ft\n*Price:* ${finalPriceText}`;
+
+                } else {
+                    const quantity = parseInt(document.getElementById('input-standard-qty').value) || 1;
+                    const details = Object.entries(currentSelectedVariations)
+                        .map(([key, val]) => {
+                            // Convert sanitized key back to readable format for the message
+                            const readableKey = key.replace(/[A-Z]/g, ' $&').trim(); 
+                            return `\n- ${readableKey}: ${val}`;
+                        });
+
+                    itemDetails = `\n*Product:* ${currentProduct.baseName} (Standard)\n*Selections:*${details.join('')}\n*Quantity:* ${quantity} unit(s)\n*Total Price:* ${finalPriceText}`;
+                }
+
+                submitOrderViaWhatsApp(itemDetails, totalPrice);
+            }
+
+            // 1. General Order Submission (from product page)
+            function submitOrderViaWhatsApp(itemDetails, totalPrice) {
+
+                let message = `*NEW ARHAM PRINTERS ORDER REQUEST (WEB)*\n`;
+                message += `-------------------------------------------\n`;
+                message += `${itemDetails}\n`;
+                message += `-------------------------------------------\n`;
+                message += `*CONFIRMED TOTAL (Excl. Delivery):* ${document.getElementById('finalPriceDisplay').textContent}\n\n`;
+                message += `_ACTION REQUIRED: Please provide your full name and delivery address for final price confirmation and delivery charge calculation._\n\n`;
+                message += `Customer is waiting for contact.`;
+
+                const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+                window.open(whatsappLink, '_blank');
+
+                showAlert('Opening WhatsApp chat now. Your order details have been prepared!', 'success');
+
+                setTimeout(() => {
+                    // After order, go back to catalog view
+                    showSection('shop-catalog');
+                    filterCatalog(null); // Reload all products
+                }, 1500);
+            }
+
+            // 2. Contact Form Submission Handler
+            function handleContactSubmission(e) {
+                e.preventDefault();
+
+                const name = document.getElementById('contact-name').value;
+                const subject = document.getElementById('contact-subject').value;
+                const message = document.getElementById('contact-message').value;
+
+                let whatsappMessage = `*NEW CONTACT MESSAGE (WEB)*\n`;
+                whatsappMessage += `*Sender:* ${name}\n`;
+                whatsappMessage += `*Subject:* ${subject}\n`;
+                whatsappMessage += `*Message:* ${message}`;
+
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+
+                showAlert('Message sent via WhatsApp!', 'success');
+                document.getElementById('contact-form-whatsapp').reset();
+            }
+
+            // 3. Get A Quote Submission Handler
+            function handleQuoteSubmission(e) {
+                e.preventDefault();
+
+                const name = document.getElementById('quote-name').value;
+                const phone = document.getElementById('quote-phone').value;
+                const product = document.getElementById('quote-product').value;
+                const quantity = document.getElementById('quote-quantity').value;
+                const details = document.getElementById('quote-details').value;
+
+                let whatsappMessage = `*NEW QUOTE REQUEST (WEB)*\n`;
+                whatsappMessage += `*Customer:* ${name}\n`;
+                whatsappMessage += `*Phone (Contact):* ${phone}\n`;
+                whatsappMessage += `*Product Type:* ${product}\n`;
+                whatsappMessage += `*Quantity/Area:* ${quantity}\n`;
+                whatsappMessage += `*Specifications:* ${details}`;
+
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+
+                showAlert('Quote submitted via WhatsApp! We will contact you shortly.', 'success');
+                document.getElementById('quote-form').reset();
+            }
+
+            // --- UI/Navigation Functions ---
+            function showSection(sectionName) {
+                // Hide all sections
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.remove('active');
+                });
+
+                // Show the selected section
+                const sectionElement = document.getElementById(sectionName + '-section');
+                if (sectionElement) {
+                    sectionElement.classList.add('active');
+                } else {
+                    console.error(`Section with ID ${sectionName}-section not found.`);
+                    // Default to showing catalog if a section is missing
+                    document.getElementById('shop-catalog-section').classList.add('active');
+                }
+
+                // Update active nav link (basic links)
+                document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+
+                // Set the current link or parent link as active
+                if (sectionName === 'shop-catalog') {
+                    document.querySelector('.navbar-nav a[onclick="showSection(\'shop-catalog\')"]').classList.add('active');
+                } else if (sectionName === 'quote' || sectionName === 'contact') {
+                    const navLink = document.querySelector(`.navbar-nav a[onclick="showSection('${sectionName}')"]`);
+                    if (navLink) {
+                        navLink.classList.add('active');
+                    }
+                } else if (sectionName === 'product-detail') {
+                    // Keep the "Products" (shop-catalog) link active when viewing details
+                    document.querySelector('.navbar-nav a[onclick="showSection(\'shop-catalog\')"]').classList.add('active');
+                }
+
+
+                window.scrollTo(0, 0);
+            }
+
+            function showAlert(message, type) {
+                const alert = document.createElement('div');
+                alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
+                alert.style.top = '20px';
+                alert.style.right = '20px';
+                alert.style.zIndex = '9999';
+                alert.style.minWidth = '300px';
+                alert.innerHTML = `
+                        ${message}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    `;
+                document.body.appendChild(alert);
+
+                setTimeout(() => {
+                    if (alert.parentNode) {
+                        alert.parentNode.removeChild(alert);
+                    }
+                }, 5000);
+            }
+
+            document.addEventListener('DOMContentLoaded', initialAppLoad);
+        </script>
+    </div>
 </body>
+
 </html>
