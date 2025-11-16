@@ -283,8 +283,11 @@
                                 <div class="row g-3 align-items-center justify-content-center">
                                     <div class="col-md-6">
                                         <div class="price-summary">
-                                            Estimated Price: <span id="totalPrice">Calculating...</span>
-                                            <p class="small text-white-75 mb-0 mt-1">Final price confirmed after file review</p>
+                                            Total Price (Excluding Delivery):
+                                            <span id="totalPrice">Calculating...</span>
+                                            <p class="small text-white-75 mb-0 mt-2" style="font-weight: normal; font-size: 0.7em;">
+                                                Final price will include delivery charges. Delivery charges will be determined according to your address.
+                                            </p>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -432,7 +435,7 @@
                 calculateEstimatedPrice(); 
             } catch (error) {
                 console.error('Could not fetch pricing data:', error);
-                document.getElementById('totalPrice').textContent = 'Error loading prices!';
+                document.getElementById('totalPrice').innerHTML = '<span>Error loading prices!</span>';
             }
         }
 
@@ -448,7 +451,7 @@
             const size = document.querySelector('input[name="size"]:checked').value;
             const paperGsm = document.querySelector('input[name="paperGsm"]:checked').value;
             const quantity = document.getElementById('quantity').value;
-            const totalPrice = document.getElementById('totalPrice').textContent; // Get the calculated price
+            const totalPrintingPrice = document.getElementById('totalPrice').textContent.trim(); // Get the calculated printing price
             
             // Generate order ID
             const orderId = 'PRINT-' + Date.now().toString().slice(-6);
@@ -469,11 +472,12 @@
             message += `• Paper GSM: ${paperGsm}\n`;
             message += `• Sheets Quantity: ${quantity} sheets\n`;
             message += `• Total Printed Pages (Sides): ${totalPages}\n\n`;
-            message += `*ESTIMATED TOTAL:* ${totalPrice}\n\n`; // Include estimated price
+            message += `*TOTAL PRINTING PRICE (EXCL. DELIVERY):* ${totalPrintingPrice}\n`; // Use the price without delivery
+            message += `*NOTE:* Delivery charges will be added based on your address. Please provide your full delivery address now.\n\n`;
             message += `*INSTRUCTIONS:*\n`;
             message += `Please attach your document files in this WhatsApp chat.\n`;
             message += `We accept: PDF, JPG, PNG, DOCX, PPTX files.\n\n`;
-            message += `We will review your files and confirm the final price shortly.`;
+            message += `We will review your files, determine delivery charges, and confirm the final price shortly.`;
             
             // Open WhatsApp
             window.open(`https://wa.me/923006238233?text=${encodeURIComponent(message)}`, '_blank');
@@ -567,8 +571,8 @@
                 const totalPrice = pricePerUnit * totalPages;
                 
                 // Display the calculated price with price per page
-                const priceOutput = `Total: PKR ${Math.round(totalPrice).toLocaleString()}
-                                     <p class="small text-white-75 mb-0 mt-1" style="font-weight: normal;">
+                const priceOutput = `<span class="text-primary fw-bold">PKR ${Math.round(totalPrice).toLocaleString()}</span>
+                                     <p class="small text-white-75 mb-0 mt-1" style="font-weight: normal; font-size: 0.8em;">
                                          (PKR ${pricePerUnit.toFixed(1)} per page)
                                      </p>`;
 
@@ -589,10 +593,15 @@
 
         // Initialize by fetching data and then calculating price
         document.addEventListener('DOMContentLoaded', async () => {
-            // Set current year in footer (if the element exists)
+            // Update copyright year
             const copyrightElement = document.querySelector('.copyright span.small');
             if (copyrightElement) {
                 copyrightElement.innerHTML = copyrightElement.innerHTML.replace('2025', new Date().getFullYear());
+            }
+
+            // Initialize WOW animations
+            if (typeof WOW !== 'undefined') {
+                new WOW().init();
             }
 
             // Fetch pricing data and start calculation
