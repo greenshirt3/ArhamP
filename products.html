@@ -136,23 +136,23 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto bg-light pe-4 py-3 py-lg-0">
                 <a href="index.html" class="nav-item nav-link">Home</a>
-                <a href="#" class="nav-item nav-link active">Products</a>
+                <a href="#" class="nav-item nav-link active" onclick="showSection('shop-catalog')">Products</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
                     <div class="dropdown-menu bg-light border-0 m-0">
                          <a href="#" class="dropdown-item" onclick="filterCatalog('Business Essentials')">Business Essentials</a>
                          <a href="#" class="dropdown-item" onclick="filterCatalog('Marketing Essentials')">Marketing Essentials</a>
                          <a href="#" class="dropdown-item" onclick="filterCatalog('Office Essentials')">Office Essentials</a>
-<a href="#" class="dropdown-item" onclick="filterCatalog('Wedding Invitation Cards')">Wedding Invitation Cards</a>
- <a href="#" class="dropdown-item" onclick="filterCatalog('Panaflex Printing')">Panaflex Printing</a>
-<a href="#" class="dropdown-item" onclick="filterCatalog('Photo Printing')">Photo Printing</a>
- <a href="#" class="dropdown-item" onclick="filterCatalog('3D Wallpaper')">3D Wallpaper</a>
- <a href="#" class="dropdown-item" onclick="filterCatalog('Promotional Items')">Promotional Items</a>
-<a href="#" class="dropdown-item" onclick="filterCatalog('Shields')">Shields</a>
-<a href="#" class="dropdown-item" onclick="filterCatalog('Souvenirs')">Souvenirs</a>
-<a href="#" class="dropdown-item" onclick="filterCatalog('Flags and Fabric')">Flags and Fabric</a>
-<a href="#" class="dropdown-item" onclick="filterCatalog('Box Packaging')">Box Packaging</a>
-<a href="#" class="dropdown-item" onclick="filterCatalog('Marketing and Advertising')">Marketing and Advertising</a>
+                        <a href="#" class="dropdown-item" onclick="filterCatalog('Wedding Invitation Cards')">Wedding Invitation Cards</a>
+                        <a href="#" class="dropdown-item" onclick="filterCatalog('Panaflex Printing')">Panaflex Printing</a>
+                        <a href="#" class="dropdown-item" onclick="filterCatalog('Photo Printing')">Photo Printing</a>
+                        <a href="#" class="dropdown-item" onclick="filterCatalog('3D Wallpaper')">3D Wallpaper</a>
+                        <a href="#" class="dropdown-item" onclick="filterCatalog('Promotional Items')">Promotional Items</a>
+                        <a href="#" class="dropdown-item" onclick="filterCatalog('Shields')">Shields</a>
+                        <a href="#" class="dropdown-item" onclick="filterCatalog('Souvenirs')">Souvenirs</a>
+                        <a href="#" class="dropdown-item" onclick="filterCatalog('Flags and Fabric')">Flags and Fabric</a>
+                        <a href="#" class="dropdown-item" onclick="filterCatalog('Box Packaging')">Box Packaging</a>
+                        <a href="#" class="dropdown-item" onclick="filterCatalog('Marketing and Advertising')">Marketing and Advertising</a>
                         <div class="dropdown-divider"></div>
                         <a href="index.html#quote-section" class="dropdown-item">Get Custom Quote</a>
                     </div>
@@ -237,7 +237,7 @@
                                 <input type="number" id="input-custom-qty" min="1" value="1" class="form-control" oninput="updateFinalPrice()">
                             </div>
                             
-                            <div class="alert alert-warning mt-3" id="designFeeDisplay"></div>
+                            <!-- Design Fee Removed based on new JSON structure -->
                             <div class="alert alert-danger mt-3" id="areaConstraintWarning" style="display: none;"></div>
                         </div>
 
@@ -245,7 +245,7 @@
                             </div>
 
                         <div class="final-price-box" id="finalPriceBox">
-                            <h4 class="mb-2">Final Price</h4>
+                            <h4 class="mb-2">Final Price (PKR)</h4>
                             <h3 class="display-6 fw-bold" id="finalPriceDisplay">PKR 0</h3>
                             
                             <button class="btn btn-secondary py-2 px-4 w-100 mt-3" onclick="addToCartFromDetails()">
@@ -483,14 +483,17 @@
 
     <script>
     // --- Configuration ---
-    const PUBLIC_DATA_URL = 'customer-data.json'; 
-    const WHATSAPP_NUMBER = '923006238233'; // Your WhatsApp Number (No plus or spaces for URL API)
+    const PUBLIC_DATA_URL = 'pricing.json'; 
+    const WHATSAPP_NUMBER = '923006238233'; 
     
     let allProducts = {}; 
     let currentProduct = null; 
+
+    // Global stores for pricing logic
     let allProductGroups = {};
     let currentSelectedVariations = {}; 
-    let designTiers = []; 
+    
+    // Placeholder structure for area based logic (if needed, extracted from JSON)
     let areaBasedMeta = {}; 
 
     // --- Core Functions ---
@@ -509,9 +512,9 @@
             return;
         }
         
-        const productGroups = initialProductSetup(rawData);
+        initialProductSetup(rawData);
         
-        // Populate sidebar categories
+        // Populate sidebar categories on products.html
         populateSidebarCategories();
         
         if (typeof WOW !== 'undefined') { new WOW().init(); }
@@ -556,94 +559,94 @@
         });
     }
 
-    // Helper function to smartly parse the flat item name into attributes
-    function parseAttributes(baseName, fullName) {
-        let attributes = {
-            'Price': allProducts[fullName].price,
-            'FullName': fullName
-        };
+    // --- Data Preprocessing for Complex JSON ---
 
-        const cleanName = fullName.replace(baseName, '').trim();
-
-        if (baseName === 'LetterPads' || baseName === 'Ishtihar' || baseName === 'Pamphlet/Menu') {
-            const qualityMatch = cleanName.match(/(\d+g)/);
-            const sizeMatch = cleanName.match(/(A4\/2|A4|\d+x\d+)/);
-            const colorMatch = cleanName.match(/(\d+ Color|Single Color|Black)/);
-
-            attributes['Paper Quality'] = qualityMatch ? qualityMatch[0] : 'Standard';
-            attributes['Paper Size'] = sizeMatch ? sizeMatch[0] : 'Standard';
-            attributes['Printing Color'] = colorMatch ? colorMatch[0] : 'Standard';
-            
-        } else if (baseName === 'Visiting Cards') {
-            const parts = cleanName.split(' ');
-            attributes['Stock'] = parts[0] || 'Standard';
-            attributes['Sides'] = parts[1] === 'Double' || parts[1] === 'Single' ? parts[1] : 'Single';
-            attributes['Finish'] = parts.length > 2 ? parts.slice(2).join(' ') : 'None';
-
-        } else {
-            // Default for items like Mugs, Caps, etc.
-            attributes['Type/Model'] = cleanName || fullName;
-        }
-
-        return attributes;
-    }
-
-    // Initial setup to categorize all product items and extract pricing metadata
-    function initialProductSetup(rawData) {
+    function flattenAndCategorize(data) {
         const productGroups = {};
         
-        rawData.calculatorData.items.forEach(item => {
-            const baseName = item.subcategory;
-            const fullName = item.itemName;
-
-            // 1. Capture Design Tiers and Area-Based Metadata
-            if (baseName === "PanaflexDesignTiers" && item.tiers) {
-                designTiers = item.tiers;
-                return; 
+        // Loop through Main Categories (Office Essentials, Marketing Essentials, etc.)
+        Object.keys(data).forEach(mainCategoryKey => {
+            
+            // Skip the digital printing tiers
+            if (mainCategoryKey === "Digital Printing Pricing" || mainCategoryKey === "Area-Based Pricing") {
+                return;
             }
-            if (item.isAreaBased) {
-                areaBasedMeta[baseName] = { 
-                    rate: item.price, 
-                    minArea: item.minArea || 0 
-                };
-            }
+            
+            const categoryData = data[mainCategoryKey];
+            
+            // Loop through Sub Categories (Letterpads, Envelops, etc.)
+            Object.keys(categoryData).forEach(subCategoryKey => {
+                const subCategoryData = categoryData[subCategoryKey];
+                
+                // Initialize product group structure
+                if (!productGroups[subCategoryKey]) {
+                    productGroups[subCategoryKey] = {
+                        baseName: subCategoryKey,
+                        minPrice: Infinity,
+                        imageFile: `${subCategoryKey.replace(/\s|\//g, '-')}.jpg`,
+                        isAreaBased: false,
+                        mainCategory: mainCategoryKey,
+                        combinations: [] 
+                    };
+                }
 
-            // 2. Map all items to a flattened allProducts (for cart lookups)
-            allProducts[fullName] = {
-                price: item.price,
-                imageFile: `${baseName.replace(/\//g, '-')}.jpg` 
-            };
+                // Loop through Level 1 (e.g., Size like "5.75x9" or "Custom")
+                Object.keys(subCategoryData).forEach(level1Key => {
+                    const level1Data = subCategoryData[level1Key];
+                    
+                    // Loop through Level 2 (e.g., Material/GSM like "68 gms" or "Standard")
+                    Object.keys(level1Data).forEach(level2Key => {
+                        const level2Data = level1Data[level2Key];
+                        
+                        // Loop through final price array (Combinations)
+                        if (Array.isArray(level2Data)) {
+                            level2Data.forEach(combo => {
+                                // Extract price and clean up attributes
+                                const price = combo.price_per_unit || 0; 
+                                
+                                if (price > 0) {
+                                    const attributes = {
+                                        'Size': level1Key,
+                                        'Material/Stock': level2Key,
+                                        'Price': price,
+                                        'FullName': `${subCategoryKey} ${level1Key} ${level2Key}`
+                                    };
+                                    
+                                    // Add other relevant keys (e.g., Printing Color, Shape)
+                                    if (combo['Printing Color']) attributes['Printing Color'] = combo['Printing Color'];
+                                    if (combo['Color']) attributes['Color'] = combo['Color'];
+                                    if (combo['Sides']) attributes['Sides'] = combo['Sides'];
+                                    if (combo['Material']) attributes['Material'] = combo['Material'];
+                                    if (combo['Shape']) attributes['Shape'] = combo['Shape'];
+                                    if (combo['Finish']) attributes['Finish'] = combo['Finish'];
+                                    if (combo['accessories']) attributes['Accessories'] = combo['accessories'];
 
-            // 3. Group the data by base product (subcategory) for the catalog
-            if (!productGroups[baseName]) {
-                const mainCat = item.mainCategory || 'Uncategorized';
-
-                productGroups[baseName] = {
-                    baseName: baseName,
-                    minPrice: item.price,
-                    imageFile: `${baseName.replace(/\//g, '-')}.jpg`,
-                    isAreaBased: item.isAreaBased || false,
-                    mainCategory: mainCat,
-                    combinations: [] 
-                };
-            }
-
-            // Update minimum price
-            if (item.price < productGroups[baseName].minPrice) {
-                productGroups[baseName].minPrice = item.price;
-            }
-
-            // 4. Parse attributes for rendering standard variations
-            const attributes = parseAttributes(baseName, fullName);
-
-            productGroups[baseName].combinations.push(attributes);
-            allProducts[fullName].attributes = attributes;
-            allProducts[fullName].imageFile = productGroups[baseName].imageFile;
+                                    // Store combination
+                                    productGroups[subCategoryKey].combinations.push(attributes);
+                                    
+                                    // Update min price
+                                    if (price < productGroups[subCategoryKey].minPrice) {
+                                        productGroups[subCategoryKey].minPrice = price;
+                                    }
+                                }
+                            });
+                        }
+                    });
+                });
+            });
         });
-        
-        allProductGroups = productGroups;
+
         return productGroups;
     }
+
+    function initialProductSetup(rawData) {
+        // Handle Area-Based Pricing separately
+        areaBasedMeta = rawData["Area-Based Pricing"] || {};
+        
+        // Flatten and categorize standard products
+        allProductGroups = flattenAndCategorize(rawData);
+    }
+
 
     // New function to filter the product catalog by the top-level mainCategory
     function filterCatalog(mainCategory = null) {
@@ -654,7 +657,6 @@
         
         const filteredKeys = Object.keys(productGroups).filter(key => {
             const product = productGroups[key];
-            if (key === "PanaflexDesignTiers") return false;
             if (!mainCategory) return true; // Show all products
             return product.mainCategory === mainCategory;
         });
@@ -666,26 +668,37 @@
         
         const getMinPrice = (baseName) => {
             const group = allProductGroups[baseName];
-            if (!group || group.combinations.length === 0) return 40; 
-            if (group.isAreaBased && areaBasedMeta[baseName]) return areaBasedMeta[baseName].rate;
-            return group.combinations.reduce((min, combo) => Math.min(min, combo.Price), Infinity);
+            if (!group || group.combinations.length === 0) return 'TBD'; 
+            
+            const areaMeta = areaBasedMeta[baseName];
+            if (areaMeta && areaMeta.is_area_based) return areaMeta.rate;
+            
+            // Return lowest combination price
+            const minPrice = group.combinations.reduce((min, combo) => Math.min(min, combo.Price), Infinity);
+            return isFinite(minPrice) ? minPrice : 'TBD';
         };
 
         filteredKeys.forEach(key => {
             const product = productGroups[key];
             const imagePath = `img/products/${product.imageFile}`;
             const displayPrice = getMinPrice(key);
-            const pricePrefix = product.isAreaBased ? 'Rate/Sq Ft: PKR' : 'Starting from: PKR';
-            const buttonText = product.isAreaBased ? 'Configure Area' : 'View Details';
+            
+            const areaMeta = areaBasedMeta[key];
+            const isAreaBased = areaMeta && areaMeta.is_area_based;
+
+            const pricePrefix = isAreaBased ? 'Rate/Sq Ft: PKR' : 'Starting from: PKR';
+            const buttonText = isAreaBased ? 'Configure Area' : 'View Details';
+            
+            const priceDisplay = (typeof displayPrice === 'number') ? displayPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 }) : displayPrice;
 
             html += `
             <div class='col-md-4 col-sm-6 mb-4'>
                 <div class='card h-100 shadow-sm'>
-                    <img src='${imagePath}' onerror="this.onerror=null;this.src='img/products/${key.replace(/\//g, '-')}.png';" class='card-img-top' alt='${product.baseName}'>
+                    <img src='${imagePath}' onerror="this.onerror=null;this.src='img/products/${key.replace(/\s|\//g, '-')}.png';" class='card-img-top' alt='${product.baseName}'>
                     <div class='card-body text-center'>
                         <h5 class='card-title'>${product.baseName}</h5>
-                        <p class='mt-2 text-primary fw-bold'>${pricePrefix} ${displayPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}</p>
-                        <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('${product.baseName.replace(/\//g, '\\/')}')"><i class="fas fa-search me-2"></i> ${buttonText}</button>
+                        <p class='mt-2 text-primary fw-bold'>${pricePrefix} ${priceDisplay}</p>
+                        <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('${product.baseName.replace(/\s|\//g, '\\/')}')"><i class="fas fa-search me-2"></i> ${buttonText}</button>
                     </div>
                 </div>
             </div>
@@ -713,7 +726,7 @@
         const imagePath = `img/products/${currentProduct.imageFile}`;
         document.getElementById('detail-product-image').src = imagePath;
         document.getElementById('detail-product-image').onerror = function() { 
-             this.src = `img/products/${currentProduct.baseName.replace(/\//g, '-')}.png`; 
+             this.src = `img/products/${currentProduct.baseName.replace(/\s|\//g, '-')}.png`; 
         };
 
         const areaInputs = document.getElementById('custom-area-inputs');
@@ -725,11 +738,19 @@
         document.getElementById('selectionWarning').classList.add('alert-info');
         document.getElementById('selectionWarning').style.display = 'block';
 
+        const areaMeta = areaBasedMeta[currentProduct.baseName];
+        const isAreaBased = areaMeta && areaMeta.is_area_based;
+        
         // 🛑 CORE LOGIC: Area-Based vs. Standard 🛑
-        if (currentProduct.isAreaBased) {
+        if (isAreaBased) {
             // --- AREA-BASED SETUP (Panaflex/Wallpaper) ---
             areaInputs.style.display = 'block';
             standardOptions.style.display = 'none';
+            
+            // Set input listeners to trigger updateFinalPrice()
+            ['input-width', 'input-height', 'input-custom-qty'].forEach(id => {
+                 document.getElementById(id).oninput = updateFinalPrice;
+            });
             
             // Reset inputs and warnings
             document.getElementById('input-width').value = '';
@@ -737,9 +758,10 @@
             document.getElementById('input-custom-qty').value = 1;
             document.getElementById('areaDisplay').textContent = '';
             document.getElementById('areaConstraintWarning').style.display = 'none';
-            document.getElementById('designFeeDisplay').textContent = 'Design Fee: Calculating...';
-            document.getElementById('designFeeDisplay').classList.remove('alert-danger');
-            document.getElementById('designFeeDisplay').classList.add('alert-warning');
+            
+            // The JSON does not include design tiers anymore, hide related warning and text
+            const designFeeDisplay = document.getElementById('designFeeDisplay');
+            if (designFeeDisplay) designFeeDisplay.style.display = 'none'; 
             
             updateFinalPrice();
 
@@ -749,22 +771,28 @@
             standardOptions.style.display = 'block';
             standardOptions.innerHTML = ''; 
 
-            const allAttributes = currentProduct.combinations.map(c => c.attributes || c);
-            const attributeKeys = Object.keys(allAttributes[0] || {}).filter(key => key !== 'Price' && key !== 'FullName' && allAttributes.some(a => a[key] !== 'Area Rate'));
+            const allCombinations = currentProduct.combinations || [];
+            if (allCombinations.length === 0 || !allCombinations[0]) {
+                 standardOptions.innerHTML = `<p class="alert alert-warning">No configurations found for this product. Please use the Quote form.</p>`;
+                 return;
+            }
+
+            // Determine unique attribute keys excluding price/name
+            const attributeKeys = Object.keys(allCombinations[0]).filter(key => key !== 'Price' && key !== 'FullName');
 
             const availableAttributes = {};
             attributeKeys.forEach(key => availableAttributes[key] = new Set());
 
-            allAttributes.forEach(c => {
+            allCombinations.forEach(c => {
                 attributeKeys.forEach(key => {
-                    if (c[key] && c[key] !== 'Area Rate') availableAttributes[key].add(c[key]);
+                    if (c[key]) availableAttributes[key].add(c[key]);
                 });
             });
             
             // Render groups of unique values for each attribute
-            Object.keys(availableAttributes).forEach((attrKey, groupIndex) => {
+            Object.keys(availableAttributes).forEach((attrKey) => {
                 const uniqueValues = Array.from(availableAttributes[attrKey]);
-                const sanitizedKey = attrKey.replace(/\s|\//g, '');
+                const sanitizedKey = attrKey.replace(/\s|\/|\(|\)/g, '');
                 
                 let groupHTML = `
                     <div class="product-option-group" data-option-key="${sanitizedKey}">
@@ -806,7 +834,7 @@
 
         showSection('product-detail');
     }
-
+    
     // Helper for quantity buttons on standard items
     function updateQuantityStandard(change) {
         const input = document.getElementById('input-standard-qty');
@@ -833,43 +861,29 @@
         updateFinalPrice();
     }
     
-    // --- Price Update and Calculation Logic (New Hybrid Logic) ---
+    // --- Price Update and Calculation Logic (Handles both types) ---
     
-    function getDesignFee(quantity) {
-        if (quantity === 0) return 0;
-        
-        const tier = designTiers.find(t => quantity >= t.minQty && quantity <= t.maxQty);
-        
-        if (tier) return tier.designFee;
-        
-        const maxTier = designTiers.reduce((max, t) => t.maxQty > max.maxQty ? t : max, {maxQty: 0, designFee: 0});
-        if (quantity > maxTier.maxQty) return maxTier.designFee;
-
-        return 0;
-    }
-
     function updateFinalPrice() {
         
-        // 1. Handle Area-Based Products (Panaflex/Wallpaper)
-        if (currentProduct && currentProduct.isAreaBased) {
+        const isAreaBased = currentProduct && areaBasedMeta[currentProduct.baseName] && areaBasedMeta[currentProduct.baseName].is_area_based;
+
+        // 1. Handle Area-Based Products 
+        if (isAreaBased) {
             const width = parseFloat(document.getElementById('input-width').value) || 0;
             const height = parseFloat(document.getElementById('input-height').value) || 0;
             const quantity = parseInt(document.getElementById('input-custom-qty').value) || 0;
 
             const rateMeta = areaBasedMeta[currentProduct.baseName];
             const baseRate = rateMeta ? rateMeta.rate : 0;
-            const minArea = rateMeta ? rateMeta.minArea : 0;
+            const minArea = rateMeta ? rateMeta.min_area || 0 : 0;
             
             document.getElementById('finalPriceBox').style.display = 'none';
             document.getElementById('areaConstraintWarning').style.display = 'none';
             document.getElementById('selectionWarning').style.display = 'block';
-            document.getElementById('designFeeDisplay').classList.remove('alert-danger');
-            document.getElementById('designFeeDisplay').classList.add('alert-warning');
             
-            if (width <= 0 || height <= 0 || quantity <= 0) {
-                document.getElementById('selectionWarning').textContent = "Please enter valid dimensions and quantity.";
+            if (width <= 0 || height <= 0 || quantity <= 0 || baseRate === 0) {
+                document.getElementById('selectionWarning').textContent = "Please enter valid dimensions and quantity to calculate price.";
                 document.getElementById('areaDisplay').textContent = '';
-                document.getElementById('designFeeDisplay').textContent = '';
                 return;
             }
 
@@ -877,25 +891,13 @@
             const totalArea = itemArea * quantity;
             document.getElementById('areaDisplay').textContent = `Area per piece: ${itemArea.toFixed(2)} sq ft | Total Area: ${totalArea.toFixed(2)} sq ft`;
 
-            if (currentProduct.baseName === '3D Wallpaper' && quantity === 1 && itemArea < minArea) {
-                document.getElementById('areaConstraintWarning').textContent = `Minimum order area for a single wall is ${minArea} sq ft. Current size (${itemArea.toFixed(2)} sq ft) is too small. Please contact customer support.`;
+            if (totalArea < minArea) {
+                document.getElementById('areaConstraintWarning').textContent = `Minimum order area for this product is ${minArea} sq ft. Current total area (${totalArea.toFixed(2)} sq ft) is too small.`;
                 document.getElementById('areaConstraintWarning').style.display = 'block';
-                document.getElementById('designFeeDisplay').textContent = 'Design Fee: Cannot calculate due to area constraint.';
                 return; 
             }
             
-            const baseCost = totalArea * baseRate;
-            let designFee = getDesignFee(quantity);
-            
-            if (designFee > 0) {
-                document.getElementById('designFeeDisplay').textContent = `Design Charge (Tiered Flat Fee): + PKR ${designFee.toLocaleString('en-PK')}`;
-            } else {
-                 document.getElementById('designFeeDisplay').textContent = 'Design Fee: (Contact support for custom quote)';
-                 document.getElementById('designFeeDisplay').classList.remove('alert-warning');
-                 document.getElementById('designFeeDisplay').classList.add('alert-danger');
-            }
-
-            const totalPrice = baseCost + designFee;
+            const totalPrice = totalArea * baseRate;
             
             document.getElementById('finalPriceDisplay').textContent = `PKR ${totalPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
             document.getElementById('finalPriceBox').style.display = 'block';
@@ -904,20 +906,20 @@
             return; 
         } 
         
-        // 2. Standard Tiered Products (Find price based on card selections)
+        // 2. Standard Tiered Products 
         
         const quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 1;
-        const allAttributes = currentProduct?.combinations.map(c => c.attributes || c);
+        const allCombinations = currentProduct?.combinations || [];
         
-        if (!allAttributes || allAttributes.length === 0) return;
+        if (allCombinations.length === 0) return;
 
-        const requiredKeys = Object.keys(allAttributes[0]).filter(key => key !== 'Price' && key !== 'FullName' && key !== 'Type/Model');
+        const requiredKeys = Object.keys(allCombinations[0]).filter(key => key !== 'Price' && key !== 'FullName');
         
         let selectedAttributes = {};
         let allSelected = true;
 
         requiredKeys.forEach(key => {
-            const sanitizedKey = key.replace(/\s|\//g, '');
+            const sanitizedKey = key.replace(/\s|\/|\(|\)/g, '');
             if (!currentSelectedVariations[sanitizedKey]) {
                 allSelected = false;
             } else {
@@ -934,7 +936,7 @@
 
         // B. Find matching combination price
         let finalProductCombination = null;
-        currentProduct.combinations.forEach(combo => {
+        allCombinations.forEach(combo => {
             let matches = true;
             requiredKeys.forEach(key => {
                 if (combo[key] !== selectedAttributes[key]) {
@@ -964,7 +966,7 @@
         }
     }
 
-    // --- Add to Cart Logic (WhatsApp Routing) ---
+    // --- WhatsApp Submission Logic ---
     function addToCartFromDetails() {
         const finalPriceText = document.getElementById('finalPriceDisplay').textContent;
         const totalPrice = parseFloat(finalPriceText.replace('PKR', '').replace(/,/g, '').trim()) || 0;
@@ -975,15 +977,15 @@
         }
 
         let itemDetails = '';
-        
-        if (currentProduct.isAreaBased) {
+        const isAreaBased = currentProduct && areaBasedMeta[currentProduct.baseName] && areaBasedMeta[currentProduct.baseName].is_area_based;
+
+        if (isAreaBased) {
             const width = parseFloat(document.getElementById('input-width').value) || 0;
             const height = parseFloat(document.getElementById('input-height').value) || 0;
             const quantity = parseInt(document.getElementById('input-custom-qty').value) || 0;
             const totalArea = (width * height) * quantity;
-            const designFeeDisplay = document.getElementById('designFeeDisplay').textContent;
-
-            itemDetails = `\n*Product:* ${currentProduct.baseName} (Area-Based)\n*Dimensions:* ${width}ft x ${height}ft\n*Quantity:* ${quantity} piece(s)\n*Total Area:* ${totalArea.toFixed(2)} sq ft\n*Price:* ${finalPriceText} (Includes Design Fee: ${designFeeDisplay.split('+')[1]?.trim() || 'N/A'})`;
+            
+            itemDetails = `\n*Product:* ${currentProduct.baseName} (Area-Based)\n*Dimensions:* ${width}ft x ${height}ft\n*Quantity:* ${quantity} piece(s)\n*Total Area:* ${totalArea.toFixed(2)} sq ft\n*Price:* ${finalPriceText}`;
             
         } else {
             const quantity = parseInt(document.getElementById('input-standard-qty').value) || 1;
@@ -996,8 +998,6 @@
         submitOrderViaWhatsApp(itemDetails, totalPrice);
     }
     
-    // --- WhatsApp Submission Logic ---
-
     // 1. General Order Submission (from product page)
     function submitOrderViaWhatsApp(itemDetails, totalPrice) {
         
@@ -1005,8 +1005,8 @@
         message += `-------------------------------------------\n`;
         message += `${itemDetails}\n`;
         message += `-------------------------------------------\n`;
-        message += `*CONFIRMED TOTAL:* ${document.getElementById('finalPriceDisplay').textContent}\n\n`;
-        message += `_Please confirm this order, dimensions, and arrange final payment._\n\n`;
+        message += `*CONFIRMED TOTAL (Excl. Delivery):* ${document.getElementById('finalPriceDisplay').textContent}\n\n`;
+        message += `_ACTION REQUIRED: Please provide your full name and delivery address for final price confirmation and delivery charge calculation._\n\n`;
         message += `Customer is waiting for contact.`;
 
         const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
@@ -1065,23 +1065,31 @@
 
     // --- UI/Navigation Functions ---
     function showSection(sectionName) {
+        // Hide all sections
         document.querySelectorAll('.section').forEach(section => {
             section.classList.remove('active');
         });
         
-        const sectionId = sectionName + '-section';
-        const sectionElement = document.getElementById(sectionId);
+        // Show the selected section
+        const sectionElement = document.getElementById(sectionName + '-section');
         if (sectionElement) {
-             sectionElement.classList.add('active');
+            sectionElement.classList.add('active');
         } else {
-             console.error(`Section with ID ${sectionId} not found.`);
+             console.error(`Section with ID ${sectionName}-section not found.`);
              // Default to showing catalog if a section is missing
              document.getElementById('shop-catalog-section').classList.add('active');
         }
         
+        // Update active nav link
         document.querySelectorAll('.nav-link').forEach(link => {
             link.classList.remove('active');
         });
+        
+        // Set the clicked nav link as active
+        const navLink = document.querySelector(`.navbar-nav a[onclick="showSection('${sectionName}')"]`);
+        if (navLink) {
+             navLink.classList.add('active');
+        }
         
         window.scrollTo(0, 0);
     }
