@@ -91,9 +91,9 @@
             text-align: right;
             font-size: 1.3em;
             font-weight: bold;
-            display: flex; /* Enable flex for equal height */
+            display: flex; 
             flex-direction: column;
-            justify-content: center; /* Center content vertically */
+            justify-content: center; 
         }
         /* Style for the Total Price span to make it stand out */
         .price-summary #totalPrice {
@@ -286,7 +286,7 @@
                                     <div class="col-md-6">
                                         <div class="price-summary">
                                             Price (Excluding Delivery):
-                                            <span id="totalPrice">Calculating...</span>
+                                            <span id="totalPrice"><span class="text-primary fw-bold">PKR 0.00</span></span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -481,9 +481,9 @@
             const siding = document.querySelector('input[name="siding"]:checked')?.value;
             const quantity = parseInt(document.getElementById('quantity').value);
             
+            // If any critical selection is missing or quantity is invalid, show default PKR 0.00
             if (!size || !paperGsm || !color || !siding || quantity <= 0 || isNaN(quantity)) {
-                // Display 'Calculating...' or an appropriate placeholder
-                document.getElementById('totalPrice').innerHTML = '<span>Calculating...</span>';
+                document.getElementById('totalPrice').innerHTML = '<span class="text-primary fw-bold">PKR 0.00</span>';
                 return;
             }
 
@@ -507,16 +507,16 @@
                 const pricePerUnit = getTierPrice(gsmPricing, totalPages);
                 
                 if (pricePerUnit === 0) {
-                    document.getElementById('totalPrice').innerHTML = '<span>Pricing Tier Not Found!</span>';
+                    document.getElementById('totalPrice').innerHTML = '<span>Pricing Error!</span>';
                     return;
                 }
                 
                 const totalPrice = pricePerUnit * totalPages;
                 
-                // Display the calculated price with price per page
-                const priceOutput = `<span class="text-primary fw-bold">PKR ${Math.round(totalPrice).toLocaleString()}</span>
+                // Display the calculated price with price per page, using PKR
+                const priceOutput = `<span class="text-primary fw-bold">PKR ${Math.round(totalPrice).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                                      <p class="small text-white-75 mb-0 mt-1" style="font-weight: normal; font-size: 0.8em;">
-                                         (PKR ${pricePerUnit.toFixed(1)} per page)
+                                         (PKR ${pricePerUnit.toFixed(2)} per page)
                                      </p>`;
 
                 document.getElementById('totalPrice').innerHTML = priceOutput;
@@ -537,13 +537,13 @@
             // Get specifications
             const color = document.querySelector('input[name="color"]:checked')?.value || 'N/A';
             const siding = document.querySelector('input[name="siding"]:checked')?.value || 'N/A';
-            const size = document.querySelector('input[name="size']:checked')?.value || 'N/A';
+            const size = document.querySelector('input[name="size"]:checked')?.value || 'N/A';
             const paperGsm = document.querySelector('input[name="paperGsm"]:checked')?.value || 'N/A';
             const quantity = document.getElementById('quantity').value;
             
             // Extract the calculated price for the WhatsApp message
             const priceSpan = document.getElementById('totalPrice').querySelector('.text-primary')?.textContent;
-            const totalPrintingPrice = priceSpan || 'Calculating/Error (Please review options)';
+            const totalPrintingPrice = priceSpan || 'PKR 0.00 (Please review options)';
 
             const orderId = 'PRINT-' + Date.now().toString().slice(-6);
             document.getElementById('orderId').value = orderId;
@@ -563,7 +563,7 @@
             message += `• Sheets Quantity: ${sheets} sheets\n`;
             message += `• Total Printed Pages (Sides): ${totalPages}\n\n`;
             message += `*TOTAL PRINTING PRICE (EXCL. DELIVERY):* ${totalPrintingPrice}\n`; 
-            message += `*ACTION REQUIRED:* Please provide your full name and delivery address for final price confirmation.\n\n`;
+            message += `*ACTION REQUIRED:* Please provide your full name and delivery address for final price confirmation and delivery charge calculation.\n\n`;
             message += `*INSTRUCTIONS:*\n`;
             message += `Please attach your document files (PDF recommended) in this WhatsApp chat.\n`;
             message += `We will review your files, determine delivery charges, and confirm the final price shortly.`;
