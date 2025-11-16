@@ -122,9 +122,8 @@
         }
         /* Style adjustments for quantity group */
         .quantity-group .form-control {
-            width: 50% !important; /* Restore original width intent */
+            width: 50% !important; 
         }
-        
 
     </style>
 </head>
@@ -262,25 +261,7 @@
                             </div>
                         </div>
 
-                        <div class="col-12">
-                            <div class="option-group">
-                                <h3>2. Contact Details (Required for Order)</h3>
-                                
-                                <div class="row g-4">
-                                    
-                                    <div class="col-md-6">
-                                        <label for="customerName" class="option-label">👤 Your Name (Mandatory)</label>
-                                        <input type="text" id="customerName" name="customerName" placeholder="Your Full Name" required class="form-control">
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label for="customerEmail" class="option-label">📧 Your Email (Optional)</label>
-                                        <input type="email" id="customerEmail" name="customerEmail" placeholder="yourname@example.com" class="form-control">
-                                        <input type="hidden" name="orderId" id="orderId">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <input type="hidden" name="orderId" id="orderId">
 
                         <div class="col-12">
                             <div class="whatsapp-action-block text-center">
@@ -489,7 +470,7 @@
             const quantity = parseInt(document.getElementById('quantity').value);
             
             if (!size || !paperGsm || !color || !siding || quantity <= 0 || isNaN(quantity)) {
-                // Display initial state or error if quantity is zero/invalid
+                // Display 'Calculating...' or an appropriate placeholder
                 document.getElementById('totalPrice').innerHTML = '<span>Calculating...</span>';
                 return;
             }
@@ -538,11 +519,10 @@
         function handlePrintOrderSubmission(e) {
             e.preventDefault();
             
-            // Ensure calculation is performed before sending, even if missed by event listeners
+            // Ensure calculation is performed before sending
             calculateEstimatedPrice(); 
 
-            const name = document.getElementById('customerName').value;
-            const email = document.getElementById('customerEmail').value;
+            // Get specifications
             const color = document.querySelector('input[name="color"]:checked')?.value || 'N/A';
             const siding = document.querySelector('input[name="siding"]:checked')?.value || 'N/A';
             const size = document.querySelector('input[name="size"]:checked')?.value || 'N/A';
@@ -562,8 +542,7 @@
             // Construct WhatsApp message
             let message = `*NEW PRINT ORDER REQUEST - ARHAM PRINTERS*\n\n`;
             message += `*Order ID:* ${orderId}\n`;
-            message += `*Customer Name:* ${name}\n`;
-            message += `*Email:* ${email || 'Not provided'}\n\n`;
+            message += `*Customer Contact:* (Provided via WhatsApp chat name)\n\n`; 
             message += `*PRINT SPECIFICATIONS:*\n`;
             message += `• Print Color: ${color}\n`;
             message += `• Print Siding: ${siding}\n`;
@@ -572,9 +551,9 @@
             message += `• Sheets Quantity: ${sheets} sheets\n`;
             message += `• Total Printed Pages (Sides): ${totalPages}\n\n`;
             message += `*TOTAL PRINTING PRICE (EXCL. DELIVERY):* ${totalPrintingPrice}\n`; 
-            message += `*NOTE:* Delivery charges will be added based on your address. Please provide your full delivery address now.\n\n`;
+            message += `*ACTION REQUIRED:* Please provide your full name and delivery address for final price confirmation.\n\n`;
             message += `*INSTRUCTIONS:*\n`;
-            message += `Please attach your document files in this WhatsApp chat.\n`;
+            message += `Please attach your document files (PDF recommended) in this WhatsApp chat.\n`;
             message += `We will review your files, determine delivery charges, and confirm the final price shortly.`;
             
             // Open WhatsApp
