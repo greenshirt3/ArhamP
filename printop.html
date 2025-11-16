@@ -470,6 +470,7 @@
         // --- REAL-TIME CALCULATE PRICE FUNCTION ---
         function calculateEstimatedPrice() {
             if (!pricingData) {
+                // If data hasn't loaded yet, show loading state
                 document.getElementById('totalPrice').innerHTML = '<span>Loading Prices...</span>';
                 return;
             }
@@ -481,7 +482,8 @@
             const siding = document.querySelector('input[name="siding"]:checked')?.value;
             const quantity = parseInt(document.getElementById('quantity').value);
             
-            // If any critical selection is missing or quantity is invalid, show default PKR 0.00
+            // --- FIX APPLIED HERE ---
+            // If any critical selection is missing or quantity is invalid, show PKR 0.00
             if (!size || !paperGsm || !color || !siding || quantity <= 0 || isNaN(quantity)) {
                 document.getElementById('totalPrice').innerHTML = '<span class="text-primary fw-bold">PKR 0.00</span>';
                 return;
