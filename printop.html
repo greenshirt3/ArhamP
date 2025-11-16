@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>Custom Document Printing - Arham Printers</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Online document printing service for A4, A3, reports, and more." name="description">
+    <meta content="Online document printing service for A4, Legal, reports, and more." name="description">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -194,26 +194,17 @@
             </div>
         </div>
     </nav>
-    <div class="container-fluid page-header py-5 mb-5" style="background-color: var(--bs-secondary);">
-        <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Custom Document Printing</h1>
-        <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item active text-white">Print Order</li>
-        </ol>
-    </div>
-    <div class="container page-content-wrapper py-5">
+      <div class="container page-content-wrapper py-5">
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="bg-white p-4 p-md-5 rounded shadow-lg">
 
-                    <h2 class="fw-bold mb-4 text-center">Configure Your Print Order</h2>
-                    <p class="text-muted text-center mb-4">Select all specifications, then send your order details and files directly via WhatsApp.</p>
-
+                    <h3 class="fw-bold mb-4 text-center">Custom Document Printing</h3>
                     <form id="printOrderForm" action="#" method="POST" class="row g-4" onsubmit="handlePrintOrderSubmission(event)">
                         
                         <div class="col-12">
                             <div class="option-group">
-                                <h3>1. Print Specifications</h3>
+                                <h4>1. Print Specifications</h4>
                                 
                                 <div class="row g-4">
                                     
@@ -279,10 +270,8 @@
 
                         <div class="col-12">
                             <div class="whatsapp-action-block text-center">
-                                <h3 class="text-success fw-bold">Send Files & Place Order</h3>
-                                <p class="text-muted">Click the button below to open WhatsApp with your full order summary.</p>
-                                
-                                <div class="row g-3 align-items-center justify-content-center">
+                                <h4 class="text-success fw-bold">Send Files & Place Order via Whatsapp</h4>
+                                   <div class="row g-3 align-items-center justify-content-center">
                                     <div class="col-md-6">
                                         <div class="price-summary">
                                             Price (Excluding Delivery):
@@ -291,7 +280,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <button type="submit" class="btn btn-success py-3 w-100 fw-bold">
-                                            <i class="fab fa-whatsapp fa-lg me-2"></i> Send Order & Files via WhatsApp
+                                            <i class="fab fa-whatsapp fa-lg me-2"></i> Upload Files to Place Order
                                         </button>
                                     </div>
                                 </div>
@@ -306,28 +295,28 @@
                     </form>
 
                     <div id="terms-section" class="terms-content">
-                        <h2>📜 Print Service Terms and Conditions</h2>
+                        <h4>📜 Print Service Terms and Conditions</h4>
                         
-                        <h4 class="fw-bold">1. File Submission & Quality</h4>
+                        <h5 class="fw-bold">1. File Submission & Quality</h5>
                         <ul class="list-unstyled text-muted ps-3">
                             <li><i class="fas fa-check-circle text-success me-2"></i>**File Format:** We strongly recommend submitting files in **PDF format** for the highest compatibility and print quality. We also accept JPG, PNG, DOCX, and PPTX.</li>
                             <li><i class="fas fa-check-circle text-success me-2"></i>**Preparation:** All documents must be **unzipped and free of password protection**. The customer is responsible for ensuring the file is correctly sized (e.g., an A4 file for A4 prints).</li>
                             <li><i class="fas fa-times-circle text-danger me-2"></i>**Borderless Printing:** We are unable to offer borderless (full bleed) printing via this standard online service. A small white margin will be applied to all prints.</li>
                         </ul>
 
-                        <h4 class="fw-bold">2. Content & Order Restriction</h4>
+                        <h5 class="fw-bold">2. Content & Order Restriction</h5>
                         <ul class="list-unstyled text-muted ps-3">
                             <li><i class="fas fa-exclamation-triangle text-warning me-2"></i>**Inappropriate Content:** We reserve the right to decline any order that, in our sole judgment, contains offensive, inflammatory, discriminatory, illegal, or otherwise inappropriate content.</li>
                         </ul>
 
-                        <h4 class="fw-bold">3. Payment & Refunds</h4>
+                        <h5 class="fw-bold">3. Payment & Refunds</h5>
                         <ul class="list-unstyled text-muted ps-3">
                             <li><i class="fas fa-dollar-sign text-primary me-2"></i>**Non-Refundable:** All print orders are considered **non-refundable** once the printing process has commenced.</li>
                             <li><i class="fas fa-shield-alt text-success me-2"></i>**Quality Guarantee:** If you encounter any issues with the print quality due to our error, we are happy to provide a **free reprint** if the issue is reported within **24 hours** of collection or delivery.</li>
                             <li><i class="fas fa-truck text-primary me-2"></i>**Delivery Charges:** The final price confirmed via WhatsApp will include delivery charges, which will be determined based on the customer's delivery address.</li>
                         </ul>
 
-                        <h4 class="fw-bold">4. Data Security (GDPR Compliance)</h4>
+                        <h5 class="fw-bold">4. Data Security (GDPR Compliance)</h5>
                         <ul class="list-unstyled text-muted ps-3">
                             <li><i class="fas fa-lock text-primary me-2"></i>**Digital File Retention:** To protect your privacy, all digital files uploaded to our OneDrive folder will be automatically deleted from our server/cloud storage after **7 days** from order completion.</li>
                             <li><i class="fas fa-shredder text-secondary me-2"></i>**Uncollected Prints:** Physical documents that are uncollected will be securely shredded in accordance with GDPR after **30 days** of the order date. No refund will be issued for uncollected prints.</li>
@@ -606,3 +595,4 @@
     </script>
 </body>
 </html>
+
