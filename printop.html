@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Custom Document Printing - Arham Printers</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Online document printing service for A4, A3, reports, and more." name="description">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    
+    <style>
+        /* Custom styles for this specific page, matching the overall theme colors */
+        :root {
+            --bs-primary: #f28b00;
+            --bs-secondary: #0087a3; 
+            --bs-dark: #212529;
+        }
+
+        .page-content-wrapper {
+            background-color: #f8fafc;
+            min-height: 80vh; 
+        }
+
+        /* General layout/form group styling */
+        .option-group {
+            border: 1px solid #dee2e6;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            background-color: #f8f9fa;
+        }
+
+        .option-group h3 {
+            border-bottom: 2px solid var(--bs-primary);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            color: var(--bs-dark);
+        }
+
+        .option-label {
+            font-weight: 700;
+            color: var(--bs-dark);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .choice-card-group .form-check-inline {
+            padding: 0;
+            margin-right: 1rem;
+        }
+        .choice-card-label {
+            cursor: pointer;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            padding: 8px 15px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            display: inline-block;
+        }
+        .choice-card-label:hover {
+            border-color: var(--bs-secondary);
+            background-color: #f0f8ff;
+        }
+        input[type="radio"]:checked + .choice-card-label {
+            border-color: var(--bs-primary);
+            background-color: var(--bs-primary);
+            color: white;
+        }
+        .choice-card-label input[type="radio"] {
+            display: none; 
+        }
+        
+        /* Price Summary */
+        .price-summary {
+            background-color: #0087a3; /* Using secondary color */
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: right;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+        /* Style for the Total Price span to make it stand out */
+        .price-summary #totalPrice {
+            color: #f28b00; /* Primary color for highlight */
+            display: block;
+            font-size: 1.2em;
+            line-height: 1.2;
+        }
+        .terms-content {
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #ddd;
+        }
+        .terms-content h2 {
+            color: var(--bs-secondary);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--bs-secondary);
+        }
+        .terms-content h4 {
+            color: var(--bs-dark);
+            margin-top: 1rem;
+        }
+        .whatsapp-action-block {
+            background-color: #e6ffec; /* Light green background */
+            border: 1px solid #c3e6cb;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="container-fluid bg-dark text-white-50 py-2 px-0 d-none d-lg-block">
+        <div class="row gx-0 align-items-center">
+            <div class="col-lg-7 px-5 text-start">
+                <div class="h-100 d-inline-flex align-items-center me-4">
+                    <small class="fa fa-phone-alt me-2"></small>
+                    <small>+92 300 6238233</small>
+                </div>
+                <div class="h-100 d-inline-flex align-items-center me-4">
+                    <small class="far fa-envelope-open me-2"></small>
+                    <small>info@arhamprinters.pk</small>
+                </div>
+                <div class="h-100 d-inline-flex align-items-center me-4">
+                    <small class="far fa-clock me-2"></small>
+                    <small>Mon - Fri : 09 AM - 09 PM</small>
+                </div>
+            </div>
+            <div class="col-lg-5 px-5 text-end">
+                <div class="h-100 d-inline-flex align-items-center">
+                    <a class="text-white-50 ms-4" href=""><i class="fab fa-facebook-f"></i></a>
+                    <a class="text-white-50 ms-4" href=""><i class="fab fa-twitter"></i></a>
+                    <a class="text-white-50 ms-4" href=""><i class="fab fa-linkedin-in"></i></a>
+                    <a class="text-white-50 ms-4" href=""><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5">
+        <a href="index.html" class="navbar-brand d-flex align-items-center">
+            <h1 class="m-0 text-primary"><i class="fa fa-print me-3"></i>Arham Printers</h1>
+        </a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav mx-auto bg-light pe-4 py-3 py-lg-0">
+                <a href="index.html" class="nav-item nav-link">Home</a>
+                <a href="products.html" class="nav-item nav-link">Products</a>
+                <a href="index.html#contact-section" class="nav-item nav-link">Contact</a>
+            </div>
+             <div class="h-100 d-lg-inline-flex align-items-center">
+                <a href="index.html#quote-section" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block">Get a Quote<i
+                        class="fa fa-arrow-right ms-3"></i></a>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid page-header py-5 mb-5" style="background-color: var(--bs-secondary);">
+        <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Custom Document Printing</h1>
+        <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active text-white">Print Order</li>
+        </ol>
+    </div>
+    <div class="container page-content-wrapper py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="bg-white p-4 p-md-5 rounded shadow-lg">
+
+                    <h2 class="fw-bold mb-4 text-center">Configure Your Print Order</h2>
+                    <p class="text-muted text-center mb-4">Select all specifications, then send your order details and files directly via WhatsApp.</p>
+
+                    <form id="printOrderForm" action="#" method="POST" class="row g-4" onsubmit="handlePrintOrderSubmission(event)">
+                        
+                        <div class="col-12">
+                            <div class="option-group">
+                                <h3>1. Print Specifications</h3>
+                                
+                                <div class="row g-4">
+                                    
+                                    <div class="col-md-6">
+                                        <label class="option-label">Print Colour</label>
+                                        <div class="d-flex choice-card-group">
+                                            <input type="radio" name="color" id="color-bw" value="Black & White" checked>
+                                            <label class="choice-card-label" for="color-bw">Black & White</label>
+                                            
+                                            <input type="radio" name="color" id="color-full" value="Colour">
+                                            <label class="choice-card-label" for="color-full">Colour</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="option-label">Print Siding</label>
+                                        <div class="d-flex choice-card-group">
+                                            <input type="radio" name="siding" id="siding-single" value="Single Sided" checked>
+                                            <label class="choice-card-label" for="siding-single">Single Sided</label>
+                                            
+                                            <input type="radio" name="siding" id="siding-double" value="Double Sided">
+                                            <label class="choice-card-label" for="siding-double">Double Sided</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="option-label">Paper Size</label>
+                                        <div class="d-flex choice-card-group">
+                                            <input type="radio" name="size" id="size-a4" value="A4" checked>
+                                            <label class="choice-card-label" for="size-a4">A4</label>
+                                            
+                                            <input type="radio" name="size" id="size-legal" value="Legal">
+                                            <label class="choice-card-label" for="size-legal">Legal</label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <label class="option-label">Paper GSM</label>
+                                        <div class="d-flex choice-card-group">
+                                            <input type="radio" name="paperGsm" id="gsm-70" value="70g" checked>
+                                            <label class="choice-card-label" for="gsm-70">70g</label>
+                                            
+                                            <input type="radio" name="paperGsm" id="gsm-80" value="80g">
+                                            <label class="choice-card-label" for="gsm-80">80g</label>
+
+                                            <input type="radio" name="paperGsm" id="gsm-100" value="100g">
+                                            <label class="choice-card-label" for="gsm-100">100g</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4">
+                                    <label for="quantity" class="option-label">Number of Sheets (Quantity)</label>
+                                    <input type="number" id="quantity" name="quantity" value="1" min="1" required class="form-control w-50">
+                                    <small class="text-muted">Enter the number of physical sheets to be printed.</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="option-group">
+                                <h3>2. Contact Details (Required for Order)</h3>
+                                
+                                <div class="row g-4">
+                                    
+                                    <div class="col-md-6">
+                                        <label for="customerName" class="option-label">👤 Your Name (Mandatory)</label>
+                                        <input type="text" id="customerName" name="customerName" placeholder="Your Full Name" required class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="customerEmail" class="option-label">📧 Your Email (Optional)</label>
+                                        <input type="email" id="customerEmail" name="customerEmail" placeholder="yourname@example.com" class="form-control">
+                                        <input type="hidden" name="orderId" id="orderId">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="whatsapp-action-block text-center">
+                                <h3 class="text-success fw-bold">Send Files & Place Order</h3>
+                                <p class="text-muted">Click the button below to open WhatsApp with your full order summary. You can then attach and send your documents and photos directly in the chat.</p>
+                                
+                                <div class="row g-3 align-items-center justify-content-center">
+                                    <div class="col-md-6">
+                                        <div class="price-summary">
+                                            Estimated Price: <span id="totalPrice">Calculating...</span>
+                                            <p class="small text-white-75 mb-0 mt-1">Final price confirmed after file review</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button type="submit" class="btn btn-success py-3 w-100 fw-bold">
+                                            <i class="fab fa-whatsapp fa-lg me-2"></i> Send Order & Files via WhatsApp
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 text-center mt-3">
+                            <p class="small text-muted">
+                                By placing an order, you confirm you have read and agree to our <a href="#terms-section" class="text-primary fw-bold">Print Service Terms & Conditions</a>.
+                            </p>
+                        </div>
+                    </form>
+
+                    <div id="terms-section" class="terms-content">
+                        <h2>📜 Print Service Terms and Conditions</h2>
+                        
+                        <h4 class="fw-bold">1. File Submission & Quality</h4>
+                        <ul class="list-unstyled text-muted ps-3">
+                            <li><i class="fas fa-check-circle text-success me-2"></i>**File Format:** We strongly recommend submitting files in **PDF format** for the highest compatibility and print quality. We also accept JPG, PNG, DOCX, and PPTX.</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>**Preparation:** All documents must be **unzipped and free of password protection**. The customer is responsible for ensuring the file is correctly sized (e.g., an A4 file for A4 prints).</li>
+                            <li><i class="fas fa-times-circle text-danger me-2"></i>**Borderless Printing:** We are unable to offer borderless (full bleed) printing via this standard online service. A small white margin will be applied to all prints.</li>
+                        </ul>
+
+                        <h4 class="fw-bold">2. Content & Order Restriction</h4>
+                        <ul class="list-unstyled text-muted ps-3">
+                            <li><i class="fas fa-exclamation-triangle text-warning me-2"></i>**Inappropriate Content:** We reserve the right to decline any order that, in our sole judgment, contains offensive, inflammatory, discriminatory, illegal, or otherwise inappropriate content.</li>
+                        </ul>
+
+                        <h4 class="fw-bold">3. Payment & Refunds</h4>
+                        <ul class="list-unstyled text-muted ps-3">
+                            <li><i class="fas fa-dollar-sign text-primary me-2"></i>**Non-Refundable:** All print orders are considered **non-refundable** once the printing process has commenced.</li>
+                            <li><i class="fas fa-shield-alt text-success me-2"></i>**Quality Guarantee:** If you encounter any issues with the print quality due to our error, we are happy to provide a **free reprint** if the issue is reported within **24 hours** of collection or delivery.</li>
+                        </ul>
+
+                        <h4 class="fw-bold">4. Data Security (GDPR Compliance)</h4>
+                        <ul class="list-unstyled text-muted ps-3">
+                            <li><i class="fas fa-lock text-primary me-2"></i>**Digital File Retention:** To protect your privacy, all digital files uploaded to our OneDrive folder will be automatically deleted from our server/cloud storage after **7 days** from order completion.</li>
+                            <li><i class="fas fa-shredder text-secondary me-2"></i>**Uncollected Prints:** Physical documents that are uncollected will be securely shredded in accordance with GDPR after **30 days** of the order date. No refund will be issued for uncollected prints.</li>
+                        </ul>
+                    </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+<div class="container-fluid footer py-2 wow fadeIn" data-wow-delay="0.2s">
+      <div class="container py-2">
+        <div class="row g-3">
+          <div class="col-6 col-md-3">
+            <div class="rounded p-2 d-flex flex-column align-items-center">
+              <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
+                <i class="fas fa-map-marker-alt fa-2x text-primary" style="line-height: 1;"></i>
+              </div>
+              <h6 class="text-white mt-1 mb-1">Address</h6>
+              <p class="text-white fw-bold mb-1 small text-center">Domela Chowk, Tanda Road, Jalalpur Jattan</p>
+            </div>
+          </div>
+
+          <div class="col-6 col-md-3">
+            <div class="rounded p-2 d-flex flex-column align-items-center">
+              <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
+                <i class="fas fa-envelope fa-2x text-primary" style="line-height: 1;"></i>
+              </div>
+              <h6 class="text-white mt-1 mb-1">Mail Us</h6>
+              <p class="text-white fw-bold mb-1 small text-center">info@arhamprinters.pk</p>
+            </div>
+          </div>
+
+          <div class="col-6 col-md-3">
+            <div class="rounded p-2 d-flex flex-column align-items-center">
+              <a href="https://wa.me/923006238233" target="_blank" class="text-decoration-none">
+                <div class="rounded-circle bg-success d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
+                  <i class="fab fa-whatsapp fa-2x text-white" style="line-height: 1;"></i>
+                </div>
+              </a>
+              <h6 class="text-white mt-1 mb-1">Direct Contact</h6>
+              <a href="https://wa.me/923006238233" target="_blank" class="text-white-50 text-decoration-none">
+                <p class="text-white fw-bold mb-1 small text-center">+92 300 6238233</p>
+              </a>
+            </div>
+          </div>
+
+          <div class="col-6 col-md-3">
+            <div class="rounded p-2 d-flex flex-column align-items-center">
+              <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
+                <i class="fab fa-facebook-f fa-2x text-primary" style="line-height: 1;"></i>
+              </div>
+              <h6 class="text-white mt-1 mb-1">Follow Us</h6>
+              <div class="d-flex justify-content-center gap-1">
+                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i class="fab fa-twitter"></i></a>
+                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i class="fab fa-facebook-f"></i></a>
+                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i class="fab fa-youtube"></i></a>
+                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container-fluid copyright py-2">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 text-center">
+              <span class="text-white small">
+                <i class="fas fa-copyright text-light me-1"></i>
+                Arham Printers, All rights reserved 2025.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    
+    <script src="js/main.js"></script>
+
+    <script>
+        // Global variable to hold pricing data
+        let pricingData = null;
+
+        // Fetch pricing data from JSON file
+        async function fetchPricingData() {
+            try {
+                // Assuming 'pricing.json' is in the same directory
+                const response = await fetch('pricing.json'); 
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                pricingData = await response.json();
+                console.log('Pricing data loaded successfully.');
+                // Recalculate price immediately after loading data
+                calculateEstimatedPrice(); 
+            } catch (error) {
+                console.error('Could not fetch pricing data:', error);
+                document.getElementById('totalPrice').textContent = 'Error loading prices!';
+            }
+        }
+
+        // Handle print order submission
+        function handlePrintOrderSubmission(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('customerName').value;
+            const email = document.getElementById('customerEmail').value;
+            const color = document.querySelector('input[name="color"]:checked').value;
+            const siding = document.querySelector('input[name="siding"]:checked').value;
+            const size = document.querySelector('input[name="size"]:checked').value;
+            const paperGsm = document.querySelector('input[name="paperGsm"]:checked').value;
+            const quantity = document.getElementById('quantity').value;
+            const totalPrice = document.getElementById('totalPrice').textContent; // Get the calculated price
+            
+            // Generate order ID
+            const orderId = 'PRINT-' + Date.now().toString().slice(-6);
+            document.getElementById('orderId').value = orderId;
+            
+            // Calculate total pages for the message
+            const totalPages = parseInt(quantity) * (siding === 'Double Sided' ? 2 : 1);
+
+            // Create WhatsApp message
+            let message = `*NEW PRINT ORDER REQUEST - ARHAM PRINTERS*\n\n`;
+            message += `*Order ID:* ${orderId}\n`;
+            message += `*Customer Name:* ${name}\n`;
+            message += `*Email:* ${email || 'Not provided'}\n\n`;
+            message += `*PRINT SPECIFICATIONS:*\n`;
+            message += `• Print Color: ${color}\n`;
+            message += `• Print Siding: ${siding}\n`;
+            message += `• Paper Size: ${size}\n`;
+            message += `• Paper GSM: ${paperGsm}\n`;
+            message += `• Sheets Quantity: ${quantity} sheets\n`;
+            message += `• Total Printed Pages (Sides): ${totalPages}\n\n`;
+            message += `*ESTIMATED TOTAL:* ${totalPrice}\n\n`; // Include estimated price
+            message += `*INSTRUCTIONS:*\n`;
+            message += `Please attach your document files in this WhatsApp chat.\n`;
+            message += `We accept: PDF, JPG, PNG, DOCX, PPTX files.\n\n`;
+            message += `We will review your files and confirm the final price shortly.`;
+            
+            // Open WhatsApp
+            window.open(`https://wa.me/923006238233?text=${encodeURIComponent(message)}`, '_blank');
+            
+            // Show confirmation
+            alert('Opening WhatsApp with your order details. Please attach your files in the chat.');
+            
+            // Reset form after submission
+            setTimeout(() => {
+                document.getElementById('printOrderForm').reset();
+            }, 2000);
+        }
+
+        /**
+         * Determines the price per unit based on the total quantity and defined tiers.
+         * @param {Object} gsmPricing - The pricing object for the selected GSM.
+         * @param {number} totalPages - The total number of pages being printed.
+         * @returns {number} The price per page (unit).
+         */
+        function getTierPrice(gsmPricing, totalPages) {
+            let pricePerUnit = 0;
+            let highestTierPrice = 0;
+            
+            const tiers = Object.keys(gsmPricing).sort((a, b) => {
+                const minA = parseInt(a.split('-')[0]);
+                const minB = parseInt(b.split('-')[0]);
+                return minA - minB;
+            });
+            
+            // Get the price for the highest defined tier (e.g., 401-1000) for fall-through logic
+            if (tiers.length > 0) {
+                highestTierPrice = gsmPricing[tiers[tiers.length - 1]];
+            }
+
+            for (const range of tiers) {
+                const [min, max] = range.split('-').map(n => parseInt(n));
+                
+                // Check if totalPages falls within the range
+                if (totalPages >= min && (totalPages <= max || range.endsWith('-1000'))) {
+                    pricePerUnit = gsmPricing[range];
+                    return pricePerUnit;
+                }
+            }
+
+            // Fallback for quantity > 1000, using the price of the last defined tier
+            return highestTierPrice; 
+        }
+
+        // Calculate estimated price based on selections
+        function calculateEstimatedPrice() {
+            if (!pricingData) {
+                document.getElementById('totalPrice').innerHTML = '<span>Loading Prices...</span>';
+                return;
+            }
+
+            const size = document.querySelector('input[name="size"]:checked')?.value || 'A4';
+            const paperGsm = document.querySelector('input[name="paperGsm"]:checked')?.value || '70g'; 
+            const color = document.querySelector('input[name="color"]:checked')?.value || 'Black & White';
+            const siding = document.querySelector('input[name="siding"]:checked')?.value || 'Single Sided';
+            const quantity = parseInt(document.getElementById('quantity').value) || 1;
+            
+            if (quantity <= 0) {
+                document.getElementById('totalPrice').innerHTML = '<span>Enter Quantity &rarr;</span>';
+                return;
+            }
+
+            // Map user selections to JSON keys
+            const sizeKey = size; // A4 or Legal
+            const colorKey = color === 'Black & White' ? 'black_white' : 'color';
+            const gsmKey = paperGsm; // 70g, 80g, 100g
+
+            // Determine Total Pages (Total printed sides) for tier calculation
+            const totalPages = quantity * (siding === 'Double Sided' ? 2 : 1);
+
+            try {
+                // Navigate the simplified JSON path: Size -> Color -> GSM
+                const gsmPricing = pricingData[sizeKey][colorKey][gsmKey];
+                
+                if (!gsmPricing) {
+                     document.getElementById('totalPrice').innerHTML = '<span>Pricing Not Configured!</span>';
+                     return;
+                }
+
+                const pricePerUnit = getTierPrice(gsmPricing, totalPages);
+                
+                if (pricePerUnit === 0) {
+                    document.getElementById('totalPrice').innerHTML = '<span>Pricing Error!</span>';
+                    return;
+                }
+                
+                const totalPrice = pricePerUnit * totalPages;
+                
+                // Display the calculated price with price per page
+                const priceOutput = `Total: PKR ${Math.round(totalPrice).toLocaleString()}
+                                     <p class="small text-white-75 mb-0 mt-1" style="font-weight: normal;">
+                                         (PKR ${pricePerUnit.toFixed(1)} per page)
+                                     </p>`;
+
+                document.getElementById('totalPrice').innerHTML = priceOutput;
+                
+            } catch (e) {
+                console.error("Error in price calculation lookup:", e);
+                document.getElementById('totalPrice').innerHTML = '<span>Configuration Error!</span>';
+            }
+        }
+
+        // Add event listeners for price calculation
+        document.querySelectorAll('input[name="color"], input[name="siding"], input[name="size"], input[name="paperGsm"]').forEach(input => {
+            input.addEventListener('change', calculateEstimatedPrice);
+        });
+        
+        document.getElementById('quantity').addEventListener('input', calculateEstimatedPrice);
+
+        // Initialize by fetching data and then calculating price
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Set current year in footer (if the element exists)
+            const copyrightElement = document.querySelector('.copyright span.small');
+            if (copyrightElement) {
+                copyrightElement.innerHTML = copyrightElement.innerHTML.replace('2025', new Date().getFullYear());
+            }
+
+            // Fetch pricing data and start calculation
+            await fetchPricingData();
+        });
+    </script>
+</body>
+</html>
