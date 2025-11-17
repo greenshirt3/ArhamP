@@ -475,7 +475,7 @@
             // --- FIX APPLIED HERE ---
             // If any critical selection is missing or quantity is invalid, show PKR 0.00
             if (!size || !paperGsm || !color || !siding || quantity <= 0 || isNaN(quantity)) {
-                document.getElementById('totalPrice').innerHTML = '<span class="text-primary fw-bold">PKR 0.00</span>';
+                document.getElementById('totalPrice').innerHTML = '<span class="text-primary fw-bold">0.00</span>';
                 return;
             }
 
