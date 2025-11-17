@@ -710,15 +710,24 @@
 
     // 4. Navigate to and Populate Product Detail Page
     function showProductDetails(productName) {
-        const name = productName.replace(/\\/g, ''); 
-        const productData = allProductGroups[name];
-        currentProduct = productData;
-        currentSelectedVariations = {}; 
+    // 1. First, strip out any escape characters (backslashes) passed in
+    let cleanName = productName.replace(/\\/g, ''); 
+    
+    // 2. IMPORTANT: If the input came from a filtered catalog link 
+    //    that replaced spaces with slashes, replace them back with spaces.
+    cleanName = cleanName.replace(/\//g, ' '); 
+    
+    const name = cleanName.trim(); // Use the cleaned name for lookup
+    
+    const productData = allProductGroups[name]; // Look up using the corrected name
+    currentProduct = productData;
+    currentSelectedVariations = {}; 
 
-        if (!currentProduct) {
-            showAlert(`Product "${name}" details not found.`, 'error');
-            return;
-        }
+    if (!currentProduct) {
+        // Updated error message to show what was searched for
+        showAlert(`Product "${name}" details not found in catalog.`, 'error'); 
+        return;
+    }
 
         // Update headers and image
         document.getElementById('detail-product-name-header').textContent = currentProduct.baseName;
@@ -1120,6 +1129,7 @@
 </body>
 
 </html>
+
 
 
 
