@@ -275,9 +275,10 @@
                                    <div class="row g-3 align-items-center justify-content-center">
                                     <div class="col-md-6">
                                         <div class="price-summary">
-                                            Price (Excluding Delivery):
-                                            <span id="totalPrice"><span class="text-primary fw-bold">PKR 0.00</span></span>
-                                        </div>
+    Price (Excluding Delivery):
+    <span id="totalPrice"><span class="text-primary fw-bold">0.00</span></span>
+</div>
+                                        
                                     </div>
                                     <div class="col-md-6">
                                         <button type="submit" class="btn btn-success py-3 w-100 fw-bold">Click Here to Place Order and File Upload
@@ -507,10 +508,10 @@
                 const totalPrice = pricePerUnit * totalPages;
                 
                 // Display the calculated price with price per page, using PKR
-                const priceOutput = `<span class="text-primary fw-bold">PKR ${Math.round(totalPrice).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                                     <p class="small text-white-75 mb-0 mt-1" style="font-weight: normal; font-size: 0.8em;">
-                                         (PKR ${pricePerUnit.toFixed(2)} per page)
-                                     </p>`;
+                const priceOutput = `<span class="text-primary fw-bold">${Math.round(totalPrice).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                     <p class="small text-white-75 mb-0 mt-1" style="font-weight: normal; font-size: 0.8em;">
+                         (${pricePerUnit.toFixed(2)} per page)
+                     </p>`;
 
                 document.getElementById('totalPrice').innerHTML = priceOutput;
                 
