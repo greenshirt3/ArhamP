@@ -27,6 +27,30 @@
                         "price_per_unit": 1000
                     }
                 ]
+            },
+            "Plain Corners": {
+                "Custom": [
+                    {
+                        "Printing Side": "Single side",
+                        "price_per_unit": 1900.0
+                    },
+                    {
+                        "Printing Side": "Double side",
+                        "price_per_unit": 2000.0
+                    }
+                ]
+            },
+            "Round Corners": {
+                "Custom": [
+                    {
+                        "Printing Side": "Single side",
+                        "price_per_unit": 2300.0
+                    },
+                    {
+                        "Printing Side": "Double side",
+                        "price_per_unit": 3000.0
+                    }
+                ]
             }
         },
         "UV Cards": {
@@ -37,6 +61,20 @@
                         "Sides": "Double Side",
                         "Finish": "UV",
                         "price_per_unit": 1500
+                    }
+                ]
+            }
+        },
+        "Visisting Cards": {
+            "Shine": {
+                "Custom": [
+                    {
+                        "Printing Side": "Single side",
+                        "price_per_unit": 1800.0
+                    },
+                    {
+                        "Printing Side": "Double side",
+                        "price_per_unit": 2000.0
                     }
                 ]
             }
@@ -92,17 +130,14 @@
                         "Sides": "Double Side",
                         "price_per_unit": 9.0
                     }
-                ],
-                "113 gms Art Paper": [
-                    {
-                        "Sides": "Single Side",
-                        "price_per_unit": 8.0
-                    },
-                    {
-                        "Sides": "Double Side",
-                        "price_per_unit": 12.0
-                    }
                 ]
+            },
+            "113 gms Art Paper": {
+                "Sides": "Single Side",
+                "price_per_unit": 8.0
+            },
+            "Double Side": {
+                "price_per_unit": 12.0
             }
         },
         "Stickers": {
