@@ -1,0 +1,666 @@
+{
+    "Business Essentials": {
+        "Shine Visisting Cards": {
+            "3.5x2": {
+                "Standard": [
+                    {
+                        "Finish": "Shine",
+                        "Sides": "Single Color",
+                        "price_per_unit": 1000
+                    }
+                ]
+            }
+        },
+        "Mat Cards": {
+            "3.5x2": {
+                "Standard": [
+                    {
+                        "Shape": "Round Corners",
+                        "Sides": "Double Side",
+                        "Finish": "Mat",
+                        "price_per_unit": 1200
+                    },
+                    {
+                        "Shape": "Plain Corners",
+                        "Sides": "Double Side",
+                        "Finish": "Mat",
+                        "price_per_unit": 1000
+                    }
+                ]
+            }
+        },
+        "UV Cards": {
+            "3.5x2": {
+                "Standard": [
+                    {
+                        "Shape": "Round Corners",
+                        "Sides": "Double Side",
+                        "Finish": "UV",
+                        "price_per_unit": 1500
+                    }
+                ]
+            }
+        }
+    },
+    "Marketing Essentials": {
+        "Pamphlets": {
+            "5.75x9": {
+                "68 gms": [
+                    {
+                        "price_per_unit": 1.5
+                    },
+                    {
+                        "price_per_unit": 2.0
+                    },
+                    {
+                        "price_per_unit": 3.0
+                    }
+                ],
+                "80gms": [
+                    {
+                        "price_per_unit": 2.0
+                    },
+                    {
+                        "price_per_unit": 2.5
+                    },
+                    {
+                        "price_per_unit": 4.0
+                    }
+                ]
+            },
+            "A4": {
+                "68 gms": [
+                    {
+                        "price_per_unit": 5.0
+                    }
+                ],
+                "80gms": [
+                    {
+                        "price_per_unit": 7.0
+                    }
+                ]
+            }
+        },
+        "Flyers/Ishtihars": {
+            "5.75x9": {
+                "90gms Art Paper": [
+                    {
+                        "Sides": "Single Side",
+                        "price_per_unit": 6.0
+                    },
+                    {
+                        "Sides": "Double Side",
+                        "price_per_unit": 9.0
+                    }
+                ],
+                "113 gms Art Paper": [
+                    {
+                        "Sides": "Single Side",
+                        "price_per_unit": 8.0
+                    },
+                    {
+                        "Sides": "Double Side",
+                        "price_per_unit": 12.0
+                    }
+                ]
+            }
+        },
+        "Stickers": {
+            "3.5x2": {
+                "Standard": [
+                    {
+                        "Shape": "Round Corners",
+                        "price_per_unit": 1.5
+                    },
+                    {
+                        "Shape": "Plain Corners",
+                        "price_per_unit": 1.0
+                    }
+                ]
+            },
+            "7x10": {
+                "Standard": [
+                    {
+                        "Shape": "Round Corners",
+                        "price_per_unit": 5.0
+                    },
+                    {
+                        "Shape": "Plain Corners",
+                        "price_per_unit": 4.0
+                    }
+                ]
+            }
+        }
+    },
+    "Office Essentials": {
+        "Letterpads": {
+            "5.75x9": {
+                "68 gms": [
+                    {
+                        "Printing Color": "Single Color",
+                        "price_per_unit": 2.5
+                    },
+                    {
+                        "Printing Color": "Two Colors",
+                        "price_per_unit": 3.0
+                    },
+                    {
+                        "Printing Color": "4 Colors",
+                        "price_per_unit": 4.5
+                    }
+                ],
+                "80gms": [
+                    {
+                        "Printing Color": "Single Color",
+                        "price_per_unit": 3.0
+                    },
+                    {
+                        "Printing Color": "Two Colors",
+                        "price_per_unit": 3.5
+                    },
+                    {
+                        "Printing Color": "4 Colors",
+                        "price_per_unit": 5.0
+                    }
+                ],
+                "100 gms": [
+                    {
+                        "Printing Color": "Single Color",
+                        "price_per_unit": 4.0
+                    },
+                    {
+                        "Printing Color": "Two Colors",
+                        "price_per_unit": 4.5
+                    },
+                    {
+                        "Printing Color": "4 Colors",
+                        "price_per_unit": 6.0
+                    }
+                ]
+            },
+            "A4": {
+                "68 gms": [
+                    {
+                        "Printing Color": "Single Color",
+                        "price_per_unit": 4.0
+                    },
+                    {
+                        "Printing Color": "Two Colors",
+                        "price_per_unit": 5.0
+                    },
+                    {
+                        "Printing Color": "4 Colors",
+                        "price_per_unit": 7.0
+                    }
+                ],
+                "80gms": [
+                    {
+                        "Printing Color": "Single Color",
+                        "price_per_unit": 4.5
+                    },
+                    {
+                        "Printing Color": "Two Colors",
+                        "price_per_unit": 5.5
+                    },
+                    {
+                        "Printing Color": "4 Colors",
+                        "price_per_unit": 8.0
+                    }
+                ],
+                "100 gms": [
+                    {
+                        "Printing Color": "Single Color",
+                        "price_per_unit": 5.0
+                    },
+                    {
+                        "Printing Color": "Two Colors",
+                        "price_per_unit": 6.0
+                    },
+                    {
+                        "Printing Color": "4 Colors",
+                        "price_per_unit": 9.0
+                    }
+                ]
+            }
+        },
+        "Envelops": {
+            "9x4": {
+                "80gms": [
+                    {
+                        "Printing Color": "Single Color",
+                        "price_per_unit": 5.0
+                    },
+                    {
+                        "Printing Color": "Two Colors",
+                        "price_per_unit": 6.5
+                    },
+                    {
+                        "Printing Color": "4 Colors",
+                        "price_per_unit": 8.0
+                    }
+                ]
+            }
+        },
+        "Bill Books": {
+            "5.75x9": {
+                "68 gms": [
+                    {
+                        "Printing Color": "Single Color",
+                        "price_per_unit": 10.0
+                    }
+                ],
+                "80gms": [
+                    {
+                        "Printing Color": "4 Colors",
+                        "price_per_unit": 12.0
+                    }
+                ],
+                "90gms Art Paper": [
+                    {
+                        "Printing Color": "4 Colors",
+                        "price_per_unit": 15.0
+                    }
+                ],
+                "100 gms": [
+                    {
+                        "Printing Color": "4 Colors",
+                        "price_per_unit": 18.0
+                    }
+                ]
+            },
+            "A4": {
+                "68 gms": [
+                    {
+                        "Printing Color": "Single Color",
+                        "price_per_unit": 15.0
+                    }
+                ],
+                "80gms": [
+                    {
+                        "Printing Color": "Single Color",
+                        "price_per_unit": 18.0
+                    }
+                ],
+                "90gms Art Paper": [
+                    {
+                        "Printing Color": "4 Colors",
+                        "price_per_unit": 22.0
+                    }
+                ],
+                "100 gms": [
+                    {
+                        "Printing Color": "4 Colors",
+                        "price_per_unit": 25.0
+                    }
+                ]
+            },
+            "9x11": {
+                "80gms": [
+                    {
+                        "Printing Color": "4 Colors",
+                        "price_per_unit": 28.0
+                    }
+                ],
+                "100 gms": [
+                    {
+                        "Printing Color": "4 Colors",
+                        "price_per_unit": 32.0
+                    }
+                ]
+            }
+        },
+        "Carbonless Bill Books": {
+            "Custom": {
+                "Standard": [
+                    {
+                        "Printing Color": "Single Color",
+                        "price_per_unit": 30.0
+                    }
+                ]
+            }
+        },
+        "File Covers": {
+            "Custom": {
+                "Art Card": [
+                    {
+                        "Printing Color": "Single Color",
+                        "Sides": "Single Side",
+                        "price_per_unit": 40.0
+                    },
+                    {
+                        "Printing Color": "4 Colors",
+                        "Sides": "Single Side",
+                        "price_per_unit": 60.0
+                    },
+                    {
+                        "Printing Color": "4 Colors",
+                        "Sides": "Double Side",
+                        "price_per_unit": 80.0
+                    }
+                ]
+            }
+        },
+        "Rubber Stamp (Rectangular)": {
+            "3.5x2": {
+                "Standard": [
+                    {
+                        "Type": "Manual Inking",
+                        "price_per_unit": 500
+                    }
+                ]
+            },
+            "1x0.39": {
+                "Standard": [
+                    {
+                        "Type": "Manual Inking",
+                        "price_per_unit": 200
+                    }
+                ]
+            },
+            "1.8x0.7": {
+                "Standard": [
+                    {
+                        "Type": "Manual Inking",
+                        "price_per_unit": 350
+                    }
+                ]
+            }
+        },
+        "Pencil Tray": {
+            "Custom": {
+                "Standard": [
+                    {
+                        "Material": "Plastic",
+                        "price_per_unit": 600
+                    },
+                    {
+                        "Material": "Premium Plastic",
+                        "price_per_unit": 800
+                    },
+                    {
+                        "Material": "Metal",
+                        "price_per_unit": 1500
+                    }
+                ]
+            }
+        }
+    },
+    "Wedding Invitation Cards": {
+        "Standard": {
+            "5x7": {
+                "Glossy": [
+                    {
+                        "Material": "Premium Cardstock",
+                        "price_per_unit": 45
+                    }
+                ]
+            },
+            "A5": {
+                "Matte": [
+                    {
+                        "Material": "Premium Cardstock",
+                        "price_per_unit": 55
+                    }
+                ]
+            }
+        },
+        "Laser Cut Invitations": {
+            "Design": {
+                "Standard": [
+                    {
+                        "Material": "Premium Cardstock",
+                        "price_per_unit": 150
+                    }
+                ]
+            }
+        }
+    },
+    "Panaflex Printing": {
+        "Panaflex Banners": {
+            "China Frontlit": {
+                "rate": 50,
+                "is_area_based": true
+            },
+            "Star Frontlit": {
+                "rate": 70,
+                "is_area_based": true
+            }
+        }
+    },
+    "Photo Printing": {
+        "PhotoPapers": {
+            "7x5": {
+                "Standard": [
+                    {
+                        "Material": "Matte",
+                        "price_per_unit": 150
+                    }
+                ]
+            },
+            "A4": {
+                "Standard": [
+                    {
+                        "Material": "Matte",
+                        "price_per_unit": 250
+                    }
+                ]
+            }
+        },
+        "Photo Frames": {
+            "Custom Sizes": {
+                "Standard": [
+                    {
+                        "Material": "Wood",
+                        "price_per_unit": 800
+                    }
+                ]
+            }
+        }
+    },
+    "3D Wallpaper": {
+        "3D Wallpaper": {
+            "rate": 150,
+            "min_area": 100,
+            "is_area_based": true
+        }
+    },
+    "Promotional Items": {
+        "White T-Shirt (Adult Size)": {
+            "Small": {
+                "Standard": [
+                    {
+                        "Price per Shirt": 1200
+                    }
+                ]
+            },
+            "Medium": {
+                "Standard": [
+                    {
+                        "Price per Shirt": 1300
+                    }
+                ]
+            },
+            "Large": {
+                "Standard": [
+                    {
+                        "Price per Shirt": 1400
+                    }
+                ]
+            }
+        },
+        "Mug": {
+            "Custom": {
+                "Standard": [
+                    {
+                        "Shape": "Heart Shape",
+                        "Accessories": "Spoon Mug",
+                        "price_per_unit": 550
+                    },
+                    {
+                        "Shape": "Heart Shape",
+                        "Accessories": "Mug with Pirch",
+                        "price_per_unit": 650
+                    }
+                ]
+            }
+        },
+        "Metal Pen": {
+            "Custom": {
+                "Standard": [
+                    {
+                        "Finish": "Shine",
+                        "price_per_unit": 150
+                    },
+                    {
+                        "Finish": "Mat",
+                        "price_per_unit": 120
+                    }
+                ]
+            }
+        }
+    },
+    "Shields": {
+        "Acrylic Shield": {
+            "Size": {
+                "10 inch": [
+                    {
+                        "Engraving": "Standard Laser",
+                        "price_per_unit": 2500
+                    }
+                ]
+            }
+        }
+    },
+    "Souvenirs": {
+        "Custom Key Chain": {
+            "Material": {
+                "Standard": [
+                    {
+                        "Type": "Metal (Engraved)",
+                        "price_per_unit": 350
+                    }
+                ]
+            }
+        },
+        "Locket with Picture": {
+            "Small": {
+                "Standard": [
+                    {
+                        "Price per Locket": 300
+                    }
+                ]
+            },
+            "Large": {
+                "Standard": [
+                    {
+                        "Price per Locket": 500
+                    }
+                ]
+            }
+        }
+    },
+    "Flags and Fabric": {
+        "National Flag (Standard)": {
+            "Size": {
+                "3x5 ft": [
+                    {
+                        "Material": "Polyester",
+                        "price_per_unit": 1800
+                    }
+                ]
+            }
+        },
+        "Flag Printing": {
+            "Polyester": {
+                "rate": 80,
+                "is_area_based": true
+            }
+        }
+    },
+    "Box Packaging": {
+        "Custom Product Box (Small)": {
+            "Material": {
+                "Art Card 300gsm": [
+                    {
+                        "Finish": "Matte Lamination",
+                        "price_per_unit": 50
+                    }
+                ]
+            }
+        },
+        "Custom Box": {
+            "Small": {
+                "Card Stock": [
+                    {
+                        "Price per Box": 100
+                    }
+                ]
+            },
+            "Medium": {
+                "Corrugated": [
+                    {
+                        "Price per Box": 250
+                    }
+                ]
+            }
+        }
+    },
+    "Marketing and Advertising": {
+        "Document Printing (A4/Legal)": {
+            "A4": {
+                "black_white": {
+                    "70g": {
+                        "1-100": 10,
+                        "401-1000": 6
+                    }
+                },
+                "color": {
+                    "70g": {
+                        "1-100": 20,
+                        "401-1000": 16
+                    }
+                }
+            },
+            "Legal": {
+                "black_white": {
+                    "70g": {
+                        "1-100": 12,
+                        "401-1000": 8
+                    }
+                },
+                "color": {
+                    "70g": {
+                        "1-100": 22,
+                        "401-1000": 18
+                    }
+                }
+            }
+        },
+        "Social Media Campaign Design": {
+            "Platform": {
+                "Standard": [
+                    {
+                        "Design Type": "3 Posts Package",
+                        "price_per_unit": 3000
+                    }
+                ]
+            }
+        },
+        "Brochure Design": {
+            "A4 Bi-fold": {
+                "Standard": [
+                    {
+                        "Design Fee": 2500
+                    }
+                ]
+            },
+            "A4 Tri-fold": {
+                "Standard": [
+                    {
+                        "Design Fee": 3500
+                    }
+                ]
+            }
+        }
+    }
+}
