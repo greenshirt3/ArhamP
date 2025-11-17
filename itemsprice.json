@@ -1,0 +1,1964 @@
+{
+    "Digital Printing Pricing": {
+        "A4": {
+            "black_white": {
+                "70g": {
+                    "1-100": 10,
+                    "101-200": 8,
+                    "201-400": 7,
+                    "401-1000": 6
+                },
+                "80g": {
+                    "1-100": 15,
+                    "101-200": 13,
+                    "201-400": 12,
+                    "401-1000": 11
+                },
+                "100g": {
+                    "1-100": 20,
+                    "101-200": 18,
+                    "201-400": 17,
+                    "401-1000": 16
+                }
+            },
+            "color": {
+                "70g": {
+                    "1-100": 20,
+                    "101-200": 18,
+                    "201-400": 17,
+                    "401-1000": 16
+                },
+                "80g": {
+                    "1-100": 25,
+                    "101-200": 23,
+                    "201-400": 22,
+                    "401-1000": 21
+                },
+                "100g": {
+                    "1-100": 30,
+                    "101-200": 28,
+                    "201-400": 27,
+                    "401-1000": 26
+                }
+            }
+        },
+        "Legal": {
+            "black_white": {
+                "70g": {
+                    "1-100": 12,
+                    "101-200": 10,
+                    "201-400": 9,
+                    "401-1000": 8
+                },
+                "80g": {
+                    "1-100": 17,
+                    "101-200": 15,
+                    "201-400": 14,
+                    "401-1000": 13
+                },
+                "100g": {
+                    "1-100": 22,
+                    "101-200": 20,
+                    "201-400": 19,
+                    "401-1000": 18
+                }
+            },
+            "color": {
+                "70g": {
+                    "1-100": 22,
+                    "101-200": 20,
+                    "201-400": 19,
+                    "401-1000": 18
+                },
+                "80g": {
+                    "1-100": 27,
+                    "101-200": 25,
+                    "201-400": 24,
+                    "401-1000": 23
+                },
+                "100g": {
+                    "1-100": 32,
+                    "101-200": 30,
+                    "201-400": 29,
+                    "401-1000": 28
+                }
+            }
+        }
+    },
+    "Office Essentials": {
+        "Letterpads": {
+            "5.75x9": {
+                "68 gms": [
+                    {
+                        "single_side": "Single Color",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "Two Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "80gms": [
+                    {
+                        "single_side": "Single Color",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "Two Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "100 gms": [
+                    {
+                        "single_side": "Single Color",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "Two Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "A4": {
+                "68 gms": [
+                    {
+                        "single_side": "Single Color",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "Two Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "80gms": [
+                    {
+                        "single_side": "Single Color",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "Two Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "100 gms": [
+                    {
+                        "single_side": "Single Color",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "Two Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        },
+        "Envelops": {
+            "9x4": {
+                "80gms": [
+                    {
+                        "single_side": "Single Color",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "Two Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        },
+        "Bill Books": {
+            "5.75x9": {
+                "68 gms": [
+                    {
+                        "single_side": "Single Color",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "80gms": [
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "90gms Art Paper": [
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "100 gms": [
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "7x10": {
+                "68 gms": [
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "80gms": [
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "90gms Art Paper": [
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "100 gms": [
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "A4": {
+                "68 gms": [
+                    {
+                        "single_side": "Single Color",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "80gms": [
+                    {
+                        "single_side": "Single Color",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "90gms Art Paper": [
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "100 gms": [
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "9x3.5": {
+                "68 gms": [
+                    {
+                        "single_side": "Single Color",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "80gms": [
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "90gms Art Paper": [
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "100 gms": [
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "9x11": {
+                "68 gms": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "80gms": [
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "90gms Art Paper": [
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "100 gms": [
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        },
+        "Carbonless Bill Books": {
+            "Custom": {
+                "Standard": [
+                    {
+                        "single_side": "Single Color",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        },
+        "File Covers": {
+            "Custom": {
+                "Art Card": [
+                    {
+                        "single_side": "Single Color",
+                        "double_side": "Single Color",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "4 Colors",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        },
+        "Rubber Stamp (Rectangular)": {
+            "3.5x2": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Manual Inking",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "1x0.39": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Manual Inking",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "1.8x0.7": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Manual Inking",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "2.25x0.85": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Manual Inking",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "2.75x0.98": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Manual Inking",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "3x1.5": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Manual Inking",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "2.75x1.18": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Manual Inking",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        },
+        "Rubber Stamp (Circular)": {
+            "0.5x0.5": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Manual Inking",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "1.6x1.6": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Manual Inking",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "1.25x1.25": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Manual Inking",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "2x2": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Manual Inking",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        },
+        "Rubber Stamp with Date (Circular)": {
+            "1.25x1.25": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Self Inking",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "2x2": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Self Inking",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "1.5x1.5": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Self Inking",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "1.6x1.62": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Self Inking",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        },
+        "Rubber Stamp with Date (Rectangular)": {
+            "1.57x0.92": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Self Inking",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "1.9x1.15": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Self Inking",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "2.2x1.25": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Self Inking",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "1.75x1.15": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Self Inking",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "3x1.5": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Self Inking",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        },
+        "Rubber Stamp (Oval Shaped)": {
+            "2.15x1.37": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Self Inking",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "1.75x1.152": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Self Inking",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        },
+        "Rubber Stamp (Only Date)": {
+            "Custom": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Self Inking",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        },
+        "Rubber Stamp (PAID)": {
+            "Custom": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Self Inking",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        },
+        "Pencil Tray": {
+            "Custom": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "Plastic",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "Wood",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "Engraved Wood",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        }
+    },
+    "Marketing Essentials": {
+        "Pamphlets": {
+            "5.75x9": {
+                "68 gms": [
+                    {
+                        "single_side": "Single Color",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "Two Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "80gms": [
+                    {
+                        "single_side": "Single Color",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "Two Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "7x10": {
+                "68 gms": [
+                    {
+                        "single_side": "Single Color",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "Two Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "80gms": [
+                    {
+                        "single_side": "Single Color",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "Two Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "A4": {
+                "68 gms": [
+                    {
+                        "single_side": "Single Color",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "Two Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "80gms": [
+                    {
+                        "single_side": "Single Color",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "Two Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        },
+        "Flyers/Ishtihars": {
+            "5.75x9": {
+                "90gms Art Paper": [
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "113 gms Art Paper": [
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "4 Colors",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "A4": {
+                "90gms Art Paper": [
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "113 gms Art Paper": [
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "4 Colors",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        },
+        "Stickers": {
+            "3.5x2": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Round Corners",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Plain Corners",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Round Corners",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Plain Corners",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Round Corners",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Plain Corners",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "7x10": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Round Corners",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Plain Corners",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Round Corners",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Plain Corners",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Round Corners",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Plain Corners",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "10x15": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Round Corners",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Plain Corners",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Round Corners",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Plain Corners",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Round Corners",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Plain Corners",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        }
+    },
+    "Business Essentials": {
+        "Shine Visisting Cards": {
+            "3.5x2": {
+                "Standard": [
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "Single Color",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Plain Corners",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        },
+        "Mat Cards": {
+            "3.5x2": {
+                "Standard": [
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "4 Colors",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Round Corners",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "4 Colors",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Plain Corners",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "4 Colors",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Round Corners",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        },
+        "UV Cards": {
+            "3.5x2": {
+                "Standard": [
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "4 Colors",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Round Corners",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        },
+        "UV Thick Cards": {
+            "3.5x2": {
+                "Standard": [
+                    {
+                        "single_side": "4 Colors",
+                        "double_side": "4 Colors",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Round Corners",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        }
+    },
+    "Photo Printing": {
+        "PhotoPapers": {
+            "7x5": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "A4": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        },
+        "Photo Frames": {
+            "Custom Sizes": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        }
+    },
+    "Panaflex Banners": {
+        "China Frontlit": {
+            "Custom Sizes": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        },
+        "Star Frontlit": {
+            "Custom Sizes": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        },
+        "Panaflex Banner Backlit": {
+            "Custom Sizes": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        },
+        "Venyl Pasting Sticker": {
+            "Custom Sizes": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        },
+        "One Vision Pasting Sticker": {
+            "Custom Sizes": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        }
+    },
+    "Promotional Items": {
+        "White T-Shirt (Adult Size)": {
+            "Small": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "Medium": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "Large": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "XL": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "XXL": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        },
+        "T-Shirt Cotton": {
+            "Small": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "Medium": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "Large": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "XL": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "XXL": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        },
+        "T-Shirt Multicolor": {
+            "Small": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "Medium": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "Large": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "XL": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "XXL": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        },
+        "Mug": {
+            "Custom": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Heart Shape",
+                        "accessories": "Spoon Mug",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "Heart Shape",
+                        "accessories": "Mug with Pirch",
+                        "price": 1
+                    }
+                ]
+            }
+        },
+        "Metal Pen": {
+            "Custom": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "Shine",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "Mat",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        }
+    },
+    "Souvenirs": {
+        "Locket with Picture": {
+            "Small": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "Large": {
+                "Standard": [
+                    {
+                        "single_side": "",
+                        "double_side": "",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        }
+    },
+    "Digital Printing": {
+        "Print": {
+            "A4": {
+                "70 gms": [
+                    {
+                        "single_side": "B/W",
+                        "double_side": "B/W",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "Color",
+                        "double_side": "Color",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "80gms": [
+                    {
+                        "single_side": "B/W",
+                        "double_side": "B/W",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "Color",
+                        "double_side": "Color",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "100 gms": [
+                    {
+                        "single_side": "B/W",
+                        "double_side": "B/W",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "Color",
+                        "double_side": "Color",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            },
+            "Legal": {
+                "70 gms": [
+                    {
+                        "single_side": "B/W",
+                        "double_side": "B/W",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "Color",
+                        "double_side": "Color",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "80gms": [
+                    {
+                        "single_side": "B/W",
+                        "double_side": "B/W",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "Color",
+                        "double_side": "Color",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ],
+                "100 gms": [
+                    {
+                        "single_side": "B/W",
+                        "double_side": "B/W",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    },
+                    {
+                        "single_side": "Color",
+                        "double_side": "Color",
+                        "material": "",
+                        "finish": "",
+                        "shape": "",
+                        "accessories": "",
+                        "price": 1
+                    }
+                ]
+            }
+        }
+    }
+}
+
