@@ -522,56 +522,59 @@
         }
 
         // Handle print order submission (WhatsApp message creation)
-        function handlePrintOrderSubmission(e) {
-            e.preventDefault();
-            
-            // Ensure calculation is performed before sending
-            calculateEstimatedPrice(); 
+       // print-order.html
 
-            // Get specifications
-            const color = document.querySelector('input[name="color"]:checked')?.value || 'N/A';
-            const siding = document.querySelector('input[name="siding"]:checked')?.value || 'N/A';
-            const size = document.querySelector('input[name="size"]:checked')?.value || 'N/A';
-            const paperGsm = document.querySelector('input[name="paperGsm"]:checked')?.value || 'N/A';
-            const quantity = document.getElementById('quantity').value;
-            
-            // Extract the calculated price for the WhatsApp message
-            const priceSpan = document.getElementById('totalPrice').querySelector('.text-primary')?.textContent;
-            const totalPrintingPrice = priceSpan || 'PKR 0.00 (Please review options)';
+// Handle print order submission (WhatsApp message creation)
+function handlePrintOrderSubmission(e) {
+    e.preventDefault();
+    
+    // Ensure calculation is performed before sending
+    calculateEstimatedPrice(); 
 
-            const orderId = 'PRINT-' + Date.now().toString().slice(-6);
-            document.getElementById('orderId').value = orderId;
-            
-            const sheets = parseInt(quantity) || 1;
-            const totalPages = sheets * (siding === 'Double Sided' ? 2 : 1);
+    // Get specifications
+    const color = document.querySelector('input[name="color"]:checked')?.value || 'N/A';
+    const siding = document.querySelector('input[name="siding"]:checked')?.value || 'N/A';
+    const size = document.querySelector('input[name="size"]:checked')?.value || 'N/A';
+    const paperGsm = document.querySelector('input[name="paperGsm"]:checked')?.value || 'N/A';
+    const quantity = document.getElementById('quantity').value;
+    
+    // Extract the calculated price for the WhatsApp message
+    const priceSpan = document.getElementById('totalPrice').querySelector('.text-primary')?.textContent;
+    const totalPrintingPrice = priceSpan || '0.00 (Please review options)'; // <--- FIX APPLIED HERE
 
-            // Construct WhatsApp message
-            let message = `*NEW PRINT ORDER REQUEST - ARHAM PRINTERS*\n\n`;
-            message += `*Order ID:* ${orderId}\n`;
-            message += `*Customer Contact:* (Provided via WhatsApp chat name)\n\n`; 
-            message += `*PRINT SPECIFICATIONS:*\n`;
-            message += `• Print Color: ${color}\n`;
-            message += `• Print Siding: ${siding}\n`;
-            message += `• Paper Size: ${size}\n`;
-            message += `• Paper GSM: ${paperGsm}\n`;
-            message += `• Sheets Quantity: ${sheets} sheets\n`;
-            message += `• Total Printed Pages (Sides): ${totalPages}\n\n`;
-            message += `*TOTAL PRINTING PRICE (EXCL. DELIVERY):* ${totalPrintingPrice}\n`; 
-            message += `*ACTION REQUIRED:* Please provide your full name and delivery address for final price confirmation and delivery charge calculation.\n\n`;
-            message += `*INSTRUCTIONS:*\n`;
-            message += `Please attach your document files (PDF recommended) in this WhatsApp chat.\n`;
-            message += `We will review your files, determine delivery charges, and confirm the final price shortly.`;
-            
-            // Open WhatsApp
-            window.open(`https://wa.me/923006238233?text=${encodeURIComponent(message)}`, '_blank');
-            
-            alert('Opening WhatsApp with your order details. Please attach your files in the chat.');
-            
-            setTimeout(() => {
-                document.getElementById('printOrderForm').reset();
-            }, 2000);
-        }
+    const orderId = 'PRINT-' + Date.now().toString().slice(-6);
+    document.getElementById('orderId').value = orderId;
+    
+    const sheets = parseInt(quantity) || 1;
+    const totalPages = sheets * (siding === 'Double Sided' ? 2 : 1);
 
+    // Construct WhatsApp message
+    let message = `*NEW PRINT ORDER REQUEST - ARHAM PRINTERS*\n\n`;
+    message += `*Order ID:* ${orderId}\n`;
+    message += `*Customer Contact:* (Provided via WhatsApp chat name)\n\n`; 
+    message += `*PRINT SPECIFICATIONS:*\n`;
+    message += `• Print Color: ${color}\n`;
+    message += `• Print Siding: ${siding}\n`;
+    message += `• Paper Size: ${size}\n`;
+    message += `• Paper GSM: ${paperGsm}\n`;
+    message += `• Sheets Quantity: ${sheets} sheets\n`;
+    message += `• Total Printed Pages (Sides): ${totalPages}\n\n`;
+    // The total price in the WhatsApp message will now be a clean number
+    message += `*TOTAL PRINTING PRICE (EXCL. DELIVERY):* ${totalPrintingPrice}\n`; 
+    message += `*ACTION REQUIRED:* Please provide your full name and delivery address for final price confirmation and delivery charge calculation.\n\n`;
+    message += `*INSTRUCTIONS:*\n`;
+    message += `Please attach your document files (PDF recommended) in this WhatsApp chat.\n`;
+    message += `We will review your files, determine delivery charges, and confirm the final price shortly.`;
+    
+    // Open WhatsApp
+    window.open(`https://wa.me/923006238233?text=${encodeURIComponent(message)}`, '_blank');
+    
+    alert('Opening WhatsApp with your order details. Please attach your files in the chat.');
+    
+    setTimeout(() => {
+        document.getElementById('printOrderForm').reset();
+    }, 2000);
+}
         // --- REAL-TIME EVENT LISTENERS ---
 
         document.addEventListener('DOMContentLoaded', async () => {
