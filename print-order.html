@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>Custom Document Printing - Arham Printers</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Online document printing service for A4, A3, reports, and more." name="description">
+    <meta content="Online document printing service for A4, Legal, reports, and more." name="description">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -84,13 +84,23 @@
         
         /* Price Summary */
         .price-summary {
-            background-color: #d4edda;
-            color: #155724;
+            background-color: #0087a3; 
+            color: white;
             padding: 1.5rem;
             border-radius: 8px;
             text-align: right;
             font-size: 1.3em;
             font-weight: bold;
+            display: flex; 
+            flex-direction: column;
+            justify-content: center; 
+        }
+        /* Style for the Total Price span to make it stand out */
+        .price-summary #totalPrice {
+            color: #f28b00; 
+            display: block;
+            font-size: 1.2em;
+            line-height: 1.2;
         }
         .terms-content {
             margin-top: 2.5rem;
@@ -107,17 +117,33 @@
             margin-top: 1rem;
         }
         .whatsapp-action-block {
-            background-color: #e6ffec; /* Light green background */
+            background-color: #e6ffec; 
             border: 1px solid #c3e6cb;
             padding: 1.5rem;
             border-radius: 8px;
             margin-top: 1.5rem;
+        }
+        /* Flexbox for equal height in price and button */
+        .whatsapp-action-block .row {
+            align-items: stretch; 
+        }
+        .whatsapp-action-block .col-md-6 {
+            display: flex;
+        }
+        /* Ensure the button fills its flex container height */
+        .whatsapp-action-block button {
+            height: 100%; 
+        }
+        /* Style adjustments for quantity group */
+        .quantity-group .form-control {
+            width: 50% !important; 
         }
 
     </style>
 </head>
 
 <body>
+    <div class="container">
     <div id="spinner"
         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -169,26 +195,17 @@
             </div>
         </div>
     </nav>
-    <div class="container-fluid page-header py-5 mb-5" style="background-color: var(--bs-secondary);">
-        <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Custom Document Printing</h1>
-        <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item active text-white">Print Order</li>
-        </ol>
-    </div>
-    <div class="container page-content-wrapper py-5">
+      <div class="container page-content-wrapper py-5">
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="bg-white p-4 p-md-5 rounded shadow-lg">
 
-                    <h2 class="fw-bold mb-4 text-center">Configure Your Print Order</h2>
-                    <p class="text-muted text-center mb-4">Select all specifications, then send your order details and files directly via WhatsApp.</p>
-
+                    <h3 class="fw-bold mb-4 text-center">Custom Document Printing</h3>
                     <form id="printOrderForm" action="#" method="POST" class="row g-4" onsubmit="handlePrintOrderSubmission(event)">
                         
                         <div class="col-12">
                             <div class="option-group">
-                                <h3>1. Print Specifications</h3>
+                                <h4>1. Print Specifications</h4>
                                 
                                 <div class="row g-4">
                                     
@@ -220,84 +237,50 @@
                                             <input type="radio" name="size" id="size-a4" value="A4" checked>
                                             <label class="choice-card-label" for="size-a4">A4</label>
                                             
-                                            <input type="radio" name="size" id="size-a3" value="A3">
-                                            <label class="choice-card-label" for="size-a3">A3</label>
+                                            <input type="radio" name="size" id="size-legal" value="Legal">
+                                            <label class="choice-card-label" for="size-legal">Legal</label>
                                         </div>
                                     </div>
                                     
                                     <div class="col-md-6">
-                                        <label for="paperType" class="option-label">Paper Type / Weight</label>
-                                        <select id="paperType" name="paperType" required class="form-select">
-                                            <option value="80g Plain">80g Plain (Basic use)</option>
-                                            <option value="90g Bright">90g Bright White (Vivid Text/Reports)</option>
-                                            <option value="160g Card">160g Card (Invitations/Covers)</option>
-                                            <option value="170g Silk">170g Silk Finish (Graphics/Flyers)</option>
-                                        </select>
+                                        <label class="option-label">Paper GSM</label>
+                                        <div class="d-flex choice-card-group">
+                                            <input type="radio" name="paperGsm" id="gsm-70" value="70g" checked>
+                                            <label class="choice-card-label" for="gsm-70">70g</label>
+                                            
+                                            <input type="radio" name="paperGsm" id="gsm-80" value="80g">
+                                            <label class="choice-card-label" for="gsm-80">80g</label>
+
+                                            <input type="radio" name="paperGsm" id="gsm-100" value="100g">
+                                            <label class="choice-card-label" for="gsm-100">100g</label>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="mt-4">
-                                    <label for="quantity" class="option-label">Number of Copies (Quantity)</label>
-                                    <input type="number" id="quantity" name="quantity" value="1" min="1" required class="form-control w-50">
+                                    <label for="quantity" class="option-label">Number of Sheets (Quantity)</label>
+                                    <div class="quantity-group">
+                                        <input type="number" id="quantity" name="quantity" value="1" min="1" required class="form-control w-50">
+                                    </div>
+                                    <small class="text-muted">Enter the number of physical sheets to be printed.</small>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-12">
-                            <div class="option-group">
-                                <h3>2. Optional Finishing & Contact Details</h3>
-                                
-                                <div class="row g-4">
-                                    
-                                    <div class="col-md-6">
-                                        <label for="binding" class="option-label">Binding</label>
-                                        <select id="binding" name="binding" class="form-select">
-                                            <option value="None">No Binding</option>
-                                            <option value="Comb Binding (Black)">Comb Binding (Black)</option>
-                                            <option value="Comb Binding (White)">Comb Binding (White)</option>
-                                        </select>
-                                    </div>
-                                    
-                                    <div class="col-md-6">
-                                        <label class="option-label">Lamination</label>
-                                        <div class="d-flex choice-card-group">
-                                            <input type="radio" name="lamination" id="lamination-none" value="None" checked>
-                                            <label class="choice-card-label" for="lamination-none">No lamination</label>
-                                            
-                                            <input type="radio" name="lamination" id="lamination-include" value="Laminate">
-                                            <label class="choice-card-label" for="lamination-include">Include Lamination</label>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-md-6">
-                                        <label for="customerName" class="option-label">👤 Your Name (Mandatory)</label>
-                                        <input type="text" id="customerName" name="customerName" placeholder="Your Full Name" required class="form-control">
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label for="customerEmail" class="option-label">📧 Your Email (Optional)</label>
-                                        <input type="email" id="customerEmail" name="customerEmail" placeholder="yourname@example.com" class="form-control">
-                                        <input type="hidden" name="orderId" id="orderId">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <input type="hidden" name="orderId" id="orderId">
 
                         <div class="col-12">
                             <div class="whatsapp-action-block text-center">
-                                <h3 class="text-success fw-bold">Send Files & Place Order</h3>
-                                <p class="text-muted">Click the button below to open WhatsApp with your full order summary. You can then attach and send your documents and photos directly in the chat.</p>
-                                
-                                <div class="row g-3 align-items-center justify-content-center">
+                                <h4 class="text-success fw-bold">Place Order and Upload Your Files</h4>
+                                   <div class="row g-3 align-items-center justify-content-center">
                                     <div class="col-md-6">
                                         <div class="price-summary">
-                                            Estimated Price: <span id="totalPrice" class="text-white">Calculating...</span>
-                                            <p class="small text-white-75 mb-0 mt-1">Final price confirmed after file review</p>
+                                            Price (Excluding Delivery):
+                                            <span id="totalPrice"><span class="text-primary fw-bold">PKR 0.00</span></span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <button type="submit" class="btn btn-success py-3 w-100 fw-bold">
-                                            <i class="fab fa-whatsapp fa-lg me-2"></i> Send Order & Files via WhatsApp
+                                        <button type="submit" class="btn btn-success py-3 w-100 fw-bold">Click Here to Place Order and File Upload
                                         </button>
                                     </div>
                                 </div>
@@ -312,27 +295,28 @@
                     </form>
 
                     <div id="terms-section" class="terms-content">
-                        <h2>📜 Print Service Terms and Conditions</h2>
+                        <h4>📜 Print Service Terms and Conditions</h4>
                         
-                        <h4 class="fw-bold">1. File Submission & Quality</h4>
+                        <h5 class="fw-bold">1. File Submission & Quality</h5>
                         <ul class="list-unstyled text-muted ps-3">
                             <li><i class="fas fa-check-circle text-success me-2"></i>**File Format:** We strongly recommend submitting files in **PDF format** for the highest compatibility and print quality. We also accept JPG, PNG, DOCX, and PPTX.</li>
                             <li><i class="fas fa-check-circle text-success me-2"></i>**Preparation:** All documents must be **unzipped and free of password protection**. The customer is responsible for ensuring the file is correctly sized (e.g., an A4 file for A4 prints).</li>
                             <li><i class="fas fa-times-circle text-danger me-2"></i>**Borderless Printing:** We are unable to offer borderless (full bleed) printing via this standard online service. A small white margin will be applied to all prints.</li>
                         </ul>
 
-                        <h4 class="fw-bold">2. Content & Order Restriction</h4>
+                        <h5 class="fw-bold">2. Content & Order Restriction</h5>
                         <ul class="list-unstyled text-muted ps-3">
                             <li><i class="fas fa-exclamation-triangle text-warning me-2"></i>**Inappropriate Content:** We reserve the right to decline any order that, in our sole judgment, contains offensive, inflammatory, discriminatory, illegal, or otherwise inappropriate content.</li>
                         </ul>
 
-                        <h4 class="fw-bold">3. Payment & Refunds</h4>
+                        <h5 class="fw-bold">3. Payment & Refunds</h5>
                         <ul class="list-unstyled text-muted ps-3">
                             <li><i class="fas fa-dollar-sign text-primary me-2"></i>**Non-Refundable:** All print orders are considered **non-refundable** once the printing process has commenced.</li>
                             <li><i class="fas fa-shield-alt text-success me-2"></i>**Quality Guarantee:** If you encounter any issues with the print quality due to our error, we are happy to provide a **free reprint** if the issue is reported within **24 hours** of collection or delivery.</li>
+                            <li><i class="fas fa-truck text-primary me-2"></i>**Delivery Charges:** The final price confirmed via WhatsApp will include delivery charges, which will be determined based on the customer's delivery address.</li>
                         </ul>
 
-                        <h4 class="fw-bold">4. Data Security (GDPR Compliance)</h4>
+                        <h5 class="fw-bold">4. Data Security (GDPR Compliance)</h5>
                         <ul class="list-unstyled text-muted ps-3">
                             <li><i class="fas fa-lock text-primary me-2"></i>**Digital File Retention:** To protect your privacy, all digital files uploaded to our OneDrive folder will be automatically deleted from our server/cloud storage after **7 days** from order completion.</li>
                             <li><i class="fas fa-shredder text-secondary me-2"></i>**Uncollected Prints:** Physical documents that are uncollected will be securely shredded in accordance with GDPR after **30 days** of the order date. No refund will be issued for uncollected prints.</li>
@@ -349,7 +333,7 @@
           <div class="col-6 col-md-3">
             <div class="rounded p-2 d-flex flex-column align-items-center">
               <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
-                <i class="fas fa-map-marker-alt fa-2x text-primary" style="line-height: 1;"></i>
+                <i class="fas fa-map-marker-alt fa-2x text-primary" style="line-height: 1);"></i>
               </div>
               <h6 class="text-white mt-1 mb-1">Address</h6>
               <p class="text-white fw-bold mb-1 small text-center">Domela Chowk, Tanda Road, Jalalpur Jattan</p>
@@ -359,7 +343,7 @@
           <div class="col-6 col-md-3">
             <div class="rounded p-2 d-flex flex-column align-items-center">
               <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
-                <i class="fas fa-envelope fa-2x text-primary" style="line-height: 1;"></i>
+                <i class="fas fa-envelope fa-2x text-primary" style="line-height: 1);"></i>
               </div>
               <h6 class="text-white mt-1 mb-1">Mail Us</h6>
               <p class="text-white fw-bold mb-1 small text-center">info@arhamprinters.pk</p>
@@ -370,7 +354,7 @@
             <div class="rounded p-2 d-flex flex-column align-items-center">
               <a href="https://wa.me/923006238233" target="_blank" class="text-decoration-none">
                 <div class="rounded-circle bg-success d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
-                  <i class="fab fa-whatsapp fa-2x text-white" style="line-height: 1;"></i>
+                  <i class="fab fa-whatsapp fa-2x text-white" style="line-height: 1);"></i>
                 </div>
               </a>
               <h6 class="text-white mt-1 mb-1">Direct Contact</h6>
@@ -383,7 +367,7 @@
           <div class="col-6 col-md-3">
             <div class="rounded p-2 d-flex flex-column align-items-center">
               <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
-                <i class="fab fa-facebook-f fa-2x text-primary" style="line-height: 1;"></i>
+                <i class="fab fa-facebook-f fa-2x text-primary" style="line-height: 1);"></i>
               </div>
               <h6 class="text-white mt-1 mb-1">Follow Us</h6>
               <div class="d-flex justify-content-center gap-1">
@@ -423,96 +407,191 @@
     <script src="js/main.js"></script>
 
     <script>
-        // Set current year in footer
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        // Global variable to hold pricing data
+        let pricingData = null;
 
-        // Handle print order submission
+        // Fetch pricing data from JSON file
+        async function fetchPricingData() {
+            try {
+                const response = await fetch('pricing.json'); 
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                pricingData = await response.json();
+                console.log('Pricing data loaded successfully.');
+                // Trigger initial calculation once data is ready
+                calculateEstimatedPrice(); 
+            } catch (error) {
+                console.error('Could not fetch pricing data:', error);
+                document.getElementById('totalPrice').innerHTML = '<span>Error loading prices!</span>';
+            }
+        }
+
+        /**
+         * Determines the price per unit based on the total quantity and defined tiers.
+         */
+        function getTierPrice(gsmPricing, totalPages) {
+            let pricePerUnit = 0;
+            let highestTierPrice = 0;
+            
+            const tiers = Object.keys(gsmPricing).sort((a, b) => {
+                const minA = parseInt(a.split('-')[0]);
+                const minB = parseInt(b.split('-')[0]);
+                return minA - minB;
+            });
+            
+            if (tiers.length > 0) {
+                highestTierPrice = gsmPricing[tiers[tiers.length - 1]];
+            }
+
+            for (const range of tiers) {
+                const [min, max] = range.split('-').map(n => parseInt(n));
+                
+                if (totalPages >= min && (totalPages <= max || range.endsWith('-1000'))) {
+                    pricePerUnit = gsmPricing[range];
+                    return pricePerUnit;
+                }
+            }
+
+            return highestTierPrice; 
+        }
+
+        // --- REAL-TIME CALCULATE PRICE FUNCTION ---
+        function calculateEstimatedPrice() {
+            if (!pricingData) {
+                // If data hasn't loaded yet, show loading state
+                document.getElementById('totalPrice').innerHTML = '<span>Loading Prices...</span>';
+                return;
+            }
+
+            // Safely retrieve all selected values
+            const size = document.querySelector('input[name="size"]:checked')?.value;
+            const paperGsm = document.querySelector('input[name="paperGsm"]:checked')?.value; 
+            const color = document.querySelector('input[name="color"]:checked')?.value;
+            const siding = document.querySelector('input[name="siding"]:checked')?.value;
+            const quantity = parseInt(document.getElementById('quantity').value);
+            
+            // --- FIX APPLIED HERE ---
+            // If any critical selection is missing or quantity is invalid, show PKR 0.00
+            if (!size || !paperGsm || !color || !siding || quantity <= 0 || isNaN(quantity)) {
+                document.getElementById('totalPrice').innerHTML = '<span class="text-primary fw-bold">PKR 0.00</span>';
+                return;
+            }
+
+            // Map user selections to JSON keys
+            const sizeKey = size;
+            const colorKey = color === 'Black & White' ? 'black_white' : 'color';
+            const gsmKey = paperGsm;
+
+            // Determine Total Pages (Total printed sides) for tier calculation
+            const totalPages = quantity * (siding === 'Double Sided' ? 2 : 1);
+
+            try {
+                // Navigate the simplified JSON path: Size -> Color -> GSM
+                const gsmPricing = pricingData[sizeKey][colorKey][gsmKey];
+                
+                if (!gsmPricing) {
+                     document.getElementById('totalPrice').innerHTML = '<span>Pricing Not Configured!</span>';
+                     return;
+                }
+
+                const pricePerUnit = getTierPrice(gsmPricing, totalPages);
+                
+                if (pricePerUnit === 0) {
+                    document.getElementById('totalPrice').innerHTML = '<span>Pricing Error!</span>';
+                    return;
+                }
+                
+                const totalPrice = pricePerUnit * totalPages;
+                
+                // Display the calculated price with price per page, using PKR
+                const priceOutput = `<span class="text-primary fw-bold">PKR ${Math.round(totalPrice).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                                     <p class="small text-white-75 mb-0 mt-1" style="font-weight: normal; font-size: 0.8em;">
+                                         (PKR ${pricePerUnit.toFixed(2)} per page)
+                                     </p>`;
+
+                document.getElementById('totalPrice').innerHTML = priceOutput;
+                
+            } catch (e) {
+                console.error("Error in price calculation lookup:", e);
+                document.getElementById('totalPrice').innerHTML = '<span>Configuration Error!</span>';
+            }
+        }
+
+        // Handle print order submission (WhatsApp message creation)
         function handlePrintOrderSubmission(e) {
             e.preventDefault();
             
-            // Get form values
-            const name = document.getElementById('customerName').value;
-            const email = document.getElementById('customerEmail').value;
-            const color = document.querySelector('input[name="color"]:checked').value;
-            const siding = document.querySelector('input[name="siding"]:checked').value;
-            const size = document.querySelector('input[name="size"]:checked').value;
-            const paperType = document.getElementById('paperType').value;
+            // Ensure calculation is performed before sending
+            calculateEstimatedPrice(); 
+
+            // Get specifications
+            const color = document.querySelector('input[name="color"]:checked')?.value || 'N/A';
+            const siding = document.querySelector('input[name="siding"]:checked')?.value || 'N/A';
+            const size = document.querySelector('input[name="size"]:checked')?.value || 'N/A';
+            const paperGsm = document.querySelector('input[name="paperGsm"]:checked')?.value || 'N/A';
             const quantity = document.getElementById('quantity').value;
-            const binding = document.getElementById('binding').value;
-            const lamination = document.querySelector('input[name="lamination"]:checked').value;
             
-            // Generate order ID
+            // Extract the calculated price for the WhatsApp message
+            const priceSpan = document.getElementById('totalPrice').querySelector('.text-primary')?.textContent;
+            const totalPrintingPrice = priceSpan || 'PKR 0.00 (Please review options)';
+
             const orderId = 'PRINT-' + Date.now().toString().slice(-6);
             document.getElementById('orderId').value = orderId;
             
-            // Create WhatsApp message
+            const sheets = parseInt(quantity) || 1;
+            const totalPages = sheets * (siding === 'Double Sided' ? 2 : 1);
+
+            // Construct WhatsApp message
             let message = `*NEW PRINT ORDER REQUEST - ARHAM PRINTERS*\n\n`;
             message += `*Order ID:* ${orderId}\n`;
-            message += `*Customer Name:* ${name}\n`;
-            message += `*Email:* ${email || 'Not provided'}\n\n`;
+            message += `*Customer Contact:* (Provided via WhatsApp chat name)\n\n`; 
             message += `*PRINT SPECIFICATIONS:*\n`;
             message += `• Print Color: ${color}\n`;
             message += `• Print Siding: ${siding}\n`;
             message += `• Paper Size: ${size}\n`;
-            message += `• Paper Type: ${paperType}\n`;
-            message += `• Quantity: ${quantity} copies\n`;
-            message += `• Binding: ${binding}\n`;
-            message += `• Lamination: ${lamination}\n\n`;
+            message += `• Paper GSM: ${paperGsm}\n`;
+            message += `• Sheets Quantity: ${sheets} sheets\n`;
+            message += `• Total Printed Pages (Sides): ${totalPages}\n\n`;
+            message += `*TOTAL PRINTING PRICE (EXCL. DELIVERY):* ${totalPrintingPrice}\n`; 
+            message += `*ACTION REQUIRED:* Please provide your full name and delivery address for final price confirmation and delivery charge calculation.\n\n`;
             message += `*INSTRUCTIONS:*\n`;
-            message += `Please attach your document files in this WhatsApp chat.\n`;
-            message += `We accept: PDF, JPG, PNG, DOCX, PPTX files.\n\n`;
-            message += `We will review your files and confirm the final price shortly.`;
+            message += `Please attach your document files (PDF recommended) in this WhatsApp chat.\n`;
+            message += `We will review your files, determine delivery charges, and confirm the final price shortly.`;
             
             // Open WhatsApp
             window.open(`https://wa.me/923006238233?text=${encodeURIComponent(message)}`, '_blank');
             
-            // Show confirmation
             alert('Opening WhatsApp with your order details. Please attach your files in the chat.');
             
-            // Reset form after submission
             setTimeout(() => {
                 document.getElementById('printOrderForm').reset();
             }, 2000);
         }
 
-        // Initialize WOW animations
-        if (typeof WOW !== 'undefined') {
-            new WOW().init();
-        }
+        // --- REAL-TIME EVENT LISTENERS ---
 
-        // Calculate estimated price based on selections
-        function calculateEstimatedPrice() {
-            const color = document.querySelector('input[name="color"]:checked').value;
-            const siding = document.querySelector('input[name="siding"]:checked').value;
-            const size = document.querySelector('input[name="size"]:checked').value;
-            const quantity = parseInt(document.getElementById('quantity').value) || 1;
-            
-            // Base pricing logic (simplified)
-            let basePrice = 0;
-            
-            if (color === 'Black & White') {
-                basePrice = size === 'A4' ? 5 : 10; // PKR per page
-            } else {
-                basePrice = size === 'A4' ? 20 : 40; // PKR per page for color
-            }
-            
-            if (siding === 'Double Sided') {
-                basePrice *= 1.5;
-            }
-            
-            const totalPrice = basePrice * quantity;
-            document.getElementById('totalPrice').textContent = `PKR ${totalPrice.toLocaleString()}`;
-        }
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Attach real-time calculation listeners to all relevant inputs
+            document.querySelectorAll('input[name="color"], input[name="siding"], input[name="size"], input[name="paperGsm"]').forEach(input => {
+                input.addEventListener('change', calculateEstimatedPrice);
+            });
+            document.getElementById('quantity').addEventListener('input', calculateEstimatedPrice);
 
-        // Add event listeners for price calculation
-        document.querySelectorAll('input[name="color"], input[name="siding"], input[name="size"]').forEach(input => {
-            input.addEventListener('change', calculateEstimatedPrice);
+            // Update copyright year
+            const copyrightElement = document.querySelector('.copyright span.small');
+            if (copyrightElement) {
+                copyrightElement.innerHTML = copyrightElement.innerHTML.replace('2025', new Date().getFullYear());
+            }
+
+            // Initialize WOW animations
+            if (typeof WOW !== 'undefined') {
+                new WOW().init();
+            }
+
+            // Fetch pricing data and trigger initial calculation
+            await fetchPricingData();
         });
-        
-        document.getElementById('quantity').addEventListener('input', calculateEstimatedPrice);
-
-        // Initialize price on load
-        document.addEventListener('DOMContentLoaded', calculateEstimatedPrice);
     </script>
 </body>
 </html>
