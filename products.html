@@ -100,11 +100,12 @@
             display: block;
             font-size: 1.1rem;
         }
-        
+
         /* New Card Style Fixes for Image/Card Size */
         .card-img-top {
             width: 100%;
-            height: 180px; /* Uniform height for catalog images */
+            height: 180px;
+            /* Uniform height for catalog images */
             object-fit: cover;
         }
     </style>
@@ -158,31 +159,40 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
                         <div class="dropdown-menu bg-light border-0 m-0">
-                            <a href="#" class="dropdown-item" onclick="filterCatalog('Business Essentials')">Business Essentials</a>
-                            <a href="#" class="dropdown-item" onclick="filterCatalog('Marketing Essentials')">Marketing Essentials</a>
-                            <a href="#" class="dropdown-item" onclick="filterCatalog('Office Essentials')">Office Essentials</a>
-                            <a href="#" class="dropdown-item" onclick="filterCatalog('Wedding Invitation Cards')">Wedding Invitation Cards</a>
-                            <a href="#" class="dropdown-item" onclick="filterCatalog('Panaflex Printing')">Panaflex Printing</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Business Essentials')">Business
+                                Essentials</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Marketing Essentials')">Marketing
+                                Essentials</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Office Essentials')">Office
+                                Essentials</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Wedding Invitation Cards')">Wedding
+                                Invitation Cards</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Panaflex Printing')">Panaflex
+                                Printing</a>
                             <a href="#" class="dropdown-item" onclick="filterCatalog('Photo Printing')">Photo Printing</a>
                             <a href="#" class="dropdown-item" onclick="filterCatalog('3D Wallpaper')">3D Wallpaper</a>
-                            <a href="#" class="dropdown-item" onclick="filterCatalog('Promotional Items')">Promotional Items</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Promotional Items')">Promotional
+                                Items</a>
                             <a href="#" class="dropdown-item" onclick="filterCatalog('Shields')">Shields</a>
                             <a href="#" class="dropdown-item" onclick="filterCatalog('Souvenirs')">Souvenirs</a>
-                            <a href="#" class="dropdown-item" onclick="filterCatalog('Flags and Fabric')">Flags and Fabric</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Flags and Fabric')">Flags and
+                                Fabric</a>
                             <a href="#" class="dropdown-item" onclick="filterCatalog('Box Packaging')">Box Packaging</a>
-                            <a href="#" class="dropdown-item" onclick="filterCatalog('Marketing and Advertising')">Marketing and Advertising</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Marketing and Advertising')">Marketing
+                                and Advertising</a>
                             <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item" onclick="showSection('quote')">Get Custom Quote</a> 
+                            <a href="#" class="dropdown-item" onclick="showSection('quote')">Get Custom Quote</a>
                         </div>
                     </div>
-                    <a href="#" class="nav-item nav-link" onclick="showSection('contact')">Contact</a> 
+                    <a href="#" class="nav-item nav-link" onclick="showSection('contact')">Contact</a>
                 </div>
                 <div class="h-100 d-lg-inline-flex align-items-center">
-                    <a class="btn-sm-square bg-white text-primary rounded-circle me-4 position-relative" href="#" onclick="showSection('quote')">
+                    <a class="btn-sm-square bg-white text-primary rounded-circle me-4 position-relative" href="#"
+                        onclick="showSection('quote')">
                         <i class="fas fa-file-invoice"></i>
                     </a>
-                    <a href="#" onclick="showSection('quote')" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block">Get a Quote<i
-                            class="fa fa-arrow-right ms-3"></i></a>
+                    <a href="#" onclick="showSection('quote')" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block">Get a
+                        Quote<i class="fa fa-arrow-right ms-3"></i></a>
                 </div>
             </div>
         </nav>
@@ -198,13 +208,13 @@
                         <div class="bg-light p-4 rounded mb-4 wow fadeInUp" data-wow-delay="0.1s">
                             <h4 class="mb-4">Product Categories</h4>
                             <ul class="list-unstyled" id="productCategoriesList">
-                                </ul>
+                            </ul>
                         </div>
                     </div>
 
                     <div class="col-lg-9">
                         <div class="row g-4" id="main-product-catalog">
-                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -526,6 +536,24 @@
         <script src="js/main.js"></script>
 
         <script>
+            // 🛑 FIX START: CUSTOM CATEGORY ORDER DEFINITION 🛑
+            const CATEGORY_ORDER = [
+                "Business Essentials",
+                "Office Essentials",
+                "Marketing Essentials",
+                "Marketing and Advertising",
+                "Photo Printing",
+                "Promotional Items",
+                "Wedding Invitation Cards",
+                "Box Packaging",
+                "Flags and Fabric",
+                "Shields",
+                "Souvenirs",
+                "Panaflex Printing",
+                "3D Wallpaper"
+            ];
+            // 🛑 FIX END: CUSTOM CATEGORY ORDER DEFINITION 🛑
+
             // --- Configuration ---
             const PUBLIC_DATA_URL = 'pricing.json';
             const WHATSAPP_NUMBER = '923006238233';
@@ -578,7 +606,7 @@
                 document.getElementById('contact-form-whatsapp').addEventListener('submit', handleContactSubmission);
             }
 
-            // Function to populate the sidebar with the new main categories
+            // Function to populate the sidebar with the new main categories (UPDATED FOR SORTING)
             function populateSidebarCategories() {
                 const container = document.getElementById('productCategoriesList');
                 container.innerHTML = '';
@@ -590,7 +618,21 @@
                     }
                 });
 
-                Array.from(categoriesSet).sort().forEach(category => {
+                // 🛑 FIX APPLIED: Using custom sort based on CATEGORY_ORDER array 🛑
+                const sortedCategories = Array.from(categoriesSet).sort((a, b) => {
+                    const indexA = CATEGORY_ORDER.indexOf(a);
+                    const indexB = CATEGORY_ORDER.indexOf(b);
+
+                    // Handle categories not found in the custom order (place them at the end)
+                    if (indexA === -1 && indexB === -1) return a.localeCompare(b); // Alphabetical sort for extras
+                    if (indexA === -1) return 1;
+                    if (indexB === -1) return -1;
+
+                    return indexA - indexB;
+                });
+                // 🛑 END OF FIX 🛑
+
+                sortedCategories.forEach(category => {
                     container.innerHTML += `
                         <li>
                             <div class="categories-item">
@@ -867,14 +909,14 @@
 
                     // Add quantity selector for standard items
                     standardOptions.innerHTML += `
-                            <div class="product-option-group" data-option-key="QuantitySelector">
-                                <label>Quantity:</label>
-                                <div class="input-group">
-                                    <button class="btn btn-outline-secondary" type="button" onclick="updateQuantityStandard(-1)">-</button>
-                                    <input type="number" id="input-standard-qty" min="1" value="1" class="form-control text-center" oninput="updateFinalPrice()">
-                                    <button class="btn btn-outline-secondary" type="button" onclick="updateQuantityStandard(1)">+</button>
+                                <div class="product-option-group" data-option-key="QuantitySelector">
+                                    <label>Quantity:</label>
+                                    <div class="input-group">
+                                        <button class="btn btn-outline-secondary" type="button" onclick="updateQuantityStandard(-1)">-</button>
+                                        <input type="number" id="input-standard-qty" min="1" value="1" class="form-control text-center" oninput="updateFinalPrice()">
+                                        <button class="btn btn-outline-secondary" type="button" onclick="updateQuantityStandard(1)">+</button>
+                                    </div>
                                 </div>
-                            </div>
                         `;
 
                     document.getElementById('finalPriceBox').style.display = 'none';
@@ -1044,7 +1086,7 @@
                     const details = Object.entries(currentSelectedVariations)
                         .map(([key, val]) => {
                             // Convert sanitized key back to readable format for the message
-                            const readableKey = key.replace(/[A-Z]/g, ' $&').trim(); 
+                            const readableKey = key.replace(/[A-Z]/g, ' $&').trim();
                             return `\n- ${readableKey}: ${val}`;
                         });
 
