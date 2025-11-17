@@ -1,356 +1,1261 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Catalog Viewer - All Data</title>
+    <meta charset="utf-8">
+    <title>Arham Printers - Product Catalog</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Printing Services, Business Cards, Stationery, Marketing Materials, Full Catalog" name="keywords">
+    <meta content="Explore the full range of professional printing services and product catalog from Arham Printers."
+        name="description">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
     <style>
-        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f9; }
-        .product-card { 
-            background-color: white; 
-            border: 1px solid #ddd; 
-            margin-bottom: 20px; 
-            padding: 15px; 
+        /* General Layout and Utility Styles */
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .final-price-box {
+            background: var(--bs-primary);
+            color: white;
+            padding: 1.5rem;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-top: 1.5rem;
+            text-align: center;
+            display: none;
         }
-        .product-title { color: #333; border-bottom: 2px solid #007bff; padding-bottom: 5px; margin-bottom: 10px; }
-        .product-options { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px; }
-        .product-options div { font-weight: bold; width: 100%; margin-top: 10px; }
-        .variation-tag { 
-            display: inline-block; 
-            padding: 5px 10px; 
-            border: 1px solid #ccc; 
-            border-radius: 4px; 
-            cursor: pointer; 
-            transition: background-color 0.3s;
-            margin-right: 5px;
+
+        .final-price-box h4 {
+            color: white;
         }
-        .variation-tag.selected { background-color: #007bff; color: white; border-color: #007bff; }
-        .price-display { font-size: 1.2em; font-weight: bold; color: #28a745; }
-        .category-title { color: #007bff; margin-top: 30px; margin-bottom: 15px; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
-        .unstandardized-note { color: #888; font-size: 0.9em; margin-top: 5px; }
+
+        /* Clickable Card Variations (Standard Items) */
+        .choice-card {
+            cursor: pointer;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 10px 15px;
+            text-align: center;
+            transition: all 0.2s ease;
+            flex-grow: 1;
+            min-width: 120px;
+        }
+
+        .choice-card:hover {
+            border-color: var(--bs-secondary);
+            background-color: #fff8f8;
+        }
+
+        .choice-card.selected {
+            border-color: var(--bs-primary);
+            background-color: var(--bs-primary);
+            color: white;
+            box-shadow: 0 0 10px rgba(242, 139, 0, 0.3);
+        }
+
+        .choice-card input[type="radio"] {
+            display: none;
+        }
+
+        .choice-card .label-text {
+            font-weight: 500;
+            color: var(--bs-dark);
+            display: block;
+        }
+
+        .choice-card.selected .label-text {
+            color: white;
+        }
+
+        .product-option-group {
+            margin-bottom: 1.5rem;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .product-option-group label {
+            font-weight: 600;
+            color: var(--bs-dark);
+            margin-bottom: 0.75rem;
+            display: block;
+            font-size: 1.1rem;
+        }
+
+        /* New Card Style Fixes for Image/Card Size */
+        .card-img-top {
+            width: 100%;
+            height: 180px;
+            /* Uniform height for catalog images */
+            object-fit: cover;
+        }
     </style>
 </head>
+
 <body>
-
-    <h1>Standardized Product Catalog (All Data Included)</h1>
-    <p>Products with the "All Options" section support clickable variations. Other products are shown with their original structure and a placeholder price.</p>
-
-    <div id="catalog-container">
+    <div class="container">
+        <div id="spinner"
+            class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
         </div>
+        <div class="container-fluid bg-dark text-white-50 py-2 px-0 d-none d-lg-block">
+            <div class="row gx-0 align-items-center">
+                <div class="col-lg-7 px-5 text-start">
+                    <div class="h-100 d-inline-flex align-items-center me-4">
+                        <small class="fa fa-phone-alt me-2"></small>
+                        <small>+92 300 6238233</small>
+                    </div>
+                    <div class="h-100 d-inline-flex align-items-center me-4">
+                        <small class="far fa-envelope-open me-2"></small>
+                        <small>info@arhamprinters.pk</small>
+                    </div>
+                    <div class="h-100 d-inline-flex align-items-center me-4">
+                        <small class="far fa-clock me-2"></small>
+                        <small>Mon - Fri : 09 AM - 09 PM</small>
+                    </div>
+                </div>
+                <div class="col-lg-5 px-5 text-end">
+                    <div class="h-100 d-inline-flex align-items-center">
+                        <a class="text-white-50 ms-4" href=""><i class="fab fa-facebook-f"></i></a>
+                        <a class="text-white-50 ms-4" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="text-white-50 ms-4" href=""><i class="fab fa-linkedin-in"></i></a>
+                        <a class="text-white-50 ms-4" href=""><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5">
+            <a href="index.html" class="navbar-brand d-flex align-items-center">
+                <h1 class="m-0 text-primary"><i class="fa fa-print me-3"></i>Arham Printers</h1>
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav mx-auto bg-light pe-4 py-3 py-lg-0">
+                    <a href="index.html" class="nav-item nav-link">Home</a>
+                    <a href="#" class="nav-item nav-link active" onclick="showSection('shop-catalog')">Products</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
+                        <div class="dropdown-menu bg-light border-0 m-0">
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Business Essentials')">Business
+                                Essentials</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Marketing Essentials')">Marketing
+                                Essentials</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Office Essentials')">Office
+                                Essentials</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Wedding Invitation Cards')">Wedding
+                                Invitation Cards</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Panaflex Printing')">Panaflex
+                                Printing</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Photo Printing')">Photo Printing</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('3D Wallpaper')">3D Wallpaper</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Promotional Items')">Promotional
+                                Items</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Shields')">Shields</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Souvenirs')">Souvenirs</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Flags and Fabric')">Flags and
+                                Fabric</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Box Packaging')">Box Packaging</a>
+                            <a href="#" class="dropdown-item" onclick="filterCatalog('Marketing and Advertising')">Marketing
+                                and Advertising</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item" onclick="showSection('quote')">Get Custom Quote</a>
+                        </div>
+                    </div>
+                    <a href="#" class="nav-item nav-link" onclick="showSection('contact')">Contact</a>
+                </div>
+                <div class="h-100 d-lg-inline-flex align-items-center">
+                    <a class="btn-sm-square bg-white text-primary rounded-circle me-4 position-relative" href="#"
+                        onclick="showSection('quote')">
+                        <i class="fas fa-file-invoice"></i>
+                    </a>
+                    <a href="#" onclick="showSection('quote')" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block">Get a
+                        Quote<i class="fa fa-arrow-right ms-3"></i></a>
+                </div>
+            </div>
+        </nav>
+        <section id="shop-catalog-section" class="section active">
 
-    <script>
-        // --- Full JSON Data (Embedded for execution) ---
-        const productData = {
-            "Business Essentials": {
-                "Shine Visisting Cards": {
-                    "All Options": [
-                        { "Size": "3.5x2", "Quality": "Standard", "Finish": "Shine", "Sides": "Single Color", "price_per_unit": 1000 }
-                    ]
-                },
-                "Mat Cards": {
-                    "All Options": [
-                        { "Size": "3.5x2", "Quality": "Standard", "Shape": "Round Corners", "Sides": "Double Side", "Finish": "Mat", "price_per_unit": 1200 },
-                        { "Size": "3.5x2", "Quality": "Standard", "Shape": "Plain Corners", "Sides": "Double Side", "Finish": "Mat", "price_per_unit": 1000 }
-                    ],
-                    "Plain Corners": { "Custom": [{ "Printing Side": "Single side", "price_per_unit": 1900.0 }, { "Printing Side": "Double side", "price_per_unit": 2000.0 }] },
-                    "Round Corners": { "Custom": [{ "Printing Side": "Single side", "price_per_unit": 2300.0 }, { "Printing Side": "Double side", "price_per_unit": 3000.0 }] }
-                },
-                "UV Cards": {
-                    "All Options": [
-                        { "Size": "3.5x2", "Quality": "Standard", "Shape": "Round Corners", "Sides": "Double Side", "Finish": "UV", "price_per_unit": 1500 }
-                    ]
-                },
-                "Visisting Cards": {
-                    "All Options": [
-                        { "Finish": "Shine", "Size/Type": "Custom", "Printing Side": "Single side", "price_per_unit": 1800.0 },
-                        { "Finish": "Shine", "Size/Type": "Custom", "Printing Side": "Double side", "price_per_unit": 2000.0 }
-                    ]
-                }
-            },
-            "Marketing Essentials": {
-                "Pamphlets": {
-                    "All Options": [
-                        { "Size": "5.75x9", "Weight": "68 gms", "price_per_unit": 1.5 }, { "Size": "5.75x9", "Weight": "68 gms", "price_per_unit": 2.0 }, { "Size": "5.75x9", "Weight": "68 gms", "price_per_unit": 3.0 },
-                        { "Size": "5.75x9", "Weight": "80gms", "price_per_unit": 2.0 }, { "Size": "5.75x9", "Weight": "80gms", "price_per_unit": 2.5 }, { "Size": "5.75x9", "Weight": "80gms", "price_per_unit": 4.0 },
-                        { "Size": "A4", "Weight": "68 gms", "price_per_unit": 5.0 }, { "Size": "A4", "Weight": "80gms", "price_per_unit": 7.0 }
-                    ]
-                },
-                "Flyers/Ishtihars": {
-                    "5.75x9": {
-                        "90gms Art Paper": [
-                            { "Sides": "Single Side", "price_per_unit": 6.0 },
-                            { "Sides": "Double Side", "price_per_unit": 9.0 }
+            <div class="container-fluid page-header py-5">
+                <h2 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Products and Services</h2>
+            </div>
+
+            <div class="container py-5">
+                <div class="row g-4">
+                    <div class="col-lg-3">
+                        <div class="bg-light p-4 rounded mb-4 wow fadeInUp" data-wow-delay="0.1s">
+                            <h4 class="mb-4">Product Categories</h4>
+                            <ul class="list-unstyled" id="productCategoriesList">
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-9">
+                        <div class="row g-4" id="main-product-catalog">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container mt-5">
+                <div class="text-center mb-4">
+                    <h3>Need Custom Document Printing?</h3>
+                    <p class="text-muted">Upload your documents, reports, and photos for professional printing</p>
+                    <a href="print-order.html" class="btn btn-warning btn-lg">
+                        <i class="fas fa-print me-2"></i>Print Documents & Photos
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section id="product-detail-section" class="section">
+            <div class="container-fluid page-header py-5">
+                <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s"
+                    id="detail-product-name-header">Product Details</h1>
+                <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+                    <li class="breadcrumb-item"><a href="#" onclick="showSection('shop-catalog')">Products</a></li>
+                    <li class="breadcrumb-item active text-white">Details</li>
+                </ol>
+            </div>
+
+            <div class="container-fluid py-5">
+                <div class="container py-5">
+                    <div class="row g-5">
+                        <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="d-flex justify-content-center">
+                                <img id="detail-product-image" src="img/placeholder.jpg" class="img-fluid rounded"
+                                    alt="Product Image" style="max-height: 400px; object-fit: cover;">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                            <h2 class="fw-bold mb-4" id="detail-product-name-body">Product Name</h2>
+
+                            <div id="custom-area-inputs" style="display: none;">
+                                <div class="product-option-group" data-option-key="Dimensions">
+                                    <label>Wall/Piece Dimensions (Feet):</label>
+                                    <div class="d-flex gap-3">
+                                        <input type="number" id="input-width" min="1" placeholder="Width"
+                                            class="form-control" oninput="updateFinalPrice()">
+                                        <span class="align-self-center">x</span>
+                                        <input type="number" id="input-height" min="1" placeholder="Height"
+                                            class="form-control" oninput="updateFinalPrice()">
+                                    </div>
+                                    <small class="text-muted mt-2 d-block" id="areaDisplay"></small>
+                                </div>
+
+                                <div class="product-option-group" data-option-key="Quantity">
+                                    <label>Number of Pieces/Walls:</label>
+                                    <input type="number" id="input-custom-qty" min="1" value="1" class="form-control"
+                                        oninput="updateFinalPrice()">
+                                </div>
+
+                                <div class="alert alert-danger mt-3" id="areaConstraintWarning" style="display: none;">
+                                </div>
+                            </div>
+
+                            <div id="standard-options-fields">
+                            </div>
+
+                            <div class="final-price-box" id="finalPriceBox">
+                                <h4 class="mb-2">Final Price (PKR)</h4>
+                                <h3 class="display-6 fw-bold" id="finalPriceDisplay">PKR 0</h3>
+
+                                <button class="btn btn-secondary py-2 px-4 w-100 mt-3" onclick="addToCartFromDetails()">
+                                    <i class="fab fa-whatsapp me-2"></i> Place Order via WhatsApp
+                                </button>
+                            </div>
+
+                            <div class="alert alert-info mt-3" id="selectionWarning" style="display: block;">
+                                Please enter dimensions/quantity or select all options above to see the final price.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="quote-section" class="section">
+            <div class="container-fluid page-header py-5">
+                <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Get a Custom Quote</h1>
+                <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+                    <li class="breadcrumb-item"><a href="#" onclick="showSection('shop-catalog')">Products</a></li>
+                    <li class="breadcrumb-item active text-white">Quote</li>
+                </ol>
+            </div>
+
+            <div class="container-fluid py-5">
+                <div class="container py-5">
+                    <div class="row g-4 justify-content-center">
+                        <div class="col-lg-8">
+                            <div class="bg-light p-4 rounded">
+                                <form id="quote-form">
+                                    <h3 class="mb-4">Quick Inquiry</h3>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control border-0" id="quote-name"
+                                                    placeholder="Your Name" required>
+                                                <label for="quote-name">Your Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input type="tel" class="form-control border-0" id="quote-phone"
+                                                    placeholder="WhatsApp Phone" required>
+                                                <label for="quote-phone">WhatsApp Phone</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control border-0" id="quote-product"
+                                                    placeholder="Product Name (e.g., Visiting Cards, 3D Wallpaper)">
+                                                <label for="quote-product">Product Name / Type</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-floating">
+                                                <input type="number" class="form-control border-0" id="quote-quantity"
+                                                    placeholder="Quantity or Total Area (e.g., 500 cards, 100 sq ft)">
+                                                <label for="quote-quantity">Quantity / Estimated Area</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-floating">
+                                                <textarea class="form-control border-0"
+                                                    placeholder="Details of your inquiry (Size, Finish, Quality, Message)"
+                                                    id="quote-details" style="height: 150px" required></textarea>
+                                                <label for="quote-details">Inquiry Message / Specifications</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <button class="btn btn-primary w-100 py-3" type="submit">Submit Quote via
+                                                WhatsApp</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="contact-section" class="section">
+            <div class="container-fluid page-header py-5">
+                <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Contact Us</h1>
+                <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+                    <li class="breadcrumb-item"><a href="#" onclick="showSection('shop-catalog')">Products</a></li>
+                    <li class="breadcrumb-item active text-white">Contact</li>
+                </ol>
+            </div>
+
+            <div class="container-fluid py-5">
+                <div class="container py-5">
+                    <div class="row g-4">
+                        <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="bg-light p-4 rounded">
+                                <div class="d-flex align-items-center mb-4">
+                                    <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
+                                        style="width: 60px; height: 60px;">
+                                        <i class="fa fa-map-marker-alt text-primary fs-4"></i>
+                                    </div>
+                                    <div class="ms-4">
+                                        <h5 class="mb-2">Our Location</h5>
+                                        <p class="mb-0">Domela Chowk,Tanda Road, Jalalpur Jattan</p>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex align-items-center mb-4">
+                                    <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
+                                        style="width: 60px; height: 60px;">
+                                        <i class="fa fa-phone-alt text-primary fs-4"></i>
+                                    </div>
+                                    <div class="ms-4">
+                                        <h5 class="mb-2">Call Us</h5>
+                                        <p class="mb-0">+92 300 6238233</p>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex align-items-center">
+                                    <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
+                                        style="width: 60px; height: 60px;">
+                                        <i class="fa fa-envelope text-primary fs-4"></i>
+                                    </div>
+                                    <div class="ms-4">
+                                        <h5 class="mb-2">Email Us</h5>
+                                        <p class="mb-0">info@arhamprinters.pk</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.3s">
+                            <div class="bg-light p-4 rounded">
+                                <form id="contact-form-whatsapp">
+                                    <h3 class="mb-4">Send a Direct Message</h3>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control border-0" id="contact-name"
+                                                    placeholder="Your Name" required>
+                                                <label for="contact-name">Your Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control border-0" id="contact-subject"
+                                                    placeholder="Subject" required>
+                                                <label for="contact-subject">Subject</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-floating">
+                                                <textarea class="form-control border-0" placeholder="Leave a message here"
+                                                    id="contact-message" style="height: 150px" required></textarea>
+                                                <label for="contact-message">Message</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <button class="btn btn-primary w-100 py-3" type="submit">Send Message via
+                                                WhatsApp</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="container-fluid footer py-2 wow fadeIn" data-wow-delay="0.2s">
+            <div class="container py-2">
+                <div class="row g-3">
+                    <div class="col-6 col-md-3">
+                        <div class="rounded p-2 d-flex flex-column align-items-center">
+                            <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto"
+                                style="width: 56px; height: 56px;">
+                                <i class="fas fa-map-marker-alt fa-2x text-primary" style="line-height: 1;"></i>
+                            </div>
+                            <h6 class="text-white mt-1 mb-1">Address</h6>
+                            <p class="text-white fw-bold mb-1 small text-center">Domela Chowk, Tanda Road, Jalalpur Jattan
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <div class="rounded p-2 d-flex flex-column align-items-center">
+                            <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto"
+                                style="width: 56px; height: 56px;">
+                                <i class="fas fa-envelope fa-2x text-primary" style="line-height: 1;"></i>
+                            </div>
+                            <h6 class="text-white mt-1 mb-1">Mail Us</h6>
+                            <p class="text-white fw-bold mb-1 small text-center">info@arhamprinters.pk</p>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <div class="rounded p-2 d-flex flex-column align-items-center">
+                            <a href="https://wa.me/923006238233" target="_blank" class="text-decoration-none">
+                                <div class="rounded-circle bg-success d-flex align-items-center justify-content-center mb-2 mx-auto"
+                                    style="width: 56px; height: 56px;">
+                                    <i class="fab fa-whatsapp fa-2x text-white" style="line-height: 1;"></i>
+                                </div>
+                            </a>
+                            <h6 class="text-white mt-1 mb-1">Direct Contact</h6>
+                            <a href="https://wa.me/923006238233" target="_blank"
+                                class="text-white-50 text-decoration-none">
+                                <p class="text-white fw-bold mb-1 small text-center">+92 300 6238233</p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <div class="rounded p-2 d-flex flex-column align-items-center">
+                            <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto"
+                                style="width: 56px; height: 56px;">
+                                <i class="fab fa-facebook-f fa-2x text-primary" style="line-height: 1;"></i>
+                            </div>
+                            <h6 class="text-white mt-1 mb-1">Follow Us</h6>
+                            <div class="d-flex justify-content-center gap-1">
+                                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i
+                                        class="fab fa-twitter"></i></a>
+                                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i
+                                        class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i
+                                        class="fab fa-youtube"></i></a>
+                                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i
+                                        class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid copyright py-2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <span class="text-white small">
+                                <i class="fas fa-copyright text-light me-1"></i>
+                                Arham Printers, All rights reserved 2025.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/wow/wow.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/counterup/counterup.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="js/main.js"></script>
+
+        <script>
+            // --- FINALIZED PRODUCT CATALOG DATA (All Data Included) ---
+            const productData = {
+                "Business Essentials": {
+                    "Shine Visisting Cards": {
+                        "All Options": [
+                            { "Size": "3.5x2", "Quality": "Standard", "Finish": "Shine", "Sides": "Single Color", "price_per_unit": 1000 }
+                        ]
+                    },
+                    "Mat Cards": {
+                        "All Options": [
+                            { "Size": "3.5x2", "Quality": "Standard", "Shape": "Round Corners", "Sides": "Double Side", "Finish": "Mat", "price_per_unit": 1200 },
+                            { "Size": "3.5x2", "Quality": "Standard", "Shape": "Plain Corners", "Sides": "Double Side", "Finish": "Mat", "price_per_unit": 1000 }
                         ],
-                        "113 gms Art Paper": [
-                            { "Sides": "Single Side", "price_per_unit": 8.0 },
-                            { "Sides": "Double Side", "price_per_unit": 12.0 }
+                        "Plain Corners": { "Custom": [{ "Printing Side": "Single side", "price_per_unit": 1900.0 }, { "Printing Side": "Double side", "price_per_unit": 2000.0 }] },
+                        "Round Corners": { "Custom": [{ "Printing Side": "Single side", "price_per_unit": 2300.0 }, { "Printing Side": "Double side", "price_per_unit": 3000.0 }] }
+                    },
+                    "UV Cards": {
+                        "All Options": [
+                            { "Size": "3.5x2", "Quality": "Standard", "Shape": "Round Corners", "Sides": "Double Side", "Finish": "UV", "price_per_unit": 1500 }
+                        ]
+                    },
+                    "Visisting Cards": {
+                        "All Options": [
+                            { "Finish": "Shine", "Size/Type": "Custom", "Printing Side": "Single side", "price_per_unit": 1800.0 },
+                            { "Finish": "Shine", "Size/Type": "Custom", "Printing Side": "Double side", "price_per_unit": 2000.0 }
                         ]
                     }
                 },
-                "Stickers": {
-                    "3.5x2": { "Standard": [{ "Shape": "Round Corners", "price_per_unit": 1.5 }, { "Shape": "Plain Corners", "price_per_unit": 1.0 }] },
-                    "7x10": { "Standard": [{ "Shape": "Round Corners", "price_per_unit": 5.0 }, { "Shape": "Plain Corners", "price_per_unit": 4.0 }] }
-                }
-            },
-            "Office Essentials": {
-                "Letterpads": {
-                    "All Options": [
-                        { "Size": "5.75x9", "Weight": "68 gms", "Printing Color": "Single Color", "price_per_unit": 2.5 }, { "Size": "5.75x9", "Weight": "68 gms", "Printing Color": "Two Colors", "price_per_unit": 3.0 }, { "Size": "5.75x9", "Weight": "68 gms", "Printing Color": "4 Colors", "price_per_unit": 4.5 },
-                        { "Size": "5.75x9", "Weight": "80gms", "Printing Color": "Single Color", "price_per_unit": 3.0 }, { "Size": "5.75x9", "Weight": "80gms", "Printing Color": "Two Colors", "price_per_unit": 3.5 }, { "Size": "5.75x9", "Weight": "80gms", "Printing Color": "4 Colors", "price_per_unit": 5.0 },
-                        { "Size": "5.75x9", "Weight": "100 gms", "Printing Color": "Single Color", "price_per_unit": 4.0 }, { "Size": "5.75x9", "Weight": "100 gms", "Printing Color": "Two Colors", "price_per_unit": 4.5 }, { "Size": "5.75x9", "Weight": "100 gms", "Printing Color": "4 Colors", "price_per_unit": 6.0 },
-                        { "Size": "A4", "Weight": "68 gms", "Printing Color": "Single Color", "price_per_unit": 4.0 }, { "Size": "A4", "Weight": "68 gms", "Printing Color": "Two Colors", "price_per_unit": 5.0 }, { "Size": "A4", "Weight": "68 gms", "Printing Color": "4 Colors", "price_per_unit": 7.0 },
-                        { "Size": "A4", "Weight": "80gms", "Printing Color": "Single Color", "price_per_unit": 4.5 }, { "Size": "A4", "Weight": "80gms", "Printing Color": "Two Colors", "price_per_unit": 5.5 }, { "Size": "A4", "Weight": "80gms", "Printing Color": "4 Colors", "price_per_unit": 8.0 },
-                        { "Size": "A4", "Weight": "100 gms", "Printing Color": "Single Color", "price_per_unit": 5.0 }, { "Size": "A4", "Weight": "100 gms", "Printing Color": "Two Colors", "price_per_unit": 6.0 }, { "Size": "A4", "Weight": "100 gms", "Printing Color": "4 Colors", "price_per_unit": 9.0 }
-                    ]
-                },
-                "Envelops": {
-                    "9x4": { "80gms": [{ "Printing Color": "Single Color", "price_per_unit": 5.0 }, { "Printing Color": "Two Colors", "price_per_unit": 6.5 }, { "Printing Color": "4 Colors", "price_per_unit": 8.0 }] }
-                },
-                "Bill Books": {
-                    "All Options": [
-                        { "Size": "5.75x9", "Paper Type": "68 gms", "Printing Color": "Single Color", "price_per_unit": 10.0 }, { "Size": "5.75x9", "Paper Type": "80gms", "Printing Color": "4 Colors", "price_per_unit": 12.0 }, { "Size": "5.75x9", "Paper Type": "90gms Art Paper", "Printing Color": "4 Colors", "price_per_unit": 15.0 }, { "Size": "5.75x9", "Paper Type": "100 gms", "Printing Color": "4 Colors", "price_per_unit": 18.0 },
-                        { "Size": "A4", "Paper Type": "68 gms", "Printing Color": "Single Color", "price_per_unit": 15.0 }, { "Size": "A4", "Paper Type": "80gms", "Printing Color": "Single Color", "price_per_unit": 18.0 }, { "Size": "A4", "Paper Type": "90gms Art Paper", "Printing Color": "4 Colors", "price_per_unit": 22.0 }, { "Size": "A4", "Paper Type": "100 gms", "Printing Color": "4 Colors", "price_per_unit": 25.0 },
-                        { "Size": "9x11", "Paper Type": "80gms", "Printing Color": "4 Colors", "price_per_unit": 28.0 }, { "Size": "9x11", "Paper Type": "100 gms", "Printing Color": "4 Colors", "price_per_unit": 32.0 }
-                    ]
-                },
-                "Carbonless Bill Books": { "Custom": { "Standard": [{ "Printing Color": "Single Color", "price_per_unit": 30.0 }] } },
-                "File Covers": { "Custom": { "Art Card": [{ "Printing Color": "Single Color", "Sides": "Single Side", "price_per_unit": 40.0 }, { "Printing Color": "4 Colors", "Sides": "Single Side", "price_per_unit": 60.0 }, { "Printing Color": "4 Colors", "Sides": "Double Side", "price_per_unit": 80.0 }] } },
-                "Rubber Stamp (Rectangular)": { "3.5x2": { "Standard": [{ "Type": "Manual Inking", "price_per_unit": 500 }] }, "1x0.39": { "Standard": [{ "Type": "Manual Inking", "price_per_unit": 200 }] }, "1.8x0.7": { "Standard": [{ "Type": "Manual Inking", "price_per_unit": 350 }] } },
-                "Pencil Tray": { "Custom": { "Standard": [{ "Material": "Plastic", "price_per_unit": 600 }, { "Material": "Premium Plastic", "price_per_unit": 800 }, { "Material": "Metal", "price_per_unit": 1500 }] } }
-            },
-            "Wedding Invitation Cards": {
-                "Standard": { "5x7": { "Glossy": [{ "Material": "Premium Cardstock", "price_per_unit": 45 }] }, "A5": { "Matte": [{ "Material": "Premium Cardstock", "price_per_unit": 55 }] } },
-                "Laser Cut Invitations": { "Design": { "Standard": [{ "Material": "Premium Cardstock", "price_per_unit": 150 }] } }
-            },
-            "Panaflex Printing": {
-                "Panaflex Banners": { "China Frontlit": { "rate": 50, "is_area_based": true }, "Star Frontlit": { "rate": 70, "is_area_based": true } }
-            },
-            "Photo Printing": {
-                "PhotoPapers": { "7x5": { "Standard": [{ "Material": "Matte", "price_per_unit": 150 }] }, "A4": { "Standard": [{ "Material": "Matte", "price_per_unit": 250 }] } },
-                "Photo Frames": { "Custom Sizes": { "Standard": [{ "Material": "Wood", "price_per_unit": 800 }] } }
-            },
-            "3D Wallpaper": {
-                "3D Wallpaper": { "rate": 150, "min_area": 100, "is_area_based": true }
-            },
-            "Promotional Items": {
-                "White T-Shirt (Adult Size)": { "Small": { "Standard": [{ "Price per Shirt": 1200 }] }, "Medium": { "Standard": [{ "Price per Shirt": 1300 }] }, "Large": { "Standard": [{ "Price per Shirt": 1400 }] } },
-                "Mug": { "Custom": { "Standard": [{ "Shape": "Heart Shape", "Accessories": "Spoon Mug", "price_per_unit": 550 }, { "Shape": "Heart Shape", "Accessories": "Mug with Pirch", "price_per_unit": 650 }] } },
-                "Metal Pen": { "Custom": { "Standard": [{ "Finish": "Shine", "price_per_unit": 150 }, { "Finish": "Mat", "price_per_unit": 120 }] } }
-            },
-            "Shields": {
-                "Acrylic Shield": { "Size": { "10 inch": [{ "Engraving": "Standard Laser", "price_per_unit": 2500 }] } }
-            },
-            "Souvenirs": {
-                "Custom Key Chain": { "Material": { "Standard": [{ "Type": "Metal (Engraved)", "price_per_unit": 350 }] } },
-                "Locket with Picture": { "Small": { "Standard": [{ "Price per Locket": 300 }] }, "Large": { "Standard": [{ "Price per Locket": 500 }] } }
-            },
-            "Flags and Fabric": {
-                "National Flag (Standard)": { "Size": { "3x5 ft": [{ "Material": "Polyester", "price_per_unit": 1800 }] } },
-                "Flag Printing": { "Polyester": { "rate": 80, "is_area_based": true } }
-            },
-            "Box Packaging": {
-                "Custom Product Box (Small)": { "Material": { "Art Card 300gsm": [{ "Finish": "Matte Lamination", "price_per_unit": 50 }] } },
-                "Custom Box": { "Small": { "Card Stock": [{ "Price per Box": 100 }] }, "Medium": { "Corrugated": [{ "Price per Box": 250 }] } }
-            },
-            "Marketing and Advertising": {
-                "Document Printing (A4/Legal)": {
-                    "A4": { "black_white": { "70g": { "1-100": 10, "401-1000": 6 } }, "color": { "70g": { "1-100": 20, "401-1000": 16 } } },
-                    "Legal": { "black_white": { "70g": { "1-100": 12, "401-1000": 8 } }, "color": { "70g": { "1-100": 22, "401-1000": 18 } } }
-                },
-                "Social Media Campaign Design": { "Platform": { "Standard": [{ "Design Type": "3 Posts Package", "price_per_unit": 3000 }] } },
-                "Brochure Design": { "A4 Bi-fold": { "Standard": [{ "Design Fee": 2500 }] }, "A4 Tri-fold": { "Standard": [{ "Design Fee": 3500 }] } }
-            }
-        };
-
-        const catalogContainer = document.getElementById('catalog-container');
-
-        // --- CORE LOGIC ---
-
-        // Function to find the starting price for non-standardized/unflatted products
-        function getStartingPrice(product) {
-            if (typeof product === 'object' && product !== null) {
-                // If the product has a flat list, get the first price
-                if (product.hasOwnProperty('All Options') && Array.isArray(product['All Options'])) {
-                    return product['All Options'][0].price_per_unit || 'N/A';
-                }
-                
-                // Recursively search for the first price_per_unit, Price per Shirt, etc.
-                for (const key in product) {
-                    const value = product[key];
-                    if (key === 'price_per_unit' || key.startsWith('Price per') || key.endsWith('Fee') || key === 'rate') {
-                        return value;
+                "Marketing Essentials": {
+                    "Pamphlets": {
+                        "All Options": [
+                            { "Size": "5.75x9", "Weight": "68 gms", "price_per_unit": 1.5 }, { "Size": "5.75x9", "Weight": "68 gms", "price_per_unit": 2.0 }, { "Size": "5.75x9", "Weight": "68 gms", "price_per_unit": 3.0 },
+                            { "Size": "5.75x9", "Weight": "80gms", "price_per_unit": 2.0 }, { "Size": "5.75x9", "Weight": "80gms", "price_per_unit": 2.5 }, { "Size": "5.75x9", "Weight": "80gms", "price_per_unit": 4.0 },
+                            { "Size": "A4", "Weight": "68 gms", "price_per_unit": 5.0 }, { "Size": "A4", "Weight": "80gms", "price_per_unit": 7.0 }
+                        ]
+                    },
+                    "Flyers/Ishtihars": {
+                        "5.75x9": {
+                            "90gms Art Paper": [
+                                { "Sides": "Single Side", "price_per_unit": 6.0 },
+                                { "Sides": "Double Side", "price_per_unit": 9.0 }
+                            ],
+                            "113 gms Art Paper": [
+                                { "Sides": "Single Side", "price_per_unit": 8.0 },
+                                { "Sides": "Double Side", "price_per_unit": 12.0 }
+                            ]
+                        }
+                    },
+                    "Stickers": {
+                        "3.5x2": { "Standard": [{ "Shape": "Round Corners", "price_per_unit": 1.5 }, { "Shape": "Plain Corners", "price_per_unit": 1.0 }] },
+                        "7x10": { "Standard": [{ "Shape": "Round Corners", "price_per_unit": 5.0 }, { "Shape": "Plain Corners", "price_per_unit": 4.0 }] }
                     }
-                    if (typeof value === 'object' && value !== null) {
-                        const subPrice = getStartingPrice(value);
-                        if (subPrice !== 'N/A') return subPrice;
-                    }
+                },
+                "Office Essentials": {
+                    "Letterpads": {
+                        "All Options": [
+                            { "Size": "5.75x9", "Weight": "68 gms", "Printing Color": "Single Color", "price_per_unit": 2.5 }, { "Size": "5.75x9", "Weight": "68 gms", "Printing Color": "Two Colors", "price_per_unit": 3.0 }, { "Size": "5.75x9", "Weight": "68 gms", "Printing Color": "4 Colors", "price_per_unit": 4.5 },
+                            { "Size": "5.75x9", "Weight": "80gms", "Printing Color": "Single Color", "price_per_unit": 3.0 }, { "Size": "5.75x9", "Weight": "80gms", "Printing Color": "Two Colors", "price_per_unit": 3.5 }, { "Size": "5.75x9", "Weight": "80gms", "Printing Color": "4 Colors", "price_per_unit": 5.0 },
+                            { "Size": "5.75x9", "Weight": "100 gms", "Printing Color": "Single Color", "price_per_unit": 4.0 }, { "Size": "5.75x9", "Weight": "100 gms", "Printing Color": "Two Colors", "price_per_unit": 4.5 }, { "Size": "5.75x9", "Weight": "100 gms", "Printing Color": "4 Colors", "price_per_unit": 6.0 },
+                            { "Size": "A4", "Weight": "68 gms", "Printing Color": "Single Color", "price_per_unit": 4.0 }, { "Size": "A4", "Weight": "68 gms", "Printing Color": "Two Colors", "price_per_unit": 5.0 }, { "Size": "A4", "Weight": "68 gms", "Printing Color": "4 Colors", "price_per_unit": 7.0 },
+                            { "Size": "A4", "Weight": "80gms", "Printing Color": "Single Color", "price_per_unit": 4.5 }, { "Size": "A4", "Weight": "80gms", "Printing Color": "Two Colors", "price_per_unit": 5.5 }, { "Size": "A4", "Weight": "80gms", "Printing Color": "4 Colors", "price_per_unit": 8.0 },
+                            { "Size": "A4", "Weight": "100 gms", "Printing Color": "Single Color", "price_per_unit": 5.0 }, { "Size": "A4", "Weight": "100 gms", "Printing Color": "Two Colors", "price_per_unit": 6.0 }, { "Size": "A4", "Weight": "100 gms", "Printing Color": "4 Colors", "price_per_unit": 9.0 }
+                        ]
+                    },
+                    "Envelops": { "9x4": { "80gms": [{ "Printing Color": "Single Color", "price_per_unit": 5.0 }, { "Printing Color": "Two Colors", "price_per_unit": 6.5 }, { "Printing Color": "4 Colors", "price_per_unit": 8.0 }] } },
+                    "Bill Books": {
+                        "All Options": [
+                            { "Size": "5.75x9", "Paper Type": "68 gms", "Printing Color": "Single Color", "price_per_unit": 10.0 }, { "Size": "5.75x9", "Paper Type": "80gms", "Printing Color": "4 Colors", "price_per_unit": 12.0 }, { "Size": "5.75x9", "Paper Type": "90gms Art Paper", "Printing Color": "4 Colors", "price_per_unit": 15.0 }, { "Size": "5.75x9", "Paper Type": "100 gms", "Printing Color": "4 Colors", "price_per_unit": 18.0 },
+                            { "Size": "A4", "Paper Type": "68 gms", "Printing Color": "Single Color", "price_per_unit": 15.0 }, { "Size": "A4", "Paper Type": "80gms", "Printing Color": "Single Color", "price_per_unit": 18.0 }, { "Size": "A4", "Paper Type": "90gms Art Paper", "Printing Color": "4 Colors", "price_per_unit": 22.0 }, { "Size": "A4", "Paper Type": "100 gms", "Printing Color": "4 Colors", "price_per_unit": 25.0 },
+                            { "Size": "9x11", "Paper Type": "80gms", "Printing Color": "4 Colors", "price_per_unit": 28.0 }, { "Size": "9x11", "Paper Type": "100 gms", "Printing Color": "4 Colors", "price_per_unit": 32.0 }
+                        ]
+                    },
+                    "Carbonless Bill Books": { "Custom": { "Standard": [{ "Printing Color": "Single Color", "price_per_unit": 30.0 }] } },
+                    "File Covers": { "Custom": { "Art Card": [{ "Printing Color": "Single Color", "Sides": "Single Side", "price_per_unit": 40.0 }, { "Printing Color": "4 Colors", "Sides": "Single Side", "price_per_unit": 60.0 }, { "Printing Color": "4 Colors", "Sides": "Double Side", "price_per_unit": 80.0 }] } },
+                    "Rubber Stamp (Rectangular)": { "3.5x2": { "Standard": [{ "Type": "Manual Inking", "price_per_unit": 500 }] }, "1x0.39": { "Standard": [{ "Type": "Manual Inking", "price_per_unit": 200 }] }, "1.8x0.7": { "Standard": [{ "Type": "Manual Inking", "price_per_unit": 350 }] } },
+                    "Pencil Tray": { "Custom": { "Standard": [{ "Material": "Plastic", "price_per_unit": 600 }, { "Material": "Premium Plastic", "price_per_unit": 800 }, { "Material": "Metal", "price_per_unit": 1500 }] } }
+                },
+                "Wedding Invitation Cards": {
+                    "Standard": { "5x7": { "Glossy": [{ "Material": "Premium Cardstock", "price_per_unit": 45 }] }, "A5": { "Matte": [{ "Material": "Premium Cardstock", "price_per_unit": 55 }] } },
+                    "Laser Cut Invitations": { "Design": { "Standard": [{ "Material": "Premium Cardstock", "price_per_unit": 150 }] } }
+                },
+                "Panaflex Printing": {
+                    "Panaflex Banners": { "China Frontlit": { "rate": 50, "is_area_based": true }, "Star Frontlit": { "rate": 70, "is_area_based": true } }
+                },
+                "Photo Printing": {
+                    "PhotoPapers": { "7x5": { "Standard": [{ "Material": "Matte", "price_per_unit": 150 }] }, "A4": { "Standard": [{ "Material": "Matte", "price_per_unit": 250 }] } },
+                    "Photo Frames": { "Custom Sizes": { "Standard": [{ "Material": "Wood", "price_per_unit": 800 }] } }
+                },
+                "3D Wallpaper": {
+                    "3D Wallpaper": { "rate": 150, "min_area": 100, "is_area_based": true }
+                },
+                "Promotional Items": {
+                    "White T-Shirt (Adult Size)": { "Small": { "Standard": [{ "Price per Shirt": 1200 }] }, "Medium": { "Standard": [{ "Price per Shirt": 1300 }] }, "Large": { "Standard": [{ "Price per Shirt": 1400 }] } },
+                    "Mug": { "Custom": { "Standard": [{ "Shape": "Heart Shape", "Accessories": "Spoon Mug", "price_per_unit": 550 }, { "Shape": "Heart Shape", "Accessories": "Mug with Pirch", "price_per_unit": 650 }] } },
+                    "Metal Pen": { "Custom": { "Standard": [{ "Finish": "Shine", "price_per_unit": 150 }, { "Finish": "Mat", "price_per_unit": 120 }] } }
+                },
+                "Shields": {
+                    "Acrylic Shield": { "Size": { "10 inch": [{ "Engraving": "Standard Laser", "price_per_unit": 2500 }] } }
+                },
+                "Souvenirs": {
+                    "Custom Key Chain": { "Material": { "Standard": [{ "Type": "Metal (Engraved)", "price_per_unit": 350 }] } },
+                    "Locket with Picture": { "Small": { "Standard": [{ "Price per Locket": 300 }] }, "Large": { "Standard": [{ "Price per Locket": 500 }] } }
+                },
+                "Flags and Fabric": {
+                    "National Flag (Standard)": { "Size": { "3x5 ft": [{ "Material": "Polyester", "price_per_unit": 1800 }] } },
+                    "Flag Printing": { "Polyester": { "rate": 80, "is_area_based": true } }
+                },
+                "Box Packaging": {
+                    "Custom Product Box (Small)": { "Material": { "Art Card 300gsm": [{ "Finish": "Matte Lamination", "price_per_unit": 50 }] } },
+                    "Custom Box": { "Small": { "Card Stock": [{ "Price per Box": 100 }] }, "Medium": { "Corrugated": [{ "Price per Box": 250 }] } }
+                },
+                "Marketing and Advertising": {
+                    "Document Printing (A4/Legal)": {
+                        "A4": { "black_white": { "70g": { "1-100": 10, "401-1000": 6 } }, "color": { "70g": { "1-100": 20, "401-1000": 16 } } },
+                        "Legal": { "black_white": { "70g": { "1-100": 12, "401-1000": 8 } }, "color": { "70g": { "1-100": 22, "401-1000": 18 } } }
+                    },
+                    "Social Media Campaign Design": { "Platform": { "Standard": [{ "Design Type": "3 Posts Package", "price_per_unit": 3000 }] } },
+                    "Brochure Design": { "A4 Bi-fold": { "Standard": [{ "Design Fee": 2500 }] }, "A4 Tri-fold": { "Standard": [{ "Design Fee": 3500 }] } }
                 }
-            }
-            return 'N/A';
-        }
+            };
+        </script>
 
-        function renderCatalog() {
-            catalogContainer.innerHTML = ''; // Clear previous content
+        <script>
+            // --- JAVASCRIPT LOGIC FOR RENDERING AND PRICE UPDATE ---
+            // NOTE: This script block contains the final, corrected logic.
 
-            for (const category in productData) {
-                if (Object.hasOwnProperty.call(productData, category)) {
-                    catalogContainer.innerHTML += `<h2 class="category-title">📦 ${category}</h2>`;
+            const catalogContainer = document.getElementById('main-product-catalog');
 
-                    const products = productData[category];
-                    for (const productName in products) {
-                        if (Object.hasOwnProperty.call(products, productName)) {
-                            const product = products[productName];
+            // 🛑 FIX START: CUSTOM CATEGORY ORDER DEFINITION (Your original code) 🛑
+            const CATEGORY_ORDER = [
+                "Business Essentials",
+                "Office Essentials",
+                "Marketing Essentials",
+                "Marketing and Advertising",
+                "Photo Printing",
+                "Promotional Items",
+                "Wedding Invitation Cards",
+                "Box Packaging",
+                "Flags and Fabric",
+                "Shields",
+                "Souvenirs",
+                "Panaflex Printing",
+                "3D Wallpaper"
+            ];
+            // 🛑 FIX END: CUSTOM CATEGORY ORDER DEFINITION 🛑
 
-                            // Check if the product is standardized with the "All Options" array
-                            if (product.hasOwnProperty('All Options') && Array.isArray(product['All Options'])) {
-                                const options = product['All Options'];
-                                renderStandardProductCard(productName, options);
-                            } else {
-                                // Render original, non-standardized products as simple cards
-                                renderNonStandardProductCard(productName, product);
-                            }
+            // --- Configuration (Your original code) ---
+            const PUBLIC_DATA_URL = 'items.json';
+            const WHATSAPP_NUMBER = '923006238233';
+
+            let allProducts = {};
+            let currentProduct = null;
+
+            // Global stores for pricing logic
+            let allProductGroups = {};
+            let currentSelectedVariations = {}; // Stores sanitized key => value for filtering
+            let areaBasedMeta = {};
+
+            // --- Core Functions (Your original structure) ---
+
+            // Helper to find starting price for non-standardized products
+            function getStartingPrice(product) {
+                if (typeof product === 'object' && product !== null) {
+                    for (const key in product) {
+                        const value = product[key];
+                        if (key === 'price_per_unit' || key.startsWith('Price per') || key.endsWith('Fee') || key === 'rate') {
+                            return value;
+                        }
+                        if (typeof value === 'object' && value !== null) {
+                            const subPrice = getStartingPrice(value);
+                            if (subPrice !== 'N/A') return subPrice;
                         }
                     }
                 }
+                return 'N/A';
             }
-        }
 
-        function renderNonStandardProductCard(name, product) {
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            
-            const startingPrice = getStartingPrice(product);
-            
-            card.innerHTML = `
-                <h3 class="product-title">${name}</h3>
-                <div class="unstandardized-note">⚠️ Data structure is nested (original format). Variation selection is NOT supported.</div>
-                <div class="price-display">Starting Price: ${startingPrice}</div>
-            `;
-            catalogContainer.appendChild(card);
-        }
+            // (Your existing initialAppLoad, populateSidebarCategories, flattenAndCategorize, initialProductSetup, filterCatalog functions remain here)
 
-        function renderStandardProductCard(name, options) {
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            card.id = `card-${name.replace(/\s+/g, '-')}`;
-
-            // 1. Identify all unique variation attributes 
-            const attributes = {};
-            options.forEach(option => {
-                for (const key in option) {
-                    // Exclude price_per_unit, Price per Shirt, etc.
-                    if (key !== 'price_per_unit' && !key.startsWith('Price per') && key !== 'Design Fee') {
-                        if (!attributes[key]) {
-                            attributes[key] = new Set();
-                        }
-                        attributes[key].add(option[key]);
+            async function initialAppLoad() {
+                let rawData;
+                try {
+                    // Fetch external JSON file
+                    const response = await fetch(PUBLIC_DATA_URL); 
+                    if (!response.ok) {
+                         // If external fetch fails, use embedded data as fallback
+                         rawData = productData;
+                         console.warn("Failed to fetch external JSON. Using embedded data structure as fallback.");
+                    } else {
+                        rawData = await response.json();
                     }
+                } catch (error) {
+                    console.error("Failed to load shop data:", error);
+                    showAlert("Failed to load product data. Check the developer console.", 'error');
+                    rawData = productData; // Use embedded data as final fallback
                 }
-            });
 
-            card.innerHTML = `<h3 class="product-title">${name}</h3>`;
-            
-            const selectorsDiv = document.createElement('div');
-            selectorsDiv.className = 'product-options';
-            card.appendChild(selectorsDiv);
+                initialProductSetup(rawData);
+                populateSidebarCategories();
 
-            // 2. Render clickable tags for each attribute
-            for (const attrName in attributes) {
-                const uniqueValues = Array.from(attributes[attrName]);
-                
-                const attrHeader = document.createElement('div');
-                attrHeader.textContent = `${attrName}:`;
-                selectorsDiv.appendChild(attrHeader);
-                
-                uniqueValues.forEach(value => {
-                    const tag = document.createElement('span');
-                    tag.className = 'variation-tag';
-                    tag.textContent = value;
-                    tag.setAttribute('data-attr', attrName);
-                    tag.setAttribute('data-value', value);
-                    tag.onclick = (e) => updatePrice(e.target, name, options);
-                    selectorsDiv.appendChild(tag);
+                if (typeof WOW !== 'undefined') { new WOW().init(); }
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const initialCategory = urlParams.get('category');
+
+                showSection('shop-catalog'); 
+                filterCatalog(initialCategory);
+
+                document.getElementById('quote-form').addEventListener('submit', handleQuoteSubmission);
+                document.getElementById('contact-form-whatsapp').addEventListener('submit', handleContactSubmission);
+            }
+
+            function populateSidebarCategories() {
+                const container = document.getElementById('productCategoriesList');
+                container.innerHTML = '';
+
+                const categoriesSet = new Set();
+                Object.values(allProductGroups).forEach(group => {
+                    if (group.mainCategory && group.mainCategory !== "System Data") {
+                        categoriesSet.add(group.mainCategory);
+                    }
+                });
+
+                const sortedCategories = Array.from(categoriesSet).sort((a, b) => {
+                    const indexA = CATEGORY_ORDER.indexOf(a);
+                    const indexB = CATEGORY_ORDER.indexOf(b);
+
+                    if (indexA === -1 && indexB === -1) return a.localeCompare(b);
+                    if (indexA === -1) return 1;
+                    if (indexB === -1) return -1;
+
+                    return indexA - indexB;
+                });
+
+                sortedCategories.forEach(category => {
+                    container.innerHTML += `
+                        <li>
+                            <div class="categories-item">
+                                <a href="#" class="text-dark" onclick="event.preventDefault(); filterCatalog('${category}')">
+                                    <i class="fas fa-tags text-primary me-2"></i> ${category}
+                                </a>
+                            </div>
+                        </li>
+                    `;
                 });
             }
-
-            // 3. Initial Price Display
-            const priceDiv = document.createElement('div');
-            priceDiv.id = `price-${name.replace(/\s+/g, '-')}`;
-            priceDiv.className = 'price-display';
-            priceDiv.textContent = `Starting Price: ${options[0].price_per_unit || 'N/A'}`;
-            card.appendChild(priceDiv);
-
-            catalogContainer.appendChild(card);
-        }
-
-        function updatePrice(clickedTag, productName, options) {
-            const productCard = clickedTag.closest('.product-card');
-            const attrName = clickedTag.getAttribute('data-attr');
-            const attrValue = clickedTag.getAttribute('data-value');
-
-            // 1. Toggle selection for the clicked attribute group
-            const tags = productCard.querySelectorAll(`[data-attr="${attrName}"]`);
-            tags.forEach(tag => tag.classList.remove('selected'));
-            clickedTag.classList.add('selected');
-
-            // 2. Collect all currently selected attributes
-            const currentSelections = {};
-            let selectionCount = 0;
-            productCard.querySelectorAll('.variation-tag.selected').forEach(tag => {
-                currentSelections[tag.getAttribute('data-attr')] = tag.getAttribute('data-value');
-                selectionCount++;
-            });
-
-            // 3. Find the matching price option based on current selections
-            let finalMatch = null;
-            let requiredAttributes = 0;
             
-            // Get the total number of unique attributes for this product
-            if (options.length > 0) {
-                 requiredAttributes = Object.keys(options[0]).filter(key => key !== 'price_per_unit' && !key.startsWith('Price per') && key !== 'Design Fee').length;
+            function flattenAndCategorize(data) {
+                const productGroups = {};
+                // Loop through Main Categories (Office Essentials, Marketing Essentials, etc.)
+                Object.keys(data).forEach(mainCategoryKey => {
+                    if (mainCategoryKey === "Digital Printing Pricing" || mainCategoryKey === "Area-Based Pricing") { return; }
+
+                    const categoryData = data[mainCategoryKey];
+                    // Loop through Sub Categories (Letterpads, Envelops, etc.)
+                    Object.keys(categoryData).forEach(subCategoryKey => {
+                        const subCategoryData = categoryData[subCategoryKey];
+
+                        if (!productGroups[subCategoryKey]) {
+                            productGroups[subCategoryKey] = {
+                                baseName: subCategoryKey,
+                                minPrice: Infinity,
+                                imageFile: `${subCategoryKey.replace(/\s|\//g, '-')}.jpg`,
+                                isAreaBased: false,
+                                mainCategory: mainCategoryKey,
+                                combinations: []
+                            };
+                        }
+
+                        // Check for the standardized "All Options" array (from our refactoring)
+                        if (subCategoryData.hasOwnProperty('All Options') && Array.isArray(subCategoryData['All Options'])) {
+                             subCategoryData['All Options'].forEach(combo => {
+                                // Map all properties in the flat structure
+                                const attributes = { 'Price': combo.price_per_unit || combo['Price per Shirt'] || combo['Design Fee'] || combo['Price per Locket'] || 0 };
+                                let price = attributes.Price;
+                                
+                                for(const attrKey in combo) {
+                                    if(attrKey !== 'price_per_unit' && !attrKey.startsWith('Price per') && attrKey !== 'Design Fee' && attrKey !== 'FullName') {
+                                        attributes[attrKey] = combo[attrKey];
+                                    }
+                                }
+                                
+                                if (price > 0) {
+                                    attributes['FullName'] = `${subCategoryKey} ${Object.values(attributes).filter(v => typeof v === 'string').join(' ')}`;
+                                    productGroups[subCategoryKey].combinations.push(attributes);
+
+                                    if (price < productGroups[subCategoryKey].minPrice) {
+                                        productGroups[subCategoryKey].minPrice = price;
+                                    }
+                                }
+                             });
+                             return; // Skip complex flattening if All Options exists
+                        }
+
+                        // Loop through Level 1 (e.g., Size like "5.75x9" or "Custom")
+                        Object.keys(subCategoryData).forEach(level1Key => {
+                            const level1Data = subCategoryData[level1Key];
+
+                            // Check for Area-based structure first
+                            if (level1Data.rate || level1Data.is_area_based) {
+                                productGroups[subCategoryKey].isAreaBased = true;
+                                areaBasedMeta[subCategoryKey] = { ...level1Data, baseName: subCategoryKey };
+                                return;
+                            }
+
+                            // Loop through Level 2 (e.g., Material/GSM like "68 gms" or "Standard")
+                            Object.keys(level1Data).forEach(level2Key => {
+                                const level2Data = level1Data[level2Key];
+
+                                // Loop through final price array (Combinations)
+                                if (Array.isArray(level2Data)) {
+                                    level2Data.forEach(combo => {
+                                        const price = combo.price_per_unit || combo['Price per Shirt'] || combo['Design Fee'] || combo['Price per Locket'] || 0;
+
+                                        if (price > 0) {
+                                            const attributes = {
+                                                'Size': level1Key,
+                                                'Material/Stock': level2Key,
+                                                'Price': price,
+                                                'FullName': `${subCategoryKey} ${level1Key} ${level2Key}`
+                                            };
+
+                                            // Add other relevant keys (the original approach)
+                                            for(const key in combo) {
+                                                if(key !== 'price_per_unit' && key !== 'FullName' && key !== 'Size' && key !== 'Material/Stock' && key !== 'Price') {
+                                                    attributes[key.replace(/\s|\/|\(|\)/g, '')] = combo[key]; 
+                                                }
+                                            }
+
+                                            productGroups[subCategoryKey].combinations.push(attributes);
+
+                                            if (price < productGroups[subCategoryKey].minPrice) {
+                                                productGroups[subCategoryKey].minPrice = price;
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        });
+                    });
+                });
+
+                return productGroups;
             }
 
-            options.forEach(option => {
-                let matchCounter = 0;
-                let isMatch = true;
+            function initialProductSetup(rawData) {
+                // Handle Area-Based Pricing separately (if needed, extracted from JSON)
+                areaBasedMeta = rawData["Area-Based Pricing"] || {}; // Assuming the structure might change
 
-                for (const key in currentSelections) {
-                    // Check if the option has the key AND the value matches
-                    if (option.hasOwnProperty(key) && String(option[key]) === currentSelections[key]) {
-                        matchCounter++;
-                    } else if (option.hasOwnProperty(key)) {
-                        // If the option has the key but the value doesn't match, it's not the right option
-                        isMatch = false;
-                        break;
+                // Flatten and categorize standard products
+                allProductGroups = flattenAndCategorize(rawData);
+            }
+
+            function filterCatalog(mainCategory = null) {
+                showSection('shop-catalog');
+                const container = document.getElementById('main-product-catalog');
+                let html = '';
+                const productGroups = allProductGroups;
+
+                const filteredKeys = Object.keys(productGroups).filter(key => {
+                    const product = productGroups[key];
+                    if (!mainCategory) return true;
+                    return product.mainCategory === mainCategory;
+                });
+
+                if (filteredKeys.length === 0) {
+                    container.innerHTML = `<h3 class="text-center w-100 py-5">No products found in "${mainCategory || 'catalog'}".</h3>`;
+                    return;
+                }
+
+                const getMinPrice = (baseName) => {
+                    const group = allProductGroups[baseName];
+                    if (!group || (group.combinations.length === 0 && !group.isAreaBased)) return 'TBD';
+
+                    const areaMeta = areaBasedMeta[baseName];
+                    if (group.isAreaBased) return areaMeta ? areaMeta.rate : 'TBD';
+
+                    const minPrice = group.combinations.reduce((min, combo) => Math.min(min, combo.Price), Infinity);
+                    return isFinite(minPrice) ? minPrice : 'TBD';
+                };
+
+                filteredKeys.forEach(key => {
+                    const product = productGroups[key];
+                    const imagePath = `img/products/${product.imageFile}`;
+                    const displayPrice = getMinPrice(key);
+
+                    const isAreaBased = product.isAreaBased;
+
+                    const pricePrefix = isAreaBased ? 'Rate/Sq Ft: PKR' : 'Starting from: PKR';
+                    const buttonText = isAreaBased ? 'Configure Area' : 'View Details';
+
+                    const priceDisplay = (typeof displayPrice === 'number') ? displayPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 }) : displayPrice;
+
+                    html += `
+                        <div class="col-6 col-md-4 wow fadeInUp">
+                            <div class="card border-0 shadow-sm">
+                                <img src='${imagePath}' onerror="this.onerror=null;this.src='img/products/${key.replace(/\s|\//g, '-')}.png';" class='card-img-top' alt='${product.baseName}'>
+                                
+                                <div class='card-body text-center p-2'>
+                                    <h6 class='card-title text-dark mb-0'>${product.baseName}</h6>
+                                    <p class='text-primary fw-bold mb-0 small'>${pricePrefix} ${priceDisplay}</p>
+                                </div>
+                                
+                                <div class="card-footer bg-primary text-white text-center p-2" onclick="showProductDetails('${product.baseName.replace(/\s|\//g, '\\/')}')">
+                                    <a href="#" class="btn btn-sm btn-light text-primary w-100">${buttonText}</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                container.innerHTML = html;
+            }
+
+            // (Your existing showProductDetails function is completely replaced in the next section)
+            
+            // Helper for quantity buttons on standard items
+            function updateQuantityStandard(change) {
+                const input = document.getElementById('input-standard-qty');
+                let quantity = parseInt(input.value) || 1;
+                quantity = Math.max(1, quantity + change);
+                input.value = quantity;
+                updateFinalPrice();
+            }
+
+            // 🛑 NEW CODE BLOCK START: Variation Selection and Price Filtering Logic 🛑
+
+            // New handler function for card clicks (Standard Items)
+            function handleCardSelection(key, value) {
+                const sanitizedKey = key;
+
+                // 1. Store the selection globally
+                currentSelectedVariations[sanitizedKey] = value;
+
+                // 2. Add 'selected' class to the card (visual feedback)
+                document.querySelectorAll(`input[name="option-${sanitizedKey}"]`).forEach(input => {
+                    input.closest('.choice-card').classList.remove('selected');
+                });
+                const selectedInput = document.querySelector(`input[name="option-${sanitizedKey}"][value="${value}"]`);
+                if (selectedInput) {
+                    selectedInput.closest('.choice-card').classList.add('selected');
+                }
+
+                // 3. Trigger price recalculation
+                updateFinalPrice();
+            }
+
+            // --- Price Update and Calculation Logic (Handles both types) ---
+
+            function updateFinalPrice() {
+
+                const isAreaBased = currentProduct && areaBasedMeta[currentProduct.baseName] && areaBasedMeta[currentProduct.baseName].is_area_based;
+
+                // 1. Handle Area-Based Products (Your existing logic is preserved here)
+                if (isAreaBased) {
+                    const width = parseFloat(document.getElementById('input-width').value) || 0;
+                    const height = parseFloat(document.getElementById('input-height').value) || 0;
+                    const quantity = parseInt(document.getElementById('input-custom-qty').value) || 0;
+                    const rateMeta = areaBasedMeta[currentProduct.baseName];
+                    const baseRate = rateMeta ? rateMeta.rate : 0;
+                    const minArea = rateMeta ? rateMeta.min_area || 0 : 0;
+
+                    document.getElementById('finalPriceBox').style.display = 'none';
+                    document.getElementById('areaConstraintWarning').style.display = 'none';
+                    document.getElementById('selectionWarning').style.display = 'block';
+
+                    if (width <= 0 || height <= 0 || quantity <= 0 || baseRate === 0) {
+                        document.getElementById('selectionWarning').textContent = "Please enter valid dimensions and quantity to calculate price.";
+                        document.getElementById('areaDisplay').textContent = '';
+                        return;
                     }
-                }
-                
-                // We're looking for the exact price (100% match to the required attributes)
-                if (isMatch && matchCounter === requiredAttributes) {
-                    finalMatch = option;
-                }
-            });
 
-            // 4. Update the display
-            const priceDiv = document.getElementById(`price-${productName.replace(/\s+/g, '-')}`);
-            if (finalMatch) {
-                // Determine the price key dynamically (price_per_unit, Price per Shirt, etc.)
-                const priceKey = Object.keys(finalMatch).find(key => key.includes('price_per_unit') || key.includes('Price per') || key.includes('Fee')) || 'price_per_unit';
-                
-                priceDiv.textContent = `✅ Price: ${finalMatch[priceKey]}`;
-            } else if (selectionCount > 0) {
-                 priceDiv.textContent = `... Please select ${requiredAttributes - selectionCount} more option(s) for final price.`;
-            } else {
-                priceDiv.textContent = `Starting Price: ${options[0].price_per_unit || 'N/A'}`;
+                    const itemArea = width * height;
+                    const totalArea = itemArea * quantity;
+                    document.getElementById('areaDisplay').textContent = `Area per piece: ${itemArea.toFixed(2)} sq ft | Total Area: ${totalArea.toFixed(2)} sq ft`;
+
+                    if (totalArea < minArea) {
+                        document.getElementById('areaConstraintWarning').textContent = `Minimum order area for this product is ${minArea} sq ft. Current total area (${totalArea.toFixed(2)} sq ft) is too small.`;
+                        document.getElementById('areaConstraintWarning').style.display = 'block';
+                        return;
+                    }
+
+                    const totalPrice = totalArea * baseRate;
+
+                    document.getElementById('finalPriceDisplay').textContent = `PKR ${totalPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
+                    document.getElementById('finalPriceBox').style.display = 'block';
+                    document.getElementById('selectionWarning').style.display = 'none';
+
+                    return;
+                }
+
+                // 2. Standard Tiered Products (NEW VARIATION FILTERING LOGIC)
+
+                const quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 1;
+                const allCombinations = currentProduct?.combinations || [];
+
+                if (allCombinations.length === 0) return;
+
+                const requiredKeys = Object.keys(allCombinations[0]).filter(key => key !== 'Price' && key !== 'FullName');
+
+                let selectedAttributes = {};
+                let allSelected = true;
+                let selectedCount = 0; 
+
+                requiredKeys.forEach(key => {
+                    const sanitizedKey = key.replace(/\s|\/|\(|\)/g, '');
+                    if (!currentSelectedVariations[sanitizedKey]) {
+                        allSelected = false;
+                    } else {
+                        selectedAttributes[key] = currentSelectedVariatedons[sanitizedKey];
+                        selectedCount++;
+                    }
+                });
+
+                // A. Stop if not all required options are selected
+                if (!allSelected) {
+                    document.getElementById('finalPriceBox').style.display = 'none';
+                    document.getElementById('selectionWarning').textContent = `Please select all ${requiredKeys.length} options. Missing ${requiredKeys.length - selectedCount}.`;
+                    document.getElementById('selectionWarning').style.display = 'block';
+                    document.getElementById('selectionWarning').classList.remove('alert-danger');
+                    document.getElementById('selectionWarning').classList.add('alert-info');
+                    return;
+                }
+
+                // B. Find matching combination price (Best-Match Lookup)
+                let finalProductCombination = null;
+                allCombinations.forEach(combo => {
+                    let matches = true;
+                    requiredKeys.forEach(key => {
+                        if (combo[key] !== selectedAttributes[key]) {
+                            matches = false;
+                        }
+                    });
+                    if (matches) {
+                        finalProductCombination = combo;
+                    }
+                });
+
+                // C. Calculate and Display
+                if (finalProductCombination) {
+                    const unitPrice = finalProductCombination.Price;
+                    const totalPrice = unitPrice * quantity;
+
+                    document.getElementById('finalPriceDisplay').textContent = `PKR ${totalPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
+                    document.getElementById('finalPriceBox').style.display = 'block';
+                    document.getElementById('selectionWarning').style.display = 'none';
+                } else {
+                    document.getElementById('selectionWarning').textContent = "Selected combination not available. Try another mix.";
+                    document.getElementById('selectionWarning').classList.remove('alert-info');
+                    document.getElementById('selectionWarning').classList.add('alert-danger');
+                    document.getElementById('finalPriceBox').style.display = 'none';
+                    document.getElementById('selectionWarning').style.display = 'block';
+                }
             }
-        }
+            
+            // 🛑 END OF NEW CODE BLOCK 🛑
 
-        // Initialize the page
-        renderCatalog();
+            // --- WhatsApp Submission Logic ---
+            function addToCartFromDetails() {
+                const finalPriceText = document.getElementById('finalPriceDisplay').textContent;
+                const totalPrice = parseFloat(finalPriceText.replace('PKR', '').replace(/,/g, '').trim()) || 0;
 
-    </script>
+                if (totalPrice === 0 || document.getElementById('finalPriceBox').style.display === 'none') {
+                    showAlert('Please configure the product and ensure the final price is calculated before ordering.', 'error');
+                    return;
+                }
 
+                let itemDetails = '';
+                const isAreaBased = currentProduct && areaBasedMeta[currentProduct.baseName] && areaBasedMeta[currentProduct.baseName].is_area_based;
+
+                if (isAreaBased) {
+                    const width = parseFloat(document.getElementById('input-width').value) || 0;
+                    const height = parseFloat(document.getElementById('input-height').value) || 0;
+                    const quantity = parseInt(document.getElementById('input-custom-qty').value) || 0;
+                    const totalArea = (width * height) * quantity;
+
+                    itemDetails = `\n*Product:* ${currentProduct.baseName} (Area-Based)\n*Dimensions:* ${width}ft x ${height}ft\n*Quantity:* ${quantity} piece(s)\n*Total Area:* ${totalArea.toFixed(2)} sq ft\n*Price:* ${finalPriceText}`;
+
+                } else {
+                    const quantity = parseInt(document.getElementById('input-standard-qty').value) || 1;
+                    const details = Object.entries(currentSelectedVariations)
+                        .map(([key, val]) => {
+                            // Convert sanitized key back to readable format for the message
+                            const readableKey = key.replace(/[A-Z]/g, ' $&').trim();
+                            return `\n- ${readableKey}: ${val}`;
+                        });
+
+                    itemDetails = `\n*Product:* ${currentProduct.baseName} (Standard)\n*Selections:*${details.join('')}\n*Quantity:* ${quantity} unit(s)\n*Total Price:* ${finalPriceText}`;
+                }
+
+                submitOrderViaWhatsApp(itemDetails, totalPrice);
+            }
+
+            // 1. General Order Submission (from product page)
+            function submitOrderViaWhatsApp(itemDetails, totalPrice) {
+
+                let message = `*NEW ARHAM PRINTERS ORDER REQUEST (WEB)*\n`;
+                message += `-------------------------------------------\n`;
+                message += `${itemDetails}\n`;
+                message += `-------------------------------------------\n`;
+                message += `*CONFIRMED TOTAL (Excl. Delivery):* ${document.getElementById('finalPriceDisplay').textContent}\n\n`;
+                message += `_ACTION REQUIRED: Please provide your full name and delivery address for final price confirmation and delivery charge calculation._\n\n`;
+                message += `Customer is waiting for contact.`;
+
+                const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+                window.open(whatsappLink, '_blank');
+
+                showAlert('Opening WhatsApp chat now. Your order details have been prepared!', 'success');
+
+                setTimeout(() => {
+                    // After order, go back to catalog view
+                    showSection('shop-catalog');
+                    filterCatalog(null); // Reload all products
+                }, 1500);
+            }
+
+            // 2. Contact Form Submission Handler
+            function handleContactSubmission(e) {
+                e.preventDefault();
+
+                const name = document.getElementById('contact-name').value;
+                const subject = document.getElementById('contact-subject').value;
+                const message = document.getElementById('contact-message').value;
+
+                let whatsappMessage = `*NEW CONTACT MESSAGE (WEB)*\n`;
+                whatsappMessage += `*Sender:* ${name}\n`;
+                whatsappMessage += `*Subject:* ${subject}\n`;
+                whatsappMessage += `*Message:* ${message}`;
+
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+
+                showAlert('Message sent via WhatsApp!', 'success');
+                document.getElementById('contact-form-whatsapp').reset();
+            }
+
+            // 3. Get A Quote Submission Handler
+            function handleQuoteSubmission(e) {
+                e.preventDefault();
+
+                const name = document.getElementById('quote-name').value;
+                const phone = document.getElementById('quote-phone').value;
+                const product = document.getElementById('quote-product').value;
+                const quantity = document.getElementById('quote-quantity').value;
+                const details = document.getElementById('quote-details').value;
+
+                let whatsappMessage = `*NEW QUOTE REQUEST (WEB)*\n`;
+                whatsappMessage += `*Customer:* ${name}\n`;
+                whatsappMessage += `*Phone (Contact):* ${phone}\n`;
+                whatsappMessage += `*Product Type:* ${product}\n`;
+                whatsappMessage += `*Quantity/Area:* ${quantity}\n`;
+                whatsappMessage += `*Specifications:* ${details}`;
+
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+
+                showAlert('Quote submitted via WhatsApp! We will contact you shortly.', 'success');
+                document.getElementById('quote-form').reset();
+            }
+
+            // --- UI/Navigation Functions ---
+            function showSection(sectionName) {
+                // Hide all sections
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.remove('active');
+                });
+
+                // Show the selected section
+                const sectionElement = document.getElementById(sectionName + '-section');
+                if (sectionElement) {
+                    sectionElement.classList.add('active');
+                } else {
+                    console.error(`Section with ID ${sectionName}-section not found.`);
+                    // Default to showing catalog if a section is missing
+                    document.getElementById('shop-catalog-section').classList.add('active');
+                }
+
+                // Update active nav link (basic links)
+                document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+
+                // Set the current link or parent link as active
+                if (sectionName === 'shop-catalog') {
+                    document.querySelector('.navbar-nav a[onclick="showSection(\'shop-catalog\')"]').classList.add('active');
+                } else if (sectionName === 'quote' || sectionName === 'contact') {
+                    const navLink = document.querySelector(`.navbar-nav a[onclick="showSection('${sectionName}')"]`);
+                    if (navLink) {
+                        navLink.classList.add('active');
+                    }
+                } else if (sectionName === 'product-detail') {
+                    // Keep the "Products" (shop-catalog) link active when viewing details
+                    document.querySelector('.navbar-nav a[onclick="showSection(\'shop-catalog\')"]').classList.add('active');
+                }
+
+
+                window.scrollTo(0, 0);
+            }
+
+            function showAlert(message, type) {
+                const alert = document.createElement('div');
+                alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
+                alert.style.top = '20px';
+                alert.style.right = '20px';
+                alert.style.zIndex = '9999';
+                alert.style.minWidth = '300px';
+                alert.innerHTML = `
+                        ${message}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    `;
+                document.body.appendChild(alert);
+
+                setTimeout(() => {
+                    if (alert.parentNode) {
+                        alert.parentNode.removeChild(alert);
+                    }
+                }, 5000);
+            }
+
+            document.addEventListener('DOMContentLoaded', initialAppLoad);
+        </script>
+    </div>
 </body>
+
 </html>
