@@ -68,18 +68,20 @@
             ]
         },
         "Visisting Cards": {
-            "Shine": {
-                "Custom": [
-                    {
-                        "Printing Side": "Single side",
-                        "price_per_unit": 1800.0
-                    },
-                    {
-                        "Printing Side": "Double side",
-                        "price_per_unit": 2000.0
-                    }
-                ]
-            }
+            "All Options": [
+                {
+                    "Finish": "Shine",
+                    "Size/Type": "Custom",
+                    "Printing Side": "Single side",
+                    "price_per_unit": 1800.0
+                },
+                {
+                    "Finish": "Shine",
+                    "Size/Type": "Custom",
+                    "Printing Side": "Double side",
+                    "price_per_unit": 2000.0
+                }
+            ]
         }
     },
     "Marketing Essentials": {
@@ -523,7 +525,7 @@
             "rate": 150,
             "min_area": 100,
             "is_area_based": true
-        }
+            }
     },
     "Promotional Items": {
         "White T-Shirt (Adult Size)": {
