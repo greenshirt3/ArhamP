@@ -1,235 +1,26 @@
 {
-    "Digital Printing Pricing": {
-        "A4": {
-            "black_white": {
-                "70g": { "1-100": 10, "101-200": 8, "201-400": 7, "401-1000": 6 },
-                "80g": { "1-100": 15, "101-200": 13, "201-400": 12, "401-1000": 11 },
-                "100g": { "1-100": 20, "101-200": 18, "201-400": 17, "401-1000": 16 }
-            },
-            "color": {
-                "70g": { "1-100": 20, "101-200": 18, "201-400": 17, "401-1000": 16 },
-                "80g": { "1-100": 25, "101-200": 23, "201-400": 22, "401-1000": 21 },
-                "100g": { "1-100": 30, "101-200": 28, "201-400": 27, "401-1000": 26 }
-            }
-        },
-        "Legal": {
-            "black_white": {
-                "70g": { "1-100": 12, "101-200": 10, "201-400": 9, "401-1000": 8 },
-                "80g": { "1-100": 17, "101-200": 15, "201-400": 14, "401-1000": 13 },
-                "100g": { "1-100": 22, "101-200": 20, "201-400": 19, "401-1000": 18 }
-            },
-            "color": {
-                "70g": { "1-100": 22, "101-200": 20, "201-400": 19, "401-1000": 18 },
-                "80g": { "1-100": 27, "101-200": 25, "201-400": 24, "401-1000": 23 },
-                "100g": { "1-100": 32, "101-200": 30, "201-400": 29, "401-1000": 28 }
-            }
-        }
+    "A4": {
+      "black_white": {
+        "70g": { "1-100": 10, "101-200": 8, "201-400": 7, "401-1000": 6 },
+        "80g": { "1-100": 15, "101-200": 13, "201-400": 12, "401-1000": 11 },
+        "100g": { "1-100": 20, "101-200": 18, "201-400": 17, "401-1000": 16 }
+      },
+      "color": {
+        "70g": { "1-100": 20, "101-200": 18, "201-400": 17, "401-1000": 16 },
+        "80g": { "1-100": 25, "101-200": 23, "201-400": 22, "401-1000": 21 },
+        "100g": { "1-100": 30, "101-200": 28, "201-400": 27, "401-1000": 26 }
+      }
     },
-    "Office Essentials": {
-        "Letterpads": {
-            "5.75x9": {
-                "68 gms": [
-                    { "Printing Color": "Single Color", "price_per_unit": 2.50 },
-                    { "Printing Color": "Two Colors", "price_per_unit": 3.00 },
-                    { "Printing Color": "4 Colors", "price_per_unit": 4.50 }
-                ],
-                "80gms": [
-                    { "Printing Color": "Single Color", "price_per_unit": 3.00 },
-                    { "Printing Color": "Two Colors", "price_per_unit": 3.50 },
-                    { "Printing Color": "4 Colors", "price_per_unit": 5.00 }
-                ],
-                "100 gms": [
-                    { "Printing Color": "Single Color", "price_per_unit": 4.00 },
-                    { "Printing Color": "Two Colors", "price_per_unit": 4.50 },
-                    { "Printing Color": "4 Colors", "price_per_unit": 6.00 }
-                ]
-            },
-            "A4": {
-                "68 gms": [
-                    { "Printing Color": "Single Color", "price_per_unit": 4.00 },
-                    { "Printing Color": "Two Colors", "price_per_unit": 5.00 },
-                    { "Printing Color": "4 Colors", "price_per_unit": 7.00 }
-                ],
-                "80gms": [
-                    { "Printing Color": "Single Color", "price_per_unit": 4.50 },
-                    { "Printing Color": "Two Colors", "price_per_unit": 5.50 },
-                    { "Printing Color": "4 Colors", "price_per_unit": 8.00 }
-                ],
-                "100 gms": [
-                    { "Printing Color": "Single Color", "price_per_unit": 5.00 },
-                    { "Printing Color": "Two Colors", "price_per_unit": 6.00 },
-                    { "Printing Color": "4 Colors", "price_per_unit": 9.00 }
-                ]
-            }
-        },
-        "Envelops": {
-            "9x4": {
-                "80gms": [
-                    { "Printing Color": "Single Color", "price_per_unit": 5.00 },
-                    { "Printing Color": "Two Colors", "price_per_unit": 6.50 },
-                    { "Printing Color": "4 Colors", "price_per_unit": 8.00 }
-                ]
-            }
-        },
-        "Bill Books": {
-            "5.75x9": {
-                "68 gms": [{ "Printing Color": "Single Color", "price_per_unit": 10.00 }],
-                "80gms": [{ "Printing Color": "4 Colors", "price_per_unit": 12.00 }],
-                "90gms Art Paper": [{ "Printing Color": "4 Colors", "price_per_unit": 15.00 }],
-                "100 gms": [{ "Printing Color": "4 Colors", "price_per_unit": 18.00 }]
-            },
-            "A4": {
-                "68 gms": [{ "Printing Color": "Single Color", "price_per_unit": 15.00 }],
-                "80gms": [{ "Printing Color": "Single Color", "price_per_unit": 18.00 }],
-                "90gms Art Paper": [{ "Printing Color": "4 Colors", "price_per_unit": 22.00 }],
-                "100 gms": [{ "Printing Color": "4 Colors", "price_per_unit": 25.00 }]
-            }
-        },
-        "Carbonless Bill Books": {
-            "Custom": {
-                "Standard": [{ "Printing Color": "Single Color", "price_per_unit": 30.00 }]
-            }
-        },
-        "File Covers": {
-            "Custom": {
-                "Art Card": [
-                    { "Printing Color": "Single Color", "Sides": "Single Side", "price_per_unit": 40.00 },
-                    { "Printing Color": "4 Colors", "Sides": "Single Side", "price_per_unit": 60.00 },
-                    { "Printing Color": "4 Colors", "Sides": "Double Side", "price_per_unit": 80.00 }
-                ]
-            }
-        },
-        "Rubber Stamp (Rectangular)": {
-             "3.5x2": { "Standard": [{ "Type": "Manual Inking", "price_per_unit": 500 }] },
-             "1x0.39": { "Standard": [{ "Type": "Manual Inking", "price_per_unit": 200 }] },
-             "1.8x0.7": { "Standard": [{ "Type": "Manual Inking", "price_per_unit": 350 }] },
-             "2.75x0.98": { "Standard": [{ "Type": "Manual Inking", "price_per_unit": 450 }] }
-        },
-        "Pencil Tray": {
-            "Custom": {
-                "Standard": [
-                    { "Material": "Plastic", "price_per_unit": 600 },
-                    { "Material": "Wood", "price_per_unit": 800 },
-                    { "Material": "Engraved Wood", "price_per_unit": 1500 }
-                ]
-            }
-        }
-    },
-    "Marketing Essentials": {
-        "Pamphlets": {
-            "5.75x9": {
-                "68 gms": [
-                    { "Color": "Single Color", "price_per_unit": 1.50 },
-                    { "Color": "Two Colors", "price_per_unit": 2.00 },
-                    { "Color": "4 Colors", "price_per_unit": 3.00 }
-                ],
-                "80gms": [
-                    { "Color": "Single Color", "price_per_unit": 2.00 },
-                    { "Color": "Two Colors", "price_per_unit": 2.50 },
-                    { "Color": "4 Colors", "price_per_unit": 4.00 }
-                ]
-            },
-            "A4": {
-                "68 gms": [
-                    { "Color": "4 Colors", "price_per_unit": 5.00 }
-                ],
-                "80gms": [
-                    { "Color": "4 Colors", "price_per_unit": 7.00 }
-                ]
-            }
-        },
-        "Flyers/Ishtihars": {
-            "5.75x9": {
-                "90gms Art Paper": [
-                    { "Sides": "Single Side", "price_per_unit": 6.00 },
-                    { "Sides": "Double Side", "price_per_unit": 9.00 }
-                ],
-                "113 gms Art Paper": [
-                    { "Sides": "Single Side", "price_per_unit": 8.00 },
-                    { "Sides": "Double Side", "price_per_unit": 12.00 }
-                ]
-            }
-        },
-        "Stickers": {
-            "3.5x2": {
-                "Standard": [
-                    { "Shape": "Round Corners", "Material": "PVC", "price_per_unit": 1.50 },
-                    { "Shape": "Plain Corners", "Material": "PVC", "price_per_unit": 1.00 }
-                ]
-            },
-            "7x10": {
-                "Standard": [
-                    { "Shape": "Round Corners", "Material": "Paper", "price_per_unit": 5.00 },
-                    { "Shape": "Plain Corners", "Material": "Paper", "price_per_unit": 4.00 }
-                ]
-            }
-        }
-    },
-    "Business Essentials": {
-        "Shine Visisting Cards": {
-            "3.5x2": {
-                "Standard": [
-                    { "Finish": "Shine", "Sides": "Single Color", "price_per_unit": 1000 }
-                ]
-            }
-        },
-        "Mat Cards": {
-            "3.5x2": {
-                "Standard": [
-                    { "Shape": "Round Corners", "Sides": "Double Side", "price_per_unit": 1200 },
-                    { "Shape": "Plain Corners", "Sides": "Double Side", "price_per_unit": 1000 }
-                ]
-            }
-        },
-        "UV Cards": {
-            "3.5x2": {
-                "Standard": [
-                    { "Shape": "Round Corners", "Sides": "Double Side", "price_per_unit": 1500 }
-                ]
-            }
-        }
-    },
-    "Photo Printing": {
-        "PhotoPapers": {
-            "7x5": { "Standard": [{ "Material": "Matte", "price_per_unit": 150 }] },
-            "A4": { "Standard": [{ "Material": "Glossy", "price_per_unit": 250 }] }
-        },
-        "Photo Frames": {
-            "Custom Sizes": { "Standard": [{ "Material": "Wood", "price_per_unit": 800 }] }
-        }
-    },
-    "Promotional Items": {
-        "White T-Shirt (Adult Size)": {
-            "Small": { "Standard": [{ "Price per Shirt": 1200 }] },
-            "Medium": { "Standard": [{ "Price per Shirt": 1300 }] },
-            "Large": { "Standard": [{ "Price per Shirt": 1400 }] }
-        },
-        "Mug": {
-            "Custom": {
-                "Standard": [
-                    { "Shape": "Heart Shape", "Accessories": "Spoon Mug", "price_per_unit": 550 },
-                    { "Shape": "Heart Shape", "Accessories": "Mug with Pirch", "price_per_unit": 650 }
-                ]
-            }
-        },
-        "Metal Pen": {
-            "Custom": {
-                "Standard": [
-                    { "Finish": "Shine", "price_per_unit": 150 },
-                    { "Finish": "Mat", "price_per_unit": 120 }
-                ]
-            }
-        }
-    },
-    "Area-Based Pricing": {
-        "Panaflex Banners": {
-            "China Frontlit": { "rate": 50, "is_area_based": true },
-            "Star Frontlit": { "rate": 70, "is_area_based": true }
-        },
-        "3D Wallpaper": {
-            "rate": 150,
-            "min_area": 100,
-            "is_area_based": true
-        }
+    "Legal": {
+      "black_white": {
+        "70g": { "1-100": 12, "101-200": 10, "201-400": 9, "401-1000": 8 },
+        "80g": { "1-100": 17, "101-200": 15, "201-400": 14, "401-1000": 13 },
+        "100g": { "1-100": 22, "101-200": 20, "201-400": 19, "401-1000": 18 }
+      },
+      "color": {
+        "70g": { "1-100": 22, "101-200": 20, "201-400": 19, "401-1000": 18 },
+        "80g": { "1-100": 27, "101-200": 25, "201-400": 24, "401-1000": 23 },
+        "100g": { "1-100": 32, "101-200": 30, "201-400": 29, "401-1000": 28 }
+      }
     }
 }
