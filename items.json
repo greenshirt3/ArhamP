@@ -1,33 +1,35 @@
 {
     "Business Essentials": {
         "Shine Visisting Cards": {
-            "3.5x2": {
-                "Standard": [
-                    {
-                        "Finish": "Shine",
-                        "Sides": "Single Color",
-                        "price_per_unit": 1000
-                    }
-                ]
-            }
+            "All Options": [
+                {
+                    "Size": "3.5x2",
+                    "Quality": "Standard",
+                    "Finish": "Shine",
+                    "Sides": "Single Color",
+                    "price_per_unit": 1000
+                }
+            ]
         },
         "Mat Cards": {
-            "3.5x2": {
-                "Standard": [
-                    {
-                        "Shape": "Round Corners",
-                        "Sides": "Double Side",
-                        "Finish": "Mat",
-                        "price_per_unit": 1200
-                    },
-                    {
-                        "Shape": "Plain Corners",
-                        "Sides": "Double Side",
-                        "Finish": "Mat",
-                        "price_per_unit": 1000
-                    }
-                ]
-            },
+            "All Options": [
+                {
+                    "Size": "3.5x2",
+                    "Quality": "Standard",
+                    "Shape": "Round Corners",
+                    "Sides": "Double Side",
+                    "Finish": "Mat",
+                    "price_per_unit": 1200
+                },
+                {
+                    "Size": "3.5x2",
+                    "Quality": "Standard",
+                    "Shape": "Plain Corners",
+                    "Sides": "Double Side",
+                    "Finish": "Mat",
+                    "price_per_unit": 1000
+                }
+            ],
             "Plain Corners": {
                 "Custom": [
                     {
@@ -54,16 +56,16 @@
             }
         },
         "UV Cards": {
-            "3.5x2": {
-                "Standard": [
-                    {
-                        "Shape": "Round Corners",
-                        "Sides": "Double Side",
-                        "Finish": "UV",
-                        "price_per_unit": 1500
-                    }
-                ]
-            }
+            "All Options": [
+                {
+                    "Size": "3.5x2",
+                    "Quality": "Standard",
+                    "Shape": "Round Corners",
+                    "Sides": "Double Side",
+                    "Finish": "UV",
+                    "price_per_unit": 1500
+                }
+            ]
         },
         "Visisting Cards": {
             "Shine": {
@@ -82,42 +84,48 @@
     },
     "Marketing Essentials": {
         "Pamphlets": {
-            "5.75x9": {
-                "68 gms": [
-                    {
-                        "price_per_unit": 1.5
-                    },
-                    {
-                        "price_per_unit": 2.0
-                    },
-                    {
-                        "price_per_unit": 3.0
-                    }
-                ],
-                "80gms": [
-                    {
-                        "price_per_unit": 2.0
-                    },
-                    {
-                        "price_per_unit": 2.5
-                    },
-                    {
-                        "price_per_unit": 4.0
-                    }
-                ]
-            },
-            "A4": {
-                "68 gms": [
-                    {
-                        "price_per_unit": 5.0
-                    }
-                ],
-                "80gms": [
-                    {
-                        "price_per_unit": 7.0
-                    }
-                ]
-            }
+            "All Options": [
+                {
+                    "Size": "5.75x9",
+                    "Weight": "68 gms",
+                    "price_per_unit": 1.5
+                },
+                {
+                    "Size": "5.75x9",
+                    "Weight": "68 gms",
+                    "price_per_unit": 2.0
+                },
+                {
+                    "Size": "5.75x9",
+                    "Weight": "68 gms",
+                    "price_per_unit": 3.0
+                },
+                {
+                    "Size": "5.75x9",
+                    "Weight": "80gms",
+                    "price_per_unit": 2.0
+                },
+                {
+                    "Size": "5.75x9",
+                    "Weight": "80gms",
+                    "price_per_unit": 2.5
+                },
+                {
+                    "Size": "5.75x9",
+                    "Weight": "80gms",
+                    "price_per_unit": 4.0
+                },
+                {
+                    "Size": "A4",
+                    "Weight": "68 gms",
+                    "price_per_unit": 5.0
+                },
+                {
+                    "Size": "A4",
+                    "Weight": "80gms",
+                    "price_per_unit": 7.0
+                }
+            ]
         },
         "Flyers/Ishtihars": {
             "5.75x9": {
@@ -169,94 +177,116 @@
     },
     "Office Essentials": {
         "Letterpads": {
-            "5.75x9": {
-                "68 gms": [
-                    {
-                        "Printing Color": "Single Color",
-                        "price_per_unit": 2.5
-                    },
-                    {
-                        "Printing Color": "Two Colors",
-                        "price_per_unit": 3.0
-                    },
-                    {
-                        "Printing Color": "4 Colors",
-                        "price_per_unit": 4.5
-                    }
-                ],
-                "80gms": [
-                    {
-                        "Printing Color": "Single Color",
-                        "price_per_unit": 3.0
-                    },
-                    {
-                        "Printing Color": "Two Colors",
-                        "price_per_unit": 3.5
-                    },
-                    {
-                        "Printing Color": "4 Colors",
-                        "price_per_unit": 5.0
-                    }
-                ],
-                "100 gms": [
-                    {
-                        "Printing Color": "Single Color",
-                        "price_per_unit": 4.0
-                    },
-                    {
-                        "Printing Color": "Two Colors",
-                        "price_per_unit": 4.5
-                    },
-                    {
-                        "Printing Color": "4 Colors",
-                        "price_per_unit": 6.0
-                    }
-                ]
-            },
-            "A4": {
-                "68 gms": [
-                    {
-                        "Printing Color": "Single Color",
-                        "price_per_unit": 4.0
-                    },
-                    {
-                        "Printing Color": "Two Colors",
-                        "price_per_unit": 5.0
-                    },
-                    {
-                        "Printing Color": "4 Colors",
-                        "price_per_unit": 7.0
-                    }
-                ],
-                "80gms": [
-                    {
-                        "Printing Color": "Single Color",
-                        "price_per_unit": 4.5
-                    },
-                    {
-                        "Printing Color": "Two Colors",
-                        "price_per_unit": 5.5
-                    },
-                    {
-                        "Printing Color": "4 Colors",
-                        "price_per_unit": 8.0
-                    }
-                ],
-                "100 gms": [
-                    {
-                        "Printing Color": "Single Color",
-                        "price_per_unit": 5.0
-                    },
-                    {
-                        "Printing Color": "Two Colors",
-                        "price_per_unit": 6.0
-                    },
-                    {
-                        "Printing Color": "4 Colors",
-                        "price_per_unit": 9.0
-                    }
-                ]
-            }
+            "All Options": [
+                {
+                    "Size": "5.75x9",
+                    "Weight": "68 gms",
+                    "Printing Color": "Single Color",
+                    "price_per_unit": 2.5
+                },
+                {
+                    "Size": "5.75x9",
+                    "Weight": "68 gms",
+                    "Printing Color": "Two Colors",
+                    "price_per_unit": 3.0
+                },
+                {
+                    "Size": "5.75x9",
+                    "Weight": "68 gms",
+                    "Printing Color": "4 Colors",
+                    "price_per_unit": 4.5
+                },
+                {
+                    "Size": "5.75x9",
+                    "Weight": "80gms",
+                    "Printing Color": "Single Color",
+                    "price_per_unit": 3.0
+                },
+                {
+                    "Size": "5.75x9",
+                    "Weight": "80gms",
+                    "Printing Color": "Two Colors",
+                    "price_per_unit": 3.5
+                },
+                {
+                    "Size": "5.75x9",
+                    "Weight": "80gms",
+                    "Printing Color": "4 Colors",
+                    "price_per_unit": 5.0
+                },
+                {
+                    "Size": "5.75x9",
+                    "Weight": "100 gms",
+                    "Printing Color": "Single Color",
+                    "price_per_unit": 4.0
+                },
+                {
+                    "Size": "5.75x9",
+                    "Weight": "100 gms",
+                    "Printing Color": "Two Colors",
+                    "price_per_unit": 4.5
+                },
+                {
+                    "Size": "5.75x9",
+                    "Weight": "100 gms",
+                    "Printing Color": "4 Colors",
+                    "price_per_unit": 6.0
+                },
+                {
+                    "Size": "A4",
+                    "Weight": "68 gms",
+                    "Printing Color": "Single Color",
+                    "price_per_unit": 4.0
+                },
+                {
+                    "Size": "A4",
+                    "Weight": "68 gms",
+                    "Printing Color": "Two Colors",
+                    "price_per_unit": 5.0
+                },
+                {
+                    "Size": "A4",
+                    "Weight": "68 gms",
+                    "Printing Color": "4 Colors",
+                    "price_per_unit": 7.0
+                },
+                {
+                    "Size": "A4",
+                    "Weight": "80gms",
+                    "Printing Color": "Single Color",
+                    "price_per_unit": 4.5
+                },
+                {
+                    "Size": "A4",
+                    "Weight": "80gms",
+                    "Printing Color": "Two Colors",
+                    "price_per_unit": 5.5
+                },
+                {
+                    "Size": "A4",
+                    "Weight": "80gms",
+                    "Printing Color": "4 Colors",
+                    "price_per_unit": 8.0
+                },
+                {
+                    "Size": "A4",
+                    "Weight": "100 gms",
+                    "Printing Color": "Single Color",
+                    "price_per_unit": 5.0
+                },
+                {
+                    "Size": "A4",
+                    "Weight": "100 gms",
+                    "Printing Color": "Two Colors",
+                    "price_per_unit": 6.0
+                },
+                {
+                    "Size": "A4",
+                    "Weight": "100 gms",
+                    "Printing Color": "4 Colors",
+                    "price_per_unit": 9.0
+                }
+            ]
         },
         "Envelops": {
             "9x4": {
@@ -277,72 +307,68 @@
             }
         },
         "Bill Books": {
-            "5.75x9": {
-                "68 gms": [
-                    {
-                        "Printing Color": "Single Color",
-                        "price_per_unit": 10.0
-                    }
-                ],
-                "80gms": [
-                    {
-                        "Printing Color": "4 Colors",
-                        "price_per_unit": 12.0
-                    }
-                ],
-                "90gms Art Paper": [
-                    {
-                        "Printing Color": "4 Colors",
-                        "price_per_unit": 15.0
-                    }
-                ],
-                "100 gms": [
-                    {
-                        "Printing Color": "4 Colors",
-                        "price_per_unit": 18.0
-                    }
-                ]
-            },
-            "A4": {
-                "68 gms": [
-                    {
-                        "Printing Color": "Single Color",
-                        "price_per_unit": 15.0
-                    }
-                ],
-                "80gms": [
-                    {
-                        "Printing Color": "Single Color",
-                        "price_per_unit": 18.0
-                    }
-                ],
-                "90gms Art Paper": [
-                    {
-                        "Printing Color": "4 Colors",
-                        "price_per_unit": 22.0
-                    }
-                ],
-                "100 gms": [
-                    {
-                        "Printing Color": "4 Colors",
-                        "price_per_unit": 25.0
-                    }
-                ]
-            },
-            "9x11": {
-                "80gms": [
-                    {
-                        "Printing Color": "4 Colors",
-                        "price_per_unit": 28.0
-                    }
-                ],
-                "100 gms": [
-                    {
-                        "Printing Color": "4 Colors",
-                        "price_per_unit": 32.0
-                    }
-                ]
-            }
+            "All Options": [
+                {
+                    "Size": "5.75x9",
+                    "Paper Type": "68 gms",
+                    "Printing Color": "Single Color",
+                    "price_per_unit": 10.0
+                },
+                {
+                    "Size": "5.75x9",
+                    "Paper Type": "80gms",
+                    "Printing Color": "4 Colors",
+                    "price_per_unit": 12.0
+                },
+                {
+                    "Size": "5.75x9",
+                    "Paper Type": "90gms Art Paper",
+                    "Printing Color": "4 Colors",
+                    "price_per_unit": 15.0
+                },
+                {
+                    "Size": "5.75x9",
+                    "Paper Type": "100 gms",
+                    "Printing Color": "4 Colors",
+                    "price_per_unit": 18.0
+                },
+                {
+                    "Size": "A4",
+                    "Paper Type": "68 gms",
+                    "Printing Color": "Single Color",
+                    "price_per_unit": 15.0
+                },
+                {
+                    "Size": "A4",
+                    "Paper Type": "80gms",
+                    "Printing Color": "Single Color",
+                    "price_per_unit": 18.0
+                },
+                {
+                    "Size": "A4",
+                    "Paper Type": "90gms Art Paper",
+                    "Printing Color": "4 Colors",
+                    "price_per_unit": 22.0
+                },
+                {
+                    "Size": "A4",
+                    "Paper Type": "100 gms",
+                    "Printing Color": "4 Colors",
+                    "price_per_unit": 25.0
+                },
+                {
+                    "Size": "9x11",
+                    "Paper Type": "80gms",
+                    "Printing Color": "4 Colors",
+                    "price_per_unit": 28.0
+                },
+                {
+                    "Size": "9x11",
+                    "Paper Type": "100 gms",
+                    "Printing Color": "4 Colors",
+                    "price_per_unit": 32.0
+                }
+            ]
         },
         "Carbonless Bill Books": {
             "Custom": {
