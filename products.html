@@ -602,7 +602,7 @@
                         if (Array.isArray(level2Data)) {
                             level2Data.forEach(combo => {
                                 // Extract price and clean up attributes
-                                const price = combo.price_per_unit || 0; 
+                               const price = combo.price || 0;
                                 
                                 if (price > 0) {
                                     const attributes = {
@@ -1129,6 +1129,7 @@
 </body>
 
 </html>
+
 
 
 
