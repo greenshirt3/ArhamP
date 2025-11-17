@@ -486,16 +486,18 @@
             // Determine Total Pages (Total printed sides) for tier calculation
             const totalPages = quantity * (siding === 'Double Sided' ? 2 : 1);
 
-            try {
-                // Navigate the simplified JSON path: Size -> Color -> GSM
-                const gsmPricing = pricingData[sizeKey][colorKey][gsmKey];
+           try {
+                // Use optional chaining and nullish coalescing for safer navigation
+                const gsmPricing = pricingData?.[sizeKey]?.[colorKey]?.[gsmKey];
                 
                 if (!gsmPricing) {
+                     // If any part of the path is missing, show a config error
                      document.getElementById('totalPrice').innerHTML = '<span>Pricing Not Configured!</span>';
                      return;
                 }
 
                 const pricePerUnit = getTierPrice(gsmPricing, totalPages);
+                // ... rest of the calculation logic (lines 528 onwards) ...
                 
                 if (pricePerUnit === 0) {
                     document.getElementById('totalPrice').innerHTML = '<span>Pricing Error!</span>';
