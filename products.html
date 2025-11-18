@@ -754,7 +754,7 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
 
-    <script>
+   <script>
     // --- Configuration ---
     const PUBLIC_DATA_URL = 'itemsprice.json'; 
     const WHATSAPP_NUMBER = '923006238233'; 
@@ -820,20 +820,24 @@
             const categoryData = data[mainCategoryKey];
             
             Object.keys(categoryData).forEach(subCategoryKey => {
+                const productKey = subCategoryKey.trim(); // Use clean key for productGroups
                 const subCategoryData = categoryData[subCategoryKey];
                 
-                if (!productGroups[subCategoryKey]) {
-                    productGroups[subCategoryKey] = {
-                        baseName: subCategoryKey,
+                if (!productGroups[productKey]) {
+                    // Create base file name using the actual key from the JSON
+                    const imageFileBase = productKey.replace(/\s|\//g, '-').replace('Visisting', 'vcard').replace('Mat-Cards', 'matcards').replace('UV-Cards', 'uvcard').replace('UV-Thick-Cards', 'thickcard').replace('Letterpads', 'letterpad').replace('Envelops', 'envelops').replace('Bill-Books', 'billbooks').replace('File-Covers', 'filecovers').replace('Rubber-Stamp-(Rectangular)', 'stamps').replace('Pencil-Tray', 'penciltrays').replace('Pamphlets', 'pamphlets').replace('Flyers/Ishtihars', 'flyers').replace('Digital-Print-(Tiered)', 'prints').replace('PhotoPapers', 'photopapers').replace('Photo-Frames', 'frames').replace('China-Frontlit', 'china').replace('Star-Frontlit', 'star').replace('Panaflex-Banner-Backlit', 'backlit').replace('White-T-Shirt-(Adult-Size)', 'shirt').replace('Metal-Pen', 'pen').replace('Locket-with-Picture', 'locket').replace('Wedding-Invitation-Cards', 'wedding').replace('3D-Wallpaper-Placeholder', 'wallpaper').replace('Flags-and-Fabric-(Custom)', 'flags').replace('Box-Packaging-(Custom)', 'box');
+
+                    productGroups[productKey] = {
+                        baseName: productKey,
                         minPrice: Infinity,
-                        imageFile: subCategoryKey.replace(/\s|\//g, '-').replace('Visisting', 'vcard').replace('Mat-Cards', 'matcards').replace('UV-Cards', 'uvcard').replace('UV-Thick-Cards', 'thickcard').replace('Letterpads', 'letterpad').replace('Envelops', 'envelops').replace('Bill-Books', 'billbooks').replace('File-Covers', 'filecovers').replace('Rubber-Stamp-(Rectangular)', 'stamps').replace('Pencil-Tray', 'penciltrays').replace('Pamphlets', 'pamphlets').replace('Flyers/Ishtihars', 'flyers').replace('Digital-Print-(Tiered)', 'prints').replace('PhotoPapers', 'photopapers').replace('Photo-Frames', 'frames').replace('China-Frontlit', 'china').replace('Star-Frontlit', 'star').replace('Panaflex-Banner-Backlit', 'backlit').replace('White-T-Shirt-(Adult-Size)', 'shirt').replace('Metal-Pen', 'pen').replace('Locket-with-Picture', 'locket').replace('Wedding-Invitation-Cards', 'wedding').replace('3D-Wallpaper-Placeholder', 'wallpaper').replace('Flags-and-Fabric-(Custom)', 'flags').replace('Box-Packaging-(Custom)', 'box'), // Mapped Filename base
-                        isAreaBased: AREA_BASED_PRODUCT_NAMES.includes(subCategoryKey),
+                        imageFile: imageFileBase, 
+                        isAreaBased: AREA_BASED_PRODUCT_NAMES.includes(productKey),
                         mainCategory: mainCategoryKey,
                         combinations: [] 
                     };
                     
-                    if (productGroups[subCategoryKey].isAreaBased) {
-                         areaBasedMeta[subCategoryKey] = { is_area_based: true, rate: 1, min_area: 10 };
+                    if (productGroups[productKey].isAreaBased) {
+                         areaBasedMeta[productKey] = { is_area_based: true, rate: 1, min_area: 10 };
                     }
                 }
 
@@ -847,12 +851,12 @@
                             level2Data.forEach(combo => {
                                const price = combo.price || 0;
                                 
-                                if (price > 0 || productGroups[subCategoryKey].isAreaBased) {
+                                if (price > 0 || productGroups[productKey].isAreaBased) {
                                     const attributes = {
                                         'Size': level1Key,
                                         'Material/Stock': level2Key,
                                         'Price': price,
-                                        'FullName': `${subCategoryKey} ${level1Key} ${level2Key}`
+                                        'FullName': `${productKey} ${level1Key} ${level2Key}`
                                     };
                                     
                                     if (combo.single_side) attributes['Side 1 Print'] = combo.single_side;
@@ -862,12 +866,12 @@
                                     if (combo.shape) attributes['Shape'] = combo.shape;
                                     if (combo.accessories) attributes['Accessories'] = combo.accessories;
 
-                                    if (!productGroups[subCategoryKey].isAreaBased) {
-                                         productGroups[subCategoryKey].combinations.push(attributes);
+                                    if (!productGroups[productKey].isAreaBased) {
+                                         productGroups[productKey].combinations.push(attributes);
                                     }
                                     
-                                    if (!productGroups[subCategoryKey].isAreaBased && price < productGroups[subCategoryKey].minPrice) {
-                                        productGroups[subCategoryKey].minPrice = price;
+                                    if (!productGroups[productKey].isAreaBased && price < productGroups[productKey].minPrice) {
+                                        productGroups[productKey].minPrice = price;
                                     }
                                 }
                             });
@@ -936,8 +940,8 @@
 
          const digitalData = digitalPrintingPricing;
 
-         // Get all unique values for A4/Legal (Size)
-         const sizes = Object.keys(digitalData.DigitalPrintingPricing);
+         // FIX: Use the key 'Digital Printing Pricing' which holds the pricing data
+         const sizes = Object.keys(digitalPrintingPricing["Digital Printing Pricing"]);
          
          let html = '';
 
@@ -956,7 +960,8 @@
          html += `</div></div>`;
 
          // --- Color Type Selection (Black_White/Color) ---
-         const colorTypes = ['black_white', 'color'];
+         // Safely extract color types from the first size entry
+         const colorTypes = Object.keys(digitalPrintingPricing["Digital Printing Pricing"][sizes[0]] || {});
          html += `<div class="product-option-group" data-option-key="ColorType">
                     <label>Print Color:</label>
                     <div class="d-flex flex-wrap gap-3" id="choices-ColorType">`;
@@ -972,7 +977,8 @@
          html += `</div></div>`;
          
          // --- GSM Selection (70g/80g/100g) ---
-         const gsms = ['70g', '80g', '100g'];
+         // Safely extract GSMs from the first size and color entry
+         const gsms = Object.keys(digitalPrintingPricing["Digital Printing Pricing"][sizes[0]][colorTypes[0]] || {});
          html += `<div class="product-option-group" data-option-key="GSM">
                     <label>Paper Weight (GSM):</label>
                     <div class="d-flex flex-wrap gap-3" id="choices-GSM">`;
@@ -1096,7 +1102,7 @@
             // Render groups of unique values for each attribute
             Object.keys(availableAttributes).forEach((attrKey) => {
                 const uniqueValues = Array.from(availableAttributes[attrKey]);
-                const sanitizedKey = attrKey.replace(/\s|\/|\(|\)/g, '');
+                const sanitizedKey = attrKey;
                 
                 let groupHTML = `
                     <div class="product-option-group" data-option-key="${sanitizedKey}">
@@ -1226,7 +1232,7 @@
              if (!size || !colorType || !gsm || quantity <= 0) return;
              
              try {
-                const sizeData = digitalPrintingPricing.DigitalPrintingPricing[size];
+                const sizeData = digitalPrintingPricing["Digital Printing Pricing"][size];
                 const colorData = sizeData[colorType];
                 const gsmData = colorData[gsm];
                 
@@ -1495,3 +1501,4 @@
 </body>
 
 </html>
+
