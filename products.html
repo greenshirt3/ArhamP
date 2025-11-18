@@ -208,7 +208,7 @@
                         </div>
                          <div class='col-md-4 col-sm-6 mb-4'>
                             <div class='card h-100 shadow-sm'>
-                                <img src='img/productsthickcard.webp' onerror="this.onerror=null;this.src='img/productsthickcard.png';" class='card-img-top' alt='UV Thick Cards'>
+                                <img src='img/products/thickcard.webp' onerror="this.onerror=null;this.src='img/products/thickcard.png';" class='card-img-top' alt='UV Thick Cards'>
                                 <div class='card-body text-center'>
                                     <h5 class='card-title'>UV Thick Cards</h5>
                                     <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('UV Thick Cards')"><i class="fas fa-search me-2"></i> View Details</button>
@@ -219,10 +219,10 @@
                         <h3 class="w-100 pt-3" id="office-essentials">Office Essentials</h3>
                         <div class='col-md-4 col-sm-6 mb-4'>
                             <div class='card h-100 shadow-sm'>
-                                <img src='img/productsletterpad.webp' onerror="this.onerror=null;this.src='img/productsletterpad.png';" class='card-img-top' alt='Letterpad'>
+                                <img src='img/products/letterpad.webp' onerror="this.onerror=null;this.src='img/products/letterpad.png';" class='card-img-top' alt='Letterpad'>
                                 <div class='card-body text-center'>
                                     <h5 class='card-title'>Letterpads</h5>
-                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Letterpad')"><i class="fas fa-search me-2"></i> View Details</button>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Letterpads')"><i class="fas fa-search me-2"></i> View Details</button>
                                 </div>
                             </div>
                         </div>
@@ -231,7 +231,7 @@
                                 <img src='img/products/envelops.webp' onerror="this.onerror=null;this.src='img/products/envelops.png';" class='card-img-top' alt='envelops'>
                                 <div class='card-body text-center'>
                                     <h5 class='card-title'>Envelops</h5>
-                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('envelops')"><i class="fas fa-search me-2"></i> View Details</button>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Envelops')"><i class="fas fa-search me-2"></i> View Details</button>
                                 </div>
                             </div>
                         </div>
@@ -279,7 +279,7 @@
                                 <img src='img/products/pamphlets.webp' onerror="this.onerror=null;this.src='img/products/pamphlets.png';" class='card-img-top' alt='pamphlets'>
                                 <div class='card-body text-center'>
                                     <h5 class='card-title'>Pamphlets</h5>
-                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('pamphlets')"><i class="fas fa-search me-2"></i> View Details</button>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Pamphlets')"><i class="fas fa-search me-2"></i> View Details</button>
                                 </div>
                             </div>
                         </div>
@@ -319,7 +319,7 @@
                                 <img src='img/products/photopapers.webp' onerror="this.onerror=null;this.src='img/products/photopapers.png';" class='card-img-top' alt='Photo Papers'>
                                 <div class='card-body text-center'>
                                     <h5 class='card-title'>PhotoPapers</h5>
-                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('photopapers')"><i class="fas fa-search me-2"></i> View Details</button>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('PhotoPapers')"><i class="fas fa-search me-2"></i> View Details</button>
                                 </div>
                             </div>
                         </div>
@@ -826,7 +826,7 @@
                     productGroups[subCategoryKey] = {
                         baseName: subCategoryKey,
                         minPrice: Infinity,
-                        imageFile: `${subCategoryKey.replace(/\s|\//g, '-')}`, // Filename base for WebP/PNG
+                        imageFile: subCategoryKey.replace(/\s|\//g, '-').replace('Visisting', 'vcard').replace('Mat-Cards', 'matcards').replace('UV-Cards', 'uvcard').replace('UV-Thick-Cards', 'thickcard').replace('Letterpads', 'letterpad').replace('Envelops', 'envelops').replace('Bill-Books', 'billbooks').replace('File-Covers', 'filecovers').replace('Rubber-Stamp-(Rectangular)', 'stamps').replace('Pencil-Tray', 'penciltrays').replace('Pamphlets', 'pamphlets').replace('Flyers/Ishtihars', 'flyers').replace('Digital-Print-(Tiered)', 'prints').replace('PhotoPapers', 'photopapers').replace('Photo-Frames', 'frames').replace('China-Frontlit', 'china').replace('Star-Frontlit', 'star').replace('Panaflex-Banner-Backlit', 'backlit').replace('White-T-Shirt-(Adult-Size)', 'shirt').replace('Metal-Pen', 'pen').replace('Locket-with-Picture', 'locket').replace('Wedding-Invitation-Cards', 'wedding').replace('3D-Wallpaper-Placeholder', 'wallpaper').replace('Flags-and-Fabric-(Custom)', 'flags').replace('Box-Packaging-(Custom)', 'box'), // Mapped Filename base
                         isAreaBased: AREA_BASED_PRODUCT_NAMES.includes(subCategoryKey),
                         mainCategory: mainCategoryKey,
                         combinations: [] 
@@ -892,7 +892,7 @@
                  allProductGroups["Digital Print (Tiered)"] = {
                       baseName: "Digital Print (Tiered)",
                       minPrice: 6, 
-                      imageFile: `Digital-Print`, // Filename base for WebP/PNG
+                      imageFile: `prints`, // Mapped Filename base
                       isAreaBased: false,
                       mainCategory: "Digital Printing",
                       isDigitalTiered: true, 
@@ -1290,7 +1290,7 @@
         let allSelected = true;
 
         requiredKeys.forEach(key => {
-            const sanitizedKey = key.replace(/\s|\/|\(|\)/g, '');
+            const sanitizedKey = key;
             if (!currentSelectedVariations[sanitizedKey]) {
                 allSelected = false;
             } else {
