@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Arham Printers - Custom Wedding Invitation Cards</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Custom Wedding Cards, Wedding Invitation Design, Printing Services, Get a Quote" name="keywords">
+    <meta content="Design and print your perfect custom wedding invitation cards. Get a quote from Arham Printers today." name="description">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    
+    <style>
+        /* General Layout and Utility Styles - KEEPING THEM FOR STYLING CONSISTENCY */
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        .final-price-box {
+            background: var(--bs-primary);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            text-align: center;
+            display: none; 
+        }
+        /* ... (You can optionally include all the .choice-card and .product-option-group styles here if you want to use them later) ... */
+    </style>
+</head>
+
+<body>
+    <div class="container">
+    <div class="container-fluid bg-dark text-white-50 py-2 px-0 d-none d-lg-block">
+        <div class="row gx-0 align-items-center">
+            <div class="col-lg-7 px-5 text-start">
+                <div class="h-100 d-inline-flex align-items-center me-4">
+                    <small class="fa fa-phone-alt me-2"></small>
+                    <small>+92 300 6238233</small>
+                </div>
+                <div class="h-100 d-inline-flex align-items-center me-4">
+                    <small class="far fa-envelope-open me-2"></small>
+                    <small>info@arhamprinters.pk</small>
+                </div>
+                <div class="h-100 d-inline-flex align-items-center me-4">
+                    <small class="far fa-clock me-2"></small>
+                    <small>Mon - Fri : 09 AM - 09 PM</small>
+                </div>
+            </div>
+            <div class="col-lg-5 px-5 text-end">
+                <div class="h-100 d-inline-flex align-items-center">
+                    <a class="text-white-50 ms-4" href=""><i class="fab fa-facebook-f"></i></a>
+                    <a class="text-white-50 ms-4" href=""><i class="fab fa-twitter"></i></a>
+                    <a class="text-white-50 ms-4" href=""><i class="fab fa-linkedin-in"></i></a>
+                    <a class="text-white-50 ms-4" href=""><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5">
+        <a href="index.html" class="navbar-brand d-flex align-items-center">
+            <h1 class="m-0 text-primary"><i class="fa fa-print me-3"></i>Arham Printers</h1>
+        </a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav mx-auto bg-light pe-4 py-3 py-lg-0">
+                <a href="index.html" class="nav-item nav-link">Home</a>
+                <a href="products.html" class="nav-item nav-link">Products Catalog</a>
+                <a href="#" class="nav-item nav-link active">Wedding Cards</a>
+                <a href="#contact-section" class="nav-item nav-link" onclick="showSection('contact')">Contact</a>
+            </div>
+            <div class="h-100 d-lg-inline-flex align-items-center">
+                <a class="btn-sm-square bg-white text-primary rounded-circle me-4 position-relative" href="#quote-form-section">
+                    <i class="fas fa-file-invoice"></i>
+                </a>
+                <a href="#quote-form-section" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block">Get a Quote<i
+                        class="fa fa-arrow-right ms-3"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="wedding-hero-section" class="section active">
+        <div class="container-fluid page-header py-5">
+            <h2 class="text-center text-white display-6">Custom Wedding Invitation Cards</h2>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="products.html">Products</a></li>
+                <li class="breadcrumb-item active text-white">Wedding Cards</li>
+            </ol>
+        </div>
+
+        <div class="container-fluid py-5" id="quote-form-section">
+            <div class="container py-5">
+                <div class="row g-4 justify-content-center">
+                    
+                    <div class="col-lg-4 d-none d-lg-block">
+                        <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                            <img src='img/products/wedding.webp' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='w-100' alt='Wedding Cards Placeholder'>
+                            <div class="product-footer-overlay p-0">
+                                <button class="btn btn-warning w-100 rounded-0 p-3" disabled>
+                                    <i class="fas fa-heart me-2"></i> Design Your Dream Card
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mt-4 p-4 bg-light rounded">
+                            <h4 class="text-primary mb-3">Customization Options</h4>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Custom Sizes & Shapes</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Premium Paper Stocks (Matte, Gloss, Textured)</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Metallic Foil & Embossing</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Full Design Support</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8">
+                        <div class="bg-light p-4 rounded">
+                            <form id="quote-form" onsubmit="handleQuoteSubmission(event)">
+                                <h3 class="mb-4">Get a Quote for Your Wedding Cards</h3>
+                                <div class="alert alert-info">Tell us your vision so we can provide the best price for your special day.</div>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border-0" id="quote-name" placeholder="Your Name" required>
+                                            <label for="quote-name">Your Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="tel" class="form-control border-0" id="quote-phone" placeholder="WhatsApp Phone" required>
+                                            <label for="quote-phone">WhatsApp Phone</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border-0" id="quote-product" value="Wedding Invitation Cards" readonly>
+                                            <label for="quote-product">Product Name / Type</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <input type="number" class="form-control border-0" id="quote-quantity" placeholder="Number of Cards Required (Min. 50)" min="50">
+                                            <label for="quote-quantity">Required Quantity (e.g., 500)</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <textarea class="form-control border-0" placeholder="Details of your inquiry (Size, Finish, Quality, Message)" id="quote-details" style="height: 150px" required>Please specify: Size (e.g., 5x7 inches), desired style (e.g., vintage, modern, floral), paper finish (e.g., glossy, matte), and any special features (e.g., foil, custom envelope).</textarea>
+                                            <label for="quote-details">Inquiry Message / Specifications</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="btn btn-warning w-100 py-3 rounded-0" type="submit">Get Custom Quote via WhatsApp</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact-section" class="section">
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6">Contact Us</h1>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active text-white">Contact</li>
+            </ol>
+        </div>
+
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div class="row g-4">
+                    <div class="col-lg-4">
+                        <div class="bg-light p-4 rounded">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
+                                    style="width: 60px; height: 60px;">
+                                    <i class="fa fa-map-marker-alt text-primary fs-4"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <h5 class="mb-2">Our Location</h5>
+                                    <p class="mb-0">Domela Chowk,Tanda Road, Jalalpur Jattan</p>
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
+                                    style="width: 60px; height: 60px;">
+                                    <i class="fa fa-phone-alt text-primary fs-4"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <h5 class="mb-2">Call Us</h5>
+                                    <p class="mb-0">+92 300 6238233</p>
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex align-items-center">
+                                <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
+                                    style="width: 60px; height: 60px;">
+                                    <i class="fa fa-envelope text-primary fs-4"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <h5 class="mb-2">Email Us</h5>
+                                    <p class="mb-0">info@arhamprinters.pk</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-8">
+                        <div class="bg-light p-4 rounded">
+                            <form id="contact-form-whatsapp" onsubmit="handleContactSubmission(event)">
+                                <h3 class="mb-4">Send a Direct Message</h3>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border-0" id="contact-name" placeholder="Your Name" required>
+                                            <label for="contact-name">Your Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border-0" id="contact-subject" placeholder="Subject" required>
+                                            <label for="contact-subject">Subject</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <textarea class="form-control border-0" placeholder="Leave a message here" id="contact-message" style="height: 150px" required></textarea>
+                                            <label for="contact-message">Message</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="btn btn-primary w-100 py-3 rounded-0" type="submit">Send Message via WhatsApp</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container-fluid footer py-2">
+        <div class="container py-2">
+            <div class="row g-3">
+                <div class="col-6 col-md-3">
+                    <div class="rounded p-2 d-flex flex-column align-items-center">
+                        <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
+                            <i class="fas fa-map-marker-alt fa-2x text-primary" style="line-height: 1;"></i>
+                        </div>
+                        <h6 class="text-white mt-1 mb-1">Address</h6>
+                        <p class="text-white fw-bold mb-1 small text-center">Domela Chowk, Tanda Road, Jalalpur Jattan</p>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <div class="rounded p-2 d-flex flex-column align-items-center">
+                        <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
+                            <i class="fas fa-envelope fa-2x text-primary" style="line-height: 1;"></i>
+                        </div>
+                        <h6 class="text-white mt-1 mb-1">Mail Us</h6>
+                        <p class="text-white fw-bold mb-1 small text-center">info@arhamprinters.pk</p>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <div class="rounded p-2 d-flex flex-column align-items-center">
+                        <a href="https://wa.me/923006238233" target="_blank" class="text-decoration-none">
+                            <div class="rounded-circle bg-success d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
+                                <i class="fab fa-whatsapp fa-2x text-white" style="line-height: 1;"></i>
+                            </div>
+                        </a>
+                        <h6 class="text-white mt-1 mb-1">Direct Contact</h6>
+                        <a href="https://wa.me/923006238233" target="_blank" class="text-white-50 text-decoration-none">
+                            <p class="text-white fw-bold mb-1 small text-center">+92 300 6238233</p>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <div class="rounded p-2 d-flex flex-column align-items-center">
+                        <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
+                            <i class="fab fa-facebook-f fa-2x text-primary" style="line-height: 1;"></i>
+                        </div>
+                        <h6 class="text-white mt-1 mb-1">Follow Us</h6>
+                        <div class="d-flex justify-content-center gap-1">
+                            <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i class="fab fa-youtube"></i></a>
+                            <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid copyright py-2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <span class="text-white small">
+                            <i class="fas fa-copyright text-light me-1"></i>
+                            Arham Printers, All rights reserved 2025.
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+        <a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        const WHATSAPP_NUMBER = '923006238233';
+
+        // Custom Quote Submission Handler for Wedding Cards
+        function handleQuoteSubmission(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('quote-name').value;
+            const phone = document.getElementById('quote-phone').value;
+            const product = document.getElementById('quote-product').value;
+            const quantity = document.getElementById('quote-quantity').value;
+            const details = document.getElementById('quote-details').value;
+            
+            let whatsappMessage = `*NEW WEDDING CARD QUOTE REQUEST (WEB - Landing Page)*\n`;
+            whatsappMessage += `*Customer:* ${name}\n`;
+            whatsappMessage += `*Phone (Contact):* ${phone}\n`;
+            whatsappMessage += `*Product Type:* ${product}\n`;
+            whatsappMessage += `*Required Quantity:* ${quantity}\n`;
+            whatsappMessage += `*Specifications:* ${details}`;
+            
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+
+            showAlert('Quote submitted via WhatsApp! We will contact you shortly.', 'success');
+            document.getElementById('quote-form').reset();
+            document.getElementById('quote-product').value = "Wedding Invitation Cards"; // Reset readonly field
+        }
+
+        // Generic UI/Navigation Functions (kept minimal since this is a landing page)
+        function showSection(sectionName) {
+            // For this page, we only show the main section or contact
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            const sectionElement = document.getElementById(sectionName + '-section');
+            if (sectionElement) {
+                sectionElement.classList.add('active');
+            } else if (sectionName === 'contact') {
+                document.getElementById('contact-section').classList.add('active');
+            } else {
+                // Default to the main wedding hero section
+                 document.getElementById('wedding-hero-section').classList.add('active');
+            }
+            
+            window.scrollTo(0, 0);
+        }
+
+        function handleContactSubmission(e) {
+            e.preventDefault();
+            const name = document.getElementById('contact-name').value;
+            const subject = document.getElementById('contact-subject').value;
+            const message = document.getElementById('contact-message').value;
+
+            let whatsappMessage = `*NEW CONTACT MESSAGE (WEDDING PAGE)*\n*Sender:* ${name}\n*Subject:* ${subject}\n*Message:* ${message}`;
+            
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+
+            showAlert('Message sent via WhatsApp!', 'success');
+            document.getElementById('contact-form-whatsapp').reset();
+        }
+
+        function showAlert(message, type) {
+            // Re-creating the alert function for feedback consistency
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
+            alert.style.top = '20px';
+            alert.style.right = '20px';
+            alert.style.zIndex = '9999';
+            alert.style.minWidth = '300px';
+            alert.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            document.body.appendChild(alert);
+            
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.parentNode.removeChild(alert);
+                }
+            }, 5000);
+        }
+
+        // Ensure only one section is active on load
+        document.addEventListener('DOMContentLoaded', () => {
+             showSection('wedding-hero'); 
+        });
+    </script>
+</div>
+</body>
+
+</html>
