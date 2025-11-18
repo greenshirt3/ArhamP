@@ -134,16 +134,16 @@
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
                     <div class="dropdown-menu bg-light border-0 m-0">
                          <a href="#" class="dropdown-item" onclick="showSection('shop-catalog')">All Products</a>
-                         <a href="index.html#quote-section" class="dropdown-item">Get Custom Quote</a>
+                         <a href="#quote-section" class="dropdown-item" onclick="showSection('quote')">Get Custom Quote</a>
                     </div>
                 </div>
-                <a href="index.html#contact-section" class="nav-item nav-link">Contact</a>
+                <a href="#contact-section" class="nav-item nav-link" onclick="showSection('contact')">Contact</a>
             </div>
             <div class="h-100 d-lg-inline-flex align-items-center">
-                <a class="btn-sm-square bg-white text-primary rounded-circle me-4 position-relative" href="index.html#quote-section">
+                <a class="btn-sm-square bg-white text-primary rounded-circle me-4 position-relative" href="#quote-section" onclick="showSection('quote')">
                     <i class="fas fa-file-invoice"></i>
                 </a>
-                <a href="index.html#contact-section" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block">Get a Quote<i
+                <a href="#contact-section" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block" onclick="showSection('quote')">Get a Quote<i
                         class="fa fa-arrow-right ms-3"></i></a>
             </div>
         </div>
@@ -162,7 +162,7 @@
                             <li><div class="categories-item"><a href="#business-essentials" class="text-dark"><i class="fas fa-tags text-primary me-2"></i> Business Essentials</a></div></li>
                             <li><div class="categories-item"><a href="#office-essentials" class="text-dark"><i class="fas fa-tags text-primary me-2"></i> Office Essentials</a></div></li>
                             <li><div class="categories-item"><a href="#marketing-essentials" class="text-dark"><i class="fas fa-tags text-primary me-2"></i> Marketing Essentials</a></div></li>
-                            <li><div class="categories-item"><a href="#digital-printing" class="text-dark"><i class="fas fa-tags text-primary me-2"></i> Digital Printing</a></div></li>
+                            <li><div class="categories-item"><a href="#printsing" class="text-dark"><i class="fas fa-tags text-primary me-2"></i> Digital Printing</a></div></li>
                             <li><div class="categories-item"><a href="#photo-printing" class="text-dark"><i class="fas fa-tags text-primary me-2"></i> Photo Printing</a></div></li>
                             <li><div class="categories-item"><a href="#banners" class="text-dark"><i class="fas fa-tags text-primary me-2"></i> Panaflex Banners</a></div></li>
                             <li><div class="categories-item"><a href="#promotional" class="text-dark"><i class="fas fa-tags text-primary me-2"></i> Promotional Items</a></div></li>
@@ -171,293 +171,293 @@
                             <li><div class="categories-item"><a href="#wallpaper" class="text-dark"><i class="fas fa-tags text-primary me-2"></i> 3D Wallpaper</a></div></li>
                             <li><div class="categories-item"><a href="#shields" class="text-dark"><i class="fas fa-tags text-primary me-2"></i> Shields</a></div></li>
                             <li><div class="categories-item"><a href="#flags-fabric" class="text-dark"><i class="fas fa-tags text-primary me-2"></i> Flags and Fabric</a></div></li>
-                            <li><div class="categories-item"><a href="#box-packaging" class="text-dark"><i class="fas fa-tags text-primary me-2"></i> Box Packaging</a></div></li>
-                            </ul>
+                            <li><div class="categories-item"><a href="#box" class="text-dark"><i class="fas fa-tags text-primary me-2"></i> Box Packaging</a></div></li>
+                        </ul>
                     </div>
                 </div>
 
                 <div class="col-lg-9">
                     <div class="row g-4" id="main-product-catalog">
-    <h3 class="w-100 pt-3" id="business-essentials">Business Essentials</h3>
-    <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/vcard.webp' onerror="this.onerror=null;this.src='img/products/Shine-Visisting-Cards.png';" class='card-img-top' alt='Shine Visisting Cards'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>Shine Visisting Cards</h5>
-                <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Shine Visisting Cards')"><i class="fas fa-search me-2"></i> View Details</button>
-            </div>
-        </div>
-    </div>
-     <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/matcards.webp' onerror="this.onerror=null;this.src='img/products/Mat-Cards.png';" class='card-img-top' alt='Mat Cards'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>Mat Cards</h5>
-                <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Mat Cards')"><i class="fas fa-search me-2"></i> View Details</button>
-            </div>
-        </div>
-    </div>
-     <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/UV-Cards.webp' onerror="this.onerror=null;this.src='img/products/UV-Cards.png';" class='card-img-top' alt='UV Cards'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>UV Cards</h5>
-                <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('UV Cards')"><i class="fas fa-search me-2"></i> View Details</button>
-            </div>
-        </div>
-    </div>
-     <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/uvcard.webp' onerror="this.onerror=null;this.src='img/products/UV-Thick-Cards.png';" class='card-img-top' alt='UV Thick Cards'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>UV Thick Cards</h5>
-                <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('UV Thick Cards')"><i class="fas fa-search me-2"></i> View Details</button>
-            </div>
-        </div>
-    </div>
+                        <h3 class="w-100 pt-3" id="business-essentials">Business Essentials</h3>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/vcard.webp' onerror="this.onerror=null;this.src='img/products/vcard.png';" class='card-img-top' alt='Shine Visisting Cards'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Shine Visisting Cards</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Shine Visisting Cards')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                         <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/matcards.webp' onerror="this.onerror=null;this.src='img/products/matcards.png';" class='card-img-top' alt='Mat Cards'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Mat Cards</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Mat Cards')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                         <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/uvcard.webp' onerror="this.onerror=null;this.src='img/products/uvcard.png';" class='card-img-top' alt='UV Cards'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>UV Cards</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('UV Cards')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                         <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/productsthickcard.webp' onerror="this.onerror=null;this.src='img/productsthickcard.png';" class='card-img-top' alt='UV Thick Cards'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>UV Thick Cards</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('UV Thick Cards')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
 
-    <h3 class="w-100 pt-3" id="office-essentials">Office Essentials</h3>
-    <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Letterpad.webp' onerror="this.onerror=null;this.src='img/products/Letterpads.png';" class='card-img-top' alt='Letterpads'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>Letterpads</h5>
-                <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Letterpads')"><i class="fas fa-search me-2"></i> View Details</button>
-            </div>
-        </div>
-    </div>
-    <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Envelops.webp' onerror="this.onerror=null;this.src='img/products/Envelops.png';" class='card-img-top' alt='Envelops'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>envelops</h5>
-                <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Envelops')"><i class="fas fa-search me-2"></i> View Details</button>
-            </div>
-        </div>
-    </div>
-    <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/billbooks.webp' onerror="this.onerror=null;this.src='img/products/Bill-Books.png';" class='card-img-top' alt='Bill Books'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>Bill Books</h5>
-                <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Bill Books')"><i class="fas fa-search me-2"></i> View Details</button>
-            </div>
-        </div>
-    </div>
-    <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/filecovers.webp' onerror="this.onerror=null;this.src='img/products/File-Covers.png';" class='card-img-top' alt='File Covers'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>File Covers</h5>
-                <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('File Covers')"><i class="fas fa-search me-2"></i> View Details</button>
-            </div>
-        </div>
-    </div>
-    <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/stamps.webp' onerror="this.onerror=null;this.src='img/products/Rubber-Stamp-(Rectangular).png';" class='card-img-top' alt='Rubber Stamp (Rectangular)'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>Rubber Stamp (Rectangular)</h5>
-                <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Rubber Stamp (Rectangular)')"><i class="fas fa-search me-2"></i> View Details</button>
-            </div>
-        </div>
-    </div>
-     <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/penciltray.webp' onerror="this.onerror=null;this.src='img/products/Pencil-Tray.png';" class='card-img-top' alt='Pencil Tray'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>Pencil Tray</h5>
-                <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Pencil Tray')"><i class="fas fa-search me-2"></i> View Details</button>
-            </div>
-        </div>
-    </div>
+                        <h3 class="w-100 pt-3" id="office-essentials">Office Essentials</h3>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/productsletterpad.webp' onerror="this.onerror=null;this.src='img/productsletterpad.png';" class='card-img-top' alt='Letterpad'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Letterpads</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Letterpad')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/envelops.webp' onerror="this.onerror=null;this.src='img/products/envelops.png';" class='card-img-top' alt='envelops'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Envelops</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('envelops')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/billbooks.webp' onerror="this.onerror=null;this.src='img/products/billbooks.png';" class='card-img-top' alt='Bill Books'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Bill Books</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Bill Books')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/filecovers.webp' onerror="this.onerror=null;this.src='img/products/filecovers.png';" class='card-img-top' alt='File Covers'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>File Covers</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('File Covers')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/stamps.webp' onerror="this.onerror=null;this.src='img/products/stamps.png';" class='card-img-top' alt='Rubber Stamp (Rectangular)'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Rubber Stamp (Rectangular)</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Rubber Stamp (Rectangular)')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                         <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/penciltrays.webp' onerror="this.onerror=null;this.src='img/products/penciltrays.png';" class='card-img-top' alt='Pencil Tray'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Pencil Tray</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Pencil Tray')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
 
 
-    <h3 class="w-100 pt-3" id="marketing-essentials">Marketing Essentials</h3>
-    <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/pamphlets.webp' onerror="this.onerror=null;this.src='img/products/Pamphlets.png';" class='card-img-top' alt='Pamphlets'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>Pamphlets</h5>
-                <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Pamphlets')"><i class="fas fa-search me-2"></i> View Details</button>
-            </div>
-        </div>
-    </div>
-    <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Flyers-Ishtihars.webp' onerror="this.onerror=null;this.src='img/products/Flyers-Ishtihars.png';" class='card-img-top' alt='Flyers/Ishtihars'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>Flyers/Ishtihars</h5>
-                <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Flyers/Ishtihars')"><i class="fas fa-search me-2"></i> View Details</button>
-            </div>
-        </div>
-    </div>
-    <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Stickers.webp' onerror="this.onerror=null;this.src='img/products/Stickers.png';" class='card-img-top' alt='Stickers'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>Stickers</h5>
-                <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Stickers')"><i class="fas fa-search me-2"></i> View Details</button>
-            </div>
-        </div>
-    </div>
+                        <h3 class="w-100 pt-3" id="marketing-essentials">Marketing Essentials</h3>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/pamphlets.webp' onerror="this.onerror=null;this.src='img/products/pamphlets.png';" class='card-img-top' alt='pamphlets'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Pamphlets</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('pamphlets')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/flyers.webp' onerror="this.onerror=null;this.src='img/products/flyers.png';" class='card-img-top' alt='Flyers/Ishtihars'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Flyers/Ishtihars</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Flyers/Ishtihars')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/Stickers.webp' onerror="this.onerror=null;this.src='img/products/Stickers.png';" class='card-img-top' alt='Stickers'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Stickers</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Stickers')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
 
-    <h3 class="w-100 pt-3" id="digital-printing">Digital Printing</h3>
-    <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Digital-Print.webp' onerror="this.onerror=null;this.src='img/products/Digital-Print.png';" class='card-img-top' alt='Digital Print (Tiered)'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>Digital Print (Tiered)</h5>
-                <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Digital Print (Tiered)')"><i class="fas fa-search me-2"></i> Configure Print</button>
-            </div>
-        </div>
-    </div>
+                        <h3 class="w-100 pt-3" id="printsing">Digital Printing</h3>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/prints.webp' onerror="this.onerror=null;this.src='img/products/prints.png';" class='card-img-top' alt='Digital Print (Tiered)'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Digital Print (Tiered)</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Digital Print (Tiered)')"><i class="fas fa-search me-2"></i> Configure Print</button>
+                                </div>
+                            </div>
+                        </div>
 
-    <h3 class="w-100 pt-3" id="photo-printing">Photo Printing</h3>
-    <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/photoPapers.webp' onerror="this.onerror=null;this.src='img/products/PhotoPapers.png';" class='card-img-top' alt='Photo Papers'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>PhotoPapers</h5>
-                <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('PhotoPapers')"><i class="fas fa-search me-2"></i> View Details</button>
-            </div>
-        </div>
-    </div>
-    <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/frames.webp' onerror="this.onerror=null;this.src='img/products/Photo-Frames.png';" class='card-img-top' alt='Photo Frames'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>Photo Frames</h5>
-                <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Photo Frames')"><i class="fas fa-search me-2"></i> Configure Area</button>
-            </div>
-        </div>
-    </div>
-    
-     <h3 class="w-100 pt-3" id="banners">Panaflex Banners</h3>
-    <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/banners.webp' onerror="this.onerror=null;this.src='img/products/China-Frontlit.png';" class='card-img-top' alt='China Frontlit'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>China Frontlit</h5>
-                <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('China Frontlit')"><i class="fas fa-search me-2"></i> Configure Area</button>
-            </div>
-        </div>
-    </div>
-     <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Star-Frontlit.webp' onerror="this.onerror=null;this.src='img/products/Star-Frontlit.png';" class='card-img-top' alt='Star Frontlit'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>Star Frontlit</h5>
-                <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Star Frontlit')"><i class="fas fa-search me-2"></i> Configure Area</button>
-            </div>
-        </div>
-    </div>
-     <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Panaflex-Banner-Backlit.webp' onerror="this.onerror=null;this.src='img/products/Panaflex-Banner-Backlit.png';" class='card-img-top' alt='Panaflex Banner Backlit'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>Panaflex Banner Backlit</h5>
-                <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Panaflex Banner Backlit')"><i class="fas fa-search me-2"></i> Configure Area</button>
-            </div>
-        </div>
-    </div>
+                        <h3 class="w-100 pt-3" id="photo-printing">Photo Printing</h3>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/photopapers.webp' onerror="this.onerror=null;this.src='img/products/photopapers.png';" class='card-img-top' alt='Photo Papers'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>PhotoPapers</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('photopapers')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/frames.webp' onerror="this.onerror=null;this.src='img/products/frames.png';" class='card-img-top' alt='Photo Frames'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Photo Frames</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Photo Frames')"><i class="fas fa-search me-2"></i> Configure Area</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                         <h3 class="w-100 pt-3" id="banners">Panaflex Banners</h3>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/china.webp' onerror="this.onerror=null;this.src='img/products/china.png';" class='card-img-top' alt='China Frontlit'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>China Frontlit</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('China Frontlit')"><i class="fas fa-search me-2"></i> Configure Area</button>
+                                </div>
+                            </div>
+                        </div>
+                         <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/star.webp' onerror="this.onerror=null;this.src='img/products/star.png';" class='card-img-top' alt='Star Frontlit'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Star Frontlit</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Star Frontlit')"><i class="fas fa-search me-2"></i> Configure Area</button>
+                                </div>
+                            </div>
+                        </div>
+                         <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/backlit.webp' onerror="this.onerror=null;this.src='img/products/backlit.png';" class='card-img-top' alt='Panaflex Banner Backlit'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Panaflex Banner Backlit</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Panaflex Banner Backlit')"><i class="fas fa-search me-2"></i> Configure Area</button>
+                                </div>
+                            </div>
+                        </div>
 
-    <h3 class="w-100 pt-3" id="promotional">Promotional Items</h3>
-    <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/shirt.webp' onerror="this.onerror=null;this.src='img/products/White-T-Shirt-(Adult-Size).png';" class='card-img-top' alt='White T-Shirt (Adult Size)'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>White T-Shirt (Adult Size)</h5>
-                <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('White T-Shirt (Adult Size)')"><i class="fas fa-search me-2"></i> View Details</button>
-            </div>
-        </div>
-    </div>
-    <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Mug.webp' onerror="this.onerror=null;this.src='img/products/Mug.png';" class='card-img-top' alt='Mug'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>Mug</h5>
-                <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Mug')"><i class="fas fa-search me-2"></i> View Details</button>
-            </div>
-        </div>
-    </div>
-    <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Metal-Pen.webp' onerror="this.onerror=null;this.src='img/products/Metal-Pen.png';" class='card-img-top' alt='Metal Pen'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>Metal Pen</h5>
-                <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Metal Pen')"><i class="fas fa-search me-2"></i> View Details</button>
-            </div>
-        </div>
-    </div>
+                        <h3 class="w-100 pt-3" id="promotional">Promotional Items</h3>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/shirt.webp' onerror="this.onerror=null;this.src='img/products/shirt.png';" class='card-img-top' alt='White T-Shirt (Adult Size)'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>White T-Shirt (Adult Size)</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('White T-Shirt (Adult Size)')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/Mug.webp' onerror="this.onerror=null;this.src='img/products/Mug.png';" class='card-img-top' alt='Mug'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Mug</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Mug')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/pen.webp' onerror="this.onerror=null;this.src='img/products/pen.png';" class='card-img-top' alt='Metal Pen'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Metal Pen</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Metal Pen')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
 
-    <h3 class="w-100 pt-3" id="souvenirs">Souvenirs</h3>
-    <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Locket-with-Picture.webp' onerror="this.onerror=null;this.src='img/products/Locket-with-Picture.png';" class='card-img-top' alt='Locket with Picture'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>Locket with Picture</h5>
-                <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Locket with Picture')"><i class="fas fa-search me-2"></i> View Details</button>
-            </div>
-        </div>
-    </div>
-    
-    <h3 class="w-100 pt-3" id="wedding-cards">Wedding Invitation Cards</h3>
-    <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Wedding-Invitation-Cards.webp' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='card-img-top' alt='Wedding Cards'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>Custom Wedding Cards</h5>
-                <button class="btn btn-warning w-100 mt-2" onclick="showSection('quote')"><i class="fas fa-file-invoice me-2"></i> Get Custom Quote</button>
-            </div>
-        </div>
-    </div>
+                        <h3 class="w-100 pt-3" id="souvenirs">Souvenirs</h3>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/locket.webp' onerror="this.onerror=null;this.src='img/products/locket.png';" class='card-img-top' alt='Locket with Picture'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Locket with Picture</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Locket with Picture')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h3 class="w-100 pt-3" id="wedding-cards">Wedding Invitation Cards</h3>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/wedding.webp' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='card-img-top' alt='Wedding Cards'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Custom Wedding Cards</h5>
+                                    <button class="btn btn-warning w-100 mt-2" onclick="showSection('quote')"><i class="fas fa-file-invoice me-2"></i> Get Custom Quote</button>
+                                </div>
+                            </div>
+                        </div>
 
-    <h3 class="w-100 pt-3" id="wallpaper">3D Wallpaper</h3>
-    <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/3D-Wallpaper.webp' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='card-img-top' alt='3D Wallpaper'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>3D Custom Wallpaper</h5>
-                <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('3D Wallpaper Placeholder')"><i class="fas fa-search me-2"></i> Configure Area</button>
-            </div>
-        </div>
-    </div>
+                        <h3 class="w-100 pt-3" id="wallpaper">3D Wallpaper</h3>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/wallpaper.webp' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='card-img-top' alt='3D Wallpaper'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>3D Custom Wallpaper</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('3D Wallpaper Placeholder')"><i class="fas fa-search me-2"></i> Configure Area</button>
+                                </div>
+                            </div>
+                        </div>
 
-    <h3 class="w-100 pt-3" id="shields">Shields</h3>
-    <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Shields.webp' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='card-img-top' alt='Shields'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>Custom Shields / Plaques</h5>
-                <button class="btn btn-warning w-100 mt-2" onclick="showSection('quote')"><i class="fas fa-file-invoice me-2"></i> Get Custom Quote</button>
-            </div>
-        </div>
-    </div>
+                        <h3 class="w-100 pt-3" id="shields">Shields</h3>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/Shields.webp' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='card-img-top' alt='Shields'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Custom Shields / Plaques</h5>
+                                    <button class="btn btn-warning w-100 mt-2" onclick="showSection('quote')"><i class="fas fa-file-invoice me-2"></i> Get Custom Quote</button>
+                                </div>
+                            </div>
+                        </div>
 
-    <h3 class="w-100 pt-3" id="flags-fabric">Flags and Fabric (Custom)</h3>
-    <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Flags-and-Fabric.webp' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='card-img-top' alt='Flags and Fabric'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>Custom Flags & Fabric Print</h5>
-                <button class="btn btn-warning w-100 mt-2" onclick="showSection('quote')"><i class="fas fa-file-invoice me-2"></i> Get Custom Quote</button>
-            </div>
-        </div>
-    </div>
+                        <h3 class="w-100 pt-3" id="flags-fabric">Flags and Fabric (Custom)</h3>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/flags.webp' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='card-img-top' alt='Flags and Fabric'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Custom Flags & Fabric Print</h5>
+                                    <button class="btn btn-warning w-100 mt-2" onclick="showSection('quote')"><i class="fas fa-file-invoice me-2"></i> Get Custom Quote</button>
+                                </div>
+                            </div>
+                        </div>
 
-    <h3 class="w-100 pt-3" id="box-packaging">Box Packaging (Custom)</h3>
-    <div class='col-md-4 col-sm-6 mb-4'>
-        <div class='card h-100 shadow-sm'>
-            <img src='img/products/Box-Packaging.webp' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='card-img-top' alt='Box Packaging'>
-            <div class='card-body text-center'>
-                <h5 class='card-title'>Custom Packaging Boxes</h5>
-                <button class="btn btn-warning w-100 mt-2" onclick="showSection('quote')"><i class="fas fa-file-invoice me-2"></i> Get Custom Quote</button>
-            </div>
-        </div>
-    </div>
+                        <h3 class="w-100 pt-3" id="box">Box Packaging (Custom)</h3>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/box.webp' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='card-img-top' alt='Box Packaging'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Custom Packaging Boxes</h5>
+                                    <button class="btn btn-warning w-100 mt-2" onclick="showSection('quote')"><i class="fas fa-file-invoice me-2"></i> Get Custom Quote</button>
+                                </div>
+                            </div>
+                        </div>
 
-    </div>
+                        </div>
                 </div>
             </div>
         </div>
@@ -486,7 +486,10 @@
                 <div class="row g-5">
                     <div class="col-lg-6">
                         <div class="d-flex justify-content-center">
-                            <img id="detail-product-image" src="img/placeholder.jpg" class="img-fluid rounded" alt="Product Image" style="max-height: 400px;">
+                            <picture>
+                                <source id="detail-product-image-webp" srcset="img/placeholder.webp" type="image/webp">
+                                <img id="detail-product-image" src="img/placeholder.jpg" class="img-fluid rounded" alt="Product Image" style="max-height: 400px;">
+                            </picture>
                         </div>
                     </div>
                     
@@ -795,8 +798,6 @@
         // Setup all product data and pricing structure from JSON
         initialProductSetup(rawData);
         
-        // Removed: if (typeof WOW !== 'undefined') { new WOW().init(); }
-        
         // Ensure the main catalog view is visible on load
         showSection('shop-catalog'); 
         
@@ -806,6 +807,7 @@
     }
     
     // --- Data Preprocessing for Complex JSON ---
+    // This function still runs to build the data structure for the detail page.
 
     function flattenAndCategorize(data) {
         const productGroups = {};
@@ -825,7 +827,7 @@
                     productGroups[subCategoryKey] = {
                         baseName: subCategoryKey,
                         minPrice: Infinity,
-                        imageFile: `${subCategoryKey.replace(/\s|\//g, '-')}.jpg`,
+                        imageFile: `${subCategoryKey.replace(/\s|\//g, '-')}`, // Filename base for WebP/PNG
                         isAreaBased: AREA_BASED_PRODUCT_NAMES.includes(subCategoryKey),
                         mainCategory: mainCategoryKey,
                         combinations: [] 
@@ -891,7 +893,7 @@
                  allProductGroups["Digital Print (Tiered)"] = {
                       baseName: "Digital Print (Tiered)",
                       minPrice: 6, 
-                      imageFile: `Digital-Print.jpg`,
+                      imageFile: `prints`, // Filename base for WebP/PNG
                       isAreaBased: false,
                       mainCategory: "Digital Printing",
                       isDigitalTiered: true, 
@@ -912,8 +914,11 @@
          
          document.getElementById('detail-product-name-header').textContent = currentProduct.baseName;
          document.getElementById('detail-product-name-body').textContent = currentProduct.baseName;
-         document.getElementById('detail-product-image').src = `img/products/${currentProduct.imageFile}`;
-         document.getElementById('detail-product-image').onerror = function() { this.src = `img/products/Digital-Print.png`; };
+         
+         // Update Picture tag for WebP/PNG
+         document.getElementById('detail-product-image-webp').srcset = `img/products/${currentProduct.imageFile}.webp`;
+         document.getElementById('detail-product-image').src = `img/products/${currentProduct.imageFile}.png`; // Fallback image path
+         document.getElementById('detail-product-image').onerror = function() { this.src = `img/products/placeholder.png`; };
 
          const areaInputs = document.getElementById('custom-area-inputs');
          const standardOptions = document.getElementById('standard-options-fields');
@@ -1022,11 +1027,14 @@
         // Update headers and image
         document.getElementById('detail-product-name-header').textContent = currentProduct.baseName;
         document.getElementById('detail-product-name-body').textContent = currentProduct.baseName;
-        const imagePath = `img/products/${currentProduct.imageFile}`;
-        document.getElementById('detail-product-image').src = imagePath;
+        
+        // Update Picture tag for WebP/PNG
+        document.getElementById('detail-product-image-webp').srcset = `img/products/${currentProduct.imageFile}.webp`;
+        document.getElementById('detail-product-image').src = `img/products/${currentProduct.imageFile}.png`; // Fallback image path
         document.getElementById('detail-product-image').onerror = function() { 
-             this.src = `img/products/${currentProduct.baseName.replace(/\s|\//g, '-')}.png`; 
+             this.src = `img/products/placeholder.png`; 
         };
+
 
         const areaInputs = document.getElementById('custom-area-inputs');
         const standardOptions = document.getElementById('standard-options-fields');
@@ -1267,7 +1275,7 @@
              return;
         }
 
-        // 3. Standard Tiered Products (Business Cards, Letterpads, etc.) 
+        // 3. Standard Tiered Products (Business Cards, letterpad, etc.) 
         
         const quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 1;
         const allCombinations = currentProduct?.combinations || [];
@@ -1486,5 +1494,3 @@
 </body>
 
 </html>
-
-
