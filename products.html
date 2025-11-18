@@ -140,21 +140,8 @@
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
                     <div class="dropdown-menu bg-light border-0 m-0">
-                         <a href="#" class="dropdown-item" onclick="filterCatalog('Business Essentials')">Business Essentials</a>
-                         <a href="#" class="dropdown-item" onclick="filterCatalog('Marketing Essentials')">Marketing Essentials</a>
-                         <a href="#" class="dropdown-item" onclick="filterCatalog('Office Essentials')">Office Essentials</a>
-                        <a href="#" class="dropdown-item" onclick="filterCatalog('Wedding Invitation Cards')">Wedding Invitation Cards</a>
-                        <a href="#" class="dropdown-item" onclick="filterCatalog('Panaflex Printing')">Panaflex Printing</a>
-                        <a href="#" class="dropdown-item" onclick="filterCatalog('Photo Printing')">Photo Printing</a>
-                        <a href="#" class="dropdown-item" onclick="filterCatalog('3D Wallpaper')">3D Wallpaper</a>
-                        <a href="#" class="dropdown-item" onclick="filterCatalog('Promotional Items')">Promotional Items</a>
-                        <a href="#" class="dropdown-item" onclick="filterCatalog('Shields')">Shields</a>
-                        <a href="#" class="dropdown-item" onclick="filterCatalog('Souvenirs')">Souvenirs</a>
-                        <a href="#" class="dropdown-item" onclick="filterCatalog('Flags and Fabric')">Flags and Fabric</a>
-                        <a href="#" class="dropdown-item" onclick="filterCatalog('Box Packaging')">Box Packaging</a>
-                        <a href="#" class="dropdown-item" onclick="filterCatalog('Marketing and Advertising')">Marketing and Advertising</a>
-                        <div class="dropdown-divider"></div>
-                        <a href="index.html#quote-section" class="dropdown-item">Get Custom Quote</a>
+                         <a href="#" class="dropdown-item" onclick="showSection('shop-catalog')">All Products</a>
+                         <a href="index.html#quote-section" class="dropdown-item">Get Custom Quote</a>
                     </div>
                 </div>
                 <a href="index.html#contact-section" class="nav-item nav-link">Contact</a>
@@ -179,12 +166,304 @@
                     <div class="bg-light p-4 rounded mb-4 wow fadeInUp" data-wow-delay="0.1s">
                         <h4 class="mb-4">Product Categories</h4>
                         <ul class="list-unstyled" id="productCategoriesList">
+                            <li><div class="categories-item"><a href="#business-essentials" class="text-dark"><i class="fas fa-tags text-primary me-2"></i> Business Essentials</a></div></li>
+                            <li><div class="categories-item"><a href="#office-essentials" class="text-dark"><i class="fas fa-tags text-primary me-2"></i> Office Essentials</a></div></li>
+                            <li><div class="categories-item"><a href="#marketing-essentials" class="text-dark"><i class="fas fa-tags text-primary me-2"></i> Marketing Essentials</a></div></li>
+                            <li><div class="categories-item"><a href="#digital-printing" class="text-dark"><i class="fas fa-tags text-primary me-2"></i> Digital Printing</a></div></li>
+                            <li><div class="categories-item"><a href="#photo-printing" class="text-dark"><i class="fas fa-tags text-primary me-2"></i> Photo Printing</a></div></li>
+                            <li><div class="categories-item"><a href="#banners" class="text-dark"><i class="fas fa-tags text-primary me-2"></i> Panaflex Banners</a></div></li>
+                            <li><div class="categories-item"><a href="#promotional" class="text-dark"><i class="fas fa-tags text-primary me-2"></i> Promotional Items</a></div></li>
+                            <li><div class="categories-item"><a href="#souvenirs" class="text-dark"><i class="fas fa-tags text-primary me-2"></i> Souvenirs</a></div></li>
+                            <li><div class="categories-item"><a href="#wedding-cards" class="text-dark"><i class="fas fa-tags text-primary me-2"></i> Wedding Invitation Cards</a></div></li>
+                            <li><div class="categories-item"><a href="#wallpaper" class="text-dark"><i class="fas fa-tags text-primary me-2"></i> 3D Wallpaper</a></div></li>
+                            <li><div class="categories-item"><a href="#shields" class="text-dark"><i class="fas fa-tags text-primary me-2"></i> Shields</a></div></li>
+                            <li><div class="categories-item"><a href="#flags-fabric" class="text-dark"><i class="fas fa-tags text-primary me-2"></i> Flags and Fabric</a></div></li>
+                            <li><div class="categories-item"><a href="#box-packaging" class="text-dark"><i class="fas fa-tags text-primary me-2"></i> Box Packaging</a></div></li>
                             </ul>
                     </div>
                 </div>
 
                 <div class="col-lg-9">
                     <div class="row g-4" id="main-product-catalog">
+                        <h3 class="w-100 pt-3" id="business-essentials">Business Essentials</h3>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/Shine-Visisting-Cards.jpg' onerror="this.onerror=null;this.src='img/products/Shine-Visisting-Cards.png';" class='card-img-top' alt='Shine Visisting Cards'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Shine Visisting Cards</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Shine Visisting Cards')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                         <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/Mat-Cards.jpg' onerror="this.onerror=null;this.src='img/products/Mat-Cards.png';" class='card-img-top' alt='Mat Cards'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Mat Cards</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Mat Cards')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                         <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/UV-Cards.jpg' onerror="this.onerror=null;this.src='img/products/UV-Cards.png';" class='card-img-top' alt='UV Cards'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>UV Cards</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('UV Cards')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                         <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/UV-Thick-Cards.jpg' onerror="this.onerror=null;this.src='img/products/UV-Thick-Cards.png';" class='card-img-top' alt='UV Thick Cards'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>UV Thick Cards</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('UV Thick Cards')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="w-100 pt-3" id="office-essentials">Office Essentials</h3>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/Letterpads.jpg' onerror="this.onerror=null;this.src='img/products/Letterpads.png';" class='card-img-top' alt='Letterpads'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Letterpads</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Letterpads')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/Envelops.jpg' onerror="this.onerror=null;this.src='img/products/Envelops.png';" class='card-img-top' alt='Envelops'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Envelops</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Envelops')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/Bill-Books.jpg' onerror="this.onerror=null;this.src='img/products/Bill-Books.png';" class='card-img-top' alt='Bill Books'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Bill Books</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Bill Books')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/File-Covers.jpg' onerror="this.onerror=null;this.src='img/products/File-Covers.png';" class='card-img-top' alt='File Covers'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>File Covers</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('File Covers')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/Rubber-Stamp-(Rectangular).jpg' onerror="this.onerror=null;this.src='img/products/Rubber-Stamp-(Rectangular).png';" class='card-img-top' alt='Rubber Stamp (Rectangular)'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Rubber Stamp (Rectangular)</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Rubber Stamp (Rectangular)')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                         <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/Pencil-Tray.jpg' onerror="this.onerror=null;this.src='img/products/Pencil-Tray.png';" class='card-img-top' alt='Pencil Tray'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Pencil Tray</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Pencil Tray')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <h3 class="w-100 pt-3" id="marketing-essentials">Marketing Essentials</h3>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/Pamphlets.jpg' onerror="this.onerror=null;this.src='img/products/Pamphlets.png';" class='card-img-top' alt='Pamphlets'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Pamphlets</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Pamphlets')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/Flyers-Ishtihars.jpg' onerror="this.onerror=null;this.src='img/products/Flyers-Ishtihars.png';" class='card-img-top' alt='Flyers/Ishtihars'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Flyers/Ishtihars</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Flyers/Ishtihars')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/Stickers.jpg' onerror="this.onerror=null;this.src='img/products/Stickers.png';" class='card-img-top' alt='Stickers'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Stickers</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Stickers')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="w-100 pt-3" id="digital-printing">Digital Printing</h3>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/Digital-Print.jpg' onerror="this.onerror=null;this.src='img/products/Digital-Print.png';" class='card-img-top' alt='Digital Print (Tiered)'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Digital Print (Tiered)</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Digital Print (Tiered)')"><i class="fas fa-search me-2"></i> Configure Print</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="w-100 pt-3" id="photo-printing">Photo Printing</h3>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/PhotoPapers.jpg' onerror="this.onerror=null;this.src='img/products/PhotoPapers.png';" class='card-img-top' alt='Photo Papers'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>PhotoPapers</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('PhotoPapers')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/Photo-Frames.jpg' onerror="this.onerror=null;this.src='img/products/Photo-Frames.png';" class='card-img-top' alt='Photo Frames'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Photo Frames</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Photo Frames')"><i class="fas fa-search me-2"></i> Configure Area</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                         <h3 class="w-100 pt-3" id="banners">Panaflex Banners</h3>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/China-Frontlit.jpg' onerror="this.onerror=null;this.src='img/products/China-Frontlit.png';" class='card-img-top' alt='China Frontlit'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>China Frontlit</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('China Frontlit')"><i class="fas fa-search me-2"></i> Configure Area</button>
+                                </div>
+                            </div>
+                        </div>
+                         <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/Star-Frontlit.jpg' onerror="this.onerror=null;this.src='img/products/Star-Frontlit.png';" class='card-img-top' alt='Star Frontlit'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Star Frontlit</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Star Frontlit')"><i class="fas fa-search me-2"></i> Configure Area</button>
+                                </div>
+                            </div>
+                        </div>
+                         <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/Panaflex-Banner-Backlit.jpg' onerror="this.onerror=null;this.src='img/products/Panaflex-Banner-Backlit.png';" class='card-img-top' alt='Panaflex Banner Backlit'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Panaflex Banner Backlit</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Panaflex Banner Backlit')"><i class="fas fa-search me-2"></i> Configure Area</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="w-100 pt-3" id="promotional">Promotional Items</h3>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/White-T-Shirt-(Adult-Size).jpg' onerror="this.onerror=null;this.src='img/products/White-T-Shirt-(Adult-Size).png';" class='card-img-top' alt='White T-Shirt (Adult Size)'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>White T-Shirt (Adult Size)</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('White T-Shirt (Adult Size)')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/Mug.jpg' onerror="this.onerror=null;this.src='img/products/Mug.png';" class='card-img-top' alt='Mug'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Mug</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Mug')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/Metal-Pen.jpg' onerror="this.onerror=null;this.src='img/products/Metal-Pen.png';" class='card-img-top' alt='Metal Pen'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Metal Pen</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Metal Pen')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="w-100 pt-3" id="souvenirs">Souvenirs</h3>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/Locket-with-Picture.jpg' onerror="this.onerror=null;this.src='img/products/Locket-with-Picture.png';" class='card-img-top' alt='Locket with Picture'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Locket with Picture</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('Locket with Picture')"><i class="fas fa-search me-2"></i> View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h3 class="w-100 pt-3" id="wedding-cards">Wedding Invitation Cards</h3>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/Wedding-Invitation-Cards.jpg' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='card-img-top' alt='Wedding Cards'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Custom Wedding Cards</h5>
+                                    <button class="btn btn-warning w-100 mt-2" onclick="showSection('quote')"><i class="fas fa-file-invoice me-2"></i> Get Custom Quote</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="w-100 pt-3" id="wallpaper">3D Wallpaper</h3>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/3D-Wallpaper.jpg' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='card-img-top' alt='3D Wallpaper'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>3D Custom Wallpaper</h5>
+                                    <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('3D Wallpaper Placeholder')"><i class="fas fa-search me-2"></i> Configure Area</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="w-100 pt-3" id="shields">Shields</h3>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/Shields.jpg' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='card-img-top' alt='Shields'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Custom Shields / Plaques</h5>
+                                    <button class="btn btn-warning w-100 mt-2" onclick="showSection('quote')"><i class="fas fa-file-invoice me-2"></i> Get Custom Quote</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="w-100 pt-3" id="flags-fabric">Flags and Fabric (Custom)</h3>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/Flags-and-Fabric.jpg' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='card-img-top' alt='Flags and Fabric'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Custom Flags & Fabric Print</h5>
+                                    <button class="btn btn-warning w-100 mt-2" onclick="showSection('quote')"><i class="fas fa-file-invoice me-2"></i> Get Custom Quote</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="w-100 pt-3" id="box-packaging">Box Packaging (Custom)</h3>
+                        <div class='col-md-4 col-sm-6 mb-4'>
+                            <div class='card h-100 shadow-sm'>
+                                <img src='img/products/Box-Packaging.jpg' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='card-img-top' alt='Box Packaging'>
+                                <div class='card-body text-center'>
+                                    <h5 class='card-title'>Custom Packaging Boxes</h5>
+                                    <button class="btn btn-warning w-100 mt-2" onclick="showSection('quote')"><i class="fas fa-file-invoice me-2"></i> Get Custom Quote</button>
+                                </div>
+                            </div>
+                        </div>
+
                         </div>
                 </div>
             </div>
@@ -204,7 +483,7 @@
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s" id="detail-product-name-header">Product Details</h1>
             <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
-                <li class="breadcrumb-item"><a href="#" onclick="showSection('shop-catalog')">Home</a></li>
+                <li class="breadcrumb-item"><a href="#" onclick="showSection('shop-catalog')">Catalog</a></li>
                 <li class="breadcrumb-item active text-white">Details</li>
             </ol>
         </div>
@@ -237,7 +516,6 @@
                                 <input type="number" id="input-custom-qty" min="1" value="1" class="form-control" oninput="updateFinalPrice()">
                             </div>
                             
-                            <!-- Design Fee Removed based on new JSON structure -->
                             <div class="alert alert-danger mt-3" id="areaConstraintWarning" style="display: none;"></div>
                         </div>
 
@@ -493,8 +771,18 @@
     let allProductGroups = {};
     let currentSelectedVariations = {}; 
     
-    // Placeholder structure for area based logic (if needed, extracted from JSON)
+    // Placeholder structure for area based logic
     let areaBasedMeta = {}; 
+    
+    // A manually defined list of products that should be treated as area-based
+    const AREA_BASED_PRODUCT_NAMES = [
+        "China Frontlit", "Star Frontlit", "Panaflex Banner Backlit", "Venyl Pasting Sticker", "One Vision Pasting Sticker", 
+        "Photo Frames", 
+    ];
+    
+    // Custom structure for the complex Digital Printing Pricing
+    let digitalPrintingPricing = {};
+
 
     // --- Core Functions ---
 
@@ -512,99 +800,62 @@
             return;
         }
         
+        // Setup all product data and pricing structure from JSON
         initialProductSetup(rawData);
-        
-        // Populate sidebar categories on products.html
-        populateSidebarCategories();
         
         if (typeof WOW !== 'undefined') { new WOW().init(); }
         
-        // --- Product.html specific load logic ---
-        const urlParams = new URLSearchParams(window.location.search);
-        const initialCategory = urlParams.get('category');
+        // Ensure the main catalog view is visible on load
+        showSection('shop-catalog'); 
         
-        showSection('shop-catalog'); // Ensure catalog is shown first
-        
-        // Filter catalog based on URL parameter, otherwise show all
-        filterCatalog(initialCategory); 
-        // ---------------------------------------
-
         // Set up form submission handlers for WhatsApp routing
         document.getElementById('quote-form').addEventListener('submit', handleQuoteSubmission);
         document.getElementById('contact-form-whatsapp').addEventListener('submit', handleContactSubmission);
     }
     
-    // Function to populate the sidebar with the new main categories
-    function populateSidebarCategories() {
-        const container = document.getElementById('productCategoriesList');
-        container.innerHTML = '';
-        
-        const categoriesSet = new Set();
-        Object.values(allProductGroups).forEach(group => {
-            if (group.mainCategory && group.mainCategory !== "System Data") {
-                categoriesSet.add(group.mainCategory);
-            }
-        });
-
-        Array.from(categoriesSet).sort().forEach(category => {
-            container.innerHTML += `
-                <li>
-                    <div class="categories-item">
-                        <a href="#" class="text-dark" onclick="event.preventDefault(); filterCatalog('${category}')">
-                            <i class="fas fa-tags text-primary me-2"></i> ${category}
-                        </a>
-                    </div>
-                </li>
-            `;
-        });
-    }
-
     // --- Data Preprocessing for Complex JSON ---
+    // This function still runs to build the data structure for the detail page.
 
     function flattenAndCategorize(data) {
         const productGroups = {};
         
-        // Loop through Main Categories (Office Essentials, Marketing Essentials, etc.)
         Object.keys(data).forEach(mainCategoryKey => {
             
-            // Skip the digital printing tiers
-            if (mainCategoryKey === "Digital Printing Pricing" || mainCategoryKey === "Area-Based Pricing") {
+            if (mainCategoryKey === "Digital Printing Pricing" || mainCategoryKey === "Digital Printing") {
                 return;
             }
             
             const categoryData = data[mainCategoryKey];
             
-            // Loop through Sub Categories (Letterpads, Envelops, etc.)
             Object.keys(categoryData).forEach(subCategoryKey => {
                 const subCategoryData = categoryData[subCategoryKey];
                 
-                // Initialize product group structure
                 if (!productGroups[subCategoryKey]) {
                     productGroups[subCategoryKey] = {
                         baseName: subCategoryKey,
                         minPrice: Infinity,
                         imageFile: `${subCategoryKey.replace(/\s|\//g, '-')}.jpg`,
-                        isAreaBased: false,
+                        isAreaBased: AREA_BASED_PRODUCT_NAMES.includes(subCategoryKey),
                         mainCategory: mainCategoryKey,
                         combinations: [] 
                     };
+                    
+                    if (productGroups[subCategoryKey].isAreaBased) {
+                         areaBasedMeta[subCategoryKey] = { is_area_based: true, rate: 1, min_area: 10 };
+                    }
                 }
 
-                // Loop through Level 1 (e.g., Size like "5.75x9" or "Custom")
                 Object.keys(subCategoryData).forEach(level1Key => {
                     const level1Data = subCategoryData[level1Key];
                     
-                    // Loop through Level 2 (e.g., Material/GSM like "68 gms" or "Standard")
                     Object.keys(level1Data).forEach(level2Key => {
                         const level2Data = level1Data[level2Key];
                         
-                        // Loop through final price array (Combinations)
                         if (Array.isArray(level2Data)) {
                             level2Data.forEach(combo => {
-                                // Extract price and clean up attributes
                                const price = combo.price || 0;
                                 
-                                if (price > 0) {
+                                if (price > 0 || productGroups[subCategoryKey].isAreaBased) {
                                     const attributes = {
                                         'Size': level1Key,
                                         'Material/Stock': level2Key,
@@ -612,20 +863,18 @@
                                         'FullName': `${subCategoryKey} ${level1Key} ${level2Key}`
                                     };
                                     
-                                    // Add other relevant keys (e.g., Printing Color, Shape)
-                                    if (combo['Printing Color']) attributes['Printing Color'] = combo['Printing Color'];
-                                    if (combo['Color']) attributes['Color'] = combo['Color'];
-                                    if (combo['Sides']) attributes['Sides'] = combo['Sides'];
-                                    if (combo['Material']) attributes['Material'] = combo['Material'];
-                                    if (combo['Shape']) attributes['Shape'] = combo['Shape'];
-                                    if (combo['Finish']) attributes['Finish'] = combo['Finish'];
-                                    if (combo['accessories']) attributes['Accessories'] = combo['accessories'];
+                                    if (combo.single_side) attributes['Side 1 Print'] = combo.single_side;
+                                    if (combo.double_side) attributes['Side 2 Print'] = combo.double_side;
+                                    if (combo.material) attributes['Material'] = combo.material;
+                                    if (combo.finish) attributes['Finish'] = combo.finish;
+                                    if (combo.shape) attributes['Shape'] = combo.shape;
+                                    if (combo.accessories) attributes['Accessories'] = combo.accessories;
 
-                                    // Store combination
-                                    productGroups[subCategoryKey].combinations.push(attributes);
+                                    if (!productGroups[subCategoryKey].isAreaBased) {
+                                         productGroups[subCategoryKey].combinations.push(attributes);
+                                    }
                                     
-                                    // Update min price
-                                    if (price < productGroups[subCategoryKey].minPrice) {
+                                    if (!productGroups[subCategoryKey].isAreaBased && price < productGroups[subCategoryKey].minPrice) {
                                         productGroups[subCategoryKey].minPrice = price;
                                     }
                                 }
@@ -640,94 +889,144 @@
     }
 
     function initialProductSetup(rawData) {
-        // Handle Area-Based Pricing separately
-        areaBasedMeta = rawData["Area-Based Pricing"] || {};
         
-        // Flatten and categorize standard products
-        allProductGroups = flattenAndCategorize(rawData);
+        // 1. Separate Digital Printing Pricing (The complex tiered structure)
+        if (rawData["Digital Printing Pricing"]) {
+             digitalPrintingPricing = rawData["Digital Printing Pricing"];
+             
+             // Add a special flag for the main Digital Print item
+             const printItem = rawData["Digital Printing"]["Print"];
+             if(printItem) {
+                 allProductGroups["Digital Print (Tiered)"] = {
+                      baseName: "Digital Print (Tiered)",
+                      minPrice: 6, 
+                      imageFile: `Digital-Print.jpg`,
+                      isAreaBased: false,
+                      mainCategory: "Digital Printing",
+                      isDigitalTiered: true, 
+                      combinations: [] 
+                 };
+             }
+        }
+        
+        // 2. Process all other standard products
+        allProductGroups = { ...flattenAndCategorize(rawData), ...allProductGroups };
     }
 
 
-    // New function to filter the product catalog by the top-level mainCategory
-    function filterCatalog(mainCategory = null) {
-        showSection('shop-catalog'); // Ensure we are on the catalog page
-        const container = document.getElementById('main-product-catalog');
-        let html = '';
-        const productGroups = allProductGroups;
-        
-        const filteredKeys = Object.keys(productGroups).filter(key => {
-            const product = productGroups[key];
-            if (!mainCategory) return true; // Show all products
-            return product.mainCategory === mainCategory;
-        });
+    // New function for Digital Printing Details
+    function showDigitalPrintingDetails() {
+         currentProduct = allProductGroups["Digital Print (Tiered)"];
+         currentSelectedVariations = {}; 
+         
+         document.getElementById('detail-product-name-header').textContent = currentProduct.baseName;
+         document.getElementById('detail-product-name-body').textContent = currentProduct.baseName;
+         document.getElementById('detail-product-image').src = `img/products/${currentProduct.imageFile}`;
+         document.getElementById('detail-product-image').onerror = function() { this.src = `img/products/Digital-Print.png`; };
 
-        if (filteredKeys.length === 0) {
-            container.innerHTML = `<h3 class="text-center w-100 py-5">No products found in "${mainCategory || 'catalog'}".</h3>`;
-            return;
-        }
-        
-        const getMinPrice = (baseName) => {
-            const group = allProductGroups[baseName];
-            if (!group || group.combinations.length === 0) return 'TBD'; 
-            
-            const areaMeta = areaBasedMeta[baseName];
-            if (areaMeta && areaMeta.is_area_based) return areaMeta.rate;
-            
-            // Return lowest combination price
-            const minPrice = group.combinations.reduce((min, combo) => Math.min(min, combo.Price), Infinity);
-            return isFinite(minPrice) ? minPrice : 'TBD';
-        };
+         const areaInputs = document.getElementById('custom-area-inputs');
+         const standardOptions = document.getElementById('standard-options-fields');
+         
+         areaInputs.style.display = 'none';
+         standardOptions.style.display = 'block';
+         standardOptions.innerHTML = '';
+         
+         // Reset warnings
+         document.getElementById('finalPriceBox').style.display = 'none';
+         document.getElementById('selectionWarning').textContent = "Please select all printing options and enter quantity to see the final price.";
+         document.getElementById('selectionWarning').classList.remove('alert-danger');
+         document.getElementById('selectionWarning').classList.add('alert-info');
+         document.getElementById('selectionWarning').style.display = 'block';
 
-        filteredKeys.forEach(key => {
-            const product = productGroups[key];
-            const imagePath = `img/products/${product.imageFile}`;
-            const displayPrice = getMinPrice(key);
-            
-            const areaMeta = areaBasedMeta[key];
-            const isAreaBased = areaMeta && areaMeta.is_area_based;
 
-            const pricePrefix = isAreaBased ? 'Rate/Sq Ft: PKR' : 'Starting from: PKR';
-            const buttonText = isAreaBased ? 'Configure Area' : 'View Details';
-            
-            const priceDisplay = (typeof displayPrice === 'number') ? displayPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 }) : displayPrice;
+         const digitalData = digitalPrintingPricing;
 
-            html += `
-            <div class='col-md-4 col-sm-6 mb-4'>
-                <div class='card h-100 shadow-sm'>
-                    <img src='${imagePath}' onerror="this.onerror=null;this.src='img/products/${key.replace(/\s|\//g, '-')}.png';" class='card-img-top' alt='${product.baseName}'>
-                    <div class='card-body text-center'>
-                        <h5 class='card-title'>${product.baseName}</h5>
-                        <p class='mt-2 text-primary fw-bold'>${pricePrefix} ${priceDisplay}</p>
-                        <button class="btn btn-primary w-100 mt-2" onclick="showProductDetails('${product.baseName.replace(/\s|\//g, '\\/')}')"><i class="fas fa-search me-2"></i> ${buttonText}</button>
-                    </div>
-                </div>
-            </div>
-            `;
-        });
-        
-        container.innerHTML = html;
+         // Get all unique values for A4/Legal (Size)
+         const sizes = Object.keys(digitalData.DigitalPrintingPricing);
+         
+         let html = '';
+
+         // --- Size Selection (A4/Legal) ---
+         html += `<div class="product-option-group" data-option-key="Size">
+                    <label>Paper Size:</label>
+                    <div class="d-flex flex-wrap gap-3" id="choices-Size">`;
+         sizes.forEach(size => {
+             const inputId = `Size-${size}`;
+             html += `<label class="choice-card" for="${inputId}">
+                         <input type="radio" id="${inputId}" name="option-Size" value="${size}" 
+                                onchange="handleCardSelection('Size', '${size}')">
+                         <span class="label-text">${size}</span>
+                     </label>`;
+         });
+         html += `</div></div>`;
+
+         // --- Color Type Selection (Black_White/Color) ---
+         const colorTypes = ['black_white', 'color'];
+         html += `<div class="product-option-group" data-option-key="ColorType">
+                    <label>Print Color:</label>
+                    <div class="d-flex flex-wrap gap-3" id="choices-ColorType">`;
+         colorTypes.forEach(color => {
+             const displayColor = color.replace('_', ' ').toUpperCase();
+             const inputId = `ColorType-${color}`;
+             html += `<label class="choice-card" for="${inputId}">
+                         <input type="radio" id="${inputId}" name="option-ColorType" value="${color}" 
+                                onchange="handleCardSelection('ColorType', '${color}')">
+                         <span class="label-text">${displayColor}</span>
+                     </label>`;
+         });
+         html += `</div></div>`;
+         
+         // --- GSM Selection (70g/80g/100g) ---
+         const gsms = ['70g', '80g', '100g'];
+         html += `<div class="product-option-group" data-option-key="GSM">
+                    <label>Paper Weight (GSM):</label>
+                    <div class="d-flex flex-wrap gap-3" id="choices-GSM">`;
+         gsms.forEach(gsm => {
+             const inputId = `GSM-${gsm}`;
+             html += `<label class="choice-card" for="${inputId}">
+                         <input type="radio" id="${inputId}" name="option-GSM" value="${gsm}" 
+                                onchange="handleCardSelection('GSM', '${gsm}')">
+                         <span class="label-text">${gsm}</span>
+                     </label>`;
+         });
+         html += `</div></div>`;
+
+
+         standardOptions.innerHTML += html;
+         
+         // Add quantity selector for standard items (pages)
+         standardOptions.innerHTML += `
+              <div class="product-option-group" data-option-key="QuantitySelector">
+                 <label>Number of Pages:</label>
+                 <div class="input-group">
+                     <button class="btn btn-outline-secondary" type="button" onclick="updateQuantityStandard(-1)">-</button>
+                     <input type="number" id="input-standard-qty" min="1" value="1" class="form-control text-center" oninput="updateFinalPrice()">
+                     <button class="btn btn-outline-secondary" type="button" onclick="updateQuantityStandard(1)">+</button>
+                 </div>
+             </div>
+         `;
+
+         showSection('product-detail');
     }
 
     // 4. Navigate to and Populate Product Detail Page
     function showProductDetails(productName) {
-    // 1. First, strip out any escape characters (backslashes) passed in
-    let cleanName = productName.replace(/\\/g, ''); 
-    
-    // 2. IMPORTANT: If the input came from a filtered catalog link 
-    //    that replaced spaces with slashes, replace them back with spaces.
-    cleanName = cleanName.replace(/\//g, ' '); 
-    
-    const name = cleanName.trim(); // Use the cleaned name for lookup
-    
-    const productData = allProductGroups[name]; // Look up using the corrected name
-    currentProduct = productData;
-    currentSelectedVariations = {}; 
+        
+        // Handle the special tiered Digital Printing case first
+        if (productName.trim() === "Digital Print (Tiered)") {
+             showDigitalPrintingDetails();
+             return;
+        }
 
-    if (!currentProduct) {
-        // Updated error message to show what was searched for
-        showAlert(`Product "${name}" details not found in catalog.`, 'error'); 
-        return;
-    }
+        let cleanName = productName.replace(/'/g, '').trim(); 
+        const productData = allProductGroups[cleanName]; 
+        currentProduct = productData;
+        currentSelectedVariations = {}; 
+
+        if (!currentProduct) {
+            showAlert(`Product "${cleanName}" details not found in JSON data. Please use the 'Get Custom Quote' option.`, 'error'); 
+            return;
+        }
 
         // Update headers and image
         document.getElementById('detail-product-name-header').textContent = currentProduct.baseName;
@@ -747,18 +1046,18 @@
         document.getElementById('selectionWarning').classList.add('alert-info');
         document.getElementById('selectionWarning').style.display = 'block';
 
-        const areaMeta = areaBasedMeta[currentProduct.baseName];
-        const isAreaBased = areaMeta && areaMeta.is_area_based;
+        const isAreaBased = currentProduct.isAreaBased;
         
         // 🛑 CORE LOGIC: Area-Based vs. Standard 🛑
         if (isAreaBased) {
-            // --- AREA-BASED SETUP (Panaflex/Wallpaper) ---
+            // --- AREA-BASED SETUP (Panaflex/Wallpaper/Photo Frames) ---
             areaInputs.style.display = 'block';
             standardOptions.style.display = 'none';
             
             // Set input listeners to trigger updateFinalPrice()
             ['input-width', 'input-height', 'input-custom-qty'].forEach(id => {
-                 document.getElementById(id).oninput = updateFinalPrice;
+                 const el = document.getElementById(id);
+                 if(el) el.oninput = updateFinalPrice;
             });
             
             // Reset inputs and warnings
@@ -767,10 +1066,6 @@
             document.getElementById('input-custom-qty').value = 1;
             document.getElementById('areaDisplay').textContent = '';
             document.getElementById('areaConstraintWarning').style.display = 'none';
-            
-            // The JSON does not include design tiers anymore, hide related warning and text
-            const designFeeDisplay = document.getElementById('designFeeDisplay');
-            if (designFeeDisplay) designFeeDisplay.style.display = 'none'; 
             
             updateFinalPrice();
 
@@ -873,10 +1168,12 @@
     // --- Price Update and Calculation Logic (Handles both types) ---
     
     function updateFinalPrice() {
+        if (!currentProduct) return;
         
-        const isAreaBased = currentProduct && areaBasedMeta[currentProduct.baseName] && areaBasedMeta[currentProduct.baseName].is_area_based;
+        const isAreaBased = currentProduct.isAreaBased;
+        const isDigitalTiered = currentProduct.isDigitalTiered;
 
-        // 1. Handle Area-Based Products 
+        // 1. Handle Area-Based Products (Panaflex, Photo Frames)
         if (isAreaBased) {
             const width = parseFloat(document.getElementById('input-width').value) || 0;
             const height = parseFloat(document.getElementById('input-height').value) || 0;
@@ -889,9 +1186,9 @@
             document.getElementById('finalPriceBox').style.display = 'none';
             document.getElementById('areaConstraintWarning').style.display = 'none';
             document.getElementById('selectionWarning').style.display = 'block';
+            document.getElementById('selectionWarning').textContent = "Please enter valid dimensions and quantity to calculate price.";
             
             if (width <= 0 || height <= 0 || quantity <= 0 || baseRate === 0) {
-                document.getElementById('selectionWarning').textContent = "Please enter valid dimensions and quantity to calculate price.";
                 document.getElementById('areaDisplay').textContent = '';
                 return;
             }
@@ -915,13 +1212,78 @@
             return; 
         } 
         
-        // 2. Standard Tiered Products 
+        // 2. Handle Digital Printing Tiered Products 
+        else if (isDigitalTiered) {
+             const quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 0;
+             const size = currentSelectedVariations.Size;
+             const colorType = currentSelectedVariations.ColorType;
+             const gsm = currentSelectedVariations.GSM;
+             
+             document.getElementById('finalPriceBox').style.display = 'none';
+             document.getElementById('selectionWarning').style.display = 'block';
+             document.getElementById('selectionWarning').textContent = "Please select all printing options and enter a valid quantity.";
+             
+             if (!size || !colorType || !gsm || quantity <= 0) return;
+             
+             try {
+                const sizeData = digitalPrintingPricing.DigitalPrintingPricing[size];
+                const colorData = sizeData[colorType];
+                const gsmData = colorData[gsm];
+                
+                if (!gsmData) throw new Error("Price data missing for selected GSM.");
+                
+                let unitPrice = 0;
+                let foundPrice = false;
+                
+                // Find the correct quantity tier
+                Object.keys(gsmData).forEach(rangeKey => {
+                    const [min, max] = rangeKey.split('-').map(n => parseInt(n));
+                    if (quantity >= min && quantity <= max) {
+                        unitPrice = gsmData[rangeKey];
+                        foundPrice = true;
+                    }
+                });
+                
+                if (!foundPrice) {
+                    // For quantities above the largest tier (1000), use the price of the largest tier
+                    const keys = Object.keys(gsmData);
+                    const lastKey = keys[keys.length - 1];
+                    const [minLast, maxLast] = lastKey.split('-').map(n => parseInt(n));
+                    
+                    if (quantity > maxLast) {
+                        unitPrice = gsmData[lastKey];
+                        foundPrice = true;
+                    } else if (quantity < 1) {
+                         // Should be caught by quantity <= 0 check, but safe guard
+                         return;
+                    }
+                }
+                
+                if (foundPrice) {
+                    const totalPrice = unitPrice * quantity;
+                    document.getElementById('finalPriceDisplay').textContent = `PKR ${totalPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
+                    document.getElementById('finalPriceBox').style.display = 'block';
+                    document.getElementById('selectionWarning').style.display = 'none';
+                } else {
+                    document.getElementById('selectionWarning').textContent = "Price tier not found for this quantity. Contact for custom quote.";
+                }
+
+             } catch(e) {
+                 console.error("Digital Printing Price Calculation Error:", e);
+                 document.getElementById('selectionWarning').textContent = "Error calculating price. Select options again or contact us.";
+             }
+
+             return;
+        }
+
+        // 3. Standard Tiered Products (Business Cards, Letterpads, etc.) 
         
         const quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 1;
         const allCombinations = currentProduct?.combinations || [];
         
         if (allCombinations.length === 0) return;
 
+        // Get required keys from the first combination object
         const requiredKeys = Object.keys(allCombinations[0]).filter(key => key !== 'Price' && key !== 'FullName');
         
         let selectedAttributes = {};
@@ -986,7 +1348,8 @@
         }
 
         let itemDetails = '';
-        const isAreaBased = currentProduct && areaBasedMeta[currentProduct.baseName] && areaBasedMeta[currentProduct.baseName].is_area_based;
+        const isAreaBased = currentProduct.isAreaBased;
+        const isDigitalTiered = currentProduct.isDigitalTiered;
 
         if (isAreaBased) {
             const width = parseFloat(document.getElementById('input-width').value) || 0;
@@ -996,6 +1359,12 @@
             
             itemDetails = `\n*Product:* ${currentProduct.baseName} (Area-Based)\n*Dimensions:* ${width}ft x ${height}ft\n*Quantity:* ${quantity} piece(s)\n*Total Area:* ${totalArea.toFixed(2)} sq ft\n*Price:* ${finalPriceText}`;
             
+        } else if (isDigitalTiered) {
+             const quantity = parseInt(document.getElementById('input-standard-qty').value) || 1;
+             const details = Object.entries(currentSelectedVariations)
+                 .map(([key, val]) => `\n- ${key.replace(/[A-Z]/g, ' $&').trim()}: ${val}`);
+             
+             itemDetails = `\n*Product:* ${currentProduct.baseName} (Digital Printing)\n*Selections:*${details.join('')}\n*Pages:* ${quantity} page(s)\n*Total Price:* ${finalPriceText}`;
         } else {
             const quantity = parseInt(document.getElementById('input-standard-qty').value) || 1;
             const details = Object.entries(currentSelectedVariations)
@@ -1026,7 +1395,6 @@
         setTimeout(() => {
              // After order, go back to catalog view
              showSection('shop-catalog');
-             filterCatalog(null); // Reload all products
         }, 1500);
     }
     
@@ -1094,11 +1462,9 @@
             link.classList.remove('active');
         });
         
-        // Set the clicked nav link as active
-        const navLink = document.querySelector(`.navbar-nav a[onclick="showSection('${sectionName}')"]`);
-        if (navLink) {
-             navLink.classList.add('active');
-        }
+        // Only mark 'Products' link as active, since filtering is removed
+        const productsNavLink = document.querySelector(`.navbar-nav a[onclick="showSection('shop-catalog')"]`);
+        if (productsNavLink) productsNavLink.classList.add('active');
         
         window.scrollTo(0, 0);
     }
@@ -1129,8 +1495,3 @@
 </body>
 
 </html>
-
-
-
-
-
