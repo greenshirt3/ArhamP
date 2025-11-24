@@ -25,15 +25,237 @@
 
     <style>
         /* General Layout and Utility Styles */
+        :root {
+            --bs-primary: #f28b00; /* Assuming this is your primary color */
+            --bs-secondary: #ff5722; /* Example secondary color */
+            --bs-dark: #212529;
+            --mobile-nav-height: 60px;
+        }
         .section {
             display: none;
         }
-
         .section.active {
             display: block;
         }
+        .final-price-box {
+            background: var(--bs-primary);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            text-align: center;
+            display: none; 
+        }
+        .final-price-box h4 {
+            color: white;
+        }
+        
+        /* ---------------------------------------------------- */
+        /* RESPONSIVE HEADER IMAGE IMPLEMENTATION (NEW LOGIC) */
+        /* ---------------------------------------------------- */
+        .page-header {
+            /* Default: Use Mobile Image (Mobile First Approach) */
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(img/banners/productmobile.webp) center center no-repeat;
+            background-size: cover;
+            min-height: 250px;
+        }
 
-        /* Product-related styles (Final Price Box, Choice Card) removed for clean homepage */
+        @media (min-width: 768px) {
+            .page-header {
+                /* Override: Use Desktop Image on larger screens */
+                background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(img/banners/productdesk.webp) center center no-repeat;
+                background-size: cover;
+                min-height: 350px;
+            }
+        }
+        /* ---------------------------------------------------- */
+        
+        /* --- DESKTOP NAV FIX --- */
+        /* Remove margin from h1 inside the desktop navbar brand for alignment */
+        .navbar-brand h1 {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        /* Clickable Card Variations (Standard Items) */
+        .choice-card {
+            cursor: pointer;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 10px 15px;
+            text-align: center;
+            transition: all 0.2s ease;
+            flex-grow: 1;
+            min-width: 120px;
+            opacity: 1; /* Default to visible */
+        }
+        .choice-card:hover {
+            border-color: var(--bs-secondary);
+            background-color: #fff8f8;
+        }
+        .choice-card.selected {
+            border-color: var(--bs-primary);
+            background-color: var(--bs-primary);
+            color: white;
+            box-shadow: 0 0 10px rgba(242, 139, 0, 0.3);
+        }
+        /* Style for visually disabling non-selectable options */
+        .choice-card.disabled {
+            opacity: 0.5;
+            pointer-events: none; /* Disable interaction */
+            border-color: #eee;
+            background-color: #f7f7f7;
+        }
+        .choice-card input[type="radio"] {
+            display: none;
+        }
+        .choice-card .label-text {
+            font-weight: 500;
+            color: var(--bs-dark);
+            display: block;
+        }
+        .choice-card.selected .label-text {
+            color: white;
+        }
+        .product-option-group {
+            margin-bottom: 1.5rem;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .product-option-group label {
+            font-weight: 600;
+            color: var(--bs-dark);
+            margin-bottom: 0.75rem;
+            display: block;
+            font-size: 1.1rem;
+        }
+
+        /* --- MOBILE BOTTOM NAVIGATION STYLES --- */
+
+        /* 1. Mobile Bottom Bar Container */
+        #mobile-bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: var(--mobile-nav-height);
+            background: white;
+            border-top: 1px solid #ddd;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1030;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+        
+        /* **FIX 1: Ensure all 5 top-level elements take equal width** */
+        #mobile-bottom-nav > a, 
+        #mobile-bottom-nav > div {
+            flex: 1 1 0%; /* Equal distribution: 20% width per slot */
+        }
+
+        /* 2. Mobile Link Styling */
+        .mobile-nav-link {
+            flex: 1; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            text-decoration: none;
+            color: var(--bs-dark);
+            font-size: 0.6rem; /* Smaller text for compact look */
+            padding: 5px 0;
+            transition: color 0.2s;
+            position: relative;
+            height: 100%;
+            justify-content: center;
+        }
+        .mobile-nav-link:hover {
+             color: var(--bs-primary);
+        }
+        .mobile-nav-link i {
+            font-size: 1.1rem;
+            margin-bottom: 2px;
+            line-height: 1;
+        }
+        .mobile-nav-link.active {
+            color: var(--bs-primary);
+        }
+        
+
+/* Update the existing #mobile-nav-logo section */
+/* 3. Center Logo Button */
+#mobile-nav-logo {
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative; /* Make it relative for absolute children */
+}
+#mobile-nav-logo a {
+            background-color: var(--bs-primary);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(242, 139, 0, 0.6);
+            position: absolute; 
+            top: -15px; 
+            /* **FIX 2: Center absolutely positioned element within its slot** */
+            left: 50%;
+            transform: translateX(-50%); 
+}
+
+/* NEW RULE: Style the image inside the centered mobile button */
+#mobile-nav-logo a img {
+    /* Ensures the image is centered and prevents vertical alignment issues */
+    vertical-align: middle; 
+    /* Ensures the image doesn't overflow the 45px circle container */
+    max-width: 80%; 
+    max-height: 80%;
+    height: auto !important; /* Overrides inline height if needed, maintaining aspect ratio */
+}
+
+#mobile-nav-logo a i {
+            font-size: 1.5rem;
+}
+        /* 4. Content Padding to clear the fixed bottom nav */
+        #home-section, #quote-section, #contact-section {
+            padding-bottom: calc(var(--mobile-nav-height) + 15px); /* Add space for the bottom navbar */
+        }
+        
+        /* 5. Compact Category Link Styling (Removed, but keeping class definitions minimal) */
+        .categories-item a {
+            font-size: 0.75rem; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 5px 0;
+            line-height: 1.2;
+        }
+        .categories-item a i {
+            font-size: 1.2rem; 
+            margin-bottom: 5px !important;
+        }
+        
+        /* 6. Mobile Dropdown Specific Styling */
+        #mobile-bottom-nav .dropdown-menu {
+            position: absolute;
+            bottom: var(--mobile-nav-height); /* Position above the nav bar */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.2);
+            border-radius: 8px 8px 0 0;
+            padding: 10px 0;
+        }
+        #mobile-bottom-nav .dropdown-item {
+             font-size: 0.8rem;
+        }
     </style>
 </head>
 
@@ -65,51 +287,87 @@
                 </div>
             </div>
         </div>
-        <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5">
-            <a href="#home-section" class="navbar-brand d-flex align-items-center" onclick="showSection('home')">
-                <h1 class="m-0 text-primary"><i class="fa fa-print me-3"></i>Arham Printers</h1>
-            </a>
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div class="navbar-nav mx-auto bg-light pe-4 py-3 py-lg-0">
-                    <a href="#home-section" class="nav-item nav-link active" onclick="showSection('home')">Home</a>
-                    <a href="products.html" class="nav-item nav-link">Products</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
-                        <div class="dropdown-menu bg-light border-0 m-0">
-                            <a href="products.html?category=Business Essentials" class="dropdown-item">Business Essentials</a>
-                            <a href="products.html?category=Marketing Essentials" class="dropdown-item">Marketing Essentials</a>
-                            <a href="products.html?category=Office Essentials" class="dropdown-item">Office Essentials</a>
-                            <a href="products.html?category=Wedding Invitation Cards" class="dropdown-item">Wedding Invitation Cards</a>
-                            <a href="products.html?category=Digital Printing" class="dropdown-item">Panaflex Printing</a>
-                            <a href="products.html?category=Photo Printing" class="dropdown-item">Photo Printing</a>
-                            <a href="products.html?category=3D Wallpaper" class="dropdown-item">3D Wallpaper</a>
-                            <a href="products.html?category=Promotional Items" class="dropdown-item">Promotional Items</a>
-                            <a href="products.html?category=Shields" class="dropdown-item">Shields</a>
-                            <a href="products.html?category=Souvenirs" class="dropdown-item">Souvenirs</a>
-                            <a href="products.html?category=Flags and Fabric" class="dropdown-item">Flags and Fabric</a>
-                            <a href="products.html?category=Box Packaging" class="dropdown-item">Box Packaging</a>
-                            <a href="products.html?category=Marketing and Advertising" class="dropdown-item">Marketing and Advertising</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item" onclick="showSection('quote')">Get Custom Quote</a>
+        
+        <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5 d-none d-lg-block">
+            <div class="d-flex w-100 justify-content-between align-items-center">
+                
+                <a href="index.html" class="navbar-brand d-flex align-items-center me-4">
+                    <img src="img/logo2.webp" alt="Arham Printers Logo" style="height: 40px; margin-right: 1rem;">
+                                    </a>
+
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            
+                <div class="collapse navbar-collapse flex-grow-1" id="navbarCollapse">
+                    <div class="navbar-nav me-auto bg-light pe-4 py-3 py-lg-0 d-flex align-items-center">
+                        
+                        <a href="index.html" class="nav-item nav-link active">Home</a>
+                        <a href="products.html" class="nav-item nav-link">Products</a>
+                        <a href="wedding.html" class="nav-item nav-link">Wedding Cards</a>
+                        <a href="print-order.html" class="nav-item nav-link">Paper Printing</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
+                            <div class="dropdown-menu bg-light border-0 m-0">
+                                <a href="products.html" class="dropdown-item">All Products</a>
+                                <a href="#quote-section" class="dropdown-item" onclick="showSection('quote')">Get Custom Quote</a>
+                            </div>
                         </div>
+                        <a href="#contact-section" class="nav-item nav-link" onclick="showSection('contact')">Contact</a>
                     </div>
-                    <a href="#contact-section" class="nav-item nav-link" onclick="showSection('contact')">Contact</a>
-                </div>
-                <div class="h-100 d-lg-inline-flex align-items-center">
-                    <a class="btn-sm-square bg-white text-primary rounded-circle me-4 position-relative" href="#"
-                        onclick="showSection('quote')">
-                        <i class="fas fa-file-invoice"></i>
-                    </a>
-                    <a href="#" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block"
-                        onclick="showSection('quote')">Get a Quote<i class="fa fa-arrow-right ms-3"></i></a>
+                    
+                    <div class="h-100 d-lg-inline-flex align-items-center">
+                        <a class="btn-sm-square bg-white text-primary rounded-circle me-4 position-relative" href="#quote-section" onclick="showSection('quote')">
+                            <i class="fas fa-file-invoice"></i>
+                        </a>
+                        <a href="#contact-section" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block" onclick="showSection('quote')">Get a Quote<i
+                                class="fa fa-arrow-right ms-3"></i></a>
+                    </div>
                 </div>
             </div>
         </nav>
+
+    <nav id="mobile-bottom-nav" class="d-lg-none">
+    <a href="index.html" class="mobile-nav-link active" id="mobile-link-home">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+    </a>
+    
+    <div class="nav-item dropup d-flex flex-fill justify-content-center">
+         <a href="#" class="mobile-nav-link dropdown-toggle" data-bs-toggle="dropdown" id="mobile-link-categories">
+             <i class="fas fa-th-large"></i>
+             <span>Categories</span>
+         </a>
+        <div class="dropdown-menu bg-light border-0">
+            <!-- Updated to Six Categories -->
+             <a href="products.html#business-essentials" class="dropdown-item">Business & Office Essentials</a>
+             <a href="products.html#marketing-essentials" class="dropdown-item">Marketing & Promotional Items</a>
+             <a href="products.html#digital-media" class="dropdown-item">Digital Media Marketing</a>
+             <a href="products.html#printsing" class="dropdown-item">Custom & Large Format</a>
+             <a href="print-order.html" class="dropdown-item">B/W and Color Prints</a>
+             <a href="wedding.html" class="dropdown-item">Special Occasions (Wedding)</a>
+        </div>
+    </div>
+    
+    <div id="mobile-nav-logo">
+         <a href="index.html" class="mobile-nav-link-center">
+             <img src="img/logo.webp" alt="Logo" style="height: 80px;">
+         </a>
+    </div>
+    
+    <a href="products.html" class="mobile-nav-link" id="mobile-link-products">
+        <i class="fas fa-th-list"></i>
+        <span>Products</span>
+    </a>
+    
+    <a href="wedding.html" class="mobile-nav-link" id="mobile-link-wedding">
+        <i class="fas fa-gift"></i>
+        <span>Wedding Cards</span>
+    </a>
+</nav>
+        
         <section id="home-section" class="section active">
-            <div class="container-fluid hero-header bg-light py-5">
+            <div class="container-fluid hero-header bg-light py-5 hero-banner-responsive"> 
                 <div class="container py-5">
                     <div class="row g-5 align-items-center">
                         <div class="col-lg-6">
@@ -123,12 +381,9 @@
                         <div class="col-lg-6">
                             <div class="owl-carousel header-carousel">
                                 <div class="owl-carousel-item">
-                                    <img class="img-fluid" src="img/carousel-1.png" alt="Printing Services">
+                                    <img class="img-fluid" src="img/head-2.webp" alt="Printing Services">
                                 </div>
-                                <div class="owl-carousel-item">
-                                    <img class="img-fluid" src="img/carousel-2.png" alt="Business Printing">
-                                </div>
-                            </div>
+                               </div>
                         </div>
                     </div>
                 </div>
@@ -137,154 +392,76 @@
                 <div class="container py-5">
                     <div class="text-center mx-auto mb-5" style="max-width: 600px;">
                         <h2 class="display-5 mb-3">Printing & Advertising Solutions</h2>
-                        <p class="mb-0">Discover our full range of professional services and product categories.</p>
+                        <p class="mb-0">Discover our six primary product and service categories.</p>
                     </div>
                     <div class="row g-4 justify-content-center" id="index-categories-list">
-                        <div class="col-6 col-md-4">
-                            <a href="products.html?category=Business Essentials" class="text-decoration-none">
-                                <div class="card border-0 shadow-sm">
-                                    <img src="images/business.jpg" class="card-img-top" alt="Business Essentials">
-                                    <div class="card-footer bg-primary text-white text-center">Business Essentials</div>
+                        
+                        <!-- 1. Business & Office Essentials -->
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <a href="products.html#business-essentials" class="text-decoration-none">
+                                <div class="card border-0 shadow-sm rounded-0">
+                                    <img src="images/office.jpg" class="card-img-top" alt="Business & Office Essentials">
+                                    <div class="card-footer bg-primary text-white text-center rounded-0">Business & Office Essentials</div>
                                 </div>
                             </a>
                         </div>
-                        <div class="col-6 col-md-4">
-                            <a href="products.html?category=Marketing Essentials" class="text-decoration-none">
-                                <div class="card border-0 shadow-sm">
-                                    <img src="images/marketing.jpg" class="card-img-top" alt="Marketing Essentials">
-                                    <div class="card-footer bg-primary text-white text-center">Marketing Essentials</div>
+                        
+                        <!-- 2. Marketing & Promotional Items -->
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <a href="products.html#marketing-essentials" class="text-decoration-none">
+                                <div class="card border-0 shadow-sm rounded-0">
+                                    <img src="images/marketing.jpg" class="card-img-top" alt="Marketing & Promotional Items">
+                                    <div class="card-footer bg-primary text-white text-center rounded-0">Marketing & Promotional Items</div>
                                 </div>
                             </a>
                         </div>
-                        <div class="col-6 col-md-4">
-                            <a href="products.html?category=Office Essentials" class="text-decoration-none">
-                                <div class="card border-0 shadow-sm">
-                                    <img src="images/office.jpg" class="card-img-top" alt="Office Essentials">
-                                    <div class="card-footer bg-primary text-white text-center">Office Essentials</div>
+
+                        <!-- 3. Digital Media Marketing (New) -->
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <a href="products.html#digital-media" class="text-decoration-none">
+                                <div class="card border-0 shadow-sm rounded-0">
+                                    <img src="images/marketing-ad.jpg" class="card-img-top" alt="Digital Media Marketing">
+                                    <div class="card-footer bg-primary text-white text-center rounded-0">Digital Media Marketing</div>
                                 </div>
                             </a>
                         </div>
-                        <div class="col-6 col-md-4">
-                            <a href="products.html?category=Wedding Invitation Cards" class="text-decoration-none">
-                                <div class="card border-0 shadow-sm">
+                        
+                        <!-- 4. Custom & Large Format (Digital Printing, Banners, Wallpaper, Photo) -->
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <a href="products.html#printsing" class="text-decoration-none">
+                                <div class="card border-0 shadow-sm rounded-0">
+                                    <img src="images/digital-printing.jpg" class="card-img-top" alt="Custom & Large Format">
+                                    <div class="card-footer bg-primary text-white text-center rounded-0">Custom & Large Format</div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- 5. B/W and Color Prints (New) -->
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <a href="print-order.html" class="text-decoration-none">
+                                <div class="card border-0 shadow-sm rounded-0">
+                                    <img src="images/photo-printing.jpg" class="card-img-top" alt="B/W and Color Prints">
+                                    <div class="card-footer bg-primary text-white text-center rounded-0">B/W and Color Prints</div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <!-- 6. Special Occasions -->
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <a href="wedding.html" class="text-decoration-none">
+                                <div class="card border-0 shadow-sm rounded-0">
                                     <img src="img/wedding-card.jpg" class="card-img-top"
                                         alt="Wedding Invitation Cards">
-                                    <div class="card-footer bg-primary text-white text-center">Wedding Invitation Cards
+                                    <div class="card-footer bg-primary text-white text-center rounded-0">Special Occasions (Wedding Cards)
                                     </div>
                                 </div>
                             </a>
                         </div>
-                        <div class="col-6 col-md-4">
-                            <a href="products.html?category=Digital Printing" class="text-decoration-none">
-                                <div class="card border-0 shadow-sm">
-                                    <img src="images/digital-printing.jpg" class="card-img-top"
-                                        alt="Panaflex Printing">
-                                    <div class="card-footer bg-primary text-white text-center">Panaflex Printing</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <a href="products.html?category=Photo Printing" class="text-decoration-none">
-                                <div class="card border-0 shadow-sm">
-                                    <img src="images/photo-printing.jpg" class="card-img-top" alt="Photo Printing">
-                                    <div class="card-footer bg-primary text-white text-center">Photo Printing</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <a href="products.html?category=3D Wallpaper" class="text-decoration-none">
-                                <div class="card border-0 shadow-sm">
-                                    <img src="images/3d-wallpaper.jpg" class="card-img-top" alt="3D Wallpaper">
-                                    <div class="card-footer bg-primary text-white text-center">3D Wallpaper</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <a href="products.html?category=Promotional Items" class="text-decoration-none">
-                                <div class="card border-0 shadow-sm">
-                                    <img src="images/promotional-items.jpg" class="card-img-top"
-                                        alt="Promotional Items">
-                                    <div class="card-footer bg-primary text-white text-center">Promotional Items</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <a href="products.html?category=Shields" class="text-decoration-none">
-                                <div class="card border-0 shadow-sm">
-                                    <img src="images/shields.jpg" class="card-img-top" alt="Shields">
-                                    <div class="card-footer bg-primary text-white text-center">Shields</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <a href="products.html?category=Souvenirs" class="text-decoration-none">
-                                <div class="card border-0 shadow-sm">
-                                    <img src="images/souvenirs.jpg" class="card-img-top" alt="Souvenirs">
-                                    <div class="card-footer bg-primary text-white text-center">Souvenirs</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <a href="products.html?category=Flags and Fabric" class="text-decoration-none">
-                                <div class="card border-0 shadow-sm">
-                                    <img src="images/flags-fabric.jpg" class="card-img-top" alt="Flags and Fabric">
-                                    <div class="card-footer bg-primary text-white text-center">Flags and Fabric</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <a href="products.html?category=Box Packaging" class="text-decoration-none">
-                                <div class="card border-0 shadow-sm">
-                                    <img src="images/box-packaging.jpg" class="card-img-top" alt="Box Packaging">
-                                    <div class="card-footer bg-primary text-white text-center">Box Packaging</div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <a href="products.html?category=Marketing and Advertising" class="text-decoration-none">
-                                <div class="card border-0 shadow-sm">
-                                    <img src="images/marketing-ad.jpg" class="card-img-top"
-                                        alt="Marketing and Advertising">
-                                    <div class="card-footer bg-primary text-white text-center">Marketing and Advertising
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
+                        
                     </div>
                 </div>
             </div>
-            <div class="container mt-5">
-                <div class="row text-center">
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="bg-light p-4 rounded">
-                            <i class="fas fa-file-invoice fa-2x text-primary mb-3"></i>
-                            <h5>Need a Custom Quote?</h5>
-                            <p>Get pricing for custom projects</p>
-                            <button class="btn btn-primary" onclick="showSection('quote')">Get Quote</button>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="bg-light p-4 rounded">
-                            <i class="fas fa-headset fa-2x text-primary mb-3"></i>
-                            <h5>Contact Support</h5>
-                            <p>Have questions? We're here to help</p>
-                            <button class="btn btn-outline-primary" onclick="showSection('contact')">Contact Us</button>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="bg-light p-4 rounded">
-                            <i class="fas fa-print fa-2x text-primary mb-3"></i>
-                            <h5>Custom Document Printing</h5>
-                            <p>Upload, <span class="text-primary font-bold">Print</span> and get <span
-                                    class="text-primary font-bold">Delivered</span>. </p>
-                            <a href="print-order.html" class="btn btn-outline-primary">Upload Documents</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
             </section>
         <section id="quote-section" class="section">
             <div class="container-fluid page-header py-5">
@@ -529,63 +706,9 @@
         <script>
             // --- Configuration ---
             const WHATSAPP_NUMBER = '923006238233';
+            const SUBMIT_ORDER_URL = 'submit_order.php'; 
 
-            // --- Core Functions ---
-
-            function initialAppLoad() {
-                // Removed WOW.js initialization logic
-                document.getElementById('home-section').classList.add('active');
-
-                // Set up form submission handlers for WhatsApp routing
-                document.getElementById('quote-form').addEventListener('submit', handleQuoteSubmission);
-                document.getElementById('contact-form-whatsapp').addEventListener('submit', handleContactSubmission);
-            }
-
-            // --- WhatsApp Submission Logic (Kept for Quote/Contact forms) ---
-
-            // 2. Contact Form Submission Handler
-            function handleContactSubmission(e) {
-                e.preventDefault();
-
-                const name = document.getElementById('contact-name').value;
-                const subject = document.getElementById('contact-subject').value;
-                const message = document.getElementById('contact-message').value;
-
-                let whatsappMessage = `*NEW CONTACT MESSAGE (WEB)*\n`;
-                whatsappMessage += `*Sender:* ${name}\n`;
-                whatsappMessage += `*Subject:* ${subject}\n`;
-                whatsappMessage += `*Message:* ${message}`;
-
-                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
-
-                showAlert('Message sent via WhatsApp!', 'success');
-                document.getElementById('contact-form-whatsapp').reset();
-            }
-
-            // 3. Get A Quote Submission Handler
-            function handleQuoteSubmission(e) {
-                e.preventDefault();
-
-                const name = document.getElementById('quote-name').value;
-                const phone = document.getElementById('quote-phone').value;
-                const product = document.getElementById('quote-product').value;
-                const quantity = document.getElementById('quote-quantity').value;
-                const details = document.getElementById('quote-details').value;
-
-                let whatsappMessage = `*NEW QUOTE REQUEST (WEB)*\n`;
-                whatsappMessage += `*Customer:* ${name}\n`;
-                whatsappMessage += `*Phone (Contact):* ${phone}\n`;
-                whatsappMessage += `*Product Type:* ${product}\n`;
-                whatsappMessage += `*Quantity/Area:* ${quantity}\n`;
-                whatsappMessage += `*Specifications:* ${details}`;
-
-                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
-
-                showAlert('Quote submitted via WhatsApp! We will contact you shortly.', 'success');
-                document.getElementById('quote-form').reset();
-            }
-
-            // --- UI/Navigation Functions (Simplified to Home/Quote/Contact) ---
+            // --- UI/Navigation Functions ---
             function showSection(sectionName) {
                 // Hide all sections
                 document.querySelectorAll('.section').forEach(section => {
@@ -598,23 +721,66 @@
                     sectionElement.classList.add('active');
                 }
 
-                // Update active nav link
+                // Update active desktop nav link
                 document.querySelectorAll('.nav-link').forEach(link => {
                     link.classList.remove('active');
                 });
-
-                // Set the clicked nav link as active
-                if (sectionName === 'home') {
-                    document.querySelector('.nav-item.nav-link[onclick="showSection(\'home\')"]')?.classList.add('active');
-                } else if (sectionName === 'contact') {
-                    document.querySelector('.nav-item.nav-link[onclick="showSection(\'contact\')"]')?.classList.add('active');
-                } else if (sectionName === 'quote') {
-                    document.querySelector('.nav-item.nav-link[onclick="showSection(\'quote\')"]')?.classList.add('active');
+                
+                // Set the active desktop link based on section name
+                const desktopLink = document.querySelector(`.navbar-nav a[onclick="showSection('${sectionName}')"]`);
+                if (desktopLink) {
+                    desktopLink.classList.add('active');
+                } else if (sectionName === 'home') {
+                     // Default home active state
+                     document.querySelector(`.navbar-nav a[href="index.html"]`)?.classList.add('active');
                 }
 
+                // Set the active mobile nav link (calls centralized logic in main.js)
+                if (typeof setActiveMobileNav === 'function') {
+                    setActiveMobileNav(sectionName);
+                }
+                
                 window.scrollTo(0, 0);
             }
+            
+            // Function for the Home Page category links that navigate to products.html
+            function handleCategoryLink(category) {
+                 window.location.href = `products.html?category=${encodeURIComponent(category)}`;
+            }
 
+            // Function for the Home Page Contact/Quote Buttons
+            function handleQuoteContact(sectionName) {
+                showSection(sectionName);
+            }
+
+            // --- Order Submission (Mock) ---
+            async function submitOrder(type) {
+                const formData = {
+                    order_type: type,
+                    details: 'Placeholder order detail for Home Page contact.',
+                    customer_name: 'Home Page Visitor', 
+                };
+
+                // Mock API call
+                try {
+                    const response = await fetch(SUBMIT_ORDER_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(formData)
+                    });
+
+                    if (response.ok) {
+                        // NOTE: Using a custom modal alert instead of window.alert()
+                        showAlert('Order/Quote successfully registered! We will contact you shortly.', 'success');
+                    } else {
+                        showAlert('Server error during registration.', 'error');
+                    }
+                } catch (error) {
+                    console.error('Submission failed:', error);
+                    showAlert('Network error. Please try the WhatsApp option.', 'error');
+                }
+            }
+            
             function showAlert(message, type) {
                 const alert = document.createElement('div');
                 alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
@@ -623,11 +789,11 @@
                 alert.style.zIndex = '9999';
                 alert.style.minWidth = '300px';
                 alert.innerHTML = `
-                        ${message}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    `;
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
                 document.body.appendChild(alert);
-
+                
                 setTimeout(() => {
                     if (alert.parentNode) {
                         alert.parentNode.removeChild(alert);
@@ -635,7 +801,10 @@
                 }, 5000);
             }
 
-            document.addEventListener('DOMContentLoaded', initialAppLoad);
+
+            document.addEventListener('DOMContentLoaded', () => {
+                 // Initial active state is handled by main.js after DOMContentLoaded
+            });
         </script>
     </div>
 </body>

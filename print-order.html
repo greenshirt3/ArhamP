@@ -24,29 +24,54 @@
         /* Custom styles for this specific page, matching the overall theme colors */
         :root {
             --bs-primary: #f28b00;
-            --bs-secondary: #0087a3; 
+            --bs-secondary: #ff5722; 
             --bs-dark: #212529;
+            --mobile-nav-height: 60px;
         }
 
+        /* --- Global Style Consistency --- */
         .page-content-wrapper {
             background-color: #f8fafc;
             min-height: 80vh; 
+            padding-bottom: calc(var(--mobile-nav-height) + 40px); /* Ensure padding for sticky nav */
         }
-
-        /* General layout/form group styling */
+        
+        .navbar-brand h1 {
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+        
+        /* --- Page Header Style (Using general page-header class for consistency) --- */
+        .page-header {
+            /* Default: Use Mobile Image (Placeholder) */
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(img/banners/printbanner-mobile.webp) center center no-repeat;
+            background-size: cover;
+            min-height: 200px;
+        }
+        @media (min-width: 768px) {
+            .page-header {
+                /* Override: Use Desktop Image (Placeholder) */
+                background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(img/banners/printbanner-desktop.webp) center center no-repeat;
+                background-size: cover;
+                min-height: 300px;
+            }
+        }
+        
+        /* --- Form Styling (Adopted from other files, adjusted) --- */
         .option-group {
             border: 1px solid #dee2e6;
             padding: 1rem;
-            border-radius: 8px;
+            border-radius: 0; /* Plane corners */
             margin-bottom: 1.5rem;
-            background-color: #f8f9fa;
+            background-color: #ffffff;
         }
 
-        .option-group h3 {
+        .option-group h4 {
             border-bottom: 2px solid var(--bs-primary);
             padding-bottom: 0.5rem;
             margin-bottom: 1rem;
             color: var(--bs-dark);
+            font-weight: 600;
         }
 
         .option-label {
@@ -56,14 +81,10 @@
             display: block;
         }
 
-        .choice-card-group .form-check-inline {
-            padding: 0;
-            margin-right: 1rem;
-        }
         .choice-card-label {
             cursor: pointer;
             border: 2px solid #ddd;
-            border-radius: 6px;
+            border-radius: 0; /* Plane corners */
             padding: 8px 15px;
             transition: all 0.2s ease;
             font-weight: 500;
@@ -71,74 +92,89 @@
         }
         .choice-card-label:hover {
             border-color: var(--bs-secondary);
-            background-color: #f0f8ff;
+            background-color: #fff8f8;
         }
         input[type="radio"]:checked + .choice-card-label {
             border-color: var(--bs-primary);
             background-color: var(--bs-primary);
             color: white;
         }
-        .choice-card-label input[type="radio"] {
-            display: none; 
-        }
         
         /* Price Summary */
-        .price-summary {
-            background-color: #0087a3; 
+        .price-summary-box {
+            background-color: var(--bs-dark); 
             color: white;
-            padding: 1.5rem;
-            border-radius: 8px;
+            padding: 1rem;
+            border-radius: 0;
             text-align: right;
-            font-size: 1.3em;
-            font-weight: bold;
             display: flex; 
             flex-direction: column;
             justify-content: center; 
         }
-        /* Style for the Total Price span to make it stand out */
-        .price-summary #totalPrice {
-            color: #f28b00; 
+        
+        .price-summary-box #totalPrice {
+            color: var(--bs-primary); 
             display: block;
-            font-size: 1.2em;
-            line-height: 1.2;
+            font-size: 1.5em;
+            font-weight: bold;
         }
-        .terms-content {
-            margin-top: 2.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #ddd;
-        }
-        .terms-content h2 {
-            color: var(--bs-secondary);
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--bs-secondary);
-        }
-        .terms-content h4 {
-            color: var(--bs-dark);
-            margin-top: 1rem;
-        }
+        
         .whatsapp-action-block {
-            background-color: #e6ffec; 
-            border: 1px solid #c3e6cb;
+            background-color: #f7f7f7; 
+            border: 1px solid #eee;
             padding: 1.5rem;
-            border-radius: 8px;
+            border-radius: 0;
             margin-top: 1.5rem;
         }
-        /* Flexbox for equal height in price and button */
+        
         .whatsapp-action-block .row {
-            align-items: stretch; 
+            align-items: center; 
         }
+        
         .whatsapp-action-block .col-md-6 {
             display: flex;
         }
-        /* Ensure the button fills its flex container height */
-        .whatsapp-action-block button {
-            height: 100%; 
+        
+        /* --- MOBILE NAV STYLES (Copied for consistency) --- */
+        #mobile-bottom-nav {
+            position: fixed; bottom: 0; left: 0; right: 0; height: var(--mobile-nav-height);
+            background: white; border-top: 1px solid #ddd; box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1030; display: flex; align-items: center; justify-content: space-around;
         }
-        /* Style adjustments for quantity group */
-        .quantity-group .form-control {
-            width: 50% !important; 
+        #mobile-bottom-nav > a, #mobile-bottom-nav > div { flex: 1 1 0%; }
+        .mobile-nav-link {
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            text-decoration: none; color: var(--bs-dark); font-size: 0.6rem; padding: 5px 0;
+            transition: color 0.2s; position: relative; height: 100%; justify-content: center;
         }
-
+        .mobile-nav-link:hover { color: var(--bs-primary); }
+        .mobile-nav-link i { font-size: 1.1rem; margin-bottom: 2px; line-height: 1; }
+        .mobile-nav-link.active { color: var(--bs-primary); }
+        #mobile-nav-logo { display: flex; justify-content: center; align-items: center; position: relative; }
+        #mobile-nav-logo a {
+            background-color: var(--bs-primary); color: white; width: 45px; height: 45px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 10px rgba(242, 139, 0, 0.6); position: absolute; top: -15px; 
+            left: 50%; transform: translateX(-50%); 
+        }
+        
+        @media (max-width: 991.98px) {
+            /* Adjust content padding for bottom nav */
+            .page-content-wrapper {
+                padding-bottom: calc(var(--mobile-nav-height) + 15px) !important; 
+            }
+            .terms-content {
+                margin-bottom: calc(var(--mobile-nav-height) + 15px);
+            }
+        }
+        
+        /* Mobile Dropdown Specific Styling */
+        #mobile-bottom-nav .dropdown-menu {
+            position: absolute; bottom: var(--mobile-nav-height); left: 50%; 
+            transform: translateX(-50%); width: 250px; box-shadow: 0 -5px 15px rgba(0,0,0,0.2);
+            border-radius: 8px 8px 0 0; padding: 10px 0;
+        }
+        
     </style>
 </head>
 
@@ -150,6 +186,7 @@
             <span class="sr-only">Loading...</span>
         </div>
     </div>
+    
     <div class="container-fluid bg-dark text-white-50 py-2 px-0 d-none d-lg-block">
         <div class="row gx-0 align-items-center">
             <div class="col-lg-7 px-5 text-start">
@@ -176,9 +213,11 @@
             </div>
         </div>
     </div>
-    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5">
+    
+    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5 d-none d-lg-block">
         <a href="index.html" class="navbar-brand d-flex align-items-center">
-            <h1 class="m-0 text-primary"><i class="fa fa-print me-3"></i>Arham Printers</h1>
+             <img src="img/logo2.webp" alt="Arham Printers Logo" style="height: 40px; margin-right: 1rem;">
+             <span style="font-size: 0.75rem; color: #6c757d; margin-top: 15px;">Arham Printers</span>
         </a>
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
@@ -187,6 +226,8 @@
             <div class="navbar-nav mx-auto bg-light pe-4 py-3 py-lg-0">
                 <a href="index.html" class="nav-item nav-link">Home</a>
                 <a href="products.html" class="nav-item nav-link">Products</a>
+                <a href="wedding.html" class="nav-item nav-link">Wedding Cards</a>
+                <a href="#" class="nav-item nav-link active">Print Order</a>
                 <a href="index.html#contact-section" class="nav-item nav-link">Contact</a>
             </div>
              <div class="h-100 d-lg-inline-flex align-items-center">
@@ -195,13 +236,62 @@
             </div>
         </div>
     </nav>
-      <div class="container page-content-wrapper py-5">
+
+    <nav id="mobile-bottom-nav" class="d-lg-none">
+        <a href="index.html" class="mobile-nav-link" id="mobile-link-home">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        
+        <div class="nav-item dropup d-flex flex-fill justify-content-center">
+             <a href="#" class="mobile-nav-link dropdown-toggle" data-bs-toggle="dropdown" id="mobile-link-categories">
+                <i class="fas fa-th-large"></i>
+                <span>Categories</span>
+            </a>
+            <div class="dropdown-menu bg-light border-0">
+                 <a href="products.html#business-essentials" class="dropdown-item">Business Essentials</a>
+                 <a href="products.html#office-essentials" class="dropdown-item">Office Essentials</a>
+                 <a href="products.html#marketing-essentials" class="dropdown-item">Marketing Essentials</a>
+                 <a href="products.html#printsing" class="dropdown-item">Digital Printing</a>
+                 <a href="products.html#photo-printing" class="dropdown-item">Photo Printing</a>
+                 <a href="products.html#banners" class="dropdown-item">Panaflex Banners</a>
+                 <a href="products.html#promotional" class="dropdown-item">Promotional Items</a>
+                 <a href="products.html#souvenirs" class="dropdown-item">Souvenirs</a>
+                 <a href="products.html#wedding-cards" class="dropdown-item">Wedding Cards</a>
+                 <a href="products.html#wallpaper" class="dropdown-item">3D Wallpaper</a>
+                 <a href="products.html#shields" class="dropdown-item">Shields</a>
+                 <a href="products.html#flags-fabric" class="dropdown-item">Flags/Fabric</a>
+                 <a href="products.html#box" class="dropdown-item">Box Pkg</a>
+            </div>
+        </div>
+        
+        <div id="mobile-nav-logo">
+             <a href="index.html" class="mobile-nav-link-center">
+                <img src="img/logo.webp" alt="Logo" style="height: 80px;">
+            </a>
+        </div>
+        
+        <a href="products.html" class="mobile-nav-link active" id="mobile-link-products">
+            <i class="fas fa-th-list"></i>
+            <span>Products</span>
+        </a>
+        
+        <a href="wedding.html" class="mobile-nav-link" id="mobile-link-wedding">
+            <i class="fas fa-gift"></i>
+            <span>Wedding Cards</span>
+        </a>
+    </nav>
+    
+    <div class="container page-content-wrapper py-5">
+        <div class="page-header mb-5">
+             <h2 class="text-center text-white display-6 py-5">Custom Document Printing</h2>
+        </div>
+        
         <div class="row justify-content-center">
             <div class="col-lg-10">
-                <div class="bg-white p-4 p-md-5 rounded shadow-lg">
-
-                    <h3 class="fw-bold mb-4 text-center">Custom Document Printing</h3>
-                    <form id="printOrderForm" action="#" method="POST" class="row g-4" onsubmit="handlePrintOrderSubmission(event)">
+                <div class="bg-white p-4 p-md-5 rounded-0 shadow-lg"> <h3 class="fw-bold mb-4 text-center">Configure Your Print Order</h3>
+                    
+                    <form id="printOrderForm" method="POST" enctype="multipart/form-data" class="row g-4" onsubmit="handlePrintOrderSubmission(event)">
                         
                         <div class="col-12">
                             <div class="option-group">
@@ -260,28 +350,39 @@
                                 <div class="mt-4">
                                     <label for="quantity" class="option-label">Number of Sheets (Quantity)</label>
                                     <div class="quantity-group">
-                                        <input type="number" id="quantity" name="quantity" value="1" min="1" required class="form-control w-50">
+                                        <input type="number" id="quantity" name="quantity" value="1" min="1" required class="form-control w-100">
                                     </div>
                                     <small class="text-muted">Enter the number of physical sheets to be printed.</small>
                                 </div>
                             </div>
                         </div>
+                        
+                        <div class="col-12">
+                             <div class="option-group">
+                                <h4>2. Upload Document File</h4>
+                                <label for="documentFile" class="option-label">Select File (PDF, DOCX, JPG recommended)</label>
+                                <input type="file" id="documentFile" name="documentFile" required class="form-control" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                                <small class="text-danger mt-2 d-block">
+                                    *Required for printing. File will be uploaded to our server for processing.*
+                                </small>
+                            </div>
+                        </div>
 
                         <input type="hidden" name="orderId" id="orderId">
-
+                        
                         <div class="col-12">
-                            <div class="whatsapp-action-block text-center">
-                                <h4 class="text-success fw-bold">Place Order and Upload Your Files</h4>
+                            <div class="whatsapp-action-block">
+                                <h4 class="text-primary fw-bold text-center">Finalize Order</h4>
                                    <div class="row g-3 align-items-center justify-content-center">
                                     <div class="col-md-6">
-                                        <div class="price-summary">
-    Price (Excluding Delivery):
-    <span id="totalPrice"><span class="text-primary fw-bold">0.00</span></span>
-</div>
-                                        
+                                        <div class="price-summary-box">
+                                            Price (Excl. Delivery):
+                                            <span id="totalPrice"><span class="fw-bold">0.00</span></span>
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <button type="submit" class="btn btn-success py-3 w-100 fw-bold">Click Here to Place Order and File Upload
+                                        <button type="submit" class="btn btn-primary py-3 w-100 fw-bold rounded-0" id="submitButton">
+                                            <i class="fas fa-envelope me-2"></i> Place Order & Upload
                                         </button>
                                     </div>
                                 </div>
@@ -328,13 +429,13 @@
         </div>
     </div>
 
-<div class="container-fluid footer py-2 wow fadeIn" data-wow-delay="0.2s">
+<div class="container-fluid footer py-2">
       <div class="container py-2">
         <div class="row g-3">
           <div class="col-6 col-md-3">
             <div class="rounded p-2 d-flex flex-column align-items-center">
               <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
-                <i class="fas fa-map-marker-alt fa-2x text-primary" style="line-height: 1);"></i>
+                <i class="fas fa-map-marker-alt fa-2x text-primary" style="line-height: 1;"></i>
               </div>
               <h6 class="text-white mt-1 mb-1">Address</h6>
               <p class="text-white fw-bold mb-1 small text-center">Domela Chowk, Tanda Road, Jalalpur Jattan</p>
@@ -344,7 +445,7 @@
           <div class="col-6 col-md-3">
             <div class="rounded p-2 d-flex flex-column align-items-center">
               <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
-                <i class="fas fa-envelope fa-2x text-primary" style="line-height: 1);"></i>
+                <i class="fas fa-envelope fa-2x text-primary" style="line-height: 1;"></i>
               </div>
               <h6 class="text-white mt-1 mb-1">Mail Us</h6>
               <p class="text-white fw-bold mb-1 small text-center">info@arhamprinters.pk</p>
@@ -355,20 +456,20 @@
             <div class="rounded p-2 d-flex flex-column align-items-center">
               <a href="https://wa.me/923006238233" target="_blank" class="text-decoration-none">
                 <div class="rounded-circle bg-success d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
-                  <i class="fab fa-whatsapp fa-2x text-white" style="line-height: 1);"></i>
+                  <i class="fab fa-whatsapp fa-2x text-white" style="line-height: 1;"></i>
                 </div>
               </a>
               <h6 class="text-white mt-1 mb-1">Direct Contact</h6>
               <a href="https://wa.me/923006238233" target="_blank" class="text-white-50 text-decoration-none">
                 <p class="text-white fw-bold mb-1 small text-center">+92 300 6238233</p>
-              </a>
+              </p>
             </div>
           </div>
 
           <div class="col-6 col-md-3">
             <div class="rounded p-2 d-flex flex-column align-items-center">
               <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto" style="width: 56px; height: 56px;">
-                <i class="fab fa-facebook-f fa-2x text-primary" style="line-height: 1);"></i>
+                <i class="fab fa-facebook-f fa-2x text-primary" style="line-height: 1;"></i>
               </div>
               <h6 class="text-white mt-1 mb-1">Follow Us</h6>
               <div class="d-flex justify-content-center gap-1">
@@ -408,7 +509,9 @@
     <script src="js/main.js"></script>
 
     <script>
-        // Global variable to hold pricing data
+        const SUBMIT_ORDER_URL = 'upload_and_notify.php'; // Endpoint for file upload and email notification
+        const WHATSAPP_NUMBER = '923006238233';
+        
         let pricingData = null;
 
         // Fetch pricing data from JSON file
@@ -419,8 +522,6 @@
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 pricingData = await response.json();
-                console.log('Pricing data loaded successfully.');
-                // Trigger initial calculation once data is ready
                 calculateEstimatedPrice(); 
             } catch (error) {
                 console.error('Could not fetch pricing data:', error);
@@ -429,7 +530,7 @@
         }
 
         /**
-         * Determines the price per unit based on the total quantity and defined tiers.
+         * Determines the price per unit based on the total pages and defined tiers.
          */
         function getTierPrice(gsmPricing, totalPages) {
             let pricePerUnit = 0;
@@ -448,7 +549,7 @@
             for (const range of tiers) {
                 const [min, max] = range.split('-').map(n => parseInt(n));
                 
-                if (totalPages >= min && (totalPages <= max || range.endsWith('-1000'))) {
+                if (totalPages >= min && (totalPages <= max || range.endsWith('+'))) {
                     pricePerUnit = gsmPricing[range];
                     return pricePerUnit;
                 }
@@ -460,7 +561,6 @@
         // --- REAL-TIME CALCULATE PRICE FUNCTION ---
         function calculateEstimatedPrice() {
             if (!pricingData) {
-                // If data hasn't loaded yet, show loading state
                 document.getElementById('totalPrice').innerHTML = '<span>Loading Prices...</span>';
                 return;
             }
@@ -472,10 +572,9 @@
             const siding = document.querySelector('input[name="siding"]:checked')?.value;
             const quantity = parseInt(document.getElementById('quantity').value);
             
-            // --- FIX APPLIED HERE ---
             // If any critical selection is missing or quantity is invalid, show PKR 0.00
             if (!size || !paperGsm || !color || !siding || quantity <= 0 || isNaN(quantity)) {
-                document.getElementById('totalPrice').innerHTML = '<span class="text-primary fw-bold">0.00</span>';
+                document.getElementById('totalPrice').innerHTML = '<span class="fw-bold">0.00</span>';
                 return;
             }
 
@@ -484,21 +583,20 @@
             const colorKey = color === 'Black & White' ? 'black_white' : 'color';
             const gsmKey = paperGsm;
 
-            // Determine Total Pages (Total printed sides) for tier calculation
-            const totalPages = quantity * (siding === 'Double Sided' ? 2 : 1);
+            const totalSheets = quantity;
+            // CRITICAL FIX: The pricing tiers are for TOTAL PAGES, not sheets.
+            const totalPages = totalSheets * (siding === 'Double Sided' ? 2 : 1); 
 
            try {
-                // Use optional chaining and nullish coalescing for safer navigation
+                // The pricing.json structure starts directly with the Size key (A4/Legal)
                 const gsmPricing = pricingData?.[sizeKey]?.[colorKey]?.[gsmKey];
                 
                 if (!gsmPricing) {
-                     // If any part of the path is missing, show a config error
-                     document.getElementById('totalPrice').innerHTML = '<span>Pricing Not Configured!</span>';
+                     document.getElementById('totalPrice').innerHTML = '<span>Pricing Config Error!</span>';
                      return;
                 }
 
                 const pricePerUnit = getTierPrice(gsmPricing, totalPages);
-                // ... rest of the calculation logic (lines 528 onwards) ...
                 
                 if (pricePerUnit === 0) {
                     document.getElementById('totalPrice').innerHTML = '<span>Pricing Error!</span>';
@@ -507,8 +605,7 @@
                 
                 const totalPrice = pricePerUnit * totalPages;
                 
-                // Display the calculated price with price per page, using PKR
-                const priceOutput = `<span class="text-primary fw-bold">${Math.round(totalPrice).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                const priceOutput = `<span class="fw-bold">${Math.round(totalPrice).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                      <p class="small text-white-75 mb-0 mt-1" style="font-weight: normal; font-size: 0.8em;">
                          (${pricePerUnit.toFixed(2)} per page)
                      </p>`;
@@ -521,60 +618,89 @@
             }
         }
 
-        // Handle print order submission (WhatsApp message creation)
-       // print-order.html
+        // --- ORDER SUBMISSION FUNCTION (FILE UPLOAD & EMAIL NOTIFICATION) ---
+        async function handlePrintOrderSubmission(e) {
+            e.preventDefault();
+            
+            // Run calculation one last time
+            calculateEstimatedPrice(); 
 
-// Handle print order submission (WhatsApp message creation)
-function handlePrintOrderSubmission(e) {
-    e.preventDefault();
-    
-    // Ensure calculation is performed before sending
-    calculateEstimatedPrice(); 
+            const submitButton = document.getElementById('submitButton');
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Submitting...';
+            
+            const totalPrintingPrice = document.getElementById('totalPrice').querySelector('span')?.textContent;
+            
+            if (totalPrintingPrice === '0.00' || totalPrintingPrice.includes('Error')) {
+                showAlert('Cannot submit order: Price is invalid. Please ensure all options are selected.', 'error');
+                submitButton.disabled = false;
+                submitButton.innerHTML = '<i class="fas fa-envelope me-2"></i> Place Order & Upload';
+                return;
+            }
+            
+            const fileInput = document.getElementById('documentFile');
+            if (!fileInput.files.length) {
+                 showAlert('Please select a document file to upload.', 'error');
+                 submitButton.disabled = false;
+                 submitButton.innerHTML = '<i class="fas fa-envelope me-2"></i> Place Order & Upload';
+                 return;
+            }
 
-    // Get specifications
-    const color = document.querySelector('input[name="color"]:checked')?.value || 'N/A';
-    const siding = document.querySelector('input[name="siding"]:checked')?.value || 'N/A';
-    const size = document.querySelector('input[name="size"]:checked')?.value || 'N/A';
-    const paperGsm = document.querySelector('input[name="paperGsm"]:checked')?.value || 'N/A';
-    const quantity = document.getElementById('quantity').value;
-    
-    // Extract the calculated price for the WhatsApp message
-    const priceSpan = document.getElementById('totalPrice').querySelector('.text-primary')?.textContent;
-    const totalPrintingPrice = priceSpan || '0.00 (Please review options)'; // <--- FIX APPLIED HERE
+            const orderId = 'PRINT-' + Date.now().toString().slice(-6);
+            
+            // Collect form data including the file
+            const formData = new FormData(document.getElementById('printOrderForm'));
+            formData.append('order_type', 'DOCUMENT_PRINTING');
+            formData.append('order_id', orderId);
+            formData.append('total_price_display', totalPrintingPrice);
+            
+            const specs = {
+                color: document.querySelector('input[name="color"]:checked')?.value,
+                siding: document.querySelector('input[name="siding"]:checked')?.value,
+                size: document.querySelector('input[name="size"]:checked')?.value,
+                gsm: document.querySelector('input[name="paperGsm"]:checked')?.value,
+                sheets: document.getElementById('quantity').value,
+                pages: parseInt(document.getElementById('quantity').value) * (document.querySelector('input[name="siding"]:checked')?.value === 'Double Sided' ? 2 : 1),
+            };
+            
+            // Append specifications as a JSON string for the PHP script to read
+            formData.append('specs_json', JSON.stringify(specs));
 
-    const orderId = 'PRINT-' + Date.now().toString().slice(-6);
-    document.getElementById('orderId').value = orderId;
-    
-    const sheets = parseInt(quantity) || 1;
-    const totalPages = sheets * (siding === 'Double Sided' ? 2 : 1);
 
-    // Construct WhatsApp message
-    let message = `*NEW PRINT ORDER REQUEST - ARHAM PRINTERS*\n\n`;
-    message += `*Order ID:* ${orderId}\n`;
-    message += `*Customer Contact:* (Provided via WhatsApp chat name)\n\n`; 
-    message += `*PRINT SPECIFICATIONS:*\n`;
-    message += `• Print Color: ${color}\n`;
-    message += `• Print Siding: ${siding}\n`;
-    message += `• Paper Size: ${size}\n`;
-    message += `• Paper GSM: ${paperGsm}\n`;
-    message += `• Sheets Quantity: ${sheets} sheets\n`;
-    message += `• Total Printed Pages (Sides): ${totalPages}\n\n`;
-    // The total price in the WhatsApp message will now be a clean number
-    message += `*TOTAL PRINTING PRICE (EXCL. DELIVERY):* ${totalPrintingPrice}\n`; 
-    message += `*ACTION REQUIRED:* Please provide your full name and delivery address for final price confirmation and delivery charge calculation.\n\n`;
-    message += `*INSTRUCTIONS:*\n`;
-    message += `Please attach your document files (PDF recommended) in this WhatsApp chat.\n`;
-    message += `We will review your files, determine delivery charges, and confirm the final price shortly.`;
-    
-    // Open WhatsApp
-    window.open(`https://wa.me/923006238233?text=${encodeURIComponent(message)}`, '_blank');
-    
-    alert('Opening WhatsApp with your order details. Please attach your files in the chat.');
-    
-    setTimeout(() => {
-        document.getElementById('printOrderForm').reset();
-    }, 2000);
-}
+            showAlert('Uploading file and sending email notification...', 'info');
+
+            try {
+                // Fetch call to your PHP script for file upload and email
+                const response = await fetch(SUBMIT_ORDER_URL, {
+                    method: 'POST',
+                    body: formData 
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                         // File uploaded successfully and email sent
+                         showAlert(`Order ${orderId} submitted! You will receive an email shortly with confirmation.`, 'success');
+                         // Reset the form on successful submission
+                         document.getElementById('printOrderForm').reset();
+                    } else {
+                         // PHP script returned success: false (e.g., file could not be moved)
+                         showAlert(`Submission Failed. Server error: ${result.message} Please check your uploads folder.`, 'error');
+                    }
+
+                } else {
+                    showAlert('Server communication error. Please check your network and contact support.', 'error');
+                }
+            } catch (error) {
+                console.error('Submission failed:', error);
+                showAlert('Network error or cPanel configuration issue. Please contact support.', 'error');
+            } finally {
+                submitButton.disabled = false;
+                submitButton.innerHTML = '<i class="fas fa-envelope me-2"></i> Place Order & Upload';
+            }
+        }
+
         // --- REAL-TIME EVENT LISTENERS ---
 
         document.addEventListener('DOMContentLoaded', async () => {
@@ -584,18 +710,13 @@ function handlePrintOrderSubmission(e) {
             });
             document.getElementById('quantity').addEventListener('input', calculateEstimatedPrice);
 
-            // Update copyright year
-            const copyrightElement = document.querySelector('.copyright span.small');
-            if (copyrightElement) {
-                copyrightElement.innerHTML = copyrightElement.innerHTML.replace('2025', new Date().getFullYear());
-            }
+            // Hide the initial loading spinner
+            document.getElementById('spinner').classList.remove('show');
 
-            // Initialize WOW animations
-            if (typeof WOW !== 'undefined') {
-                new WOW().init();
+            // Initial setup and pricing fetch
+            if (typeof setActiveMobileNav === 'function') {
+                setActiveMobileNav('products');
             }
-
-            // Fetch pricing data and trigger initial calculation
             await fetchPricingData();
         });
     </script>
