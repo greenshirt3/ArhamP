@@ -5,11 +5,63 @@
     const WHATSAPP_NUMBER = '923006238233'; // Your WhatsApp Number (Used across all submission handlers)
 
     // Function to generate a unique, user-facing order ID
-    // Used for all custom orders and quote requests to ensure tracking consistency.
     function generateOrderId() {
         var timestamp = new Date().getTime().toString().slice(-6);
         var random = Math.random().toString(36).substring(2, 5).toUpperCase();
         return 'P-' + timestamp + '-' + random;
+    }
+
+    // --- NEW CENTRALIZED MOBILE NAV LOGIC ---
+    
+    /**
+     * Handles clicks on the mobile bottom navigation bar links.
+     * @param {Event} e 
+     */
+    function handleMobileNavClick(e) {
+        let target = e.target.closest('.mobile-nav-link, .mobile-nav-link-center');
+        if (target) {
+            // Stop processing if it's the dropdown toggle to allow the menu to open
+            if (target.classList.contains('dropdown-toggle')) {
+                return;
+            }
+
+            let linkId = target.id;
+            if (linkId) {
+                let linkType = linkId.replace('mobile-link-', '').replace('-center', '');
+                
+                // Special handling for hard links that leave the page
+                if (linkType === 'products' || linkType === 'wedding' || linkType === 'home') {
+                    // Let the default link action happen
+                    return;
+                }
+
+                // For SPA navigation (Product Catalog, Quote, Contact)
+                setActiveMobileNav(linkType);
+            }
+        }
+    }
+
+    /**
+     * Sets the active state on the mobile bottom navigation bar.
+     * @param {string} sectionName The ID suffix of the link (e.g., 'home', 'products', 'contact', 'wedding')
+     */
+    function setActiveMobileNav(sectionName) {
+         // Clear all active classes on all relevant links
+         document.querySelectorAll('#mobile-bottom-nav a.mobile-nav-link').forEach(link => {
+             link.classList.remove('active');
+         });
+         
+         // Logic to set the correct link as active
+         if (sectionName === 'home' || sectionName === 'index') {
+             document.getElementById('mobile-link-home')?.classList.add('active');
+         } else if (sectionName === 'shop-catalog' || sectionName === 'products' || sectionName === 'product-detail') {
+             document.getElementById('mobile-link-products')?.classList.add('active');
+         } else if (sectionName === 'contact') {
+             document.getElementById('mobile-link-contact')?.classList.add('active');
+         } else if (sectionName === 'wedding') {
+             document.getElementById('mobile-link-wedding')?.classList.add('active');
+         }
+         // Note: The Products link (in index.html) and Wedding link use hard links, but this ensures the active state is correct when switching.
     }
 
     // --- EXISTING ARHAM PRINTERS SITE LOGIC (LAYOUT & CAROUSELS) ---
@@ -24,9 +76,10 @@
     };
     spinner(0);
     
-    
     // Initiate the wowjs
-    new WOW().init();
+    if (typeof WOW !== 'undefined') {
+        new WOW().init();
+    }
 
 
     // Sticky Navbar
@@ -40,129 +93,111 @@
 
 
     // Hero Header carousel
-    $(".header-carousel").owlCarousel({
-        items: 1,
-        autoplay: true,
-        smartSpeed: 2000,
-        center: false,
-        dots: false,
-        loop: true,
-        margin: 0,
-        nav : true,
-        navText : [
-            '<i class="bi bi-arrow-left"></i>',
-            '<i class="bi bi-arrow-right"></i>'
-        ]
-    });
+    if ($.fn.owlCarousel) {
+        $(".header-carousel").owlCarousel({
+            items: 1,
+            autoplay: true,
+            smartSpeed: 2000,
+            center: false,
+            dots: false,
+            loop: true,
+            margin: 0,
+            nav : true,
+            navText : [
+                '<i class="bi bi-arrow-left"></i>',
+                '<i class="bi bi-arrow-right"></i>'
+            ]
+        });
 
 
-    // ProductList carousel
-    $(".productList-carousel").owlCarousel({
-        autoplay: true,
-        smartSpeed: 2000,
-        dots: false,
-        loop: true,
-        margin: 25,
-        nav : true,
-        navText : [
-            '<i class="fas fa-chevron-left"></i>',
-            '<i class="fas fa-chevron-right"></i>'
-        ],
-        responsiveClass: true,
-        responsive: {
-            0:{
-                items:1
-            },
-            576:{
-                items:1
-            },
-            768:{
-                items:2
-            },
-            992:{
-                items:2
-            },
-            1200:{
-                items:3
+        // ProductList carousel
+        $(".productList-carousel").owlCarousel({
+            autoplay: true,
+            smartSpeed: 2000,
+            dots: false,
+            loop: true,
+            margin: 25,
+            nav : true,
+            navText : [
+                '<i class="fas fa-chevron-left"></i>',
+                '<i class="fas fa-chevron-right"></i>'
+            ],
+            responsiveClass: true,
+            responsive: {
+                0:{ items:1 },
+                576:{ items:1 },
+                768:{ items:2 },
+                992:{ items:2 },
+                1200:{ items:3 }
             }
-        }
-    });
+        });
 
-    // ProductList categories carousel
-    $(".productImg-carousel").owlCarousel({
-        autoplay: true,
-        smartSpeed: 1500,
-        dots: false,
-        loop: true,
-        items: 1,
-        margin: 25,
-        nav : true,
-        navText : [
-            '<i class="bi bi-arrow-left"></i>',
-            '<i class="bi bi-arrow-right"></i>'
-        ]
-    });
-
-
-    // Single Products carousel
-    $(".single-carousel").owlCarousel({
-        autoplay: true,
-        smartSpeed: 1500,
-        dots: true,
-        dotsData: true,
-        loop: true,
-        items: 1,
-        nav : true,
-        navText : [
-            '<i class="bi bi-arrow-left"></i>',
-            '<i class="bi bi-arrow-right"></i>'
-        ]
-    });
+        // ProductList categories carousel
+        $(".productImg-carousel").owlCarousel({
+            autoplay: true,
+            smartSpeed: 1500,
+            dots: false,
+            loop: true,
+            items: 1,
+            margin: 25,
+            nav : true,
+            navText : [
+                '<i class="bi bi-arrow-left"></i>',
+                '<i class="bi bi-arrow-right"></i>'
+            ]
+        });
 
 
-    // ProductList carousel
-    $(".related-carousel").owlCarousel({
-        autoplay: true,
-        smartSpeed: 1500,
-        dots: false,
-        loop: true,
-        margin: 25,
-        nav : true,
-        navText : [
-            '<i class="fas fa-chevron-left"></i>',
-            '<i class="fas fa-chevron-right"></i>'
-        ],
-        responsiveClass: true,
-        responsive: {
-            0:{
-                items:1
-            },
-            576:{
-                items:1
-            },
-            768:{
-                items:2
-            },
-            992:{
-                items:3
-            },
-            1200:{
-                items:4
+        // Single Products carousel
+        $(".single-carousel").owlCarousel({
+            autoplay: true,
+            smartSpeed: 1500,
+            dots: true,
+            dotsData: true,
+            loop: true,
+            items: 1,
+            nav : true,
+            navText : [
+                '<i class="bi bi-arrow-left"></i>',
+                '<i class="bi bi-arrow-right"></i>'
+            ]
+        });
+
+
+        // ProductList carousel
+        $(".related-carousel").owlCarousel({
+            autoplay: true,
+            smartSpeed: 1500,
+            dots: false,
+            loop: true,
+            margin: 25,
+            nav : true,
+            navText : [
+                '<i class="fas fa-chevron-left"></i>',
+                '<i class="fas fa-chevron-right"></i>'
+            ],
+            responsiveClass: true,
+            responsive: {
+                0:{ items:1 },
+                576:{ items:1 },
+                768:{ items:2 },
+                992:{ items:3 },
+                1200:{ items:4 }
             }
-        }
-    });
-
-
+        });
+    }
 
     // Product Quantity
     $('.quantity button').on('click', function () {
         var button = $(this);
         var oldValue = button.parent().parent().find('input').val();
+        var newVal = 0;
+        
         if (button.hasClass('btn-plus')) {
-            var newVal = parseFloat(oldValue) + 1;
+            newVal = parseFloat(oldValue) + 1;
         } else {
             if (oldValue > 0) {
-                var newVal = parseFloat(oldValue) - 1;
+                newVal = parseFloat(oldValue) - 1;
             } else {
                 newVal = 0;
             }
@@ -170,15 +205,14 @@
         button.parent().parent().find('input').val(newVal);
     });
 
-
     
-   // Back to top button
-   $(window).scroll(function () {
-    if ($(this).scrollTop() > 300) {
+    // Back to top button
+    $(window).scroll(function () {
+     if ($(this).scrollTop() > 300) {
         $('.back-to-top').fadeIn('slow');
-    } else {
+     } else {
         $('.back-to-top').fadeOut('slow');
-    }
+     }
     });
     $('.back-to-top').click(function () {
         $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
@@ -186,19 +220,25 @@
     });
 
 
-    // --- NEW PRINT ORDER LOGIC ---
+    // --- NEW PRINT ORDER LOGIC (Copied from print-order.html for centralization, though currently unused) ---
     
     // Wait for the document to be fully ready
     $(document).ready(function() {
         // Set year in footer
         $('#currentYear').text(new Date().getFullYear());
         
-        // Check if the current page is the print order form
-        if ($('#printOrderForm').length) {
-            initializePrintOrderForm();
-        }
+        // Attach listener for mobile navigation
+        document.getElementById('mobile-bottom-nav')?.addEventListener('click', handleMobileNavClick);
         
-        // Attach universal handlers to forms in index.html
+        // Determine initial active nav state based on URL
+        const path = window.location.pathname;
+        if (path.includes('products.html')) setActiveMobileNav('products');
+        else if (path.includes('wedding.html')) setActiveMobileNav('wedding');
+        else if (path.includes('print-order.html')) setActiveMobileNav('products'); // Treat as product context
+        else setActiveMobileNav('home');
+        
+        
+        // Attach universal handlers to forms in index.html (if they exist on this page)
         $('#quote-form').on('submit', handleQuoteSubmission);
         $('#contact-form-whatsapp').on('submit', handleContactSubmission);
     });
@@ -210,89 +250,11 @@
             orderIdInput.val(generateOrderId());
         }
         
-        // Calculate and display initial price
-        updatePrice();
-        
-        // Attach listener to update price whenever an option changes
-        $('#printOrderForm').on('change', updatePrice);
+        // Note: updatePrice and other print-order specific functions were left in print-order.html 
+        // as they rely on local variables and elements specific to that file.
     }
 
-    // Function to update the estimated price based on selections
-    function updatePrice() {
-        // This is a client-side PLACEHOLDER for visual feedback only.
-        
-        var quantityInput = $('#quantity');
-        if (!quantityInput.length) return;
 
-        var quantity = parseInt(quantityInput.val()) || 1;
-        var size = $('input[name="size"]:checked').val() || 'A4';
-        var color = $('input[name="color"]:checked').val() || 'B&W';
-        
-        // Base rate logic (simplified for placeholder)
-        var baseRate = (size === 'A4') ? 0.15 : 0.35; // Base price per sheet
-        if (color === 'Colour') {
-            baseRate *= 3; // Color costs more
-        }
-        
-        var fixedFee = 2.50; // Standard service fee
-        var calculatedPrice = (baseRate * quantity) + fixedFee; 
-        
-        var totalPriceElement = $('#totalPrice');
-        if (totalPriceElement.length) {
-            totalPriceElement.text('£' + calculatedPrice.toFixed(2));
-        }
-    }
-
-    // --- WhatsApp Submission Handlers ---
-
-    // 1. Handler for the new Print Order Page (print-order.html)
-    window.handlePrintOrderSubmission = function(e) {
-        e.preventDefault();
-
-        // 1. Collect all data
-        var orderId = $('#orderId').val();
-        var customerName = $('#customerName').val();
-        var customerEmail = $('#customerEmail').val() || 'N/A';
-        var totalPrice = $('#totalPrice').text();
-
-        var printDetails = {
-            'ID': orderId,
-            'Name': customerName,
-            'Email': customerEmail,
-            'Colour': $('input[name="color"]:checked').val(),
-            'Siding': $('input[name="siding"]:checked').val(),
-            'Size': $('input[name="size"]:checked').val(),
-            'Paper Type': $('#paperType').val(),
-            'Quantity': $('#quantity').val(),
-            'Binding': $('#binding').val(),
-            'Lamination': $('input[name="lamination"]:checked').val()
-        };
-
-        // 2. Construct the WhatsApp Message
-        var message = `*NEW ARHAM PRINT ORDER (WEB)* 🚀\n`;
-        message += `-------------------------------------------\n`;
-        message += `*Order ID:* ${printDetails.ID}\n`;
-        message += `*Customer:* ${printDetails.Name}\n`;
-        message += `*Email:* ${printDetails.Email}\n`;
-        message += `-------------------------------------------\n`;
-        message += `*ORDER DETAILS:*\n`;
-        message += `\n*Colour:* ${printDetails.Colour}`;
-        message += `\n*Siding:* ${printDetails.Siding}`;
-        message += `\n*Size:* ${printDetails.Size}`;
-        message += `\n*Paper:* ${printDetails['Paper Type']}`;
-        message += `\n*Quantity:* ${printDetails.Quantity} copies`;
-        message += `\n*Binding:* ${printDetails.Binding}`;
-        message += `\n*Lamination:* ${printDetails.Lamination}`;
-        message += `\n\n*EST. PRICE:* ${totalPrice}`;
-        message += `\n-------------------------------------------\n`;
-        message += `*ACTION REQUIRED:* Please reply to this message with your DOCUMENT/PHOTO FILES attached immediately to confirm and proceed with printing!`;
-
-
-        // 3. Encode and Redirect
-        var whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-        window.open(whatsappLink, '_blank');
-    }
-    
     // 2. Handler for the Get Custom Quote Form (index.html)
     function handleQuoteSubmission(e) {
         e.preventDefault();
@@ -316,8 +278,6 @@
         
         window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
 
-        // Optional: Add a success message (if your site supports it)
-        // showAlert('Quote submitted via WhatsApp! We will contact you shortly.', 'success');
         $('#quote-form').trigger('reset');
     }
     
@@ -336,8 +296,6 @@
         
         window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
 
-        // Optional: Add a success message
-        // showAlert('Message sent via WhatsApp!', 'success');
         $('#contact-form-whatsapp').trigger('reset');
     }
 
