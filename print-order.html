@@ -44,14 +44,14 @@
         /* --- Page Header Style (Using general page-header class for consistency) --- */
         .page-header {
             /* Default: Use Mobile Image (Placeholder) */
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(img/banners/printbanner-mobile.webp) center center no-repeat;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(https://arhamprinters.pk/img/banners/printbanner-mobile.webp) center center no-repeat;
             background-size: cover;
             min-height: 200px;
         }
         @media (min-width: 768px) {
             .page-header {
                 /* Override: Use Desktop Image (Placeholder) */
-                background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(img/banners/printbanner-desktop.webp) center center no-repeat;
+                background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(https://arhamprinters.pk/img/banners/printbanner-desktop.webp) center center no-repeat;
                 background-size: cover;
                 min-height: 300px;
             }
@@ -216,7 +216,7 @@
     
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5 d-none d-lg-block">
         <a href="index.html" class="navbar-brand d-flex align-items-center">
-             <img src="img/logo2.webp" alt="Arham Printers Logo" style="height: 40px; margin-right: 1rem;">
+             <img src="https://arhamprinters.pk/img/logo2.webp" alt="Arham Printers Logo" style="height: 40px; margin-right: 1rem;">
              <span style="font-size: 0.75rem; color: #6c757d; margin-top: 15px;">Arham Printers</span>
         </a>
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -267,7 +267,7 @@
         
         <div id="mobile-nav-logo">
              <a href="index.html" class="mobile-nav-link-center">
-                <img src="img/logo.webp" alt="Logo" style="height: 80px;">
+                <img src="https://arhamprinters.pk/img/logo.webp" alt="Logo" style="height: 80px;">
             </a>
         </div>
         
@@ -509,20 +509,22 @@
     <script src="js/main.js"></script>
 
     <script>
-        const SUBMIT_ORDER_URL = 'upload_and_notify.php'; // Endpoint for file upload and email notification
+        const SUBMIT_ORDER_URL = 'upload_and_notify.php'; // Endpoint for file upload and email notification (Relies on working PHP on RabHost)
         const WHATSAPP_NUMBER = '923006238233';
         
         let pricingData = null;
 
-        // Fetch pricing data from JSON file
+        // Fetch pricing data from the static JSON file
         async function fetchPricingData() {
             try {
-                const response = await fetch('pricing.json'); 
+                // Fetch the comprehensive static JSON file
+                const response = await fetch('all_prices.json');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
+                // pricingData now holds all pricing categories
                 pricingData = await response.json();
-                calculateEstimatedPrice(); 
+                calculateEstimatedPrice();
             } catch (error) {
                 console.error('Could not fetch pricing data:', error);
                 document.getElementById('totalPrice').innerHTML = '<span>Error loading prices!</span>';
@@ -549,13 +551,14 @@
             for (const range of tiers) {
                 const [min, max] = range.split('-').map(n => parseInt(n));
                 
-                if (totalPages >= min && (totalPages <= max || range.endsWith('+'))) {
+                // Logic to find the correct tier based on totalPages
+                if (totalPages >= min && (totalPages <= max || range.endsWith('+') || isNaN(max))) {
                     pricePerUnit = gsmPricing[range];
                     return pricePerUnit;
                 }
             }
 
-            return highestTierPrice; 
+            return highestTierPrice;
         }
 
         // --- REAL-TIME CALCULATE PRICE FUNCTION ---
@@ -567,7 +570,7 @@
 
             // Safely retrieve all selected values
             const size = document.querySelector('input[name="size"]:checked')?.value;
-            const paperGsm = document.querySelector('input[name="paperGsm"]:checked')?.value; 
+            const paperGsm = document.querySelector('input[name="paperGsm"]:checked')?.value;
             const color = document.querySelector('input[name="color"]:checked')?.value;
             const siding = document.querySelector('input[name="siding"]:checked')?.value;
             const quantity = parseInt(document.getElementById('quantity').value);
@@ -584,12 +587,13 @@
             const gsmKey = paperGsm;
 
             const totalSheets = quantity;
-            // CRITICAL FIX: The pricing tiers are for TOTAL PAGES, not sheets.
+            // The pricing tiers are for TOTAL PAGES
             const totalPages = totalSheets * (siding === 'Double Sided' ? 2 : 1); 
 
            try {
-                // The pricing.json structure starts directly with the Size key (A4/Legal)
-                const gsmPricing = pricingData?.[sizeKey]?.[colorKey]?.[gsmKey];
+                // --- CHANGE 2: Navigate the JSON structure correctly ---
+                // Data is now nested under the 'B/W and Color Prints' category in all_prices.json
+                const gsmPricing = pricingData?.['B/W and Color Prints']?.[sizeKey]?.[colorKey]?.[gsmKey];
                 
                 if (!gsmPricing) {
                      document.getElementById('totalPrice').innerHTML = '<span>Pricing Config Error!</span>';
@@ -619,6 +623,7 @@
         }
 
         // --- ORDER SUBMISSION FUNCTION (FILE UPLOAD & EMAIL NOTIFICATION) ---
+        // NOTE: This relies on your PHP script on RabHost executing successfully.
         async function handlePrintOrderSubmission(e) {
             e.preventDefault();
             
@@ -627,7 +632,7 @@
 
             const submitButton = document.getElementById('submitButton');
             submitButton.disabled = true;
-            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Submitting...';
+            submitButton.innerHTML = '<i class="fas fas fa-spinner fa-spin me-2"></i> Submitting...';
             
             const totalPrintingPrice = document.getElementById('totalPrice').querySelector('span')?.textContent;
             
@@ -720,5 +725,6 @@
             await fetchPricingData();
         });
     </script>
+</div>
 </body>
 </html>
