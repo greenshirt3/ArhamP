@@ -54,7 +54,7 @@
         /* ---------------------------------------------------- */
         .page-header {
             /* Default: Use Mobile Image (Mobile First Approach) */
-            background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url(https://res.cloudinary.com/dk3lw0rpy/image/upload/banners/productmobile_yiwbyi.webp) center center no-repeat;
+            background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url(img/banners/productmobile.webp) center center no-repeat;
             background-size: cover;
             min-height: 250px;
         }
@@ -62,7 +62,7 @@
         @media (min-width: 768px) {
             .page-header {
                 /* Override: Use Desktop Image on larger screens */
-                background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url(https://res.cloudinary.com/dk3lw0rpy/image/upload/banners/productdesk_a04p6z.webp) center center no-repeat;
+                background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url(img/banners/productdesk.webp) center center no-repeat;
                 background-size: cover;
                 min-height: 350px;
             }
@@ -131,14 +131,30 @@
         }
 
         /* --- MOBILE BOTTOM NAVIGATION STYLES --- */
+
+        /* 1. Mobile Bottom Bar Container */
         #mobile-bottom-nav {
-            position: fixed; bottom: 0; left: 0; right: 0; height: var(--mobile-nav-height);
-            background: white; border-top: 1px solid #ddd; box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
-            z-index: 1030; display: flex; align-items: center; justify-content: space-around;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: var(--mobile-nav-height);
+            background: white;
+            border-top: 1px solid #ddd;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1030;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
         }
         
-        #mobile-bottom-nav > a, #mobile-bottom-nav > div { flex: 1 1 0%; }
-        
+        /* **FIX 1: Ensure all 5 top-level elements take equal width** */
+        #mobile-bottom-nav > a, 
+        #mobile-bottom-nav > div {
+            flex: 1 1 0%; /* Equal distribution: 20% width per slot */
+        }
+
+        /* 2. Mobile Link Styling */
         .mobile-nav-link {
             flex: 1; 
             display: flex;
@@ -147,43 +163,98 @@
             text-align: center;
             text-decoration: none;
             color: var(--bs-dark);
-            font-size: 0.6rem; 
+            font-size: 0.6rem; /* Smaller text for compact look */
             padding: 5px 0;
             transition: color 0.2s;
             position: relative;
             height: 100%;
             justify-content: center;
         }
-        .mobile-nav-link:hover { color: var(--bs-primary); }
-        .mobile-nav-link i { font-size: 1.1rem; margin-bottom: 2px; line-height: 1; }
-        .mobile-nav-link.active { color: var(--bs-primary); }
+        .mobile-nav-link:hover {
+             color: var(--bs-primary);
+        }
+        .mobile-nav-link i {
+            font-size: 1.1rem;
+            margin-bottom: 2px;
+            line-height: 1;
+        }
+        .mobile-nav-link.active {
+            color: var(--bs-primary);
+        }
         
-        #mobile-nav-logo { 
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative; 
-        }
-        #mobile-nav-logo a {
-            background-color: var(--bs-primary); color: white; width: 45px; height: 45px;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 10px rgba(242, 139, 0, 0.6); position: absolute; top: -15px; 
-            left: 50%; transform: translateX(-50%); 
-        }
 
-        #mobile-nav-logo a img { vertical-align: middle; max-width: 80%; max-height: 80%; height: auto !important; }
-        #mobile-nav-logo a i { font-size: 1.5rem; }
-        
+/* Update the existing #mobile-nav-logo section */
+/* 3. Center Logo Button */
+#mobile-nav-logo {
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative; /* Make it relative for absolute children */
+}
+#mobile-nav-logo a {
+            background-color: var(--bs-primary);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(242, 139, 0, 0.6);
+            position: absolute; 
+            top: -15px; 
+            /* **FIX 2: Center absolutely positioned element within its slot** */
+            left: 50%;
+            transform: translateX(-50%); 
+}
+
+/* NEW RULE: Style the image inside the centered mobile button */
+#mobile-nav-logo a img {
+    /* Ensures the image is centered and prevents vertical alignment issues */
+    vertical-align: middle; 
+    /* Ensures the image doesn't overflow the 45px circle container */
+    max-width: 80%; 
+    max-height: 80%;
+    height: auto !important; /* Overrides inline height if needed, maintaining aspect ratio */
+}
+
+#mobile-nav-logo a i {
+            font-size: 1.5rem;
+}
         /* 4. Content Padding to clear the fixed bottom nav */
-        #shop-catalog-section, #product-detail-section, #quote-section, #contact-section { padding-bottom: calc(var(--mobile-nav-height) + 15px); }
+        #shop-catalog-section, #product-detail-section, #quote-section, #contact-section {
+            padding-bottom: calc(var(--mobile-nav-height) + 15px); /* Add space for the bottom navbar */
+        }
+        
+        /* 5. Compact Category Link Styling (Removed, but keeping class definitions minimal) */
+        .categories-item a {
+            font-size: 0.75rem; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 5px 0;
+            line-height: 1.2;
+        }
+        .categories-item a i {
+            font-size: 1.2rem; 
+            margin-bottom: 5px !important;
+        }
         
         /* 6. Mobile Dropdown Specific Styling */
         #mobile-bottom-nav .dropdown-menu {
-            position: absolute; bottom: var(--mobile-nav-height); left: 50%; transform: translateX(-50%);
-            width: 250px; box-shadow: 0 -5px 15px rgba(0,0,0,0.2); border-radius: 8px 8px 0 0; padding: 10px 0;
+            position: absolute;
+            bottom: var(--mobile-nav-height); /* Position above the nav bar */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.2);
+            border-radius: 8px 8px 0 0;
+            padding: 10px 0;
         }
-        #mobile-bottom-nav .dropdown-item { font-size: 0.8rem; }
+        #mobile-bottom-nav .dropdown-item {
+             font-size: 0.8rem;
+        }
     </style>
 </head>
 
@@ -221,8 +292,7 @@
     <div class="d-flex w-100 justify-content-between align-items-center">
         
         <a href="index.html" class="navbar-brand d-flex align-items-center me-4">
-            <!-- Updated to Cloudinary URL -->
-            <img src="https://res.cloudinary.com/dk3lw0rpy/image/upload/products/logo2_rapov8.webp" alt="Arham Printers Logo" style="height: 40px; margin-right: 1rem;">
+            <img src="img/logo2.webp" alt="Arham Printers Logo" style="height: 40px; margin-right: 1rem;">
             <span style="font-size: 0.75rem; color: #6c757d; margin-top: 15px;">Arham Printers</span>
         </a>
 
@@ -281,8 +351,7 @@
     
     <div id="mobile-nav-logo">
          <a href="index.html" class="mobile-nav-link-center">
-             <!-- Updated to Cloudinary URL -->
-             <img src="https://res.cloudinary.com/dk3lw0rpy/image/upload/products/logo_ywn9kh.webp" alt="Logo" style="height: 80px;">
+             <img src="img/logo.webp" alt="Logo" style="height: 80px;">
          </a>
     </div>
     
@@ -314,8 +383,7 @@
                 <!-- Business Cards -->
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Updated to Cloudinary URL -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/vcard_rzzbst.webp' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/vcard_rzzbst.webp';" class='w-100' alt='Shine Visisting Cards'>
+                        <img src='img/products/vcard.webp' onerror="this.onerror=null;this.src='img/products/vcard.png';" class='w-100' alt='Shine Visisting Cards'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Shine Visisting Cards')">
                                 <i class="fas fa-search me-2"></i> Shine Visisting Cards
@@ -325,8 +393,7 @@
                 </div>
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Updated to Cloudinary URL -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/matcards_ycft49.webp' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/matcards_ycft49.webp';" class='w-100' alt='Mat Cards'>
+                        <img src='img/products/matcards.webp' onerror="this.onerror=null;this.src='img/products/matcards.png';" class='w-100' alt='Mat Cards'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Mat Cards')">
                                 <i class="fas fa-search me-2"></i> Mat Cards
@@ -336,8 +403,7 @@
                 </div>
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Updated to Cloudinary URL -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/uvcard_aitsyw.webp' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/uvcard_aitsyw.webp';" class='w-100' alt='UV Cards'>
+                        <img src='img/products/uvcard.webp' onerror="this.onerror=null;this.src='img/products/uvcard.png';" class='w-100' alt='UV Cards'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('UV Cards')">
                                 <i class="fas fa-search me-2"></i> UV Cards
@@ -347,8 +413,7 @@
                 </div>
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Updated to Cloudinary URL -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/thickcard_jejfwa.webp' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/thickcard_jejfwa.webp';" class='w-100' alt='UV Thick Cards'>
+                        <img src='img/products/thickcard.webp' onerror="this.onerror=null;this.src='img/products/thickcard.png';" class='w-100' alt='UV Thick Cards'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('UV Thick Cards')">
                                 <i class="fas fa-search me-2"></i> UV Thick Cards
@@ -360,8 +425,7 @@
                 <!-- Office Essentials -->
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Updated to Cloudinary URL -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/letterpad_b8vlmz.webp' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/letterpad_b8vlmz.webp';" class='w-100' alt='Letterpad'>
+                        <img src='img/products/letterpad.webp' onerror="this.onerror=null;this.src='img/products/letterpad.png';" class='w-100' alt='Letterpad'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Letterpads')">
                                 <i class="fas fa-search me-2"></i> Letterpads
@@ -371,8 +435,7 @@
                 </div>
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Updated to Cloudinary URL -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/envelops_etmnds.webp' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/envelops_etmnds.webp';" class='w-100' alt='envelops'>
+                        <img src='img/products/envelops.webp' onerror="this.onerror=null;this.src='img/products/envelops.png';" class='w-100' alt='envelops'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Envelops')">
                                 <i class="fas fa-search me-2"></i> Envelops
@@ -382,8 +445,7 @@
                 </div>
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Updated to Cloudinary URL -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/billbooks_nzsboq.webp' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/billbooks_nzsboq.webp';" class='w-100' alt='Bill Books'>
+                        <img src='img/products/billbooks.webp' onerror="this.onerror=null;this.src='img/products/billbooks.png';" class='w-100' alt='Bill Books'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Bill Books')">
                                 <i class="fas fa-search me-2"></i> Bill Books
@@ -393,8 +455,7 @@
                 </div>
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Updated to Cloudinary URL -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/file_bu5jnm.webp' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/file_bu5jnm.webp';" class='w-100' alt='File Covers'>
+                        <img src='img/products/filecovers.webp' onerror="this.onerror=null;this.src='img/products/filecovers.png';" class='w-100' alt='File Covers'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('File Covers')">
                                 <i class="fas fa-search me-2"></i> File Covers
@@ -404,8 +465,7 @@
                 </div>
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Updated to Cloudinary URL -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/stamps_wt9vk0.webp' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/stamps_wt9vk0.webp';" class='w-100' alt='Rubber Stamp (Rectangular)'>
+                        <img src='img/products/stamps.webp' onerror="this.onerror=null;this.src='img/products/stamps.png';" class='w-100' alt='Rubber Stamp (Rectangular)'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Rubber Stamp (Rectangular)')">
                                 <i class="fas fa-search me-2"></i> Rubber Stamp (Rectangular)
@@ -415,8 +475,7 @@
                 </div>
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Updated to Cloudinary URL -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/placeholder.png' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/placeholder.png';" class='w-100' alt='Pencil Tray'>
+                        <img src='img/products/penciltray.webp' onerror="this.onerror=null;this.src='img/products/penciltray.png';" class='w-100' alt='Pencil Tray'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Pencil Tray')">
                                 <i class="fas fa-search me-2"></i> Pencil Tray
@@ -435,8 +494,7 @@
                 <!-- Marketing Essentials -->
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Updated to Cloudinary URL -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/pamphlet_srsrsq.webp' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/pamphlet_srsrsq.webp';" class='w-100' alt='pamphlets'>
+                        <img src='img/products/pamphlet.webp' onerror="this.onerror=null;this.src='img/products/pamphlets.png';" class='w-100' alt='pamphlets'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Pamphlets')">
                                 <i class="fas fa-search me-2"></i> Pamphlets
@@ -446,8 +504,7 @@
                 </div>
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Updated to Cloudinary URL -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/flyers_mr20ya.webp' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/flyers_mr20ya.webp';" class='w-100' alt='Flyers/Ishtihars'>
+                        <img src='img/products/flyers.webp' onerror="this.onerror=null;this.src='img/products/flyers.png';" class='w-100' alt='Flyers/Ishtihars'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Flyers/Ishtihars')">
                                 <i class="fas fa-search me-2"></i> Flyers/Ishtihars
@@ -457,8 +514,7 @@
                 </div>
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Updated to Cloudinary URL -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/stickers_dihlki.webp' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/stickers_dihlki.webp';" class='w-100' alt='Stickers'>
+                        <img src='img/products/stickers.webp' onerror="this.onerror=null;this.src='img/products/Stickers.png';" class='w-100' alt='Stickers'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Stickers')">
                                 <i class="fas fa-search me-2"></i> Stickers
@@ -470,8 +526,7 @@
                 <!-- Promotional Items -->
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Updated to Cloudinary URL -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/shirt_hjfvsw.webp' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/shirt_hjfvsw.webp';" class='w-100' alt='White T-Shirt (Adult Size)'>
+                        <img src='img/products/shirt.webp' onerror="this.onerror=null;this.src='img/products/shirt.png';" class='w-100' alt='White T-Shirt (Adult Size)'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('White T-Shirt (Adult Size)')">
                                 <i class="fas fa-search me-2"></i> White T-Shirt (Adult Size)
@@ -481,8 +536,7 @@
                 </div>
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Updated to Cloudinary URL -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/mugs_ydkmvi.webp' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/mugs_ydkmvi.webp';" class='w-100' alt='Mug'>
+                        <img src='img/products/mugs.webp' onerror="this.onerror=null;this.src='img/products/Mug.png';" class='w-100' alt='Mug'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Mug')">
                                 <i class="fas fa-search me-2"></i> Mug
@@ -492,8 +546,7 @@
                 </div>
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Updated to Cloudinary URL -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/pen_lwzssg.webp' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/pen_lwzssg.webp';" class='w-100' alt='Metal Pen'>
+                        <img src='img/products/pen.webp' onerror="this.onerror=null;this.src='img/products/pen.png';" class='w-100' alt='Metal Pen'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Metal Pen')">
                                 <i class="fas fa-search me-2"></i> Metal Pen
@@ -505,8 +558,7 @@
                 <!-- Souvenirs -->
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Placeholder Image (Default) -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/placeholder.png' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/placeholder.png';" class='w-100' alt='Locket with Picture'>
+                        <img src='img/products/locket.webp' onerror="this.onerror=null;this.src='img/products/locket.png';" class='w-100' alt='Locket with Picture'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Locket with Picture')">
                                 <i class="fas fa-search me-2"></i> Locket with Picture
@@ -523,8 +575,7 @@
                 <h3 class="w-100 pt-3" id="digital-media">Digital Media Marketing</h3>
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Placeholder Image (Default) -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/placeholder.png' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/placeholder.png';" class='w-100' alt='Digital Media Quote'>
+                        <img src='img/products/placeholder.png' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='w-100' alt='Digital Media Quote'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showSection('quote')">
                                 <i class="fas fa-chart-line me-2"></i> Inquire about Campaigns
@@ -543,8 +594,7 @@
                 <!-- Panaflex Banners -->
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Updated to Cloudinary URL -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/china_ke6drl.webp' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/china_ke6drl.webp';" class='w-100' alt='China Frontlit'>
+                        <img src='img/products/china.webp' onerror="this.onerror=null;this.src='img/products/china.png';" class='w-100' alt='China Frontlit'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('China Frontlit')">
                                 <i class="fas fa-search me-2"></i> China Frontlit (Area)
@@ -554,8 +604,7 @@
                 </div>
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Updated to Cloudinary URL -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/star_nz0rb6.webp' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/star_nz0rb6.webp';" class='w-100' alt='Star Frontlit'>
+                        <img src='img/products/star.webp' onerror="this.onerror=null;this.src='img/products/star.png';" class='w-100' alt='Star Frontlit'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Star Frontlit')">
                                 <i class="fas fa-search me-2"></i> Star Frontlit (Area)
@@ -565,8 +614,7 @@
                 </div>
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Updated to Cloudinary URL -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/backlit_w3oedw.webp' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/backlit_w3oedw.webp';" class='w-100' alt='Panaflex Banner Backlit'>
+                        <img src='img/products/backlit.webp' onerror="this.onerror=null;this.src='img/products/backlit.png';" class='w-100' alt='Panaflex Banner Backlit'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Panaflex Banner Backlit')">
                                 <i class="fas fa-search me-2"></i> Panaflex Banner Backlit (Area)
@@ -578,8 +626,7 @@
                 <!-- Photo Printing (moved from separate h3) -->
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Updated to Cloudinary URL -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/photos_j9jrws.webp' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/photos_j9jrws.webp';" class='w-100' alt='Photo Papers'>
+                        <img src='img/products/photos.webp' onerror="this.onerror=null;this.src='img/products/photopapers.png';" class='w-100' alt='Photo Papers'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('PhotoPapers')">
                                 <i class="fas fa-search me-2"></i> PhotoPapers
@@ -589,8 +636,7 @@
                 </div>
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Updated to Cloudinary URL -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/frames_z5noty.webp' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/frames_z5noty.webp';" class='w-100' alt='Photo Frames'>
+                        <img src='img/products/frames.webp' onerror="this.onerror=null;this.src='img/products/frames.png';" class='w-100' alt='Photo Frames'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Photo Frames')">
                                 <i class="fas fa-search me-2"></i> Configure Photo Frames (Area)
@@ -602,8 +648,7 @@
                 <!-- 3D Wallpaper -->
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Updated to Cloudinary URL -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/wallpapers_dkv4l6.webp' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/wallpapers_dkv4l6.webp';" class='w-100' alt='3D Wallpaper'>
+                        <img src='img/products/wallpapers.webp' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='w-100' alt='3D Wallpaper'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('3D Wallpaper Placeholder')">
                                 <i class="fas fa-search me-2"></i> Configure Wallpaper (Area)
@@ -615,8 +660,7 @@
                 <!-- Custom Quote Items (Shields, Flags, Box Pkg) -->
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Placeholder Image (Default) -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/placeholder.png' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/placeholder.png';" class='w-100' alt='Shields'>
+                        <img src='img/products/shields.webp' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='w-100' alt='Shields'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showSection('quote')">
                                 <i class="fas fa-file-invoice me-2"></i> Shields (Custom Quote)
@@ -626,8 +670,7 @@
                 </div>
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Placeholder Image (Default) -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/placeholder.png' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/placeholder.png';" class='w-100' alt='Flags and Fabric'>
+                        <img src='img/products/flags.webp' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='w-100' alt='Flags and Fabric'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showSection('quote')">
                                 <i class="fas fa-file-invoice me-2"></i> Flags & Fabric (Custom Quote)
@@ -637,8 +680,7 @@
                 </div>
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Updated to Cloudinary URL -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/box_m0qhiw.webp' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/box_m0qhiw.webp';" class='w-100' alt='Box Packaging'>
+                        <img src='img/products/box.webp' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='w-100' alt='Box Packaging'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showSection('quote')">
                                 <i class="fas fa-file-invoice me-2"></i> Box Packaging (Custom Quote)
@@ -656,8 +698,7 @@
                 
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Updated to Cloudinary URL -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/digital_zixp4s.webp' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/digital_zixp4s.webp';" class='w-100' alt='Digital Print Order'>
+                        <img src='img/products/digital.webp' onerror="this.onerror=null;this.src='img/products/prints.png';" class='w-100' alt='Digital Print Order'>
                         <div class="product-footer-overlay p-0">
                             <a class="btn btn-primary w-100 rounded-0 p-3" href="print-order.html">
                                 <i class="fas fa-print me-2"></i> Upload Documents for Print
@@ -668,8 +709,7 @@
 
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Placeholder Image (Default) -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/placeholder.png' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/products/placeholder.png';" class='w-100' alt='Tiered Digital Printing Price Calculator'>
+                        <img src='img/products/placeholder.png' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='w-100' alt='Tiered Digital Printing Price Calculator'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-secondary w-100 rounded-0 p-3" onclick="showProductDetails('Digital Print (Tiered)')">
                                 <i class="fas fa-calculator me-2"></i> View Price Calculator
@@ -687,8 +727,7 @@
                 <h3 class="w-100 pt-3" id="wedding-cards">Special Occasions (Wedding Cards)</h3>
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <!-- Updated to Cloudinary URL -->
-                        <img src='https://res.cloudinary.com/dk3lw0rpy/image/upload/wedding-card_j2owpe.jpg' onerror="this.onerror=null;this.src='https://res.cloudinary.com/dk3lw0rpy/image/upload/wedding-card_j2owpe.jpg';" class='w-100' alt='Wedding Card Catalog Link'>
+                        <img src='img/products/placeholder.png' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='w-100' alt='Wedding Card Catalog Link'>
                         <div class="product-footer-overlay p-0">
                             <a class="btn btn-primary w-100 rounded-0 p-3" href="wedding.html">
                                 <i class="fas fa-gift me-2"></i> View Wedding Catalog
@@ -723,9 +762,9 @@
                     <div class="col-lg-6">
                         <div class="d-flex justify-content-center">
                             <picture>
-                                <!-- FIXED: Added https://arhamprinters.pk/img/products/ prefix to placeholder paths -->
-                                <source id="detail-product-image-webp" srcset="https://res.cloudinary.com/dk3lw0rpy/image/upload/products/placeholder.webp" type="image/webp">
-                                <img id="detail-product-image" src="https://res.cloudinary.com/dk3lw0rpy/image/upload/products/placeholder.png" class="img-fluid rounded" alt="Product Image" style="max-height: 400px;">
+                                <!-- FIXED: Added img/products/ prefix to placeholder paths -->
+                                <source id="detail-product-image-webp" srcset="img/products/placeholder.webp" type="image/webp">
+                                <img id="detail-product-image" src="img/products/placeholder.png" class="img-fluid rounded" alt="Product Image" style="max-height: 400px;">
                             </picture>
                         </div>
                     </div>
@@ -931,7 +970,7 @@
                     <div class="col-6 col-md-3">
                         <div class="rounded p-2 d-flex flex-column align-items-center">
                             <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto"
-                                style="width: 60px; height: 60px;">
+                                style="width: 56px; height: 56px;">
                                 <i class="fas fa-envelope fa-2x text-primary" style="line-height: 1;"></i>
                             </div>
                             <h6 class="text-white mt-1 mb-1">Mail Us</h6>
@@ -992,859 +1031,834 @@
         </div>
         <a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="lib/easing/easing.min.js"></script>
-        <script src="lib/waypoints/waypoints.min.js"></script>
-        <script src="lib/counterup/counterup.min.js"></script>
-        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-        <script src="js/main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
 
-        <script>
-            // --- Configuration ---
-            const PUBLIC_DATA_URL = 'all_prices.json'; // Mock endpoint for product data
-            const WHATSAPP_NUMBER = '923006238233'; 
-            const SUBMIT_ORDER_URL = 'submit_order.php'; 
-            
-            let allProducts = {}; 
-            let currentProduct = null; 
-            let allProductGroups = {};
-            let currentSelectedVariations = {}; 
-            
-            // Placeholder structure for area based logic
-            // NOTE: This must be hardcoded as the DB only provides fixed rate per sq ft, not pricing logic.
-            const AREA_BASED_META = {
-                "China Frontlit": { is_area_based: true, rate: 10, min_area: 10, category: 'Banners' }, 
-                "Star Frontlit": { is_area_based: true, rate: 12, min_area: 10, category: 'Banners' },
-                "Panaflex Banner Backlit": { is_area_based: true, rate: 15, min_area: 10, category: 'Banners' },
-                "3D Wallpaper Placeholder": { is_area_based: true, rate: 18, min_area: 20, category: '3D Wallpaper' },
-                "Photo Frames": { is_area_based: true, rate: 1, min_area: 1, category: 'Photo Printing' } 
-            }; 
-            
-            // A manually defined list of products that should be treated as area-based
-            const AREA_BASED_PRODUCT_NAMES = Object.keys(AREA_BASED_META);
-            
-            // Custom structure for the complex Digital Printing Pricing
-            let digitalPrintingPricing = {};
+    <script>
+    // --- Configuration ---
+    const PUBLIC_DATA_URL = 'get_prices.php'; 
+    const WHATSAPP_NUMBER = '923006238233'; 
+    const SUBMIT_ORDER_URL = 'submit_order.php'; 
+    
+    let allProducts = {}; 
+    let currentProduct = null; 
+    let allProductGroups = {};
+    let currentSelectedVariations = {}; 
+    
+    // Placeholder structure for area based logic
+    // NOTE: This must be hardcoded as the DB only provides fixed rate per sq ft, not pricing logic.
+    const AREA_BASED_META = {
+        "China Frontlit": { is_area_based: true, rate: 10, min_area: 10, category: 'Banners' }, 
+        "Star Frontlit": { is_area_based: true, rate: 12, min_area: 10, category: 'Banners' },
+        "Panaflex Banner Backlit": { is_area_based: true, rate: 15, min_area: 10, category: 'Banners' },
+        "3D Wallpaper Placeholder": { is_area_based: true, rate: 18, min_area: 20, category: '3D Wallpaper' },
+        "Photo Frames": { is_area_based: true, rate: 1, min_area: 1, category: 'Photo Printing' } 
+    }; 
+    
+    // A manually defined list of products that should be treated as area-based
+    const AREA_BASED_PRODUCT_NAMES = Object.keys(AREA_BASED_META);
+    
+    // Custom structure for the complex Digital Printing Pricing
+    let digitalPrintingPricing = {};
 
-            // Map the generic SQL column name to a user-friendly display name
-            const variantDisplayNames = {
-                'variant_1': 'Size', 
-                'variant_2': 'Material/Stock', 
-                'variant_3': 'Type/Finish', 
-                'side_print': 'Print Sides', 
-                'material_type': 'Material Type', 
-                'shape_type': 'Inking Mechanism', 
-                'type_group': 'Card Type', 
-                'accessories': 'Accessories', 
-            };
+    // Map the generic SQL column name to a user-friendly display name
+    const variantDisplayNames = {
+        'variant_1': 'Size', 
+        'variant_2': 'Material/Stock', 
+        'variant_3': 'Type/Finish', 
+        'side_print': 'Print Sides', 
+        'material_type': 'Material Type', 
+        'shape_type': 'Inking Mechanism', 
+        'type_group': 'Card Type', 
+        'accessories': 'Accessories', 
+    };
 
 
-            // --- Core Functions ---
+    // --- Core Functions ---
 
-            async function initialAppLoad() {
-                let rawData;
-                try {
-                    const response = await fetch(PUBLIC_DATA_URL);
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    rawData = await response.json(); 
-                } catch (error) {
-                    console.error("Failed to load shop data:", error);
-                    showAlert("Failed to load product data. Check the developer console.", 'error');
-                    return;
-                }
-                
-                // Setup all product data and pricing structure from JSON
-                initialProductSetup(rawData);
-                
-                // Ensure the main catalog view is visible on load
-                showSection('shop-catalog'); 
-                
-                // Set up form submission handlers for WhatsApp routing
-                document.getElementById('quote-form').addEventListener('submit', handleQuoteSubmission);
-                document.getElementById('contact-form-whatsapp').addEventListener('submit', handleContactSubmission);
-                
-                // Set initial active state for mobile nav
-                if (typeof setActiveMobileNav === 'function') {
-                    setActiveMobileNav('products');
-                }
+    async function initialAppLoad() {
+        let rawData;
+        try {
+            const response = await fetch(PUBLIC_DATA_URL);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-            
-            // --- Data Preprocessing for SQL Results (Flat Array) ---
-            // This function must now handle the NEW 6-category structure provided by get_prices.php
-            function initialProductSetup(flatData) {
-                const productGroups = {};
+            rawData = await response.json(); 
+        } catch (error) {
+            console.error("Failed to load shop data:", error);
+            showAlert("Failed to load product data. Check the developer console.", 'error');
+            return;
+        }
+        
+        // Setup all product data and pricing structure from JSON
+        initialProductSetup(rawData);
+        
+        // Ensure the main catalog view is visible on load
+        showSection('shop-catalog'); 
+        
+        // Set up form submission handlers for WhatsApp routing
+        document.getElementById('quote-form').addEventListener('submit', handleQuoteSubmission);
+        document.getElementById('contact-form-whatsapp').addEventListener('submit', handleContactSubmission);
+        
+        // Set initial active state for mobile nav
+        if (typeof setActiveMobileNav === 'function') {
+            setActiveMobileNav('products');
+        }
+    }
+    
+    // --- Data Preprocessing for SQL Results (Flat Array) ---
+    // This function must now handle the NEW 6-category structure provided by get_prices.php
+    function initialProductSetup(flatData) {
+        const productGroups = {};
+        
+        Object.keys(flatData).forEach(categoryKey => {
+            const categoryData = flatData[categoryKey];
+
+            // 1. Handle Digital Printing Pricing (Tiered - Remapped to 'B/W and Color Prints')
+            if (categoryKey === "B/W and Color Prints") {
+                digitalPrintingPricing["Digital Print (Tiered)"] = categoryData;
                 
-                Object.keys(flatData).forEach(categoryKey => {
-                    const categoryData = flatData[categoryKey];
+                // Add the Digital Print calculator item manually since it uses the special tiered structure
+                if (Object.keys(categoryData || {}).length > 0) {
+                    productGroups["Digital Print (Tiered)"] = {
+                         baseName: "Digital Print (Tiered)",
+                         minPrice: 6, // Low price for display
+                         imageFile: `prints`, 
+                         isAreaBased: false,
+                         mainCategory: categoryKey,
+                         isDigitalTiered: true, 
+                         combinations: [] 
+                    };
+                }
+                return;
+            }
 
-                    // 1. Handle Digital Printing Pricing (Tiered - Remapped to 'B/W and Color Prints')
-                    if (categoryKey === "B/W and Color Prints") {
-                        digitalPrintingPricing["Digital Print (Tiered)"] = categoryData;
-                        
-                        // Add the Digital Print calculator item manually since it uses the special tiered structure
-                        if (Object.keys(categoryData || {}).length > 0) {
-                            productGroups["Digital Print (Tiered)"] = {
-                                 baseName: "Digital Print (Tiered)",
-                                 minPrice: 6, // Low price for display
-                                 imageFile: `digital_zixp4s`, 
-                                 isAreaBased: false,
-                                 mainCategory: categoryKey,
-                                 isDigitalTiered: true, 
-                                 combinations: [] 
-                            };
-                        }
-                        return;
-                    }
+            // 2. Handle standard products and merged categories
+            Object.keys(categoryData).forEach(productKey => {
+                 const productCombinations = categoryData[productKey];
 
-                    // 2. Handle standard products and merged categories
-                    Object.keys(categoryData).forEach(productKey => {
-                         const productCombinations = categoryData[productKey];
-
-                         // Initialize product structure
-                         if (!productGroups[productKey]) {
-                             // Use lookup for hardcoded image names
-                             let imageFileBase = productKey.replace(/\s|\/|\(|\)/g, '').replace('Visisting', 'vcard').toLowerCase();
-                             if (productKey === 'Shine Visisting Cards') imageFileBase = 'vcard_rzzbst';
-                             else if (productKey === 'Mat Cards') imageFileBase = 'matcards_ycft49';
-                             else if (productKey === 'UV Cards') imageFileBase = 'uvcard_aitsyw';
-                             else if (productKey === 'UV Thick Cards') imageFileBase = 'thickcard_jejfwa';
-                             else if (productKey === 'Letterpads') imageFileBase = 'letterpad_b8vlmz';
-                             else if (productKey === 'Envelops') imageFileBase = 'envelops_etmnds';
-                             else if (productKey === 'Bill Books') imageFileBase = 'billbooks_nzsboq';
-                             else if (productKey === 'File Covers') imageFileBase = 'file_bu5jnm';
-                             else if (productKey === 'Rubber Stamp (Rectangular)') imageFileBase = 'stamps_wt9vk0';
-                             else if (productKey === 'Pencil Tray') imageFileBase = 'placeholder'; // Placeholder
-                             else if (productKey === 'Pamphlets') imageFileBase = 'pamphlet_srsrsq';
-                             else if (productKey === 'Flyers/Ishtihars') imageFileBase = 'flyers_mr20ya';
-                             else if (productKey === 'Stickers') imageFileBase = 'stickers_dihlki';
-                             else if (productKey === 'White T-Shirt (Adult Size)') imageFileBase = 'shirt_hjfvsw';
-                             else if (productKey === 'Mug') imageFileBase = 'mugs_ydkmvi';
-                             else if (productKey === 'Metal Pen') imageFileBase = 'pen_lwzssg';
-                             else if (productKey === 'Locket with Picture') imageFileBase = 'placeholder'; 
-                             else if (productKey === 'China Frontlit') imageFileBase = 'china_ke6drl';
-                             else if (productKey === 'Star Frontlit') imageFileBase = 'star_nz0rb6';
-                             else if (productKey === 'Panaflex Banner Backlit') imageFileBase = 'backlit_w3oedw';
-                             else if (productKey === 'PhotoPapers') imageFileBase = 'photos_j9jrws';
-                             else if (productKey === 'Photo Frames') imageFileBase = 'frames_z5noty';
-                             else if (productKey === '3D Wallpaper Placeholder') imageFileBase = 'wallpapers_dkv4l6';
-                             
-                             // Check if product is Area Based
-                             const isAreaBased = AREA_BASED_PRODUCT_NAMES.includes(productKey);
-                             
-                             productGroups[productKey] = {
-                                 baseName: productKey,
-                                 minPrice: Infinity,
-                                 imageFile: imageFileBase, 
-                                 isAreaBased: isAreaBased,
-                                 mainCategory: categoryKey,
-                                 combinations: [] 
-                             };
-                         }
+                 // Initialize product structure
+                 if (!productGroups[productKey]) {
+                     const imageFileBase = productKey.replace(/\s|\/|\(|\)/g, '').replace('Visisting', 'vcard').toLowerCase();
+                     
+                     // Check if product is Area Based
+                     const isAreaBased = AREA_BASED_PRODUCT_NAMES.includes(productKey);
+                     
+                     productGroups[productKey] = {
+                         baseName: productKey,
+                         minPrice: Infinity,
+                         imageFile: imageFileBase, 
+                         isAreaBased: isAreaBased,
+                         mainCategory: categoryKey,
+                         combinations: [] 
+                     };
+                 }
+                 
+                 // Populate combinations for standard products (is_object_list=1 in DB)
+                 if (!productGroups[productKey].isAreaBased && Array.isArray(productCombinations)) {
+                     
+                     productCombinations.forEach(item => {
+                         let attributes = {
+                             'Price': parseFloat(item.price) || 0,
+                             'FullName': productKey 
+                         };
                          
-                         // Populate combinations for standard products (is_object_list=1 in DB)
-                         if (!productGroups[productKey].isAreaBased && Array.isArray(productCombinations)) {
-                             
-                             productCombinations.forEach(item => {
-                                 let attributes = {
-                                     'Price': parseFloat(item.price) || 0,
-                                     'FullName': productKey 
-                                 };
-                                 
-                                 // Map the generic variant columns
-                                 if (item.variant_1) {
-                                     attributes[variantDisplayNames['variant_1']] = item.variant_1;
-                                 }
-                                 if (item.variant_2) {
-                                     attributes[variantDisplayNames['variant_2']] = item.variant_2;
-                                 }
-                                 if (item.variant_3) {
-                                      attributes[variantDisplayNames['variant_3']] = item.variant_3;
-                                 }
-
-                                 // Parse details_json fields
-                                 Object.keys(item).forEach(key => {
-                                     if (!['price', 'variant_1', 'variant_2', 'variant_3', 'category', 'product', 'id', 'is_object_list', 'details_json'].includes(key) && item[key]) {
-                                         const displayKey = variantDisplayNames[key] || key.charAt(0).toUpperCase() + key.slice(1);
-                                         attributes[displayKey] = item[key];
-                                     }
-                                 });
-                                 
-                                 productGroups[productKey].combinations.push(attributes);
-
-                                 if (attributes.Price > 0 && attributes.Price < productGroups[productKey].minPrice) {
-                                     productGroups[productKey].minPrice = attributes.Price;
-                                 }
-                             });
+                         // Map the generic variant columns
+                         if (item.variant_1) {
+                             attributes[variantDisplayNames['variant_1']] = item.variant_1;
                          }
-                         // Area Based products (Panaflex, Wallpaper, Photo Frames) rely on AREA_BASED_META for rate, not DB combo prices.
-                    });
-                });
-                
-                allProductGroups = productGroups;
-            }
-
-
-            // New function for Digital Printing Details (Tiered Pricing)
-            function showDigitalPrintingDetails() {
-                 // ... (Logic for digital printing tiers remains the same, using digitalPrintingPricing)
-                 currentProduct = allProductGroups["Digital Print (Tiered)"];
-                 currentSelectedVariations = {}; 
-                 
-                 if (!currentProduct || !digitalPrintingPricing["Digital Print (Tiered)"]) {
-                     showAlert(`Digital Print calculator data not found.`, 'error');
-                     return;
-                 }
-
-                 document.getElementById('detail-product-name-header').textContent = currentProduct.baseName;
-                 document.getElementById('detail-product-name-body').textContent = currentProduct.baseName;
-                 
-                 const imagePath = currentProduct.imageFile;
-                 document.getElementById('detail-product-image-webp').srcset = `https://res.cloudinary.com/dk3lw0rpy/image/upload/products/${imagePath}.webp`;
-                 document.getElementById('detail-product-image').src = `https://res.cloudinary.com/dk3lw0rpy/image/upload/products/${imagePath}.webp`; 
-                 document.getElementById('detail-product-image').onerror = function() { this.src = `https://res.cloudinary.com/dk3lw0rpy/image/upload/products/placeholder.png`; };
-
-                 const areaInputs = document.getElementById('custom-area-inputs');
-                 const standardOptions = document.getElementById('standard-options-fields');
-                 
-                 areaInputs.style.display = 'none';
-                 standardOptions.style.display = 'block';
-                 standardOptions.innerHTML = '';
-                 
-                 // Reset warnings
-                 document.getElementById('finalPriceBox').style.display = 'none';
-                 document.getElementById('selectionWarning').textContent = "Please select all printing options and enter quantity to see the final price.";
-                 document.getElementById('selectionWarning').classList.remove('alert-danger');
-                 document.getElementById('selectionWarning').classList.add('alert-info');
-                 document.getElementById('selectionWarning').style.display = 'block';
-
-
-                 // Get Size (A4/Legal) keys from the processed data
-                 const sizes = Object.keys(digitalPrintingPricing["Digital Print (Tiered)"]);
-                 
-                 if(sizes.length === 0) {
-                     standardOptions.innerHTML = `<p class="alert alert-warning">Digital Printing tiers not loaded. Please contact support.</p>`;
-                     showSection('product-detail');
-                     return;
-                 }
-                 
-                 let html = '';
-                 const keysToRender = ['Size', 'ColorType', 'GSM']; // Define rendering order
-                 const sizesList = Object.keys(digitalPrintingPricing["Digital Print (Tiered)"]); // e.g., ["A4", "Legal"]
-                 
-                 // Dynamically build selection options
-                 keysToRender.forEach(key => {
-                    html += `<div class="product-option-group" data-option-key="${key}">
-                            <label>${key.replace('ColorType', 'Print Color').replace('GSM', 'Paper Weight (GSM)')}:</label>
-                            <div class="d-flex flex-wrap gap-3" id="choices-${key}">`;
-                    
-                    let currentOptions = [];
-                    if (key === 'Size') {
-                        currentOptions = sizesList;
-                    } else if (key === 'ColorType' && sizesList.length > 0) {
-                        // Get options based on the first available Size
-                        currentOptions = Object.keys(digitalPrintingPricing["Digital Print (Tiered)"][sizesList[0]] || {});
-                    } else if (key === 'GSM' && sizesList.length > 0) {
-                        // Get options based on the first available Size and first ColorType
-                        const firstColorType = Object.keys(digitalPrintingPricing["Digital Print (Tiered)"][sizesList[0]] || {})[0];
-                         if (firstColorType) {
-                            currentOptions = Object.keys(digitalPrintingPricing["Digital Print (Tiered)"][sizesList[0]][firstColorType] || {});
+                         if (item.variant_2) {
+                             attributes[variantDisplayNames['variant_2']] = item.variant_2;
                          }
-                    }
+                         if (item.variant_3) {
+                              attributes[variantDisplayNames['variant_3']] = item.variant_3;
+                         }
 
-                    currentOptions.forEach(value => {
-                         const displayValue = value.replace('_', ' ').toUpperCase();
-                         const inputId = `${key}-${value}`;
-                         html += `<label class="choice-card" for="${inputId}">
-                                     <input type="radio" id="${inputId}" name="option-${key}" value="${value}" 
-                                            onchange="handleCardSelection('${key}', '${value}', true)">
-                                     <span class="label-text">${displayValue}</span>
-                                 </label>`;
-                    });
-                    html += `</div></div>`;
-                 });
+                         // Parse details_json fields
+                         Object.keys(item).forEach(key => {
+                             if (!['price', 'variant_1', 'variant_2', 'variant_3', 'category', 'product', 'id', 'is_object_list', 'details_json'].includes(key) && item[key]) {
+                                 const displayKey = variantDisplayNames[key] || key.charAt(0).toUpperCase() + key.slice(1);
+                                 attributes[displayKey] = item[key];
+                             }
+                         });
+                         
+                         productGroups[productKey].combinations.push(attributes);
 
-                 standardOptions.innerHTML += html;
-                 
-                 // Add quantity selector for pages
-                 standardOptions.innerHTML += `
-                      <div class="product-option-group" data-option-key="QuantitySelector">
-                         <label>Number of Pages:</label>
-                         <div class="input-group">
-                             <button class="btn btn-outline-secondary" type="button" onclick="updateQuantityStandard(-1)">-</button>
-                             <input type="number" id="input-standard-qty" min="1" value="1" class="form-control text-center" oninput="updateFinalPrice()">
-                             <button class="btn btn-outline-secondary" type="button" onclick="updateQuantityStandard(1)">+</button>
-                         </div>
-                     </div>
-                 `;
-                 
-                 // Auto-select first options for Digital Printing and trigger initial price
-                 keysToRender.forEach(key => {
-                    const firstInput = document.querySelector(`input[name="option-${key}"]`);
-                    if (firstInput) {
-                        // Use handleCardSelection with no cascade (false) to stop recursion on initial load
-                        handleCardSelection(key, firstInput.value, false); 
-                    }
-                 });
-                 
-                 // Manually trigger price calculation after initial setup
-                 updateFinalPrice();
+                         if (attributes.Price > 0 && attributes.Price < productGroups[productKey].minPrice) {
+                             productGroups[productKey].minPrice = attributes.Price;
+                         }
+                     });
+                 }
+                 // Area Based products (Panaflex, Wallpaper, Photo Frames) rely on AREA_BASED_META for rate, not DB combo prices.
+            });
+        });
+        
+        allProductGroups = productGroups;
+    }
 
-                 showSection('product-detail');
+
+    // New function for Digital Printing Details (Tiered Pricing)
+    function showDigitalPrintingDetails() {
+         // ... (Logic for digital printing tiers remains the same, using digitalPrintingPricing)
+         currentProduct = allProductGroups["Digital Print (Tiered)"];
+         currentSelectedVariations = {}; 
+         
+         if (!currentProduct || !digitalPrintingPricing["Digital Print (Tiered)"]) {
+             showAlert(`Digital Print calculator data not found.`, 'error');
+             return;
+         }
+
+         document.getElementById('detail-product-name-header').textContent = currentProduct.baseName;
+         document.getElementById('detail-product-name-body').textContent = currentProduct.baseName;
+         
+         document.getElementById('detail-product-image-webp').srcset = `img/products/${currentProduct.imageFile}.webp`;
+         document.getElementById('detail-product-image').src = `img/products/${currentProduct.imageFile}.png`; 
+         document.getElementById('detail-product-image').onerror = function() { this.src = `img/products/placeholder.png`; };
+
+         const areaInputs = document.getElementById('custom-area-inputs');
+         const standardOptions = document.getElementById('standard-options-fields');
+         
+         areaInputs.style.display = 'none';
+         standardOptions.style.display = 'block';
+         standardOptions.innerHTML = '';
+         
+         // Reset warnings
+         document.getElementById('finalPriceBox').style.display = 'none';
+         document.getElementById('selectionWarning').textContent = "Please select all printing options and enter quantity to see the final price.";
+         document.getElementById('selectionWarning').classList.remove('alert-danger');
+         document.getElementById('selectionWarning').classList.add('alert-info');
+         document.getElementById('selectionWarning').style.display = 'block';
+
+
+         // Get Size (A4/Legal) keys from the processed data
+         const sizes = Object.keys(digitalPrintingPricing["Digital Print (Tiered)"]);
+         
+         if(sizes.length === 0) {
+             standardOptions.innerHTML = `<p class="alert alert-warning">Digital Printing tiers not loaded. Please contact support.</p>`;
+             showSection('product-detail');
+             return;
+         }
+         
+         let html = '';
+         const keysToRender = ['Size', 'ColorType', 'GSM']; // Define rendering order
+         const sizesList = Object.keys(digitalPrintingPricing["Digital Print (Tiered)"]); // e.g., ["A4", "Legal"]
+         
+         // Dynamically build selection options
+         keysToRender.forEach(key => {
+            html += `<div class="product-option-group" data-option-key="${key}">
+                    <label>${key.replace('ColorType', 'Print Color').replace('GSM', 'Paper Weight (GSM)')}:</label>
+                    <div class="d-flex flex-wrap gap-3" id="choices-${key}">`;
+            
+            let currentOptions = [];
+            if (key === 'Size') {
+                currentOptions = sizesList;
+            } else if (key === 'ColorType' && sizesList.length > 0) {
+                // Get options based on the first available Size
+                currentOptions = Object.keys(digitalPrintingPricing["Digital Print (Tiered)"][sizesList[0]] || {});
+            } else if (key === 'GSM' && sizesList.length > 0) {
+                // Get options based on the first available Size and first ColorType
+                const firstColorType = Object.keys(digitalPrintingPricing["Digital Print (Tiered)"][sizesList[0]] || {})[0];
+                 if (firstColorType) {
+                    currentOptions = Object.keys(digitalPrintingPricing["Digital Print (Tiered)"][sizesList[0]][firstColorType] || {});
+                 }
             }
 
-            /**
-             * Finds all valid values for a specific target key based on currently selected upstream keys.
-             * @param {string} targetKey The key we want to filter (e.g., 'Material/Stock').
-             * @param {Object} currentSelections All selected attributes (e.g., {'Size': 'A4'}).
-             * @param {Array} allCombinations All possible price combinations for the current product.
-             * @returns {Set<string>} A set of valid values for the target key.
-             */
-            function filterAvailableOptions(targetKey, currentSelections, allCombinations) {
-                const validValues = new Set();
-                
-                allCombinations.forEach(combo => {
-                    let isMatch = true;
-                    
-                    // Check if the current combination matches all upstream selections
-                    Object.keys(currentSelections).forEach(key => {
-                        if (key !== targetKey && combo[key] !== currentSelections[key]) {
-                            isMatch = false;
-                        }
-                    });
-                    
-                    // If it matches all upstream selections, and the combo has a value for the target key, it's valid
-                    if (isMatch && combo[targetKey]) {
-                        validValues.add(combo[targetKey]);
-                    }
-                });
-                
-                return validValues;
-            }
+            currentOptions.forEach(value => {
+                 const displayValue = value.replace('_', ' ').toUpperCase();
+                 const inputId = `${key}-${value}`;
+                 html += `<label class="choice-card" for="${inputId}">
+                             <input type="radio" id="${inputId}" name="option-${key}" value="${value}" 
+                                    onchange="handleCardSelection('${key}', '${value}', true)">
+                             <span class="label-text">${displayValue}</span>
+                         </label>`;
+            });
+            html += `</div></div>`;
+         });
 
-            // 4. Navigate to and Populate Product Detail Page
-            function showProductDetails(productName) {
-                
-                // Handle the special tiered Digital Printing case first
-                if (productName.trim() === "Digital Print (Tiered)") {
-                     showDigitalPrintingDetails();
-                     return;
+         standardOptions.innerHTML += html;
+         
+         // Add quantity selector for pages
+         standardOptions.innerHTML += `
+              <div class="product-option-group" data-option-key="QuantitySelector">
+                 <label>Number of Pages:</label>
+                 <div class="input-group">
+                     <button class="btn btn-outline-secondary" type="button" onclick="updateQuantityStandard(-1)">-</button>
+                     <input type="number" id="input-standard-qty" min="1" value="1" class="form-control text-center" oninput="updateFinalPrice()">
+                     <button class="btn btn-outline-secondary" type="button" onclick="updateQuantityStandard(1)">+</button>
+                 </div>
+             </div>
+         `;
+         
+         // Auto-select first options for Digital Printing and trigger initial price
+         keysToRender.forEach(key => {
+            const firstInput = document.querySelector(`input[name="option-${key}"]`);
+            if (firstInput) {
+                // Use handleCardSelection with no cascade (false) to stop recursion on initial load
+                handleCardSelection(key, firstInput.value, false); 
+            }
+         });
+         
+         // Manually trigger price calculation after initial setup
+         updateFinalPrice();
+
+         showSection('product-detail');
+    }
+
+    /**
+     * Finds all valid values for a specific target key based on currently selected upstream keys.
+     * @param {string} targetKey The key we want to filter (e.g., 'Material/Stock').
+     * @param {Object} currentSelections All selected attributes (e.g., {'Size': 'A4'}).
+     * @param {Array} allCombinations All possible price combinations for the current product.
+     * @returns {Set<string>} A set of valid values for the target key.
+     */
+    function filterAvailableOptions(targetKey, currentSelections, allCombinations) {
+        const validValues = new Set();
+        
+        allCombinations.forEach(combo => {
+            let isMatch = true;
+            
+            // Check if the current combination matches all upstream selections
+            Object.keys(currentSelections).forEach(key => {
+                if (key !== targetKey && combo[key] !== currentSelections[key]) {
+                    isMatch = false;
                 }
+            });
+            
+            // If it matches all upstream selections, and the combo has a value for the target key, it's valid
+            if (isMatch && combo[targetKey]) {
+                validValues.add(combo[targetKey]);
+            }
+        });
+        
+        return validValues;
+    }
 
-                let cleanName = productName.replace(/'/g, '').trim(); 
-                const productData = allProductGroups[cleanName]; 
-                currentProduct = productData;
-                currentSelectedVariations = {}; 
+    // 4. Navigate to and Populate Product Detail Page
+    function showProductDetails(productName) {
+        
+        // Handle the special tiered Digital Printing case first
+        if (productName.trim() === "Digital Print (Tiered)") {
+             showDigitalPrintingDetails();
+             return;
+        }
 
-                if (!currentProduct) {
-                    showAlert(`Product "${cleanName}" details not found in data. Please use the 'Get Custom Quote' option.`, 'error'); 
+        let cleanName = productName.replace(/'/g, '').trim(); 
+        const productData = allProductGroups[cleanName]; 
+        currentProduct = productData;
+        currentSelectedVariations = {}; 
+
+        if (!currentProduct) {
+            showAlert(`Product "${cleanName}" details not found in data. Please use the 'Get Custom Quote' option.`, 'error'); 
+            return;
+        }
+
+        // Update headers and image
+        document.getElementById('detail-product-name-header').textContent = currentProduct.baseName;
+        document.getElementById('detail-product-name-body').textContent = currentProduct.baseName;
+        
+        // Use the simplified image file name generated in initialProductSetup
+        const imagePath = currentProduct.imageFile;
+        // FIXED: Added correct full path to placeholder/image logic
+        document.getElementById('detail-product-image-webp').srcset = `img/products/${imagePath}.webp`;
+        document.getElementById('detail-product-image').src = `img/products/${imagePath}.png`; 
+        document.getElementById('detail-product-image').onerror = function() { 
+             this.src = `img/products/placeholder.png`; 
+        };
+
+
+        const areaInputs = document.getElementById('custom-area-inputs');
+        const standardOptions = document.getElementById('standard-options-fields');
+        
+        document.getElementById('finalPriceBox').style.display = 'none';
+        document.getElementById('selectionWarning').textContent = "Please enter dimensions/quantity or select all options above to see the final price.";
+        document.getElementById('selectionWarning').classList.remove('alert-danger');
+        document.getElementById('selectionWarning').classList.add('alert-info');
+        document.getElementById('selectionWarning').style.display = 'block';
+
+        const isAreaBased = currentProduct.isAreaBased;
+        
+        // 🛑 CORE LOGIC: Area-Based vs. Standard 🛑
+        if (isAreaBased) {
+            // --- AREA-BASED SETUP (Panaflex/Wallpaper/Photo Frames) ---
+            areaInputs.style.display = 'block';
+            standardOptions.style.display = 'none';
+            
+            // Set initial inputs based on defaults
+            document.getElementById('input-width').value = 1;
+            document.getElementById('input-height').value = 1;
+            document.getElementById('input-custom-qty').value = 1;
+
+            // Set input listeners to trigger updateFinalPrice()
+            ['input-width', 'input-height', 'input-custom-qty'].forEach(id => {
+                 const el = document.getElementById(id);
+                 if(el) el.oninput = updateFinalPrice;
+            });
+            
+            document.getElementById('areaConstraintWarning').style.display = 'none';
+            
+            updateFinalPrice();
+
+        } else {
+            // --- STANDARD TIERED ITEM SETUP ---
+            areaInputs.style.display = 'none';
+            standardOptions.style.display = 'block';
+            standardOptions.innerHTML = ''; 
+
+            const allCombinations = currentProduct.combinations || [];
+            if (allCombinations.length === 0 || !allCombinations[0]) {
+                 standardOptions.innerHTML = `<p class="alert alert-warning">No price configurations found for this product. Please use the Quote form.</p>`;
+                 return;
+            }
+
+            // Determine all unique attribute keys (Size, Material/Stock, Type/Finish, etc.)
+            const attributeKeys = Object.keys(allCombinations[0]).filter(key => key !== 'Price' && key !== 'FullName');
+
+            const availableAttributes = {};
+            attributeKeys.forEach(key => availableAttributes[key] = new Set());
+
+            allCombinations.forEach(c => {
+                attributeKeys.forEach(key => {
+                    if (c[key]) availableAttributes[key].add(c[key]);
+                });
+            });
+            
+            // Render groups of unique values for each attribute
+            Object.keys(availableAttributes).forEach((attrKey) => {
+                const uniqueValues = Array.from(availableAttributes[attrKey]);
+                const sanitizedKey = attrKey;
+
+                let groupHTML = `
+                    <div class="product-option-group" data-option-key="${sanitizedKey}">
+                        <label>${attrKey}:</label>
+                        <div class="d-flex flex-wrap gap-3" id="choices-${sanitizedKey}">
+                `;
+                
+                uniqueValues.forEach(value => {
+                    // Create a safe ID for the radio button
+                    const inputId = `${sanitizedKey}-${value.replace(/\s|\/|\\|\(|\)/g, '-')}`;
+                    
+                    groupHTML += `
+                        <label class="choice-card" for="${inputId}">
+                            <input type="radio" id="${inputId}" name="option-${sanitizedKey}" value="${value}" 
+                                   onchange="handleCardSelection('${sanitizedKey}', '${value}')">
+                            <span class="label-text">${value}</span>
+                        </label>
+                    `;
+                });
+
+                groupHTML += `</div></div>`;
+                standardOptions.innerHTML += groupHTML;
+            });
+
+            // Add quantity selector for standard items
+            standardOptions.innerHTML += `
+                 <div class="product-option-group" data-option-key="QuantitySelector">
+                    <label>Quantity:</label>
+                    <div class="input-group">
+                        <button class="btn btn-outline-secondary" type="button" onclick="updateQuantityStandard(-1)">-</button>
+                        <input type="number" id="input-standard-qty" min="1" value="1" class="form-control text-center" oninput="updateFinalPrice()">
+                        <button class="btn btn-outline-secondary" type="button" onclick="updateQuantityStandard(1)">+</button>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('finalPriceBox').style.display = 'none';
+            document.getElementById('selectionWarning').style.display = 'block';
+
+            // Initial auto-selection to set defaults and trigger cascading update
+            if (attributeKeys.length > 0) {
+                 const firstKey = attributeKeys[0];
+                 const firstValue = Array.from(availableAttributes[firstKey])[0];
+                 if(firstValue) {
+                    handleCardSelection(firstKey, firstValue);
+                 }
+            } else {
+                updateFinalPrice();
+            }
+        }
+
+        showSection('product-detail');
+    }
+    
+    // Helper for quantity buttons on standard items
+    function updateQuantityStandard(change) {
+        const input = document.getElementById('input-standard-qty');
+        let quantity = parseInt(input.value) || 1;
+        quantity = Math.max(1, quantity + change);
+        input.value = quantity;
+        updateFinalPrice();
+    }
+    
+    /**
+     * Handles selection of a variant option, updates selections, and triggers cascading filtering.
+     * @param {string} key The variant group key (e.g., 'Size').
+     * @param {string} value The selected value (e.g., 'A4').
+     * @param {boolean} cascade - Whether to trigger cascading filtering (default true). Used to prevent loops on initial load.
+     */
+    function handleCardSelection(key, value, cascade = true) {
+        const sanitizedKey = key;
+        
+        currentSelectedVariations[sanitizedKey] = value;
+        
+        // --- 1. Visual Selection Update ---
+        // This toggles the selected class for styling
+        document.querySelectorAll(`input[name="option-${sanitizedKey}"]`).forEach(input => {
+            input.closest('.choice-card')?.classList.remove('selected');
+        });
+        const selectedInput = document.querySelector(`input[name="option-${sanitizedKey}"][value="${value}"]`);
+        if (selectedInput) {
+            selectedInput.closest('.choice-card')?.classList.add('selected');
+        }
+
+        if (currentProduct.isDigitalTiered) {
+             // Digital Print doesn't cascade in UI like standard products, just recalculate
+             if (cascade) updateFinalPrice();
+             return;
+        }
+
+        // --- 2. Cascading Filter and Auto-Select for downstream variants (Standard Products Only) ---
+        if (cascade) {
+            const allAttributeKeys = Object.keys(currentProduct.combinations[0]).filter(k => k !== 'Price' && k !== 'FullName');
+            let isDownstream = false;
+
+            allAttributeKeys.forEach(attrKey => {
+                if (attrKey === key) {
+                    isDownstream = true;
+                    return; 
+                }
+                
+                if (isDownstream) {
+                    const targetGroup = document.getElementById(`choices-${attrKey}`);
+                    if (targetGroup) {
+                        const validValues = filterAvailableOptions(
+                            attrKey, 
+                            currentSelectedVariations, 
+                            currentProduct.combinations
+                        );
+                        
+                        let newSelectionNeeded = false;
+                        
+                        targetGroup.querySelectorAll('.choice-card').forEach(card => {
+                            const optionValue = card.querySelector('input').value;
+                            
+                            if (!validValues.has(optionValue)) {
+                                card.classList.add('disabled');
+                                card.classList.remove('selected');
+                                
+                                if (currentSelectedVariations[attrKey] === optionValue) {
+                                    delete currentSelectedVariations[attrKey];
+                                    newSelectionNeeded = true;
+                                }
+                                
+                            } else {
+                                card.classList.remove('disabled');
+                            }
+                        });
+                        
+                        if (newSelectionNeeded || !currentSelectedVariations[attrKey]) {
+                            const firstValidOption = targetGroup.querySelector('.choice-card:not(.disabled) input');
+                            if (firstValidOption) {
+                                handleCardSelection(attrKey, firstValidOption.value);
+                                return; // Stop and let the recursive call handle the next cascade step
+                            } else {
+                                delete currentSelectedVariations[attrKey];
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // --- 3. Final Price Update & Image Update ---
+        updateFinalPrice();
+    }
+    
+    // --- Price Update and Calculation Logic (Handles both types) ---
+    
+    function updateFinalPrice() {
+        if (!currentProduct) return;
+        
+        const isAreaBased = currentProduct.isAreaBased;
+        const isDigitalTiered = currentProduct.isDigitalTiered;
+        let totalPrice = 0;
+
+        // 1. Handle Area-Based Products (Panaflex, Photo Frames)
+        if (isAreaBased) {
+            const width = parseFloat(document.getElementById('input-width').value) || 0;
+            const height = parseFloat(document.getElementById('input-height').value) || 0;
+            const quantity = parseInt(document.getElementById('input-custom-qty').value) || 0;
+
+            const rateMeta = AREA_BASED_META[currentProduct.baseName];
+            const baseRate = rateMeta ? rateMeta.rate : 0;
+            const minArea = rateMeta ? rateMeta.min_area || 0 : 0;
+            
+            document.getElementById('finalPriceBox').style.display = 'none';
+            document.getElementById('areaConstraintWarning').style.display = 'none';
+            document.getElementById('selectionWarning').style.display = 'block';
+            document.getElementById('selectionWarning').textContent = "Please enter valid dimensions and quantity to calculate price.";
+            
+            if (width <= 0 || height <= 0 || quantity <= 0 || baseRate === 0) {
+                document.getElementById('areaDisplay').textContent = '';
+                return;
+            }
+
+            const itemArea = width * height;
+            const totalArea = itemArea * quantity;
+            document.getElementById('areaDisplay').textContent = `Area per piece: ${itemArea.toFixed(2)} sq ft | Total Area: ${totalArea.toFixed(2)} sq ft`;
+
+            if (totalArea < minArea) {
+                document.getElementById('areaConstraintWarning').textContent = `Minimum order area for this product is ${minArea} sq ft. Current total area (${totalArea.toFixed(2)} sq ft) is too small.`;
+                document.getElementById('areaConstraintWarning').style.display = 'block';
+                return; 
+            }
+            
+            totalPrice = totalArea * baseRate;
+        } 
+        
+        // 2. Handle Digital Printing Tiered Products 
+        else if (isDigitalTiered) {
+             const quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 0;
+             const size = currentSelectedVariations.Size;
+             const colorType = currentSelectedVariations.ColorType;
+             const gsm = currentSelectedVariations.GSM;
+             
+             document.getElementById('finalPriceBox').style.display = 'none';
+             document.getElementById('selectionWarning').style.display = 'block';
+             document.getElementById('selectionWarning').textContent = "Please select all printing options and enter a valid quantity.";
+             
+             if (!size || !colorType || !gsm || quantity <= 0) return;
+             
+             try {
+                // Navigate the nested structure: [Digital Printing Pricing][Size][Color][GSM][Range]
+                const tiers = digitalPrintingPricing[currentProduct.baseName];
+                const gsmData = tiers[size][colorType][gsm];
+                
+                if (!gsmData) throw new Error("Price data missing for selected options.");
+                
+                let unitPrice = 0;
+                let foundPrice = false;
+                
+                // Find the correct quantity tier
+                Object.keys(gsmData).forEach(rangeKey => {
+                    const [min, max] = rangeKey.split('-').map(n => parseInt(n));
+                    if (quantity >= min && (isNaN(max) || quantity <= max)) { // Handles max=Infinity (last tier)
+                        unitPrice = gsmData[rangeKey];
+                        foundPrice = true;
+                    }
+                });
+                
+                if (foundPrice) {
+                    totalPrice = unitPrice * quantity;
+                } else {
+                    document.getElementById('selectionWarning').textContent = "Price tier not found for this quantity. Contact for custom quote.";
                     return;
                 }
 
-                // Update headers and image
-                document.getElementById('detail-product-name-header').textContent = currentProduct.baseName;
-                document.getElementById('detail-product-name-body').textContent = currentProduct.baseName;
+             } catch(e) {
+                 console.error("Digital Printing Price Calculation Error:", e);
+                 document.getElementById('selectionWarning').textContent = "Error calculating price. Select options again or contact us.";
+                 return;
+             }
+        }
+
+        // 3. Standard Tiered Products (Business Cards, Letterpads, etc.) 
+        else {
+            const quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 1;
+            const allCombinations = currentProduct?.combinations || [];
+            
+            if (allCombinations.length === 0) return;
+
+            const requiredKeys = Object.keys(allCombinations[0]).filter(key => key !== 'Price' && key !== 'FullName');
+            
+            let selectedAttributes = {};
+            let allSelected = true;
+
+            requiredKeys.forEach(key => {
+                if (!currentSelectedVariations[key]) {
+                    allSelected = false;
+                } else {
+                    selectedAttributes[key] = currentSelectedVariations[key];
+                }
+            });
+
+            if (!allSelected) {
+                document.getElementById('finalPriceBox').style.display = 'none';
+                document.getElementById('selectionWarning').textContent = "Please select all required options.";
+                document.getElementById('selectionWarning').style.display = 'block';
+                return;
+            }
+
+            let finalProductCombination = null;
+            allCombinations.forEach(combo => {
+                let matches = true;
+                requiredKeys.forEach(key => {
+                    if (combo[key] !== selectedAttributes[key]) {
+                        matches = false;
+                    }
+                });
+                if (matches) {
+                    finalProductCombination = combo;
+                }
+            });
+            
+            if (finalProductCombination) {
+                const unitPrice = finalProductCombination.Price;
+                totalPrice = unitPrice * quantity;
+            } else {
+                document.getElementById('selectionWarning').textContent = "Selected combination not available. Try another mix.";
+                document.getElementById('selectionWarning').classList.remove('alert-info');
+                document.getElementById('selectionWarning').classList.add('alert-danger');
+                document.getElementById('finalPriceBox').style.display = 'none';
+                document.getElementById('selectionWarning').style.display = 'block';
+                return;
+            }
+            
+            // Image update logic (restored image update logic here)
+            let newImagePath = currentProduct.imageFile;
+            let variantSuffix = '';
+
+            if (currentSelectedVariations['Type/Finish']) {
+                 variantSuffix = currentSelectedVariations['Type/Finish'].replace(/\s|\/|\\|\(|\)/g, '').toLowerCase();
+            } 
+            else if (currentSelectedVariations['Size'] && requiredKeys[0] === 'Size') {
+                variantSuffix = currentSelectedVariations['Size'].replace(/\s|\/|\\|\(|\)/g, '').toLowerCase();
+            }
+
+            if (variantSuffix) {
+                const newImageBase = newImagePath + variantSuffix;
+                const newWebp = `img/products/${newImageBase}.webp`;
+                const newPng = `img/products/${newImageBase}.png`;
+
+                document.getElementById('detail-product-image-webp').srcset = newWebp;
+                document.getElementById('detail-product-image').src = newPng;
                 
-                // Use the simplified image file name generated in initialProductSetup
-                const imagePath = currentProduct.imageFile;
-                // FIXED: Added correct full path to placeholder/image logic
-                document.getElementById('detail-product-image-webp').srcset = `https://res.cloudinary.com/dk3lw0rpy/image/upload/products/${imagePath}.webp`;
-                document.getElementById('detail-product-image').src = `https://res.cloudinary.com/dk3lw0rpy/image/upload/products/${imagePath}.webp`; 
-                document.getElementById('detail-product-image').onerror = function() { 
-                     this.src = `https://res.cloudinary.com/dk3lw0rpy/image/upload/products/placeholder.png`; 
+                const baseImageFile = currentProduct.imageFile;
+                document.getElementById('detail-product-image').onerror = function() {
+                    this.onerror = null; 
+                    this.src = `img/products/${baseImageFile}.png`; 
+                    document.getElementById('detail-product-image-webp').srcset = `img/products/${baseImageFile}.webp`;
                 };
 
-
-                const areaInputs = document.getElementById('custom-area-inputs');
-                const standardOptions = document.getElementById('standard-options-fields');
-                
-                document.getElementById('finalPriceBox').style.display = 'none';
-                document.getElementById('selectionWarning').textContent = "Please enter dimensions/quantity or select all options above to see the final price.";
-                document.getElementById('selectionWarning').classList.remove('alert-danger');
-                document.getElementById('selectionWarning').classList.add('alert-info');
-                document.getElementById('selectionWarning').style.display = 'block';
-
-                const isAreaBased = currentProduct.isAreaBased;
-                
-                // 🛑 CORE LOGIC: Area-Based vs. Standard 🛑
-                if (isAreaBased) {
-                    // --- AREA-BASED SETUP (Panaflex/Wallpaper/Photo Frames) ---
-                    areaInputs.style.display = 'block';
-                    standardOptions.style.display = 'none';
-                    
-                    // Set initial inputs based on defaults
-                    document.getElementById('input-width').value = 1;
-                    document.getElementById('input-height').value = 1;
-                    document.getElementById('input-custom-qty').value = 1;
-
-                    // Set input listeners to trigger updateFinalPrice()
-                    ['input-width', 'input-height', 'input-custom-qty'].forEach(id => {
-                         const el = document.getElementById(id);
-                         if(el) el.oninput = updateFinalPrice;
-                    });
-                    
-                    document.getElementById('areaConstraintWarning').style.display = 'none';
-                    
-                    updateFinalPrice();
-
-                } else {
-                    // --- STANDARD TIERED ITEM SETUP ---
-                    areaInputs.style.display = 'none';
-                    standardOptions.style.display = 'block';
-                    standardOptions.innerHTML = ''; 
-
-                    const allCombinations = currentProduct.combinations || [];
-                    if (allCombinations.length === 0 || !allCombinations[0]) {
-                         standardOptions.innerHTML = `<p class="alert alert-warning">No price configurations found for this product. Please use the Quote form.</p>`;
-                         return;
-                    }
-
-                    // Determine all unique attribute keys (Size, Material/Stock, Type/Finish, etc.)
-                    const attributeKeys = Object.keys(allCombinations[0]).filter(key => key !== 'Price' && key !== 'FullName');
-
-                    const availableAttributes = {};
-                    attributeKeys.forEach(key => availableAttributes[key] = new Set());
-
-                    allCombinations.forEach(combo => {
-                        attributeKeys.forEach(key => {
-                            if (combo[key]) availableAttributes[key].add(combo[key]);
-                        });
-                    });
-                    
-                    // Render groups of unique values for each attribute
-                    Object.keys(availableAttributes).forEach((attrKey) => {
-                        const uniqueValues = Array.from(availableAttributes[attrKey]);
-                        const sanitizedKey = attrKey;
-
-                        let groupHTML = `
-                            <div class="product-option-group" data-option-key="${sanitizedKey}">
-                                <label>${attrKey}:</label>
-                                <div class="d-flex flex-wrap gap-3" id="choices-${sanitizedKey}">
-                        `;
-                        
-                        uniqueValues.forEach(value => {
-                            // Create a safe ID for the radio button
-                            const inputId = `${sanitizedKey}-${value.replace(/\s|\/|\\|\(|\)/g, '-')}`;
-                            
-                            groupHTML += `
-                                <label class="choice-card" for="${inputId}">
-                                    <input type="radio" id="${inputId}" name="option-${sanitizedKey}" value="${value}" 
-                                           onchange="handleCardSelection('${sanitizedKey}', '${value}')">
-                                    <span class="label-text">${value}</span>
-                                </label>
-                            `;
-                        });
-
-                        groupHTML += `</div></div>`;
-                        standardOptions.innerHTML += groupHTML;
-                    });
-
-                    // Add quantity selector for standard items
-                    standardOptions.innerHTML += `
-                         <div class="product-option-group" data-option-key="QuantitySelector">
-                            <label>Quantity:</label>
-                            <div class="input-group">
-                                <button class="btn btn-outline-secondary" type="button" onclick="updateQuantityStandard(-1)">-</button>
-                                <input type="number" id="input-standard-qty" min="1" value="1" class="form-control text-center" oninput="updateFinalPrice()">
-                                <button class="btn btn-outline-secondary" type="button" onclick="updateQuantityStandard(1)">+</button>
-                            </div>
-                        </div>
-                    `;
-                    
-                    document.getElementById('finalPriceBox').style.display = 'none';
-                    document.getElementById('selectionWarning').style.display = 'block';
-
-                    // Initial auto-selection to set defaults and trigger cascading update
-                    if (attributeKeys.length > 0) {
-                         const firstKey = attributeKeys[0];
-                         const firstValue = Array.from(availableAttributes[firstKey])[0];
-                         if(firstValue) {
-                            handleCardSelection(firstKey, firstValue);
-                         }
-                    } else {
-                        updateFinalPrice();
-                    }
-                }
-
-                showSection('product-detail');
+            } else {
+                 const baseImageFile = currentProduct.imageFile;
+                 document.getElementById('detail-product-image-webp').srcset = `img/products/${baseImageFile}.webp`;
+                 document.getElementById('detail-product-image').src = `img/products/${baseImageFile}.png`;
+                 document.getElementById('detail-product-image').onerror = function() { this.src = `img/products/placeholder.png`; };
             }
-            
-            // Helper for quantity buttons on standard items
-            function updateQuantityStandard(change) {
-                const input = document.getElementById('input-standard-qty');
-                let quantity = parseInt(input.value) || 1;
-                quantity = Math.max(1, quantity + change);
-                input.value = quantity;
-                updateFinalPrice();
+        }
+        
+        // --- Final Display ---
+        document.getElementById('finalPriceDisplay').textContent = `PKR ${totalPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
+        document.getElementById('finalPriceBox').style.display = 'block';
+        document.getElementById('selectionWarning').style.display = 'none';
+    }
+
+
+    // 3. Get A Quote Submission Handler (Keeps WhatsApp)
+    function handleQuoteSubmission(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('quote-name').value;
+        const phone = document.getElementById('quote-phone').value;
+        const product = document.getElementById('quote-product').value;
+        const quantity = document.getElementById('quote-quantity').value;
+        const details = document.getElementById('quote-details').value;
+        
+        let whatsappMessage = `*NEW QUOTE REQUEST (WEB)*\n`;
+        whatsappMessage += `*Customer:* ${name}\n`;
+        whatsappMessage += `*Phone (Contact):* ${phone}\n`;
+        whatsappMessage += `*Product Type:* ${product}\n`;
+        whatsappMessage += `*Quantity/Area:* ${quantity}\n`;
+        whatsappMessage += `*Specifications:* ${details}`;
+        
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+
+        showAlert('Quote submitted via WhatsApp! We will contact you shortly.', 'success');
+        document.getElementById('quote-form').reset();
+    }
+
+
+    // 2. Contact Form Submission Handler (Keeps WhatsApp)
+    function handleContactSubmission(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('contact-name').value;
+        const subject = document.getElementById('contact-subject').value;
+        const message = document.getElementById('contact-message').value;
+
+        let whatsappMessage = `*NEW CONTACT MESSAGE (WEB)*\n`;
+        whatsappMessage += `*Sender:* ${name}\n`;
+        whatsappMessage += `*Subject:* ${subject}\n`;
+        whatsappMessage += `*Message:* ${message}`;
+        
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+
+        showAlert('Message sent via WhatsApp!', 'success');
+        document.getElementById('contact-form-whatsapp').reset();
+    }
+
+
+    // --- UI/Navigation Functions ---
+    function showSection(sectionName) {
+        // Hide all sections
+        document.querySelectorAll('.section').forEach(section => {
+            section.classList.remove('active');
+        });
+        
+        // Show the selected section
+        const sectionElement = document.getElementById(sectionName + '-section');
+        if (sectionElement) {
+            sectionElement.classList.add('active');
+        } else {
+             console.error(`Section with ID ${sectionName}-section not found.`);
+             // Default to showing catalog if a section is missing
+             document.getElementById('shop-catalog-section').classList.add('active');
+        }
+        
+        // Update active desktop nav link
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+            link.classList.remove('active');
+        });
+        
+        const desktopLink = document.querySelector(`.navbar-nav a[onclick="showSection('${sectionName}')"]`);
+        if (desktopLink) desktopLink.classList.add('active');
+        
+        // Set the active mobile nav link (calls centralized logic in main.js)
+        if (typeof setActiveMobileNav === 'function') {
+            setActiveMobileNav(sectionName === 'shop-catalog' ? 'products' : sectionName);
+        }
+        
+        window.scrollTo(0, 0);
+    }
+    
+    function showAlert(message, type) {
+        const alert = document.createElement('div');
+        alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
+        alert.style.top = '20px';
+        alert.style.right = '20px';
+        alert.style.zIndex = '9999';
+        alert.style.minWidth = '300px';
+        alert.innerHTML = `
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        document.body.appendChild(alert);
+        
+        setTimeout(() => {
+            if (alert.parentNode) {
+                alert.parentNode.removeChild(alert);
             }
-            
-            /**
-             * Handles selection of a variant option, updates selections, and triggers cascading filtering.
-             * @param {string} key The variant group key (e.g., 'Size').
-             * @param {string} value The selected value (e.g., 'A4').
-             * @param {boolean} cascade - Whether to trigger cascading filtering (default true). Used to prevent loops on initial load.
-             */
-            function handleCardSelection(key, value, cascade = true) {
-                const sanitizedKey = key;
-                
-                currentSelectedVariations[sanitizedKey] = value;
-                
-                // --- 1. Visual Selection Update ---
-                // This toggles the selected class for styling
-                document.querySelectorAll(`input[name="option-${sanitizedKey}"]`).forEach(input => {
-                    input.closest('.choice-card')?.classList.remove('selected');
-                });
-                const selectedInput = document.querySelector(`input[name="option-${sanitizedKey}"][value="${value}"]`);
-                if (selectedInput) {
-                    selectedInput.closest('.choice-card')?.classList.add('selected');
-                }
+        }, 5000);
+    }
 
-                if (currentProduct.isDigitalTiered) {
-                     // Digital Print doesn't cascade in UI like standard products, just recalculate
-                     if (cascade) updateFinalPrice();
-                     return;
-                }
-
-                // --- 2. Cascading Filter and Auto-Select for downstream variants (Standard Products Only) ---
-                if (cascade) {
-                    const allAttributeKeys = Object.keys(currentProduct.combinations[0]).filter(k => k !== 'Price' && k !== 'FullName');
-                    let isDownstream = false;
-
-                    allAttributeKeys.forEach(attrKey => {
-                        if (attrKey === key) {
-                            isDownstream = true;
-                            return; 
-                        }
-                        
-                        if (isDownstream) {
-                            const targetGroup = document.getElementById(`choices-${attrKey}`);
-                            if (targetGroup) {
-                                const validValues = filterAvailableOptions(
-                                    attrKey, 
-                                    currentSelectedVariations, 
-                                    currentProduct.combinations
-                                );
-                                
-                                let newSelectionNeeded = false;
-                                
-                                targetGroup.querySelectorAll('.choice-card').forEach(card => {
-                                    const optionValue = card.querySelector('input').value;
-                                    
-                                    if (!validValues.has(optionValue)) {
-                                        card.classList.add('disabled');
-                                        card.classList.remove('selected');
-                                        
-                                        if (currentSelectedVariations[attrKey] === optionValue) {
-                                            delete currentSelectedVariations[attrKey];
-                                            newSelectionNeeded = true;
-                                        }
-                                        
-                                    } else {
-                                        card.classList.remove('disabled');
-                                    }
-                                });
-                                
-                                if (newSelectionNeeded || !currentSelectedVariations[attrKey]) {
-                                    const firstValidOption = targetGroup.querySelector('.choice-card:not(.disabled) input');
-                                    if (firstValidOption) {
-                                        handleCardSelection(attrKey, firstValidOption.value);
-                                        return; // Stop and let the recursive call handle the next cascade step
-                                    } else {
-                                        delete currentSelectedVariations[attrKey];
-                                    }
-                                }
-                            }
-                        }
-                    });
-                }
-                
-                // --- 3. Final Price Update & Image Update ---
-                updateFinalPrice();
-            }
-            
-            // --- Price Update and Calculation Logic (Handles both types) ---
-            
-            function updateFinalPrice() {
-                if (!currentProduct) return;
-                
-                const isAreaBased = currentProduct.isAreaBased;
-                const isDigitalTiered = currentProduct.isDigitalTiered;
-                let totalPrice = 0;
-
-                // 1. Handle Area-Based Products (Panaflex, Photo Frames)
-                if (isAreaBased) {
-                    const width = parseFloat(document.getElementById('input-width').value) || 0;
-                    const height = parseFloat(document.getElementById('input-height').value) || 0;
-                    const quantity = parseInt(document.getElementById('input-custom-qty').value) || 0;
-
-                    const rateMeta = AREA_BASED_META[currentProduct.baseName];
-                    const baseRate = rateMeta ? rateMeta.rate : 0;
-                    const minArea = rateMeta ? rateMeta.min_area || 0 : 0;
-                    
-                    document.getElementById('finalPriceBox').style.display = 'none';
-                    document.getElementById('areaConstraintWarning').style.display = 'none';
-                    document.getElementById('selectionWarning').style.display = 'block';
-                    document.getElementById('selectionWarning').textContent = "Please enter valid dimensions and quantity to calculate price.";
-                    
-                    if (width <= 0 || height <= 0 || quantity <= 0 || baseRate === 0) {
-                        document.getElementById('areaDisplay').textContent = '';
-                        return;
-                    }
-
-                    const itemArea = width * height;
-                    const totalArea = itemArea * quantity;
-                    document.getElementById('areaDisplay').textContent = `Area per piece: ${itemArea.toFixed(2)} sq ft | Total Area: ${totalArea.toFixed(2)} sq ft`;
-
-                    if (totalArea < minArea) {
-                        document.getElementById('areaConstraintWarning').textContent = `Minimum order area for this product is ${minArea} sq ft. Current total area (${totalArea.toFixed(2)} sq ft) is too small.`;
-                        document.getElementById('areaConstraintWarning').style.display = 'block';
-                        return; 
-                    }
-                    
-                    totalPrice = totalArea * baseRate;
-                } 
-                
-                // 2. Handle Digital Printing Tiered Products 
-                else if (isDigitalTiered) {
-                     const quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 0;
-                     const size = currentSelectedVariations.Size;
-                     const colorType = currentSelectedVariations.ColorType;
-                     const gsm = currentSelectedVariations.GSM;
-                     
-                     document.getElementById('finalPriceBox').style.display = 'none';
-                     document.getElementById('selectionWarning').style.display = 'block';
-                     document.getElementById('selectionWarning').textContent = "Please select all printing options and enter a valid quantity.";
-                     
-                     if (!size || !colorType || !gsm || quantity <= 0) return;
-                     
-                     try {
-                        // Navigate the nested structure: [Digital Printing Pricing][Size][Color][GSM][Range]
-                        const tiers = digitalPrintingPricing[currentProduct.baseName];
-                        const gsmData = tiers[size][colorType][gsm];
-                        
-                        if (!gsmData) throw new Error("Price data missing for selected options.");
-                        
-                        let unitPrice = 0;
-                        let foundPrice = false;
-                        
-                        // Find the correct quantity tier
-                        Object.keys(gsmData).forEach(rangeKey => {
-                            const [min, max] = rangeKey.split('-').map(n => parseInt(n));
-                            if (quantity >= min && (isNaN(max) || quantity <= max)) { // Handles max=Infinity (last tier)
-                                unitPrice = gsmData[rangeKey];
-                                foundPrice = true;
-                            }
-                        });
-                        
-                        if (foundPrice) {
-                            totalPrice = unitPrice * quantity;
-                        } else {
-                            document.getElementById('selectionWarning').textContent = "Price tier not found for this quantity. Contact for custom quote.";
-                            return;
-                        }
-
-                     } catch(e) {
-                         console.error("Digital Printing Price Calculation Error:", e);
-                         document.getElementById('selectionWarning').textContent = "Error calculating price. Select options again or contact us.";
-                         return;
-                     }
-                }
-
-                // 3. Standard Tiered Products (Business Cards, Letterpads, etc.) 
-                else {
-                    const quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 1;
-                    const allCombinations = currentProduct?.combinations || [];
-                    
-                    if (allCombinations.length === 0) return;
-
-                    const requiredKeys = Object.keys(allCombinations[0]).filter(key => key !== 'Price' && key !== 'FullName');
-                    
-                    let selectedAttributes = {};
-                    let allSelected = true;
-
-                    requiredKeys.forEach(key => {
-                        if (!currentSelectedVariations[key]) {
-                            allSelected = false;
-                        } else {
-                            selectedAttributes[key] = currentSelectedVariations[key];
-                        }
-                    });
-
-                    if (!allSelected) {
-                        document.getElementById('finalPriceBox').style.display = 'none';
-                        document.getElementById('selectionWarning').textContent = "Please select all required options.";
-                        document.getElementById('selectionWarning').style.display = 'block';
-                        return;
-                    }
-
-                    let finalProductCombination = null;
-                    allCombinations.forEach(combo => {
-                        let matches = true;
-                        requiredKeys.forEach(key => {
-                            if (combo[key] !== selectedAttributes[key]) {
-                                matches = false;
-                            }
-                        });
-                        if (matches) {
-                            finalProductCombination = combo;
-                        }
-                    });
-                    
-                    if (finalProductCombination) {
-                        const unitPrice = finalProductCombination.Price;
-                        totalPrice = unitPrice * quantity;
-                    } else {
-                        document.getElementById('selectionWarning').textContent = "Selected combination not available. Try another mix.";
-                        document.getElementById('selectionWarning').classList.remove('alert-info');
-                        document.getElementById('selectionWarning').classList.add('alert-danger');
-                        document.getElementById('finalPriceBox').style.display = 'none';
-                        document.getElementById('selectionWarning').style.display = 'block';
-                        return;
-                    }
-                    
-                    // Image update logic (restored image update logic here)
-                    let newImagePath = currentProduct.imageFile;
-                    let variantSuffix = '';
-
-                    if (currentSelectedVariations['Type/Finish']) {
-                         variantSuffix = currentSelectedVariations['Type/Finish'].replace(/\s|\/|\\|\(|\)/g, '').toLowerCase();
-                    } 
-                    else if (currentSelectedVariations['Size'] && requiredKeys[0] === 'Size') {
-                        variantSuffix = currentSelectedVariations['Size'].replace(/\s|\/|\\|\(|\)/g, '').toLowerCase();
-                    }
-
-                    if (variantSuffix) {
-                        const newImageBase = newImagePath + variantSuffix;
-                        const newWebp = `https://res.cloudinary.com/dk3lw0rpy/image/upload/products/${newImageBase}.webp`;
-                        const newPng = `https://res.cloudinary.com/dk3lw0rpy/image/upload/products/${newImageBase}.png`;
-
-                        document.getElementById('detail-product-image-webp').srcset = newWebp;
-                        document.getElementById('detail-product-image').src = newPng;
-                        
-                        const baseImageFile = currentProduct.imageFile;
-                        document.getElementById('detail-product-image').onerror = function() {
-                            this.onerror = null; 
-                            this.src = `https://res.cloudinary.com/dk3lw0rpy/image/upload/products/${baseImageFile}.png`; 
-                            document.getElementById('detail-product-image-webp').srcset = `https://res.cloudinary.com/dk3lw0rpy/image/upload/products/${baseImageFile}.webp`;
-                        };
-
-                    } else {
-                         const baseImageFile = currentProduct.imageFile;
-                         document.getElementById('detail-product-image-webp').srcset = `https://res.cloudinary.com/dk3lw0rpy/image/upload/products/${baseImageFile}.webp`;
-                         document.getElementById('detail-product-image').src = `https://res.cloudinary.com/dk3lw0rpy/image/upload/products/${baseImageFile}.webp`;
-                         document.getElementById('detail-product-image').onerror = function() { this.src = `https://res.cloudinary.com/dk3lw0rpy/image/upload/products/placeholder.png`; };
-                    }
-                }
-                
-                // --- Final Display ---
-                document.getElementById('finalPriceDisplay').textContent = `PKR ${totalPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
-                document.getElementById('finalPriceBox').style.display = 'block';
-                document.getElementById('selectionWarning').style.display = 'none';
-            }
-
-
-            // 3. Get A Quote Submission Handler (Keeps WhatsApp)
-            function handleQuoteSubmission(e) {
-                e.preventDefault();
-                
-                const name = document.getElementById('quote-name').value;
-                const phone = document.getElementById('quote-phone').value;
-                const product = document.getElementById('quote-product').value;
-                const quantity = document.getElementById('quote-quantity').value;
-                const details = document.getElementById('quote-details').value;
-                
-                let whatsappMessage = `*NEW QUOTE REQUEST (WEB)*\n`;
-                whatsappMessage += `*Customer:* ${name}\n`;
-                whatsappMessage += `*Phone (Contact):* ${phone}\n`;
-                whatsappMessage += `*Product Type:* ${product}\n`;
-                whatsappMessage += `*Quantity/Area:* ${quantity}\n`;
-                whatsappMessage += `*Specifications:* ${details}`;
-                
-                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
-
-                showAlert('Quote submitted via WhatsApp! We will contact you shortly.', 'success');
-                document.getElementById('quote-form').reset();
-            }
-
-
-            // 2. Contact Form Submission Handler (Keeps WhatsApp)
-            function handleContactSubmission(e) {
-                e.preventDefault();
-                
-                const name = document.getElementById('contact-name').value;
-                const subject = document.getElementById('contact-subject').value;
-                const message = document.getElementById('contact-message').value;
-
-                let whatsappMessage = `*NEW CONTACT MESSAGE (WEB)*\n`;
-                whatsappMessage += `*Sender:* ${name}\n`;
-                whatsappMessage += `*Subject:* ${subject}\n`;
-                whatsappMessage += `*Message:* ${message}`;
-                
-                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
-
-                showAlert('Message sent via WhatsApp!', 'success');
-                document.getElementById('contact-form-whatsapp').reset();
-            }
-
-
-            // --- UI/Navigation Functions ---
-            function showSection(sectionName) {
-                // Hide all sections
-                document.querySelectorAll('.section').forEach(section => {
-                    section.classList.remove('active');
-                });
-                
-                // Show the selected section
-                const sectionElement = document.getElementById(sectionName + '-section');
-                if (sectionElement) {
-                    sectionElement.classList.add('active');
-                } else {
-                     console.error(`Section with ID ${sectionName}-section not found.`);
-                     // Default to showing catalog if a section is missing
-                     document.getElementById('shop-catalog-section').classList.add('active');
-                }
-                
-                // Update active desktop nav link
-                document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
-                    link.classList.remove('active');
-                });
-                
-                const desktopLink = document.querySelector(`.navbar-nav a[onclick="showSection('${sectionName}')"]`);
-                if (desktopLink) desktopLink.classList.add('active');
-                
-                // Set the active mobile nav link (calls centralized logic in main.js)
-                if (typeof setActiveMobileNav === 'function') {
-                    setActiveMobileNav(sectionName === 'shop-catalog' ? 'products' : sectionName);
-                }
-                
-                window.scrollTo(0, 0);
-            }
-            
-            function showAlert(message, type) {
-                const alert = document.createElement('div');
-                alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
-                alert.style.top = '20px';
-                alert.style.right = '20px';
-                alert.style.zIndex = '9999';
-                alert.style.minWidth = '300px';
-                alert.innerHTML = `
-                    ${message}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                `;
-                document.body.appendChild(alert);
-                
-                setTimeout(() => {
-                    if (alert.parentNode) {
-                        alert.parentNode.removeChild(alert);
-                    }
-                }, 5000);
-            }
-
-            document.addEventListener('DOMContentLoaded', initialAppLoad);
-        </script>
-    </div>
+    document.addEventListener('DOMContentLoaded', initialAppLoad);
+</script>
+</div>
 </body>
 
 </html>
