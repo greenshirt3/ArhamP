@@ -20,8 +20,8 @@
     <style>
         /* General Layout and Utility Styles */
         :root {
-            --bs-primary: #f28b00; /* Assuming this is your primary color */
-            --bs-secondary: #ff5722; /* Example secondary color */
+            --bs-primary: #f28b00; 
+            --bs-secondary: #ff5722; 
             --bs-dark: #212529;
             --mobile-nav-height: 60px;
         }
@@ -49,7 +49,7 @@
         /* ---------------------------------------------------- */
         .page-header {
             /* Default: Use Mobile Image (Mobile First Approach) */
-            background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url(https://arhamprinters.pk/img/banners/weddingmobile.webp) center center no-repeat;
+            background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url(https://res.cloudinary.com/dk3lw0rpy/image/upload/img_2025-11-24_19_18/banners/weddingmobile_xq6hxj.webp) center center no-repeat;
             background-size: cover;
             min-height: 250px;
         }
@@ -57,7 +57,7 @@
         @media (min-width: 768px) {
             .page-header {
                 /* Override: Use Desktop Image on larger screens */
-                background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url(https://arhamprinters.pk/img/banners/weddingdesktop.webp) center center no-repeat;
+                background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url(https://res.cloudinary.com/dk3lw0rpy/image/upload/img_2025-11-24_19_18/banners/weddingdesktop_hcgqch.webp) center center no-repeat;
                 background-size: cover;
                 min-height: 350px;
             }
@@ -65,7 +65,6 @@
         /* ---------------------------------------------------- */
         
         /* --- DESKTOP NAV FIX --- */
-        /* Remove margin from h1 inside the desktop navbar brand for alignment */
         .navbar-brand h1 {
             margin-top: 0;
             margin-bottom: 0;
@@ -81,7 +80,7 @@
             transition: all 0.2s ease;
             flex-grow: 1;
             min-width: 120px;
-            opacity: 1; /* Default to visible */
+            opacity: 1;
         }
         .choice-card:hover {
             border-color: var(--bs-secondary);
@@ -93,10 +92,9 @@
             color: white;
             box-shadow: 0 0 10px rgba(242, 139, 0, 0.3);
         }
-        /* Style for visually disabling non-selectable options */
         .choice-card.disabled {
             opacity: 0.5;
-            pointer-events: none; /* Disable interaction */
+            pointer-events: none; 
             border-color: #eee;
             background-color: #f7f7f7;
         }
@@ -126,30 +124,14 @@
         }
 
         /* --- MOBILE BOTTOM NAVIGATION STYLES --- */
-
-        /* 1. Mobile Bottom Bar Container */
         #mobile-bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: var(--mobile-nav-height);
-            background: white;
-            border-top: 1px solid #ddd;
-            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
-            z-index: 1030;
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
+            position: fixed; bottom: 0; left: 0; right: 0; height: var(--mobile-nav-height);
+            background: white; border-top: 1px solid #ddd; box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1030; display: flex; align-items: center; justify-content: space-around;
         }
         
-        /* **FIX 1: Ensure all 5 top-level elements take equal width** */
-        #mobile-bottom-nav > a, 
-        #mobile-bottom-nav > div {
-            flex: 1 1 0%; /* Equal distribution: 20% width per slot */
-        }
-
-        /* 2. Mobile Link Styling */
+        #mobile-bottom-nav > a, #mobile-bottom-nav > div { flex: 1 1 0%; }
+        
         .mobile-nav-link {
             flex: 1; 
             display: flex;
@@ -158,98 +140,43 @@
             text-align: center;
             text-decoration: none;
             color: var(--bs-dark);
-            font-size: 0.6rem; /* Smaller text for compact look */
+            font-size: 0.6rem; 
             padding: 5px 0;
             transition: color 0.2s;
             position: relative;
             height: 100%;
             justify-content: center;
         }
-        .mobile-nav-link:hover {
-             color: var(--bs-primary);
-        }
-        .mobile-nav-link i {
-            font-size: 1.1rem;
-            margin-bottom: 2px;
-            line-height: 1;
-        }
-        .mobile-nav-link.active {
-            color: var(--bs-primary);
-        }
+        .mobile-nav-link:hover { color: var(--bs-primary); }
+        .mobile-nav-link i { font-size: 1.1rem; margin-bottom: 2px; line-height: 1; }
+        .mobile-nav-link.active { color: var(--bs-primary); }
         
-
-/* Update the existing #mobile-nav-logo section */
-/* 3. Center Logo Button */
-#mobile-nav-logo {
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative; /* Make it relative for absolute children */
-}
-#mobile-nav-logo a {
-            background-color: var(--bs-primary);
-            color: white;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 10px rgba(242, 139, 0, 0.6);
-            position: absolute; 
-            top: -15px; 
-            /* **FIX 2: Center absolutely positioned element within its slot** */
-            left: 50%;
-            transform: translateX(-50%); 
-}
-
-/* NEW RULE: Style the image inside the centered mobile button */
-#mobile-nav-logo a img {
-    /* Ensures the image is centered and prevents vertical alignment issues */
-    vertical-align: middle; 
-    /* Ensures the image doesn't overflow the 45px circle container */
-    max-width: 80%; 
-    max-height: 80%;
-    height: auto !important; /* Overrides inline height if needed, maintaining aspect ratio */
-}
-
-#mobile-nav-logo a i {
-            font-size: 1.5rem;
-}
-        /* 4. Content Padding to clear the fixed bottom nav */
-        #shop-catalog-section, #product-detail-section, #quote-section, #contact-section {
-            padding-bottom: calc(var(--mobile-nav-height) + 15px); /* Add space for the bottom navbar */
-        }
-        
-        /* 5. Compact Category Link Styling (Removed, but keeping class definitions minimal) */
-        .categories-item a {
-            font-size: 0.75rem; 
+        #mobile-nav-logo { 
+            padding: 0;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            padding: 5px 0;
-            line-height: 1.2;
+            position: relative; 
         }
-        .categories-item a i {
-            font-size: 1.2rem; 
-            margin-bottom: 5px !important;
+        #mobile-nav-logo a {
+            background-color: var(--bs-primary); color: white; width: 45px; height: 45px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 10px rgba(242, 139, 0, 0.6); position: absolute; top: -15px; 
+            left: 50%; transform: translateX(-50%); 
         }
+
+        #mobile-nav-logo a img { vertical-align: middle; max-width: 80%; max-height: 80%; height: auto !important; }
+        #mobile-nav-logo a i { font-size: 1.5rem; }
+        
+        /* 4. Content Padding to clear the fixed bottom nav */
+        #shop-catalog-section, #product-detail-section, #quote-section, #contact-section { padding-bottom: calc(var(--mobile-nav-height) + 15px); }
         
         /* 6. Mobile Dropdown Specific Styling */
         #mobile-bottom-nav .dropdown-menu {
-            position: absolute;
-            bottom: var(--mobile-nav-height); /* Position above the nav bar */
-            left: 50%;
-            transform: translateX(-50%);
-            width: 250px;
-            box-shadow: 0 -5px 15px rgba(0,0,0,0.2);
-            border-radius: 8px 8px 0 0;
-            padding: 10px 0;
+            position: absolute; bottom: var(--mobile-nav-height); left: 50%; transform: translateX(-50%);
+            width: 250px; box-shadow: 0 -5px 15px rgba(0,0,0,0.2); border-radius: 8px 8px 0 0; padding: 10px 0;
         }
-        #mobile-bottom-nav .dropdown-item {
-             font-size: 0.8rem;
-        }
+        #mobile-bottom-nav .dropdown-item { font-size: 0.8rem; }
     </style>
 </head>
 
@@ -287,7 +214,8 @@
     <div class="d-flex w-100 justify-content-between align-items-center">
         
         <a href="index.html" class="navbar-brand d-flex align-items-center me-4">
-            <img src="https://arhamprinters.pk/img/logo2.webp" alt="Arham Printers Logo" style="height: 40px; margin-right: 1rem;">
+            <!-- Updated to Cloudinary URL -->
+            <img src="https://res.cloudinary.com/dk3lw0rpy/image/upload/img_2025-11-24_19_18/logo2_rapov8.webp" alt="Arham Printers Logo" style="height: 40px; margin-right: 1rem;">
             <span style="font-size: 0.75rem; color: #6c757d; margin-top: 15px;">Arham Printers</span>
         </a>
 
@@ -334,7 +262,8 @@
              <span>Categories</span>
          </a>
         <div class="dropdown-menu bg-light border-0">
-            <a href="products.html#business-essentials" class="dropdown-item">Business & Office Essentials</a>
+            <!-- Updated to Six Categories -->
+             <a href="products.html#business-essentials" class="dropdown-item">Business & Office Essentials</a>
              <a href="products.html#marketing-essentials" class="dropdown-item">Marketing & Promotional Items</a>
              <a href="products.html#digital-media" class="dropdown-item">Digital Media Marketing</a>
              <a href="products.html#printsing" class="dropdown-item">Custom & Large Format</a>
@@ -345,7 +274,8 @@
     
     <div id="mobile-nav-logo">
          <a href="index.html" class="mobile-nav-link-center">
-             <img src="https://arhamprinters.pk/img/logo.webp" alt="Logo" style="height: 80px;">
+             <!-- Updated to Cloudinary URL -->
+             <img src="https://res.cloudinary.com/dk3lw0rpy/image/upload/img_2025-11-24_19_18/logo_ywn9kh.webp" alt="Logo" style="height: 80px;">
          </a>
     </div>
     
@@ -371,7 +301,7 @@
                     <div class="row g-4" id="wedding-card-grid">
                         <div class="col-12 text-center" id="loading-spinner">
                             <div class="spinner-border text-primary" role="status"></div>
-                            <p>Loading Card Designs from Database...</p>
+                            <p>Loading Card Designs from Data...</p>
                         </div>
                     </div>
                 </div>
@@ -393,7 +323,8 @@
                 <div class="row g-5">
                     <div class="col-lg-6">
                         <div class="d-flex justify-content-center">
-                            <img id="detail-product-image" src="https://arhamprinters.pk/img/products/placeholder.png" class="img-fluid rounded-0" alt="Product Image" style="max-height: 400px;">
+                            <!-- Placeholder image is now handled by Cloudinary fallback logic -->
+                            <img id="detail-product-image" src="https://res.cloudinary.com/dk3lw0rpy/image/upload/img_2025-11-24_19_18/products/placeholder.png" class="img-fluid rounded-0" alt="Product Image" style="max-height: 400px;">
                         </div>
                         <h4 class="mt-4" id="card-description">Elegant card suitable for all occasions. Custom text available.</h4>
                     </div>
@@ -415,11 +346,11 @@
                             <div class="product-option-group" data-option-key="InnerCard">
                                 <label>Include Extra Inner Card? (+10 PKR per Inner)</label>
                                 <div class="d-flex gap-3">
-                                    <label class="choice-card-inner selected" id="inner-yes" onclick="setInnerSelection(true)">
+                                    <label class="choice-card selected" id="inner-yes" onclick="setInnerSelection(true)">
                                         <input type="radio" name="inner-option" value="true" checked>
                                         Yes (Required for this Card Style)
                                     </label>
-                                    <label class="choice-card-inner" id="inner-no" onclick="setInnerSelection(false)">
+                                    <label class="choice-card" id="inner-no" onclick="setInnerSelection(false)">
                                         <input type="radio" name="inner-option" value="false">
                                         No
                                     </label>
@@ -508,6 +439,7 @@
         </div>
     </section>
 
+    <!-- Footer & Scripts (Retained from original structure) -->
     <div class="container-fluid footer py-2">
         <div class="container text-center">
              <p class="text-white">Arham Printers 2025</p>
@@ -579,31 +511,38 @@
         }
 
         function initialCardSetup(flatData) {
-            const weddingData = flatData['Special Occasions (Wedding)'];
+            // Get the object containing all categorized wedding designs
+            const categorizedWeddingDesigns = flatData['Special Occasions (Wedding)']; 
             allProducts = {};
             
-            if (!weddingData) {
-                document.getElementById('wedding-card-grid').innerHTML = '<p class="alert alert-danger">Error: Wedding card data structure missing from API response. Cannot load catalog.</p>';
+            if (!categorizedWeddingDesigns) {
+                document.getElementById('wedding-card-grid').innerHTML = '<p class="alert alert-danger">Error: Wedding card data structure missing from data. Cannot load catalog.</p>';
                 return;
             }
             
-            Object.values(weddingData).forEach(card => {
-                const price100 = card.bulkPrice100 || 0;
+            // FIX: Iterate over each category and then over each card within that category
+            Object.entries(categorizedWeddingDesigns).forEach(([categoryName, cardArray]) => {
                 
-                // We must calculate a single unit cost *without* profit margin 
-                // and a fixed setup fee to feed into the tiered pricing formula.
-                
-                const FIXED_OVERHEAD = 500; // Re-introducing a standard overhead for consistency
-                const EFFECTIVE_BULK_COST = price100 - FIXED_OVERHEAD;
-                const ESTIMATED_UNIT_COST = EFFECTIVE_BULK_COST / BULK_QTY;
+                // Loop through all cards in the array
+                cardArray.forEach(card => {
+                    const cardName = card.cardName;
+                    const price100 = card.bulkPrice100 || 0;
+                    
+                    // Cost calculation logic remains the same
+                    const FIXED_OVERHEAD = 500; 
+                    const EFFECTIVE_BULK_COST = price100 - FIXED_OVERHEAD;
+                    const ESTIMATED_UNIT_COST = EFFECTIVE_BULK_COST / BULK_QTY;
 
-                allProducts[card.cardName] = { 
-                    ...card, 
-                    category: 'Special Occasions (Wedding)',
-                    bulkPrice100: price100, 
-                    estimatedUnitCost: ESTIMATED_UNIT_COST,
-                    fixedCost: FIXED_OVERHEAD // Re-introduce a consistent overhead cost
-                };
+                    // Populate the global allProducts map using the cardName as the key
+                    allProducts[cardName] = { 
+                        ...card, 
+                        // The category field will be used for grouping/display in the catalog view
+                        displayCategory: categoryName, 
+                        bulkPrice100: price100, 
+                        estimatedUnitCost: ESTIMATED_UNIT_COST,
+                        fixedCost: FIXED_OVERHEAD
+                    };
+                });
             });
         }
 
@@ -670,7 +609,7 @@
             
             return {
                 total: parseInt(price).toLocaleString('en-PK'),
-                perCard: pricePerCard.toFixed(2),
+                perCard: pricePerCard.toFixed(0),
                 benchmarkQty: BENCHMARK_QTY
             };
         }
@@ -681,8 +620,12 @@
         function setInnerSelection(selected, updatePrice = true) {
             hasInner = selected;
 
-            document.getElementById('inner-yes').classList.toggle('selected', selected);
-            document.getElementById('inner-no').classList.toggle('selected', !selected);
+            const yesLabel = document.getElementById('inner-yes');
+            const noLabel = document.getElementById('inner-no');
+            
+            // FIX: Ensure selection class is applied correctly to the labels
+            if (yesLabel) yesLabel.classList.toggle('selected', selected);
+            if (noLabel) noLabel.classList.toggle('selected', !selected);
             
             if (updatePrice) {
                 updateQuantityAndPrice(0);
@@ -696,8 +639,9 @@
             const categorizedCards = {};
             const weddingDesigns = Object.values(allProducts);
 
+            // Group cards by their displayCategory (Classic, Modern, Premium)
             weddingDesigns.forEach(card => {
-                const category = card.category;
+                const category = card.displayCategory;
                 if (!categorizedCards[category]) {
                     categorizedCards[category] = [];
                 }
@@ -713,6 +657,7 @@
             }
 
             Object.keys(categorizedCards).forEach(category => {
+                // Use the displayCategory as the sub-heading
                 cardHTML += `<h3 class="w-100 pt-5 border-top">${category}</h3>`;
 
                 categorizedCards[category].forEach(card => {
@@ -801,7 +746,8 @@
             document.getElementById('detail-product-name-body').textContent = cardName;
             document.getElementById('detail-product-image').src = currentCard.imageFile;
             document.getElementById('detail-product-image').onerror = function() {
-                this.src = `https://placehold.co/600x400/F28B00/FFF?text=${encodeURIComponent(cardName)}`;
+                // FALLBACK: Use placeholder URL if the original image fails
+                this.src = `https://placehold.co/600x400/F28B00/FFF?text=Card+${encodeURIComponent(cardName)}`;
             };
             document.getElementById('card-description').textContent = currentCard.description;
             document.getElementById('input-card-qty').value = 100;
