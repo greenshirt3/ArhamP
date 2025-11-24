@@ -334,8 +334,7 @@
              <span>Categories</span>
          </a>
         <div class="dropdown-menu bg-light border-0">
-            <!-- Updated to Six Categories -->
-             <a href="products.html#business-essentials" class="dropdown-item">Business & Office Essentials</a>
+            <a href="products.html#business-essentials" class="dropdown-item">Business & Office Essentials</a>
              <a href="products.html#marketing-essentials" class="dropdown-item">Marketing & Promotional Items</a>
              <a href="products.html#digital-media" class="dropdown-item">Digital Media Marketing</a>
              <a href="products.html#printsing" class="dropdown-item">Custom & Large Format</a>
@@ -509,7 +508,6 @@
         </div>
     </section>
 
-    <!-- Footer & Scripts (Retained from original structure) -->
     <div class="container-fluid footer py-2">
         <div class="container text-center">
              <p class="text-white">Arham Printers 2025</p>
@@ -527,9 +525,9 @@
     <script src="js/main.js"></script>
 
     <script>
-        const PUBLIC_DATA_URL = 'all_prices.json'; // Mock endpoint for wedding card data
+        const PUBLIC_DATA_URL = 'all_prices.json'; // Static JSON data source
         const WHATSAPP_NUMBER = '923006238233';
-        const API_URL = 'submit_order.php'; // Mock endpoint for email submission
+        const API_URL = 'submit_order.php'; // PHP endpoint for order submission
 
         // --- DATA STORE ---
         let allProducts = {}; // Stores all flattened card metadata
@@ -539,18 +537,18 @@
         const BULK_QTY = 100; // All prices in DB are for 100 pcs
 
         // --- FIXED INNER CARD COST ---
-        const INNER_COST_PER_CARD = 10; 
+        const INNER_COST_PER_CARD = 10;
         
         // --- PROFIT MARGINS (Retained as fixed business rules based on quantity) ---
         const PROFIT_TIERS = [
             { min: 1, max: 32, multiplier: 1.20 },
             { min: 33, max: 50, multiplier: 1.20 },
-            { min: 51, max: 100, multiplier: 1.23 }, 
-            { min: 101, max: 200, multiplier: 1.26 }, 
-            { min: 201, max: 300, multiplier: 1.30 }, 
-            { min: 301, max: 400, multiplier: 1.33 }, 
-            { min: 401, max: 500, multiplier: 1.35 }, 
-            { min: 501, max: Infinity, multiplier: 1.35 }, 
+            { min: 51, max: 100, multiplier: 1.23 },
+            { min: 101, max: 200, multiplier: 1.26 },
+            { min: 201, max: 300, multiplier: 1.30 },
+            { min: 301, max: 400, multiplier: 1.33 },
+            { min: 401, max: 500, multiplier: 1.35 },
+            { min: 501, max: Infinity, multiplier: 1.35 },
         ];
 
 
@@ -559,11 +557,12 @@
         async function initialAppLoad() {
             let rawData;
             try {
+                // Fetching static JSON file
                 const response = await fetch(PUBLIC_DATA_URL);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                rawData = await response.json(); 
+                rawData = await response.json();
             } catch (error) {
                 console.error("Failed to load shop data:", error);
                 showAlert("Failed to load wedding card data. Check console or network.", 'error');
@@ -576,11 +575,11 @@
             const spinner = document.getElementById('loading-spinner');
             if (spinner) spinner.style.display = 'none';
             
-            showSection('shop-catalog'); 
+            showSection('shop-catalog');
         }
 
         function initialCardSetup(flatData) {
-            const weddingData = flatData['Wedding Card Designs'];
+            const weddingData = flatData['Special Occasions (Wedding)'];
             allProducts = {};
             
             if (!weddingData) {
@@ -588,26 +587,23 @@
                 return;
             }
             
-            Object.keys(weddingData).forEach(category => {
-                weddingData[category].forEach(card => {
-                    // bulkPrice100 comes directly from the merged PHP data
-                    const price100 = card.bulkPrice100 || 0; 
-                    
-                    // We must calculate a single unit cost *without* profit margin 
-                    // and a fixed setup fee to feed into the tiered pricing formula.
-                    
-                    const FIXED_OVERHEAD = 500; // Re-introducing a standard overhead for consistency
-                    const EFFECTIVE_BULK_COST = price100 - FIXED_OVERHEAD;
-                    const ESTIMATED_UNIT_COST = EFFECTIVE_BULK_COST / BULK_QTY;
+            Object.values(weddingData).forEach(card => {
+                const price100 = card.bulkPrice100 || 0;
+                
+                // We must calculate a single unit cost *without* profit margin 
+                // and a fixed setup fee to feed into the tiered pricing formula.
+                
+                const FIXED_OVERHEAD = 500; // Re-introducing a standard overhead for consistency
+                const EFFECTIVE_BULK_COST = price100 - FIXED_OVERHEAD;
+                const ESTIMATED_UNIT_COST = EFFECTIVE_BULK_COST / BULK_QTY;
 
-                    allProducts[card.cardName] = { 
-                        ...card, 
-                        category: category,
-                        bulkPrice100: price100, 
-                        estimatedUnitCost: ESTIMATED_UNIT_COST,
-                        fixedCost: FIXED_OVERHEAD // Re-introduce a consistent overhead cost
-                    };
-                });
+                allProducts[card.cardName] = { 
+                    ...card, 
+                    category: 'Special Occasions (Wedding)',
+                    bulkPrice100: price100, 
+                    estimatedUnitCost: ESTIMATED_UNIT_COST,
+                    fixedCost: FIXED_OVERHEAD // Re-introduce a consistent overhead cost
+                };
             });
         }
 
@@ -628,7 +624,7 @@
             const CARD_FIXED_COST = currentCard.fixedCost;
 
             // 1. Determine the profit multiplier based on quantity tier
-            let multiplier = 1.20; 
+            let multiplier = 1.20;
             
             for (const tier of PROFIT_TIERS) {
                 if (quantity >= tier.min && quantity <= tier.max) {
@@ -659,16 +655,16 @@
 
             // Temporarily set currentCard to perform the calculation
             const originalCurrentCard = currentCard;
-            currentCard = { ...cardData, quantity: BENCHMARK_QTY }; 
+            currentCard = { ...cardData, quantity: BENCHMARK_QTY };
             
             const originalInnerState = hasInner;
-            setInnerSelection(true, false); 
+            setInnerSelection(true, false);
 
             const price = calculateFinalPrice(BENCHMARK_QTY);
             
             // Restore original state
-            setInnerSelection(originalInnerState, false); 
-            currentCard = originalCurrentCard; 
+            setInnerSelection(originalInnerState, false);
+            currentCard = originalCurrentCard;
 
             const pricePerCard = price / BENCHMARK_QTY;
             
@@ -698,11 +694,14 @@
 
         function loadWeddingCards() {
             const categorizedCards = {};
-            Object.values(allProducts).forEach(card => {
-                if (!categorizedCards[card.category]) {
-                    categorizedCards[card.category] = [];
+            const weddingDesigns = Object.values(allProducts);
+
+            weddingDesigns.forEach(card => {
+                const category = card.category;
+                if (!categorizedCards[category]) {
+                    categorizedCards[category] = [];
                 }
-                categorizedCards[card.category].push(card);
+                categorizedCards[category].push(card);
             });
             
             let cardHTML = '';
@@ -720,11 +719,12 @@
                     const cardName = card.cardName;
                     
                     // Temporarily set currentCard before calculating benchmark price
-                    const originalCurrentCard = currentCard; 
+                    const originalCurrentCard = currentCard;
                     currentCard = card;
                     const pricing = getDisplayPrice(cardName);
                     currentCard = originalCurrentCard; // Restore currentCard state
 
+                    // Image URL is now absolute from JSON
                     const imagePath = `${card.imageFile}`; 
 
                     cardHTML += `
@@ -748,7 +748,7 @@
         
         function updateQuantityAndPrice(change = 0) {
             const input = document.getElementById('input-card-qty');
-            let quantity = parseInt(input.value) || 1; 
+            let quantity = parseInt(input.value) || 1;
             const MIN_QTY = 1;
             
             if (change !== 0) {
@@ -773,7 +773,7 @@
                 // Update the hidden product field for the quote form
                 currentCard.totalPrice = totalPrice;
                 currentCard.quantity = quantity;
-                currentCard.hasInner = hasInner; 
+                currentCard.hasInner = hasInner;
                 document.getElementById('quote-product').value = `${currentCard.cardName} (${quantity} pcs)`;
 
             } else {
@@ -790,21 +790,21 @@
                 cardName: cardName,
                 imageFile: cardData.imageFile,
                 description: cardData.description,
-                bulkPrice100: cardData.bulkPrice100, 
+                bulkPrice100: cardData.bulkPrice100,
                 estimatedUnitCost: cardData.estimatedUnitCost,
                 fixedCost: cardData.fixedCost
             };
             
-            setInnerSelection(true, false); 
+            setInnerSelection(true, false);
 
             document.getElementById('detail-product-name-header').textContent = cardName;
             document.getElementById('detail-product-name-body').textContent = cardName;
-            document.getElementById('detail-product-image').src = currentCard.imageFile; 
+            document.getElementById('detail-product-image').src = currentCard.imageFile;
             document.getElementById('detail-product-image').onerror = function() {
                 this.src = `https://placehold.co/600x400/F28B00/FFF?text=${encodeURIComponent(cardName)}`;
             };
-            document.getElementById('card-description').textContent = currentCard.description; 
-            document.getElementById('input-card-qty').value = 100; 
+            document.getElementById('card-description').textContent = currentCard.description;
+            document.getElementById('input-card-qty').value = 100;
 
             // Update UI hint for fixed cost
             document.getElementById('fixed-cost-display').textContent = `**Base Price (100 pcs: PKR ${currentCard.bulkPrice100.toFixed(0)}) used for calculation. Fixed overhead of ${currentCard.fixedCost} PKR applied.**`;
