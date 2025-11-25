@@ -526,18 +526,16 @@
 
     <script>
         // --- Configuration (UPDATED) ---
-        const PUBLIC_DATA_URL = 'all_prices.json'; // Now fetching from the local JSON file
+        const PUBLIC_DATA_URL = 'all_prices.json'; // Fetching from the local JSON file
         const WHATSAPP_NUMBER = '923006238233';
-        const API_URL = 'submit_order.php'; // Mock endpoint for email submission
+        const API_URL = 'submit_order.php'; 
 
         // --- DATA STORE ---
         let allProducts = {}; // Stores all flattened card metadata
         let currentCard = null;
-        let hasInner = true; // Default selection for inner card
+        let hasInner = true; 
         
-        const BULK_QTY = 100; // All prices in DB are for 100 pcs
-
-        // --- FIXED INNER CARD COST ---
+        const BULK_QTY = 100; 
         const INNER_COST_PER_CARD = 10; 
         
         // --- PROFIT MARGINS (Retained as fixed business rules based on quantity) ---
@@ -553,7 +551,7 @@
         ];
 
 
-        // --- INITIALIZATION AND FETCHING (UPDATED) ---
+        // --- INITIALIZATION AND FETCHING (FIXED) ---
 
         async function initialAppLoad() {
             let rawData;
@@ -578,59 +576,45 @@
             showSection('shop-catalog'); 
         }
 
+        /**
+         * FIX: Correctly maps the flat wedding data structure and ensures image paths are correct.
+         */
         function initialCardSetup(flatData) {
-            // FIX: Correctly access the 'Special Occasions (Wedding)' key from the JSON file
             const weddingData = flatData['Special Occasions (Wedding)']; 
             allProducts = {};
             
-            if (!weddingData) {
-                document.getElementById('wedding-card-grid').innerHTML = '<p class="alert alert-danger">Error: Wedding card data structure missing from JSON response. Cannot load catalog.</p>';
+            if (!weddingData || Object.keys(weddingData).length === 0) {
+                document.getElementById('wedding-card-grid').innerHTML = '<p class="alert alert-danger">Error: Wedding card data structure missing from JSON response or empty.</p>';
                 return;
             }
             
+            // Loop through the product keys in the JSON
             Object.keys(weddingData).forEach(cardName => {
                 const card = weddingData[cardName];
-                // bulkPrice100 comes directly from the merged JSON data
                 const price100 = card.bulkPrice100 || 0; 
                 
-                // Extract the image file name from the Cloudinary URL and ensure a local path is used
-                let imagePath = card.imageFile || 'img/wedding/placeholder.webp'; 
-                // Simple check to use a local path if the path ends with .webp or .png 
-                if (imagePath.includes('cloudinary') && imagePath.includes('wedding/')) {
-                    // Extract the part after the last '/'
-                    const filename = imagePath.substring(imagePath.lastIndexOf('/') + 1);
-                    // Standardize to local path
-                    imagePath = `img/wedding/${filename}`;
-                } else if (!imagePath.includes('img/')) {
-                     // If it's just the filename, prepend the local folder
-                     imagePath = `img/wedding/${imagePath.replace('.webp', '_1.webp').replace('.png', '_1.png')}`;
-                }
+                // Use the imageFile property which is already set to the local path in the final JSON
+                const imagePath = card.imageFile || 'img/wedding/placeholder.webp'; 
                 
-                
-                const FIXED_OVERHEAD = 500; // Re-introducing a standard overhead for consistency
+                const FIXED_OVERHEAD = 500; 
                 const EFFECTIVE_BULK_COST = price100 - FIXED_OVERHEAD;
                 const ESTIMATED_UNIT_COST = EFFECTIVE_BULK_COST / BULK_QTY;
 
                 allProducts[cardName] = { 
                     ...card, 
-                    category: 'Wedding Cards', // Hardcoded category as flat data is only wedding
+                    cardName: cardName, // Ensure cardName is explicitly stored
+                    category: 'Wedding Cards', 
                     bulkPrice100: price100, 
                     estimatedUnitCost: ESTIMATED_UNIT_COST,
                     fixedCost: FIXED_OVERHEAD,
-                    imageFile: imagePath // Use the modified local path
+                    imageFile: imagePath 
                 };
             });
         }
 
 
-        // --- PRICING CALCULATION LOGIC (USES DYNAMIC FETCHED PRICES) ---
+        // --- PRICING CALCULATION LOGIC ---
 
-        /**
-         * Calculates the final price using the Cost-Plus formula with tiered profit margins
-         * and includes the optional extra inner card cost.
-         * @param {number} quantity - Number of cards.
-         * @returns {number} The final calculated price.
-         */
         function calculateFinalPrice(quantity) {
             if (quantity < 1 || !currentCard) return 0;
             
@@ -679,9 +663,6 @@
             };
         }
 
-        /**
-         * Sets the state of the inner card selection and triggers a price update.
-         */
         function setInnerSelection(selected, updatePrice = true) {
             hasInner = selected;
 
@@ -694,15 +675,18 @@
         }
 
 
-        // --- DATA RENDERING FUNCTIONS (UPDATED IMAGE PATH LOGIC) ---
+        // --- DATA RENDERING FUNCTIONS (FIXED) ---
 
         function loadWeddingCards() {
             const categorizedCards = {};
             Object.values(allProducts).forEach(card => {
-                if (!categorizedCards[card.category]) {
-                    categorizedCards[card.category] = [];
+                // Since the JSON structure is flat under 'Special Occasions (Wedding)', all cards
+                // belong to the 'Wedding Cards' category defined in initialCardSetup.
+                const category = card.category; 
+                if (!categorizedCards[category]) {
+                    categorizedCards[category] = [];
                 }
-                categorizedCards[card.category].push(card);
+                categorizedCards[category].push(card);
             });
             
             let cardHTML = '';
@@ -714,7 +698,8 @@
             }
 
             Object.keys(categorizedCards).forEach(category => {
-                cardHTML += `<h3 class="w-100 pt-5 border-top">${category}</h3>`;
+                // Only show the header if there is more than one category or if we want a clear title
+                cardHTML += `<h3 class="w-100 pt-5 border-top">${category}</h3>`; 
 
                 categorizedCards[category].forEach(card => {
                     const cardName = card.cardName;
@@ -724,14 +709,14 @@
                     const pricing = getDisplayPrice(cardName);
                     currentCard = originalCurrentCard; 
 
-                    // FIX: Use the processed local image path
-                    const imagePath = `${card.imageFile}`; 
+                    // Use the stored image path
+                    const imagePath = card.imageFile; 
 
                     cardHTML += `
                         <div class='col-lg-3 col-6 mb-4'>
                             <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
                                 <span class='card-price rounded-0'>PKR ${pricing.perCard} / pc (at ${pricing.benchmarkQty} pcs)</span>
-                                <img src='${imagePath}' onerror="this.onerror=null;this.src='https://placehold.co/400x400/F28B00/FFF?text=Card+${cardName.replace(/[^\d]/g, '')}'" class='w-100' alt='${cardName}'>
+                                <img src='${imagePath}' onerror="this.onerror=null;this.src='img/wedding/placeholder.webp';" class='w-100' alt='${cardName}'>
                                 <div class="product-footer-overlay p-0">
                                     <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showCardDetails('${cardName}')">
                                         <i class="fas fa-search me-2"></i> View Details
@@ -766,11 +751,8 @@
                 document.getElementById('finalPriceBox').style.display = 'block';
                 document.getElementById('selectionWarning').style.display = 'none';
 
-                // Update UI hint for fixed cost (now dynamic)
                 document.getElementById('fixed-cost-display').textContent = `**Base Price (100 pcs: PKR ${currentCard.bulkPrice100.toFixed(0)}) used for calculation. Fixed overhead of ${currentCard.fixedCost} PKR applied.**`;
 
-
-                // Update the hidden product field for the quote form
                 currentCard.totalPrice = totalPrice;
                 currentCard.quantity = quantity;
                 currentCard.hasInner = hasInner; 
@@ -786,36 +768,29 @@
             const cardData = allProducts[cardName];
             if (!cardData) return;
 
-            currentCard = {
-                cardName: cardName,
-                imageFile: cardData.imageFile,
-                description: cardData.description,
-                bulkPrice100: cardData.bulkPrice100, 
-                estimatedUnitCost: cardData.estimatedUnitCost,
-                fixedCost: cardData.fixedCost
-            };
+            currentCard = cardData; // Use the stored object directly
             
             setInnerSelection(true, false); 
 
             document.getElementById('detail-product-name-header').textContent = cardName;
             document.getElementById('detail-product-name-body').textContent = cardName;
-            // FIX: Use the stored local image path
+            
+            // FIX: Use the stored image file path
             document.getElementById('detail-product-image').src = currentCard.imageFile; 
             document.getElementById('detail-product-image').onerror = function() {
-                this.src = `https://placehold.co/600x400/F28B00/FFF?text=${encodeURIComponent(cardName)}`;
+                this.src = `img/wedding/placeholder.webp`; // Fallback image path
             };
+            
             document.getElementById('card-description').textContent = currentCard.description; 
             document.getElementById('input-card-qty').value = 100; 
 
-            // Update UI hint for fixed cost
             document.getElementById('fixed-cost-display').textContent = `**Base Price (100 pcs: PKR ${currentCard.bulkPrice100.toFixed(0)}) used for calculation. Fixed overhead of ${currentCard.fixedCost} PKR applied.**`;
-
 
             showSection('product-detail');
             updateQuantityAndPrice(0);
         }
 
-        // --- ORDER SUBMISSION AND ALERT FUNCTIONS ---
+        // --- ORDER SUBMISSION AND ALERT FUNCTIONS (Unchanged, retained for completeness) ---
         
         async function submitOrder(type) {
             if (!currentCard || currentCard.totalPrice === 0) {
@@ -836,7 +811,6 @@
 
             showAlert('Sending order details to server...', 'info');
 
-            // NOTE: Mock API call is kept as is since the objective is client-side refactoring
             try {
                 const response = await fetch(API_URL, {
                     method: 'POST',
