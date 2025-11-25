@@ -407,11 +407,12 @@
                                     <input type="number" id="input-card-qty" min="1" value="1" step="1" class="form-control text-center rounded-0" oninput="updateQuantityAndPrice()">
                                     <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityAndPrice(5)">+5</button>
                                 </div>
-                                <small class="text-muted mt-2 d-block">Minimum order: 1 piece. <span id="fixed-cost-display">**Bulk Price (100 pcs) used as base.**</span></small>
+                                 <small class="text-muted mt-2 d-block">Minimum order: 1 piece. <span id="fixed-cost-display">**Price of (100 pcs) is used as base.**</span></small>
                             </div>
+                              </div>
 
                             <div class="product-option-group" data-option-key="InnerCard">
-                                <label>Include Extra Inner Card? (+10 PKR per Inner)</label>
+                                <label>Include Extra Inner Card?</label>
                                 <div class="d-flex gap-3">
                                     <label class="choice-card-inner selected" id="inner-yes" onclick="setInnerSelection(true)">
                                         <input type="radio" name="inner-option" value="true" checked>
@@ -893,4 +894,7 @@
 </div>
 </body>
 </html>
+
+
+
 
