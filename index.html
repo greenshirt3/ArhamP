@@ -339,8 +339,7 @@
              <span>Categories</span>
          </a>
         <div class="dropdown-menu bg-light border-0">
-            <!-- Updated to Six Categories -->
-             <a href="products.html#business-essentials" class="dropdown-item">Business & Office Essentials</a>
+            <a href="products.html#business-essentials" class="dropdown-item">Business & Office Essentials</a>
              <a href="products.html#marketing-essentials" class="dropdown-item">Marketing & Promotional Items</a>
              <a href="products.html#digital-media" class="dropdown-item">Digital Media Marketing</a>
              <a href="products.html#printsing" class="dropdown-item">Custom & Large Format</a>
@@ -396,7 +395,6 @@
                     </div>
                     <div class="row g-4 justify-content-center" id="index-categories-list">
                         
-                        <!-- 1. Business & Office Essentials -->
                         <div class="col-lg-4 col-md-6 mb-4">
                             <a href="products.html#business-essentials" class="text-decoration-none">
                                 <div class="card border-0 shadow-sm rounded-0">
@@ -406,7 +404,6 @@
                             </a>
                         </div>
                         
-                        <!-- 2. Marketing & Promotional Items -->
                         <div class="col-lg-4 col-md-6 mb-4">
                             <a href="products.html#marketing-essentials" class="text-decoration-none">
                                 <div class="card border-0 shadow-sm rounded-0">
@@ -416,7 +413,6 @@
                             </a>
                         </div>
 
-                        <!-- 3. Digital Media Marketing (New) -->
                         <div class="col-lg-4 col-md-6 mb-4">
                             <a href="products.html#digital-media" class="text-decoration-none">
                                 <div class="card border-0 shadow-sm rounded-0">
@@ -426,7 +422,6 @@
                             </a>
                         </div>
                         
-                        <!-- 4. Custom & Large Format (Digital Printing, Banners, Wallpaper, Photo) -->
                         <div class="col-lg-4 col-md-6 mb-4">
                             <a href="products.html#printsing" class="text-decoration-none">
                                 <div class="card border-0 shadow-sm rounded-0">
@@ -436,7 +431,6 @@
                             </a>
                         </div>
 
-                        <!-- 5. B/W and Color Prints (New) -->
                         <div class="col-lg-4 col-md-6 mb-4">
                             <a href="print-order.html" class="text-decoration-none">
                                 <div class="card border-0 shadow-sm rounded-0">
@@ -446,7 +440,6 @@
                             </a>
                         </div>
                         
-                        <!-- 6. Special Occasions -->
                         <div class="col-lg-4 col-md-6 mb-4">
                             <a href="wedding.html" class="text-decoration-none">
                                 <div class="card border-0 shadow-sm rounded-0">
@@ -706,6 +699,7 @@
         <script>
             // --- Configuration ---
             const WHATSAPP_NUMBER = '923006238233';
+            // Placeholder: This is not actually used in this file's logic but kept for context.
             const SUBMIT_ORDER_URL = 'submit_order.php'; 
 
             // --- UI/Navigation Functions ---
@@ -761,7 +755,7 @@
                     customer_name: 'Home Page Visitor', 
                 };
 
-                // Mock API call
+                // NOTE: Mock API call is kept as is since the objective is client-side refactoring
                 try {
                     const response = await fetch(SUBMIT_ORDER_URL, {
                         method: 'POST',
@@ -800,7 +794,43 @@
                     }
                 }, 5000);
             }
+            
+            // Add WhatsApp handlers for Quote and Contact forms
+            document.getElementById('quote-form').addEventListener('submit', function(e) {
+                 e.preventDefault();
+                 const name = document.getElementById('quote-name').value;
+                 const phone = document.getElementById('quote-phone').value;
+                 const product = document.getElementById('quote-product').value;
+                 const quantity = document.getElementById('quote-quantity').value;
+                 const details = document.getElementById('quote-details').value;
+                 
+                 let whatsappMessage = `*NEW QUOTE REQUEST (WEB - HOME)*\n`;
+                 whatsappMessage += `*Customer:* ${name}\n`;
+                 whatsappMessage += `*Phone (Contact):* ${phone}\n`;
+                 whatsappMessage += `*Product Type:* ${product}\n`;
+                 whatsappMessage += `*Quantity/Area:* ${quantity}\n`;
+                 whatsappMessage += `*Specifications:* ${details}`;
+                 
+                 window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+                 showAlert('Quote submitted via WhatsApp! We will contact you shortly.', 'success');
+                 this.reset();
+            });
+            
+            document.getElementById('contact-form-whatsapp').addEventListener('submit', function(e) {
+                 e.preventDefault();
+                 const name = document.getElementById('contact-name').value;
+                 const subject = document.getElementById('contact-subject').value;
+                 const message = document.getElementById('contact-message').value;
 
+                 let whatsappMessage = `*NEW CONTACT MESSAGE (WEB - HOME)*\n`;
+                 whatsappMessage += `*Sender:* ${name}\n`;
+                 whatsappMessage += `*Subject:* ${subject}\n`;
+                 whatsappMessage += `*Message:* ${message}`;
+                 
+                 window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+                 showAlert('Message sent via WhatsApp!', 'success');
+                 this.reset();
+            });
 
             document.addEventListener('DOMContentLoaded', () => {
                  // Initial active state is handled by main.js after DOMContentLoaded

@@ -334,8 +334,7 @@
              <span>Categories</span>
          </a>
         <div class="dropdown-menu bg-light border-0">
-            <!-- Updated to Six Categories -->
-             <a href="products.html#business-essentials" class="dropdown-item">Business & Office Essentials</a>
+            <a href="products.html#business-essentials" class="dropdown-item">Business & Office Essentials</a>
              <a href="products.html#marketing-essentials" class="dropdown-item">Marketing & Promotional Items</a>
              <a href="products.html#digital-media" class="dropdown-item">Digital Media Marketing</a>
              <a href="products.html#printsing" class="dropdown-item">Custom & Large Format</a>
@@ -509,7 +508,6 @@
         </div>
     </section>
 
-    <!-- Footer & Scripts (Retained from original structure) -->
     <div class="container-fluid footer py-2">
         <div class="container text-center">
              <p class="text-white">Arham Printers 2025</p>
@@ -527,7 +525,8 @@
     <script src="js/main.js"></script>
 
     <script>
-        const PUBLIC_DATA_URL = 'get_prices.php'; 
+        // --- Configuration (UPDATED) ---
+        const PUBLIC_DATA_URL = 'all_prices.json'; // Now fetching from the local JSON file
         const WHATSAPP_NUMBER = '923006238233';
         const API_URL = 'submit_order.php'; // Mock endpoint for email submission
 
@@ -554,7 +553,7 @@
         ];
 
 
-        // --- INITIALIZATION AND FETCHING ---
+        // --- INITIALIZATION AND FETCHING (UPDATED) ---
 
         async function initialAppLoad() {
             let rawData;
@@ -580,34 +579,46 @@
         }
 
         function initialCardSetup(flatData) {
-            const weddingData = flatData['Wedding Card Designs'];
+            // FIX: Correctly access the 'Special Occasions (Wedding)' key from the JSON file
+            const weddingData = flatData['Special Occasions (Wedding)']; 
             allProducts = {};
             
             if (!weddingData) {
-                document.getElementById('wedding-card-grid').innerHTML = '<p class="alert alert-danger">Error: Wedding card data structure missing from API response. Cannot load catalog.</p>';
+                document.getElementById('wedding-card-grid').innerHTML = '<p class="alert alert-danger">Error: Wedding card data structure missing from JSON response. Cannot load catalog.</p>';
                 return;
             }
             
-            Object.keys(weddingData).forEach(category => {
-                weddingData[category].forEach(card => {
-                    // bulkPrice100 comes directly from the merged PHP data
-                    const price100 = card.bulkPrice100 || 0; 
-                    
-                    // We must calculate a single unit cost *without* profit margin 
-                    // and a fixed setup fee to feed into the tiered pricing formula.
-                    
-                    const FIXED_OVERHEAD = 500; // Re-introducing a standard overhead for consistency
-                    const EFFECTIVE_BULK_COST = price100 - FIXED_OVERHEAD;
-                    const ESTIMATED_UNIT_COST = EFFECTIVE_BULK_COST / BULK_QTY;
+            Object.keys(weddingData).forEach(cardName => {
+                const card = weddingData[cardName];
+                // bulkPrice100 comes directly from the merged JSON data
+                const price100 = card.bulkPrice100 || 0; 
+                
+                // Extract the image file name from the Cloudinary URL and ensure a local path is used
+                let imagePath = card.imageFile || 'img/wedding/placeholder.webp'; 
+                // Simple check to use a local path if the path ends with .webp or .png 
+                if (imagePath.includes('cloudinary') && imagePath.includes('wedding/')) {
+                    // Extract the part after the last '/'
+                    const filename = imagePath.substring(imagePath.lastIndexOf('/') + 1);
+                    // Standardize to local path
+                    imagePath = `img/wedding/${filename}`;
+                } else if (!imagePath.includes('img/')) {
+                     // If it's just the filename, prepend the local folder
+                     imagePath = `img/wedding/${imagePath.replace('.webp', '_1.webp').replace('.png', '_1.png')}`;
+                }
+                
+                
+                const FIXED_OVERHEAD = 500; // Re-introducing a standard overhead for consistency
+                const EFFECTIVE_BULK_COST = price100 - FIXED_OVERHEAD;
+                const ESTIMATED_UNIT_COST = EFFECTIVE_BULK_COST / BULK_QTY;
 
-                    allProducts[card.cardName] = { 
-                        ...card, 
-                        category: category,
-                        bulkPrice100: price100, 
-                        estimatedUnitCost: ESTIMATED_UNIT_COST,
-                        fixedCost: FIXED_OVERHEAD // Re-introduce a consistent overhead cost
-                    };
-                });
+                allProducts[cardName] = { 
+                    ...card, 
+                    category: 'Wedding Cards', // Hardcoded category as flat data is only wedding
+                    bulkPrice100: price100, 
+                    estimatedUnitCost: ESTIMATED_UNIT_COST,
+                    fixedCost: FIXED_OVERHEAD,
+                    imageFile: imagePath // Use the modified local path
+                };
             });
         }
 
@@ -623,11 +634,9 @@
         function calculateFinalPrice(quantity) {
             if (quantity < 1 || !currentCard) return 0;
             
-            // Use card-specific derived cost and fixed fee
             const CARD_UNIT_COST = currentCard.estimatedUnitCost;
             const CARD_FIXED_COST = currentCard.fixedCost;
 
-            // 1. Determine the profit multiplier based on quantity tier
             let multiplier = 1.20; 
             
             for (const tier of PROFIT_TIERS) {
@@ -637,16 +646,9 @@
                 }
             }
             
-            // 2. Calculate BASE Variable Cost (Card Unit Cost * Quantity)
             const baseVariableCost = CARD_UNIT_COST * quantity;
-
-            // 3. Calculate INNER Card Cost (Conditional)
             const innerCost = hasInner ? (INNER_COST_PER_CARD * quantity) : 0;
-            
-            // 4. Calculate Total Cost (BASE Variable + INNER Variable + Fixed Overhead)
             const totalCostBeforeProfit = baseVariableCost + innerCost + CARD_FIXED_COST;
-            
-            // 5. Apply Profit Margin
             const finalPrice = Math.round(totalCostBeforeProfit * multiplier);
             
             return finalPrice;
@@ -657,7 +659,6 @@
             const cardData = allProducts[cardName];
             if (!cardData) return { total: 0, perCard: '0.00', benchmarkQty: BENCHMARK_QTY };
 
-            // Temporarily set currentCard to perform the calculation
             const originalCurrentCard = currentCard;
             currentCard = { ...cardData, quantity: BENCHMARK_QTY }; 
             
@@ -666,7 +667,6 @@
 
             const price = calculateFinalPrice(BENCHMARK_QTY);
             
-            // Restore original state
             setInnerSelection(originalInnerState, false); 
             currentCard = originalCurrentCard; 
 
@@ -694,7 +694,7 @@
         }
 
 
-        // --- DATA RENDERING FUNCTIONS ---
+        // --- DATA RENDERING FUNCTIONS (UPDATED IMAGE PATH LOGIC) ---
 
         function loadWeddingCards() {
             const categorizedCards = {};
@@ -719,12 +719,12 @@
                 categorizedCards[category].forEach(card => {
                     const cardName = card.cardName;
                     
-                    // Temporarily set currentCard before calculating benchmark price
                     const originalCurrentCard = currentCard; 
                     currentCard = card;
                     const pricing = getDisplayPrice(cardName);
-                    currentCard = originalCurrentCard; // Restore currentCard state
+                    currentCard = originalCurrentCard; 
 
+                    // FIX: Use the processed local image path
                     const imagePath = `${card.imageFile}`; 
 
                     cardHTML += `
@@ -799,6 +799,7 @@
 
             document.getElementById('detail-product-name-header').textContent = cardName;
             document.getElementById('detail-product-name-body').textContent = cardName;
+            // FIX: Use the stored local image path
             document.getElementById('detail-product-image').src = currentCard.imageFile; 
             document.getElementById('detail-product-image').onerror = function() {
                 this.src = `https://placehold.co/600x400/F28B00/FFF?text=${encodeURIComponent(cardName)}`;
@@ -835,6 +836,7 @@
 
             showAlert('Sending order details to server...', 'info');
 
+            // NOTE: Mock API call is kept as is since the objective is client-side refactoring
             try {
                 const response = await fetch(API_URL, {
                     method: 'POST',
