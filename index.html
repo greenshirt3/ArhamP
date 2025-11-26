@@ -4,30 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grand Launch! New Arham Printers Website</title>
+    
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: #f4f4f4; color: #333; }
-        .container { max-width: 700px; margin: 0 auto; background: white; padding: 40px; border-radius: 8px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); }
-        h1 { color: #f28b00; margin-bottom: 20px; font-size: 2.5em; }
-        .discount { color: #ff5722; font-weight: bold; font-size: 1.3em; margin-top: 15px; }
-        .contact { margin-top: 30px; font-size: 1.1em; }
+        :root {
+            --bs-primary: #f28b00;
+            --bs-dark: #212529;
+        }
+        body { 
+            font-family: 'Open Sans', Arial, sans-serif; 
+            text-align: center; 
+            padding: 20px; 
+            background-color: #f8fafc; 
+            color: var(--bs-dark);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container-box { 
+            max-width: 600px; 
+            margin: 20px auto; 
+            background: white; 
+            padding: 30px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
+            border-top: 5px solid var(--bs-primary);
+        }
+        h1 { 
+            color: var(--bs-primary); 
+            margin-bottom: 20px; 
+            font-size: 1.8rem; /* Smaller on mobile */
+            font-weight: 700;
+        }
+        .announcement-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        .discount { 
+            color: #ff5722; 
+            font-weight: bold; 
+            font-size: 1.2rem;
+            margin-top: 20px;
+            padding: 15px;
+            border: 2px dashed #ff5722;
+            border-radius: 5px;
+        }
+        .contact { 
+            margin-top: 30px; 
+            font-size: 1rem; 
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+        }
+        .phone-number {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--bs-dark);
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* Adjustments for larger screens (if needed) */
+        @media (min-width: 576px) {
+            h1 {
+                font-size: 2.5rem; 
+            }
+            .container-box {
+                padding: 50px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🚀 Grand Launch! New ArhamPrinters.pk Arriving Soon!</h1>
-        
-        <p>Our team is putting the final touches on a completely revamped website, designed to make your professional printing and custom ordering faster and easier.</p>
-        
-        <div class="discount">
-            We are excited to announce special student discounts on printing services for assignments and other classwork to help you succeed!
-        </div>
-        
-        <p style="margin-top: 20px;">**The site is being deployed and will be live in minutes!**</p>
-        <p>Thank you for your patience as we finalize this major upgrade.</p>
-        
-        <div class="contact">
-            For urgent orders or immediate inquiries, please call us:
-            <p style="margin-top: 5px; font-weight: bold;">📞 +92 300 6238233</p>
+        <div class="container-box">
+            <h1>🚀 Grand Launch! New ArhamPrinters.pk Arriving Soon!</h1>
+            
+            <p class="announcement-text">Our team is putting the final touches on a completely revamped website, designed to make your professional printing and custom ordering faster and easier.</p>
+
+            <div class="discount">
+                We are excited to announce special student discounts on printing services for assignments and other classwork to help you succeed!
+            </div>
+            
+            <p style="margin-top: 20px; font-weight: 600;">**The site is being deployed and will be live in minutes!**</p>
+            <p>Thank you for your patience as we finalize this major upgrade.</p>
+            
+            <div class="contact">
+                For urgent orders or immediate inquiries, please call us:
+                <span class="phone-number">📞 +92 300 6238233</span>
+            </div>
         </div>
     </div>
 </body>
