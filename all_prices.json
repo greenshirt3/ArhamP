@@ -7,15 +7,15 @@
         "Mat Cards": [
             { "finish": "Plain Corners", "variant_3": "Single Side", "price": 2000.00, "imageFile": "img/products/matcards.webp" },
             { "finish": "Round Corners", "variant_3": "Single Side", "price": 2200.00, "imageFile": "img/products/matcards.webp" },
-            { "finish": "Plain Corners", "variant_3": "Double Side", "price": 2500.00, "imageFile": "img/products/matcards.webp" },
-            { "finish": "Round Corners", "variant_3": "Double Side", "price": 2800.00, "imageFile": "img/products/matcards.webp" }
+            { "finish": "Plain Corners", "variant_3": "Double Side", "price": 2800.00, "imageFile": "img/products/matcards.webp" },
+            { "finish": "Round Corners", "variant_3": "Double Side", "price": 3009.00, "imageFile": "img/products/matcards.webp" }
         ],
         "UV Cards": [
-            { "finish": "Round Corners", "variant_3": "Single Side", "price": 2200.00, "imageFile": "img/products/uvcard.webp" },
-            { "finish": "Round Corners", "variant_3": "Double Side", "price": 2500.00, "imageFile": "img/products/uvcard.webp" }
+            { "finish": "Round Corners", "variant_3": "Single Side", "price": 2500.00, "imageFile": "img/products/uvcard.webp" },
+            { "finish": "Round Corners", "variant_3": "Double Side", "price": 3200.00, "imageFile": "img/products/uvcard.webp" }
         ],
         "UV Thick Cards": [
-            { "price": 1800.00, "imageFile": "img/products/thickcard.webp" }
+            { "price": 6500.00, "imageFile": "img/products/thickcard.webp" }
         ],
         "Photo Printing": [
             { "variant_3": "7x5", "price": 40.00, "imageFile": "img/products/photos.webp" },
