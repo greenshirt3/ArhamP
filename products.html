@@ -293,8 +293,7 @@
         
         <a href="index.html" class="navbar-brand d-flex align-items-center me-4">
             <img src="img/logo2.webp" alt="Arham Printers Logo" style="height: 40px; margin-right: 1rem;">
-            <span style="font-size: 0.75rem; color: #6c757d; margin-top: 15px;">Arham Printers</span>
-        </a>
+                  </a>
 
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
@@ -367,7 +366,7 @@
     
     <section id="shop-catalog-section" class="section active">
         <div class="container-fluid page-header py-5">
-            <h2 class="text-center text-white display-6">Products and Services</h2>
+            <h2 class="text-center display-6">Products and Services</h2>
         </div>
     
   <div class="container py-5">
@@ -768,7 +767,7 @@
                             <h4 class="mb-2">Final Price (PKR)</h4>
                             <h3 class="display-6 fw-bold" id="finalPriceDisplay">PKR 0</h3>
                             
-                            <button class="btn btn-primary py-2 px-4 w-100 mt-3" id="placeOrderButton">
+                            <button class="btn btn-primary py-2 px-4 w-100 mt-3" onclick="submitOrder('product_order')">
                                 <i class="fas fa-envelope me-2"></i> Place Order
                             </button>
                         </div>
@@ -796,41 +795,41 @@
                 <div class="row g-4 justify-content-center">
                     <div class="col-lg-8">
                         <div class="bg-light p-4 rounded">
-                            <form id="quote-form" name="quote-form">
+                            <form id="quote-form" onsubmit="handleQuoteSubmission(event)">
                                 <h3 class="mb-4">Quick Inquiry</h3>
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control border-0" id="quote-name" name="name" placeholder="Your Name" required>
+                                            <input type="text" class="form-control border-0" id="quote-name" placeholder="Your Name" required>
                                             <label for="quote-name">Your Name</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="tel" class="form-control border-0" id="quote-phone" name="phone" placeholder="WhatsApp Phone" required>
+                                            <input type="tel" class="form-control border-0" id="quote-phone" placeholder="WhatsApp Phone" required>
                                             <label for="quote-phone">WhatsApp Phone</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control border-0" id="quote-product" name="product" placeholder="Product Name (e.g., Visiting Cards, 3D Wallpaper)">
+                                            <input type="text" class="form-control border-0" id="quote-product" placeholder="Product Name (e.g., Visiting Cards, 3D Wallpaper)">
                                             <label for="quote-product">Product Name / Type</label>
                                         </div>
                                     </div>
                                      <div class="col-12">
                                         <div class="form-floating">
-                                            <input type="number" class="form-control border-0" id="quote-quantity" name="quantity" placeholder="Quantity or Total Area (e.g., 500 cards, 100 sq ft)">
+                                            <input type="number" class="form-control border-0" id="quote-quantity" placeholder="Quantity or Total Area (e.g., 500 cards, 100 sq ft)">
                                             <label for="quote-quantity">Quantity / Estimated Area</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <textarea class="form-control border-0" placeholder="Details of your inquiry (Size, Finish, Quality, Message)" id="quote-details" name="details" style="height: 150px" required></textarea>
+                                            <textarea class="form-control border-0" placeholder="Details of your inquiry (Size, Finish, Quality, Message)" id="quote-details" style="height: 150px" required></textarea>
                                             <label for="quote-details">Inquiry Message / Specifications</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <button class="btn btn-primary w-100 py-3" type="submit">Submit Quote</button>
+                                        <button class="btn btn-primary w-100 py-3" type="submit">Submit Quote via WhatsApp</button>
                                     </div>
                                 </div>
                             </form>
@@ -890,29 +889,29 @@
                     
                     <div class="col-lg-8">
                         <div class="bg-light p-4 rounded">
-                            <form id="contact-form-email" name="contact-form">
+                            <form id="contact-form-whatsapp" onsubmit="handleContactSubmission(event)">
                                 <h3 class="mb-4">Send a Direct Message</h3>
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control border-0" id="contact-name" name="name" placeholder="Your Name" required>
+                                            <input type="text" class="form-control border-0" id="contact-name" placeholder="Your Name" required>
                                             <label for="contact-name">Your Name</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control border-0" id="contact-subject" name="subject" placeholder="Subject" required>
+                                            <input type="text" class="form-control border-0" id="contact-subject" placeholder="Subject" required>
                                             <label for="contact-subject">Subject</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <textarea class="form-control border-0" placeholder="Leave a message here" id="contact-message" name="details" style="height: 150px" required></textarea>
+                                            <textarea class="form-control border-0" placeholder="Leave a message here" id="contact-message" style="height: 150px" required></textarea>
                                             <label for="contact-message">Message</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <button class="btn btn-primary w-100 py-3" type="submit">Send Message</button>
+                                        <button class="btn btn-primary w-100 py-3" type="submit">Send Message via WhatsApp</button>
                                     </div>
                                 </div>
                             </form>
@@ -992,7 +991,7 @@
                         <div class="col-12 text-center">
                             <span class="text-white small">
                                 <i class="fas fa-copyright text-light me-1"></i>
-                                Arham Printers 2025.
+                                Arham Printers, All rights reserved 2025.
                             </span>
                         </div>
                     </div>
@@ -1010,17 +1009,17 @@
     <script src="js/main.js"></script>
 
     <script>
-    // --- Configuration (RABHOST API INTEGRATION) ---
-    const PUBLIC_DATA_URL = 'all_prices.json'; 
-    const API_ENDPOINT = 'https://api.arhamprinters.pk/submit_form.php'; 
+    // --- Configuration (UPDATED) ---
+    const PUBLIC_DATA_URL = 'all_prices.json'; // Now fetching from the local JSON file
     const WHATSAPP_NUMBER = '923006238233'; 
+    const SUBMIT_ORDER_URL = 'submit_order.php'; 
     
     let allProducts = {}; 
     let currentProduct = null; 
     let allProductGroups = {};
     let currentSelectedVariations = {}; 
     
-    // Placeholder structure for area based logic
+    // Placeholder structure for area based logic (FIXED: Prices changed to rate per sq ft)
     const AREA_BASED_META = {
         "China Frontlit": { is_area_based: true, rate: 10, min_area: 10, category: 'Banners' }, 
         "Star Frontlit": { is_area_based: true, rate: 12, min_area: 10, category: 'Banners' },
@@ -1030,6 +1029,7 @@
     }; 
     
     const AREA_BASED_PRODUCT_NAMES = Object.keys(AREA_BASED_META);
+    
     let digitalPrintingPricing = {};
 
     // Map the generic SQL column name to a user-friendly display name
@@ -1049,7 +1049,10 @@
         'material': 'Material',
     };
     
-    // --- Manual Display Order for Variants (FIXED: Added logic) ---
+    /**
+     * Manually defines the preferred display order for variant keys.
+     * Keys not listed here will be added at the end in their natural order.
+     */
     const DISPLAY_ORDER = [
         'Size', 
         'Material', 
@@ -1068,83 +1071,24 @@
             const indexA = DISPLAY_ORDER.indexOf(a);
             const indexB = DISPLAY_ORDER.indexOf(b);
 
+            // If both are in the defined order, sort by their index.
             if (indexA !== -1 && indexB !== -1) {
                 return indexA - indexB;
             }
+            // If only A is defined, A comes first.
             if (indexA !== -1) {
                 return -1;
             }
+            // If only B is defined, B comes first.
             if (indexB !== -1) {
                 return 1;
             }
+            // If neither is defined, sort alphabetically (or by original key order).
             return a.localeCompare(b); 
         });
     }
 
-    // --- Utility Functions (Added/Replaced) ---
-
-    function showAlert(message, type) {
-        const alert = document.createElement('div');
-        alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
-        alert.style.top = '20px';
-        alert.style.right = '20px';
-        alert.style.zIndex = '9999';
-        alert.style.minWidth = '300px';
-        alert.innerHTML = `${message}<button type="button" class="btn-close" data-bs-dismiss="alert"></button>`;
-        document.body.appendChild(alert);
-        
-        setTimeout(() => {
-            if (alert.parentNode) {
-                alert.parentNode.removeChild(alert);
-            }
-        }, 5000);
-    }
-    
-    // Generic API Submission (for Quote and Contact forms)
-    async function submitForm(form, source) {
-        const formData = new FormData(form);
-        const formObject = {};
-        
-        formData.forEach((value, key) => {
-            formObject[key] = value;
-        });
-        formObject['form_source'] = source;
-
-        const submitButton = form.querySelector('button[type="submit"]');
-        const originalText = submitButton.innerHTML;
-        submitButton.disabled = true;
-        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Sending...';
-
-        showAlert('Sending inquiry via email...', 'info');
-
-        try {
-            const response = await fetch(API_ENDPOINT, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formObject)
-            });
-
-            const result = await response.json();
-
-            if (response.ok && result.success) {
-                showAlert('Success! Your inquiry has been sent to the office email. We will contact you soon.', 'success');
-                form.reset();
-            } else {
-                showAlert(`Submission failed. Please try again or contact us via phone/WhatsApp (${WHATSAPP_NUMBER}).`, 'error');
-            }
-        } catch (error) {
-            console.error('Network Error:', error);
-            showAlert('Network error. Please try again.', 'error');
-        } finally {
-            submitButton.disabled = false;
-            submitButton.innerHTML = originalText;
-        }
-    }
-
-
-    // --- Data Processing Functions (Updated logic remains) ---
+    // --- Core Functions ---
 
     async function initialAppLoad() {
         let rawData;
@@ -1164,28 +1108,22 @@
         
         showSection('shop-catalog'); 
         
-        // --- Attach new API handlers ---
-        document.getElementById('quote-form').onsubmit = function(e) {
-            e.preventDefault();
-            submitForm(this, 'Product Catalog Quote Request');
-        };
-        document.getElementById('contact-form-email').onsubmit = function(e) {
-            e.preventDefault();
-            submitForm(this, 'Contact Form');
-        };
-        // ---------------------------------
+        document.getElementById('quote-form').addEventListener('submit', handleQuoteSubmission);
+        document.getElementById('contact-form-whatsapp').addEventListener('submit', handleContactSubmission);
         
         if (typeof setActiveMobileNav === 'function') {
             setActiveMobileNav('products');
         }
     }
     
+    // --- Data Preprocessing for JSON Results ---
     function initialProductSetup(flatData) {
         const productGroups = {};
         
         Object.keys(flatData).forEach(categoryKey => {
             const categoryData = flatData[categoryKey];
 
+            // 1. Handle Digital Printing Pricing (Tiered - Remapped to 'B/W and Color Prints')
             if (categoryKey === "B/W and Color Prints") {
                 digitalPrintingPricing["Digital Print (Tiered)"] = categoryData;
                 
@@ -1193,7 +1131,7 @@
                     productGroups["Digital Print (Tiered)"] = {
                          baseName: "Digital Print (Tiered)",
                          minPrice: 6, 
-                         imageFile: `digital`, 
+                         imageFile: `digital`, // Use a local image name
                          isAreaBased: false,
                          mainCategory: categoryKey,
                          isDigitalTiered: true, 
@@ -1202,35 +1140,36 @@
                 }
                 return;
             }
-
+            
+            // Skip Wedding card data here, as it's handled exclusively by wedding.html
             if (categoryKey === "Special Occasions (Wedding)") return;
 
+            // 2. Handle standard products and merged categories
             Object.keys(categoryData).forEach(productKey => {
                  const productCombinations = categoryData[productKey];
                  
+                 // Initialize product structure
                  if (!productGroups[productKey]) {
+                     // Normalize product name to file name, matching the local file system (e.g., 'Shine Visisting Cards' -> 'vcard')
                      let imageFileBase = productKey.replace(/\s|\/|\(|\)/g, '').replace('Visisting', 'vcard').toLowerCase();
                      if (imageFileBase === 'ishtihar') imageFileBase = 'pamphlet';
-                     if (imageFileBase === 'tshirtcotton' || imageFileBase === 'tshirtmulticolor' || imageFileBase === 'whitetshirt(adultsize)') imageFileBase = 'shirt'; // Normalize shirt images
+                     if (imageFileBase === 'tshirtcotton' || imageFileBase === 'tshirtmulticolor') imageFileBase = 'cottonshirt';
                      if (productKey === 'File Covers') imageFileBase = 'file';
-                     if (productKey === 'Metal Pen') imageFileBase = 'metal';
-                     if (productKey === 'Mug') imageFileBase = 'mugs';
-                     if (productKey === 'Locket with Picture') imageFileBase = 'placeholder';
-                     if (productKey === 'Pencil Tray') imageFileBase = 'placeholder';
-                     if (productKey === 'Rubber Stamp (Rectangular)') imageFileBase = 'stamps';
-
+                     
+                     // Check if product is Area Based
                      const isAreaBased = AREA_BASED_PRODUCT_NAMES.includes(productKey);
                      
                      productGroups[productKey] = {
                          baseName: productKey,
                          minPrice: Infinity,
-                         imageFile: imageFileBase,
+                         imageFile: imageFileBase, // Uses the cleaned local image file name
                          isAreaBased: isAreaBased,
                          mainCategory: categoryKey,
                          combinations: [] 
                      };
                  }
                  
+                 // Populate combinations for standard products 
                  if (!productGroups[productKey].isAreaBased && Array.isArray(productCombinations)) {
                      
                      productCombinations.forEach(item => {
@@ -1239,6 +1178,7 @@
                              'FullName': productKey 
                          };
                          
+                         // Map and include all relevant keys from JSON object
                          Object.keys(item).forEach(key => {
                              if (key !== 'price' && key !== 'imageFile' && item[key]) {
                                  const displayKey = variantDisplayNames[key] || key.charAt(0).toUpperCase() + key.slice(1);
@@ -1261,6 +1201,7 @@
     }
 
 
+    // New function for Digital Printing Details (Tiered Pricing)
     function showDigitalPrintingDetails() {
          currentProduct = allProductGroups["Digital Print (Tiered)"];
          currentSelectedVariations = {}; 
@@ -1345,18 +1286,23 @@
              </div>
          `;
          
+         // Auto-select first options for Digital Printing and trigger initial price
          keysToRender.forEach(key => {
             const firstInput = document.querySelector(`input[name="option-${key}"]`);
             if (firstInput) {
-                firstInput.checked = true;
+                firstInput.checked = true; // Set initial radio button checked
                 handleCardSelection(key, firstInput.value, false); 
             }
          });
          
          updateFinalPrice();
+
          showSection('product-detail');
     }
 
+    /**
+     * Finds all valid values for a specific target key based on currently selected upstream keys.
+     */
     function filterAvailableOptions(targetKey, currentSelections, allCombinations) {
         const validValues = new Set();
         
@@ -1380,12 +1326,14 @@
         return validValues;
     }
 
+    // 4. Navigate to and Populate Product Detail Page
     function showProductDetails(productName) {
         
         if (productName.trim() === "Digital Print (Tiered)") {
              showDigitalPrintingDetails();
              return;
         }
+        // Handle "PhotoPapers" redirecting to the proper key "Photo Printing"
         if (productName.trim() === "PhotoPapers") {
              productName = "Photo Printing";
         }
@@ -1401,6 +1349,7 @@
             return;
         }
 
+        // Update headers and image
         document.getElementById('detail-product-name-header').textContent = currentProduct.baseName;
         document.getElementById('detail-product-name-body').textContent = currentProduct.baseName;
         
@@ -1425,6 +1374,7 @@
         
         // 🛑 CORE LOGIC: Area-Based vs. Standard 🛑
         if (isAreaBased) {
+            // --- AREA-BASED SETUP (Panaflex/Wallpaper/Photo Frames) ---
             areaInputs.style.display = 'block';
             standardOptions.style.display = 'none';
             
@@ -1528,9 +1478,6 @@
         }
 
         showSection('product-detail');
-        
-        // Attach event handler to the Place Order button here
-        document.getElementById('placeOrderButton').onclick = submitOrder;
     }
     
     // Helper for quantity buttons on standard items
@@ -1542,6 +1489,9 @@
         updateFinalPrice();
     }
     
+    /**
+     * Handles selection of a variant option, updates selections, and triggers cascading filtering.
+     */
     function handleCardSelection(key, value, cascade = true) {
         const sanitizedKey = key;
         
@@ -1565,6 +1515,7 @@
         if (cascade) {
             let allAttributeKeys = Object.keys(currentProduct.combinations[0]).filter(k => k !== 'Price' && k !== 'FullName');
             
+            // Re-sort the keys before starting the cascade process
             allAttributeKeys = sortAttributeKeys(allAttributeKeys);
 
             let startCascade = false;
@@ -1572,7 +1523,7 @@
             for (const attrKey of allAttributeKeys) {
                 if (attrKey === key) {
                     startCascade = true;
-                    continue; 
+                    continue; // Skip the currently selected key
                 }
                 
                 if (startCascade) {
@@ -1602,6 +1553,7 @@
                             } else {
                                 card.classList.remove('disabled');
                                 
+                                // Re-select the option if it was previously selected (and is still valid)
                                 if (currentSelectedVariations[attrKey] === optionValue) {
                                      card.classList.add('selected');
                                      inputEl.checked = true;
@@ -1612,7 +1564,7 @@
                         if (newSelectionNeeded || !currentSelectedVariations[attrKey]) {
                             const firstValidOption = targetGroup.querySelector('.choice-card:not(.disabled) input');
                             if (firstValidOption) {
-                                firstValidOption.checked = true; 
+                                firstValidOption.checked = true; // Select the first valid radio button
                                 handleCardSelection(attrKey, firstValidOption.value);
                                 return; 
                             } else {
@@ -1628,6 +1580,8 @@
         updateFinalPrice();
     }
     
+    // --- Price Update and Calculation Logic (Handles both types) ---
+    
     function updateFinalPrice() {
         if (!currentProduct) return;
         
@@ -1635,6 +1589,7 @@
         const isDigitalTiered = currentProduct.isDigitalTiered;
         let totalPrice = 0;
 
+        // 1. Handle Area-Based Products (Panaflex, Photo Frames)
         if (isAreaBased) {
             const width = parseFloat(document.getElementById('input-width').value) || 0;
             const height = parseFloat(document.getElementById('input-height').value) || 0;
@@ -1667,6 +1622,7 @@
             totalPrice = totalArea * baseRate;
         } 
         
+        // 2. Handle Digital Printing Tiered Products 
         else if (isDigitalTiered) {
              const quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 0;
              const size = currentSelectedVariations.Size;
@@ -1688,6 +1644,7 @@
                 let unitPrice = 0;
                 let foundPrice = false;
                 
+                // Find the correct quantity tier
                 Object.keys(gsmData).forEach(rangeKey => {
                     const [min, max] = rangeKey.split('-').map(n => parseInt(n));
                     if (quantity >= min && (isNaN(max) || quantity <= max)) { 
@@ -1711,6 +1668,7 @@
              }
         }
 
+        // 3. Standard Tiered Products (Business Cards, Letterpads, etc.) 
         else {
             const quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 1;
             const allCombinations = currentProduct?.combinations || [];
@@ -1763,6 +1721,7 @@
                 return;
             }
             
+            // Image update logic 
             let newImagePath = currentProduct.imageFile;
             let variantSuffix = '';
 
@@ -1803,39 +1762,119 @@
     }
 
 
-    // --- Event Handlers (Updated for API submission) ---
+    // 3. Get A Quote Submission Handler (Keeps WhatsApp)
+    function handleQuoteSubmission(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('quote-name').value;
+        const phone = document.getElementById('quote-phone').value;
+        const product = document.getElementById('quote-product').value;
+        const quantity = document.getElementById('quote-quantity').value;
+        const details = document.getElementById('quote-details').value;
+        
+        let whatsappMessage = `*NEW QUOTE REQUEST (WEB - PRODUCTS)*\n`;
+        whatsappMessage += `*Customer:* ${name}\n`;
+        whatsappMessage += `*Phone (Contact):* ${phone}\n`;
+        whatsappMessage += `*Product Type:* ${product}\n`;
+        whatsappMessage += `*Quantity/Area:* ${quantity}\n`;
+        whatsappMessage += `*Specifications:* ${details}`;
+        
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
 
-    // Generic form submission utility (Defined globally)
+        showAlert('Quote submitted via WhatsApp! We will contact you shortly.', 'success');
+        document.getElementById('quote-form').reset();
+    }
 
-    // Product Order Submission (Called from the detail page button)
-    async function submitOrder() {
+
+    // 2. Contact Form Submission Handler (Keeps WhatsApp)
+    function handleContactSubmission(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('contact-name').value;
+        const subject = document.getElementById('contact-subject').value;
+        const message = document.getElementById('contact-message').value;
+
+        let whatsappMessage = `*NEW CONTACT MESSAGE (WEB - PRODUCTS)*\n`;
+        whatsappMessage += `*Sender:* ${name}\n`;
+        whatsappMessage += `*Subject:* ${subject}\n`;
+        whatsappMessage += `*Message:* ${message}`;
+        
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+
+        showAlert('Message sent via WhatsApp!', 'success');
+        document.getElementById('contact-form-whatsapp').reset();
+    }
+    
+    // Placeholder submitOrder function
+    async function submitOrder(type) {
+          // You would normally validate selections here, but the price calculation already handles that.
           if (document.getElementById('finalPriceBox').style.display === 'none') {
              showAlert('Please select all options and enter a valid quantity/area before placing an order.', 'error');
              return;
           }
 
-          // Construct a temporary form element for submission utility
-          const form = document.createElement('form');
-          form.name = "product_order_form";
+          showAlert(`Order submission initiated for ${currentProduct.baseName}. Reviewing details...`, 'info');
           
-          let detailsMsg = "";
-          let finalPrice = document.getElementById('finalPriceDisplay').textContent;
-          let quantity = document.getElementById('input-standard-qty')?.value || document.getElementById('input-custom-qty')?.value || 1;
+          // Redirect to quote for final confirmation/details
+          showSection('quote');
+          document.getElementById('quote-product').value = `${currentProduct.baseName} - Final Price: ${document.getElementById('finalPriceDisplay').textContent}`;
+          document.getElementById('quote-quantity').value = document.getElementById('input-standard-qty')?.value || document.getElementById('input-custom-qty')?.value || 1;
           
-          if (currentProduct.isAreaBased) {
-              detailsMsg = `Dimensions: ${document.getElementById('input-width').value}x${document.getElementById('input-height').value} ft, Total Area: ${document.getElementById('areaDisplay').textContent.match(/Total Area: ([\d.]+)/)[1]} sq ft`;
-          } else {
+          let detailsMsg = "Please confirm the order details.";
+          if (currentProduct && currentSelectedVariations) {
               detailsMsg = "Selected options:\n" + Object.entries(currentSelectedVariations).map(([k, v]) => `${k}: ${v}`).join('\n');
+          } else if (currentProduct?.isAreaBased) {
+              detailsMsg = `Dimensions: ${document.getElementById('input-width').value}x${document.getElementById('input-height').value} ft, Quantity: ${document.getElementById('input-custom-qty').value}`;
           }
+          document.getElementById('quote-details').value = detailsMsg;
+    }
 
-          form.append('name', 'Product Order: ' + currentProduct.baseName);
-          form.append('phone', 'N/A (Customer Contact Required)');
-          form.append('product', currentProduct.baseName);
-          form.append('quantity', quantity);
-          form.append('total_price', finalPrice);
-          form.append('details', detailsMsg);
-          
-          submitForm(form, 'Product Order - ' + currentProduct.baseName);
+
+    // --- UI/Navigation Functions ---
+    function showSection(sectionName) {
+        document.querySelectorAll('.section').forEach(section => {
+            section.classList.remove('active');
+        });
+        
+        const sectionElement = document.getElementById(sectionName + '-section');
+        if (sectionElement) {
+            sectionElement.classList.add('active');
+        } else {
+             document.getElementById('shop-catalog-section').classList.add('active');
+        }
+        
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+            link.classList.remove('active');
+        });
+        
+        const desktopLink = document.querySelector(`.navbar-nav a[onclick="showSection('${sectionName}')"]`);
+        if (desktopLink) desktopLink.classList.add('active');
+        
+        if (typeof setActiveMobileNav === 'function') {
+            setActiveMobileNav(sectionName === 'shop-catalog' ? 'products' : sectionName);
+        }
+        
+        window.scrollTo(0, 0);
+    }
+    
+    function showAlert(message, type) {
+        const alert = document.createElement('div');
+        alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
+        alert.style.top = '20px';
+        alert.style.right = '20px';
+        alert.style.zIndex = '9999';
+        alert.style.minWidth = '300px';
+        alert.innerHTML = `
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        document.body.appendChild(alert);
+        
+        setTimeout(() => {
+            if (alert.parentNode) {
+                alert.parentNode.removeChild(alert);
+            }
+        }, 5000);
     }
 
     document.addEventListener('DOMContentLoaded', initialAppLoad);
@@ -1844,3 +1883,5 @@
 </body>
 
 </html>
+
+
