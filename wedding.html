@@ -288,7 +288,9 @@
         
         <a href="index.html" class="navbar-brand d-flex align-items-center me-4">
             <img src="img/logo2.webp" alt="Arham Printers Logo" style="height: 40px; margin-right: 1rem;">
+            <span style="font-size: 0.75rem; color: #6c757d; margin-top: 15px;">Arham Printers</span>
         </a>
+
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -407,12 +409,11 @@
                                     <input type="number" id="input-card-qty" min="1" value="1" step="1" class="form-control text-center rounded-0" oninput="updateQuantityAndPrice()">
                                     <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityAndPrice(5)">+5</button>
                                 </div>
-                                 <small class="text-muted mt-2 d-block">Minimum order: 1 piece. <span id="fixed-cost-display">**Price of (100 pcs) is used as base.**</span></small>
+                                <small class="text-muted mt-2 d-block">Minimum order: 1 piece. <span id="fixed-cost-display">**Bulk Price (100 pcs) used as base.**</span></small>
                             </div>
-                              </div>
 
-                            <div class="product-option-group" data-option-key="InnerCard">
-                                <label>Include Extra Inner Card?</label>
+                            <div class="product-option-group" data-option-key="InnerCard" id="innerCardOptionGroup"> 
+                                <label>Include Extra Inner Card? (+10 PKR per Inner)</label>
                                 <div class="d-flex gap-3">
                                     <label class="choice-card-inner selected" id="inner-yes" onclick="setInnerSelection(true)">
                                         <input type="radio" name="inner-option" value="true" checked>
@@ -524,20 +525,22 @@
     <script src="js/main.js"></script>
 
     <script>
-        // --- Configuration (UPDATED) ---
-        const PUBLIC_DATA_URL = 'all_prices.json'; // Fetching from the local JSON file
+        // --- Configuration ---
+        const PUBLIC_DATA_URL = 'all_prices.json';
         const WHATSAPP_NUMBER = '923006238233';
-        const API_URL = 'submit_order.php'; 
+        const API_URL = 'submit_order.php';
 
         // --- DATA STORE ---
-        let allProducts = {}; // Stores all flattened card metadata
+        let allProducts = {};
         let currentCard = null;
-        let hasInner = true; 
+        let hasInner = true; // Default selection for inner card
         
-        const BULK_QTY = 100; 
+        const BULK_QTY = 100; // All prices in DB are for 100 pcs
+
+        // --- FIXED INNER CARD COST ---
         const INNER_COST_PER_CARD = 10; 
         
-        // --- PROFIT MARGINS (Retained as fixed business rules based on quantity) ---
+        // --- PROFIT MARGINS ---
         const PROFIT_TIERS = [
             { min: 1, max: 32, multiplier: 1.20 },
             { min: 33, max: 50, multiplier: 1.20 },
@@ -550,7 +553,7 @@
         ];
 
 
-        // --- INITIALIZATION AND FETCHING (FIXED) ---
+        // --- INITIALIZATION AND FETCHING ---
 
         async function initialAppLoad() {
             let rawData;
@@ -559,7 +562,7 @@
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                rawData = await response.json(); 
+                rawData = await response.json();
             } catch (error) {
                 console.error("Failed to load shop data:", error);
                 showAlert("Failed to load wedding card data. Check console or network.", 'error');
@@ -572,14 +575,14 @@
             const spinner = document.getElementById('loading-spinner');
             if (spinner) spinner.style.display = 'none';
             
-            showSection('shop-catalog'); 
+            showSection('shop-catalog');
         }
 
         /**
-         * FIX: Correctly maps the flat wedding data structure and ensures image paths are correct.
+         * Correctly maps the flat wedding data structure and ensures image paths are correct.
          */
         function initialCardSetup(flatData) {
-            const weddingData = flatData['Special Occasions (Wedding)']; 
+            const weddingData = flatData['Special Occasions (Wedding)'];
             allProducts = {};
             
             if (!weddingData || Object.keys(weddingData).length === 0) {
@@ -587,12 +590,10 @@
                 return;
             }
             
-            // Loop through the product keys in the JSON
             Object.keys(weddingData).forEach(cardName => {
                 const card = weddingData[cardName];
                 const price100 = card.bulkPrice100 || 0; 
                 
-                // Use the imageFile property which is already set to the local path in the final JSON
                 const imagePath = card.imageFile || 'img/wedding/placeholder.webp'; 
                 
                 const FIXED_OVERHEAD = 500; 
@@ -601,12 +602,14 @@
 
                 allProducts[cardName] = { 
                     ...card, 
-                    cardName: cardName, // Ensure cardName is explicitly stored
+                    cardName: cardName, 
                     category: 'Wedding Cards', 
                     bulkPrice100: price100, 
                     estimatedUnitCost: ESTIMATED_UNIT_COST,
                     fixedCost: FIXED_OVERHEAD,
-                    imageFile: imagePath 
+                    imageFile: imagePath,
+                    // READ THE NEW FLAG. Default to false if missing.
+                    allowExtraInner: card.allowExtraInner === true 
                 };
             });
         }
@@ -614,13 +617,19 @@
 
         // --- PRICING CALCULATION LOGIC ---
 
+        /**
+         * Calculates the final price, conditionally including the inner card cost.
+         *
+         * @param {number} quantity - Number of cards.
+         * @returns {number} The final calculated price.
+         */
         function calculateFinalPrice(quantity) {
             if (quantity < 1 || !currentCard) return 0;
             
             const CARD_UNIT_COST = currentCard.estimatedUnitCost;
             const CARD_FIXED_COST = currentCard.fixedCost;
 
-            let multiplier = 1.20; 
+            let multiplier = 1.20;
             
             for (const tier of PROFIT_TIERS) {
                 if (quantity >= tier.min && quantity <= tier.max) {
@@ -630,7 +639,10 @@
             }
             
             const baseVariableCost = CARD_UNIT_COST * quantity;
-            const innerCost = hasInner ? (INNER_COST_PER_CARD * quantity) : 0;
+
+            // CONDITIONALLY ADD INNER CARD COST: only if card allows it AND the user selected 'Yes'
+            const innerCost = (currentCard.allowExtraInner && hasInner) ? (INNER_COST_PER_CARD * quantity) : 0;
+            
             const totalCostBeforeProfit = baseVariableCost + innerCost + CARD_FIXED_COST;
             const finalPrice = Math.round(totalCostBeforeProfit * multiplier);
             
@@ -643,15 +655,16 @@
             if (!cardData) return { total: 0, perCard: '0.00', benchmarkQty: BENCHMARK_QTY };
 
             const originalCurrentCard = currentCard;
-            currentCard = { ...cardData, quantity: BENCHMARK_QTY }; 
+            currentCard = { ...cardData, quantity: BENCHMARK_QTY };
             
             const originalInnerState = hasInner;
-            setInnerSelection(true, false); 
+            // When calculating benchmark price, assume inner is included if allowed
+            setInnerSelection(cardData.allowExtraInner, false);
 
             const price = calculateFinalPrice(BENCHMARK_QTY);
             
-            setInnerSelection(originalInnerState, false); 
-            currentCard = originalCurrentCard; 
+            setInnerSelection(originalInnerState, false);
+            currentCard = originalCurrentCard;
 
             const pricePerCard = price / BENCHMARK_QTY;
             
@@ -662,11 +675,19 @@
             };
         }
 
+        /**
+         * Sets the state of the inner card selection and triggers a price update.
+         */
         function setInnerSelection(selected, updatePrice = true) {
             hasInner = selected;
 
-            document.getElementById('inner-yes').classList.toggle('selected', selected);
-            document.getElementById('inner-no').classList.toggle('selected', !selected);
+            const innerYesEl = document.getElementById('inner-yes');
+            const innerNoEl = document.getElementById('inner-no');
+            
+            if (innerYesEl && innerNoEl) {
+                 innerYesEl.classList.toggle('selected', selected);
+                 innerNoEl.classList.toggle('selected', !selected);
+            }
             
             if (updatePrice) {
                 updateQuantityAndPrice(0);
@@ -674,14 +695,12 @@
         }
 
 
-        // --- DATA RENDERING FUNCTIONS (FIXED) ---
+        // --- DATA RENDERING FUNCTIONS ---
 
         function loadWeddingCards() {
             const categorizedCards = {};
             Object.values(allProducts).forEach(card => {
-                // Since the JSON structure is flat under 'Special Occasions (Wedding)', all cards
-                // belong to the 'Wedding Cards' category defined in initialCardSetup.
-                const category = card.category; 
+                const category = card.category;
                 if (!categorizedCards[category]) {
                     categorizedCards[category] = [];
                 }
@@ -697,8 +716,7 @@
             }
 
             Object.keys(categorizedCards).forEach(category => {
-                // Only show the header if there is more than one category or if we want a clear title
-                cardHTML += `<h3 class="w-100 pt-5 border-top">${category}</h3>`; 
+                cardHTML += `<h3 class="w-100 pt-5 border-top">${category}</h3>`;
 
                 categorizedCards[category].forEach(card => {
                     const cardName = card.cardName;
@@ -708,7 +726,6 @@
                     const pricing = getDisplayPrice(cardName);
                     currentCard = originalCurrentCard; 
 
-                    // Use the stored image path
                     const imagePath = card.imageFile; 
 
                     cardHTML += `
@@ -732,7 +749,7 @@
         
         function updateQuantityAndPrice(change = 0) {
             const input = document.getElementById('input-card-qty');
-            let quantity = parseInt(input.value) || 1; 
+            let quantity = parseInt(input.value) || 1;
             const MIN_QTY = 1;
             
             if (change !== 0) {
@@ -763,18 +780,29 @@
             }
         }
 
+        /**
+         * Toggles the visibility of the Inner Card option group based on the card flag.
+         */
         function showCardDetails(cardName) {
             const cardData = allProducts[cardName];
             if (!cardData) return;
 
             currentCard = cardData; // Use the stored object directly
             
-            setInnerSelection(true, false); 
+            // 1. CONDITIONAL VISIBILITY
+            const innerCardOptionGroup = document.getElementById('innerCardOptionGroup');
+            const defaultInnerSelection = currentCard.allowExtraInner; // Default to 'Yes' if allowed
+
+            if (innerCardOptionGroup) {
+                innerCardOptionGroup.style.display = currentCard.allowExtraInner ? 'block' : 'none';
+            }
+            
+            // 2. SET INITIAL SELECTION AND PRICE
+            setInnerSelection(defaultInnerSelection, false);
 
             document.getElementById('detail-product-name-header').textContent = cardName;
             document.getElementById('detail-product-name-body').textContent = cardName;
             
-            // FIX: Use the stored image file path
             document.getElementById('detail-product-image').src = currentCard.imageFile; 
             document.getElementById('detail-product-image').onerror = function() {
                 this.src = `img/wedding/placeholder.webp`; // Fallback image path
@@ -789,7 +817,7 @@
             updateQuantityAndPrice(0);
         }
 
-        // --- ORDER SUBMISSION AND ALERT FUNCTIONS (Unchanged, retained for completeness) ---
+        // --- ORDER SUBMISSION AND ALERT FUNCTIONS ---
         
         async function submitOrder(type) {
             if (!currentCard || currentCard.totalPrice === 0) {
@@ -798,7 +826,8 @@
             }
 
             const total = document.getElementById('finalPriceDisplay').textContent;
-            const innerStatus = currentCard.hasInner ? `Yes (+${INNER_COST_PER_CARD} PKR/pc)` : 'No (Standard Card)';
+            const innerStatus = (currentCard.allowExtraInner && currentCard.hasInner) 
+                                 ? `Yes (+${INNER_COST_PER_CARD} PKR/pc)` : 'No';
             
             const formData = {
                 order_type: type,
@@ -894,7 +923,3 @@
 </div>
 </body>
 </html>
-
-
-
-
