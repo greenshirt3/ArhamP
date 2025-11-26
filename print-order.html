@@ -532,6 +532,7 @@
         // --- Configuration (RABHOST API INTEGRATION) ---
         const API_ENDPOINT = 'https://api.arhamprinters.pk/submit_form.php'; 
         const SUBMIT_ORDER_URL = 'https://api.arhamprinters.pk/upload_and_notify.php'; 
+        const PRICING_DATA_URL = 'all_prices.json'; 
         const WHATSAPP_NUMBER = '923006238233';
 
         let pricingData = null;
@@ -599,8 +600,7 @@
         }
 
 
-        // --- Pricing Functions (Unchanged) ---
-        const PRICING_DATA_URL = 'all_prices.json'; 
+        // --- Pricing Functions (Unchanged logic remains) ---
         
         async function fetchPricingData() {
             try {
@@ -731,13 +731,14 @@
             submitButton.disabled = true;
             submitButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Submitting...';
 
-            const orderId = 'PRINT-' + Date.now().toString().slice(-6);
-            
+            // Use FormData for file uploads (this is necessary for 'multipart/form-data')
             const formData = new FormData(document.getElementById('printOrderForm'));
+            
+            const orderId = 'PRINT-' + Date.now().toString().slice(-6);
             formData.append('order_type', 'DOCUMENT_PRINTING');
             formData.append('order_id', orderId);
             formData.append('total_price_display', totalPrintingPrice);
-            
+
             const specs = {
                 color: document.querySelector('input[name="color"]:checked')?.value,
                 siding: document.querySelector('input[name="siding"]:checked')?.value,
@@ -747,13 +748,17 @@
                 pages: parseInt(document.getElementById('quantity').value) * (document.querySelector('input[name="siding"]:checked')?.value === 'Double Sided' ? 2 : 1),
             };
             
+            // Append specifications and contact info for the PHP script to read
             formData.append('specs_json', JSON.stringify(specs));
+            formData.append('name', formData.get('name')); // Re-append name/phone for top-level access in PHP
+            formData.append('phone', formData.get('phone'));
+            formData.append('form_source', 'Document Print Upload');
 
 
             showAlert('Uploading file and sending email notification...', 'info');
 
             try {
-                // IMPORTANT: This uses the dedicated URL for file upload handling
+                // IMPORTANT: Target the dedicated UPLOAD URL on RabHost
                 const response = await fetch(SUBMIT_ORDER_URL, {
                     method: 'POST',
                     body: formData 
