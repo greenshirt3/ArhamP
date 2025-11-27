@@ -524,434 +524,439 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
 
-    <script>
-        // --- Configuration (RABHOST API INTEGRATION) ---
-        const PUBLIC_DATA_URL = 'all_prices.json'; 
-        const WHATSAPP_NUMBER = '923006238233';
-        const API_ENDPOINT = 'https://api.arhamprinters.pk/submit_form.php'; 
-        
-        // --- DATA STORE ---
-        let allProducts = {};
-        let currentCard = null;
-        let hasInner = false; 
-        
-        const BULK_QTY = 100; 
-        const INNER_COST_PER_CARD = 10; 
-        
-        // --- FIXED COST COMPONENTS (used for clarity and is part of the final price) ---
-        const UNIVERSAL_FIXED_OVERHEAD = 500; 
-        
-        // --- PROFIT MARGINS ---
-        const PROFIT_TIERS = [
-            { min: 1, max: 32, multiplier: 1.20 },
-            { min: 33, max: 50, multiplier: 1.20 },
-            { min: 51, max: 100, multiplier: 1.23 }, 
-            { min: 101, max: 200, multiplier: 1.26 }, 
-            { min: 201, max: 300, multiplier: 1.30 }, 
-            { min: 301, max: 400, multiplier: 1.33 }, 
-            { min: 401, max: 500, multiplier: 1.35 }, 
-            { min: 501, max: Infinity, multiplier: 1.35 }, 
-        ];
+  <script>
+        // --- Configuration (RABHOST API INTEGRATION) ---
+        const PUBLIC_DATA_URL = 'all_prices.json'; 
+        const WHATSAPP_NUMBER = '923006238233';
+        const API_ENDPOINT = 'https://api.arhamprinters.pk/submit_form.php'; 
+        
+        // --- DATA STORE ---
+        let allProducts = {};
+        let currentCard = null;
+        let hasInner = false; 
+        
+        const BULK_QTY = 100; 
+        const INNER_COST_PER_CARD = 10; 
+        
+        // --- FIXED COST COMPONENTS (used for clarity and is part of the final price) ---
+        const DESIGN_CHARGES = 300; 
+        const RENT_CHARGES = 200;    
+        const PRINTING_FIXED_COST = 0;
+        const UNIVERSAL_FIXED_OVERHEAD = DESIGN_CHARGES + RENT_CHARGES + PRINTING_FIXED_COST; // Total fixed cost: 500
+        
+        // NEW: Base raw material cost (PKR 10 per card, constant)
+        const BASE_MATERIAL_COST_PER_CARD = 10;
+
+        // NEW: Tiered printing costs (per card)
+        const PRINTING_COST_TIERS = [
+            { min: 1, max: 50, cost: 15.00 },
+            { min: 51, max: 100, cost: 14.00 },
+            { min: 101, max: 200, cost: 13.50 },
+            { min: 201, max: 500, cost: 12.00 },
+            { min: 501, max: Infinity, cost: 11.50 },
+        ];
 
 
-        // --- INITIALIZATION AND FETCHING ---
-
-        function showAlert(message, type) {
-            const alert = document.createElement('div');
-            alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
-            alert.style.top = '20px';
-            alert.style.right = '20px';
-            alert.style.zIndex = '9999';
-            alert.style.minWidth = '300px';
-            alert.innerHTML = `${message}<button type="button" class="btn-close" data-bs-dismiss="alert"></button>`;
-            document.body.appendChild(alert);
-            
-            setTimeout(() => {
-                if (alert.parentNode) {
-                    alert.parentNode.removeChild(alert);
-                }
-            }, 5000);
-        }
-        
-        async function initialAppLoad() {
-            let rawData;
-            try {
-                const response = await fetch(PUBLIC_DATA_URL); 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                rawData = await response.json(); 
-            } catch (error) {
-                console.error("Failed to load shop data:", error);
-                showAlert("Failed to load wedding card data. Check console or network.", 'error');
-                return;
-            }
-            
-            initialCardSetup(rawData);
-            loadWeddingCards();
-            
-            const spinner = document.getElementById('loading-spinner');
-            if (spinner) spinner.style.display = 'none';
-            
-            showSection('shop-catalog');
-            
-            // --- Event Handlers ---
-            document.getElementById('quote-form').onsubmit = function(e) {
-                e.preventDefault();
-                handleQuoteSubmission(e); 
-            };
-            document.getElementById('inner-yes').onclick = function() { setInnerSelection(true); };
-            document.getElementById('inner-no').onclick = function() { setInnerSelection(false); };
-        }
-
-        /**
-         * FIX: Calculates Unit Cost by removing ONLY the Fixed Overhead from Bulk Price.
-         * The result (estimatedUnitCost) is the true stable variable cost per unit (Shell + Required Inner).
-         */
-        function initialCardSetup(flatData) {
-            const weddingData = flatData['Special Occasions (Wedding)']; 
-            allProducts = {};
-            
-            if (!weddingData || Object.keys(weddingData).length === 0) {
-                document.getElementById('wedding-card-grid').innerHTML = '<p class="alert alert-danger">Error: Wedding card data structure missing from JSON response or empty.</p>';
-                return;
-            }
-            
-            Object.keys(weddingData).forEach(cardName => {
-                const card = weddingData[cardName];
-                const price100 = card.bulkPrice100 || 0; 
-                
-                const imagePath = card.imageFile || 'img/wedding/placeholder.webp'; 
-                
-                const FIXED_OVERHEAD = UNIVERSAL_FIXED_OVERHEAD; 
-                
-                // 1. Calculate the variable cost per 100 units (Shell + Required Inner Cost)
-                const VARIABLE_COST_PER_100 = price100 - FIXED_OVERHEAD;
-
-                // 2. The Unit Cost is now the true Base Price PER UNIT (Shell + Required Inner)
-                const ESTIMATED_UNIT_COST = VARIABLE_COST_PER_100 / BULK_QTY;
+        // --- PROFIT MARGINS ---
+        const PROFIT_TIERS = [
+            { min: 1, max: 100, multiplier: 1.20 }, // Base 20%
+            { min: 101, max: 200, multiplier: 1.22 },
+            { min: 201, max: 300, multiplier: 1.25 },
+            { min: 301, max: 400, multiplier: 1.28 },
+            { min: 401, max: 500, multiplier: 1.30 },
+            { min: 501, max: Infinity, multiplier: 1.30 },
+        ];
 
 
-                allProducts[cardName] = { 
-                    ...card, 
-                    cardName: cardName, 
-                    bulkPrice100: price100, 
-                    estimatedUnitCost: ESTIMATED_UNIT_COST, 
-                    fixedCost: FIXED_OVERHEAD,
-                    imageFile: imagePath 
-                };
-            });
-        }
+        // --- INITIALIZATION AND FETCHING ---
+
+        function showAlert(message, type) {
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
+            alert.style.top = '20px';
+            alert.style.right = '20px';
+            alert.style.zIndex = '9999';
+            alert.style.minWidth = '300px';
+            alert.innerHTML = `${message}<button type="button" class="btn-close" data-bs-dismiss="alert"></button>`;
+            document.body.appendChild(alert);
+            
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.parentNode.removeChild(alert);
+                }
+            }, 5000);
+        }
+        
+        async function initialAppLoad() {
+            let rawData;
+            try {
+                const response = await fetch(PUBLIC_DATA_URL); 
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                rawData = await response.json(); 
+            } catch (error) {
+                console.error("Failed to load shop data:", error);
+                showAlert("Failed to load wedding card data. Check console or network.", 'error');
+                return;
+            }
+            
+            initialCardSetup(rawData);
+            loadWeddingCards();
+            
+            const spinner = document.getElementById('loading-spinner');
+            if (spinner) spinner.style.display = 'none';
+            
+            showSection('shop-catalog');
+            
+            // --- Event Handlers ---
+            document.getElementById('quote-form').onsubmit = function(e) {
+                e.preventDefault();
+                handleQuoteSubmission(e); 
+            };
+            document.getElementById('inner-yes').onclick = function() { setInnerSelection(true); };
+            document.getElementById('inner-no').onclick = function() { setInnerSelection(false); };
+        }
+
+        /**
+         * FIX: Calculates Unit Cost by setting the BASE to the constant raw material cost (PKR 10).
+         * The variable printing cost is handled in calculateFinalPrice.
+         */
+        function initialCardSetup(flatData) {
+            const weddingData = flatData['Special Occasions (Wedding)']; 
+            allProducts = {};
+            
+            if (!weddingData || Object.keys(weddingData).length === 0) {
+                document.getElementById('wedding-card-grid').innerHTML = '<p class="alert alert-danger">Error: Wedding card data structure missing from JSON response or empty.</p>';
+                return;
+            }
+            
+            const FIXED_OVERHEAD = UNIVERSAL_FIXED_OVERHEAD; 
+            
+            Object.keys(weddingData).forEach(cardName => {
+                const card = weddingData[cardName];
+                const price100 = card.bulkPrice100 || 0; 
+                const imagePath = card.imageFile || 'img/wedding/placeholder.webp'; 
+                
+                // The ESTIMATED_UNIT_COST now represents only the constant raw material cost (PKR 10).
+                const ESTIMATED_UNIT_COST = BASE_MATERIAL_COST_PER_CARD;
 
 
-        // --- PRICING CALCULATION LOGIC (FINAL DEBUGGED VERSION) ---
-
-        function calculateFinalPrice(quantity) {
-            if (quantity < 1 || !currentCard) return 0;
-            
-            // This is the stable variable cost (Shell + Required Inner) per unit.
-            const BASE_UNIT_COST = currentCard.estimatedUnitCost; 
-            const CARD_FIXED_COST = currentCard.fixedCost;
-
-            let multiplier = 1.20;
-            
-            for (const tier of PROFIT_TIERS) {
-                if (quantity >= tier.min && quantity <= tier.max) {
-                    multiplier = tier.multiplier;
-                    break;
-                }
-            }
-            
-            // 1. Calculate Base Variable Cost (includes Shell + Required Inner Cost)
-            const baseVariableCost = BASE_UNIT_COST * quantity;
-            
-            // 2. Conditional EXTRA Inner Cost (Only if the user selected 'Yes')
-            const isExtraInnerSelected = document.getElementById('inner-yes')?.classList.contains('selected') || false;
-            const extraInnerCost = isExtraInnerSelected ? (INNER_COST_PER_CARD * quantity) : 0;
-            
-            // Total Cost = Base Variable Cost + EXTRA Inner Cost + Fixed Overhead
-            const totalCostBeforeProfit = baseVariableCost + extraInnerCost + CARD_FIXED_COST;
-            
-            const finalPrice = Math.round(totalCostBeforeProfit * multiplier);
-            
-            return finalPrice;
-        }
-
-        function getDisplayPrice(cardName) {
-            const BENCHMARK_QTY = 200;
-            const cardData = allProducts[cardName];
-            if (!cardData) return { total: 0, perCard: '0.00', benchmarkQty: BENCHMARK_QTY };
-
-            const originalCurrentCard = currentCard;
-            currentCard = { ...cardData, quantity: BENCHMARK_QTY }; 
-            
-            // Calculate price assuming NO extra inner is selected (Base Price)
-            setInnerSelection(false); 
-            const price = calculateFinalPrice(BENCHMARK_QTY); 
-            
-            currentCard = originalCurrentCard; 
-
-            const pricePerCard = price / BENCHMARK_QTY;
-            
-            return {
-                total: parseInt(price).toLocaleString('en-PK'),
-                perCard: pricePerCard.toFixed(2),
-                benchmarkQty: BENCHMARK_QTY
-            };
-        }
-
-        // FIX: Simplified setInnerSelection to just manage the visuals and trigger recalculation
-        function setInnerSelection(selected) {
-            // Find the selected elements
-            const yesEl = document.getElementById('inner-yes');
-            const noEl = document.getElementById('inner-no');
-            
-            // Toggle the 'selected' class based on the 'selected' boolean argument
-            if (yesEl && noEl) {
-                 yesEl.classList.toggle('selected', selected);
-                 noEl.classList.toggle('selected', !selected);
-            }
-            
-            // Trigger price update
-            updateQuantityAndPrice(0);
-        }
+                allProducts[cardName] = { 
+                    ...card, 
+                    cardName: cardName, 
+                    bulkPrice100: price100, 
+                    estimatedUnitCost: ESTIMATED_UNIT_COST, 
+                    fixedCost: FIXED_OVERHEAD,
+                    imageFile: imagePath 
+                };
+            });
+        }
 
 
-        // --- DATA RENDERING FUNCTIONS (Unchanged logic remains) ---
+        // --- PRICING CALCULATION LOGIC (FINAL DEBUGGED VERSION) ---
 
-        function loadWeddingCards() {
-            const categorizedCards = {};
-            Object.values(allProducts).forEach(card => {
-                const category = card.category; 
-                if (!categorizedCards[category]) {
-                    categorizedCards[category] = [];
-                }
-                categorizedCards[category].push(card);
-            });
-            
-            let cardHTML = '';
-            let cardGrid = document.getElementById('wedding-card-grid');
+        function calculateFinalPrice(quantity) {
+            if (quantity < 1 || !currentCard) return 0;
+            
+            // Cost Components
+            const RAW_MATERIAL_COST = currentCard.estimatedUnitCost; // Fixed at 10 PKR
+            const CARD_FIXED_COST = currentCard.fixedCost; // Fixed at 500 PKR
+            
+            let multiplier = 1.20;
+            let printingCostPerCard = 0;
 
-            if (Object.keys(categorizedCards).length === 0) {
-                 cardGrid.innerHTML = '<p class="alert alert-warning">No card designs are currently available. Please contact us for a custom quote.</p>';
-                 return;
-            }
+            // 1. Determine Tiered Printing Cost
+            for (const tier of PRINTING_COST_TIERS) {
+                if (quantity >= tier.min && quantity <= tier.max) {
+                    printingCostPerCard = tier.cost;
+                    break;
+                }
+            }
 
-            Object.keys(categorizedCards).forEach(category => {
-                cardHTML += `<h3 class="w-100 pt-5 border-top">${category}</h3>`; 
+            // 2. Determine Tiered Profit Multiplier
+            for (const tier of PROFIT_TIERS) {
+                if (quantity >= tier.min && quantity <= tier.max) {
+                    multiplier = tier.multiplier;
+                    break;
+                }
+            }
+            
+            // Total Variable Cost Per Card = Raw Material (10) + Printing Cost (Tiered)
+            const totalVariableCostPerCard = RAW_MATERIAL_COST + printingCostPerCard;
+            
+            // 3. Calculate Base Variable Cost (Total Variable Cost Per Card * Quantity)
+            const baseVariableCost = totalVariableCostPerCard * quantity;
+            
+            // 4. Conditional EXTRA Inner Cost
+            const isExtraInnerSelected = document.getElementById('inner-yes')?.classList.contains('selected') || false;
+            const extraInnerCost = isExtraInnerSelected ? (INNER_COST_PER_CARD * quantity) : 0;
+            
+            // Total Cost = Total Variable Cost + Extra Inner Cost + Fixed Overhead (500)
+            const totalCostBeforeProfit = baseVariableCost + extraInnerCost + CARD_FIXED_COST;
+            
+            // Final Price = Total Cost * Multiplier
+            const finalPrice = Math.round(totalCostBeforeProfit * multiplier);
+            
+            return finalPrice;
+        }
 
-                categorizedCards[category].forEach(card => {
-                    const cardName = card.cardName;
-                    
-                    const originalCurrentCard = currentCard; 
-                    currentCard = card;
-                    const pricing = getDisplayPrice(cardName);
-                    currentCard = originalCurrentCard; 
+        function getDisplayPrice(cardName) {
+            const BENCHMARK_QTY = 200;
+            const cardData = allProducts[cardName];
+            if (!cardData) return { total: 0, perCard: '0.00', benchmarkQty: BENCHMARK_QTY };
 
-                    const imagePath = card.imageFile; 
+            const originalCurrentCard = currentCard;
+            currentCard = { ...cardData, quantity: BENCHMARK_QTY }; 
+            
+            // Calculate price assuming NO extra inner is selected (Base Price)
+            setInnerSelection(false); 
+            const price = calculateFinalPrice(BENCHMARK_QTY); 
+            
+            currentCard = originalCurrentCard; 
 
-                    cardHTML += `
-                        <div class='col-lg-3 col-6 mb-4'>
-                            <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                                <span class='card-price rounded-0'>PKR ${pricing.perCard} / pc (at ${pricing.benchmarkQty} pcs)</span>
-                                <img src='${imagePath}' onerror="this.onerror=null;this.src='img/wedding/placeholder.webp';" class='w-100' alt='${cardName}'>
-                                <div class="product-footer-overlay p-0">
-                                    <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showCardDetails('${cardName}')">
-                                        <i class="fas fa-search me-2"></i> View Details
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        `;
-                });
-            });
+            const pricePerCard = price / BENCHMARK_QTY;
+            
+            return {
+                total: parseInt(price).toLocaleString('en-PK'),
+                perCard: pricePerCard.toFixed(2),
+                benchmarkQty: BENCHMARK_QTY
+            };
+        }
 
-            cardGrid.innerHTML = cardHTML;
-        }
-        
-        function updateQuantityAndPrice(change = 0) {
-            const input = document.getElementById('input-card-qty');
-            let quantity = parseInt(input.value) || 1; 
-            const MIN_QTY = 1;
-            
-            if (change !== 0) {
-                quantity = Math.max(MIN_QTY, quantity + change);
-            } else {
-                 quantity = Math.max(MIN_QTY, quantity);
-            }
-            
-            input.value = quantity;
-            
-            if (currentCard && quantity >= MIN_QTY) {
-                const totalPrice = calculateFinalPrice(quantity);
-                
-                document.getElementById('finalPriceDisplay').textContent = `PKR ${totalPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
-                document.getElementById('finalPriceBox').style.display = 'block';
-                document.getElementById('selectionWarning').style.display = 'none';
-
-                document.getElementById('fixed-cost-display').textContent = `**Base Price (100 pcs: PKR ${currentCard.bulkPrice100.toFixed(0)}) used as base.**`;
-
-                currentCard.totalPrice = totalPrice;
-                currentCard.quantity = quantity;
-                document.getElementById('quote-product').value = `${currentCard.cardName} (${quantity} pcs)`;
-
-            } else {
-                 document.getElementById('finalPriceBox').style.display = 'none';
-                 document.getElementById('selectionWarning').style.display = 'block';
-            }
-        }
-
-        function showCardDetails(cardName) {
-            const cardData = allProducts[cardName];
-            if (!cardData) return;
-
-            currentCard = cardData; 
-            
-            // FIX: Set default to NO (false) so price starts at base cost
-            setInnerSelection(false); 
-
-            document.getElementById('detail-product-name-header').textContent = cardName;
-            document.getElementById('detail-product-name-body').textContent = cardName;
-            
-            // FIX: Use the stored image file path
-            document.getElementById('detail-product-image').src = currentCard.imageFile; 
-            document.getElementById('detail-product-image').onerror = function() {
-                this.src = `img/wedding/placeholder.webp`; 
-            };
-            
-            document.getElementById('card-description').textContent = currentCard.description; 
-            document.getElementById('input-card-qty').value = 100; 
-
-            document.getElementById('fixed-cost-display').textContent = `**Base Price (100 pcs: PKR ${currentCard.bulkPrice100.toFixed(0)}) used as base.**`;
-
-            showSection('product-detail');
-            updateQuantityAndPrice(0);
-        }
-
-        // --- ORDER SUBMISSION AND EVENT HANDLERS ---
-        
-        async function submitOrder() {
-            if (!currentCard || currentCard.totalPrice === 0) {
-                 showAlert('Please select a valid quantity before placing an order.', 'error');
-                 return;
-            }
-
-            const total = document.getElementById('finalPriceDisplay').textContent;
-            // Determine inner status based on current UI selection
-            const isExtraInnerSelected = document.getElementById('inner-yes').classList.contains('selected');
-            const innerStatus = isExtraInnerSelected ? `Yes, Extra Inner (+${INNER_COST_PER_CARD} PKR/pc)` : 'No Extra Inner';
-            
-            // Create a temporary form element to collect final data for API submission
-            const form = document.createElement('form');
-            form.append('name', 'Wedding Order: ' + currentCard.cardName);
-            form.append('phone', 'N/A (Customer Contact Required)'); 
-            form.append('product', currentCard.cardName);
-            form.append('quantity', document.getElementById('input-card-qty').value);
-            form.append('total_price', total);
-            form.append('inner_card_status', innerStatus);
-            form.append('details', `Total Price: ${total}. Quantity: ${document.getElementById('input-card-qty').value}. Extra Inner Status: ${innerStatus}.`);
-
-            // Use the general submitForm utility
-            await submitForm(form, 'Wedding Card Order'); 
-            form.remove(); // Clean up
-        }
+        // FIX: Simplified setInnerSelection to just manage the visuals and trigger recalculation
+        function setInnerSelection(selected) {
+            // Find the selected elements
+            const yesEl = document.getElementById('inner-yes');
+            const noEl = document.getElementById('inner-no');
+            
+            // Toggle the 'selected' class based on the 'selected' boolean argument
+            if (yesEl && noEl) {
+                 yesEl.classList.toggle('selected', selected);
+                 noEl.classList.toggle('selected', !selected);
+            }
+            
+            // Trigger price update
+            updateQuantityAndPrice(0);
+        }
 
 
-        function handleQuoteSubmission(e) {
-            e.preventDefault();
-            // The quote form already has name attributes, submit it
-            submitForm(this, 'Wedding Quote Inquiry');
-        }
+        // --- DATA RENDERING FUNCTIONS (Unchanged logic remains) ---
 
-        // Generic API Submission (for Quote and Order buttons)
-        async function submitForm(form, source) {
-            const formData = new FormData(form);
-            const formObject = {};
-            
-            formData.forEach((value, key) => {
-                formObject[key] = value;
-            });
-            formObject['form_source'] = source;
+        function loadWeddingCards() {
+            const categorizedCards = {};
+            Object.values(allProducts).forEach(card => {
+                const category = card.category; 
+                if (!categorizedCards[category]) {
+                    categorizedCards[category] = [];
+                }
+                categorizedCards[category].push(card);
+            });
+            
+            let cardHTML = '';
+            let cardGrid = document.getElementById('wedding-card-grid');
 
-            // Use document.body to find the button since this utility is generic
-            const submitButton = document.querySelector('button[type="submit"]'); 
-            const originalText = submitButton.innerHTML;
-            submitButton.disabled = true;
-            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Sending...';
+            if (Object.keys(categorizedCards).length === 0) {
+                 cardGrid.innerHTML = '<p class="alert alert-warning">No card designs are currently available. Please contact us for a custom quote.</p>';
+                 return;
+            }
 
-            showAlert('Sending inquiry via email...', 'info');
+            Object.keys(categorizedCards).forEach(category => {
+                cardHTML += `<h3 class="w-100 pt-5 border-top">${category}</h3>`; 
 
-            try {
-                // IMPORTANT: Target the absolute URL on RabHost
-                const response = await fetch('https://api.arhamprinters.pk/submit_form.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formObject)
-                });
+                categorizedCards[category].forEach(card => {
+                    const cardName = card.cardName;
+                    
+                    const originalCurrentCard = currentCard; 
+                    currentCard = card;
+                    const pricing = getDisplayPrice(cardName);
+                    currentCard = originalCurrentCard; 
 
-                const result = await response.json();
+                    const imagePath = card.imageFile; 
 
-                if (response.ok && result.success) {
-                    showAlert('Success! Your inquiry has been sent to the office email. We will contact you soon.', 'success');
-                    // Navigate back after success
-                    showSection('shop-catalog'); 
-                } else {
-                    showAlert(`Submission failed. Please try again or contact us directly.`, 'error');
-                }
-            } catch (error) {
-                console.error('Network Error:', error);
-                showAlert('Network error. Please try again.', 'error');
-            } finally {
-                submitButton.disabled = false;
-                submitButton.innerHTML = originalText;
-            }
-        }
+                    cardHTML += `
+                        <div class='col-lg-3 col-6 mb-4'>
+                            <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                                <span class='card-price rounded-0'>PKR ${pricing.perCard} / pc (at ${pricing.benchmarkQty} pcs)</span>
+                                <img src='${imagePath}' onerror="this.onerror=null;this.src='img/wedding/placeholder.webp';" class='w-100' alt='${cardName}'>
+                                <div class="product-footer-overlay p-0">
+                                    <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showCardDetails('${cardName}')">
+                                        <i class="fas fa-search me-2"></i> View Details
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        `;
+                });
+            });
+
+            cardGrid.innerHTML = cardHTML;
+        }
+        
+        function updateQuantityAndPrice(change = 0) {
+            const input = document.getElementById('input-card-qty');
+            let quantity = parseInt(input.value) || 1; 
+            const MIN_QTY = 1;
+            
+            if (change !== 0) {
+                quantity = Math.max(MIN_QTY, quantity + change);
+            } else {
+                 quantity = Math.max(MIN_QTY, quantity);
+            }
+            
+            input.value = quantity;
+            
+            if (currentCard && quantity >= MIN_QTY) {
+                const totalPrice = calculateFinalPrice(quantity);
+                
+                document.getElementById('finalPriceDisplay').textContent = `PKR ${totalPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
+                document.getElementById('finalPriceBox').style.display = 'block';
+                document.getElementById('selectionWarning').style.display = 'none';
+
+                document.getElementById('fixed-cost-display').textContent = `**Base Price (100 pcs: PKR ${currentCard.bulkPrice100.toFixed(0)}) used as base.**`;
+
+                currentCard.totalPrice = totalPrice;
+                currentCard.quantity = quantity;
+                document.getElementById('quote-product').value = `${currentCard.cardName} (${quantity} pcs)`;
+
+            } else {
+                 document.getElementById('finalPriceBox').style.display = 'none';
+                 document.getElementById('selectionWarning').style.display = 'block';
+            }
+        }
+
+        function showCardDetails(cardName) {
+            const cardData = allProducts[cardName];
+            if (!cardData) return;
+
+            currentCard = cardData; 
+            
+            // FIX: Set default to NO (false) so price starts at base cost
+            setInnerSelection(false); 
+
+            document.getElementById('detail-product-name-header').textContent = cardName;
+            document.getElementById('detail-product-name-body').textContent = cardName;
+            
+            // FIX: Use the stored image file path
+            document.getElementById('detail-product-image').src = currentCard.imageFile; 
+            document.getElementById('detail-product-image').onerror = function() {
+                this.src = `img/wedding/placeholder.webp`; 
+            };
+            
+            document.getElementById('card-description').textContent = currentCard.description; 
+            document.getElementById('input-card-qty').value = 100; 
+
+            document.getElementById('fixed-cost-display').textContent = `**Base Price (100 pcs: PKR ${currentCard.bulkPrice100.toFixed(0)}) used as base.**`;
+
+            showSection('product-detail');
+            updateQuantityAndPrice(0);
+        }
+
+        // --- ORDER SUBMISSION AND EVENT HANDLERS ---
+        
+        async function submitOrder() {
+            if (!currentCard || currentCard.totalPrice === 0) {
+                 showAlert('Please select a valid quantity before placing an order.', 'error');
+                 return;
+            }
+
+            const total = document.getElementById('finalPriceDisplay').textContent;
+            // Determine inner status based on current UI selection
+            const isExtraInnerSelected = document.getElementById('inner-yes').classList.contains('selected');
+            const innerStatus = isExtraInnerSelected ? `Yes, Extra Inner (+${INNER_COST_PER_CARD} PKR/pc)` : 'No Extra Inner';
+            
+            // Create a temporary form element to collect final data for API submission
+            const form = document.createElement('form');
+            form.append('name', 'Wedding Order: ' + currentCard.cardName);
+            form.append('phone', 'N/A (Customer Contact Required)'); 
+            form.append('product', currentCard.cardName);
+            form.append('quantity', document.getElementById('input-card-qty').value);
+            form.append('total_price', total);
+            form.append('inner_card_status', innerStatus);
+            form.append('details', `Total Price: ${total}. Quantity: ${document.getElementById('input-card-qty').value}. Extra Inner Status: ${innerStatus}.`);
+
+            // Use the general submitForm utility
+            // We use the button element that triggered this to handle state
+            await submitForm(document.querySelector('#finalPriceBox button'), 'Wedding Card Order'); 
+            form.remove(); // Clean up
+        }
 
 
-        function showSection(sectionName, productName = "", price = 0) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            
-            const target = document.getElementById(sectionName + '-section');
-            if(target) target.classList.add('active');
-            else document.getElementById('shop-catalog-section').classList.add('active');
+        function handleQuoteSubmission(e) {
+            e.preventDefault();
+            // The quote form already has a submit button inside it
+            submitForm(this.querySelector('button[type="submit"]'), 'Wedding Quote Inquiry');
+        }
 
-            if (sectionName === 'quote' && productName) {
-                document.getElementById('quote-product').value = productName;
-                document.getElementById('quote-quantity').value = 500;
-                document.getElementById('quote-details').value = `I am interested in ${productName}. I require approximately 500 pieces.`;
-            }
-            
-            if (typeof setActiveMobileNav === 'function') {
-                setActiveMobileNav(sectionName);
-            }
-            
-            window.scrollTo(0, 0);
-        }
-        
-        function showAlert(message, type) {
-            const alert = document.createElement('div');
-            alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
-            alert.style.top = '20px';
-            alert.style.right = '20px';
-            alert.style.zIndex = '9999';
-            alert.style.minWidth = '300px';
-            alert.innerHTML = `
-                ${message}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            `;
-            document.body.appendChild(alert);
-            
-            setTimeout(() => {
-                if (alert.parentNode) {
-                    alert.parentNode.removeChild(alert);
-                }
-            }, 5000);
-        }
-        
-        document.addEventListener('DOMContentLoaded', initialAppLoad);
-    </script>
+        // Generic API Submission (for Quote and Order buttons)
+        async function submitForm(submitButton, source) {
+            const form = submitButton.closest('form');
+            const formData = new FormData(form);
+            const formObject = {};
+            
+            formData.forEach((value, key) => {
+                formObject[key] = value;
+            });
+            formObject['form_source'] = source;
+
+            const originalText = submitButton.innerHTML;
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Sending...';
+
+            showAlert('Sending inquiry via email...', 'info');
+
+            try {
+                // IMPORTANT: Target the absolute URL on RabHost
+                const response = await fetch('https://api.arhamprinters.pk/submit_form.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formObject)
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    showAlert('Success! Your inquiry has been sent to the office email. We will contact you soon.', 'success');
+                    // Navigate back after success
+                    if(source === 'Wedding Quote Inquiry') showSection('shop-catalog'); 
+                } else {
+                    showAlert(`Submission failed. Please try again or contact us directly.`, 'error');
+                }
+            } catch (error) {
+                console.error('Network Error:', error);
+                showAlert('Network error. Please try again.', 'error');
+            } finally {
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalText;
+            }
+        }
+
+
+        function showSection(sectionName, productName = "", price = 0) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            
+            const target = document.getElementById(sectionName + '-section');
+            if(target) target.classList.add('active');
+            else document.getElementById('shop-catalog-section').classList.add('active');
+
+            if (sectionName === 'quote' && productName) {
+                document.getElementById('quote-product').value = productName;
+                document.getElementById('quote-quantity').value = 500;
+                document.getElementById('quote-details').value = `I am interested in ${productName}. I require approximately 500 pieces.`;
+            }
+            
+            // Removed setActiveMobileNav as it's not defined in the provided code, but kept the window scroll
+            
+            window.scrollTo(0, 0);
+        }
+        
+        // The original showAlert definition (used earlier for initialization too) is kept at the beginning.
+        
+        document.addEventListener('DOMContentLoaded', initialAppLoad);
+    </script>
 </div>
 </body>
 </html>
+
