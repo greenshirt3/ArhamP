@@ -1041,15 +1041,15 @@
     let currentSelectedVariations = {}; 
     
     // 🛑 NEW: Area-Based Pricing & Profit Constants 🛑
-    const AREA_BASED_META = {
-        "China Frontlit": { is_area_based: true, rate: 35, min_area: 10, category: 'Banners' }, 
-        "Star Frontlit": { is_area_based: true, rate: 65, min_area: 10, category: 'Banners' },
-        "Panaflex Banner Backlit": { is_area_based: true, rate: 100, min_area: 10, category: 'Banners' }, 
-        "OneVision": { is_area_based: true, rate: 90, min_area: 10, category: 'Banners' }, 
-        "Venyl": { is_area_based: true, rate: 90, min_area: 10, category: 'Banners' },    
+      const AREA_BASED_META = {
+        "China Frontlit": { is_area_based: true, rate: 35, min_area: 2, category: 'Banners' }, 
+        "Star Frontlit": { is_area_based: true, rate: 65, min_area: 2, category: 'Banners' },
+        "Panaflex Banner Backlit": { is_area_based: true, rate: 100, min_area: 2, category: 'Banners' }, 
+        "OneVision": { is_area_based: true, rate: 90, min_area: 2, category: 'Banners' }, 
+        "Venyl": { is_area_based: true, rate: 90, min_area: 2, category: 'Banners' },    
         "3D Wallpaper Placeholder": { is_area_based: true, rate: 30, min_area: 20, category: '3D Wallpaper' },
         "Photo Frames": { is_area_based: true, rate: 40, min_area: 1, category: 'Photo Printing' } 
-    }; 
+    };
     
     const AREA_BASED_PRODUCT_NAMES = Object.keys(AREA_BASED_META);
 
@@ -2029,3 +2029,4 @@
 </body>
 
 </html>
+
