@@ -537,28 +537,28 @@
     const BULK_QTY = 100; 
     const INNER_COST_PER_CARD = 10; 
     
-    // --- PROFIT MARGINS (Retained as fixed business rules based on quantity) ---
+    // --- PROFIT MARGINS (UPDATED to user's final tiered request) ---
     const PROFIT_TIERS = [
-        { min: 1, max: 32, multiplier: 1.20 },
-        { min: 33, max: 50, multiplier: 1.20 },
-        { min: 51, max: 100, multiplier: 1.23 }, 
-        { min: 101, max: 200, multiplier: 1.26 }, 
-        { min: 201, max: 300, multiplier: 1.30 }, 
-        { min: 301, max: 400, multiplier: 1.33 }, 
-        { min: 401, max: 500, multiplier: 1.35 }, 
-        { min: 501, max: Infinity, multiplier: 1.35 }, 
+        // Multiplier is 1 + (Markup / 100)
+        { min: 1, max: 50, multiplier: 1.15 },    // 15% Markup
+        { min: 51, max: 100, multiplier: 1.12 },   // 12% Markup
+        { min: 101, max: 300, multiplier: 1.10 },  // 10% Markup
+        { min: 301, max: 500, multiplier: 1.09 },  // 9% Markup
+        // Default for >500 is the lowest profit margin
+        { min: 501, max: Infinity, multiplier: 1.09 }, 
     ];
 
     
     function getPrintingChargePerCard(quantity) {
-        if (quantity >= 1 && quantity <= 50) return 15;
-        if (quantity >= 51 && quantity <= 100) return 14;
-        if (quantity >= 101 && quantity <= 300) return 13;
-        if (quantity >= 301 && quantity <= 500) return 12.5;
-        return 12.5; // Default for >500
+        // --- PRINTING CHARGES (UPDATED to user's final tiered request) ---
+        if (quantity >= 1 && quantity <= 50) return 18;
+        if (quantity >= 51 && quantity <= 100) return 10;
+        if (quantity >= 101 && quantity <= 300) return 8;
+        if (quantity >= 301 && quantity <= 500) return 6;
+        return 6; // Default for >500
     }
 
-    // --- INITIALIZATION AND FETCHING (FIXED) ---
+    // --- INITIALIZATION AND FETCHING (RETAINED LOGIC) ---
 
     async function initialAppLoad() {
         let rawData;
@@ -584,8 +584,7 @@
     }
 
     /**
-     * FIX: Correctly maps the flat wedding data structure and calculates unit costs 
-     * by integrating material cost, fixed overhead, and printing charges.
+     * Calculates the unit cost based on Material Cost + Printing Charge for 100 pcs + Fixed Overhead.
      */
     function initialCardSetup(flatData) {
         const weddingData = flatData['Special Occasions (Wedding)'];
@@ -607,11 +606,11 @@
             const printingChargePerCard = getPrintingChargePerCard(BENCHMARK_QTY);
             const totalPrintingCharges = printingChargePerCard * BENCHMARK_QTY;
             
-            // 2. Calculate the Total Cost (Material + Printing + Overhead) for 100 pieces
+            // 2. Total Cost (Material + Printing + Overhead) for 100 pieces (Used for display/benchmark)
             const TOTAL_COST_100_PCS = rawMaterialCost100 + FIXED_OVERHEAD + totalPrintingCharges;
             
-            // 3. Calculate the Estimated Unit Cost
-            const ESTIMATED_UNIT_COST = TOTAL_COST_100_PCS / BENCHMARK_QTY;
+            // 3. Estimated Variable Unit Cost (Material + Printing)
+            const VARIABLE_UNIT_COST = (rawMaterialCost100 + totalPrintingCharges) / BENCHMARK_QTY;
 
             // Use the imageFile property which is already set to the local path in the final JSON
             const imagePath = card.imageFile || 'img/wedding/placeholder.webp'; 
@@ -620,9 +619,8 @@
                 ...card,
                 cardName: cardName,
                 category: 'Wedding Cards',
-                // This is the total cost for 100 pieces including ALL base charges
                 bulkPrice100: TOTAL_COST_100_PCS, 
-                estimatedUnitCost: ESTIMATED_UNIT_COST,
+                estimatedUnitCost: VARIABLE_UNIT_COST, // Store variable unit cost here
                 fixedCost: FIXED_OVERHEAD,
                 printingChargePerCard: printingChargePerCard,
                 imageFile: imagePath
@@ -631,29 +629,27 @@
     }
 
 
-    // --- PRICING CALCULATION LOGIC ---
+    // --- PRICING CALCULATION LOGIC (CRITICAL UPDATE) ---
 
     function calculateFinalPrice(quantity) {
         if (quantity < 1 || !currentCard) return 0;
         
-        // Use the estimated unit cost which already includes fixed overhead factored in per piece
-        const CARD_UNIT_COST = currentCard.estimatedUnitCost;
-        // The fixed cost is included per order once, not per unit, so we subtract its per-unit portion.
-        // For accurate per-order cost calculation, we must use raw components:
+        // 1. Determine Unit Cost based on Material + Printing for the ORDER QUANTITY
+        const rawMaterialUnitCost = currentCard.bulkPrice100 / BULK_QTY - currentCard.fixedCost / BULK_QTY - currentCard.printingChargePerCard; 
+        const actualPrintingCharge = getPrintingChargePerCard(quantity);
         
-        const rawMaterialAndPrintingCost = currentCard.bulkPrice100 - currentCard.fixedCost;
-        const effectiveUnitVariableCost = rawMaterialAndPrintingCost / BULK_QTY;
+        // Total Variable Cost per unit (Material + Printing)
+        const unitVariableCost = rawMaterialUnitCost + actualPrintingCharge;
 
-        // Base Variable Cost is just material and printing, no fixed overhead yet
-        const baseVariableCost = effectiveUnitVariableCost * quantity;
+        // 2. Calculate Total Variable Cost for the order
+        let totalVariableCost = unitVariableCost * quantity;
         
-        // Include the Inner Card Cost
+        // 3. Include the Inner Card Cost (Variable Cost)
         const innerCost = hasInner ? (INNER_COST_PER_CARD * quantity) : 0;
+        totalVariableCost += innerCost;
         
-        // Total Cost before Profit = Variable Cost + Fixed Overhead (once) + Inner Card Cost
-        const totalCostBeforeProfit = baseVariableCost + innerCost + currentCard.fixedCost;
-
-        let multiplier = 1.20; 
+        // 4. Determine Profit Multiplier
+        let multiplier = 1.09; // Default to lowest
         for (const tier of PROFIT_TIERS) {
             if (quantity >= tier.min && quantity <= tier.max) {
                 multiplier = tier.multiplier;
@@ -661,16 +657,23 @@
             }
         }
         
-        const finalPrice = Math.round(totalCostBeforeProfit * multiplier);
+        // 5. Apply Profit to Variable Costs ONLY
+        const variableCostAfterProfit = totalVariableCost * multiplier;
+        
+        // 6. Add Fixed Overhead after Profit Application
+        const finalPrice = Math.round(variableCostAfterProfit + currentCard.fixedCost);
         
         return finalPrice;
     }
+
+    // --- DISPLAY and UI LOGIC (Minor Fixes to align with new data structure) ---
 
     function getDisplayPrice(cardName) {
         const BENCHMARK_QTY = 200;
         const cardData = allProducts[cardName];
         if (!cardData) return { total: 0, perCard: '0.00', benchmarkQty: BENCHMARK_QTY };
 
+        // Temporarily set up context for calculation
         const originalCurrentCard = currentCard;
         currentCard = { ...cardData, quantity: BENCHMARK_QTY }; 
         
@@ -679,6 +682,7 @@
 
         const price = calculateFinalPrice(BENCHMARK_QTY);
         
+        // Restore original state
         setInnerSelection(originalInnerState, false); 
         currentCard = originalCurrentCard; 
 
@@ -705,8 +709,6 @@
         }
     }
 
-    // --- DATA RENDERING FUNCTIONS ---
-
     function loadWeddingCards() {
         const categorizedCards = {};
         Object.values(allProducts).forEach(card => {
@@ -726,7 +728,6 @@
         }
 
         Object.keys(categorizedCards).forEach(category => {
-            // Only show the header if we want a clear title
             cardHTML += `<h3 class="w-100 pt-5 border-top">${category}</h3>`; 
 
             categorizedCards[category].forEach(card => {
@@ -737,7 +738,6 @@
                 const pricing = getDisplayPrice(cardName);
                 currentCard = originalCurrentCard; 
 
-                // Use the stored image path
                 const imagePath = card.imageFile; 
 
                 cardHTML += `
@@ -779,9 +779,8 @@
             document.getElementById('finalPriceBox').style.display = 'block';
             document.getElementById('selectionWarning').style.display = 'none';
 
-            // Ensure this display uses the calculated TOTAL_COST_100_PCS
             const bulkPriceDisplay = currentCard.bulkPrice100.toFixed(0);
-            document.getElementById('fixed-cost-display').textContent = `**Total Cost (100 pcs: PKR ${bulkPriceDisplay}) used for calculation. Fixed overhead of ${currentCard.fixedCost} PKR applied.**`;
+            document.getElementById('fixed-cost-display').textContent = `**Total Cost (100 pcs: PKR ${bulkPriceDisplay}) used for calculation. Fixed overhead of ${currentCard.fixedCost} PKR applied after profit.**`;
 
             currentCard.totalPrice = totalPrice;
             currentCard.quantity = quantity;
@@ -805,7 +804,6 @@
         document.getElementById('detail-product-name-header').textContent = cardName;
         document.getElementById('detail-product-name-body').textContent = cardName;
         
-        // Use the stored image file path
         document.getElementById('detail-product-image').src = currentCard.imageFile; 
         document.getElementById('detail-product-image').onerror = function() {
             this.src = `img/wedding/placeholder.webp`; // Fallback image path
@@ -815,13 +813,13 @@
         document.getElementById('input-card-qty').value = 100; 
         
         const bulkPriceDisplay = currentCard.bulkPrice100.toFixed(0);
-        document.getElementById('fixed-cost-display').textContent = `**Total Cost (100 pcs: PKR ${bulkPriceDisplay}) used for calculation. Fixed overhead of ${currentCard.fixedCost} PKR applied.**`;
+        document.getElementById('fixed-cost-display').textContent = `**Total Cost (100 pcs: PKR ${bulkPriceDisplay}) used for calculation. Fixed overhead of ${currentCard.fixedCost} PKR applied after profit.**`;
 
         showSection('product-detail');
         updateQuantityAndPrice(0);
     }
 
-    // --- ORDER SUBMISSION AND ALERT FUNCTIONS ---
+    // --- ORDER SUBMISSION AND ALERT FUNCTIONS (Retained) ---
     
     async function submitOrder(type) {
         if (!currentCard || currentCard.totalPrice === 0) {
@@ -894,11 +892,6 @@
             document.getElementById('quote-details').value = `I am interested in ${productName}. I require approximately 500 pieces.`;
         }
         
-        // This function is assumed to be defined elsewhere in main.js or globally
-        // if (typeof setActiveMobileNav === 'function') {
-        //     setActiveMobileNav(sectionName);
-        // }
-        
         window.scrollTo(0, 0);
     }
     
@@ -927,6 +920,7 @@
 </div>
 </body>
 </html>
+
 
 
 
