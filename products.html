@@ -602,6 +602,27 @@
                         </div>
                     </div>
                 </div>
+                
+                <div class='col-lg-3 col-6 mb-4'>
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                        <img src='img/products/placeholder.png' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='w-100' alt='OneVision Banner'>
+                        <div class="product-footer-overlay p-0">
+                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('OneVision')">
+                                <i class="fas fa-search me-2"></i> OneVision (Area)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-lg-3 col-6 mb-4'>
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                        <img src='img/products/placeholder.png' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='w-100' alt='Venyl Sticker'>
+                        <div class="product-footer-overlay p-0">
+                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Venyl')">
+                                <i class="fas fa-search me-2"></i> Venyl (Area)
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
@@ -1019,16 +1040,37 @@
     let allProductGroups = {};
     let currentSelectedVariations = {}; 
     
-    // Placeholder structure for area based logic (FIXED: Prices changed to rate per sq ft)
+    // 🛑 NEW: Area-Based Pricing & Profit Constants 🛑
     const AREA_BASED_META = {
-        "China Frontlit": { is_area_based: true, rate: 10, min_area: 10, category: 'Banners' }, 
-        "Star Frontlit": { is_area_based: true, rate: 12, min_area: 10, category: 'Banners' },
-        "Panaflex Banner Backlit": { is_area_based: true, rate: 15, min_area: 10, category: 'Banners' },
-        "3D Wallpaper Placeholder": { is_area_based: true, rate: 18, min_area: 20, category: '3D Wallpaper' },
-        "Photo Frames": { is_area_based: true, rate: 1, min_area: 1, category: 'Photo Printing' } 
+        "China Frontlit": { is_area_based: true, rate: 35, min_area: 10, category: 'Banners' }, 
+        "Star Frontlit": { is_area_based: true, rate: 65, min_area: 10, category: 'Banners' },
+        "Panaflex Banner Backlit": { is_area_based: true, rate: 100, min_area: 10, category: 'Banners' }, 
+        "OneVision": { is_area_based: true, rate: 90, min_area: 10, category: 'Banners' }, 
+        "Venyl": { is_area_based: true, rate: 90, min_area: 10, category: 'Banners' },    
+        "3D Wallpaper Placeholder": { is_area_based: true, rate: 30, min_area: 20, category: '3D Wallpaper' },
+        "Photo Frames": { is_area_based: true, rate: 40, min_area: 1, category: 'Photo Printing' } 
     }; 
     
     const AREA_BASED_PRODUCT_NAMES = Object.keys(AREA_BASED_META);
+
+    // NEW: Tiered Design Charges (Based on Area and Quantity)
+    const DESIGN_FEE_TIERS = [
+        { min_sqft: 1, max_sqft: 10, base_fee: 300 },
+        { min_sqft: 11, max_sqft: 24, base_fee: 400 },
+        { min_sqft: 25, max_sqft: 50, base_fee: 500 },
+        { min_sqft: 51, max_sqft: Infinity, base_fee: 700 },
+    ];
+    const DESIGN_FEE_QTY_INCREMENT = 50;
+    const DESIGN_FEE_QTY_THRESHOLD = 5;
+
+    // NEW: Tiered Profit Margins (Based on Quantity)
+    const AREA_PROFIT_TIERS = [
+        { min_qty: 1, max_qty: 10, multiplier: 1.20 }, // 20%
+        { min_qty: 11, max_qty: 20, multiplier: 1.18 }, // 18%
+        { min_qty: 21, max_qty: 30, multiplier: 1.16 }, // 16%
+        { min_qty: 31, max_qty: 50, multiplier: 1.14 }, // 14%
+        { min_qty: 51, max_qty: Infinity, multiplier: 1.10 }, // 10%
+    ];
     
     let digitalPrintingPricing = {};
 
@@ -1087,6 +1129,45 @@
             return a.localeCompare(b); 
         });
     }
+    
+    // NEW Helper function for Design Fee Calculation
+    function calculateDesignFee(itemAreaSqft, quantity) {
+        let baseFee = 0;
+        
+        // 1. Calculate Base Fee (based on ITEM area)
+        for (const tier of DESIGN_FEE_TIERS) {
+            if (itemAreaSqft >= tier.min_sqft && itemAreaSqft <= tier.max_sqft) {
+                baseFee = tier.base_fee;
+                break;
+            }
+        }
+        
+        // 2. Calculate Quantity Multiplier (50 PKR for every 5 extra pieces over Qty 1)
+        let qtyFee = 0;
+        if (quantity > 1) {
+            // Pieces beyond the first one
+            const additionalPieces = quantity - 1; 
+            // Count how many groups of 5 pieces are fully or partially covered by the additional pieces
+            const additionsCount = Math.floor((additionalPieces + DESIGN_FEE_QTY_THRESHOLD - 1) / DESIGN_FEE_QTY_THRESHOLD);
+            qtyFee = additionsCount * DESIGN_FEE_QTY_INCREMENT;
+        }
+
+        return baseFee + qtyFee;
+    }
+
+    // NEW Helper function for Profit Multiplier
+    function getAreaProfitMultiplier(quantity) {
+        let multiplier = 1.10; // Default to the lowest profit
+        
+        for (const tier of AREA_PROFIT_TIERS) {
+            if (quantity >= tier.min_qty && quantity <= tier.max_qty) {
+                multiplier = tier.multiplier;
+                break;
+            }
+        }
+        return multiplier;
+    }
+
 
     // --- Core Functions ---
 
@@ -1376,8 +1457,30 @@
         if (isAreaBased) {
             // --- AREA-BASED SETUP (Panaflex/Wallpaper/Photo Frames) ---
             areaInputs.style.display = 'block';
-            standardOptions.style.display = 'none';
             
+            // Inject Design Service option group before existing standard options
+            standardOptions.style.display = 'block'; 
+            standardOptions.innerHTML = `
+                <div class="product-option-group" data-option-key="DesignService">
+                    <label>Design Service:</label>
+                    <div class="d-flex flex-wrap gap-3">
+                        <label class="choice-card selected" id="design-printready" 
+                               onclick="currentSelectedVariations['DesignService']='PrintReady'; updateFinalPrice()">
+                            <input type="radio" name="option-DesignService" value="PrintReady" checked>
+                            <span class="label-text">Print Ready File</span>
+                        </label>
+                        <label class="choice-card" id="design-needed" 
+                               onclick="currentSelectedVariations['DesignService']='DesignNeeded'; updateFinalPrice()">
+                            <input type="radio" name="option-DesignService" value="DesignNeeded">
+                            <span class="label-text">Design Service Required</span>
+                        </label>
+                    </div>
+                </div>`;
+            
+            // Set initial selection state for the new option
+            currentSelectedVariations['DesignService'] = 'PrintReady';
+
+            // Reset Dimension inputs
             document.getElementById('input-width').value = 1;
             document.getElementById('input-height').value = 1;
             document.getElementById('input-custom-qty').value = 1;
@@ -1388,7 +1491,9 @@
             });
             
             document.getElementById('areaConstraintWarning').style.display = 'none';
-            
+            document.getElementById('areaConstraintWarning').classList.remove('alert-info');
+            document.getElementById('areaConstraintWarning').classList.add('alert-danger'); // Default style is error, use info for fee
+
             updateFinalPrice();
 
         } else {
@@ -1580,7 +1685,7 @@
         updateFinalPrice();
     }
     
-    // --- Price Update and Calculation Logic (Handles both types) ---
+    // --- Price Update and Calculation Logic (Handles all three types) ---
     
     function updateFinalPrice() {
         if (!currentProduct) return;
@@ -1598,6 +1703,8 @@
             const rateMeta = AREA_BASED_META[currentProduct.baseName];
             const baseRate = rateMeta ? rateMeta.rate : 0;
             const minArea = rateMeta ? rateMeta.min_area || 0 : 0;
+            const designService = currentSelectedVariations['DesignService'] || 'PrintReady';
+
             
             document.getElementById('finalPriceBox').style.display = 'none';
             document.getElementById('areaConstraintWarning').style.display = 'none';
@@ -1619,7 +1726,33 @@
                 return; 
             }
             
-            totalPrice = totalArea * baseRate;
+            // 1. Calculate Base Print Cost
+            const basePrintCost = totalArea * baseRate;
+
+            // 2. Calculate Dynamic Design Fee (if required)
+            let totalDesignFee = 0;
+            if (designService === 'DesignNeeded') {
+                totalDesignFee = calculateDesignFee(itemArea, quantity);
+                
+                // Show Design Fee in the warning box (now used for fee display)
+                document.getElementById('areaConstraintWarning').classList.remove('alert-danger');
+                document.getElementById('areaConstraintWarning').classList.add('alert-info');
+                document.getElementById('areaConstraintWarning').innerHTML = `<i class="fas fa-magic me-2"></i> **Design Fee Applied**: PKR ${totalDesignFee.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
+                document.getElementById('areaConstraintWarning').style.display = 'block';
+
+            } else {
+                 document.getElementById('areaConstraintWarning').style.display = 'none';
+            }
+            
+            // 3. Calculate Total Cost (Cost before Profit Markup)
+            const totalCostBeforeProfit = basePrintCost + totalDesignFee;
+
+            // 4. Determine Profit Multiplier
+            const profitMultiplier = getAreaProfitMultiplier(quantity);
+            
+            // 5. Final Price Calculation
+            totalPrice = Math.round(totalCostBeforeProfit * profitMultiplier);
+
         } 
         
         // 2. Handle Digital Printing Tiered Products 
@@ -1813,7 +1946,7 @@
              return;
           }
 
-          showAlert(`Order submission initiated for ${currentProduct.baseName}. Reviewing details...`, 'info');
+          showAlert(`Order submission initiated for ${currentProduct.baseName}. Redirecting to quote...`, 'info');
           
           // Redirect to quote for final confirmation/details
           showSection('quote');
@@ -1821,11 +1954,24 @@
           document.getElementById('quote-quantity').value = document.getElementById('input-standard-qty')?.value || document.getElementById('input-custom-qty')?.value || 1;
           
           let detailsMsg = "Please confirm the order details.";
-          if (currentProduct && currentSelectedVariations) {
+          
+          if (currentProduct?.isAreaBased) {
+              const width = document.getElementById('input-width').value;
+              const height = document.getElementById('input-height').value;
+              const qty = document.getElementById('input-custom-qty').value;
+              const design = currentSelectedVariations['DesignService'];
+              
+              detailsMsg = `Area-Based Order Details:\nDimensions: ${width}x${height} ft\nQuantity: ${qty} pcs\nDesign Service: ${design}`;
+
+              const designFeeDisplay = document.getElementById('areaConstraintWarning').textContent;
+              if (designFeeDisplay && design !== 'PrintReady') {
+                  detailsMsg += `\n${designFeeDisplay}`;
+              }
+
+          } else if (currentProduct && currentSelectedVariations) {
               detailsMsg = "Selected options:\n" + Object.entries(currentSelectedVariations).map(([k, v]) => `${k}: ${v}`).join('\n');
-          } else if (currentProduct?.isAreaBased) {
-              detailsMsg = `Dimensions: ${document.getElementById('input-width').value}x${document.getElementById('input-height').value} ft, Quantity: ${document.getElementById('input-custom-qty').value}`;
           }
+          
           document.getElementById('quote-details').value = detailsMsg;
     }
 
@@ -1883,5 +2029,3 @@
 </body>
 
 </html>
-
-
