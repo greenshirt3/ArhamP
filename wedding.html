@@ -413,12 +413,12 @@
                             <div class="product-option-group" data-option-key="InnerCard" id="innerCardOptionGroup">
                                 <label>Include Extra Inner Card?</label>
                                 <div class="d-flex gap-3">
-                                    <label class="choice-card-inner selected" id="inner-yes" onclick="setInnerSelection(true)">
-                                        <input type="radio" name="inner-option" value="true" checked>
+                                    <label class="choice-card-inner" id="inner-yes" onclick="setInnerSelection(true)">
+                                        <input type="radio" name="inner-option" value="true">
                                         Yes (Add Extra Inner, +10 PKR/pc)
                                     </label>
-                                    <label class="choice-card-inner" id="inner-no" onclick="setInnerSelection(false)">
-                                        <input type="radio" name="inner-option" value="false">
+                                    <label class="choice-card-inner selected" id="inner-no" onclick="setInnerSelection(false)">
+                                        <input type="radio" name="inner-option" value="false" checked>
                                         No (Standard Inner Only)
                                     </label>
                                 </div>
@@ -531,12 +531,12 @@
         // --- DATA STORE ---
         let allProducts = {};
         let currentCard = null;
-        let hasInner = false; 
+        let hasInner = false; // Initial state should be false (No extra inner selected)
         
         const BULK_QTY = 100; 
         const INNER_COST_PER_CARD = 10; 
-        // This is the universal cost of the single required inner card.
-        const COST_OF_ONE_REQUIRED_INNER = 10; 
+        // We do NOT need to subtract the cost of one required inner from the BulkPrice as it's implied.
+        // We will only use this cost when ADDING the optional cost.
         
         // --- PROFIT MARGINS ---
         const PROFIT_TIERS = [
@@ -585,8 +585,8 @@
         }
 
         /**
-         * FIX: Recalculates estimatedUnitCost to be the BASE Unit Cost (Shell + Required Inner),
-         * effectively treating the bulk price as the stable price basis before profit markup.
+         * FIX: Calculates Unit Cost simply by subtracting ONLY the Fixed Overhead from Bulk Price,
+         * treating the remainder as the variable cost (shell + required inner).
          */
         function initialCardSetup(flatData) {
             const weddingData = flatData['Special Occasions (Wedding)']; 
@@ -605,15 +605,11 @@
                 
                 const FIXED_OVERHEAD = 500; 
                 
-                // 1. Calculate the total fixed and semi-fixed costs included in the BulkPrice100 (which is the entire cost block)
-                const TOTAL_FIXED_COST_PER_100 = FIXED_OVERHEAD;
+                // Calculate the variable cost per 100 units (Shell + Required Inner Cost)
+                const REMAINING_VARIABLE_COST = price100 - FIXED_OVERHEAD;
 
-                // 2. The remaining variable cost is calculated simply: (BulkPrice - Fixed Overhead)
-                const REMAINING_VARIABLE_COST = price100 - TOTAL_FIXED_COST_PER_100;
-
-                // 3. The Unit Cost (estimatedUnitCost) now represents the price of the card *excluding fixed overhead*
-                // This is the cost basis for all subsequent calculations.
-                const BASE_UNIT_COST_AMORTIZED = REMAINING_VARIABLE_COST / BULK_QTY;
+                // Calculate the Unit Cost (including shell and required inner)
+                const ESTIMATED_UNIT_COST = REMAINING_VARIABLE_COST / BULK_QTY;
 
 
                 allProducts[cardName] = { 
@@ -621,7 +617,7 @@
                     cardName: cardName, 
                     category: 'Wedding Cards', 
                     bulkPrice100: price100, 
-                    estimatedUnitCost: BASE_UNIT_COST_AMORTIZED, // This is the Base Unit Cost (Shell + Required Inner)
+                    estimatedUnitCost: ESTIMATED_UNIT_COST, // This is the Base Unit Cost (Shell + Required Inner)
                     fixedCost: FIXED_OVERHEAD,
                     imageFile: imagePath 
                 };
@@ -647,12 +643,12 @@
                 }
             }
             
-            // 1. Calculate Base Variable Cost (Includes Shell + Required Inner Cost, already amortized)
+            // 1. Calculate Base Variable Cost (Includes Shell + Required Inner Cost)
             const baseVariableCost = BASE_UNIT_COST * quantity;
             
             // 2. Conditional EXTRA Inner Cost (Only if the user selected 'Yes')
+            // This is the ONLY part that changes the final price based on the radio button state.
             const isExtraInnerSelected = document.getElementById('inner-yes')?.classList.contains('selected') || false;
-            // The cost for the EXTRA inner is ADDED here.
             const extraInnerCost = isExtraInnerSelected ? (INNER_COST_PER_CARD * quantity) : 0;
             
             // Total Cost = Base Variable Cost + EXTRA Inner Cost + Fixed Overhead
