@@ -1718,7 +1718,7 @@
 
             const itemArea = width * height;
             const totalArea = itemArea * quantity;
-            document.getElementById('areaDisplay').textContent = `Area per piece: ${itemArea.toFixed(2)} sq ft | Total Area: ${totalArea.toFixed(2)} sq ft | Rate: PKR ${baseRate.toFixed(2)}/sq ft`;
+            document.getElementById('areaDisplay').textContent = `Area per piece: ${itemArea.toFixed(2)} sq ft | Total Area: ${totalArea.toFixed(2)} sq ft;
 
             if (totalArea < minArea) {
                 document.getElementById('areaConstraintWarning').textContent = `Minimum order area for this product is ${minArea} sq ft. Current total area (${totalArea.toFixed(2)} sq ft) is too small.`;
@@ -2029,4 +2029,5 @@
 </body>
 
 </html>
+
 
