@@ -231,11 +231,11 @@
             "color": {
                 "70g": { "1-100": 22.00, "101-200": 20.00, "201-400": 19.00, "401-1000": 18.00 }
             }
-        }
+        }   
     },
     "Special Occasions (Wedding)": {
-        "Card Design #105": { "bulkPrice100": 975.00, "description": "Elegant traditional design with intricate patterns.", "imageFile": "img/wedding/105 (1).webp" },
-        "Card Design #107": { "bulkPrice100": 975.00, "description": "Classic layout with timeless appeal.", "imageFile": "img/wedding/107 (1).webp" },
+        "Card Design #105": { "bulkPrice100": 975.00, "description": "Elegant traditional design with intricate patterns.", "imageFile": "img/wedding/105 (1).webp", "allowExtraInner": true  // <-- ADD THIS FOR CARDS THAT ALLOW IT },
+        "Card Design #107": { "bulkPrice100": 975.00, "description": "Classic layout with timeless appeal.", "imageFile": "img/wedding/107 (1).webp", "allowExtraInner": false // <-- ADD THIS FOR CARDS THAT DO NOT ALLOW IT },
         "Card Design #200": { "bulkPrice100": 975.00, "description": "Simple and elegant traditional design.", "imageFile": "img/wedding/200.webp" },
         "Card Design #205": { "bulkPrice100": 975.00, "description": "Classic pattern with gold accents.", "imageFile": "img/wedding/205.webp" },
         "Card Design #210": { "bulkPrice100": 975.00, "description": "Traditional design with rich colors.", "imageFile": "img/wedding/210.webp" },
