@@ -596,7 +596,7 @@
                 const imagePath = card.imageFile || 'img/wedding/placeholder.webp'; 
                 
                 const FIXED_OVERHEAD = 500; 
-                const EFFECTIVE_BULK_COST = price100 - FIXED_OVERHEAD;
+                const EFFECTIVE_BULK_COST = price100 + FIXED_OVERHEAD;
                 const ESTIMATED_UNIT_COST = EFFECTIVE_BULK_COST / BULK_QTY;
 
                 allProducts[cardName] = { 
@@ -672,6 +672,32 @@
                 updateQuantityAndPrice(0);
             }
         }
+        
+function getPrintingChargePerCard(quantity) {
+    if (quantity >= 1 && quantity <= 50) return 15;
+    if (quantity >= 51 && quantity <= 100) return 14;
+    if (quantity >= 101 && quantity <= 300) return 13;
+    if (quantity >= 301 && quantity <= 500) return 12.5;
+    return 12.5; // Default for >500
+}
+
+const printingChargePerCard = getPrintingChargePerCard(BULK_QTY);
+const totalPrintingCharges = printingChargePerCard * BULK_QTY;
+
+const EFFECTIVE_BULK_COST = price100 + FIXED_OVERHEAD + totalPrintingCharges;
+const ESTIMATED_UNIT_COST = EFFECTIVE_BULK_COST / BULK_QTY;
+
+allProducts[cardName] = { 
+    ...card, 
+    cardName,
+    category: 'Wedding Cards', 
+    bulkPrice100: EFFECTIVE_BULK_COST,
+    estimatedUnitCost: ESTIMATED_UNIT_COST,
+    fixedCost: FIXED_OVERHEAD,
+    printingChargePerCard,
+    imageFile: imagePath
+};
+
 
 
         // --- DATA RENDERING FUNCTIONS (FIXED) ---
@@ -894,5 +920,6 @@
 </div>
 </body>
 </html>
+
 
 
