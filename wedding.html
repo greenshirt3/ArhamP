@@ -519,7 +519,7 @@
     <script src="lib/easing/easing.min.js"></script>
     <script src="lib/waypoints/waypoints.min.js"></script>
     <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.css"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
 
     <script>
@@ -535,7 +535,6 @@
         
         const BULK_QTY = 100; 
         const INNER_COST_PER_CARD = 10; 
-        // COST_OF_ONE_REQUIRED_INNER is now irrelevant as it is implicit in the final BASE_UNIT_COST
         
         // --- PROFIT MARGINS ---
         const PROFIT_TIERS = [
@@ -632,7 +631,6 @@
                 allProducts[cardName] = { 
                     ...card, 
                     cardName: cardName, 
-                    category: 'Wedding Cards', 
                     bulkPrice100: price100, 
                     estimatedUnitCost: ESTIMATED_UNIT_COST, 
                     fixedCost: FIXED_OVERHEAD,
@@ -686,7 +684,7 @@
             
             // Calculate price assuming NO extra inner is selected (Base Price)
             setInnerSelection(false); 
-            const price = calculateFinalPrice(BENCHMARK_QTY); 
+            const price = calculateFinalPrice(BENCHkodk, BENCHMARK_QTY); 
             
             currentCard = originalCurrentCard; 
 
@@ -709,13 +707,6 @@
             if (yesEl && noEl) {
                  yesEl.classList.toggle('selected', selected);
                  noEl.classList.toggle('selected', !selected);
-                 
-                 // Also ensure the radio button reflects the state correctly
-                 if (selected) {
-                     yesEl.querySelector('input').checked = true;
-                 } else {
-                     noEl.querySelector('input').checked = true;
-                 }
             }
             
             // Trigger price update
