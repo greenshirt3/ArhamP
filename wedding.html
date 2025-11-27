@@ -407,19 +407,19 @@
                                     <input type="number" id="input-card-qty" min="1" value="1" step="1" class="form-control text-center rounded-0" oninput="updateQuantityAndPrice()">
                                     <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityAndPrice(5)">+5</button>
                                 </div>
-                                 <small class="text-muted mt-2 d-block">Minimum order: 1 piece.</small>
+                                 <small class="text-muted mt-2 d-block">Minimum order: 1 piece. <span id="fixed-cost-display">**Price of (100 pcs) is used as base.**</span></small>
                             </div>
                               </div>
 
                             <div class="product-option-group" data-option-key="InnerCard">
                                 <label>Include Extra Inner Card?</label>
                                 <div class="d-flex gap-3">
-                                    <label class="choice-card-inner selected" id="inner-yes" onclick="setInnerSelection(true)">
-                                        <input type="radio" name="inner-option" value="true" checked>
+                                    <label class="choice-card-inner" id="inner-yes" onclick="setInnerSelection(true)">
+                                        <input type="radio" name="inner-option" value="true">
                                         Yes (Required for this Card Style)
                                     </label>
-                                    <label class="choice-card-inner" id="inner-no" onclick="setInnerSelection(false)">
-                                        <input type="radio" name="inner-option" value="false">
+                                    <label class="choice-card-inner selected" id="inner-no" onclick="setInnerSelection(false)">
+                                        <input type="radio" name="inner-option" value="false" checked>
                                         No
                                     </label>
                                 </div>
@@ -532,7 +532,7 @@
     // --- DATA STORE ---
     let allProducts = {}; // Stores all flattened card metadata
     let currentCard = null;
-    let hasInner = false;
+    let hasInner = false; // <<< Default state set to NO inner card
     
     const BULK_QTY = 100; 
     const INNER_COST_PER_CARD = 10; 
@@ -678,12 +678,13 @@
         currentCard = { ...cardData, quantity: BENCHMARK_QTY }; 
         
         const originalInnerState = hasInner;
-        setInnerSelection(true, false); 
+        // Temporarily set hasInner to FALSE for catalog display calculation
+        hasInner = false; 
 
         const price = calculateFinalPrice(BENCHMARK_QTY);
         
         // Restore original state
-        setInnerSelection(originalInnerState, false); 
+        hasInner = originalInnerState;
         currentCard = originalCurrentCard; 
 
         const pricePerCard = price / BENCHMARK_QTY;
@@ -740,20 +741,18 @@
 
                 const imagePath = card.imageFile; 
 
+                // FIX 1: Corrected template for the View Details button handler
                 cardHTML += `
                     <div class='col-lg-3 col-6 mb-4'>
                         <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
                             <span class='card-price rounded-0'>PKR ${pricing.perCard} / pc (at ${pricing.benchmarkQty} pcs)</span>
                             <img src='${imagePath}' onerror="this.onerror=null;this.src='img/wedding/placeholder.webp';" class='w-100' alt='${cardName}'>
-                            cardHTML += `
-    <div class='col-lg-3 col-6 mb-4'>
-        <div class="product-footer-overlay p-0">
-            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showCardDetails(&quot;${cardName}&quot;)">
-                <i class="fas fa-search me-2"></i> View Details
-            </button>
-        </div>
-    </div>
-    `;
+                            <div class="product-footer-overlay p-0">
+                                <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showCardDetails(&quot;${cardName}&quot;)">
+                                    <i class="fas fa-search me-2"></i> View Details
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     `;
             });
@@ -802,15 +801,12 @@
 
     currentCard = cardData; // Use the stored object directly
     
-    // 👇 CRITICAL CHANGE: Set 'No' (false) as the default selection, 
-    // and update the visuals and price calculation immediately.
-    setInnerSelection(false, false); // Set internal state to false, but DO NOT update price yet
+    // FIX 2: Set internal state to 'No' (false) as the default selection.
+    setInnerSelection(false, false); 
     
-    // Manually update the radio button visuals to match the initial state (No)
+    // Ensure the radio button visuals reflect 'No' being selected.
     document.getElementById('inner-yes').classList.remove('selected');
     document.getElementById('inner-no').classList.add('selected');
-    
-    // ... (rest of the function remains the same, but ensure this block is included) ...
 
     document.getElementById('detail-product-name-header').textContent = cardName;
     document.getElementById('detail-product-name-body').textContent = cardName;
@@ -827,7 +823,7 @@
     document.getElementById('fixed-cost-display').textContent = `**Total Cost (100 pcs: PKR ${bulkPriceDisplay}) used for calculation. Fixed overhead of ${currentCard.fixedCost} PKR applied after profit.**`;
 
     showSection('product-detail');
-    // 👇 The initial price calculation now runs with hasInner = false.
+    // Calculate initial price based on quantity (100) and default state (No Inner Card)
     updateQuantityAndPrice(0); 
 }
 
@@ -932,13 +928,3 @@
 </div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
