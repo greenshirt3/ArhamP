@@ -432,12 +432,12 @@
                             <h4 class="mb-2">Total Price (PKR)</h4>
                             <h3 class="display-6 fw-bold" id="finalPriceDisplay">PKR 0</h3>
                             
-                            <button class="btn btn-primary py-2 px-4 w-100 mt-3 rounded-0" onclick="submitOrder('wedding_card_order')">
+                            <button class="btn btn-primary py-2 px-4 w-100 mt-3 rounded-0" onclick="submitOrder()">
                                 <i class="fas fa-envelope me-2"></i> Place Order
                             </button>
                         </div>
                         
-                        <div class="alert alert-info mt-3 rounded-0" id="selectionWarning" style="display: block;">
+                        <div class="alert alert-info rounded-0" id="selectionWarning" style="display: block;">
                             Please select a quantity of 1 or more.
                         </div>
                     </div>
@@ -455,41 +455,41 @@
                 <div class="row g-4 justify-content-center">
                     <div class="col-lg-8">
                         <div class="bg-light p-4 rounded-0">
-                            <form id="quote-form" onsubmit="handleQuoteSubmission(event)">
+                            <form id="quote-form" name="quote-form">
                                 <h3 class="mb-4">Quick Inquiry for Wedding Cards</h3>
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control border-0 rounded-0" id="quote-name" placeholder="Your Name" required>
+                                            <input type="text" class="form-control border-0 rounded-0" id="quote-name" name="name" placeholder="Your Name" required>
                                             <label for="quote-name">Your Name</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="tel" class="form-control border-0 rounded-0" id="quote-phone" placeholder="WhatsApp Phone" required>
+                                            <input type="tel" class="form-control border-0 rounded-0" id="quote-phone" name="phone" placeholder="WhatsApp Phone" required>
                                             <label for="quote-phone">WhatsApp Phone</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control border-0 rounded-0" id="quote-product" value="Wedding Invitation Cards" readonly>
+                                            <input type="text" class="form-control border-0 rounded-0" id="quote-product" name="product" value="Wedding Invitation Cards" readonly>
                                             <label for="quote-product">Product Name / Design ID</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <input type="number" class="form-control border-0 rounded-0" id="quote-quantity" placeholder="Quantity (e.g., 500 cards)">
+                                            <input type="number" class="form-control border-0 rounded-0" id="quote-quantity" name="quantity" placeholder="Quantity (e.g., 500 cards)">
                                             <label for="quote-quantity">Required Quantity</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <textarea class="form-control border-0 rounded-0" placeholder="Details of your inquiry" id="quote-details" style="height: 150px" required></textarea>
+                                            <textarea class="form-control border-0 rounded-0" placeholder="Details of your inquiry" id="quote-details" name="details" style="height: 150px" required></textarea>
                                             <label for="quote-details">Message</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <button class="btn btn-primary w-100 py-3 rounded-0" type="submit">Submit Quote via WhatsApp</button>
+                                        <button class="btn btn-primary w-100 py-3 rounded-0" type="submit">Submit Quote</button>
                                     </div>
                                 </div>
                             </form>
@@ -525,17 +525,18 @@
     <script src="js/main.js"></script>
 
     <script>
-        // --- Configuration ---
+        // --- Configuration (RABHOST API INTEGRATION) ---
         const PUBLIC_DATA_URL = 'all_prices.json';
-        const WHATSAPP_NUMBER = '923006238233';
-        const API_URL = 'submit_order.php';
+        // IMPORTANT: Use the absolute URL for your RabHost subdomain
+        const API_ENDPOINT = 'https://api.arhamprinters.pk/submit_form.php'; 
+        const WHATSAPP_NUMBER = '923006238233'; 
 
         // --- DATA STORE ---
         let allProducts = {};
         let currentCard = null;
-        let hasInner = true; // Default selection for inner card
+        let hasInner = true; 
         
-        const BULK_QTY = 100; // All prices in DB are for 100 pcs
+        const BULK_QTY = 100; 
 
         // --- FIXED INNER CARD COST ---
         const INNER_COST_PER_CARD = 10; 
@@ -553,34 +554,72 @@
         ];
 
 
-        // --- INITIALIZATION AND FETCHING ---
+        // --- Utility Functions ---
 
-        async function initialAppLoad() {
-            let rawData;
-            try {
-                const response = await fetch(PUBLIC_DATA_URL);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+        function showAlert(message, type) {
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
+            alert.style.top = '20px';
+            alert.style.right = '20px';
+            alert.style.zIndex = '9999';
+            alert.style.minWidth = '300px';
+            alert.innerHTML = `${message}<button type="button" class="btn-close" data-bs-dismiss="alert"></button>`;
+            document.body.appendChild(alert);
+            
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.parentNode.removeChild(alert);
                 }
-                rawData = await response.json();
+            }, 5000);
+        }
+        
+        // Generic API Submission (for Quote and Order buttons)
+        async function submitForm(form, source) {
+            const formData = new FormData(form);
+            const formObject = {};
+            
+            formData.forEach((value, key) => {
+                formObject[key] = value;
+            });
+            formObject['form_source'] = source;
+
+            const submitButton = form.querySelector('button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Sending...';
+
+            showAlert('Sending inquiry via email...', 'info');
+
+            try {
+                const response = await fetch(API_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formObject)
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    showAlert('Success! Your inquiry has been sent to the office email. We will contact you soon.', 'success');
+                    // Reset view after successful order/quote submission
+                    showSection('shop-catalog'); 
+                } else {
+                    showAlert(`Submission failed. Please try again or contact us via phone/WhatsApp (${WHATSAPP_NUMBER}).`, 'error');
+                }
             } catch (error) {
-                console.error("Failed to load shop data:", error);
-                showAlert("Failed to load wedding card data. Check console or network.", 'error');
-                return;
+                console.error('Network Error:', error);
+                showAlert('Network error. Please try again.', 'error');
+            } finally {
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalText;
             }
-            
-            initialCardSetup(rawData);
-            loadWeddingCards();
-            
-            const spinner = document.getElementById('loading-spinner');
-            if (spinner) spinner.style.display = 'none';
-            
-            showSection('shop-catalog');
         }
 
-        /**
-         * Correctly maps the flat wedding data structure and ensures image paths are correct.
-         */
+
+        // --- CORE DATA PROCESSING ---
+
         function initialCardSetup(flatData) {
             const weddingData = flatData['Special Occasions (Wedding)'];
             allProducts = {};
@@ -617,12 +656,6 @@
 
         // --- PRICING CALCULATION LOGIC ---
 
-        /**
-         * Calculates the final price, conditionally including the inner card cost.
-         *
-         * @param {number} quantity - Number of cards.
-         * @returns {number} The final calculated price.
-         */
         function calculateFinalPrice(quantity) {
             if (quantity < 1 || !currentCard) return 0;
             
@@ -640,7 +673,7 @@
             
             const baseVariableCost = CARD_UNIT_COST * quantity;
 
-            // CONDITIONALLY ADD INNER CARD COST: only if card allows it AND the user selected 'Yes'
+            // Conditional Inner Card Cost
             const innerCost = (currentCard.allowExtraInner && hasInner) ? (INNER_COST_PER_CARD * quantity) : 0;
             
             const totalCostBeforeProfit = baseVariableCost + innerCost + CARD_FIXED_COST;
@@ -658,7 +691,6 @@
             currentCard = { ...cardData, quantity: BENCHMARK_QTY };
             
             const originalInnerState = hasInner;
-            // When calculating benchmark price, assume inner is included if allowed
             setInnerSelection(cardData.allowExtraInner, false);
 
             const price = calculateFinalPrice(BENCHMARK_QTY);
@@ -675,9 +707,6 @@
             };
         }
 
-        /**
-         * Sets the state of the inner card selection and triggers a price update.
-         */
         function setInnerSelection(selected, updatePrice = true) {
             hasInner = selected;
 
@@ -716,210 +745,4 @@
             }
 
             Object.keys(categorizedCards).forEach(category => {
-                cardHTML += `<h3 class="w-100 pt-5 border-top">${category}</h3>`;
-
-                categorizedCards[category].forEach(card => {
-                    const cardName = card.cardName;
-                    
-                    const originalCurrentCard = currentCard; 
-                    currentCard = card;
-                    const pricing = getDisplayPrice(cardName);
-                    currentCard = originalCurrentCard; 
-
-                    const imagePath = card.imageFile; 
-
-                    cardHTML += `
-                        <div class='col-lg-3 col-6 mb-4'>
-                            <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                                <span class='card-price rounded-0'>PKR ${pricing.perCard} / pc (at ${pricing.benchmarkQty} pcs)</span>
-                                <img src='${imagePath}' onerror="this.onerror=null;this.src='img/wedding/placeholder.webp';" class='w-100' alt='${cardName}'>
-                                <div class="product-footer-overlay p-0">
-                                    <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showCardDetails('${cardName}')">
-                                        <i class="fas fa-search me-2"></i> View Details
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        `;
-                });
-            });
-
-            cardGrid.innerHTML = cardHTML;
-        }
-        
-        function updateQuantityAndPrice(change = 0) {
-            const input = document.getElementById('input-card-qty');
-            let quantity = parseInt(input.value) || 1;
-            const MIN_QTY = 1;
-            
-            if (change !== 0) {
-                quantity = Math.max(MIN_QTY, quantity + change);
-            } else {
-                 quantity = Math.max(MIN_QTY, quantity);
-            }
-            
-            input.value = quantity;
-            
-            if (currentCard && quantity >= MIN_QTY) {
-                const totalPrice = calculateFinalPrice(quantity);
-                
-                document.getElementById('finalPriceDisplay').textContent = `PKR ${totalPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
-                document.getElementById('finalPriceBox').style.display = 'block';
-                document.getElementById('selectionWarning').style.display = 'none';
-
-                document.getElementById('fixed-cost-display').textContent = `**Base Price (100 pcs: PKR ${currentCard.bulkPrice100.toFixed(0)}) used for calculation. Fixed overhead of ${currentCard.fixedCost} PKR applied.**`;
-
-                currentCard.totalPrice = totalPrice;
-                currentCard.quantity = quantity;
-                currentCard.hasInner = hasInner; 
-                document.getElementById('quote-product').value = `${currentCard.cardName} (${quantity} pcs)`;
-
-            } else {
-                 document.getElementById('finalPriceBox').style.display = 'none';
-                 document.getElementById('selectionWarning').style.display = 'block';
-            }
-        }
-
-        /**
-         * Toggles the visibility of the Inner Card option group based on the card flag.
-         */
-        function showCardDetails(cardName) {
-            const cardData = allProducts[cardName];
-            if (!cardData) return;
-
-            currentCard = cardData; // Use the stored object directly
-            
-            // 1. CONDITIONAL VISIBILITY
-            const innerCardOptionGroup = document.getElementById('innerCardOptionGroup');
-            const defaultInnerSelection = currentCard.allowExtraInner; // Default to 'Yes' if allowed
-
-            if (innerCardOptionGroup) {
-                innerCardOptionGroup.style.display = currentCard.allowExtraInner ? 'block' : 'none';
-            }
-            
-            // 2. SET INITIAL SELECTION AND PRICE
-            setInnerSelection(defaultInnerSelection, false);
-
-            document.getElementById('detail-product-name-header').textContent = cardName;
-            document.getElementById('detail-product-name-body').textContent = cardName;
-            
-            document.getElementById('detail-product-image').src = currentCard.imageFile; 
-            document.getElementById('detail-product-image').onerror = function() {
-                this.src = `img/wedding/placeholder.webp`; // Fallback image path
-            };
-            
-            document.getElementById('card-description').textContent = currentCard.description; 
-            document.getElementById('input-card-qty').value = 100; 
-
-            document.getElementById('fixed-cost-display').textContent = `**Base Price (100 pcs: PKR ${currentCard.bulkPrice100.toFixed(0)}) used for calculation. Fixed overhead of ${currentCard.fixedCost} PKR applied.**`;
-
-            showSection('product-detail');
-            updateQuantityAndPrice(0);
-        }
-
-        // --- ORDER SUBMISSION AND ALERT FUNCTIONS ---
-        
-        async function submitOrder(type) {
-            if (!currentCard || currentCard.totalPrice === 0) {
-                 showAlert('Please select a valid quantity before placing an order.', 'error');
-                 return;
-            }
-
-            const total = document.getElementById('finalPriceDisplay').textContent;
-            const innerStatus = (currentCard.allowExtraInner && currentCard.hasInner) 
-                                 ? `Yes (+${INNER_COST_PER_CARD} PKR/pc)` : 'No';
-            
-            const formData = {
-                order_type: type,
-                product_name: currentCard.cardName,
-                quantity: currentCard.quantity,
-                total_price: total,
-                inner_card_status: innerStatus,
-            };
-
-            showAlert('Sending order details to server...', 'info');
-
-            try {
-                const response = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
-                });
-
-                if (response.ok) {
-                    showAlert('Order details successfully submitted! We will contact you via email shortly.', 'success');
-                } else {
-                    showAlert('Server error during submission. Please try the WhatsApp quote option instead.', 'error');
-                }
-            } catch (error) {
-                console.error('Submission failed:', error);
-                showAlert('Network error. Please try the WhatsApp quote option instead.', 'error');
-            }
-        }
-
-
-        function handleQuoteSubmission(e) {
-            e.preventDefault();
-            const name = document.getElementById('quote-name').value;
-            const phone = document.getElementById('quote-phone').value;
-            const productID = document.getElementById('quote-product').value;
-            const quantity = document.getElementById('quote-quantity').value;
-            const details = document.getElementById('quote-details').value;
-            
-            let whatsappMessage = `*NEW WEDDING CARD QUOTE REQUEST (WEB)*\n`;
-            whatsappMessage += `*Customer:* ${name}\n`;
-            whatsappMessage += `*Phone:* ${phone}\n`;
-            whatsappMessage += `*Product/ID:* ${productID}\n`;
-            whatsappMessage += `*Required Quantity:* ${quantity}\n`;
-            whatsappMessage += `*Details:* ${details}`;
-            
-            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
-            showAlert('Quote submitted via WhatsApp! We will contact you shortly.', 'success');
-            document.getElementById('quote-form').reset();
-        }
-
-        function showSection(sectionName, productName = "", price = 0) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            
-            const target = document.getElementById(sectionName + '-section');
-            if(target) target.classList.add('active');
-            else document.getElementById('shop-catalog-section').classList.add('active');
-
-            if (sectionName === 'quote' && productName) {
-                document.getElementById('quote-product').value = productName;
-                document.getElementById('quote-quantity').value = 500;
-                document.getElementById('quote-details').value = `I am interested in ${productName}. I require approximately 500 pieces.`;
-            }
-            
-            if (typeof setActiveMobileNav === 'function') {
-                setActiveMobileNav(sectionName);
-            }
-            
-            window.scrollTo(0, 0);
-        }
-        
-        function showAlert(message, type) {
-            const alert = document.createElement('div');
-            alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
-            alert.style.top = '20px';
-            alert.style.right = '20px';
-            alert.style.zIndex = '9999';
-            alert.style.minWidth = '300px';
-            alert.innerHTML = `
-                ${message}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            `;
-            document.body.appendChild(alert);
-            
-            setTimeout(() => {
-                if (alert.parentNode) {
-                    alert.parentNode.removeChild(alert);
-                }
-            }, 5000);
-        }
-        
-        document.addEventListener('DOMContentLoaded', initialAppLoad);
-    </script>
-</div>
-</body>
-</html>
+                cardHTML += `<h3 class="w-100 pt-5
