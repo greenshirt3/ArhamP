@@ -1845,7 +1845,7 @@
                 const unitPrice = finalProductCombination.Price;
                 totalPrice = unitPrice * quantity;
                 // ADD THIS LINE INSTEAD OF THE OLD TEXT CONTENT LINE:
-                document.getElementById('selectionWarning').textContent = `Price successfully calculated.`; 
+               document.getElementById('selectionWarning').textContent = 'Price successfully calculated.'; 
             } else {
                 document.getElementById('selectionWarning').textContent = "Selected combination not available. Try another mix.";
                 document.getElementById('selectionWarning').classList.remove('alert-info');
@@ -2030,5 +2030,6 @@
 </body>
 
 </html>
+
 
 
