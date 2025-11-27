@@ -532,7 +532,7 @@
     // --- DATA STORE ---
     let allProducts = {}; // Stores all flattened card metadata
     let currentCard = null;
-    let hasInner = true; 
+    let hasInner = false;
     
     const BULK_QTY = 100; 
     const INNER_COST_PER_CARD = 10; 
@@ -794,30 +794,39 @@
     }
 
     function showCardDetails(cardName) {
-        const cardData = allProducts[cardName];
-        if (!cardData) return;
+    const cardData = allProducts[cardName];
+    if (!cardData) return;
 
-        currentCard = cardData; // Use the stored object directly
-        
-        setInnerSelection(true, false); 
+    currentCard = cardData; // Use the stored object directly
+    
+    // 👇 CRITICAL CHANGE: Set 'No' (false) as the default selection, 
+    // and update the visuals and price calculation immediately.
+    setInnerSelection(false, false); // Set internal state to false, but DO NOT update price yet
+    
+    // Manually update the radio button visuals to match the initial state (No)
+    document.getElementById('inner-yes').classList.remove('selected');
+    document.getElementById('inner-no').classList.add('selected');
+    
+    // ... (rest of the function remains the same, but ensure this block is included) ...
 
-        document.getElementById('detail-product-name-header').textContent = cardName;
-        document.getElementById('detail-product-name-body').textContent = cardName;
-        
-        document.getElementById('detail-product-image').src = currentCard.imageFile; 
-        document.getElementById('detail-product-image').onerror = function() {
-            this.src = `img/wedding/placeholder.webp`; // Fallback image path
-        };
-        
-        document.getElementById('card-description').textContent = currentCard.description; 
-        document.getElementById('input-card-qty').value = 100; 
-        
-        const bulkPriceDisplay = currentCard.bulkPrice100.toFixed(0);
-        document.getElementById('fixed-cost-display').textContent = `**Total Cost (100 pcs: PKR ${bulkPriceDisplay}) used for calculation. Fixed overhead of ${currentCard.fixedCost} PKR applied after profit.**`;
+    document.getElementById('detail-product-name-header').textContent = cardName;
+    document.getElementById('detail-product-name-body').textContent = cardName;
+    
+    document.getElementById('detail-product-image').src = currentCard.imageFile; 
+    document.getElementById('detail-product-image').onerror = function() {
+        this.src = `img/wedding/placeholder.webp`; // Fallback image path
+    };
+    
+    document.getElementById('card-description').textContent = currentCard.description; 
+    document.getElementById('input-card-qty').value = 100; 
+    
+    const bulkPriceDisplay = currentCard.bulkPrice100.toFixed(0);
+    document.getElementById('fixed-cost-display').textContent = `**Total Cost (100 pcs: PKR ${bulkPriceDisplay}) used for calculation. Fixed overhead of ${currentCard.fixedCost} PKR applied after profit.**`;
 
-        showSection('product-detail');
-        updateQuantityAndPrice(0);
-    }
+    showSection('product-detail');
+    // 👇 The initial price calculation now runs with hasInner = false.
+    updateQuantityAndPrice(0); 
+}
 
     // --- ORDER SUBMISSION AND ALERT FUNCTIONS (Retained) ---
     
@@ -920,6 +929,7 @@
 </div>
 </body>
 </html>
+
 
 
 
