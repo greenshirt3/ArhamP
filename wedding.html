@@ -525,7 +525,7 @@
     <script src="js/main.js"></script>
 
     <script>
-        // --- Configuration ---
+        // --- Configuration (RABHOST API INTEGRATION) ---
         const PUBLIC_DATA_URL = 'all_prices.json'; 
         const WHATSAPP_NUMBER = '923006238233';
         const API_ENDPOINT = 'https://api.arhamprinters.pk/submit_form.php'; 
@@ -538,10 +538,8 @@
         const BULK_QTY = 100; 
         const INNER_COST_PER_CARD = 10; 
         
-        // --- FIXED COST COMPONENTS ---
-        const DESIGN_CHARGE = 300;
-        const RENT_CHARGE = 200;
-        const UNIVERSAL_FIXED_OVERHEAD = DESIGN_CHARGE + RENT_CHARGE; // 500
+        // --- FIXED COST COMPONENTS (used for clarity and is part of the final price) ---
+        const UNIVERSAL_FIXED_OVERHEAD = 500; 
         
         // --- PROFIT MARGINS ---
         const PROFIT_TIERS = [
@@ -557,6 +555,7 @@
 
 
         // --- INITIALIZATION AND FETCHING ---
+
         function showAlert(message, type) {
             const alert = document.createElement('div');
             alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
@@ -606,8 +605,8 @@
         }
 
         /**
-         * FIX: Calculates Unit Cost by removing ONLY the Fixed Overhead from Bulk Price,
-         * treating the remainder as the variable cost (shell + required inner), which is the true base.
+         * FIX: Calculates Unit Cost by removing ONLY the Fixed Overhead from Bulk Price.
+         * The result (estimatedUnitCost) is the true stable variable cost per unit (Shell + Required Inner).
          */
         function initialCardSetup(flatData) {
             const weddingData = flatData['Special Occasions (Wedding)']; 
@@ -626,18 +625,18 @@
                 
                 const FIXED_OVERHEAD = UNIVERSAL_FIXED_OVERHEAD; 
                 
-                // 1. Calculate the total cost block before profit and fixed overhead.
+                // 1. Calculate the variable cost per 100 units (Shell + Required Inner Cost)
                 const VARIABLE_COST_PER_100 = price100 - FIXED_OVERHEAD;
 
                 // 2. The Unit Cost is now the true Base Price PER UNIT (Shell + Required Inner)
-                const BASE_UNIT_COST = VARIABLE_COST_PER_100 / BULK_QTY;
+                const ESTIMATED_UNIT_COST = VARIABLE_COST_PER_100 / BULK_QTY;
 
 
                 allProducts[cardName] = { 
                     ...card, 
                     cardName: cardName, 
                     bulkPrice100: price100, 
-                    estimatedUnitCost: BASE_UNIT_COST, // This is the stable variable cost per unit
+                    estimatedUnitCost: ESTIMATED_UNIT_COST, 
                     fixedCost: FIXED_OVERHEAD,
                     imageFile: imagePath 
                 };
@@ -650,6 +649,7 @@
         function calculateFinalPrice(quantity) {
             if (quantity < 1 || !currentCard) return 0;
             
+            // This is the stable variable cost (Shell + Required Inner) per unit.
             const BASE_UNIT_COST = currentCard.estimatedUnitCost; 
             const CARD_FIXED_COST = currentCard.fixedCost;
 
