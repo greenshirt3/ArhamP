@@ -531,12 +531,11 @@
         // --- DATA STORE ---
         let allProducts = {};
         let currentCard = null;
-        let hasInner = false; // Initial state should be false (No extra inner selected)
+        let hasInner = false; 
         
         const BULK_QTY = 100; 
         const INNER_COST_PER_CARD = 10; 
-        // We do NOT need to subtract the cost of one required inner from the BulkPrice as it's implied.
-        // We will only use this cost when ADDING the optional cost.
+        // COST_OF_ONE_REQUIRED_INNER is now irrelevant as it is implicit in the final BASE_UNIT_COST
         
         // --- PROFIT MARGINS ---
         const PROFIT_TIERS = [
@@ -553,6 +552,23 @@
 
         // --- INITIALIZATION AND FETCHING ---
 
+        function showAlert(message, type) {
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
+            alert.style.top = '20px';
+            alert.style.right = '20px';
+            alert.style.zIndex = '9999';
+            alert.style.minWidth = '300px';
+            alert.innerHTML = `${message}<button type="button" class="btn-close" data-bs-dismiss="alert"></button>`;
+            document.body.appendChild(alert);
+            
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.parentNode.removeChild(alert);
+                }
+            }, 5000);
+        }
+        
         async function initialAppLoad() {
             let rawData;
             try {
@@ -586,7 +602,7 @@
 
         /**
          * FIX: Calculates Unit Cost simply by subtracting ONLY the Fixed Overhead from Bulk Price,
-         * treating the remainder as the variable cost (shell + required inner).
+         * treating the remainder as the variable cost (shell + required inner), which is the true base.
          */
         function initialCardSetup(flatData) {
             const weddingData = flatData['Special Occasions (Wedding)']; 
@@ -605,10 +621,11 @@
                 
                 const FIXED_OVERHEAD = 500; 
                 
-                // Calculate the variable cost per 100 units (Shell + Required Inner Cost)
+                // 1. Calculate the variable cost per 100 units (BulkPrice - Fixed Overhead)
+                // This REMAINING_VARIABLE_COST already includes the shell cost and the required inner card cost.
                 const REMAINING_VARIABLE_COST = price100 - FIXED_OVERHEAD;
 
-                // Calculate the Unit Cost (including shell and required inner)
+                // 2. The Unit Cost is now the true Base Price PER UNIT (before profit markup)
                 const ESTIMATED_UNIT_COST = REMAINING_VARIABLE_COST / BULK_QTY;
 
 
@@ -617,7 +634,7 @@
                     cardName: cardName, 
                     category: 'Wedding Cards', 
                     bulkPrice100: price100, 
-                    estimatedUnitCost: ESTIMATED_UNIT_COST, // This is the Base Unit Cost (Shell + Required Inner)
+                    estimatedUnitCost: ESTIMATED_UNIT_COST, 
                     fixedCost: FIXED_OVERHEAD,
                     imageFile: imagePath 
                 };
@@ -630,7 +647,7 @@
         function calculateFinalPrice(quantity) {
             if (quantity < 1 || !currentCard) return 0;
             
-            // This is the unit cost that includes the amortized shell cost and the required inner card cost.
+            // This is the stable variable cost (Shell + Required Inner) per unit.
             const BASE_UNIT_COST = currentCard.estimatedUnitCost; 
             const CARD_FIXED_COST = currentCard.fixedCost;
 
@@ -643,11 +660,11 @@
                 }
             }
             
-            // 1. Calculate Base Variable Cost (Includes Shell + Required Inner Cost)
+            // 1. Calculate Base Variable Cost (includes Shell + Required Inner Cost)
             const baseVariableCost = BASE_UNIT_COST * quantity;
             
             // 2. Conditional EXTRA Inner Cost (Only if the user selected 'Yes')
-            // This is the ONLY part that changes the final price based on the radio button state.
+            // This is the ONLY part that increases the price based on the radio button state.
             const isExtraInnerSelected = document.getElementById('inner-yes')?.classList.contains('selected') || false;
             const extraInnerCost = isExtraInnerSelected ? (INNER_COST_PER_CARD * quantity) : 0;
             
@@ -692,6 +709,13 @@
             if (yesEl && noEl) {
                  yesEl.classList.toggle('selected', selected);
                  noEl.classList.toggle('selected', !selected);
+                 
+                 // Also ensure the radio button reflects the state correctly
+                 if (selected) {
+                     yesEl.querySelector('input').checked = true;
+                 } else {
+                     noEl.querySelector('input').checked = true;
+                 }
             }
             
             // Trigger price update
