@@ -531,11 +531,11 @@
         // --- DATA STORE ---
         let allProducts = {};
         let currentCard = null;
-        let hasInner = false; // Initial state should be false (no EXTRA inner selected)
+        let hasInner = false; 
         
         const BULK_QTY = 100; 
         const INNER_COST_PER_CARD = 10; 
-        // ASSUMPTION: The BulkPrice100 implicitly includes 10 PKR for the cost of ONE required inner card per unit.
+        // COST TO BE ADDED TO THE SHELL COST FOR THE ONE REQUIRED INNER
         const COST_OF_ONE_REQUIRED_INNER = 10; 
         
         // --- PROFIT MARGINS ---
@@ -556,7 +556,8 @@
         async function initialAppLoad() {
             let rawData;
             try {
-                const response = await fetch(PUBLIC_DATA_URL);
+                // FIXED: Fetching from local JSON
+                const response = await fetch(PUBLIC_DATA_URL); 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -585,7 +586,8 @@
         }
 
         /**
-         * FIX 1: Recalculates estimatedUnitCost to be the card SHELL cost only.
+         * FIX: Recalculates estimatedUnitCost to be the card SHELL cost only, 
+         * stripping away the fixed overhead and the cost of the one required inner.
          */
         function initialCardSetup(flatData) {
             const weddingData = flatData['Special Occasions (Wedding)']; 
@@ -604,25 +606,20 @@
                 
                 const FIXED_OVERHEAD = 500; 
                 
-                // Total cost of the ONE required inner card across 100 units
+                // Calculate the true SHELL COST per 100 units 
+                // We strip the FIXED overhead (500) and the TOTAL required inner cost (10 PKR * 100)
                 const TOTAL_REQUIRED_INNER_COST = COST_OF_ONE_REQUIRED_INNER * BULK_QTY;
-
-                // Calculate the pure SHELL COST per 100 units:
-                // (Bulk Price - Fixed Overhead - TOTAL Required Inner Cost)
-                // NOTE: This result is the total variable cost for the shell + a fixed charge, without profit markup, amortized over 100 units.
                 const SHELL_COST_PER_100 = price100 - FIXED_OVERHEAD - TOTAL_REQUIRED_INNER_COST;
 
-                // Calculate the combined Unit Cost of (Shell + Required Inner) per card, without fixed overhead/profit.
-                // This is the cost basis for all subsequent calculations.
-                const BASE_UNIT_COST_AMORTIZED = (price100 - FIXED_OVERHEAD) / BULK_QTY;
-
+                // Calculate the pure SHELL UNIT COST
+                const ESTIMATED_UNIT_COST = SHELL_COST_PER_100 / BULK_QTY;
 
                 allProducts[cardName] = { 
                     ...card, 
                     cardName: cardName, 
                     category: 'Wedding Cards', 
                     bulkPrice100: price100, 
-                    estimatedUnitCost: BASE_UNIT_COST_AMORTIZED, // This represents the base cost (Shell + Required Inner) per unit
+                    estimatedUnitCost: ESTIMATED_UNIT_COST, // This is the Shell Cost per unit
                     fixedCost: FIXED_OVERHEAD,
                     imageFile: imagePath 
                 };
@@ -630,13 +627,12 @@
         }
 
 
-        // --- PRICING CALCULATION LOGIC (FINAL DEBUGGED VERSION) ---
+        // --- PRICING CALCULATION LOGIC (FIXED) ---
 
         function calculateFinalPrice(quantity) {
             if (quantity < 1 || !currentCard) return 0;
             
-            // This is the unit cost that already includes the amortized shell cost and the required inner card cost.
-            const BASE_UNIT_COST = currentCard.estimatedUnitCost; 
+            const CARD_SHELL_UNIT_COST = currentCard.estimatedUnitCost; // Shell cost per unit
             const CARD_FIXED_COST = currentCard.fixedCost;
 
             let multiplier = 1.20;
@@ -648,15 +644,18 @@
                 }
             }
             
-            // 1. Calculate Base Variable Cost (Includes Shell + Required Inner Cost)
-            const baseVariableCost = BASE_UNIT_COST * quantity;
+            // 1. Calculate Base Component Costs (Shell Cost)
+            const baseShellCost = CARD_SHELL_UNIT_COST * quantity;
             
-            // 2. Conditional EXTRA Inner Cost (Only if the user selected 'Yes')
+            // 2. REQUIRED Inner Cost (This cost is ALWAYS incurred, regardless of radio selection)
+            const requiredInnerCost = COST_OF_ONE_REQUIRED_INNER * quantity;
+            
+            // 3. Conditional EXTRA Inner Cost (Only if the user selected 'Yes')
             const isExtraInnerSelected = document.getElementById('inner-yes')?.classList.contains('selected') || false;
             const extraInnerCost = isExtraInnerSelected ? (INNER_COST_PER_CARD * quantity) : 0;
             
-            // Total Cost = (Base Variable Cost) + (EXTRA Inner Cost) + (Fixed Overhead)
-            const totalCostBeforeProfit = baseVariableCost + extraInnerCost + CARD_FIXED_COST;
+            // Total Cost = Shell + Required Inner + EXTRA Inner + Fixed Overhead
+            const totalCostBeforeProfit = baseShellCost + requiredInnerCost + extraInnerCost + CARD_FIXED_COST;
             
             const finalPrice = Math.round(totalCostBeforeProfit * multiplier);
             
@@ -671,7 +670,7 @@
             const originalCurrentCard = currentCard;
             currentCard = { ...cardData, quantity: BENCHMARK_QTY }; 
             
-            // Calculate price assuming NO extra inner is selected 
+            // Calculate price assuming NO extra inner is selected (Base Price)
             setInnerSelection(false); 
             const price = calculateFinalPrice(BENCHMARK_QTY); 
             
@@ -791,9 +790,9 @@
             const cardData = allProducts[cardName];
             if (!cardData) return;
 
-            currentCard = cardData; 
+            currentCard = cardData; // Use the stored object directly
             
-            // FIX: Set default to NO (false) so price starts at base shell cost
+            // FIX: Set default to NO (false) so price starts at base cost
             setInnerSelection(false); 
 
             document.getElementById('detail-product-name-header').textContent = cardName;
