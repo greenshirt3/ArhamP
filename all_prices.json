@@ -1035,127 +1035,127 @@
                     "bulkPrice100": 975.00,
                     "description": "Elegant traditional design with intricate patterns.",
                     "imageFile": "img/wedding/105 (1).webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #107": {
                     "bulkPrice100": 975.00,
                     "description": "Classic layout with timeless appeal.",
                     "imageFile": "img/wedding/107 (1).webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #200": {
                     "bulkPrice100": 975.00,
                     "description": "Simple and elegant traditional design.",
                     "imageFile": "img/wedding/200.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #205": {
                     "bulkPrice100": 975.00,
                     "description": "Classic pattern with gold accents.",
                     "imageFile": "img/wedding/205.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #210": {
                     "bulkPrice100": 975.00,
                     "description": "Traditional design with rich colors.",
                     "imageFile": "img/wedding/210.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #215": {
                     "bulkPrice100": 975.00,
                     "description": "Elegant classic layout.",
                     "imageFile": "img/wedding/215.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #220": {
                     "bulkPrice100": 975.00,
                     "description": "Timeless traditional design.",
                     "imageFile": "img/wedding/220.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #251": {
                     "bulkPrice100": 975.00,
                     "description": "Classic design with ornate borders.",
                     "imageFile": "img/wedding/251.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #257": {
                     "bulkPrice100": 975.00,
                     "description": "Traditional layout with floral motifs.",
                     "imageFile": "img/wedding/257.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #259": {
                     "bulkPrice100": 975.00,
                     "description": "Elegant classic design.",
                     "imageFile": "img/wedding/259.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #263": {
                     "bulkPrice100": 975.00,
                     "description": "Traditional pattern with gold detailing.",
                     "imageFile": "img/wedding/263.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #270": {
                     "bulkPrice100": 975.00,
                     "description": "Classic design with rich textures.",
                     "imageFile": "img/wedding/270.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #271": {
                     "bulkPrice100": 975.00,
                     "description": "Traditional layout with intricate patterns.",
                     "imageFile": "img/wedding/271.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #272": {
                     "bulkPrice100": 975.00,
                     "description": "Elegant classic design.",
                     "imageFile": "img/wedding/272.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #274": {
                     "bulkPrice100": 975.00,
                     "description": "Traditional design with ornate elements.",
                     "imageFile": "img/wedding/274.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #275": {
                     "bulkPrice100": 975.00,
                     "description": "Classic layout with timeless appeal.",
                     "imageFile": "img/wedding/275.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #276": {
                     "bulkPrice100": 975.00,
                     "description": "Traditional design with rich colors.",
                     "imageFile": "img/wedding/276.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #277": {
                     "bulkPrice100": 975.00,
                     "description": "Elegant classic pattern.",
                     "imageFile": "img/wedding/277.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #278": {
                     "bulkPrice100": 975.00,
                     "description": "Traditional design with intricate details.",
                     "imageFile": "img/wedding/278.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #279": {
                     "bulkPrice100": 975.00,
                     "description": "Classic layout with gold accents.",
                     "imageFile": "img/wedding/279.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #281": {
                     "bulkPrice100": 975.00,
                     "description": "Traditional design with elegant patterns.",
                     "imageFile": "img/wedding/281.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #419": {
                     "bulkPrice100": 1850.00,
@@ -1167,7 +1167,7 @@
                         "img/wedding/419 (4).webp",
                         "img/wedding/419 (5).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #855": {
                     "bulkPrice100": 1275.00,
@@ -1293,7 +1293,7 @@
                         "img/wedding/935 (1).webp",
                         "img/wedding/935 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1137": {
                     "bulkPrice100": 1800.00,
@@ -1327,7 +1327,7 @@
                     "bulkPrice100": 1600.00,
                     "description": "Default description.",
                     "imageFile": "img/wedding/placeholder.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1215": {
                     "bulkPrice100": 1600.00,
@@ -1336,7 +1336,7 @@
                         "img/wedding/1215 (1).webp",
                         "img/wedding/1215 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1220": {
                     "bulkPrice100": 1600.00,
@@ -1347,7 +1347,7 @@
                         "img/wedding/1220 (3).webp",
                         "img/wedding/1220 (4).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1225": {
                     "bulkPrice100": 1600.00,
@@ -1356,7 +1356,7 @@
                         "img/wedding/1225 (1).webp",
                         "img/wedding/1225 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1230": {
                     "bulkPrice100": 1600.00,
@@ -1365,7 +1365,7 @@
                         "img/wedding/1230 (1).webp",
                         "img/wedding/1230 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1235": {
                     "bulkPrice100": 1600.00,
@@ -1374,7 +1374,7 @@
                         "img/wedding/1235 (1).webp",
                         "img/wedding/1235 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1400": {
                     "bulkPrice100": 1300.00,
@@ -1403,7 +1403,7 @@
                     "bulkPrice100": 2400.00,
                     "description": "Classic design with traditional motifs.",
                     "imageFile": "img/wedding/516.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #521": {
                     "bulkPrice100": 2400.00,
@@ -1412,13 +1412,13 @@
                         "img/wedding/521 (1).webp",
                         "img/wedding/521 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #533": {
                     "bulkPrice100": 2200.00,
                     "description": "Elegant traditional layout.",
                     "imageFile": "img/wedding/533.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #746": {
                     "bulkPrice100": 4000.00,
@@ -1429,7 +1429,7 @@
                         "img/wedding/746 (3).webp",
                         "img/wedding/746 (4).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #770": {
                     "bulkPrice100": 4400.00,
@@ -1442,7 +1442,7 @@
                         "img/wedding/770 (5).webp",
                         "img/wedding/770 (6).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #775": {
                     "bulkPrice100": 2400.00,
@@ -1451,7 +1451,7 @@
                         "img/wedding/775 (1).webp",
                         "img/wedding/775 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #786": {
                     "bulkPrice100": 2600.00,
@@ -1460,7 +1460,7 @@
                         "img/wedding/786 (1).webp",
                         "img/wedding/786 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #800": {
                     "bulkPrice100": 2300.00,
@@ -1469,7 +1469,7 @@
                         "img/wedding/800 (1).webp",
                         "img/wedding/800 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #805": {
                     "bulkPrice100": 2300.00,
@@ -1478,7 +1478,7 @@
                         "img/wedding/805 (1).webp",
                         "img/wedding/805 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #810": {
                     "bulkPrice100": 2300.00,
@@ -1487,7 +1487,7 @@
                         "img/wedding/810 (1).webp",
                         "img/wedding/810 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #815": {
                     "bulkPrice100": 2300.00,
@@ -1496,7 +1496,7 @@
                         "img/wedding/815 (1).webp",
                         "img/wedding/815 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #820": {
                     "bulkPrice100": 2300.00,
@@ -1505,7 +1505,7 @@
                         "img/wedding/820 (1).webp",
                         "img/wedding/820 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #825": {
                     "bulkPrice100": 2300.00,
@@ -1514,7 +1514,7 @@
                         "img/wedding/825 (1).webp",
                         "img/wedding/825 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #830": {
                     "bulkPrice100": 2300.00,
@@ -1523,7 +1523,7 @@
                         "img/wedding/830 (1).webp",
                         "img/wedding/830 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #835": {
                     "bulkPrice100": 2300.00,
@@ -1532,7 +1532,7 @@
                         "img/wedding/835 (1).webp",
                         "img/wedding/835 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #843": {
                     "bulkPrice100": 2500.00,
@@ -1541,7 +1541,7 @@
                         "img/wedding/843 (1).webp",
                         "img/wedding/843 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #845": {
                     "bulkPrice100": 2600.00,
@@ -1550,7 +1550,7 @@
                         "img/wedding/845 (1).webp",
                         "img/wedding/845 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #850": {
                     "bulkPrice100": 2600.00,
@@ -1559,7 +1559,7 @@
                         "img/wedding/850 (1).webp",
                         "img/wedding/850 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #901": {
                     "bulkPrice100": 2300.00,
@@ -1568,7 +1568,7 @@
                         "img/wedding/901 (1).webp",
                         "img/wedding/901 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #907": {
                     "bulkPrice100": 2300.00,
@@ -1577,7 +1577,7 @@
                         "img/wedding/907 (1).webp",
                         "img/wedding/907 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1018": {
                     "bulkPrice100": 2400.00,
@@ -1586,7 +1586,7 @@
                         "img/wedding/1018 (1).webp",
                         "img/wedding/1018 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1032": {
                     "bulkPrice100": 2300.00,
@@ -1595,7 +1595,7 @@
                         "img/wedding/1032 (1).webp",
                         "img/wedding/1032 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1070": {
                     "bulkPrice100": 3600.00,
@@ -1604,7 +1604,7 @@
                         "img/wedding/1070 (1).webp",
                         "img/wedding/1070 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1101": {
                     "bulkPrice100": 2200.00,
@@ -1613,19 +1613,19 @@
                         "img/wedding/1101 1.webp",
                         "img/wedding/1101.webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1107": {
                     "bulkPrice100": 2200.00,
                     "description": "Sleek modern layout.",
                     "imageFile": "img/wedding/1107.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1122": {
                     "bulkPrice100": 2800.00,
                     "description": "Clean minimalist design.",
                     "imageFile": "img/wedding/1122.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1126": {
                     "bulkPrice100": 2500.00,
@@ -1634,13 +1634,13 @@
                         "img/wedding/1126 2.webp",
                         "img/wedding/1126.webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1141": {
                     "bulkPrice100": 2300.00,
                     "description": "Modern design with simple elegance.",
                     "imageFile": "img/wedding/1141.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1150": {
                     "bulkPrice100": 4500.00,
@@ -1649,7 +1649,7 @@
                         "img/wedding/1150 (1).webp",
                         "img/wedding/1150 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1280": {
                     "bulkPrice100": 4400.00,
@@ -1658,7 +1658,7 @@
                         "img/wedding/1280 (1).webp",
                         "img/wedding/1280 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1300": {
                     "bulkPrice100": 2300.00,
@@ -1667,7 +1667,7 @@
                         "img/wedding/1300 (1).webp",
                         "img/wedding/1300 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1301": {
                     "bulkPrice100": 2600.00,
@@ -1676,7 +1676,7 @@
                         "img/wedding/1301 (1).webp",
                         "img/wedding/1301 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1305": {
                     "bulkPrice100": 2300.00,
@@ -1685,7 +1685,7 @@
                         "img/wedding/1305 (1).webp",
                         "img/wedding/1305 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1310": {
                     "bulkPrice100": 2300.00,
@@ -1694,7 +1694,7 @@
                         "img/wedding/1310 (1).webp",
                         "img/wedding/1310 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1315": {
                     "bulkPrice100": 2600.00,
@@ -1703,7 +1703,7 @@
                         "img/wedding/1315 (1).webp",
                         "img/wedding/1315 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1330": {
                     "bulkPrice100": 3200.00,
@@ -1712,7 +1712,7 @@
                         "img/wedding/1330 (1).webp",
                         "img/wedding/1330 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1335": {
                     "bulkPrice100": 3200.00,
@@ -1721,7 +1721,7 @@
                         "img/wedding/1335 (1).webp",
                         "img/wedding/1335 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1340": {
                     "bulkPrice100": 3200.00,
@@ -1730,7 +1730,7 @@
                         "img/wedding/1340 (1).webp",
                         "img/wedding/1340 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1345": {
                     "bulkPrice100": 4000.00,
@@ -1740,7 +1740,7 @@
                         "img/wedding/1345 (2).webp",
                         "img/wedding/1345 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1355": {
                     "bulkPrice100": 2800.00,
@@ -1749,7 +1749,7 @@
                         "img/wedding/1355 (1).webp",
                         "img/wedding/1355 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1360": {
                     "bulkPrice100": 4800.00,
@@ -1759,13 +1759,13 @@
                         "img/wedding/1360 (2).webp",
                         "img/wedding/1360 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1580": {
                     "bulkPrice100": 2300.00,
                     "description": "Modern design with minimalist appeal.",
                     "imageFile": "img/wedding/1580.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1610": {
                     "bulkPrice100": 4500.00,
@@ -1774,7 +1774,7 @@
                         "img/wedding/1610 (1).webp",
                         "img/wedding/1610 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1710": {
                     "bulkPrice100": 2500.00,
@@ -1792,7 +1792,7 @@
                         "img/wedding/1720 (1).webp",
                         "img/wedding/1720 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1725": {
                     "bulkPrice100": 2200.00,
@@ -1807,7 +1807,7 @@
                     "bulkPrice100": 2600.00,
                     "description": "Sleek contemporary design.",
                     "imageFile": "img/wedding/1745.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1760": {
                     "bulkPrice100": 2600.00,
@@ -1816,7 +1816,7 @@
                         "img/wedding/1760 (1).webp",
                         "img/wedding/1760 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1780": {
                     "bulkPrice100": 4000.00,
@@ -1826,7 +1826,7 @@
                         "img/wedding/1780 (2).webp",
                         "img/wedding/1780 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1855": {
                     "bulkPrice100": 4800.00,
@@ -1846,7 +1846,7 @@
                         "img/wedding/1990 (1).webp",
                         "img/wedding/1990 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1995": {
                     "bulkPrice100": 2600.00,
@@ -1855,7 +1855,7 @@
                         "img/wedding/1995 (1).webp",
                         "img/wedding/1995 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #2000": {
                     "bulkPrice100": 5000.00,
@@ -1864,7 +1864,7 @@
                         "img/wedding/2000 (1).webp",
                         "img/wedding/2000 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #2005": {
                     "bulkPrice100": 5000.00,
@@ -1873,7 +1873,7 @@
                         "img/wedding/2005 (1).webp",
                         "img/wedding/2005 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #2010": {
                     "bulkPrice100": 4600.00,
@@ -1882,7 +1882,7 @@
                         "img/wedding/2010 (1).webp",
                         "img/wedding/2010 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #2015": {
                     "bulkPrice100": 4600.00,
@@ -1891,7 +1891,7 @@
                         "img/wedding/2015 (1).webp",
                         "img/wedding/2015 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 }
             }
         },
@@ -1953,13 +1953,13 @@
                         "img/wedding/1071 (8).webp",
                         "img/wedding/1071 (9).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1075": {
                     "bulkPrice100": 7000.00,
                     "description": "Default description.",
                     "imageFile": "img/wedding/placeholder.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1077": {
                     "bulkPrice100": 7000.00,
@@ -1972,7 +1972,7 @@
                         "img/wedding/1077 (7).webp",
                         "img/wedding/1077 (8).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1081": {
                     "bulkPrice100": 5000.00,
@@ -1983,7 +1983,7 @@
                         "img/wedding/1081 (3).webp",
                         "img/wedding/1081 (4).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1082": {
                     "bulkPrice100": 5000.00,
@@ -1994,7 +1994,7 @@
                         "img/wedding/1082 (3).webp",
                         "img/wedding/1082 (4).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1212": {
                     "bulkPrice100": 7000.00,
@@ -2004,7 +2004,7 @@
                         "img/wedding/1212 (2).webp",
                         "img/wedding/1212 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1222": {
                     "bulkPrice100": 7000.00,
@@ -2013,7 +2013,7 @@
                         "img/wedding/1222 (1).webp",
                         "img/wedding/1222 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1250": {
                     "bulkPrice100": 5500.00,
@@ -2022,7 +2022,7 @@
                         "img/wedding/1250 (1).webp",
                         "img/wedding/1250 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1295": {
                     "bulkPrice100": 5500.00,
@@ -2031,7 +2031,7 @@
                         "img/wedding/1295 (1).webp",
                         "img/wedding/1295 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1320": {
                     "bulkPrice100": 9000.00,
@@ -2041,7 +2041,7 @@
                         "img/wedding/1320 (2).webp",
                         "img/wedding/1320 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1325": {
                     "bulkPrice100": 9000.00,
@@ -2051,7 +2051,7 @@
                         "img/wedding/1325 (2).webp",
                         "img/wedding/1325 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1350": {
                     "bulkPrice100": 5000.00,
@@ -2061,7 +2061,7 @@
                         "img/wedding/1350 (2).webp",
                         "img/wedding/1350 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1365": {
                     "bulkPrice100": 5200.00,
@@ -2071,7 +2071,7 @@
                         "img/wedding/1365 (2).webp",
                         "img/wedding/1365 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1502": {
                     "bulkPrice100": 7800.00,
@@ -2081,7 +2081,7 @@
                         "img/wedding/1502 (2).webp",
                         "img/wedding/1502 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1550": {
                     "bulkPrice100": 5600.00,
@@ -2090,7 +2090,7 @@
                         "img/wedding/1550 (1).webp",
                         "img/wedding/1550 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1555": {
                     "bulkPrice100": 13500.00,
@@ -2103,7 +2103,7 @@
                         "img/wedding/1555 (5).webp",
                         "img/wedding/1555 (6).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1700": {
                     "bulkPrice100": 16000.00,
@@ -2113,7 +2113,7 @@
                         "img/wedding/1700 (2).webp",
                         "img/wedding/1700 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1750": {
                     "bulkPrice100": 5800.00,
@@ -2123,7 +2123,7 @@
                         "img/wedding/1750 (2).webp",
                         "img/wedding/1750 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1770": {
                     "bulkPrice100": 5800.00,
@@ -2133,7 +2133,7 @@
                         "img/wedding/1770 (2).webp",
                         "img/wedding/1770 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1785": {
                     "bulkPrice100": 5800.00,
@@ -2143,7 +2143,7 @@
                         "img/wedding/1785 (2).webp",
                         "img/wedding/1785 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1790": {
                     "bulkPrice100": 5800.00,
@@ -2153,7 +2153,7 @@
                         "img/wedding/1790 (2).webp",
                         "img/wedding/1790 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1795": {
                     "bulkPrice100": 5800.00,
@@ -2163,7 +2163,7 @@
                         "img/wedding/1795 (2).webp",
                         "img/wedding/1795 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1801": {
                     "bulkPrice100": 7500.00,
@@ -2173,7 +2173,7 @@
                         "img/wedding/1801 (2).webp",
                         "img/wedding/1801 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1850": {
                     "bulkPrice100": 16000.00,
@@ -2183,7 +2183,7 @@
                         "img/wedding/1850 (2).webp",
                         "img/wedding/1850 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1910": {
                     "bulkPrice100": 11000.00,
@@ -2192,7 +2192,7 @@
                         "img/wedding/1910 (1).webp",
                         "img/wedding/1910 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1920": {
                     "bulkPrice100": 16500.00,
@@ -2201,7 +2201,7 @@
                         "img/wedding/1920 (1).webp",
                         "img/wedding/1920 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1935": {
                     "bulkPrice100": 6500.00,
@@ -2210,7 +2210,7 @@
                         "img/wedding/1935 (1).webp",
                         "img/wedding/1935 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1940": {
                     "bulkPrice100": 6500.00,
@@ -2220,7 +2220,7 @@
                         "img/wedding/1940 (2).webp",
                         "img/wedding/1940 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1945": {
                     "bulkPrice100": 6500.00,
@@ -2230,7 +2230,7 @@
                         "img/wedding/1945 (2).webp",
                         "img/wedding/1945 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1950": {
                     "bulkPrice100": 6500.00,
@@ -2240,7 +2240,7 @@
                         "img/wedding/1950 (2).webp",
                         "img/wedding/1950 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1955": {
                     "bulkPrice100": 7200.00,
@@ -2249,7 +2249,7 @@
                         "img/wedding/1955 (1).webp",
                         "img/wedding/1955 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1960": {
                     "bulkPrice100": 7200.00,
@@ -2258,7 +2258,7 @@
                         "img/wedding/1960 (1).webp",
                         "img/wedding/1960 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1970": {
                     "bulkPrice100": 7200.00,
@@ -2268,7 +2268,7 @@
                         "img/wedding/1970 (2).webp",
                         "img/wedding/1970 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #1980": {
                     "bulkPrice100": 10000.00,
@@ -2287,7 +2287,7 @@
                         "img/wedding/2020 (1).webp",
                         "img/wedding/2020 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #2024": {
                     "bulkPrice100": 17500.00,
@@ -2296,7 +2296,7 @@
                         "img/wedding/2024 (1).webp",
                         "img/wedding/2024 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #2025": {
                     "bulkPrice100": 17500.00,
@@ -2306,7 +2306,7 @@
                         "img/wedding/2025 (2).webp",
                         "img/wedding/2025 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #2030": {
                     "bulkPrice100": 16000.00,
@@ -2316,7 +2316,7 @@
                         "img/wedding/2030 (2).webp",
                         "img/wedding/2030 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #2040": {
                     "bulkPrice100": 17500.00,
@@ -2327,7 +2327,7 @@
                         "img/wedding/2040 (3).webp",
                         "img/wedding/2040 (4).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #2050": {
                     "bulkPrice100": 17500.00,
@@ -2337,7 +2337,7 @@
                         "img/wedding/2050 (2).webp",
                         "img/wedding/2050 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #2070": {
                     "bulkPrice100": 8000.00,
@@ -2347,7 +2347,7 @@
                         "img/wedding/2070 (2).webp",
                         "img/wedding/2070 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #2075": {
                     "bulkPrice100": 8000.00,
@@ -2358,7 +2358,7 @@
                         "img/wedding/2075 (3).webp",
                         "img/wedding/2075 (4).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #2085": {
                     "bulkPrice100": 14000.00,
@@ -2368,7 +2368,7 @@
                         "img/wedding/2085 (2).webp",
                         "img/wedding/2085 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #2090": {
                     "bulkPrice100": 17500.00,
@@ -2378,7 +2378,7 @@
                         "img/wedding/2090 (2).webp",
                         "img/wedding/2090 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #2100": {
                     "bulkPrice100": 14000.00,
@@ -2389,7 +2389,7 @@
                         "img/wedding/2100 (3).webp",
                         "img/wedding/2100 (4).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #2105": {
                     "bulkPrice100": 17500.00,
@@ -2400,7 +2400,7 @@
                         "img/wedding/2105 (3).webp",
                         "img/wedding/2105 (4).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #2110": {
                     "bulkPrice100": 7500.00,
@@ -2410,7 +2410,7 @@
                         "img/wedding/2110 (2).webp",
                         "img/wedding/2110 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #2115": {
                     "bulkPrice100": 13500.00,
@@ -2420,7 +2420,7 @@
                         "img/wedding/2115 (2).webp",
                         "img/wedding/2115 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #2120": {
                     "bulkPrice100": 14000.00,
@@ -2431,7 +2431,7 @@
                         "img/wedding/2120 (3).webp",
                         "img/wedding/2120 (4).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #2125": {
                     "bulkPrice100": 5200.00,
@@ -2441,7 +2441,7 @@
                         "img/wedding/2125 (2).webp",
                         "img/wedding/2125 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #2130": {
                     "bulkPrice100": 5200.00,
@@ -2451,7 +2451,7 @@
                         "img/wedding/2130 (2).webp",
                         "img/wedding/2130 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #2135": {
                     "bulkPrice100": 5800.00,
@@ -2461,7 +2461,7 @@
                         "img/wedding/2135 (2).webp",
                         "img/wedding/2135 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #2140": {
                     "bulkPrice100": 5800.00,
@@ -2471,7 +2471,7 @@
                         "img/wedding/2140 (2).webp",
                         "img/wedding/2140 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #3001": {
                     "bulkPrice100": 14000.00,
@@ -2481,7 +2481,7 @@
                         "img/wedding/3001 (2).webp",
                         "img/wedding/3001 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #3002": {
                     "bulkPrice100": 14000.00,
@@ -2491,7 +2491,7 @@
                         "img/wedding/3002 (2).webp",
                         "img/wedding/3002 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #3005": {
                     "bulkPrice100": 16000.00,
@@ -2500,13 +2500,13 @@
                         "img/wedding/3005 (1).webp",
                         "img/wedding/3005 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #3010": {
                     "bulkPrice100": 12000.00,
                     "description": "Simple and elegant design.",
                     "imageFile": "img/wedding/placeholder.webp",
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #3020": {
                     "bulkPrice100": 10000.00,
@@ -2515,7 +2515,7 @@
                         "img/wedding/3020 (1).webp",
                         "img/wedding/3020 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #3030": {
                     "bulkPrice100": 16000.00,
@@ -2524,7 +2524,7 @@
                         "img/wedding/3030 (1).webp",
                         "img/wedding/3030 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #3050": {
                     "bulkPrice100": 12500.00,
@@ -2533,7 +2533,7 @@
                         "img/wedding/3050 (1).webp",
                         "img/wedding/3050 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #3075": {
                     "bulkPrice100": 12500.00,
@@ -2542,7 +2542,7 @@
                         "img/wedding/3075 (1).webp",
                         "img/wedding/3075 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 },
                 "Card Design #3095": {
                     "bulkPrice100": 15000.00,
@@ -2552,7 +2552,17 @@
                         "img/wedding/3095 (2).webp",
                         "img/wedding/3095 (3).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
+                },
+                "Card Design #5010": {
+                    "bulkPrice100": 40000.00,
+                    "description": "Premium comprehensive series.",
+                    "galleryImages": [
+                        "img/wedding/3095 (1).webp",
+                        "img/wedding/3095 (2).webp",
+                        "img/wedding/3095 (3).webp"
+                    ],
+                    "hasInnerCardOption": true
                 },
                 "Card Design #3110": {
                     "bulkPrice100": 17500.00,
@@ -2561,9 +2571,10 @@
                         "img/wedding/3110 (1).webp",
                         "img/wedding/3110 (2).webp"
                     ],
-                    "hasInnerCardOption": false
+                    "hasInnerCardOption": true
                 }
             }
         }
     }
 }
+
