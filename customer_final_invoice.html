@@ -105,14 +105,16 @@
     </style>
     <script>
         // --- Hardcoded Data from invoice_data.json ---
+        const WHATSAPP_NUMBER = '923006238233'; // Defined here for use in link generation
+
         const INVOICE_DATA = {
             id: "INV-2025-001",
             status: "PAID",
             issue_date: "2025-11-28",
             due_date: "2025-12-05",
-            company_logo_url: "https://arhamprinters.pk/img/logo.webp",
+            company_logo_url: "https://arhamprinters.pk/img/logo2.webp",
             customer: {
-                name: "Mr. Ahmad Khan - Project Alpha",
+                name: "Mr. [Customer Name] - Project Alpha",
                 address: "Street 10, Model Town, Gujranwala",
                 phone: "0321-4567890",
                 email: "ahmad.khan@example.com"
@@ -149,7 +151,9 @@
             const finalGrandTotal = calculatedSubtotal + taxAmount + billing.delivery;
             const taxRate = billing.tax_rate * 100;
             const statusText = invoice.status.toUpperCase();
-            const whatsappMessage = `Hello Arham Printers, I have a question about Invoice ${invoice.id}.`;
+            
+            // **FIX: Ensure the WhatsApp message is correctly URL encoded**
+            const whatsappMessage = `Hello Arham Printers, I have a question about Invoice ${invoice.id}. My name is ${customer.name}.`;
 
             // 2. Customer Details Injection
             document.getElementById('customerName').textContent = customer.name;
@@ -161,7 +165,7 @@
 
             // 3. Item Rows Injection
             const tbody = document.getElementById('invoiceItems');
-            tbody.innerHTML = ''; // Clear placeholders
+            tbody.innerHTML = ''; 
 
             invoice.items.forEach((item, index) => {
                 const itemTotal = item.unit_price * item.qty;
@@ -188,6 +192,7 @@
             document.getElementById('invoiceId').textContent = invoice.id;
             document.getElementById('invoiceDate').textContent = new Date(invoice.issue_date).toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' });
             document.getElementById('dueDate').textContent = new Date(invoice.due_date).toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' });
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
             
             document.getElementById('subtotalDisplay').textContent = formatPKR(calculatedSubtotal);
             document.getElementById('taxRate').textContent = taxRate.toFixed(1) + "%";
@@ -205,8 +210,9 @@
                 statusBadge.classList.add('bg-warning', 'text-dark');
             }
             
-            // 5. WhatsApp Link Update
+            // 5. WHATSAPP LINK UPDATE - Corrected structure
             const whatsappLink = document.getElementById('whatsappLink');
+            // Using the defined WHATSAPP_NUMBER constant
             whatsappLink.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
             whatsappLink.innerHTML = `<i class="fab fa-whatsapp me-2"></i> WhatsApp Query (Ref: ${invoice.id})`;
 
