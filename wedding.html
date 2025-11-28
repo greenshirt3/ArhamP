@@ -390,8 +390,19 @@
             <div class="container py-5">
                 <div class="row g-5">
                     <div class="col-lg-6">
-                        <div class="d-flex justify-content-center">
-                            <img id="detail-product-image" src="img/products/placeholder.png" class="img-fluid rounded-0" alt="Product Image" style="max-height: 400px;">
+                        <div id="cardImageGallery" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-indicators-wrapper" id="carousel-indicators">
+                                </div>
+                            <div class="carousel-inner" id="carousel-inner">
+                                </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#cardImageGallery" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#cardImageGallery" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
                         </div>
                         <h4 class="mt-4" id="card-description">Elegant card suitable for all occasions. Custom text available.</h4>
                     </div>
@@ -614,11 +625,7 @@
                 // 3. Estimated Variable Unit Cost (Material + Printing)
                 const VARIABLE_UNIT_COST = (rawMaterialCost100 + totalPrintingCharges) / BENCHMARK_QTY;
 
-                // Use the imageFile property which is already set to the local path in the final JSON
-                const imagePath = card.imageFile || 'img/wedding/placeholder.webp'; 
-
                 // --- CRITICAL CHANGE: Read the flag directly from JSON. 
-                // Default to false if the field is missing or null.
                 const requiresInner = card.hasInnerCardOption === true;
 
                 // Store the card, using the tierName as the category for later grouping/display
@@ -630,7 +637,6 @@
                     estimatedUnitCost: VARIABLE_UNIT_COST, // Store variable unit cost here
                     fixedCost: FIXED_OVERHEAD,
                     printingChargePerCard: printingChargePerCard,
-                    imageFile: imagePath,
                     requiresInnerOption: requiresInner // <-- Reads flag from JSON
                 };
             });
@@ -748,7 +754,8 @@
                 currentCard = card;
                 currentCard = originalCurrentCard; 
 
-                const imagePath = card.imageFile; 
+                // Image source check: use galleryImages[0] as thumbnail if available, otherwise use imageFile
+                const imagePath = card.galleryImages ? card.galleryImages[0] : card.imageFile || 'img/wedding/placeholder.webp'; 
 
                 cardHTML += `
                     <div class='col-lg-3 col-6 mb-4'>
@@ -825,14 +832,78 @@
         hasInner = false; 
     }
     
+    // --- NEW LOGIC: Multi-Image Carousel Generation ---
+    let images = [];
+    if (Array.isArray(currentCard.galleryImages) && currentCard.galleryImages.length > 0) {
+        images = currentCard.galleryImages;
+    } else if (currentCard.imageFile) {
+        images = [currentCard.imageFile];
+    } else {
+        images = ['img/wedding/placeholder.webp'];
+    }
+
+    const carouselInner = document.getElementById('carousel-inner');
+    const carouselIndicators = document.getElementById('carousel-indicators');
+    const imageGalleryContainer = document.getElementById('cardImageGallery');
+    const carouselPrev = imageGalleryContainer.querySelector('.carousel-control-prev');
+    const carouselNext = imageGalleryContainer.querySelector('.carousel-control-next');
+    
+    carouselInner.innerHTML = '';
+    carouselIndicators.innerHTML = '';
+    
+    // Reset classes for the container
+    imageGalleryContainer.classList.remove('carousel', 'slide');
+    if (images.length > 1) {
+        // Apply carousel classes and show controls for multiple images
+        imageGalleryContainer.classList.add('carousel', 'slide');
+        carouselPrev.style.display = 'flex';
+        carouselNext.style.display = 'flex';
+        carouselIndicators.style.display = 'flex';
+    } else {
+        // Render single image structure (without carousel controls)
+        imageGalleryContainer.classList.remove('carousel', 'slide');
+        carouselPrev.style.display = 'none';
+        carouselNext.style.display = 'none';
+        carouselIndicators.style.display = 'none';
+        
+        // Render a single image item manually into the inner container for single views
+        carouselInner.innerHTML = `
+             <div class="carousel-item active">
+                 <img src="${images[0]}" 
+                      onerror="this.onerror=null;this.src='img/wedding/placeholder.webp';" 
+                      class="d-block w-100 img-fluid rounded-0" 
+                      alt="Card Image" style="max-height: 400px;">
+             </div>`;
+    }
+
+    // Generate carousel items and indicators only if more than 1 image is present
+    if (images.length > 1) {
+        images.forEach((imagePath, index) => {
+            const isActive = index === 0 ? 'active' : '';
+
+            // 1. Generate Carousel Item
+            const itemHTML = `
+                <div class="carousel-item ${isActive}">
+                    <img src="${imagePath}" 
+                         onerror="this.onerror=null;this.src='img/wedding/placeholder.webp';" 
+                         class="d-block w-100 img-fluid rounded-0" 
+                         alt="Card Image ${index + 1}" style="max-height: 400px;">
+                </div>`;
+            carouselInner.innerHTML += itemHTML;
+            
+            // 2. Generate Indicator Button
+            const indicatorHTML = `
+                <button type="button" data-bs-target="#cardImageGallery" data-bs-slide-to="${index}" 
+                        class="btn btn-sm btn-outline-light ${isActive}" aria-current="${isActive ? 'true' : 'false'}" 
+                        aria-label="Slide ${index + 1}"></button>`;
+            carouselIndicators.innerHTML += indicatorHTML;
+        });
+    }
+
+    
+    // Set other card details (Existing Logic)
     document.getElementById('detail-product-name-header').textContent = cardName;
     document.getElementById('detail-product-name-body').textContent = cardName;
-    
-    document.getElementById('detail-product-image').src = currentCard.imageFile; 
-    document.getElementById('detail-product-image').onerror = function() {
-        this.src = `img/wedding/placeholder.webp`; // Fallback image path
-    };
-    
     document.getElementById('card-description').textContent = currentCard.description; 
     document.getElementById('input-card-qty').value = 100; 
     
@@ -840,7 +911,6 @@
     document.getElementById('fixed-cost-display').textContent = `**Total Cost (100 pcs: PKR ${bulkPriceDisplay}) used for calculation. Fixed overhead of ${currentCard.fixedCost} PKR applied after profit.**`;
 
     showSection('product-detail');
-    // Calculate initial price based on quantity (100) and current state 
     updateQuantityAndPrice(0); 
 }
 
