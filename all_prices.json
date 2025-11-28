@@ -11,7 +11,7 @@
             { "finish": "Round Corners", "variant_3": "Double Side", "price": 3009.00, "imageFile": "img/products/matcards.webp" }
         ],
         "UV Cards": [
-            { "finish": "Round Corners", "variant_3": "Single Side", "price": 2500.00, "imageFile": "img/products/uvcard.webp" },
+            { "finish": "Round Corners", "variant_3": "Single Side", "price": 2800.00, "imageFile": "img/products/uvcard.webp" },
             { "finish": "Round Corners", "variant_3": "Double Side", "price": 3200.00, "imageFile": "img/products/uvcard.webp" }
         ],
         "UV Thick Cards": [
@@ -21,7 +21,7 @@
             { "variant_3": "7x5", "price": 40.00, "imageFile": "img/products/photos.webp" },
             { "variant_3": "1x1", "price": 15.00, "imageFile": "img/products/photos1x1.webp" },
             { "variant_3": "Passport Size", "price": 10.00, "imageFile": "img/products/pasport.webp" },
-            { "variant_3": "A4", "price": 80.00, "imageFile": "img/products/photos.webp" }
+            { "variant_3": "A4", "price": 120.00, "imageFile": "img/products/photos.webp" }
         ],
         "Photo Frames": [
             { "variant_3": "7x5", "price": 1.00, "imageFile": "img/products/frames.webp" },
