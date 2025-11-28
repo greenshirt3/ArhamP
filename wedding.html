@@ -409,9 +409,8 @@
                                 </div>
                                  <small class="text-muted mt-2 d-block">Minimum order: 1 piece. <span id="fixed-cost-display">*</span></small>
                             </div>
-                              </div>
-
-                            <div class="product-option-group" data-option-key="InnerCard">
+                            
+                            <div class="product-option-group" data-option-key="InnerCard" id="inner-card-option-group">
                                 <label>Include Extra Inner Card?</label>
                                 <div class="d-flex gap-3">
                                     <label class="choice-card-inner" id="inner-yes" onclick="setInnerSelection(true)">
@@ -618,16 +617,29 @@
                 // Use the imageFile property which is already set to the local path in the final JSON
                 const imagePath = card.imageFile || 'img/wedding/placeholder.webp'; 
 
+                // --- NEW LOGIC: Determine if the inner card option should appear ---
+                // Assign "true" if the description specifically mentions "insert envelopes" or related inner parts, otherwise "false".
+                let requiresInner = false;
+                if (card.description) {
+                    const desc = card.description.toLowerCase();
+                    if (desc.includes('insert envelopes') || desc.includes('inner card') || desc.includes('multi-layer')) {
+                        requiresInner = true;
+                    }
+                }
+                // Also setting it to true for the premium design with a special component, just as an example.
+                if (cardName === "Card Design #1855") requiresInner = true; 
+
                 // Store the card, using the tierName as the category for later grouping/display
                 allProducts[cardName] = {
                     ...card,
                     cardName: cardName,
-                    category: tierName, // <-- Key Change: Use Tier Name for category
+                    category: tierName, // <-- Use Tier Name for category
                     bulkPrice100: TOTAL_COST_100_PCS, 
                     estimatedUnitCost: VARIABLE_UNIT_COST, // Store variable unit cost here
                     fixedCost: FIXED_OVERHEAD,
                     printingChargePerCard: printingChargePerCard,
-                    imageFile: imagePath
+                    imageFile: imagePath,
+                    requiresInnerOption: requiresInner // <-- NEW PROPERTY
                 };
             });
         });
@@ -671,7 +683,7 @@
         return finalPrice;
     }
 
-    // --- DISPLAY and UI LOGIC (Minor Fixes to align with new data structure) ---
+    // --- DISPLAY and UI LOGIC ---
 
     function getDisplayPrice(cardName) {
         const BENCHMARK_QTY = 200;
@@ -742,7 +754,6 @@
                 
                 const originalCurrentCard = currentCard; 
                 currentCard = card;
-                const pricing = getDisplayPrice(cardName);
                 currentCard = originalCurrentCard; 
 
                 const imagePath = card.imageFile; 
@@ -750,8 +761,7 @@
                 cardHTML += `
                     <div class='col-lg-3 col-6 mb-4'>
                         <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                            <span class='card-price rounded-0'>PKR ${pricing.perCard} / pc (at ${pricing.benchmarkQty} pcs)</span>
-                            <img src='${imagePath}' onerror="this.onerror=null;this.src='img/wedding/placeholder.webp';" class='w-100' alt='${cardName}'>
+                            <span class='card-price rounded-0'>${cardName}</span> <img src='${imagePath}' onerror="this.onerror=null;this.src='img/wedding/placeholder.webp';" class='w-100' alt='${cardName}'>
                             <div class="product-footer-overlay p-0">
                                 <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showCardDetails(&quot;${cardName}&quot;)">
                                     <i class="fas fa-search me-2"></i> View Details
@@ -806,13 +816,23 @@
 
     currentCard = cardData; // Use the stored object directly
     
-    // FIX 2: Set internal state to 'No' (false) as the default selection.
-    setInnerSelection(false, false); 
-    
-    // Ensure the radio button visuals reflect 'No' being selected.
-    document.getElementById('inner-yes').classList.remove('selected');
-    document.getElementById('inner-no').classList.add('selected');
+    // Get a reference to the inner card option group
+    const innerOptionGroup = document.getElementById('inner-card-option-group');
 
+    // --- CRITICAL CHANGE: Conditional Display ---
+    if (currentCard.requiresInnerOption) {
+        innerOptionGroup.style.display = 'block';
+        // Set internal state to 'No' (false) as the default selection.
+        setInnerSelection(false, false); 
+        // Ensure the radio button visuals reflect 'No' being selected.
+        document.getElementById('inner-yes').classList.remove('selected');
+        document.getElementById('inner-no').classList.add('selected');
+    } else {
+        innerOptionGroup.style.display = 'none';
+        // Ensure the price calculation uses the default (no inner card) if the option is hidden
+        hasInner = false; 
+    }
+    
     document.getElementById('detail-product-name-header').textContent = cardName;
     document.getElementById('detail-product-name-body').textContent = cardName;
     
@@ -828,7 +848,7 @@
     document.getElementById('fixed-cost-display').textContent = `**Total Cost (100 pcs: PKR ${bulkPriceDisplay}) used for calculation. Fixed overhead of ${currentCard.fixedCost} PKR applied after profit.**`;
 
     showSection('product-detail');
-    // Calculate initial price based on quantity (100) and default state (No Inner Card)
+    // Calculate initial price based on quantity (100) and current state (which is now correctly set by the block above)
     updateQuantityAndPrice(0); 
 }
 
