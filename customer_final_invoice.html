@@ -137,7 +137,7 @@
             return amount.toLocaleString('en-PK', { minimumFractionDigits: 2 });
         }
         
-        // --- Invoice Generation Logic (Replaces invoice-script.js) ---
+        // --- Invoice Generation Logic (Runs on Load) ---
         function generateInvoiceHtml() {
             const invoice = INVOICE_DATA;
             const customer = invoice.customer;
@@ -207,8 +207,14 @@
             
             // 5. WhatsApp Link Update
             const whatsappLink = document.getElementById('whatsappLink');
-            whatsappLink.href = `https://wa.me/${INVOICE_DATA.phone}?text=${encodeURIComponent(whatsappMessage)}`;
+            whatsappLink.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
             whatsappLink.innerHTML = `<i class="fab fa-whatsapp me-2"></i> WhatsApp Query (Ref: ${invoice.id})`;
+
+            // 6. Logo Update
+            const logoElement = document.getElementById('logoImage');
+            if (logoElement) {
+                logoElement.src = invoice.company_logo_url;
+            }
         }
 
         document.addEventListener('DOMContentLoaded', generateInvoiceHtml);
@@ -235,9 +241,9 @@
         <!-- HEADER AND LOGO SECTION (Printable Brand Block) -->
         <div class="header-logo-section row align-items-center">
             <div class="col-md-6">
-                <!-- LOGO IMAGE LINK: Uses the URL specified in the JSON data -->
+                <!-- LOGO IMAGE LINK: Clickable to your homepage -->
                 <a href="https://arhamprinters.pk" target="_blank">
-                    <img src="https://arhamprinters.pk/img/logo.webp" alt="Arham Printers Logo" class="img-fluid" style="max-height: 80px;" onerror="this.onerror=null;this.src='https://placehold.co/200x80/f28b00/ffffff?text=ARHAM+PRINTERS';">
+                    <img id="logoImage" src="https://arhamprinters.pk/img/logo.webp" alt="Arham Printers Logo" class="img-fluid" style="max-height: 80px;" onerror="this.onerror=null;this.src='https://placehold.co/200x80/f28b00/ffffff?text=ARHAM+PRINTERS';">
                 </a>
             </div>
             <div class="col-md-6 text-md-end text-start">
