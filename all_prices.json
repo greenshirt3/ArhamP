@@ -2562,7 +2562,7 @@
                         "img/wedding/3095 (2).webp",
                         "img/wedding/3095 (3).webp"
                     ],
-                    "hasInnerCardOption": true
+                    "hasInnerCardOption": false
                 },
                 "Card Design #3110": {
                     "bulkPrice100": 17500.00,
@@ -2577,4 +2577,5 @@
         }
     }
 }
+
 
