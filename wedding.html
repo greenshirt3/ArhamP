@@ -583,48 +583,53 @@
         showSection('shop-catalog'); 
     }
 
-    /**
-     * Calculates the unit cost based on Material Cost + Printing Charge for 100 pcs + Fixed Overhead.
-     */
     function initialCardSetup(flatData) {
-        const weddingData = flatData['Special Occasions (Wedding)'];
+        const tieredWeddingData = flatData['Special Occasions (Wedding)'];
         allProducts = {};
         const FIXED_OVERHEAD = 500;
         const BENCHMARK_QTY = 100; // Reference quantity for bulk calculations
 
-        if (!weddingData || Object.keys(weddingData).length === 0) {
+        if (!tieredWeddingData || Object.keys(tieredWeddingData).length === 0) {
             document.getElementById('wedding-card-grid').innerHTML = '<p class="alert alert-danger">Error: Wedding card data structure missing from JSON response or empty.</p>';
             return;
         }
 
-        Object.keys(weddingData).forEach(cardName => {
-            const card = weddingData[cardName];
-            // price100 is the raw supplier/material cost for 100 cards from the JSON
-            const rawMaterialCost100 = card.bulkPrice100 || 0; 
+        // Iterate through the price tiers (Economical Elegance, Premium Collection, etc.)
+        Object.keys(tieredWeddingData).forEach(tierName => {
+            const tierData = tieredWeddingData[tierName];
+            const cardsInTier = tierData.cards || {};
 
-            // 1. Calculate the Printing Charge Component for 100 cards
-            const printingChargePerCard = getPrintingChargePerCard(BENCHMARK_QTY);
-            const totalPrintingCharges = printingChargePerCard * BENCHMARK_QTY;
-            
-            // 2. Total Cost (Material + Printing + Overhead) for 100 pieces (Used for display/benchmark)
-            const TOTAL_COST_100_PCS = rawMaterialCost100 + FIXED_OVERHEAD + totalPrintingCharges;
-            
-            // 3. Estimated Variable Unit Cost (Material + Printing)
-            const VARIABLE_UNIT_COST = (rawMaterialCost100 + totalPrintingCharges) / BENCHMARK_QTY;
+            // Iterate through the cards within each tier
+            Object.keys(cardsInTier).forEach(cardName => {
+                const card = cardsInTier[cardName];
+                // price100 is the raw supplier/material cost for 100 cards from the JSON
+                const rawMaterialCost100 = card.bulkPrice100 || 0; 
 
-            // Use the imageFile property which is already set to the local path in the final JSON
-            const imagePath = card.imageFile || 'img/wedding/placeholder.webp'; 
+                // 1. Calculate the Printing Charge Component for 100 cards
+                const printingChargePerCard = getPrintingChargePerCard(BENCHMARK_QTY);
+                const totalPrintingCharges = printingChargePerCard * BENCHMARK_QTY;
+                
+                // 2. Total Cost (Material + Printing + Overhead) for 100 pieces (Used for display/benchmark)
+                const TOTAL_COST_100_PCS = rawMaterialCost100 + FIXED_OVERHEAD + totalPrintingCharges;
+                
+                // 3. Estimated Variable Unit Cost (Material + Printing)
+                const VARIABLE_UNIT_COST = (rawMaterialCost100 + totalPrintingCharges) / BENCHMARK_QTY;
 
-            allProducts[cardName] = {
-                ...card,
-                cardName: cardName,
-                category: 'Wedding Cards',
-                bulkPrice100: TOTAL_COST_100_PCS, 
-                estimatedUnitCost: VARIABLE_UNIT_COST, // Store variable unit cost here
-                fixedCost: FIXED_OVERHEAD,
-                printingChargePerCard: printingChargePerCard,
-                imageFile: imagePath
-            };
+                // Use the imageFile property which is already set to the local path in the final JSON
+                const imagePath = card.imageFile || 'img/wedding/placeholder.webp'; 
+
+                // Store the card, using the tierName as the category for later grouping/display
+                allProducts[cardName] = {
+                    ...card,
+                    cardName: cardName,
+                    category: tierName, // <-- Key Change: Use Tier Name for category
+                    bulkPrice100: TOTAL_COST_100_PCS, 
+                    estimatedUnitCost: VARIABLE_UNIT_COST, // Store variable unit cost here
+                    fixedCost: FIXED_OVERHEAD,
+                    printingChargePerCard: printingChargePerCard,
+                    imageFile: imagePath
+                };
+            });
         });
     }
 
@@ -729,6 +734,7 @@
         }
 
         Object.keys(categorizedCards).forEach(category => {
+            // Use the tier name (category) for the header
             cardHTML += `<h3 class="w-100 pt-5 border-top">${category}</h3>`; 
 
             categorizedCards[category].forEach(card => {
@@ -741,7 +747,6 @@
 
                 const imagePath = card.imageFile; 
 
-                // FIX 1: Corrected template for the View Details button handler
                 cardHTML += `
                     <div class='col-lg-3 col-6 mb-4'>
                         <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
@@ -928,4 +933,3 @@
 </div>
 </body>
 </html>
-
