@@ -1003,7 +1003,15 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
 
-    <script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/waypoints/waypoints.min.js"></script>
+<script src="lib/counterup/counterup.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="js/main.js"></script>
+
+<script>
     // 🛑 STEP 1: MANDATORY CONFIGURATION 🛑
     const PUBLIC_DATA_URL = 'all_prices.json'; 
     const WHATSAPP_NUMBER = '923006238233'; 
@@ -1023,20 +1031,18 @@
     let currentDeliveryOption = 'Self Pickup'; // New state variable
 
     // --- Corrected Shipping Rate Configuration ---
-    // These are the accurate PostEx courier rates (Base Rate + 15% Fuel & 16% GST)
     const SHIPPING_RATES = {
-        // Within City (JLP) / Same Province / Cross Province
-        'small': { // Up to 0.5 kg: Cards, Prints, Small Stickers
+        'small': { 
             'Within City': 259, 
             'Same Province': 347,
             'Cross Province': 359
         },
-        'medium': { // 0.5 kg to 1.0 kg: Mugs, T-shirts, Letterpads, Bill Books
+        'medium': { 
             'Within City': 431, 
             'Same Province': 529,
             'Cross Province': 541
         },
-        'overland': { // Min 3.0 kg: Banners, Large Frames
+        'overland': { 
             'Within City': 1254, 
             'Same Province': 1254,
             'Cross Province': 1254
@@ -1044,7 +1050,6 @@
     };
 
     // --- Local Self-Delivery Override Configuration (Jalalpur Jattan Only) ---
-    // These are your subsidized, marketing-friendly rates (subsidizing the cost of the Within City PostEx Rate)
     const LOCAL_FREE_SHIPPING_THRESHOLD = 2500; // PKR 2,500
     const LOCAL_SHIPPING_RATES = {
         'flat_local': 100 // PKR 100 flat fee for local Home Delivery, regardless of packet size
@@ -1068,7 +1073,6 @@
     };
 
     // --- PROFIT & COST CONSTANTS (Derived from previous analysis) ---
-    // NOTE: This markup is kept for Area-Based items where the profit calculation is done dynamically.
     const RECOMMENDED_MARKUP = 1.15; // 15% Profit Margin (Only for area-based items)
     const AREA_BASED_META = {
         "China Frontlit": { is_area_based: true, rate: 35, min_area: 2, category: 'Banners' }, 
@@ -1174,7 +1178,7 @@
         }
         
         initialProductSetup(rawData);
-        loadProductCatalog(); // Added the function call here
+        loadProductCatalog(); // FIX: Added call to load the actual cards
         showSection('shop-catalog'); 
         
         document.getElementById('quote-form').addEventListener('submit', handleQuoteSubmission);
@@ -1190,73 +1194,7 @@
         if (typeof setActiveMobileNav === 'function') setActiveMobileNav('products');
     }
     
-    // FIX: Function to inject the dynamically generated product cards
-    function loadProductCatalog() {
-        let productHTML = '';
-        const productGrid = document.getElementById('main-product-catalog');
-        
-        if (!productGrid) return;
-        
-        productGrid.innerHTML = ''; // Clear hardcoded content
-
-        Object.keys(allProductGroups).forEach(productKey => {
-            const product = allProductGroups[productKey];
-            const cleanName = product.baseName.replace(/'/g, '').trim(); 
-            
-            // Only render top-level product cards (we don't render Digital Print calculator here)
-            if (product.isDigitalTiered) return;
-
-            // Grouping logic (H3s) must be handled externally or simplified here for demonstration.
-            // Simplified display:
-            
-            const imagePath = product.imageFile;
-            
-            productHTML += `
-                <div class='col-lg-3 col-6 mb-4'>
-                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <img src='img/products/${imagePath}.webp' onerror="this.onerror=null;this.src='img/products/${imagePath}.png';" class='w-100' alt='${cleanName}'>
-                        <div class="product-footer-overlay p-0">
-                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('${cleanName}')">
-                                <i class="fas fa-search me-2"></i> ${product.baseName}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `;
-        });
-        
-        // NOTE: Since the category H3s are also hardcoded in the HTML, we only inject the cards.
-        // For production, you would remove all the hardcoded H3s and DIVs inside #main-product-catalog
-        // and loop through categories first. For now, we append/replace the content.
-        
-        // Re-inject the static structure + dynamic cards
-        const existingStructure = `
-            <h3 class="w-100 pt-3" id="business-essentials">Business & Office Essentials</h3>
-            <h3 class="w-100 pt-3" id="marketing-essentials">Marketing & Promotional Items</h3>
-            <h3 class="w-100 pt-3" id="banners">Custom & Large Format</h3>
-            <h3 class="w-100 pt-3" id="prints-and-documents">B/W and Color Prints</h3>
-            <h3 class="w-100 pt-3" id="wedding-cards">Wedding Cards</h3>
-            `;
-        
-        // Since the current HTML is structured with hardcoded blocks, we will simply replace 
-        // the existing hardcoded product grid with a placeholder indicating data load.
-        // In this case, since the user provided hardcoded cards, we will just use the correct names 
-        // and assume the user's hardcoded structure (seen in the middle of gopro.html) is correct 
-        // for linking via showProductDetails.
-
-        // If the buttons are not working, it's likely that the original hardcoded HTML had errors.
-        // We will assume the user meant for the original hardcoded buttons to work and rely on the global scope.
-        // We ensure the links are correct:
-        
-        // Example fix for 'Visisting Cards' click handler (assuming the user is debugging the hardcoded version):
-        // Change onclick="showProductDetails('Visisting Cards')" to onclick="showProductDetails('Visiting Cards')"
-        
-        // Since I cannot rewrite the whole hardcoded catalog, I will confirm the function is globally accessible.
-    }
-    
     function initialProductSetup(flatData) {
-        // ... (this function is solely for populating allProductGroups and digitalPrintingPricing)
-        // ... (This function remains correct)
         const productGroups = {};
         Object.keys(flatData).forEach(categoryKey => {
             const categoryData = flatData[categoryKey];
@@ -1307,6 +1245,77 @@
             });
         });
         allProductGroups = productGroups;
+    }
+    
+    // FIX: Function to inject the dynamically generated product cards
+    function loadProductCatalog() {
+        const catalogContainer = document.getElementById('main-product-catalog');
+        if (!catalogContainer) return;
+        
+        // This is a simplified replacement. In production, you would rebuild the HTML structure
+        // with the H3 categories inside the loop. For now, we clear and rebuild the cards only.
+        
+        // Get all unique categories (Business & Office, Marketing, etc.)
+        const categorizedProducts = {};
+        Object.keys(allProductGroups).forEach(productKey => {
+            const product = allProductGroups[productKey];
+            const category = product.mainCategory;
+            if (!categorizedProducts[category]) {
+                categorizedProducts[category] = [];
+            }
+            categorizedProducts[category].push(product);
+        });
+
+        let productHTML = '';
+        
+        const categoryOrder = ["Business & Office Essentials", "Marketing & Promotional Items", "Custom & Large Format", "B/W and Color Prints", "Special Occasions (Wedding)"];
+
+        categoryOrder.forEach(categoryKey => {
+            const products = categorizedProducts[categoryKey];
+            if (!products || products.length === 0) return;
+
+            productHTML += `<h3 class="w-100 pt-3" id="${categoryKey.toLowerCase().replace(/[^a-z0-9]/g, '-')}">${categoryKey}</h3>`;
+            
+            products.forEach(product => {
+                const cleanName = product.baseName.replace(/'/g, '').trim(); 
+                const imagePath = product.imageFile;
+                let buttonHTML = '';
+                
+                // Special handling for the Print Order page link (goprint.html) and Wedding Cards
+                if (cleanName === 'Digital Print (Tiered)') {
+                     buttonHTML = `<button class="btn btn-secondary w-100 rounded-0 p-3" onclick="showProductDetails('Digital Print (Tiered)')">
+                                      <i class="fas fa-calculator me-2"></i> View Price Calculator
+                                  </button>`;
+                } else if (cleanName === 'Custom Prints') {
+                     buttonHTML = `<button class="btn btn-secondary w-100 rounded-0 p-3" onclick="showProductDetails('Custom Prints')">
+                                      <i class="fas fa-calculator me-2"></i> View Price Calculator
+                                  </button>`;
+                } else if (categoryKey === "Special Occasions (Wedding)") {
+                     buttonHTML = `<a class="btn btn-primary w-100 rounded-0 p-3" href="wedding.html">
+                                      <i class="fas fa-gift me-2"></i> View Wedding Catalog
+                                  </a>`;
+                } else {
+                    buttonHTML = `<button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('${cleanName}')">
+                                      <i class="fas fa-search me-2"></i> ${product.baseName}
+                                  </button>`;
+                }
+
+                productHTML += `
+                    <div class='col-lg-3 col-6 mb-4'>
+                        <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                            <img src='img/products/${imagePath}.webp' onerror="this.onerror=null;this.src='img/products/${imagePath}.png';" class='w-100' alt='${cleanName}'>
+                            <div class="product-footer-overlay p-0">
+                                ${buttonHTML}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        });
+
+        // The user's original HTML already includes the structure, so we just inject the dynamic cards.
+        // We replace the entire content for clean re-rendering.
+        catalogContainer.innerHTML = productHTML; 
     }
 
     function getShippingPacketType(productName) {
@@ -1491,6 +1500,7 @@
              }
         }
         else {
+            // Standard Tiered Products (Business Cards, etc.)
             const quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 1;
             const allCombinations = currentProduct?.combinations || [];
             
@@ -1528,6 +1538,7 @@
         let shippingCost = 0;
         let finalShippingNote = 'No shipping charges applied.';
         
+        // Logic for Home Delivery (Self Pickup results in 0 cost, 0 note)
         if (currentDeliveryOption === 'Home Delivery') {
             const packetType = getShippingPacketType(currentProduct.baseName);
             
@@ -1548,7 +1559,7 @@
             }
         }
 
-        // CORRECTED FINAL CALCULATION: Sum product price (with profit) + shipping cost (without extra profit)
+        // FINAL CALCULATION: Sum product price (with profit) + shipping cost (without extra profit)
         const finalSellingPrice = Math.round(baseProductPrice + shippingCost);
         
         // --- Update UI with Final Selling Price ---
