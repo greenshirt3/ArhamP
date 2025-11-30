@@ -436,8 +436,21 @@
                                     </label>
                                 </div>
                             </div>
-                            
-                        </div>
+
+                            <div class="product-option-group mt-4" data-option-key="DeliveryType">
+                                <label><i class="fas fa-truck me-2"></i> <strong>Choose Delivery Method:</strong></label>
+                                <div class="d-flex flex-wrap gap-3">
+                                    <label class="choice-card selected" id="delivery-home" onclick="setDeliveryType('HomeDelivery')">
+                                        <input type="radio" name="option-DeliveryType" value="HomeDelivery" checked>
+                                        <span class="label-text">Home Delivery</span>
+                                    </label>
+                                    <label class="choice-card" id="delivery-pickup" onclick="setDeliveryType('SelfPickUp')">
+                                        <input type="radio" name="option-DeliveryType" value="SelfPickUp">
+                                        <span class="label-text">Self Pick Up (No Shipping)</span>
+                                    </label>
+                                </div>
+                            </div>
+                            </div>
                         
                         <div class="product-option-group mt-4" id="shipping-zone-selector">
                             <label><i class="fas fa-map-marker-alt me-2"></i> <strong>Check Delivery Charges:</strong></label>
@@ -700,7 +713,8 @@
     <script src="lib/counterup/counterup.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/cart-manager.js"></script> <script>
+    <script src="js/cart-manager.js"></script>
+<script>
     // 🛑 STEP 1: MANDATORY CONFIGURATION 🛑
     const PUBLIC_DATA_URL = 'all_prices.json'; 
     const WHATSAPP_NUMBER = '923006238233'; 
@@ -776,16 +790,14 @@
         currentDeliveryType = type;
         const shippingZoneSelector = document.getElementById('shipping-zone-selector');
         
-        document.querySelectorAll('label.choice-card-inner').forEach(label => {
-            label.classList.remove('selected');
-        });
-        
+        // Update the visual state of the choice cards
         const homeLabel = document.getElementById('delivery-home');
         const pickupLabel = document.getElementById('delivery-pickup');
         
         if (homeLabel) homeLabel.classList.toggle('selected', type === 'HomeDelivery');
         if (pickupLabel) pickupLabel.classList.toggle('selected', type === 'SelfPickUp');
         
+        // Show/hide the shipping zone selector based on delivery type
         if (type === 'SelfPickUp') {
             shippingZoneSelector.style.display = 'none';
         } else {
@@ -902,7 +914,7 @@
         
         showSection('shop-catalog'); 
         
-        // Initial setup for location display
+        // Initial setup for delivery/location display
         setDeliveryType('HomeDelivery', false); // Initialize UI state and default zone
         document.getElementById('zone-name').textContent = `Jalalpur Jattan (Default)`;
         document.getElementById('zone-name').classList.add('text-success');
