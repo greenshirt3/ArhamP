@@ -12,7 +12,6 @@ const Cart = (() => {
     const WHATSAPP_NUMBER = '923006238233'; 
 
     // --- Configuration (Duplicated for standalone manager access) ---
-    // 🛑 NEW/MODIFIED: Set the free shipping threshold 🛑
     const LOCAL_FREE_SHIPPING_THRESHOLD = 3000;
     
     const SHIPPING_RATES = {
@@ -29,7 +28,6 @@ const Cart = (() => {
         "sukkur": "Cross Province"
     };
     
-    // NOTE: LOCAL_DELIVERY_COST is not used in the new logic and can be ignored/removed later if desired.
     const LOCAL_DELIVERY_COST = 100; // Flat local rate
 
     // ----------------------------------------------------
@@ -65,7 +63,7 @@ const Cart = (() => {
         } else {
             // Home Delivery Logic
             if (currentShippingZone === 'Within City') {
-                // 🛑 MODIFIED LOGIC: Check cart subtotal for free shipping threshold 🛑
+                // Check cart subtotal for free shipping threshold 
                 if (subtotal > LOCAL_FREE_SHIPPING_THRESHOLD) {
                     shippingCost = 0;
                     shippingNote = `FREE Delivery! (Local JLP orders over PKR ${LOCAL_FREE_SHIPPING_THRESHOLD.toLocaleString('en-PK')})`;
@@ -191,6 +189,12 @@ const Cart = (() => {
                 zoneDisplay.classList.remove('text-success', 'text-warning', 'text-danger');
                 zoneDisplay.classList.add(currentShippingZone === 'Within City' ? 'text-success' : (currentShippingZone === 'Same Province' ? 'text-warning' : 'text-danger'));
             }
+            
+            // Update RAAST QR display amount if visible
+            const qrBlock = document.getElementById('raast-qr-display');
+            if (qrBlock && qrBlock.style.display !== 'none') {
+                 document.getElementById('raast-qr-amount').textContent = `PKR ${totals.grandTotal.toLocaleString('en-PK')}`;
+            }
         }
     };
 
@@ -240,6 +244,27 @@ const Cart = (() => {
 
     const setPaymentMethod = (method) => {
         currentPaymentMethod = method;
+        const qrBlock = document.getElementById('raast-qr-display');
+        
+        // 1. Update visual cards 
+        const codCard = document.getElementById('payment-cod');
+        const bankCard = document.getElementById('payment-bank');
+        const raastCard = document.getElementById('payment-raast');
+
+        if (codCard) codCard.classList.toggle('selected', method === 'CashOnDelivery');
+        if (bankCard) bankCard.classList.toggle('selected', method === 'BankTransfer');
+        if (raastCard) raastCard.classList.toggle('selected', method === 'RaastQR');
+
+        // 2. Control QR visibility and amount
+        if (qrBlock) {
+            if (method === 'RaastQR') {
+                // Amount update is done inside updateSummaryDisplay, call it to trigger the update
+                updateSummaryDisplay(); 
+                qrBlock.style.display = 'block';
+            } else {
+                qrBlock.style.display = 'none';
+            }
+        }
     };
     
     // --- Shipping/Zone Logic (Copied from gopro/gowed) ---
@@ -367,8 +392,11 @@ const Cart = (() => {
         // Initialize payment selector listeners on checkout
         const cod = document.getElementById('payment-cod');
         const bank = document.getElementById('payment-bank');
+        const raast = document.getElementById('payment-raast'); // Need to ensure this exists in HTML
+        
         if (cod) cod.onclick = () => setPaymentMethod('CashOnDelivery');
         if (bank) bank.onclick = () => setPaymentMethod('BankTransfer');
+        if (raast) raast.onclick = () => setPaymentMethod('RaastQR'); // New handler
 
         // Set initial state of selectors
         setDeliveryType('HomeDelivery');
