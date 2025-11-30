@@ -510,441 +510,440 @@
                 </div>
             </div>
         </div>
-        <a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>   
+        <a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    
-    <script src="js/main.js"></script>
-
-    <script>
-    function showSection(sectionName) {
-        // Handle external navigation for pages not hosted here
-        if (sectionName === 'home') {
-             window.location.href = 'index.html';
-        } else if (sectionName === 'contact') {
-             window.location.href = 'index.html#contact-section';
-        } else if (sectionName === 'quote') {
-             window.location.href = 'index.html#quote-section';
-        } else if (sectionName === 'products' || sectionName === 'shop-catalog') {
-             window.location.href = 'products.html';
-        } else if (sectionName === 'wedding') {
-             window.location.href = 'wedding.html';
-        } else if (sectionName === 'cart') {
-             // Redirects to products.html which should contain the cart section
-             window.location.href = 'products.html#cart-section';
-        } 
-        window.scrollTo(0, 0);
-
-        // NOTE: The active class logic will mostly be handled by checking the URL 
-        // in other files, but setting the active status here for local visual feedback.
-        if (typeof setActiveMobileNav === 'function') {
-            setActiveMobileNav(sectionName);
-        }
-    }
-    </script>
-    <script>
-        const SUBMIT_ORDER_URL = 'upload_and_notify.php';
-        const WHATSAPP_NUMBER = '923006238233';
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/wow/wow.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/counterup/counterup.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
         
-        let pricingData = null;
-        const PRICING_DATA_URL = 'all_prices.json';
+        <script src="js/main.js"></script>
 
-        // 尅 REPLACE THIS WITH YOUR ACTUAL GOOGLE MAPS API KEY 尅
-        const GOOGLE_MAPS_API_KEY = 'AIzaSyCAz3R9s0BdNnwgEtaC31LJcIqlkoXh05U'; 
-        let currentShippingZone = 'Within City'; // Default to cheapest zone (JLP)
-
-        // --- SHIPPING RATE CONFIGURATION (SMALL PACKET) ---
-        const SHIPPING_RATES = {
-            'small': { 'Within City': 100, 'Same Province': 347, 'Cross Province': 359 },
-        };
-
-        const LOCAL_FREE_SHIPPING_THRESHOLD = 2500; // PKR 2,500
-        const LOCAL_SHIPPING_RATES = { 
-            'small': 100, 
-        };
-
-        const CITY_TO_ZONE = {
-            "jalalpur jattan": "Within City", "gujrat": "Same Province", "gujranwala": "Same Province", 
-            "lahore": "Same Province", "sialkot": "Same Province", "karachi": "Cross Province",
-        };
-        
-        // --- Core Shipping Functions ---
-        
-        function getShippingPacketType(productName="Digital Print") {
-            // Documents are typically small packet
-            return 'small'; 
-        }
-
-        function getPostExShippingCost(packetType, zone) {
-            const rates = SHIPPING_RATES[packetType];
-            if (rates && rates[zone]) return rates[zone];
-            return SHIPPING_RATES['small']['Cross Province']; // Fallback
-        }
-        
-        function calculateShippingData(basePrice) {
-            const packetType = getShippingPacketType();
-            let shippingCost = getPostExShippingCost(packetType, currentShippingZone);
-            let finalShippingNote = '';
-
-            // --- LOCAL DELIVERY LOGIC ---
-            if (currentShippingZone === 'Within City') {
-                if (basePrice >= LOCAL_FREE_SHIPPING_THRESHOLD) {
-                    shippingCost = 0;
-                    finalShippingNote = `FREE Delivery! (Local JLP orders over PKR ${LOCAL_FREE_SHIPPING_THRESHOLD.toLocaleString('en-PK')})`;
-                } else {
-                    shippingCost = LOCAL_SHIPPING_RATES[packetType] || 0;
-                    finalShippingNote = `Local Flat Rate (Self-Delivery).`;
-                }
-            } else {
-                // Cross-Province/Same-Province uses PostEx Courier
-                finalShippingNote = `PostEx Courier (to ${currentShippingZone}). Includes courier fee, fuel surcharge, and GST.`;
-            }
-
-            return { cost: shippingCost, note: finalShippingNote, basePrice: basePrice + shippingCost };
-        }
-
-        // --- LOCATION DETECTION LOGIC ---
-
-        function manualLocationCheck() {
-            const cityInput = document.getElementById('input-city').value.trim();
-            if (cityInput.length < 3) return;
-            updateShippingZone(cityInput);
-        }
-
-        function detectLocation() {
-            if (GOOGLE_MAPS_API_KEY === 'YOUR_API_KEY_HERE') {
-                showAlert("API Key not configured. Cannot auto-detect location.", 'error');
-                return;
-            }
-            document.getElementById('zone-name').textContent = "Detecting...";
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition, showError);
-            } else {
-                showAlert("Geolocation is not supported by this browser.", 'error');
-            }
-        }
-
-        function showPosition(position) {
-            const lat = position.coords.latitude;
-            const lng = position.coords.longitude;
-            const geocoder = new google.maps.Geocoder();
-            const latlng = { lat: parseFloat(lat), lng: parseFloat(lng) };
-
-            geocoder.geocode({ location: latlng }, (results, status) => {
-                if (status === "OK" && results[0]) {
-                    const addressComponents = results[0].address_components;
-                    let detectedCity = "";
-                    addressComponents.forEach(component => {
-                        if (component.types.includes("locality")) {
-                            detectedCity = component.long_name;
-                        }
-                    });
-                    
-                    if (detectedCity) {
-                         document.getElementById('input-city').value = detectedCity;
-                         updateShippingZone(detectedCity);
-                    } else {
-                         document.getElementById('zone-name').textContent = "City not found. Defaulting to JLP.";
-                    }
-                } else {
-                    showAlert(`Geolocation failed: ${status}`, 'error');
-                    document.getElementById('zone-name').textContent = "Detection Failed. Defaulting to JLP.";
-                }
-            });
-        }
-
-        function showError(error) {
-            showAlert("Error detecting location: " + error.message, 'error');
-            document.getElementById('zone-name').textContent = "Detection Failed. Defaulting to JLP.";
-        }
-
-        function updateShippingZone(cityName) {
-            const normalizedCity = cityName.toLowerCase().replace(/[^a-z0-9]/g, ' ').trim();
-            let zone = 'Cross Province'; 
-            
-            if (CITY_TO_ZONE[normalizedCity]) {
-                zone = CITY_TO_ZONE[normalizedCity];
-            } else {
-                if (cityName.toLowerCase().includes('lahore') || cityName.toLowerCase().includes('gujrat')) {
-                     zone = 'Same Province';
-                }
-            }
-            
-            currentShippingZone = zone;
-            
-            const zoneDisplay = document.getElementById('zone-name');
-            zoneDisplay.textContent = `${currentShippingZone} (${cityName})`;
-            zoneDisplay.classList.remove('text-success', 'text-warning', 'text-danger');
-            zoneDisplay.classList.add(zone === 'Within City' ? 'text-success' : (zone === 'Same Province' ? 'text-warning' : 'text-danger'));
-            
-            // Re-calculate price with new zone, but only update shipping display
-            calculateEstimatedPrice(true); 
-        }
-
-        // --- REAL-TIME CALCULATE PRICE FUNCTION ---
-
-        // Fetch pricing data from JSON file
-        async function fetchPricingData() {
-            try {
-                const response = await fetch(PRICING_DATA_URL); 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const rawData = await response.json();
-                
-                pricingData = rawData['B/W and Color Prints']; 
-                
-                if (!pricingData) {
-                    throw new Error('Digital Print Pricing structure not found in JSON.');
-                }
-                
-                calculateEstimatedPrice(true); 
-            } catch (error) {
-                console.error('Could not fetch pricing data:', error);
-                document.getElementById('totalPrice').innerHTML = '<span>Error loading prices!</span>';
-            }
-        }
-
-        /**
-         * Determines the price per unit based on the total pages and defined tiers.
-         */
-        function getTierPrice(gsmPricing, totalPages) {
-            let highestTierPrice = 0;
-            
-            const tiers = Object.keys(gsmPricing).sort((a, b) => {
-                const minA = parseInt(a.split('-')[0]);
-                const minB = parseInt(b.split('-')[0]);
-                return minA - minB;
-            });
-            
-            if (tiers.length > 0) {
-                // Get price from the largest range as a fallback/cap
-                highestTierPrice = gsmPricing[tiers[tiers.length - 1]];
-            }
-
-            for (const range of tiers) {
-                const [min, max] = range.split('-').map(n => parseInt(n));
-                
-                if (totalPages >= min && (isNaN(max) || totalPages <= max)) {
-                    return gsmPricing[range];
-                }
-            }
-            
-            // If totalPages exceeds all explicit ranges, use the highest tier's price
-            if (tiers.length > 0) {
-                 return highestTierPrice;
-            }
-
-            return 0;
-        }
-
-        function calculateEstimatedPrice(updateShipping=false) {
-            if (!pricingData) {
-                document.getElementById('totalPrice').innerHTML = '<span>Loading Prices...</span>';
-                return;
-            }
-
-            const size = document.querySelector('input[name="size"]:checked')?.value;
-            const paperGsm = document.querySelector('input[name="paperGsm"]:checked')?.value; 
-            const color = document.querySelector('input[name="color"]:checked')?.value;
-            const siding = document.querySelector('input[name="siding"]:checked')?.value;
-            const quantity = parseInt(document.getElementById('quantity').value);
-            
-            if (!size || !paperGsm || !color || !siding || quantity <= 0 || isNaN(quantity)) {
-                document.getElementById('totalPrice').innerHTML = '<span class="fw-bold">0.00</span>';
-                document.getElementById('shipping-cost-display').textContent = 'PKR 0';
-                document.getElementById('shipping-note-display').textContent = 'Enter quantity & specs.';
-                return;
-            }
-
-            const sizeKey = size;
-            const colorKey = color === 'Black & White' ? 'black_white' : 'color';
-            const gsmKey = paperGsm;
-            const totalSheets = quantity;
-            const totalPages = totalSheets * (siding === 'Double Sided' ? 2 : 1); 
-
-            let subtotalPrice = 0;
-            let pricePerUnit = 0;
-
-           try {
-                const gsmPricing = pricingData?.[sizeKey]?.[colorKey]?.[gsmKey];
-                if (!gsmPricing) throw new Error('Pricing Config Error!');
-
-                pricePerUnit = getTierPrice(gsmPricing, totalPages);
-                if (pricePerUnit === 0) throw new Error('Pricing Error!');
-                
-                subtotalPrice = pricePerUnit * totalPages;
-                
-            } catch (e) {
-                console.error("Error in price calculation lookup:", e);
-                document.getElementById('totalPrice').innerHTML = '<span>Configuration Error!</span>';
-                return;
-            }
-            
-            // --- SHIPPING CALCULATION ---
-            const shippingData = calculateShippingData(subtotalPrice);
-            const shippingCost = shippingData.cost;
-            const totalPrice = subtotalPrice + shippingCost;
-            
-            // --- FINAL PRICE DISPLAY ---
-            const priceOutput = `<span class="fw-bold">${Math.round(totalPrice).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                 <p class="small text-white-75 mb-0 mt-1" style="font-weight: normal; font-size: 0.8em;">
-                     (Total Pages: ${totalPages} @ PKR ${pricePerUnit.toFixed(2)}/page)
-                 </p>`;
-
-            document.getElementById('totalPrice').innerHTML = priceOutput;
-            
-            // --- SHIPPING DISPLAY ---
-            document.getElementById('shipping-cost-display').textContent = shippingCost === 0 ? "FREE" : `PKR ${shippingCost.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
-            document.getElementById('shipping-note-display').textContent = shippingData.note;
-
-        }
-
-        // --- ORDER SUBMISSION FUNCTION (MODIFIED) ---
-        async function handlePrintOrderSubmission(e) {
-            e.preventDefault();
-            
-            calculateEstimatedPrice(); 
-
-            const submitButton = document.getElementById('submitButton');
-            submitButton.disabled = true;
-            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Submitting...';
-            
-            const totalPrintingPriceElement = document.getElementById('totalPrice').querySelector('span');
-            const totalPrintingPrice = totalPrintingPriceElement ? totalPrintingPriceElement.textContent : '0.00';
-            const shippingCostDisplay = document.getElementById('shipping-cost-display').textContent;
-            
-            if (totalPrintingPrice === '0.00' || totalPrintingPrice.includes('Error') || totalPrintingPrice.includes('Configuration')) {
-                showAlert('Cannot submit order: Price is invalid. Please ensure all options are selected.', 'error');
-                submitButton.disabled = false;
-                submitButton.innerHTML = '<i class="fas fa-envelope me-2"></i> Place Order & Upload';
-                return;
-            }
-            
-            const fileInput = document.getElementById('documentFile');
-            if (!fileInput.files.length) {
-                 showAlert('Please select a document file to upload.', 'error');
-                 submitButton.disabled = false;
-                 submitButton.innerHTML = '<i class="fas fa-envelope me-2"></i> Place Order & Upload';
-                 return;
-            }
-
-            const orderId = 'PRINT-' + Date.now().toString().slice(-6);
-            
-            const formData = new FormData(document.getElementById('printOrderForm'));
-            formData.append('order_type', 'DOCUMENT_PRINTING');
-            formData.append('order_id', orderId);
-            formData.append('total_price_display', totalPrintingPrice);
-            
-            const specs = {
-                color: document.querySelector('input[name="color"]:checked')?.value,
-                siding: document.querySelector('input[name="siding"]:checked')?.value,
-                size: document.querySelector('input[name="size"]:checked')?.value,
-                gsm: document.querySelector('input[name="paperGsm"]:checked')?.value,
-                sheets: document.getElementById('quantity').value,
-                pages: parseInt(document.getElementById('quantity').value) * (document.querySelector('input[name="siding"]:checked')?.value === 'Double Sided' ? 2 : 1),
-                shipping_zone: currentShippingZone,
-                shipping_cost: shippingCostDisplay
-            };
-            
-            formData.append('specs_json', JSON.stringify(specs));
-            
-            // Send detailed confirmation to WhatsApp (New Step)
-            let whatsappMessage = `*NEW DOCUMENT PRINT ORDER (WEB)*\n`;
-            whatsappMessage += `*Order ID:* ${orderId}\n`;
-            whatsappMessage += `*File:* ${fileInput.files[0].name}\n`;
-            whatsappMessage += `*Delivery To:* ${currentShippingZone} (${document.getElementById('input-city')?.value || 'Not Entered'})\n`;
-            whatsappMessage += `*Total Price:* ${totalPrintingPrice}\n`;
-            whatsappMessage += `*Delivery Cost:* ${shippingCostDisplay}\n`;
-            whatsappMessage += `\n*Printing Specs:*\n`;
-            whatsappMessage += `  - Pages/Sheets: ${specs.pages} (${specs.sheets} sheets)\n`;
-            whatsappMessage += `  - Color: ${specs.color}\n`;
-            whatsappMessage += `  - Siding: ${specs.siding}\n`;
-            whatsappMessage += `  - Size/GSM: ${specs.size} / ${specs.gsm}\n`;
-            whatsappMessage += `\n*NOTE:* Please quote the order ID with your full name and address for final confirmation.`;
-            
-            
-            showAlert('Uploading file and sending order details...', 'info');
-
-            try {
-                // NOTE: This server call assumes your upload_and_notify.php handles file saving and sending an internal notification (like email).
-                const response = await fetch(SUBMIT_ORDER_URL, {
-                    method: 'POST',
-                    body: formData 
-                });
-                
-                // Immediately open WhatsApp for the user to confirm details and finish the order process.
-                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
-
-
-                if (response.ok) {
-                    showAlert(`Order ${orderId} submitted! WhatsApp opened to confirm delivery details.`, 'success');
-                    document.getElementById('printOrderForm').reset();
-                    // Reset to default location and price
-                    updateShippingZone('Jalalpur Jattan');
-                } else {
-                    showAlert('Server error during file upload. Please confirm details on WhatsApp.', 'error');
-                }
-            } catch (error) {
-                console.error('Submission failed:', error);
-                showAlert('Network error. Please confirm your order details on WhatsApp.', 'error');
-                // Ensure WhatsApp is opened even if the network upload fails
-                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
-            } finally {
-                submitButton.disabled = false;
-                submitButton.innerHTML = '<i class="fas fa-envelope me-2"></i> Place Order & Upload';
-            }
-        }
-
-        // --- UI HELPERS ---
-        
-        function showAlert(message, type) {
-            const alert = document.createElement('div');
-            alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
-            alert.style.top = '20px';
-            alert.style.right = '20px';
-            alert.style.zIndex = '9999';
-            alert.style.minWidth = '300px';
-            alert.innerHTML = `
-                ${message}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            `;
-            document.body.appendChild(alert);
-            
-            setTimeout(() => {
-                if (alert.parentNode) {
-                    alert.parentNode.removeChild(alert);
-                }
-            }, 5000);
-        }
-
-        document.addEventListener('DOMContentLoaded', async () => {
-            // Inject Google Maps API script
-            const script = document.createElement('script');
-            script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places`;
-            document.head.appendChild(script);
-            
-            document.querySelectorAll('input[name="color"], input[name="siding"], input[name="size"], input[name="paperGsm"]').forEach(input => {
-                input.addEventListener('change', calculateEstimatedPrice);
-            });
-            document.getElementById('quantity').addEventListener('input', calculateEstimatedPrice);
-            
-            document.getElementById('printOrderForm').addEventListener('submit', handlePrintOrderSubmission);
-
-            document.getElementById('spinner').classList.remove('show');
+        <script>
+        function showSection(sectionName) {
+            // Handle external navigation for pages not hosted here
+            if (sectionName === 'home') {
+                 window.location.href = 'index.html';
+            } else if (sectionName === 'contact') {
+                 window.location.href = 'index.html#contact-section';
+            } else if (sectionName === 'quote') {
+                 window.location.href = 'index.html#quote-section';
+            } else if (sectionName === 'products' || sectionName === 'shop-catalog') {
+                 window.location.href = 'products.html';
+            } else if (sectionName === 'wedding') {
+                 window.location.href = 'wedding.html';
+            } else if (sectionName === 'cart') {
+                 // Redirects to products.html which should contain the cart section
+                 window.location.href = 'products.html#cart-section';
+            } 
+            window.scrollTo(0, 0);
 
             if (typeof setActiveMobileNav === 'function') {
-                setActiveMobileNav('print-order');
+                setActiveMobileNav(sectionName);
             }
-            await fetchPricingData();
-            updateShippingZone('Jalalpur Jattan'); // Set default zone on load
-        });
-    </script>
+        }
+        </script>
+        <script>
+            const SUBMIT_ORDER_URL = 'upload_and_notify.php';
+            const WHATSAPP_NUMBER = '923006238233';
+            
+            let pricingData = null;
+            const PRICING_DATA_URL = 'all_prices.json';
+
+            // 尅 REPLACE THIS WITH YOUR ACTUAL GOOGLE MAPS API KEY 尅
+            const GOOGLE_MAPS_API_KEY = 'AIzaSyCAz3R9s0BdNnwgEtaC31LJcIqlkoXh05U'; 
+            let currentShippingZone = 'Within City'; // Default to cheapest zone (JLP)
+
+            // --- SHIPPING RATE CONFIGURATION (SMALL PACKET) ---
+            const SHIPPING_RATES = {
+                'small': { 'Within City': 100, 'Same Province': 347, 'Cross Province': 359 },
+            };
+
+            const LOCAL_FREE_SHIPPING_THRESHOLD = 2500; // PKR 2,500
+            const LOCAL_SHIPPING_RATES = { 
+                'small': 100, 
+            };
+
+            const CITY_TO_ZONE = {
+                "jalalpur jattan": "Within City", "gujrat": "Same Province", "gujranwala": "Same Province", 
+                "lahore": "Same Province", "sialkot": "Same Province", "karachi": "Cross Province",
+            };
+            
+            // --- Core Shipping Functions ---
+            
+            function getShippingPacketType(productName="Digital Print") {
+                // Documents are typically small packet
+                return 'small'; 
+            }
+
+            function getPostExShippingCost(packetType, zone) {
+                const rates = SHIPPING_RATES[packetType];
+                if (rates && rates[zone]) return rates[zone];
+                return SHIPPING_RATES['small']['Cross Province']; // Fallback
+            }
+            
+            function calculateShippingData(basePrice) {
+                const packetType = getShippingPacketType();
+                let shippingCost = getPostExShippingCost(packetType, currentShippingZone);
+                let finalShippingNote = '';
+
+                // --- LOCAL DELIVERY LOGIC ---
+                if (currentShippingZone === 'Within City') {
+                    if (basePrice >= LOCAL_FREE_SHIPPING_THRESHOLD) {
+                        shippingCost = 0;
+                        finalShippingNote = `FREE Delivery! (Local JLP orders over PKR ${LOCAL_FREE_SHIPPING_THRESHOLD.toLocaleString('en-PK')})`;
+                    } else {
+                        shippingCost = LOCAL_SHIPPING_RATES[packetType] || 0;
+                        finalShippingNote = `Local Flat Rate (Self-Delivery).`;
+                    }
+                } else {
+                    // Cross-Province/Same-Province uses PostEx Courier
+                    finalShippingNote = `PostEx Courier (to ${currentShippingZone}). Includes courier fee, fuel surcharge, and GST.`;
+                }
+
+                return { cost: shippingCost, note: finalShippingNote, basePrice: basePrice + shippingCost };
+            }
+
+            // --- LOCATION DETECTION LOGIC ---
+
+            function manualLocationCheck() {
+                const cityInput = document.getElementById('input-city').value.trim();
+                if (cityInput.length < 3) return;
+                updateShippingZone(cityInput);
+            }
+
+            function detectLocation() {
+                if (GOOGLE_MAPS_API_KEY === 'YOUR_API_KEY_HERE') {
+                    showAlert("API Key not configured. Cannot auto-detect location.", 'error');
+                    return;
+                }
+                document.getElementById('zone-name').textContent = "Detecting...";
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition, showError);
+                } else {
+                    showAlert("Geolocation is not supported by this browser.", 'error');
+                }
+            }
+
+            function showPosition(position) {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+                const geocoder = new google.maps.Geocoder();
+                const latlng = { lat: parseFloat(lat), lng: parseFloat(lng) };
+
+                geocoder.geocode({ location: latlng }, (results, status) => {
+                    if (status === "OK" && results[0]) {
+                        const addressComponents = results[0].address_components;
+                        let detectedCity = "";
+                        addressComponents.forEach(component => {
+                            if (component.types.includes("locality")) {
+                                detectedCity = component.long_name;
+                            }
+                        });
+                        
+                        if (detectedCity) {
+                             document.getElementById('input-city').value = detectedCity;
+                             updateShippingZone(detectedCity);
+                        } else {
+                             document.getElementById('zone-name').textContent = "City not found. Defaulting to JLP.";
+                        }
+                    } else {
+                        showAlert(`Geolocation failed: ${status}`, 'error');
+                        document.getElementById('zone-name').textContent = "Detection Failed. Defaulting to JLP.";
+                    }
+                });
+            }
+
+            function showError(error) {
+                showAlert("Error detecting location: " + error.message, 'error');
+                document.getElementById('zone-name').textContent = "Detection Failed. Defaulting to JLP.";
+            }
+
+            function updateShippingZone(cityName) {
+                const normalizedCity = cityName.toLowerCase().replace(/[^a-z0-9]/g, ' ').trim();
+                let zone = 'Cross Province'; 
+                
+                if (CITY_TO_ZONE[normalizedCity]) {
+                    zone = CITY_TO_ZONE[normalizedCity];
+                } else {
+                    if (cityName.toLowerCase().includes('lahore') || cityName.toLowerCase().includes('gujrat')) {
+                         zone = 'Same Province';
+                    }
+                }
+                
+                currentShippingZone = zone;
+                
+                const zoneDisplay = document.getElementById('zone-name');
+                zoneDisplay.textContent = `${currentShippingZone} (${cityName})`;
+                zoneDisplay.classList.remove('text-success', 'text-warning', 'text-danger');
+                zoneDisplay.classList.add(zone === 'Within City' ? 'text-success' : (zone === 'Same Province' ? 'text-warning' : 'text-danger'));
+                
+                // Re-calculate price with new zone, but only update shipping display
+                calculateEstimatedPrice(true); 
+            }
+
+            // --- REAL-TIME CALCULATE PRICE FUNCTION ---
+
+            // Fetch pricing data from JSON file
+            async function fetchPricingData() {
+                try {
+                    const response = await fetch(PRICING_DATA_URL); 
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const rawData = await response.json();
+                    
+                    pricingData = rawData['B/W and Color Prints']; 
+                    
+                    if (!pricingData) {
+                        throw new Error('Digital Print Pricing structure not found in JSON.');
+                    }
+                    
+                    calculateEstimatedPrice(true); 
+                } catch (error) {
+                    console.error('Could not fetch pricing data:', error);
+                    document.getElementById('totalPrice').innerHTML = '<span>Error loading prices!</span>';
+                }
+            }
+
+            /**
+             * Determines the price per unit based on the total pages and defined tiers.
+             */
+            function getTierPrice(gsmPricing, totalPages) {
+                let highestTierPrice = 0;
+                
+                const tiers = Object.keys(gsmPricing).sort((a, b) => {
+                    const minA = parseInt(a.split('-')[0]);
+                    const minB = parseInt(b.split('-')[0]);
+                    return minA - minB;
+                });
+                
+                if (tiers.length > 0) {
+                    // Get price from the largest range as a fallback/cap
+                    highestTierPrice = gsmPricing[tiers[tiers.length - 1]];
+                }
+
+                for (const range of tiers) {
+                    const [min, max] = range.split('-').map(n => parseInt(n));
+                    
+                    if (totalPages >= min && (isNaN(max) || totalPages <= max)) {
+                        return gsmPricing[range];
+                    }
+                }
+                
+                // If totalPages exceeds all explicit ranges, use the highest tier's price
+                if (tiers.length > 0) {
+                     return highestTierPrice;
+                }
+
+                return 0;
+            }
+
+            function calculateEstimatedPrice(updateShipping=false) {
+                if (!pricingData) {
+                    document.getElementById('totalPrice').innerHTML = '<span>Loading Prices...</span>';
+                    return;
+                }
+
+                const size = document.querySelector('input[name="size"]:checked')?.value;
+                const paperGsm = document.querySelector('input[name="paperGsm"]:checked')?.value; 
+                const color = document.querySelector('input[name="color"]:checked')?.value;
+                const siding = document.querySelector('input[name="siding"]:checked')?.value;
+                const quantity = parseInt(document.getElementById('quantity').value);
+                
+                if (!size || !paperGsm || !color || !siding || quantity <= 0 || isNaN(quantity)) {
+                    document.getElementById('totalPrice').innerHTML = '<span class="fw-bold">0.00</span>';
+                    document.getElementById('shipping-cost-display').textContent = 'PKR 0';
+                    document.getElementById('shipping-note-display').textContent = 'Enter quantity & specs.';
+                    return;
+                }
+
+                const sizeKey = size;
+                const colorKey = color === 'Black & White' ? 'black_white' : 'color';
+                const gsmKey = paperGsm;
+                const totalSheets = quantity;
+                const totalPages = totalSheets * (siding === 'Double Sided' ? 2 : 1); 
+
+                let subtotalPrice = 0;
+                let pricePerUnit = 0;
+
+               try {
+                    const gsmPricing = pricingData?.[sizeKey]?.[colorKey]?.[gsmKey];
+                    if (!gsmPricing) throw new Error('Pricing Config Error!');
+
+                    pricePerUnit = getTierPrice(gsmPricing, totalPages);
+                    if (pricePerUnit === 0) throw new Error('Pricing Error!');
+                    
+                    subtotalPrice = pricePerUnit * totalPages;
+                    
+                } catch (e) {
+                    console.error("Error in price calculation lookup:", e);
+                    document.getElementById('totalPrice').innerHTML = '<span>Configuration Error!</span>';
+                    return;
+                }
+                
+                // --- SHIPPING CALCULATION ---
+                const shippingData = calculateShippingData(subtotalPrice);
+                const shippingCost = shippingData.cost;
+                const totalPrice = subtotalPrice + shippingCost;
+                
+                // --- FINAL PRICE DISPLAY ---
+                const priceOutput = `<span class="fw-bold">${Math.round(totalPrice).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                     <p class="small text-white-75 mb-0 mt-1" style="font-weight: normal; font-size: 0.8em;">
+                         (Total Pages: ${totalPages} @ PKR ${pricePerUnit.toFixed(2)}/page)
+                     </p>`;
+
+                document.getElementById('totalPrice').innerHTML = priceOutput;
+                
+                // --- SHIPPING DISPLAY ---
+                document.getElementById('shipping-cost-display').textContent = shippingCost === 0 ? "FREE" : `PKR ${shippingCost.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
+                document.getElementById('shipping-note-display').textContent = shippingData.note;
+
+            }
+
+            // --- ORDER SUBMISSION FUNCTION (MODIFIED) ---
+            async function handlePrintOrderSubmission(e) {
+                e.preventDefault();
+                
+                calculateEstimatedPrice(); 
+
+                const submitButton = document.getElementById('submitButton');
+                submitButton.disabled = true;
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Submitting...';
+                
+                const totalPrintingPriceElement = document.getElementById('totalPrice').querySelector('span');
+                const totalPrintingPrice = totalPrintingPriceElement ? totalPrintingPriceElement.textContent : '0.00';
+                const shippingCostDisplay = document.getElementById('shipping-cost-display').textContent;
+                
+                if (totalPrintingPrice === '0.00' || totalPrintingPrice.includes('Error') || totalPrintingPrice.includes('Configuration')) {
+                    showAlert('Cannot submit order: Price is invalid. Please ensure all options are selected.', 'error');
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = '<i class="fas fa-envelope me-2"></i> Place Order & Upload';
+                    return;
+                }
+                
+                const fileInput = document.getElementById('documentFile');
+                if (!fileInput.files.length) {
+                     showAlert('Please select a document file to upload.', 'error');
+                     submitButton.disabled = false;
+                     submitButton.innerHTML = '<i class="fas fa-envelope me-2"></i> Place Order & Upload';
+                     return;
+                }
+
+                const orderId = 'PRINT-' + Date.now().toString().slice(-6);
+                
+                const formData = new FormData(document.getElementById('printOrderForm'));
+                formData.append('order_type', 'DOCUMENT_PRINTING');
+                formData.append('order_id', orderId);
+                formData.append('total_price_display', totalPrintingPrice);
+                
+                const specs = {
+                    color: document.querySelector('input[name="color"]:checked')?.value,
+                    siding: document.querySelector('input[name="siding"]:checked')?.value,
+                    size: document.querySelector('input[name="size"]:checked')?.value,
+                    gsm: document.querySelector('input[name="paperGsm"]:checked')?.value,
+                    sheets: document.getElementById('quantity').value,
+                    pages: parseInt(document.getElementById('quantity').value) * (document.querySelector('input[name="siding"]:checked')?.value === 'Double Sided' ? 2 : 1),
+                    shipping_zone: currentShippingZone,
+                    shipping_cost: shippingCostDisplay
+                };
+                
+                formData.append('specs_json', JSON.stringify(specs));
+                
+                // Send detailed confirmation to WhatsApp (New Step)
+                let whatsappMessage = `*NEW DOCUMENT PRINT ORDER (WEB)*\n`;
+                whatsappMessage += `*Order ID:* ${orderId}\n`;
+                whatsappMessage += `*File:* ${fileInput.files[0].name}\n`;
+                whatsappMessage += `*Delivery To:* ${currentShippingZone} (${document.getElementById('input-city')?.value || 'Not Entered'})\n`;
+                whatsappMessage += `*Total Price:* ${totalPrintingPrice}\n`;
+                whatsappMessage += `*Delivery Cost:* ${shippingCostDisplay}\n`;
+                whatsappMessage += `\n*Printing Specs:*\n`;
+                whatsappMessage += `  - Pages/Sheets: ${specs.pages} (${specs.sheets} sheets)\n`;
+                whatsappMessage += `  - Color: ${specs.color}\n`;
+                whatsappMessage += `  - Siding: ${specs.siding}\n`;
+                whatsappMessage += `  - Size/GSM: ${specs.size} / ${specs.gsm}\n`;
+                whatsappMessage += `\n*NOTE:* Please quote the order ID with your full name and address for final confirmation.`;
+                
+                
+                showAlert('Uploading file and sending order details...', 'info');
+
+                try {
+                    // NOTE: This server call assumes your upload_and_notify.php handles file saving and sending an internal notification (like email).
+                    const response = await fetch(SUBMIT_ORDER_URL, {
+                        method: 'POST',
+                        body: formData 
+                    });
+                    
+                    // Immediately open WhatsApp for the user to confirm details and finish the order process.
+                    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+
+
+                    if (response.ok) {
+                        showAlert(`Order ${orderId} submitted! WhatsApp opened to confirm delivery details.`, 'success');
+                        document.getElementById('printOrderForm').reset();
+                        // Reset to default location and price
+                        updateShippingZone('Jalalpur Jattan');
+                    } else {
+                        showAlert('Server error during file upload. Please confirm details on WhatsApp.', 'error');
+                    }
+                } catch (error) {
+                    console.error('Submission failed:', error);
+                    showAlert('Network error. Please confirm your order details on WhatsApp.', 'error');
+                    // Ensure WhatsApp is opened even if the network upload fails
+                    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = '<i class="fas fa-envelope me-2"></i> Place Order & Upload';
+                }
+            }
+
+            // --- UI HELPERS ---
+            
+            function showAlert(message, type) {
+                const alert = document.createElement('div');
+                alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
+                alert.style.top = '20px';
+                alert.style.right = '20px';
+                alert.style.zIndex = '9999';
+                alert.style.minWidth = '300px';
+                alert.innerHTML = `
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
+                document.body.appendChild(alert);
+                
+                setTimeout(() => {
+                    if (alert.parentNode) {
+                        alert.parentNode.removeChild(alert);
+                    }
+                }, 5000);
+            }
+
+            document.addEventListener('DOMContentLoaded', async () => {
+                // Inject Google Maps API script
+                const script = document.createElement('script');
+                script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places`;
+                document.head.appendChild(script);
+                
+                document.querySelectorAll('input[name="color"], input[name="siding"], input[name="size"], input[name="paperGsm"]').forEach(input => {
+                    input.addEventListener('change', calculateEstimatedPrice);
+                });
+                document.getElementById('quantity').addEventListener('input', calculateEstimatedPrice);
+                
+                document.getElementById('printOrderForm').addEventListener('submit', handlePrintOrderSubmission);
+
+                document.getElementById('spinner').classList.remove('show');
+
+                if (typeof setActiveMobileNav === 'function') {
+                    setActiveMobileNav('print-order');
+                }
+                await fetchPricingData();
+                updateShippingZone('Jalalpur Jattan'); // Set default zone on load
+            });
+        </script>
+    </div>
 </body>
 </html>
-
