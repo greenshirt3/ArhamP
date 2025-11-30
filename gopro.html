@@ -725,8 +725,21 @@
 
                         <div id="standard-options-fields">
                             </div>
-                            
-                        <div class="product-option-group mt-4" id="shipping-zone-selector">
+
+                        <div class="product-option-group mt-4" data-option-key="DeliveryType">
+                            <label><i class="fas fa-truck me-2"></i> <strong>Choose Delivery Method:</strong></label>
+                            <div class="d-flex flex-wrap gap-3">
+                                <label class="choice-card selected" id="delivery-home" onclick="setDeliveryType('HomeDelivery')">
+                                    <input type="radio" name="option-DeliveryType" value="HomeDelivery" checked>
+                                    <span class="label-text">Home Delivery</span>
+                                </label>
+                                <label class="choice-card" id="delivery-pickup" onclick="setDeliveryType('SelfPickUp')">
+                                    <input type="radio" name="option-DeliveryType" value="SelfPickUp">
+                                    <span class="label-text">Self Pick Up (No Shipping Charges)</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="product-option-group" id="shipping-zone-selector">
                             <label><i class="fas fa-map-marker-alt me-2"></i> <strong>Check Delivery Charges:</strong></label>
                             
                             <div class="d-flex gap-2 mb-2">
@@ -737,7 +750,7 @@
                             </div>
                             
                             <small class="text-muted d-block mb-2" id="current-location-display">
-                                Current Zone: <span id="zone-name" class="fw-bold text-dark">Not Set (Jalalpur Jattan Default)</span>
+                                Current Zone: <span id="zone-name" class="fw-bold text-dark">Jalalpur Jattan (Default)</span>
                             </small>
                         </div>
                         <div class="final-price-box" id="finalPriceBox">
@@ -1005,35 +1018,33 @@
     let currentSelectedVariations = {}; 
     let digitalPrintingPricing = {};
     
+    // 🛑 MODIFIED/NEW: Track Delivery Type 🛑
     let currentShippingZone = 'Within City'; // Default to cheapest zone (JLP)
+    let currentDeliveryType = 'HomeDelivery'; // NEW: Default to Home Delivery
 
     // --- Shipping Rate Configuration (PostEx with 15% Fuel & 16% GST) ---
     const SHIPPING_RATES = {
         // Within City (JLP) / Same Province / Cross Province
         'small': { // Up to 0.5 kg: Cards, Prints, Small Stickers
-            'Within City': 100,
+            'Within City': 100, // MODIFIED: Flat rate for JLP Home Delivery
             'Same Province': 347,
             'Cross Province': 359
         },
         'medium': { // 0.5 kg to 1.0 kg: Mugs, T-shirts, Letterpads, Bill Books
-            'Within City': 100,
+            'Within City': 100, // MODIFIED: Flat rate for JLP Home Delivery
             'Same Province': 529,
             'Cross Province': 541
         },
         'overland': { // Min 3.0 kg: Banners, Large Frames
-            'Within City': 150,
+            'Within City': 150, // MODIFIED: Flat rate for JLP Home Delivery
             'Same Province': 1254,
             'Cross Province': 1254
         }
     };
 
-    // --- Local Self-Delivery Override Configuration (Jalalpur Jattan Only) ---
-    const LOCAL_FREE_SHIPPING_THRESHOLD = 2500; // PKR 2,500
-    const LOCAL_SHIPPING_RATES = {
-        'small': 100, // PKR 150 for Cards, Prints (Self-Delivery)
-        'medium': 100, // PKR 200 for Letterpads, Mugs (Self-Delivery)
-        'overland': 150 // PKR 300 for Banners/Frames (Self-Delivery)
-    };
+    // 🛑 REMOVED: Local Free Shipping Threshold and Local Shipping Rates are superseded by the new logic. 🛑
+    // const LOCAL_FREE_SHIPPING_THRESHOLD = 2500; 
+    // const LOCAL_SHIPPING_RATES = { ... };
 
     // --- Zone Mapping Data (JLP is the Origin City) ---
     const CITY_TO_ZONE = {
@@ -1167,6 +1178,9 @@
         document.getElementById('zone-name').textContent = `Jalalpur Jattan (Default)`;
         document.getElementById('zone-name').classList.add('text-success');
 
+        // NEW: Set initial state for delivery selector
+        setDeliveryType('HomeDelivery', false); // Initialize UI state
+
         if (typeof setActiveMobileNav === 'function') setActiveMobileNav('products');
     }
     
@@ -1236,6 +1250,31 @@
         return rates['Cross Province']; 
     }
     
+    // 🛑 NEW: Function to set and update the delivery type 🛑
+    function setDeliveryType(type, triggerPriceUpdate = true) {
+        currentDeliveryType = type;
+        const shippingZoneSelector = document.getElementById('shipping-zone-selector');
+        
+        document.querySelectorAll('input[name="option-DeliveryType"]').forEach(input => {
+            input.closest('.choice-card')?.classList.remove('selected');
+        });
+        
+        const selectedInput = document.querySelector(`input[name="option-DeliveryType"][value="${type}"]`);
+        if (selectedInput) {
+            selectedInput.checked = true;
+            selectedInput.closest('.choice-card')?.classList.add('selected');
+        }
+
+        if (type === 'SelfPickUp') {
+            shippingZoneSelector.style.display = 'none';
+        } else {
+            shippingZoneSelector.style.display = 'block';
+        }
+        
+        if (triggerPriceUpdate) updateFinalPrice();
+    }
+
+
     // --- LOCATION DETECTION LOGIC ---
 
     function manualLocationCheck() {
@@ -1417,7 +1456,7 @@
             }
         }
 
-        // --- SHIPPING & FINAL PRICE CALCULATION ---
+        // --- SHIPPING & FINAL PRICE CALCULATION (MODIFIED) ---
         if (requiresManualQuote || baseProductPrice === 0) {
             document.getElementById('finalPriceBox').style.display = 'none';
             document.getElementById('shipping-display-box').style.display = 'none';
@@ -1428,23 +1467,24 @@
             return;
         }
 
-        const packetType = getShippingPacketType(currentProduct.baseName);
-        let shippingCost = getPostExShippingCost(packetType, currentShippingZone);
+        let shippingCost = 0;
         let shippingNote = '';
-        let finalShippingNote = '';
-
-        // --- LOCAL SELF-DELIVERY OVERRIDE LOGIC ---
-        if (currentShippingZone === 'Within City') {
-            if (baseProductPrice >= LOCAL_FREE_SHIPPING_THRESHOLD) {
-                shippingCost = 0;
-                finalShippingNote = `FREE Delivery! (Local JLP orders over PKR ${LOCAL_FREE_SHIPPING_THRESHOLD.toLocaleString('en-PK')})`;
+        const packetType = getShippingPacketType(currentProduct.baseName);
+        
+        if (currentDeliveryType === 'SelfPickUp') {
+            shippingCost = 0;
+            shippingNote = 'Self Pick Up. No shipping charges applied.';
+        } else { 
+            // Home Delivery Logic
+            if (currentShippingZone === 'Within City') {
+                // Apply flat rate for local (Jalalpur Jattan) delivery
+                shippingCost = SHIPPING_RATES[packetType]['Within City'];
+                shippingNote = `Local Delivery (Jalalpur Jattan). Flat rate for ${packetType.toUpperCase()} packet.`;
             } else {
-                shippingCost = LOCAL_SHIPPING_RATES[packetType] || 0;
-                finalShippingNote = `Local Flat Rate (Self-Delivery). Price includes ${packetType.toUpperCase()} packet charge.`;
+                // Apply PostEx rates for outside JLP
+                shippingCost = getPostExShippingCost(packetType, currentShippingZone);
+                shippingNote = `PostEx Courier (to ${currentShippingZone}). Price includes ${packetType.toUpperCase()} packet charge, fuel surcharge, and GST.`;
             }
-        } else {
-            // Cross-Province/Same-Province
-            finalShippingNote = `PostEx Courier (to ${currentShippingZone}). Price includes ${packetType.toUpperCase()} packet charge, fuel surcharge, and GST.`;
         }
 
         // Total Cost = Base Product Price + Shipping Cost
@@ -1460,7 +1500,7 @@
 
         // --- Update UI with Shipping Cost Details ---
         document.getElementById('shipping-cost-display').textContent = shippingCost === 0 ? "FREE" : `PKR ${shippingCost.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
-        document.getElementById('shipping-note-display').textContent = finalShippingNote;
+        document.getElementById('shipping-note-display').textContent = shippingNote;
         document.getElementById('shipping-display-box').style.display = 'block';
     }
 
@@ -1509,6 +1549,9 @@
         document.getElementById('selectionWarning').classList.remove('alert-danger');
         document.getElementById('selectionWarning').classList.add('alert-info');
         document.getElementById('selectionWarning').style.display = 'block';
+        
+        // Reset Delivery Selection to default Home Delivery
+        setDeliveryType('HomeDelivery', false); 
 
         const isAreaBased = currentProduct.isAreaBased;
         
@@ -1672,6 +1715,9 @@
          document.getElementById('selectionWarning').classList.remove('alert-danger');
          document.getElementById('selectionWarning').classList.add('alert-info');
          document.getElementById('selectionWarning').style.display = 'block';
+         
+         // Reset Delivery Selection to default Home Delivery
+         setDeliveryType('HomeDelivery', false); 
 
          const sizes = Object.keys(digitalPrintingPricing["Digital Print (Tiered)"]);
          
@@ -1876,7 +1922,7 @@
           document.getElementById('quote-product').value = `${currentProduct.baseName} - Final Price: ${document.getElementById('finalPriceDisplay').textContent}`;
           document.getElementById('quote-quantity').value = document.getElementById('input-standard-qty')?.value || document.getElementById('input-custom-qty')?.value || 1;
           
-          let detailsMsg = "Please confirm the order details. Shipping Zone: " + currentShippingZone + ". Shipping Cost: " + document.getElementById('shipping-cost-display').textContent;
+          let detailsMsg = "Please confirm the order details. Delivery Type: " + currentDeliveryType + ". Shipping Zone: " + (currentDeliveryType === 'HomeDelivery' ? currentShippingZone : 'N/A') + ". Shipping Cost: " + document.getElementById('shipping-cost-display').textContent;
           if (currentProduct?.isAreaBased) {
               const width = document.getElementById('input-width').value;
               const height = document.getElementById('input-height').value;
