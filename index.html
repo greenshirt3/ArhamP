@@ -224,7 +224,7 @@
             font-size: 1.5rem;
 }
         /* 4. Content Padding to clear the fixed bottom nav */
-        #home-section, #quote-section, #contact-section {
+        #home-section, #quote-section, #contact-section, #cart-section, #checkout-section {
             padding-bottom: calc(var(--mobile-nav-height) + 15px); /* Add space for the bottom navbar */
         }
         
@@ -293,7 +293,7 @@
                 
                 <a href="index.html" class="navbar-brand d-flex align-items-center me-4">
                     <img src="img/logo2.webp" alt="Arham Printers Logo" style="height: 40px; margin-right: 1rem;">
-                                    </a>
+                </a>
 
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
@@ -302,14 +302,14 @@
                 <div class="collapse navbar-collapse flex-grow-1" id="navbarCollapse">
                     <div class="navbar-nav me-auto bg-light pe-4 py-3 py-lg-0 d-flex align-items-center">
                         
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="products.html" class="nav-item nav-link">Products</a>
+                        <a href="index.html" class="nav-item nav-link active" onclick="showSection('home')">Home</a>
+                        <a href="products.html" class="nav-item nav-link" onclick="showSection('shop-catalog')">Products</a>
                         <a href="wedding.html" class="nav-item nav-link">Wedding Cards</a>
                         <a href="print-order.html" class="nav-item nav-link">Paper Printing</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
                             <div class="dropdown-menu bg-light border-0 m-0">
-                                <a href="products.html" class="dropdown-item">All Products</a>
+                                <a href="products.html" class="dropdown-item" onclick="showSection('shop-catalog')">All Products</a>
                                 <a href="#quote-section" class="dropdown-item" onclick="showSection('quote')">Get Custom Quote</a>
                             </div>
                         </div>
@@ -317,8 +317,9 @@
                     </div>
                     
                     <div class="h-100 d-lg-inline-flex align-items-center">
-                        <a class="btn-sm-square bg-white text-primary rounded-circle me-4 position-relative" href="#quote-section" onclick="showSection('quote')">
-                            <i class="fas fa-file-invoice"></i>
+                        <a class="btn-sm-square bg-white text-dark rounded-circle me-4 position-relative" href="#cart-section" onclick="showSection('cart')">
+                             <i class="fas fa-shopping-cart"></i>
+                             <span id="desktop-cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" style="font-size: 0.6em; padding: 4px;">0</span>
                         </a>
                         <a href="#contact-section" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block" onclick="showSection('quote')">Get a Quote<i
                                 class="fa fa-arrow-right ms-3"></i></a>
@@ -358,10 +359,11 @@
         <i class="fas fa-th-list"></i>
         <span>Products</span>
     </a>
-    
-    <a href="wedding.html" class="mobile-nav-link" id="mobile-link-wedding">
-        <i class="fas fa-gift"></i>
-        <span>Wedding Cards</span>
+
+    <a href="#cart-section" class="mobile-nav-link" onclick="showSection('cart')" id="mobile-link-cart">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cart-count" class="position-absolute translate-middle badge rounded-pill bg-primary" style="top: 8px; right: 10px; font-size: 0.7em;">0</span>
+        <span>Cart</span>
     </a>
 </nav>
         
@@ -456,6 +458,156 @@
             </div>
             
             </section>
+
+        <section id="cart-section" class="section">
+            <div class="container-fluid page-header py-5">
+                <h1 class="text-center text-white display-6">Your Shopping Cart</h1>
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="#" onclick="showSection('home')">Home</a></li>
+                    <li class="breadcrumb-item active text-white">Cart</li>
+                </ol>
+            </div>
+
+            <div class="container-fluid py-5">
+                <div class="container py-5">
+                    <div class="row g-4">
+                        <div class="col-lg-8">
+                            <div class="bg-light p-4 rounded-0 shadow-sm">
+                                <h3 class="mb-4">Items in Cart (<span id="cart-item-count">0</span>)</h3>
+                                <div id="cart-items-list" class="list-group">
+                                    <p class="text-muted text-center p-5" id="empty-cart-message">Your cart is empty.</p>
+                                </div>
+                            </div>
+                            
+                            <button class="btn btn-secondary w-100 py-3 mt-4 rounded-0" onclick="showSection('home')" id="continue-shopping-btn">
+                                 <i class="fas fa-arrow-left me-2"></i> Continue Shopping
+                            </button>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="bg-white p-4 rounded-0 shadow-lg sticky-top" style="top: 100px;">
+                                <h3 class="mb-4 text-primary">Order Summary</h3>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Subtotal:</span>
+                                    <span class="fw-bold" id="cart-subtotal">PKR 0</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-4 border-bottom pb-3">
+                                    <span>Delivery:</span>
+                                    <span class="fw-bold text-success" id="cart-delivery-cost">PKR 0</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-4">
+                                    <h4 class="mb-0">Grand Total:</h4>
+                                    <h4 class="mb-0 text-primary" id="cart-grand-total">PKR 0</h4>
+                                </div>
+                                
+                                <div class="product-option-group" data-option-key="CheckoutDeliveryType">
+                                    <label><i class="fas fa-truck me-2"></i> Delivery Method:</label>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <label class="choice-card selected" id="checkout-delivery-home" onclick="Cart.setDeliveryType('HomeDelivery')">
+                                            <input type="radio" name="option-CheckoutDeliveryType" value="HomeDelivery" checked>
+                                            <span class="label-text">Home Delivery</span>
+                                        </label>
+                                        <label class="choice-card" id="checkout-delivery-pickup" onclick="Cart.setDeliveryType('SelfPickUp')">
+                                            <input type="radio" name="option-CheckoutDeliveryType" value="SelfPickUp">
+                                            <span class="label-text">Self Pick Up</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                 <div class="product-option-group" id="checkout-shipping-zone-selector">
+                                    <label><i class="fas fa-map-marker-alt me-2"></i> Shipping Zone:</label>
+                                    <input type="text" id="checkout-input-city" placeholder="Enter City for Shipping" class="form-control rounded-0 mb-2" oninput="Cart.manualLocationCheck()">
+                                    <small class="text-muted d-block" id="checkout-current-location-display">
+                                        Zone: <span id="checkout-zone-name" class="fw-bold text-dark">Jalalpur Jattan (Within City)</span>
+                                    </small>
+                                </div>
+
+                                <button class="btn btn-primary w-100 py-3 mt-2 rounded-0" onclick="showSection('checkout')">
+                                    <i class="fas fa-money-check-alt me-2"></i> Proceed to Checkout
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="checkout-section" class="section">
+            <div class="container-fluid page-header py-5">
+                <h1 class="text-center text-white display-6">Final Checkout</h1>
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="#" onclick="showSection('cart')">Cart</a></li>
+                    <li class="breadcrumb-item active text-white">Checkout</li>
+                </ol>
+            </div>
+
+            <div class="container-fluid py-5">
+                <div class="container py-5">
+                    <div class="row g-4 justify-content-center">
+                        <div class="col-lg-10">
+                            <div class="bg-light p-4 rounded-0 shadow-lg">
+                                <h3 class="mb-4">Contact & Payment</h3>
+                                <form id="checkout-form" onsubmit="Cart.handleCheckoutSubmission(event)">
+                                    
+                                    <div class="product-option-group">
+                                        <h4>1. Customer Information</h4>
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control border-0 rounded-0" id="checkout-name" placeholder="Your Name" required>
+                                                    <label for="checkout-name">Your Full Name</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <input type="tel" class="form-control border-0 rounded-0" id="checkout-phone" placeholder="WhatsApp Number" required>
+                                                    <label for="checkout-phone">WhatsApp/Contact Number</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12" id="checkout-address-group">
+                                                <div class="form-floating">
+                                                    <textarea class="form-control border-0 rounded-0" placeholder="Full Address" id="checkout-address" style="height: 80px" required></textarea>
+                                                    <label for="checkout-address">Full Shipping/Collection Address</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-floating">
+                                                    <input type="email" class="form-control border-0 rounded-0" id="checkout-email" placeholder="Email (Optional)">
+                                                    <label for="checkout-email">Email (Optional)</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="product-option-group mt-4">
+                                        <h4>2. Payment Method</h4>
+                                        <div class="d-flex flex-wrap gap-3">
+                                            <label class="choice-card selected" id="payment-cod" onclick="Cart.setPaymentMethod('CashOnDelivery')">
+                                                <input type="radio" name="option-PaymentMethod" value="CashOnDelivery" checked>
+                                                <span class="label-text"><i class="fas fa-hand-holding-usd me-2"></i> Cash on Delivery (COD)</span>
+                                            </label>
+                                            <label class="choice-card" id="payment-bank" onclick="Cart.setPaymentMethod('BankTransfer')">
+                                                <input type="radio" name="option-PaymentMethod" value="BankTransfer">
+                                                <span class="label-text"><i class="fas fa-university me-2"></i> Bank Transfer (Pre-Payment)</span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="alert alert-info mt-4 rounded-0">
+                                        <strong>Order Total:</strong> <span class="fw-bold text-primary" id="checkout-grand-total">PKR 0</span>.
+                                        By clicking "Confirm Order", we will open WhatsApp for final confirmation and processing.
+                                    </div>
+
+                                    <button class="btn btn-success w-100 py-3 mt-2 rounded-0" type="submit">
+                                        <i class="fas fa-check-circle me-2"></i> Confirm Order via WhatsApp
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <section id="quote-section" class="section">
             <div class="container-fluid page-header py-5">
                 <h1 class="text-center text-white display-6">Get a Custom Quote</h1>
@@ -695,11 +847,9 @@
         <script src="lib/counterup/counterup.min.js"></script>
         <script src="lib/owlcarousel/owl.carousel.min.js"></script>
         <script src="js/main.js"></script>
-
-        <script>
+        <script src="js/cart-manager.js"></script> <script>
             // --- Configuration ---
             const WHATSAPP_NUMBER = '923006238233';
-            // Placeholder: This is not actually used in this file's logic but kept for context.
             const SUBMIT_ORDER_URL = 'submit_order.php'; 
 
             // --- UI/Navigation Functions ---
@@ -727,14 +877,21 @@
                 } else if (sectionName === 'home') {
                      // Default home active state
                      document.querySelector(`.navbar-nav a[href="index.html"]`)?.classList.add('active');
+                } else if (sectionName === 'cart' || sectionName === 'checkout') {
+                    // Cart/Checkout sections don't have a direct nav link to be 'active'
                 }
 
-                // Set the active mobile nav link (calls centralized logic in main.js)
+                // Set the active mobile link (calls centralized logic in main.js)
                 if (typeof setActiveMobileNav === 'function') {
                     setActiveMobileNav(sectionName);
                 }
                 
                 window.scrollTo(0, 0);
+
+                // Reload cart display on showing cart section
+                if (sectionName === 'cart' && typeof Cart !== 'undefined') {
+                    Cart.updateCartDisplay();
+                }
             }
             
             // Function for the Home Page category links that navigate to products.html
@@ -747,52 +904,13 @@
                 showSection(sectionName);
             }
 
-            // --- Order Submission (Mock) ---
-            async function submitOrder(type) {
-                const formData = {
-                    order_type: type,
-                    details: 'Placeholder order detail for Home Page contact.',
-                    customer_name: 'Home Page Visitor', 
-                };
-
-                // NOTE: Mock API call is kept as is since the objective is client-side refactoring
-                try {
-                    const response = await fetch(SUBMIT_ORDER_URL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(formData)
-                    });
-
-                    if (response.ok) {
-                        // NOTE: Using a custom modal alert instead of window.alert()
-                        showAlert('Order/Quote successfully registered! We will contact you shortly.', 'success');
-                    } else {
-                        showAlert('Server error during registration.', 'error');
-                    }
-                } catch (error) {
-                    console.error('Submission failed:', error);
-                    showAlert('Network error. Please try the WhatsApp option.', 'error');
-                }
-            }
+            // --- Order Submission (Mock) - REMOVED, now uses Cart.handleCheckoutSubmission ---
             
+            // Replaced custom showAlert with global Cart.showAlert
             function showAlert(message, type) {
-                const alert = document.createElement('div');
-                alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
-                alert.style.top = '20px';
-                alert.style.right = '20px';
-                alert.style.zIndex = '9999';
-                alert.style.minWidth = '300px';
-                alert.innerHTML = `
-                    ${message}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                `;
-                document.body.appendChild(alert);
-                
-                setTimeout(() => {
-                    if (alert.parentNode) {
-                        alert.parentNode.removeChild(alert);
-                    }
-                }, 5000);
+                if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
+                    Cart.showAlert(message, type);
+                }
             }
             
             // Add WhatsApp handlers for Quote and Contact forms
@@ -841,4 +959,3 @@
 
 
 </html>
-
