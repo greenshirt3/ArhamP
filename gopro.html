@@ -996,7 +996,7 @@
     const SUBMIT_ORDER_URL = 'submit_order.php'; 
     
     // 🛑 REPLACE THIS WITH YOUR ACTUAL GOOGLE MAPS API KEY 🛑
-    const GOOGLE_MAPS_API_KEY = 'YOUR_API_KEY_HERE'; 
+    const GOOGLE_MAPS_API_KEY = 'AIzaSyCAz3R9s0BdNnwgEtaC31LJcIqlkoXh05U'; 
 
     // --- Core Data Stores ---
     let allProducts = {}; 
@@ -1007,34 +1007,32 @@
     
     let currentShippingZone = 'Within City'; // Default to cheapest zone (JLP)
 
-    // --- Corrected Shipping Rate Configuration ---
-    // These are the accurate PostEx courier rates (Base Rate + 15% Fuel + 16% GST)
+    // --- Shipping Rate Configuration (PostEx with 15% Fuel & 16% GST) ---
     const SHIPPING_RATES = {
         // Within City (JLP) / Same Province / Cross Province
-        'small': { // Up to 0.5 kg
-            'Within City': 259, 
+        'small': { // Up to 0.5 kg: Cards, Prints, Small Stickers
+            'Within City': 100,
             'Same Province': 347,
             'Cross Province': 359
         },
-        'medium': { // 0.5 kg to 1.0 kg
-            'Within City': 431, 
+        'medium': { // 0.5 kg to 1.0 kg: Mugs, T-shirts, Letterpads, Bill Books
+            'Within City': 100,
             'Same Province': 529,
             'Cross Province': 541
         },
-        'overland': { // Min 3.0 kg
-            'Within City': 1254, 
+        'overland': { // Min 3.0 kg: Banners, Large Frames
+            'Within City': 150,
             'Same Province': 1254,
             'Cross Province': 1254
         }
     };
 
     // --- Local Self-Delivery Override Configuration (Jalalpur Jattan Only) ---
-    // These are your subsidized, marketing-friendly rates (subsidizing the cost of the Within City PostEx Rate)
     const LOCAL_FREE_SHIPPING_THRESHOLD = 2500; // PKR 2,500
     const LOCAL_SHIPPING_RATES = {
-        'small': 150, // Subsidized from PostEx cost of 259 PKR
-        'medium': 200, // Subsidized from PostEx cost of 431 PKR
-        'overland': 300 // Subsidized from PostEx cost of 1254 PKR
+        'small': 100, // PKR 150 for Cards, Prints (Self-Delivery)
+        'medium': 100, // PKR 200 for Letterpads, Mugs (Self-Delivery)
+        'overland': 150 // PKR 300 for Banners/Frames (Self-Delivery)
     };
 
     // --- Zone Mapping Data (JLP is the Origin City) ---
@@ -1055,7 +1053,6 @@
     };
 
     // --- PROFIT & COST CONSTANTS (Derived from previous analysis) ---
-    // NOTE: This markup is kept for Area-Based items where the profit calculation is done dynamically.
     const RECOMMENDED_MARKUP = 1.15; // 15% Profit Margin
     const AREA_BASED_META = {
         "China Frontlit": { is_area_based: true, rate: 35, min_area: 2, category: 'Banners' }, 
@@ -1236,8 +1233,7 @@
     function getPostExShippingCost(packetType, zone) {
         const rates = SHIPPING_RATES[packetType];
         if (rates && rates[zone]) return rates[zone];
-        // Default to the highest rate if something is wrong
-        return SHIPPING_RATES[packetType]['Cross Province']; 
+        return rates['Cross Province']; 
     }
     
     // --- LOCATION DETECTION LOGIC ---
@@ -1326,10 +1322,10 @@
         
         const isAreaBased = currentProduct.isAreaBased;
         const isDigitalTiered = currentProduct.isDigitalTiered;
-        let baseProductPrice = 0; // Price including product cost + profit margin (from JSON or Area Logic)
+        let baseProductPrice = 0;
         let requiresManualQuote = false;
 
-        // 1. Calculate Base Product Price 
+        // 1. Calculate Base Product Price (Cost before Shipping/Margin)
         if (isAreaBased) {
             const width = parseFloat(document.getElementById('input-width').value) || 0;
             const height = parseFloat(document.getElementById('input-height').value) || 0;
@@ -1363,7 +1359,6 @@
                 }
                 const totalCostBeforeProfit = basePrintCost + totalDesignFee;
                 const profitMultiplier = getAreaProfitMultiplier(quantity);
-                // For Area-Based items, profit is calculated here since the base rate is a cost.
                 baseProductPrice = Math.round(totalCostBeforeProfit * profitMultiplier);
             }
         } 
@@ -1399,7 +1394,6 @@
              }
         }
         else {
-            // Standard Tiered Products (Business Cards, etc.)
             const quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 1;
             const allCombinations = currentProduct?.combinations || [];
             
@@ -1416,7 +1410,6 @@
                 );
                 
                 if (finalProductCombination) {
-                    // baseProductPrice uses the JSON price (which already includes profit margin).
                     baseProductPrice = finalProductCombination.Price * quantity;
                 } else {
                     requiresManualQuote = true;
@@ -1437,6 +1430,7 @@
 
         const packetType = getShippingPacketType(currentProduct.baseName);
         let shippingCost = getPostExShippingCost(packetType, currentShippingZone);
+        let shippingNote = '';
         let finalShippingNote = '';
 
         // --- LOCAL SELF-DELIVERY OVERRIDE LOGIC ---
@@ -1453,8 +1447,11 @@
             finalShippingNote = `PostEx Courier (to ${currentShippingZone}). Price includes ${packetType.toUpperCase()} packet charge, fuel surcharge, and GST.`;
         }
 
-        // CORRECTED FINAL CALCULATION: Sum product price (with margin) + shipping cost (without extra margin)
-        const finalSellingPrice = Math.round(baseProductPrice + shippingCost);
+        // Total Cost = Base Product Price + Shipping Cost
+        const totalCost = baseProductPrice + shippingCost;
+        
+        // Final Selling Price = Total Cost * Recommended Markup
+        const finalSellingPrice = Math.round(totalCost * RECOMMENDED_MARKUP);
         
         // --- Update UI with Final Selling Price ---
         document.getElementById('finalPriceDisplay').textContent = `PKR ${finalSellingPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
@@ -1468,6 +1465,185 @@
     }
 
 
+    // ... (rest of the existing showProductDetails, handleCardSelection, and other helper functions)
+    
+    // 4. Navigate to and Populate Product Detail Page
+    function showProductDetails(productName) {
+        
+        if (productName.trim() === "Digital Print (Tiered)") {
+             showDigitalPrintingDetails();
+             return;
+        }
+        if (productName.trim() === "PhotoPapers") {
+             productName = "Photo Printing";
+        }
+
+
+        let cleanName = productName.replace(/'/g, '').trim(); 
+        const productData = allProductGroups[cleanName]; 
+        currentProduct = productData;
+        currentSelectedVariations = {}; 
+
+        if (!currentProduct) {
+            showAlert(`Product "${cleanName}" details not found in data. Please use the 'Get Custom Quote' option.`, 'error'); 
+            return;
+        }
+
+        // Update headers and image
+        document.getElementById('detail-product-name-header').textContent = currentProduct.baseName;
+        document.getElementById('detail-product-name-body').textContent = currentProduct.baseName;
+        
+        const imagePath = currentProduct.imageFile;
+        document.getElementById('detail-product-image-webp').srcset = `img/products/${imagePath}.webp`;
+        document.getElementById('detail-product-image').src = `img/products/${imagePath}.png`; 
+        document.getElementById('detail-product-image').onerror = function() { 
+             this.src = `img/products/placeholder.png`; 
+        };
+
+
+        const areaInputs = document.getElementById('custom-area-inputs');
+        const standardOptions = document.getElementById('standard-options-fields');
+        
+        document.getElementById('finalPriceBox').style.display = 'none';
+        document.getElementById('selectionWarning').textContent = "Please enter dimensions/quantity or select all options above to see the final price.";
+        document.getElementById('selectionWarning').classList.remove('alert-danger');
+        document.getElementById('selectionWarning').classList.add('alert-info');
+        document.getElementById('selectionWarning').style.display = 'block';
+
+        const isAreaBased = currentProduct.isAreaBased;
+        
+        // 🛑 CORE LOGIC: Area-Based vs. Standard 🛑
+        if (isAreaBased) {
+            // --- AREA-BASED SETUP (Panaflex/Wallpaper/Photo Frames) ---
+            areaInputs.style.display = 'block';
+            
+            // Inject Design Service option group before existing standard options
+            standardOptions.style.display = 'block'; 
+            standardOptions.innerHTML = `
+                <div class="product-option-group" data-option-key="DesignService">
+                    <label>Design Service:</label>
+                    <div class="d-flex flex-wrap gap-3">
+                        <label class="choice-card selected" id="design-printready" 
+                               onclick="currentSelectedVariations['DesignService']='PrintReady'; updateFinalPrice()">
+                            <input type="radio" name="option-DesignService" value="PrintReady" checked>
+                            <span class="label-text">Print Ready File</span>
+                        </label>
+                        <label class="choice-card" id="design-needed" 
+                               onclick="currentSelectedVariations['DesignService']='DesignNeeded'; updateFinalPrice()">
+                            <input type="radio" name="option-DesignService" value="DesignNeeded">
+                            <span class="label-text">Design Service Required</span>
+                        </label>
+                    </div>
+                </div>`;
+            
+            // Set initial selection state for the new option
+            currentSelectedVariations['DesignService'] = 'PrintReady';
+
+            // Reset Dimension inputs
+            document.getElementById('input-width').value = 1;
+            document.getElementById('input-height').value = 1;
+            document.getElementById('input-custom-qty').value = 1;
+
+            ['input-width', 'input-height', 'input-custom-qty'].forEach(id => {
+                 const el = document.getElementById(id);
+                 if(el) el.oninput = updateFinalPrice;
+            });
+            
+            document.getElementById('areaConstraintWarning').style.display = 'none';
+            document.getElementById('areaConstraintWarning').classList.remove('alert-info');
+            document.getElementById('areaConstraintWarning').classList.add('alert-danger'); // Default style is error, use info for fee
+
+            updateFinalPrice();
+
+        } else {
+            // --- STANDARD TIERED ITEM SETUP ---
+            areaInputs.style.display = 'none';
+            standardOptions.style.display = 'block';
+            standardOptions.innerHTML = ''; 
+
+            const allCombinations = currentProduct.combinations || [];
+            if (allCombinations.length === 0 || !allCombinations[0]) {
+                 standardOptions.innerHTML = `<p class="alert alert-warning">No price configurations found for this product. Please use the Quote form.</p>`;
+                 return;
+            }
+
+            let attributeKeys = Object.keys(allCombinations[0]).filter(key => key !== 'Price' && key !== 'FullName');
+            
+            // FIX: Sort attribute keys using the defined priority
+            attributeKeys = sortAttributeKeys(attributeKeys);
+
+
+            const availableAttributes = {};
+            attributeKeys.forEach(key => availableAttributes[key] = new Set());
+
+            allCombinations.forEach(c => {
+                attributeKeys.forEach(key => {
+                    if (c[key]) availableAttributes[key].add(c[key]);
+                });
+            });
+            
+            // Render groups of unique values for each attribute
+            attributeKeys.forEach((attrKey) => {
+                const uniqueValues = Array.from(availableAttributes[attrKey]);
+                const sanitizedKey = attrKey;
+
+                let groupHTML = `
+                    <div class="product-option-group" data-option-key="${sanitizedKey}">
+                        <label>${attrKey}:</label>
+                        <div class="d-flex flex-wrap gap-3" id="choices-${sanitizedKey}">
+                `;
+                
+                // Sort values for cleaner UI
+                uniqueValues.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
+
+                uniqueValues.forEach(value => {
+                    const inputId = `${sanitizedKey}-${value.replace(/\s|\/|\\|\(|\)/g, '-')}`;
+                    
+                    groupHTML += `
+                        <label class="choice-card" for="${inputId}">
+                            <input type="radio" id="${inputId}" name="option-${sanitizedKey}" value="${value}" 
+                                   onchange="handleCardSelection('${sanitizedKey}', '${value}')">
+                            <span class="label-text">${value}</span>
+                        </label>
+                    `;
+                });
+
+                groupHTML += `</div></div>`;
+                standardOptions.innerHTML += groupHTML;
+            });
+
+            // Add quantity selector for standard items
+            standardOptions.innerHTML += `
+                 <div class="product-option-group" data-option-key="QuantitySelector">
+                    <label>Quantity:</label>
+                    <div class="input-group">
+                        <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(-1)">-</button>
+                        <input type="number" id="input-standard-qty" min="1" value="1" class="form-control text-center rounded-0" oninput="updateFinalPrice()">
+                        <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(1)">+</button>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('finalPriceBox').style.display = 'none';
+            document.getElementById('selectionWarning').style.display = 'block';
+
+            // Initial auto-selection to set defaults and trigger cascading update
+            if (attributeKeys.length > 0) {
+                 const firstKey = attributeKeys[0];
+                 const firstValue = Array.from(availableAttributes[firstKey])[0];
+                 if(firstValue) {
+                    const firstInput = document.querySelector(`input[name="option-${firstKey}"][value="${firstValue}"]`);
+                    if(firstInput) firstInput.checked = true;
+                    handleCardSelection(firstKey, firstValue);
+                 }
+            } else {
+                updateFinalPrice();
+            }
+        }
+
+        showSection('product-detail');
+    }
+    
     function showDigitalPrintingDetails() {
          currentProduct = allProductGroups["Digital Print (Tiered)"];
          currentSelectedVariations = {}; 
