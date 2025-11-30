@@ -92,35 +92,35 @@
                 "imageFile": "img/products/frames.webp"
             }
         ],
-        "China Frontlit": [
+        "China": [
             {
                 "variant_3": "China",
                 "price": 1.00,
                 "imageFile": "img/products/china.webp"
             }
         ],
-        "Star Frontlit": [
+        "Star": [
             {
                 "variant_3": "Star",
                 "price": 1.00,
                 "imageFile": "img/products/star.webp"
             }
         ],
-        "Panaflex Banner Backlit": [
+        "Backlit": [
             {
                 "variant_3": "Backlit",
                 "price": 1.00,
                 "imageFile": "img/products/backlit.webp"
             }
         ],
-        "Venyl Pasting Sticker": [
+        "Venyl Sticker": [
             {
                 "variant_3": "Venyl",
                 "price": 1.00,
                 "imageFile": "img/products/stickers.webp"
             }
         ],
-        "One Vision Pasting Sticker": [
+        "One Vision": [
             {
                 "variant_3": "One Vision",
                 "price": 1.00,
@@ -964,7 +964,7 @@
                 "imageFile": "img/products/digital.webp"
             }
         ],
-        "3D Wallpaper Placeholder": [
+        "3D Wallpaper": [
             {
                 "price": 1.00,
                 "imageFile": "img/products/wallpapers.webp"
@@ -976,13 +976,13 @@
                 "imageFile": "img/products/placeholder.png"
             }
         ],
-        "Flags & Fabric (Custom Quote)": [
+        "Flags & Fabric": [
             {
                 "price": 1.00,
                 "imageFile": "img/products/placeholder.png"
             }
         ],
-        "Box Packaging (Custom Quote)": [
+        "Box Packaging": [
             {
                 "price": 1.00,
                 "imageFile": "img/products/box.webp"
@@ -2577,5 +2577,6 @@
         }
     }
 }
+
 
 
