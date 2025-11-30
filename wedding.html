@@ -420,7 +420,7 @@
                                     <input type="number" id="input-card-qty" min="1" value="1" step="1" class="form-control text-center rounded-0" oninput="updateQuantityAndPrice(0)">
                                     <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityAndPrice(5)">+5</button>
                                 </div>
-                                 <small class="text-muted mt-2 d-block">Minimum order: 1 piece. <span id="fixed-cost-display">*</span></small>
+                                 <small class="text-muted mt-2 d-block" style="display: none;">Minimum order: 1 piece. <span id="fixed-cost-display">*</span></small>
                             </div>
                             
                             <div class="product-option-group" data-option-key="InnerCard" id="inner-card-option-group">
@@ -1055,9 +1055,11 @@
             document.getElementById('shipping-note-display').textContent = result.shippingNote;
             document.getElementById('shipping-display-box').style.display = 'block';
 
+            // 🛑 REMOVED COST BREAKDOWN DISPLAY LINES:
+            /*
             const bulkPriceDisplay = currentCard.bulkPrice100.toFixed(0);
             document.getElementById('fixed-cost-display').textContent = `**Total Cost (100 pcs: PKR ${bulkPriceDisplay}) used for calculation. Fixed overhead of ${currentCard.fixedCost} PKR applied after profit.**`;
-
+            */
         } else {
              document.getElementById('finalPriceBox').style.display = 'none';
              document.getElementById('shipping-display-box').style.display = 'none';
@@ -1238,9 +1240,12 @@
     document.getElementById('card-description').textContent = currentCard.description; 
     document.getElementById('input-card-qty').value = 100; 
     
+    // 🛑 REMOVED COST BREAKDOWN DISPLAY LOGIC ON SHOW DETAILS:
+    /*
     const bulkPriceDisplay = currentCard.bulkPrice100.toFixed(0);
     document.getElementById('fixed-cost-display').textContent = `**Total Cost (100 pcs: PKR ${bulkPriceDisplay}) used for calculation. Fixed overhead of ${currentCard.fixedCost} PKR applied after profit.**`;
-
+    */
+    
     showSection('product-detail');
     updateQuantityAndPrice(0); 
 }
