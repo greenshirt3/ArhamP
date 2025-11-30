@@ -653,7 +653,7 @@
                             </button>
                         </div>
                     </div>
-                </di
+                </di>
 
                 <hr class="w-100" />
                 
@@ -1053,7 +1053,7 @@
     };
 
     // --- PROFIT & COST CONSTANTS (Derived from previous analysis) ---
-    const RECOMMENDED_MARKUP = 1.15; // 15% Profit Margin
+   
     const AREA_BASED_META = {
         "China Frontlit": { is_area_based: true, rate: 35, min_area: 2, category: 'Banners' }, 
         "Star Frontlit": { is_area_based: true, rate: 65, min_area: 2, category: 'Banners' },
@@ -1450,8 +1450,8 @@
         // Total Cost = Base Product Price + Shipping Cost
         const totalCost = baseProductPrice + shippingCost;
         
-        // Final Selling Price = Total Cost * Recommended Markup
-        const finalSellingPrice = Math.round(totalCost * RECOMMENDED_MARKUP);
+        // Final Selling Price = Total Cost
+        const finalSellingPrice = Math.round(totalCost);
         
         // --- Update UI with Final Selling Price ---
         document.getElementById('finalPriceDisplay').textContent = `PKR ${finalSellingPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
