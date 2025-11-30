@@ -875,7 +875,7 @@
                                     <i class="fa fa-envelope text-primary fs-4"></i>
                                 </div>
                                 <div class="ms-4">
-                                    <h5 class="mb-2">Email Us</h5>
+                                    <h5 class="mb-2">Email Us</div>
                                     <p class="mb-0">info@arhamprinters.pk</p>
                                 </div>
                             </div>
@@ -1023,6 +1023,7 @@
     let currentDeliveryOption = 'Self Pickup'; // New state variable
 
     // --- Corrected Shipping Rate Configuration ---
+    // These are the accurate PostEx courier rates (Base Rate + 15% Fuel & 16% GST)
     const SHIPPING_RATES = {
         // Within City (JLP) / Same Province / Cross Province
         'small': { // Up to 0.5 kg: Cards, Prints, Small Stickers
@@ -1043,6 +1044,7 @@
     };
 
     // --- Local Self-Delivery Override Configuration (Jalalpur Jattan Only) ---
+    // These are your subsidized, marketing-friendly rates (subsidizing the cost of the Within City PostEx Rate)
     const LOCAL_FREE_SHIPPING_THRESHOLD = 2500; // PKR 2,500
     const LOCAL_SHIPPING_RATES = {
         'flat_local': 100 // PKR 100 flat fee for local Home Delivery, regardless of packet size
@@ -1066,6 +1068,7 @@
     };
 
     // --- PROFIT & COST CONSTANTS (Derived from previous analysis) ---
+    // NOTE: This markup is kept for Area-Based items where the profit calculation is done dynamically.
     const RECOMMENDED_MARKUP = 1.15; // 15% Profit Margin (Only for area-based items)
     const AREA_BASED_META = {
         "China Frontlit": { is_area_based: true, rate: 35, min_area: 2, category: 'Banners' }, 
