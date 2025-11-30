@@ -217,47 +217,48 @@
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5 d-none d-lg-block">
         <a href="index.html" class="navbar-brand d-flex align-items-center">
              <img src="img/logo2.webp" alt="Arham Printers Logo" style="height: 40px; margin-right: 1rem;">
+        </a>
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto bg-light pe-4 py-3 py-lg-0">
                 <a href="index.html" class="nav-item nav-link">Home</a>
-                <a href="products.html" class="nav-item nav-link">Products</a>
-                <a href="wedding.html" class="nav-item nav-link">Wedding Cards</a>
+                <a href="#" class="nav-item nav-link" onclick="showSection('products')">Products</a>
+                <a href="#" class="nav-item nav-link" onclick="showSection('wedding')">Wedding Cards</a>
                 <a href="#" class="nav-item nav-link active">Print Order</a>
-                <a href="index.html#contact-section" class="nav-item nav-link">Contact</a>
+                <a href="#" class="nav-item nav-link" onclick="showSection('contact')">Contact</a>
             </div>
              <div class="h-100 d-lg-inline-flex align-items-center">
-                <a href="index.html#quote-section" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block">Get a Quote<i
+                <a href="#" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block" onclick="showSection('quote')">Get a Quote<i
                         class="fa fa-arrow-right ms-3"></i></a>
             </div>
         </div>
     </nav>
 
      <nav id="mobile-bottom-nav" class="d-lg-none">
-    <a href="index.html" class="mobile-nav-link" id="mobile-link-home">
-        <i class="fas fa-home"></i>
-        <span>Home</span>
-    </a>
-    <a href="products.html" class="mobile-nav-link" id="mobile-link-products">
-        <i class="fas fa-th-list"></i>
-        <span>Products</span>
-    </a>
+        <a href="index.html" class="mobile-nav-link" id="mobile-link-home">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="products.html" class="mobile-nav-link" id="mobile-link-products">
+            <i class="fas fa-th-list"></i>
+            <span>Products</span>
+        </a>
         <a href="wedding.html" class="mobile-nav-link" id="mobile-link-wedding">
             <i class="fas fa-gift"></i>
             <span>Wedding Cards</span>
         </a> 
-        <a href="print-order.html" class="mobile-nav-link active" id="mobile-link-wedding">
+        <a href="print-order.html" class="mobile-nav-link active" id="mobile-link-print">
             <i class="fas fa-print"></i>
             <span>Custom Prints</span>
         </a> 
-   <a href="#cart-section" class="mobile-nav-link" onclick="showSection('cart')" id="mobile-link-cart">
-        <i class="fas fa-shopping-cart"></i>
-        <span id="cart-count" class="position-absolute translate-middle badge rounded-pill bg-primary" style="top: 8px; right: 10px; font-size: 0.7em;">0</span>
-        <span>Cart</span>
-    </a>
-</nav>
+        <a href="#cart-section" class="mobile-nav-link" onclick="showSection('cart')" id="mobile-link-cart">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cart-count" class="position-absolute translate-middle badge rounded-pill bg-primary" style="top: 8px; right: 10px; font-size: 0.7em;">0</span>
+            <span>Cart</span>
+        </a>
+    </nav>
     
     <div class="container page-content-wrapper py-5">
         <div class="page-header mb-5">
@@ -512,13 +513,37 @@
     <script src="js/main.js"></script>
 
     <script>
+    function showSection(sectionName) {
+        // Handle external navigation for pages not hosted here
+        if (sectionName === 'home') {
+             window.location.href = 'index.html';
+        } else if (sectionName === 'contact') {
+             window.location.href = 'index.html#contact-section';
+        } else if (sectionName === 'quote') {
+             window.location.href = 'index.html#quote-section';
+        } else if (sectionName === 'products' || sectionName === 'shop-catalog') {
+             window.location.href = 'products.html';
+        } else if (sectionName === 'wedding') {
+             window.location.href = 'wedding.html';
+        } else if (sectionName === 'cart') {
+             // Redirects to products.html which should contain the cart section
+             window.location.href = 'products.html#cart-section';
+        } 
+        window.scrollTo(0, 0);
+
+        if (typeof setActiveMobileNav === 'function') {
+            setActiveMobileNav(sectionName);
+        }
+    }
+    </script>
+    <script>
         const SUBMIT_ORDER_URL = 'upload_and_notify.php';
         const WHATSAPP_NUMBER = '923006238233';
         
         let pricingData = null;
         const PRICING_DATA_URL = 'all_prices.json';
 
-        // 🛑 REPLACE THIS WITH YOUR ACTUAL GOOGLE MAPS API KEY 🛑
+        // 尅 REPLACE THIS WITH YOUR ACTUAL GOOGLE MAPS API KEY 尅
         const GOOGLE_MAPS_API_KEY = 'AIzaSyCAz3R9s0BdNnwgEtaC31LJcIqlkoXh05U'; 
         let currentShippingZone = 'Within City'; // Default to cheapest zone (JLP)
 
@@ -911,5 +936,3 @@
     </script>
 </body>
 </html>
-
-
