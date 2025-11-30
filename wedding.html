@@ -334,7 +334,7 @@
             <i class="fas fa-gift"></i>
             <span>Wedding Cards</span>
         </a> 
-        <a href="print-order.html" class="mobile-nav-link" id="mobile-link-wedding">
+        <a href="print-order.html" class="mobile-nav-link" id="mobile-link-print">
             <i class="fas fa-print"></i>
             <span>Custom Prints</span>
         </a> 
@@ -603,9 +603,24 @@
                                                 <input type="radio" name="option-PaymentMethod" value="BankTransfer">
                                                 <span class="label-text"><i class="fas fa-university me-2"></i> Bank Transfer (Pre-Payment)</span>
                                             </label>
+                                            <label class="choice-card" id="payment-raast" onclick="Cart.setPaymentMethod('RaastQR')">
+                                                <input type="radio" name="option-PaymentMethod" value="RaastQR">
+                                                <span class="label-text"><i class="fas fa-qrcode me-2"></i> Raast QR (Instant Pay)</span>
+                                            </label>
                                         </div>
                                     </div>
 
+                                    <div id="raast-qr-display" class="product-option-group mt-4 p-4 text-center bg-white border border-success" style="display: none;">
+                                        <h4><i class="fas fa-qrcode me-2 text-success"></i> Instant Payment via Raast</h4>
+                                        <p class="text-muted">Scan the QR code with any Raast-enabled banking app to pay the exact amount instantly. The Grand Total is automatically embedded.</p>
+                                        
+                                        <div class="d-flex justify-content-center">
+                                            <img src="img/raast_qr_placeholder.png" id="raast-qr-image" alt="Raast QR Code" style="width: 200px; height: 200px; border: 5px solid #28a745;">
+                                        </div>
+                                        
+                                        <p class="fw-bold mt-3">Grand Total: <span id="raast-qr-amount" class="text-primary">PKR 0</span></p>
+                                        <small class="text-success d-block">This payment method requires instant confirmation via WhatsApp after scanning.</small>
+                                    </div>
                                     <div class="alert alert-info mt-4 rounded-0">
                                         <strong>Order Total:</strong> <span class="fw-bold text-primary" id="checkout-grand-total">PKR 0</span>.
                                         By clicking "Confirm Order", we will open WhatsApp for final confirmation and processing.
@@ -624,47 +639,52 @@
         <section id="quote-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6">Get a Custom Quote</h1>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active text-white">Quote</li>
+            </ol>
         </div>
+
         <div class="container-fluid py-5">
             <div class="container py-5">
                 <div class="row g-4 justify-content-center">
                     <div class="col-lg-8">
-                        <div class="bg-light p-4 rounded-0">
+                        <div class="bg-light p-4 rounded">
                             <form id="quote-form" onsubmit="handleQuoteSubmission(event)">
-                                <h3 class="mb-4">Quick Inquiry for Wedding Cards</h3>
+                                <h3 class="mb-4">Quick Inquiry</h3>
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control border-0 rounded-0" id="quote-name" placeholder="Your Name" required>
+                                            <input type="text" class="form-control border-0" id="quote-name" placeholder="Your Name" required>
                                             <label for="quote-name">Your Name</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="tel" class="form-control border-0 rounded-0" id="quote-phone" placeholder="WhatsApp Phone" required>
-                                            <label for="quote-phone">WhatsApp Phone</label>
+                                            <input type="tel" class="form-control border-0" id="quote-phone" placeholder="Contact Number" required>
+                                            <label for="quote-phone">Contact Number</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control border-0 rounded-0" id="quote-product" value="Wedding Invitation Cards" readonly>
-                                            <label for="quote-product">Product Name / Design ID</label>
+                                            <input type="text" class="form-control border-0" id="quote-product" placeholder="Product Name (e.g., Visiting Cards, 3D Wallpaper)">
+                                            <label for="quote-product">Product Name / Type</label>
+                                        </div>
+                                    </div>
+                                     <div class="col-12">
+                                        <div class="form-floating">
+                                            <input type="number" class="form-control border-0" id="quote-quantity" placeholder="Quantity or Total Area (e.g., 500 cards, 100 sq ft)">
+                                            <label for="quote-quantity">Quantity / Estimated Area</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <input type="number" class="form-control border-0 rounded-0" id="quote-quantity" placeholder="Quantity (e.g., 500 cards)">
-                                            <label for="quote-quantity">Required Quantity</label>
+                                            <textarea class="form-control border-0" placeholder="Details of your inquiry (Size, Finish, Quality, Message)" id="quote-details" style="height: 150px" required></textarea>
+                                            <label for="quote-details">Inquiry Message / Specifications</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <div class="form-floating">
-                                            <textarea class="form-control border-0 rounded-0" placeholder="Details of your inquiry" id="quote-details" style="height: 150px" required></textarea>
-                                            <label for="quote-details">Message</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <button class="btn btn-primary w-100 py-3 rounded-0" type="submit">Submit Quote via WhatsApp</button>
+                                        <button class="btn btn-primary w-100 py-3" type="submit">Submit Quote via WhatsApp</button>
                                     </div>
                                 </div>
                             </form>
@@ -673,624 +693,142 @@
                 </div>
             </div>
         </section>
-    
     <section id="contact-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6">Contact Us</h1>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active text-white">Contact</li>
+            </ol>
         </div>
-        <div class="container py-5 text-center">
-             <h3>Contact us at +92 300 6238233</h3>
-        </div>
-    </section>
 
-    <div class="container-fluid footer py-2">
-        <div class="container text-center">
-             <p class="text-white">Arham Printers 2025</p>
-        </div>
-    </div>
-
-    <a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/cart-manager.js"></script>
-<script>
-    // 🛑 STEP 1: MANDATORY CONFIGURATION 🛑
-    const PUBLIC_DATA_URL = 'all_prices.json'; 
-    const WHATSAPP_NUMBER = '923006238233'; 
-    const API_URL = 'submit_order.php';
-
-    // 🛑 REPLACE THIS WITH YOUR ACTUAL GOOGLE MAPS API KEY 🛑
-    const GOOGLE_MAPS_API_KEY = 'AIzaSyCAz3R9s0BdNnwgEtaC31LJcIqlkoXh05U'; 
-
-    // --- Core Data Stores ---
-    let allProducts = {}; 
-    let currentCard = null;
-    let hasInner = false; 
-    
-    // --- WEDDING CARD COST CONSTANTS ---
-    const BULK_QTY = 100; 
-    const INNER_COST_PER_CARD = 10; 
-    const FIXED_OVERHEAD = 500;
-    
-    // --- PROFIT & COST CONSTANTS (Derived from previous analysis) ---
-    const RECOMMENDED_MARKUP = 1.15; // Base 15% Profit Margin
-    const LOCAL_FREE_SHIPPING_THRESHOLD = 2500; // PKR 2,500
-    
-    // Tiered Profit Multiplier for Wedding Cards based on Quantity
-    const PROFIT_TIERS = [
-        { min: 1, max: 50, multiplier: 1.15 },    
-        { min: 51, max: 100, multiplier: 1.12 },   
-        { min: 101, max: 300, multiplier: 1.10 },  
-        { min: 301, max: 500, multiplier: 1.09 },  
-        { min: 501, max: Infinity, multiplier: 1.09 }, 
-    ];
-
-    function getPrintingChargePerCard(quantity) {
-        if (quantity >= 1 && quantity <= 50) return 18;
-        if (quantity >= 51 && quantity <= 100) return 10;
-        if (quantity >= 101 && quantity <= 300) return 8;
-        if (quantity >= 301 && quantity <= 500) return 6;
-        return 6; 
-    }
-
-    // --- SHIPPING RATE CONFIGURATION ---
-    const SHIPPING_RATES = {
-        'small': { 'Within City': 100, 'Same Province': 347, 'Cross Province': 359 },
-        'medium': { 'Within City': 100, 'Same Province': 529, 'Cross Province': 541 },
-    };
-
-    const LOCAL_SHIPPING_RATES = { // Self-Delivery Rates
-        'small': 150, 
-        'medium': 200, 
-    };
-
-    const CITY_TO_ZONE = {
-        "jalalpur jattan": "Within City", "gujrat": "Same Province", "gujranwala": "Same Province", 
-        "lahore": "Same Province", "sialkot": "Same Province", "karachi": "Cross Province",
-    };
-    let currentShippingZone = 'Within City'; 
-    let currentDeliveryType = 'HomeDelivery'; 
-
-    
-    function getShippingPacketType(productName) {
-        // Wedding cards are typically heavy, classifying as small/medium depends on quantity
-        // Assume 'small' for simplicity in single-item calculation here
-        return 'small'; 
-    }
-
-    function getPostExShippingCost(packetType, zone) {
-        const rates = SHIPPING_RATES[packetType];
-        if (rates && rates[zone]) return rates[zone];
-        return rates['Cross Province']; 
-    }
-    
-    // 🛑 NEW: Function to set and update the delivery type 🛑
-    function setDeliveryType(type, triggerPriceUpdate = true) {
-        currentDeliveryType = type;
-        const shippingZoneSelector = document.getElementById('shipping-zone-selector');
-        
-        // Update the visual state of the choice cards
-        const homeLabel = document.getElementById('delivery-home');
-        const pickupLabel = document.getElementById('delivery-pickup');
-        
-        if (homeLabel) homeLabel.classList.toggle('selected', type === 'HomeDelivery');
-        if (pickupLabel) pickupLabel.classList.toggle('selected', type === 'SelfPickUp');
-        
-        // Show/hide the shipping zone selector based on delivery type
-        if (type === 'SelfPickUp') {
-            shippingZoneSelector.style.display = 'none';
-        } else {
-            shippingZoneSelector.style.display = 'block';
-        }
-        
-        if (triggerPriceUpdate) updateQuantityAndPrice(0);
-    }
-    
-    // --- LOCATION DETECTION LOGIC (Identical to products.html) ---
-
-    function manualLocationCheck() {
-        const cityInput = document.getElementById('input-city').value.trim();
-        if (cityInput.length < 3) return;
-        updateShippingZone(cityInput);
-    }
-
-    function detectLocation() {
-        if (GOOGLE_MAPS_API_KEY === 'YOUR_API_KEY_HERE') {
-            Cart.showAlert("API Key not configured. Cannot auto-detect location.", 'error');
-            return;
-        }
-        document.getElementById('zone-name').textContent = "Detecting...";
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition, showError);
-        } else {
-            Cart.showAlert("Geolocation is not supported by this browser.", 'error');
-        }
-    }
-
-    function showPosition(position) {
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
-        const geocoder = new google.maps.Geocoder();
-        const latlng = { lat: parseFloat(lat), lng: parseFloat(lng) };
-
-        geocoder.geocode({ location: latlng }, (results, status) => {
-            if (status === "OK" && results[0]) {
-                const addressComponents = results[0].address_components;
-                let detectedCity = "";
-
-                addressComponents.forEach(component => {
-                    if (component.types.includes("locality")) {
-                        detectedCity = component.long_name;
-                    }
-                });
-                
-                if (detectedCity) {
-                     document.getElementById('input-city').value = detectedCity;
-                     updateShippingZone(detectedCity);
-                } else {
-                     document.getElementById('zone-name').textContent = "City not found. Defaulting to JLP.";
-                }
-            } else {
-                Cart.showAlert(`Geolocation failed: ${status}`, 'error');
-                document.getElementById('zone-name').textContent = "Detection Failed. Defaulting to JLP.";
-            }
-        });
-    }
-
-    function showError(error) {
-        Cart.showAlert("Error detecting location: " + error.message, 'error');
-        document.getElementById('zone-name').textContent = "Detection Failed. Defaulting to JLP.";
-    }
-
-    function updateShippingZone(cityName) {
-        const normalizedCity = cityName.toLowerCase().replace(/[^a-z0-9]/g, ' ').trim();
-        let zone = 'Cross Province'; 
-        
-        if (CITY_TO_ZONE[normalizedCity]) {
-            zone = CITY_TO_ZONE[normalizedCity];
-        } else {
-            if (cityName.toLowerCase().includes('lahore') || cityName.toLowerCase().includes('gujrat')) {
-                 zone = 'Same Province';
-            }
-        }
-        
-        currentShippingZone = zone;
-        
-        const zoneDisplay = document.getElementById('zone-name');
-        zoneDisplay.textContent = `${currentShippingZone} (${cityName})`;
-        zoneDisplay.classList.remove('text-success', 'text-warning', 'text-danger');
-        zoneDisplay.classList.add(zone === 'Within City' ? 'text-success' : (zone === 'Same Province' ? 'text-warning' : 'text-danger'));
-        
-        updateQuantityAndPrice(0); 
-    }
-    
-    // --- INITIALIZATION AND FETCHING ---
-
-    async function initialAppLoad() {
-        // Inject Google Maps API script
-        const script = document.createElement('script');
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places`;
-        document.head.appendChild(script);
-        
-        let rawData;
-        try {
-            const response = await fetch(PUBLIC_DATA_URL);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            rawData = await response.json(); 
-        } catch (error) {
-            console.error("Failed to load shop data:", error);
-            Cart.showAlert("Failed to load wedding card data. Check console or network.", 'error');
-            return;
-        }
-        
-        initialCardSetup(rawData);
-        loadWeddingCards();
-        
-        const spinner = document.getElementById('loading-spinner');
-        if (spinner) spinner.style.display = 'none';
-        
-        showSection('shop-catalog'); 
-        
-        // Initial setup for delivery/location display
-        setDeliveryType('HomeDelivery', false); // Initialize UI state and default zone
-        document.getElementById('zone-name').textContent = `Jalalpur Jattan (Default)`;
-        document.getElementById('zone-name').classList.add('text-success');
-
-    }
-
-    function initialCardSetup(flatData) {
-        const tieredWeddingData = flatData['Special Occasions (Wedding)'];
-        allProducts = {};
-        const BENCHMARK_QTY = 100;
-
-        if (!tieredWeddingData || Object.keys(tieredWeddingData).length === 0) {
-            document.getElementById('wedding-card-grid').innerHTML = '<p class="alert alert-danger">Error: Wedding card data structure missing from JSON response or empty.</p>';
-            return;
-        }
-
-        Object.keys(tieredWeddingData).forEach(tierName => {
-            const cardsInTier = tieredWeddingData[tierName].cards || {};
-            Object.keys(cardsInTier).forEach(cardName => {
-                const card = cardsInTier[cardName];
-                const rawMaterialCost100 = card.bulkPrice100 || 0; 
-
-                const printingChargePerCard = getPrintingChargePerCard(BENCHMARK_QTY);
-                const totalPrintingCharges = printingChargePerCard * BENCHMARK_QTY;
-                
-                const TOTAL_COST_100_PCS = rawMaterialCost100 + FIXED_OVERHEAD + totalPrintingCharges;
-                
-                const VARIABLE_UNIT_COST = (rawMaterialCost100 + totalPrintingCharges) / BENCHMARK_QTY;
-
-                const requiresInner = card.hasInnerCardOption === true;
-
-                allProducts[cardName] = {
-                    ...card,
-                    cardName: cardName,
-                    category: tierName,
-                    bulkPrice100: TOTAL_COST_100_PCS, 
-                    estimatedUnitCost: VARIABLE_UNIT_COST, 
-                    fixedCost: FIXED_OVERHEAD,
-                    printingChargePerCard: printingChargePerCard,
-                    requiresInnerOption: requiresInner
-                };
-            });
-        });
-    }
-
-
-    // --- PRICING CALCULATION LOGIC (CRITICAL UPDATE) ---
-
-    function calculateFinalPrice(quantity) {
-        if (quantity < 1 || !currentCard) return { error: "No product selected or invalid quantity" };
-        
-        // 1. Calculate Base Product Price (Cost before Shipping/Margin)
-        const rawMaterialUnitCost = currentCard.bulkPrice100 / BULK_QTY - currentCard.fixedCost / BULK_QTY - currentCard.printingChargePerCard; 
-        const actualPrintingCharge = getPrintingChargePerCard(quantity);
-        const unitVariableCost = rawMaterialUnitCost + actualPrintingCharge;
-
-        let totalVariableCost = unitVariableCost * quantity;
-        const innerCost = hasInner ? (INNER_COST_PER_CARD * quantity) : 0;
-        totalVariableCost += innerCost;
-        
-        let multiplier = 1.09; 
-        for (const tier of PROFIT_TIERS) {
-            if (quantity >= tier.min && quantity <= tier.max) {
-                multiplier = tier.multiplier;
-                break;
-            }
-        }
-        
-        const baseProductPrice = Math.round((totalVariableCost * multiplier) + currentCard.fixedCost);
-
-        // 2. Calculate Shipping Cost
-        const packetType = getShippingPacketType(currentCard.cardName);
-        let shippingCost = 0;
-        let finalShippingNote = '';
-
-        if (currentDeliveryType === 'SelfPickUp') {
-            shippingCost = 0;
-            finalShippingNote = 'Self Pick Up. No shipping charges applied.';
-        } else {
-            // Home Delivery Logic
-            if (currentShippingZone === 'Within City') {
-                shippingCost = SHIPPING_RATES[packetType]['Within City'];
-                finalShippingNote = `Local Delivery (Jalalpur Jattan). Flat rate for ${packetType.toUpperCase()} packet.`;
-            } else {
-                // Cross-Province/Same-Province
-                shippingCost = getPostExShippingCost(packetType, currentShippingZone);
-                finalShippingNote = `PostEx Courier (to ${currentShippingZone}). Price includes ${packetType.toUpperCase()} packet charge, fuel surcharge, and GST.`;
-            }
-        }
-
-        const finalPrice = baseProductPrice + shippingCost;
-        
-        return { 
-            baseProductPrice: baseProductPrice, 
-            finalPrice: finalPrice, 
-            shippingCost: shippingCost, 
-            shippingNote: finalShippingNote, 
-            options: { // Item-specific options for the cart
-                'Quantity': quantity,
-                'Inner Card': hasInner ? 'Yes' : 'No',
-                'Design ID': currentCard.cardName
-            }
-        };
-    }
-
-    // --- DISPLAY and UI LOGIC (MODIFIED) ---
-
-    function updateQuantityAndPrice(change = 0) {
-        const input = document.getElementById('input-card-qty');
-        let quantity = parseInt(input.value) || 1; 
-        const MIN_QTY = 1;
-        
-        if (change !== 0) {
-            quantity = Math.max(MIN_QTY, quantity + change);
-        } else {
-             quantity = Math.max(MIN_QTY, quantity);
-        }
-        
-        input.value = quantity;
-        
-        if (currentCard && quantity >= MIN_QTY) {
-            const result = calculateFinalPrice(quantity);
-            
-            if (result.error) {
-                 // Fallback on error
-                 document.getElementById('selectionWarning').textContent = result.error;
-                 document.getElementById('selectionWarning').style.display = 'block';
-                 return;
-            }
-
-            // --- Final Price Box Update ---
-            document.getElementById('finalPriceDisplay').textContent = `PKR ${result.finalPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
-            document.getElementById('finalPriceBox').style.display = 'block';
-            document.getElementById('selectionWarning').style.display = 'none';
-
-            // --- Shipping Display Box Update ---
-            document.getElementById('shipping-cost-display').textContent = result.shippingCost === 0 ? "FREE" : `PKR ${result.shippingCost.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
-            document.getElementById('shipping-note-display').textContent = result.shippingNote;
-            document.getElementById('shipping-display-box').style.display = 'block';
-
-            // 🛑 REMOVED COST BREAKDOWN DISPLAY LINES:
-            /*
-            const bulkPriceDisplay = currentCard.bulkPrice100.toFixed(0);
-            document.getElementById('fixed-cost-display').textContent = `**Total Cost (100 pcs: PKR ${bulkPriceDisplay}) used for calculation. Fixed overhead of ${currentCard.fixedCost} PKR applied after profit.**`;
-            */
-        } else {
-             document.getElementById('finalPriceBox').style.display = 'none';
-             document.getElementById('shipping-display-box').style.display = 'none';
-             document.getElementById('selectionWarning').style.display = 'block';
-        }
-    }
-
-    // 🛑 NEW: Function to Add Item to Cart 🛑
-    function addItemToCart() {
-        if (typeof Cart === 'undefined') {
-            Cart.showAlert('Cart system not loaded.', 'error');
-            return;
-        }
-
-        const quantity = parseInt(document.getElementById('input-card-qty').value) || 0;
-        if (quantity < 1 || !currentCard) {
-            Cart.showAlert('Please select a valid quantity (1 or more) before adding to cart.', 'error');
-            return;
-        }
-        
-        const result = calculateFinalPrice(quantity);
-        
-        if (result.error) {
-            Cart.showAlert('Error adding item: ' + result.error, 'error');
-            return;
-        }
-
-        const cartItem = {
-            id: Date.now(), // Unique ID for this cart item
-            productName: currentCard.cardName,
-            quantity: quantity,
-            basePrice: result.baseProductPrice, 
-            finalItemPrice: result.finalPrice, // Total item price including calculated shipping
-            options: result.options,
-            isAreaBased: false,
-            imageFile: currentCard.galleryImages ? currentCard.galleryImages[0] : currentCard.imageFile || 'img/wedding/placeholder.webp',
-        };
-
-        Cart.addItem(cartItem);
-    }
-    
-    function setInnerSelection(selected, updatePrice = true) {
-        hasInner = selected;
-
-        const yesLabel = document.getElementById('inner-yes');
-        const noLabel = document.getElementById('inner-no');
-        
-        if (yesLabel) yesLabel.classList.toggle('selected', selected);
-        if (noLabel) noLabel.classList.toggle('selected', !selected);
-        
-        if (updatePrice) {
-            updateQuantityAndPrice(0);
-        }
-    }
-
-    function loadWeddingCards() {
-        const categorizedCards = {};
-        Object.values(allProducts).forEach(card => {
-            const category = card.category; 
-            if (!categorizedCards[category]) {
-                categorizedCards[category] = [];
-            }
-            categorizedCards[category].push(card);
-        });
-        
-        let cardHTML = '';
-        let cardGrid = document.getElementById('wedding-card-grid');
-
-        if (Object.keys(categorizedCards).length === 0) {
-             cardGrid.innerHTML = '<p class="alert alert-warning">No card designs are currently available. Please contact us for a custom quote.</p>';
-             return;
-        }
-
-        Object.keys(categorizedCards).forEach(category => {
-            cardHTML += `<h3 class="w-100 pt-5 border-top">${category}</h3>`; 
-
-            categorizedCards[category].forEach(card => {
-                const cardName = card.cardName;
-                const imagePath = card.galleryImages ? card.galleryImages[0] : card.imageFile || 'img/wedding/placeholder.webp'; 
-
-                cardHTML += `
-                    <div class='col-lg-3 col-6 mb-4'>
-                        <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                            <span class='card-price rounded-0'>${cardName}</span> <img src='${imagePath}' onerror="this.onerror=null;this.src='img/wedding/placeholder.webp';" class='w-100' alt='${cardName}'>
-                            <div class="product-footer-overlay p-0">
-                                <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showCardDetails(&quot;${cardName}&quot;)">
-                                    <i class="fas fa-search me-2"></i> View Details
-                                </button>
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div class="row g-4">
+                    <div class="col-lg-4">
+                        <div class="bg-light p-4 rounded">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
+                                    style="width: 60px; height: 60px;">
+                                    <i class="fa fa-map-marker-alt text-primary fs-4"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <h5 class="mb-2">Our Location</h5>
+                                    <p class="mb-0">Domela Chowk,Tanda Road, Jalalpur Jattan</p>
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
+                                    style="width: 60px; height: 60px;">
+                                    <i class="fa fa-phone-alt text-primary fs-4"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <h5 class="mb-2">Call Us</h5>
+                                    <p class="mb-0">+92 300 6238233</p>
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex align-items-center">
+                                <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
+                                    style="width: 60px; height: 60px;">
+                                    <i class="fa fa-envelope text-primary fs-4"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <h5 class="mb-2">Email Us</h5>
+                                    <p class="mb-0">info@arhamprinters.pk</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    `;
-            });
-        });
+                    
+                    <div class="col-lg-8">
+                        <div class="bg-light p-4 rounded">
+                            <form id="contact-form-whatsapp" onsubmit="handleContactSubmission(event)">
+                                <h3 class="mb-4">Send a Direct Message</h3>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border-0" id="contact-name" placeholder="Your Name" required>
+                                            <label for="contact-name">Your Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border-0" id="contact-subject" placeholder="Subject" required>
+                                            <label for="contact-subject">Subject</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <textarea class="form-control border-0" placeholder="Leave a message here" id="contact-message" style="height: 150px" required></textarea>
+                                            <label for="contact-message">Message</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="btn btn-primary w-100 py-3" type="submit">Send Message via WhatsApp</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+           <div class="container-fluid footer py-2">
+            <div class="container py-2">
+                <div class="row g-3">
+                    <div class="col-6 col-md-3">
+                        <div class="rounded p-2 d-flex flex-column align-items-center">
+                            <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto"
+                                style="width: 56px; height: 56px;">
+                                <i class="fas fa-map-marker-alt fa-2x text-primary" style="line-height: 1;"></i>
+                            </div>
+                            <h6 class="text-white mt-1 mb-1">Address</h6>
+                            <p class="text-white fw-bold mb-1 small text-center">Domela Chowk, Tanda Road, Jalalpur Jattan
+                            </p>
+                        </div>
+                    </div>
 
-        cardGrid.innerHTML = cardHTML;
-    }
-    
-    function showCardDetails(cardName) {
-    const cardData = allProducts[cardName];
-    if (!cardData) return;
+                    <div class="col-6 col-md-3">
+                        <div class="rounded p-2 d-flex flex-column align-items-center">
+                            <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto"
+                                style="width: 56px; height: 56px;">
+                                <i class="fas fa-envelope fa-2x text-primary" style="line-height: 1;"></i>
+                            </div>
+                            <h6 class="text-white mt-1 mb-1">Mail Us</h6>
+                            <p class="text-white fw-bold mb-1 small text-center">info@arhamprinters.pk</p>
+                        </div>
+                    </div>
 
-    currentCard = cardData; 
-    
-    const innerOptionGroup = document.getElementById('inner-card-option-group');
+                    <div class="col-6 col-md-3">
+                        <div class="rounded p-2 d-flex flex-column align-items-center">
+                            <a href="https://wa.me/923006238233" target="_blank" class="text-decoration-none">
+                                <div class="rounded-circle bg-success d-flex align-items-center justify-content-center mb-2 mx-auto"
+                                    style="width: 56px; height: 56px;">
+                                    <i class="fab fa-whatsapp fa-2x text-white" style="line-height: 1;"></i>
+                                </div>
+                            </a>
+                            <h6 class="text-white mt-1 mb-1">Direct Contact</h6>
+                            <a href="https://wa.me/923006238233" target="_blank"
+                                class="text-white-50 text-decoration-none">
+                                <p class="text-white fw-bold mb-1 small text-center">+92 300 6238233</p>
+                            </a>
+                        </div>
+                    </div>
 
-    if (currentCard.requiresInnerOption === true) {
-        innerOptionGroup.style.display = 'block';
-        setInnerSelection(false, false); 
-        document.getElementById('inner-yes').classList.remove('selected');
-        document.getElementById('inner-no').classList.add('selected');
-    } else {
-        innerOptionGroup.style.display = 'none';
-        hasInner = false; 
-    }
-    
-    let images = [];
-    if (Array.isArray(currentCard.galleryImages) && currentCard.galleryImages.length > 0) {
-        images = currentCard.galleryImages;
-    } else if (currentCard.imageFile) {
-        images = [currentCard.imageFile];
-    } else {
-        images = ['img/wedding/placeholder.webp'];
-    }
-
-    const carouselInner = document.getElementById('carousel-inner');
-    const carouselIndicators = document.getElementById('carousel-indicators');
-    const imageGalleryContainer = document.getElementById('cardImageGallery');
-    const carouselPrev = imageGalleryContainer.querySelector('.carousel-control-prev');
-    const carouselNext = imageGalleryContainer.querySelector('.carousel-control-next');
-    
-    carouselInner.innerHTML = '';
-    carouselIndicators.innerHTML = '';
-    
-    imageGalleryContainer.classList.remove('carousel', 'slide');
-    if (images.length > 1) {
-        imageGalleryContainer.classList.add('carousel', 'slide');
-        carouselPrev.style.display = 'flex';
-        carouselNext.style.display = 'flex';
-        carouselIndicators.style.display = 'flex';
-    } else {
-        imageGalleryContainer.classList.remove('carousel', 'slide');
-        carouselPrev.style.display = 'none';
-        carouselNext.style.display = 'none';
-        carouselIndicators.style.display = 'none';
-        
-        carouselInner.innerHTML = `
-             <div class="carousel-item active">
-                 <img src="${images[0]}" 
-                      onerror="this.onerror=null;this.src='img/wedding/placeholder.webp';" 
-                      class="d-block w-100 img-fluid rounded-0" 
-                      alt="Card Image" style="max-height: 400px;">
-             </div>`;
-    }
-
-    if (images.length > 1) {
-        images.forEach((imagePath, index) => {
-            const isActive = index === 0 ? 'active' : '';
-            const itemHTML = `
-                <div class="carousel-item ${isActive}">
-                    <img src="${imagePath}" 
-                         onerror="this.onerror=null;this.src='img/wedding/placeholder.webp';" 
-                         class="d-block w-100 img-fluid rounded-0" 
-                         alt="Card Image ${index + 1}" style="max-height: 400px;">
-                </div>`;
-            carouselInner.innerHTML += itemHTML;
-            
-            const indicatorHTML = `
-                <button type="button" data-bs-target="#cardImageGallery" data-bs-slide-to="${index}" 
-                        class="btn btn-sm btn-outline-light ${isActive}" aria-current="${isActive ? 'true' : 'false'}" 
-                        aria-label="Slide ${index + 1}"></button>`;
-            carouselIndicators.innerHTML += indicatorHTML;
-        });
-    }
-
-    document.getElementById('detail-product-name-header').textContent = cardName;
-    document.getElementById('detail-product-name-body').textContent = cardName;
-    document.getElementById('card-description').textContent = currentCard.description; 
-    document.getElementById('input-card-qty').value = 100; 
-    
-    // 🛑 REMOVED COST BREAKDOWN DISPLAY LOGIC ON SHOW DETAILS:
-    /*
-    const bulkPriceDisplay = currentCard.bulkPrice100.toFixed(0);
-    document.getElementById('fixed-cost-display').textContent = `**Total Cost (100 pcs: PKR ${bulkPriceDisplay}) used for calculation. Fixed overhead of ${currentCard.fixedCost} PKR applied after profit.**`;
-    */
-    
-    showSection('product-detail');
-    updateQuantityAndPrice(0); 
-}
-
-    // --- ORDER SUBMISSION AND ALERT FUNCTIONS (MODIFIED) ---
-    
-    // Removed old submitOrder
-    
-    function handleQuoteSubmission(e) {
-        e.preventDefault();
-        const name = document.getElementById('quote-name').value;
-        const phone = document.getElementById('quote-phone').value;
-        const productID = document.getElementById('quote-product').value;
-        const quantity = document.getElementById('quote-quantity').value;
-        const details = document.getElementById('quote-details').value;
-        
-        let whatsappMessage = `*NEW WEDDING CARD QUOTE REQUEST (WEB)*\n`;
-        whatsappMessage += `*Customer:* ${name}\n`;
-        whatsappMessage += `*Phone:* ${phone}\n`;
-        whatsappMessage += `*Product/ID:* ${productID}\n`;
-        whatsappMessage += `*Required Quantity:* ${quantity}\n`;
-        whatsappMessage += `*Details:* ${details}`;
-        
-        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
-        Cart.showAlert('Quote submitted via WhatsApp! We will contact you shortly.', 'success');
-        document.getElementById('quote-form').reset();
-    }
-
-    function showSection(sectionName) {
-        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-        
-        const target = document.getElementById(sectionName + '-section');
-        if(target) target.classList.add('active');
-        else document.getElementById('shop-catalog-section').classList.add('active');
-
-        if (sectionName === 'quote' && currentCard) {
-            document.getElementById('quote-product').value = currentCard.cardName;
-            document.getElementById('quote-quantity').value = 500;
-            document.getElementById('quote-details').value = `I am interested in ${currentCard.cardName}. I require approximately 500 pieces.`;
-        }
-        
-        // Reload cart display on showing cart section
-        if (sectionName === 'cart' && typeof Cart !== 'undefined') {
-            Cart.updateCartDisplay();
-        }
-
-        window.scrollTo(0, 0);
-    }
-    
-    // Use Cart.showAlert instead of local version
-    function showAlert(message, type) {
-        if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
-            Cart.showAlert(message, type);
-        }
-    }
-    
-    document.addEventListener('DOMContentLoaded', initialAppLoad);
-</script>
-</div>
-</body>
-</html>
-
-
+                    <div class="col-6 col-md-3">
+                        <div class="rounded p-2 d-flex flex-column align-items-center">
+                            <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto"
+                                style="width: 56px; height: 56px;">
+                                <i class="fab fa-facebook-f fa-2x text-primary" style="line-height: 1;"></i>
+                            </div>
+                            <h6 class="text-white mt-1 mb-1">Follow Us</h6>
+                            <div class="d-flex justify-content-center gap-1">
+                                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i
+                                        class="fab fa-twitter"></i></a>
+                                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i
+                                        class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i
+                                        class
