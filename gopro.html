@@ -1453,7 +1453,7 @@
             finalShippingNote = `PostEx Courier (to ${currentShippingZone}). Price includes ${packetType.toUpperCase()} packet charge, fuel surcharge, and GST.`;
         }
 
-        // Total Cost = Base Product Price (with profit) + Shipping Cost (without extra profit)
+        // CORRECTED FINAL CALCULATION: Sum product price (with margin) + shipping cost (without extra margin)
         const finalSellingPrice = Math.round(baseProductPrice + shippingCost);
         
         // --- Update UI with Final Selling Price ---
