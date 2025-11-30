@@ -218,7 +218,7 @@
             font-size: 1.5rem;
 }
         /* 4. Content Padding to clear the fixed bottom nav */
-        #shop-catalog-section, #product-detail-section, #quote-section, #contact-section {
+        #shop-catalog-section, #product-detail-section, #quote-section, #contact-section, #cart-section, #checkout-section {
             padding-bottom: calc(var(--mobile-nav-height) + 15px); /* Add space for the bottom navbar */
         }
         
@@ -310,8 +310,9 @@
             </div>
             
             <div class="h-100 d-lg-inline-flex align-items-center">
-                <a class="btn-sm-square bg-white text-primary rounded-circle me-4 position-relative" href="#quote-section" onclick="showSection('quote')">
-                    <i class="fas fa-file-invoice"></i>
+                <a class="btn-sm-square bg-white text-dark rounded-circle me-4 position-relative" href="#cart-section" onclick="showSection('cart')">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="desktop-cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" style="font-size: 0.6em; padding: 4px;">0</span>
                 </a>
                 <a href="#contact-section" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block" onclick="showSection('quote')">Get a Quote<i
                         class="fa fa-arrow-right ms-3"></i></a>
@@ -352,9 +353,10 @@
         <span>Products</span>
     </a>
     
-    <a href="wedding.html" class="mobile-nav-link active" id="mobile-link-wedding">
-        <i class="fas fa-gift"></i>
-        <span>Wedding Cards</span>
+    <a href="#cart-section" class="mobile-nav-link" onclick="showSection('cart')" id="mobile-link-cart">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cart-count" class="position-absolute translate-middle badge rounded-pill bg-primary" style="top: 8px; right: 10px; font-size: 0.7em;">0</span>
+        <span>Cart</span>
     </a>
 </nav>
     
@@ -415,7 +417,7 @@
                                 <label>Quantity (Pieces):</label>
                                 <div class="input-group">
                                     <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityAndPrice(-5)">-5</button>
-                                    <input type="number" id="input-card-qty" min="1" value="1" step="1" class="form-control text-center rounded-0" oninput="updateQuantityAndPrice()">
+                                    <input type="number" id="input-card-qty" min="1" value="1" step="1" class="form-control text-center rounded-0" oninput="updateQuantityAndPrice(0)">
                                     <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityAndPrice(5)">+5</button>
                                 </div>
                                  <small class="text-muted mt-2 d-block">Minimum order: 1 piece. <span id="fixed-cost-display">*</span></small>
@@ -459,8 +461,8 @@
                                 <h5 class="mb-1 text-success">Shipping: <span id="shipping-cost-display" class="fw-bold text-dark">PKR 0</span></h5>
                                 <small id="shipping-note-display" class="d-block text-dark"></small>
                             </div>
-                            <button class="btn btn-primary py-2 px-4 w-100 mt-3 rounded-0" onclick="submitOrder('wedding_card_order')">
-                                <i class="fas fa-envelope me-2"></i> Place Order
+                            <button class="btn btn-success py-2 px-4 w-100 mt-3 rounded-0" onclick="addItemToCart()">
+                                <i class="fas fa-cart-plus me-2"></i> Add to Cart
                             </button>
                         </div>
                         
@@ -473,7 +475,155 @@
         </div>
     </section>
     
-    <section id="quote-section" class="section">
+    <section id="cart-section" class="section">
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6">Your Shopping Cart</h1>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="#" onclick="showSection('shop-catalog')">Products</a></li>
+                <li class="breadcrumb-item active text-white">Cart</li>
+            </ol>
+        </div>
+
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="bg-light p-4 rounded-0 shadow-sm">
+                            <h3 class="mb-4">Items in Cart (<span id="cart-item-count">0</span>)</h3>
+                            <div id="cart-items-list" class="list-group">
+                                <p class="text-muted text-center p-5" id="empty-cart-message">Your cart is empty.</p>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-secondary w-100 py-3 mt-4 rounded-0" onclick="showSection('shop-catalog')" id="continue-shopping-btn">
+                             <i class="fas fa-arrow-left me-2"></i> Continue Shopping
+                        </button>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="bg-white p-4 rounded-0 shadow-lg sticky-top" style="top: 100px;">
+                            <h3 class="mb-4 text-primary">Order Summary</h3>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Subtotal:</span>
+                                <span class="fw-bold" id="cart-subtotal">PKR 0</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-4 border-bottom pb-3">
+                                <span>Delivery:</span>
+                                <span class="fw-bold text-success" id="cart-delivery-cost">PKR 0</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-4">
+                                <h4 class="mb-0">Grand Total:</h4>
+                                <h4 class="mb-0 text-primary" id="cart-grand-total">PKR 0</h4>
+                            </div>
+                            
+                            <div class="product-option-group" data-option-key="CheckoutDeliveryType">
+                                <label><i class="fas fa-truck me-2"></i> Delivery Method:</label>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <label class="choice-card selected" id="checkout-delivery-home" onclick="Cart.setDeliveryType('HomeDelivery')">
+                                        <input type="radio" name="option-CheckoutDeliveryType" value="HomeDelivery" checked>
+                                        <span class="label-text">Home Delivery</span>
+                                    </label>
+                                    <label class="choice-card" id="checkout-delivery-pickup" onclick="Cart.setDeliveryType('SelfPickUp')">
+                                        <input type="radio" name="option-CheckoutDeliveryType" value="SelfPickUp">
+                                        <span class="label-text">Self Pick Up</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                             <div class="product-option-group" id="checkout-shipping-zone-selector">
+                                <label><i class="fas fa-map-marker-alt me-2"></i> Shipping Zone:</label>
+                                <input type="text" id="checkout-input-city" placeholder="Enter City for Shipping" class="form-control rounded-0 mb-2" oninput="Cart.manualLocationCheck()">
+                                <small class="text-muted d-block" id="checkout-current-location-display">
+                                    Zone: <span id="checkout-zone-name" class="fw-bold text-dark">Jalalpur Jattan (Within City)</span>
+                                </small>
+                            </div>
+
+                            <button class="btn btn-primary w-100 py-3 mt-2 rounded-0" onclick="showSection('checkout')">
+                                <i class="fas fa-money-check-alt me-2"></i> Proceed to Checkout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="checkout-section" class="section">
+            <div class="container-fluid page-header py-5">
+                <h1 class="text-center text-white display-6">Final Checkout</h1>
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="#" onclick="showSection('cart')">Cart</a></li>
+                    <li class="breadcrumb-item active text-white">Checkout</li>
+                </ol>
+            </div>
+
+            <div class="container-fluid py-5">
+                <div class="container py-5">
+                    <div class="row g-4 justify-content-center">
+                        <div class="col-lg-10">
+                            <div class="bg-light p-4 rounded-0 shadow-lg">
+                                <h3 class="mb-4">Contact & Payment</h3>
+                                <form id="checkout-form" onsubmit="Cart.handleCheckoutSubmission(event)">
+                                    
+                                    <div class="product-option-group">
+                                        <h4>1. Customer Information</h4>
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control border-0 rounded-0" id="checkout-name" placeholder="Your Name" required>
+                                                    <label for="checkout-name">Your Full Name</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <input type="tel" class="form-control border-0 rounded-0" id="checkout-phone" placeholder="WhatsApp Number" required>
+                                                    <label for="checkout-phone">WhatsApp/Contact Number</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12" id="checkout-address-group">
+                                                <div class="form-floating">
+                                                    <textarea class="form-control border-0 rounded-0" placeholder="Full Address" id="checkout-address" style="height: 80px" required></textarea>
+                                                    <label for="checkout-address">Full Shipping/Collection Address</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-floating">
+                                                    <input type="email" class="form-control border-0 rounded-0" id="checkout-email" placeholder="Email (Optional)">
+                                                    <label for="checkout-email">Email (Optional)</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="product-option-group mt-4">
+                                        <h4>2. Payment Method</h4>
+                                        <div class="d-flex flex-wrap gap-3">
+                                            <label class="choice-card selected" id="payment-cod" onclick="Cart.setPaymentMethod('CashOnDelivery')">
+                                                <input type="radio" name="option-PaymentMethod" value="CashOnDelivery" checked>
+                                                <span class="label-text"><i class="fas fa-hand-holding-usd me-2"></i> Cash on Delivery (COD)</span>
+                                            </label>
+                                            <label class="choice-card" id="payment-bank" onclick="Cart.setPaymentMethod('BankTransfer')">
+                                                <input type="radio" name="option-PaymentMethod" value="BankTransfer">
+                                                <span class="label-text"><i class="fas fa-university me-2"></i> Bank Transfer (Pre-Payment)</span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="alert alert-info mt-4 rounded-0">
+                                        <strong>Order Total:</strong> <span class="fw-bold text-primary" id="checkout-grand-total">PKR 0</span>.
+                                        By clicking "Confirm Order", we will open WhatsApp for final confirmation and processing.
+                                    </div>
+
+                                    <button class="btn btn-success w-100 py-3 mt-2 rounded-0" type="submit">
+                                        <i class="fas fa-check-circle me-2"></i> Confirm Order via WhatsApp
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="quote-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6">Get a Custom Quote</h1>
         </div>
@@ -550,8 +700,7 @@
     <script src="lib/counterup/counterup.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
-
-   <script>
+    <script src="js/cart-manager.js"></script> <script>
     // 🛑 STEP 1: MANDATORY CONFIGURATION 🛑
     const PUBLIC_DATA_URL = 'all_prices.json'; 
     const WHATSAPP_NUMBER = '923006238233'; 
@@ -593,8 +742,8 @@
 
     // --- SHIPPING RATE CONFIGURATION ---
     const SHIPPING_RATES = {
-        'small': { 'Within City': 259, 'Same Province': 347, 'Cross Province': 359 },
-        'medium': { 'Within City': 431, 'Same Province': 529, 'Cross Province': 541 },
+        'small': { 'Within City': 100, 'Same Province': 347, 'Cross Province': 359 },
+        'medium': { 'Within City': 100, 'Same Province': 529, 'Cross Province': 541 },
     };
 
     const LOCAL_SHIPPING_RATES = { // Self-Delivery Rates
@@ -607,9 +756,12 @@
         "lahore": "Same Province", "sialkot": "Same Province", "karachi": "Cross Province",
     };
     let currentShippingZone = 'Within City'; 
+    let currentDeliveryType = 'HomeDelivery'; 
+
     
     function getShippingPacketType(productName) {
-        // Wedding cards are typically heavier than 0.5kg/100 cards, but for safety in this demo:
+        // Wedding cards are typically heavy, classifying as small/medium depends on quantity
+        // Assume 'small' for simplicity in single-item calculation here
         return 'small'; 
     }
 
@@ -617,6 +769,30 @@
         const rates = SHIPPING_RATES[packetType];
         if (rates && rates[zone]) return rates[zone];
         return rates['Cross Province']; 
+    }
+    
+    // 🛑 NEW: Function to set and update the delivery type 🛑
+    function setDeliveryType(type, triggerPriceUpdate = true) {
+        currentDeliveryType = type;
+        const shippingZoneSelector = document.getElementById('shipping-zone-selector');
+        
+        document.querySelectorAll('label.choice-card-inner').forEach(label => {
+            label.classList.remove('selected');
+        });
+        
+        const homeLabel = document.getElementById('delivery-home');
+        const pickupLabel = document.getElementById('delivery-pickup');
+        
+        if (homeLabel) homeLabel.classList.toggle('selected', type === 'HomeDelivery');
+        if (pickupLabel) pickupLabel.classList.toggle('selected', type === 'SelfPickUp');
+        
+        if (type === 'SelfPickUp') {
+            shippingZoneSelector.style.display = 'none';
+        } else {
+            shippingZoneSelector.style.display = 'block';
+        }
+        
+        if (triggerPriceUpdate) updateQuantityAndPrice(0);
     }
     
     // --- LOCATION DETECTION LOGIC (Identical to products.html) ---
@@ -629,14 +805,14 @@
 
     function detectLocation() {
         if (GOOGLE_MAPS_API_KEY === 'YOUR_API_KEY_HERE') {
-            showAlert("API Key not configured. Cannot auto-detect location.", 'error');
+            Cart.showAlert("API Key not configured. Cannot auto-detect location.", 'error');
             return;
         }
         document.getElementById('zone-name').textContent = "Detecting...";
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition, showError);
         } else {
-            showAlert("Geolocation is not supported by this browser.", 'error');
+            Cart.showAlert("Geolocation is not supported by this browser.", 'error');
         }
     }
 
@@ -664,14 +840,14 @@
                      document.getElementById('zone-name').textContent = "City not found. Defaulting to JLP.";
                 }
             } else {
-                showAlert(`Geolocation failed: ${status}`, 'error');
+                Cart.showAlert(`Geolocation failed: ${status}`, 'error');
                 document.getElementById('zone-name').textContent = "Detection Failed. Defaulting to JLP.";
             }
         });
     }
 
     function showError(error) {
-        showAlert("Error detecting location: " + error.message, 'error');
+        Cart.showAlert("Error detecting location: " + error.message, 'error');
         document.getElementById('zone-name').textContent = "Detection Failed. Defaulting to JLP.";
     }
 
@@ -714,7 +890,7 @@
             rawData = await response.json(); 
         } catch (error) {
             console.error("Failed to load shop data:", error);
-            showAlert("Failed to load wedding card data. Check console or network.", 'error');
+            Cart.showAlert("Failed to load wedding card data. Check console or network.", 'error');
             return;
         }
         
@@ -727,6 +903,7 @@
         showSection('shop-catalog'); 
         
         // Initial setup for location display
+        setDeliveryType('HomeDelivery', false); // Initialize UI state and default zone
         document.getElementById('zone-name').textContent = `Jalalpur Jattan (Default)`;
         document.getElementById('zone-name').classList.add('text-success');
 
@@ -775,7 +952,7 @@
     // --- PRICING CALCULATION LOGIC (CRITICAL UPDATE) ---
 
     function calculateFinalPrice(quantity) {
-        if (quantity < 1 || !currentCard) return { price: 0, shippingCost: 0, totalCost: 0 };
+        if (quantity < 1 || !currentCard) return { error: "No product selected or invalid quantity" };
         
         // 1. Calculate Base Product Price (Cost before Shipping/Margin)
         const rawMaterialUnitCost = currentCard.bulkPrice100 / BULK_QTY - currentCard.fixedCost / BULK_QTY - currentCard.printingChargePerCard; 
@@ -798,26 +975,37 @@
 
         // 2. Calculate Shipping Cost
         const packetType = getShippingPacketType(currentCard.cardName);
-        let shippingCost = getPostExShippingCost(packetType, currentShippingZone);
+        let shippingCost = 0;
         let finalShippingNote = '';
 
-        // --- LOCAL SELF-DELIVERY OVERRIDE LOGIC ---
-        if (currentShippingZone === 'Within City') {
-            if (baseProductPrice >= LOCAL_FREE_SHIPPING_THRESHOLD) {
-                shippingCost = 0;
-                finalShippingNote = `FREE Delivery! (Local JLP orders over PKR ${LOCAL_FREE_SHIPPING_THRESHOLD.toLocaleString('en-PK')})`;
-            } else {
-                shippingCost = LOCAL_SHIPPING_RATES[packetType] || 0;
-                finalShippingNote = `Local Flat Rate (Self-Delivery). Price includes ${packetType.toUpperCase()} packet charge.`;
-            }
+        if (currentDeliveryType === 'SelfPickUp') {
+            shippingCost = 0;
+            finalShippingNote = 'Self Pick Up. No shipping charges applied.';
         } else {
-            // Cross-Province/Same-Province
-            finalShippingNote = `PostEx Courier (to ${currentShippingZone}). Price includes ${packetType.toUpperCase()} packet charge, fuel surcharge, and GST.`;
+            // Home Delivery Logic
+            if (currentShippingZone === 'Within City') {
+                shippingCost = SHIPPING_RATES[packetType]['Within City'];
+                finalShippingNote = `Local Delivery (Jalalpur Jattan). Flat rate for ${packetType.toUpperCase()} packet.`;
+            } else {
+                // Cross-Province/Same-Province
+                shippingCost = getPostExShippingCost(packetType, currentShippingZone);
+                finalShippingNote = `PostEx Courier (to ${currentShippingZone}). Price includes ${packetType.toUpperCase()} packet charge, fuel surcharge, and GST.`;
+            }
         }
 
         const finalPrice = baseProductPrice + shippingCost;
         
-        return { price: finalPrice, shippingCost: shippingCost, baseProductPrice: baseProductPrice, shippingNote: finalShippingNote };
+        return { 
+            baseProductPrice: baseProductPrice, 
+            finalPrice: finalPrice, 
+            shippingCost: shippingCost, 
+            shippingNote: finalShippingNote, 
+            options: { // Item-specific options for the cart
+                'Quantity': quantity,
+                'Inner Card': hasInner ? 'Yes' : 'No',
+                'Design ID': currentCard.cardName
+            }
+        };
     }
 
     // --- DISPLAY and UI LOGIC (MODIFIED) ---
@@ -838,8 +1026,15 @@
         if (currentCard && quantity >= MIN_QTY) {
             const result = calculateFinalPrice(quantity);
             
+            if (result.error) {
+                 // Fallback on error
+                 document.getElementById('selectionWarning').textContent = result.error;
+                 document.getElementById('selectionWarning').style.display = 'block';
+                 return;
+            }
+
             // --- Final Price Box Update ---
-            document.getElementById('finalPriceDisplay').textContent = `PKR ${result.price.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
+            document.getElementById('finalPriceDisplay').textContent = `PKR ${result.finalPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
             document.getElementById('finalPriceBox').style.display = 'block';
             document.getElementById('selectionWarning').style.display = 'none';
 
@@ -851,11 +1046,6 @@
             const bulkPriceDisplay = currentCard.bulkPrice100.toFixed(0);
             document.getElementById('fixed-cost-display').textContent = `**Total Cost (100 pcs: PKR ${bulkPriceDisplay}) used for calculation. Fixed overhead of ${currentCard.fixedCost} PKR applied after profit.**`;
 
-            currentCard.totalPrice = result.price;
-            currentCard.quantity = quantity;
-            currentCard.hasInner = hasInner; 
-            document.getElementById('quote-product').value = `${currentCard.cardName} (${quantity} pcs)`;
-
         } else {
              document.getElementById('finalPriceBox').style.display = 'none';
              document.getElementById('shipping-display-box').style.display = 'none';
@@ -863,6 +1053,40 @@
         }
     }
 
+    // 🛑 NEW: Function to Add Item to Cart 🛑
+    function addItemToCart() {
+        if (typeof Cart === 'undefined') {
+            Cart.showAlert('Cart system not loaded.', 'error');
+            return;
+        }
+
+        const quantity = parseInt(document.getElementById('input-card-qty').value) || 0;
+        if (quantity < 1 || !currentCard) {
+            Cart.showAlert('Please select a valid quantity (1 or more) before adding to cart.', 'error');
+            return;
+        }
+        
+        const result = calculateFinalPrice(quantity);
+        
+        if (result.error) {
+            Cart.showAlert('Error adding item: ' + result.error, 'error');
+            return;
+        }
+
+        const cartItem = {
+            id: Date.now(), // Unique ID for this cart item
+            productName: currentCard.cardName,
+            quantity: quantity,
+            basePrice: result.baseProductPrice, 
+            finalItemPrice: result.finalPrice, // Total item price including calculated shipping
+            options: result.options,
+            isAreaBased: false,
+            imageFile: currentCard.galleryImages ? currentCard.galleryImages[0] : currentCard.imageFile || 'img/wedding/placeholder.webp',
+        };
+
+        Cart.addItem(cartItem);
+    }
+    
     function setInnerSelection(selected, updatePrice = true) {
         hasInner = selected;
 
@@ -1009,46 +1233,10 @@
     updateQuantityAndPrice(0); 
 }
 
-    // --- ORDER SUBMISSION AND ALERT FUNCTIONS (Retained) ---
+    // --- ORDER SUBMISSION AND ALERT FUNCTIONS (MODIFIED) ---
     
-    async function submitOrder(type) {
-        if (!currentCard || currentCard.totalPrice === 0) {
-             showAlert('Please select a valid quantity before placing an order.', 'error');
-             return;
-        }
-
-        const total = document.getElementById('finalPriceDisplay').textContent;
-        const innerStatus = currentCard.hasInner ? `Yes (+${INNER_COST_PER_CARD} PKR/pc)` : 'No (Standard Card)';
-        
-        const formData = {
-            order_type: type,
-            product_name: currentCard.cardName,
-            quantity: currentCard.quantity,
-            total_price: total,
-            inner_card_status: innerStatus,
-        };
-
-        showAlert('Sending order details to server...', 'info');
-
-        try {
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            });
-
-            if (response.ok) {
-                showAlert('Order details successfully submitted! We will contact you via email shortly.', 'success');
-            } else {
-                showAlert('Server error during submission. Please try the WhatsApp quote option instead.', 'error');
-            }
-        } catch (error) {
-            console.error('Submission failed:', error);
-            showAlert('Network error. Please try the WhatsApp quote option instead.', 'error');
-        }
-    }
-
-
+    // Removed old submitOrder
+    
     function handleQuoteSubmission(e) {
         e.preventDefault();
         const name = document.getElementById('quote-name').value;
@@ -1065,44 +1253,36 @@
         whatsappMessage += `*Details:* ${details}`;
         
         window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
-        showAlert('Quote submitted via WhatsApp! We will contact you shortly.', 'success');
+        Cart.showAlert('Quote submitted via WhatsApp! We will contact you shortly.', 'success');
         document.getElementById('quote-form').reset();
     }
 
-    function showSection(sectionName, productName = "", price = 0) {
+    function showSection(sectionName) {
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         
         const target = document.getElementById(sectionName + '-section');
         if(target) target.classList.add('active');
         else document.getElementById('shop-catalog-section').classList.add('active');
 
-        if (sectionName === 'quote' && productName) {
-            document.getElementById('quote-product').value = productName;
+        if (sectionName === 'quote' && currentCard) {
+            document.getElementById('quote-product').value = currentCard.cardName;
             document.getElementById('quote-quantity').value = 500;
-            document.getElementById('quote-details').value = `I am interested in ${productName}. I require approximately 500 pieces.`;
+            document.getElementById('quote-details').value = `I am interested in ${currentCard.cardName}. I require approximately 500 pieces.`;
         }
         
+        // Reload cart display on showing cart section
+        if (sectionName === 'cart' && typeof Cart !== 'undefined') {
+            Cart.updateCartDisplay();
+        }
+
         window.scrollTo(0, 0);
     }
     
+    // Use Cart.showAlert instead of local version
     function showAlert(message, type) {
-        const alert = document.createElement('div');
-        alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
-        alert.style.top = '20px';
-        alert.style.right = '20px';
-        alert.style.zIndex = '9999';
-        alert.style.minWidth = '300px';
-        alert.innerHTML = `
-            ${message}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        `;
-        document.body.appendChild(alert);
-        
-        setTimeout(() => {
-            if (alert.parentNode) {
-                alert.parentNode.removeChild(alert);
-            }
-        }, 5000);
+        if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
+            Cart.showAlert(message, type);
+        }
     }
     
     document.addEventListener('DOMContentLoaded', initialAppLoad);
