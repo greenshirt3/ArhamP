@@ -1011,6 +1011,14 @@
 <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 <script src="js/main.js"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/waypoints/waypoints.min.js"></script>
+<script src="lib/counterup/counterup.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="js/main.js"></script>
+
 <script>
     // 🛑 STEP 1: MANDATORY CONFIGURATION 🛑
     const PUBLIC_DATA_URL = 'all_prices.json'; 
@@ -1031,18 +1039,19 @@
     let currentDeliveryOption = 'Self Pickup'; // New state variable
 
     // --- Corrected Shipping Rate Configuration ---
+    // These are the accurate PostEx courier rates (Base Rate + 15% Fuel & 16% GST)
     const SHIPPING_RATES = {
-        'small': { 
+        'small': { // Up to 0.5 kg: Cards, Prints, Small Stickers
             'Within City': 259, 
             'Same Province': 347,
             'Cross Province': 359
         },
-        'medium': { 
+        'medium': { // 0.5 kg to 1.0 kg: Mugs, T-shirts, Letterpads, Bill Books
             'Within City': 431, 
             'Same Province': 529,
             'Cross Province': 541
         },
-        'overland': { 
+        'overland': { // Min 3.0 kg: Banners, Large Frames
             'Within City': 1254, 
             'Same Province': 1254,
             'Cross Province': 1254
@@ -1252,26 +1261,16 @@
         const catalogContainer = document.getElementById('main-product-catalog');
         if (!catalogContainer) return;
         
-        // This is a simplified replacement. In production, you would rebuild the HTML structure
-        // with the H3 categories inside the loop. For now, we clear and rebuild the cards only.
-        
-        // Get all unique categories (Business & Office, Marketing, etc.)
-        const categorizedProducts = {};
-        Object.keys(allProductGroups).forEach(productKey => {
-            const product = allProductGroups[productKey];
-            const category = product.mainCategory;
-            if (!categorizedProducts[category]) {
-                categorizedProducts[category] = [];
-            }
-            categorizedProducts[category].push(product);
-        });
-
         let productHTML = '';
         
         const categoryOrder = ["Business & Office Essentials", "Marketing & Promotional Items", "Custom & Large Format", "B/W and Color Prints", "Special Occasions (Wedding)"];
 
+        catalogContainer.innerHTML = ''; // Clear hardcoded content
+
         categoryOrder.forEach(categoryKey => {
-            const products = categorizedProducts[categoryKey];
+            // Find products belonging to this category
+            const products = Object.values(allProductGroups).filter(p => p.mainCategory === categoryKey);
+            
             if (!products || products.length === 0) return;
 
             productHTML += `<h3 class="w-100 pt-3" id="${categoryKey.toLowerCase().replace(/[^a-z0-9]/g, '-')}">${categoryKey}</h3>`;
@@ -1281,21 +1280,25 @@
                 const imagePath = product.imageFile;
                 let buttonHTML = '';
                 
-                // Special handling for the Print Order page link (goprint.html) and Wedding Cards
+                let buttonClass = 'btn-primary';
+                if (cleanName === 'Digital Print (Tiered)' || cleanName === 'Custom Prints') {
+                    buttonClass = 'btn-secondary';
+                }
+
                 if (cleanName === 'Digital Print (Tiered)') {
-                     buttonHTML = `<button class="btn btn-secondary w-100 rounded-0 p-3" onclick="showProductDetails('Digital Print (Tiered)')">
+                     buttonHTML = `<button class="btn ${buttonClass} w-100 rounded-0 p-3" onclick="showProductDetails('Digital Print (Tiered)')">
                                       <i class="fas fa-calculator me-2"></i> View Price Calculator
                                   </button>`;
                 } else if (cleanName === 'Custom Prints') {
-                     buttonHTML = `<button class="btn btn-secondary w-100 rounded-0 p-3" onclick="showProductDetails('Custom Prints')">
+                     buttonHTML = `<button class="btn ${buttonClass} w-100 rounded-0 p-3" onclick="showProductDetails('Custom Prints')">
                                       <i class="fas fa-calculator me-2"></i> View Price Calculator
                                   </button>`;
                 } else if (categoryKey === "Special Occasions (Wedding)") {
-                     buttonHTML = `<a class="btn btn-primary w-100 rounded-0 p-3" href="wedding.html">
+                     buttonHTML = `<a class="btn ${buttonClass} w-100 rounded-0 p-3" href="wedding.html">
                                       <i class="fas fa-gift me-2"></i> View Wedding Catalog
                                   </a>`;
                 } else {
-                    buttonHTML = `<button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('${cleanName}')">
+                    buttonHTML = `<button class="btn ${buttonClass} w-100 rounded-0 p-3" onclick="showProductDetails('${cleanName}')">
                                       <i class="fas fa-search me-2"></i> ${product.baseName}
                                   </button>`;
                 }
@@ -1303,7 +1306,7 @@
                 productHTML += `
                     <div class='col-lg-3 col-6 mb-4'>
                         <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                            <img src='img/products/${imagePath}.webp' onerror="this.onerror=null;this.src='img/products/${imagePath}.png';" class='w-100' alt='${cleanName}'>
+                            <img src='img/products/${imagePath}.webp' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='w-100' alt='${cleanName}'>
                             <div class="product-footer-overlay p-0">
                                 ${buttonHTML}
                             </div>
@@ -1313,8 +1316,6 @@
             });
         });
 
-        // The user's original HTML already includes the structure, so we just inject the dynamic cards.
-        // We replace the entire content for clean re-rendering.
         catalogContainer.innerHTML = productHTML; 
     }
 
@@ -1560,6 +1561,7 @@
         }
 
         // FINAL CALCULATION: Sum product price (with profit) + shipping cost (without extra profit)
+        // Since baseProductPrice already includes the profit margin, we only add the shipping cost.
         const finalSellingPrice = Math.round(baseProductPrice + shippingCost);
         
         // --- Update UI with Final Selling Price ---
