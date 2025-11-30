@@ -571,26 +571,28 @@
                                                 <input type="radio" name="option-PaymentMethod" value="CashOnDelivery" checked>
                                                 <span class="label-text"><i class="fas fa-hand-holding-usd me-2"></i> Cash on Delivery (COD)</span>
                                             </label>
-                                        </div>
-                                    </div>
-                                            <div id="raast-qr-display" class="product-option-group mt-4 p-4 text-center bg-white border border-success" style="display: none;">
-    <h4><i class="fas fa-qrcode me-2 text-success"></i> Instant Payment via Raast</h4>
-    <p class="text-muted">Scan the QR code with any Raast-enabled banking app to pay the exact amount instantly. The Grand Total is automatically embedded.</p>
-    
-    <div class="d-flex justify-content-center">
-        <img src="img/raast_qr_placeholder.png" id="raast-qr-image" alt="Raast QR Code" style="width: 200px; height: 200px; border: 5px solid #28a745;">
-    </div>
-    
-    <p class="fw-bold mt-3">Grand Total: <span id="raast-qr-amount" class="text-primary">PKR 0</span></p>
-    <small class="text-success d-block">This payment method requires instant confirmation via WhatsApp after scanning.</small>
-</div>
+                                            <label class="choice-card" id="payment-bank" onclick="Cart.setPaymentMethod('BankTransfer')">
+                                                <input type="radio" name="option-PaymentMethod" value="BankTransfer">
+                                                <span class="label-text"><i class="fas fa-university me-2"></i> Bank Transfer (Pre-Payment)</span>
+                                            </label>
                                             <label class="choice-card" id="payment-raast" onclick="Cart.setPaymentMethod('RaastQR')">
-            <input type="radio" name="option-PaymentMethod" value="RaastQR">
-            <span class="label-text"><i class="fas fa-qrcode me-2"></i> Raast QR (Instant Pay)</span>
-        </label>
+                                                <input type="radio" name="option-PaymentMethod" value="RaastQR">
+                                                <span class="label-text"><i class="fas fa-qrcode me-2"></i> Raast QR (Instant Pay)</span>
+                                            </label>
                                         </div>
                                     </div>
 
+                                    <div id="raast-qr-display" class="product-option-group mt-4 p-4 text-center bg-white border border-success" style="display: none;">
+                                        <h4><i class="fas fa-qrcode me-2 text-success"></i> Instant Payment via Raast</h4>
+                                        <p class="text-muted">Scan the QR code with any Raast-enabled banking app to pay the exact amount instantly. The Grand Total is automatically embedded.</p>
+                                        
+                                        <div class="d-flex justify-content-center">
+                                            <img src="img/raast_qr_placeholder.png" id="raast-qr-image" alt="Raast QR Code" style="width: 200px; height: 200px; border: 5px solid #28a745;">
+                                        </div>
+                                        
+                                        <p class="fw-bold mt-3">Grand Total: <span id="raast-qr-amount" class="text-primary">PKR 0</span></p>
+                                        <small class="text-success d-block">This payment method requires instant confirmation via WhatsApp after scanning.</small>
+                                    </div>
                                     <div class="alert alert-info mt-4 rounded-0">
                                         <strong>Order Total:</strong> <span class="fw-bold text-primary" id="checkout-grand-total">PKR 0</span>.
                                         By clicking "Confirm Order", we will open WhatsApp for final confirmation and processing.
@@ -957,4 +959,3 @@
 
 
 </html>
-
