@@ -12,6 +12,7 @@ const Cart = (() => {
     const WHATSAPP_NUMBER = '923006238233'; 
 
     // --- Configuration (Duplicated for standalone manager access) ---
+    const LOCAL_FREE_SHIPPING_THRESHOLD = 3000;
     const SHIPPING_RATES = {
         'small': { 'Within City': 100, 'Same Province': 347, 'Cross Province': 359 },
         'medium': { 'Within City': 100, 'Same Province': 529, 'Cross Province': 541 },
