@@ -1,4 +1,4 @@
-// 
+//
 // File: js/cart-manager.js
 // Core logic for managing the shopping cart state and UI interactions.
 //
@@ -12,7 +12,9 @@ const Cart = (() => {
     const WHATSAPP_NUMBER = '923006238233'; 
 
     // --- Configuration (Duplicated for standalone manager access) ---
+    // 🛑 NEW/MODIFIED: Set the free shipping threshold 🛑
     const LOCAL_FREE_SHIPPING_THRESHOLD = 3000;
+    
     const SHIPPING_RATES = {
         'small': { 'Within City': 100, 'Same Province': 347, 'Cross Province': 359 },
         'medium': { 'Within City': 100, 'Same Province': 529, 'Cross Province': 541 },
@@ -27,6 +29,7 @@ const Cart = (() => {
         "sukkur": "Cross Province"
     };
     
+    // NOTE: LOCAL_DELIVERY_COST is not used in the new logic and can be ignored/removed later if desired.
     const LOCAL_DELIVERY_COST = 100; // Flat local rate
 
     // ----------------------------------------------------
@@ -62,9 +65,15 @@ const Cart = (() => {
         } else {
             // Home Delivery Logic
             if (currentShippingZone === 'Within City') {
-                // Flat local rate for JLP Home Delivery
-                shippingCost = SHIPPING_RATES[totalWeightGroup]['Within City'];
-                shippingNote = `Local Delivery (Jalalpur Jattan). Flat rate for ${totalWeightGroup.toUpperCase()} zone.`;
+                // 🛑 MODIFIED LOGIC: Check cart subtotal for free shipping threshold 🛑
+                if (subtotal > LOCAL_FREE_SHIPPING_THRESHOLD) {
+                    shippingCost = 0;
+                    shippingNote = `FREE Delivery! (Local JLP orders over PKR ${LOCAL_FREE_SHIPPING_THRESHOLD.toLocaleString('en-PK')})`;
+                } else {
+                    // Apply the flat local rate if the subtotal is below the threshold
+                    shippingCost = SHIPPING_RATES[totalWeightGroup]['Within City'];
+                    shippingNote = `Local Delivery (Jalalpur Jattan). Flat rate for ${totalWeightGroup.toUpperCase()} zone.`;
+                }
             } else {
                 // PostEx rates for outside JLP
                 shippingCost = SHIPPING_RATES[totalWeightGroup][currentShippingZone] || SHIPPING_RATES[totalWeightGroup]['Cross Province'];
@@ -317,7 +326,10 @@ const Cart = (() => {
         saveCart();
         
         showAlert('Order initiated! Please complete your order details on WhatsApp.', 'success');
-        showSection('home');
+        // Assuming 'home' is a valid section/route across all pages
+        if (typeof showSection === 'function') {
+            showSection('home');
+        }
     };
 
 
