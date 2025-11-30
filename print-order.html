@@ -531,6 +531,8 @@
         } 
         window.scrollTo(0, 0);
 
+        // NOTE: The active class logic will mostly be handled by checking the URL 
+        // in other files, but setting the active status here for local visual feedback.
         if (typeof setActiveMobileNav === 'function') {
             setActiveMobileNav(sectionName);
         }
@@ -936,5 +938,3 @@
     </script>
 </body>
 </html>
-
-
