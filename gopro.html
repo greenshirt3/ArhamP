@@ -223,7 +223,7 @@
             font-size: 1.5rem;
 }
         /* 4. Content Padding to clear the fixed bottom nav */
-        #shop-catalog-section, #product-detail-section, #quote-section, #contact-section {
+        #shop-catalog-section, #product-detail-section, #quote-section, #contact-section, #cart-section, #checkout-section {
             padding-bottom: calc(var(--mobile-nav-height) + 15px); /* Add space for the bottom navbar */
         }
         
@@ -316,8 +316,9 @@
             </div>
             
             <div class="h-100 d-lg-inline-flex align-items-center">
-                <a class="btn-sm-square bg-white text-primary rounded-circle me-4 position-relative" href="#quote-section" onclick="showSection('quote')">
-                    <i class="fas fa-file-invoice"></i>
+                <a class="btn-sm-square bg-white text-dark rounded-circle me-4 position-relative" href="#cart-section" onclick="showSection('cart')">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="desktop-cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" style="font-size: 0.6em; padding: 4px;">0</span>
                 </a>
                 <a href="#contact-section" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block" onclick="showSection('quote')">Get a Quote<i
                         class="fa fa-arrow-right ms-3"></i></a>
@@ -358,9 +359,10 @@
         <span>Products</span>
     </a>
     
-    <a href="wedding.html" class="mobile-nav-link" id="mobile-link-wedding">
-        <i class="fas fa-gift"></i>
-        <span>Wedding Cards</span>
+    <a href="#cart-section" class="mobile-nav-link" onclick="showSection('cart')" id="mobile-link-cart">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cart-count" class="position-absolute translate-middle badge rounded-pill bg-primary" style="top: 8px; right: 10px; font-size: 0.7em;">0</span>
+        <span>Cart</span>
     </a>
 </nav>
     
@@ -450,7 +452,7 @@
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
                         <img src='img/products/stamps.webp' onerror="this.onerror=null;this.src='img/products/stamps.png';" class='w-100' alt='Rubber Stamps'>
                         <div class="product-footer-overlay p-0">
-                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Rubber Stamps')">
+                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Rubber Stamp (Rectangular)')">
                                 <i class="fas fa-search me-2"></i> Rubber Stamps
                             </button>
                         </div>
@@ -560,7 +562,7 @@
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
                         <img src='img/products/vision.webp' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='w-100' alt='OneVision Banner'>
                         <div class="product-footer-overlay p-0">
-                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('OneVision')">
+                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('One Vision Pasting Sticker')">
                                 <i class="fas fa-search me-2"></i> OneVision (Area)
                             </button>
                         </div>
@@ -570,7 +572,7 @@
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
                         <img src='img/products/placeholder.png' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='w-100' alt='Venyl Sticker'>
                         <div class="product-footer-overlay p-0">
-                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Venyl')">
+                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Venyl Pasting Sticker')">
                                 <i class="fas fa-search me-2"></i> Venyl (Area)
                             </button>
                         </div>
@@ -648,7 +650,7 @@
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
                         <img src='img/products/print.webp' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='w-100' alt='Custom Prints'>
                         <div class="product-footer-overlay p-0">
-                            <button class="btn btn-secondary w-100 rounded-0 p-3" onclick="showProductDetails('Custom Prints')">
+                            <button class="btn btn-secondary w-100 rounded-0 p-3" onclick="showProductDetails('Digital Print (Tiered)')">
                                 <i class="fas fa-calculator me-2"></i> View Price Calculator
                             </button>
                         </div>
@@ -725,7 +727,7 @@
 
                         <div id="standard-options-fields">
                             </div>
-
+                        
                         <div class="product-option-group mt-4" data-option-key="DeliveryType">
                             <label><i class="fas fa-truck me-2"></i> <strong>Choose Delivery Method:</strong></label>
                             <div class="d-flex flex-wrap gap-3">
@@ -735,7 +737,7 @@
                                 </label>
                                 <label class="choice-card" id="delivery-pickup" onclick="setDeliveryType('SelfPickUp')">
                                     <input type="radio" name="option-DeliveryType" value="SelfPickUp">
-                                    <span class="label-text">Self Pick Up (No Shipping Charges)</span>
+                                    <span class="label-text">Self Pick Up (No Shipping)</span>
                                 </label>
                             </div>
                         </div>
@@ -754,15 +756,15 @@
                             </small>
                         </div>
                         <div class="final-price-box" id="finalPriceBox">
-                            <h4 class="mb-2">Final Price (PKR)</h4>
+                            <h4 class="mb-2">Total Price (PKR)</h4>
                             <h3 class="display-6 fw-bold" id="finalPriceDisplay">PKR 0</h3>
                             
                             <div class="alert alert-light mt-3 p-3 rounded-0" id="shipping-display-box" style="display: none;">
                                 <h5 class="mb-1 text-success">Shipping: <span id="shipping-cost-display" class="fw-bold text-dark">PKR 0</span></h5>
                                 <small id="shipping-note-display" class="d-block text-dark"></small>
                             </div>
-                            <button class="btn btn-primary py-2 px-4 w-100 mt-3" onclick="submitOrder('product_order')">
-                                <i class="fas fa-envelope me-2"></i> Place Order
+                            <button class="btn btn-success py-2 px-4 w-100 mt-3" onclick="addItemToCart()">
+                                <i class="fas fa-cart-plus me-2"></i> Add to Cart
                             </button>
                         </div>
                         
@@ -775,7 +777,155 @@
         </div>
     </section>
     
-    <section id="quote-section" class="section">
+    <section id="cart-section" class="section">
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6">Your Shopping Cart</h1>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="#" onclick="showSection('shop-catalog')">Products</a></li>
+                <li class="breadcrumb-item active text-white">Cart</li>
+            </ol>
+        </div>
+
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="bg-light p-4 rounded-0 shadow-sm">
+                            <h3 class="mb-4">Items in Cart (<span id="cart-item-count">0</span>)</h3>
+                            <div id="cart-items-list" class="list-group">
+                                <p class="text-muted text-center p-5" id="empty-cart-message">Your cart is empty.</p>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-secondary w-100 py-3 mt-4 rounded-0" onclick="showSection('shop-catalog')" id="continue-shopping-btn">
+                             <i class="fas fa-arrow-left me-2"></i> Continue Shopping
+                        </button>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="bg-white p-4 rounded-0 shadow-lg sticky-top" style="top: 100px;">
+                            <h3 class="mb-4 text-primary">Order Summary</h3>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Subtotal:</span>
+                                <span class="fw-bold" id="cart-subtotal">PKR 0</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-4 border-bottom pb-3">
+                                <span>Delivery:</span>
+                                <span class="fw-bold text-success" id="cart-delivery-cost">PKR 0</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-4">
+                                <h4 class="mb-0">Grand Total:</h4>
+                                <h4 class="mb-0 text-primary" id="cart-grand-total">PKR 0</h4>
+                            </div>
+                            
+                            <div class="product-option-group" data-option-key="CheckoutDeliveryType">
+                                <label><i class="fas fa-truck me-2"></i> Delivery Method:</label>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <label class="choice-card selected" id="checkout-delivery-home" onclick="Cart.setDeliveryType('HomeDelivery')">
+                                        <input type="radio" name="option-CheckoutDeliveryType" value="HomeDelivery" checked>
+                                        <span class="label-text">Home Delivery</span>
+                                    </label>
+                                    <label class="choice-card" id="checkout-delivery-pickup" onclick="Cart.setDeliveryType('SelfPickUp')">
+                                        <input type="radio" name="option-CheckoutDeliveryType" value="SelfPickUp">
+                                        <span class="label-text">Self Pick Up</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                             <div class="product-option-group" id="checkout-shipping-zone-selector">
+                                <label><i class="fas fa-map-marker-alt me-2"></i> Shipping Zone:</label>
+                                <input type="text" id="checkout-input-city" placeholder="Enter City for Shipping" class="form-control rounded-0 mb-2" oninput="Cart.manualLocationCheck()">
+                                <small class="text-muted d-block" id="checkout-current-location-display">
+                                    Zone: <span id="checkout-zone-name" class="fw-bold text-dark">Jalalpur Jattan (Within City)</span>
+                                </small>
+                            </div>
+
+                            <button class="btn btn-primary w-100 py-3 mt-2 rounded-0" onclick="showSection('checkout')">
+                                <i class="fas fa-money-check-alt me-2"></i> Proceed to Checkout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="checkout-section" class="section">
+            <div class="container-fluid page-header py-5">
+                <h1 class="text-center text-white display-6">Final Checkout</h1>
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="#" onclick="showSection('cart')">Cart</a></li>
+                    <li class="breadcrumb-item active text-white">Checkout</li>
+                </ol>
+            </div>
+
+            <div class="container-fluid py-5">
+                <div class="container py-5">
+                    <div class="row g-4 justify-content-center">
+                        <div class="col-lg-10">
+                            <div class="bg-light p-4 rounded-0 shadow-lg">
+                                <h3 class="mb-4">Contact & Payment</h3>
+                                <form id="checkout-form" onsubmit="Cart.handleCheckoutSubmission(event)">
+                                    
+                                    <div class="product-option-group">
+                                        <h4>1. Customer Information</h4>
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control border-0 rounded-0" id="checkout-name" placeholder="Your Name" required>
+                                                    <label for="checkout-name">Your Full Name</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <input type="tel" class="form-control border-0 rounded-0" id="checkout-phone" placeholder="WhatsApp Number" required>
+                                                    <label for="checkout-phone">WhatsApp/Contact Number</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12" id="checkout-address-group">
+                                                <div class="form-floating">
+                                                    <textarea class="form-control border-0 rounded-0" placeholder="Full Address" id="checkout-address" style="height: 80px" required></textarea>
+                                                    <label for="checkout-address">Full Shipping/Collection Address</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-floating">
+                                                    <input type="email" class="form-control border-0 rounded-0" id="checkout-email" placeholder="Email (Optional)">
+                                                    <label for="checkout-email">Email (Optional)</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="product-option-group mt-4">
+                                        <h4>2. Payment Method</h4>
+                                        <div class="d-flex flex-wrap gap-3">
+                                            <label class="choice-card selected" id="payment-cod" onclick="Cart.setPaymentMethod('CashOnDelivery')">
+                                                <input type="radio" name="option-PaymentMethod" value="CashOnDelivery" checked>
+                                                <span class="label-text"><i class="fas fa-hand-holding-usd me-2"></i> Cash on Delivery (COD)</span>
+                                            </label>
+                                            <label class="choice-card" id="payment-bank" onclick="Cart.setPaymentMethod('BankTransfer')">
+                                                <input type="radio" name="option-PaymentMethod" value="BankTransfer">
+                                                <span class="label-text"><i class="fas fa-university me-2"></i> Bank Transfer (Pre-Payment)</span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="alert alert-info mt-4 rounded-0">
+                                        <strong>Order Total:</strong> <span class="fw-bold text-primary" id="checkout-grand-total">PKR 0</span>.
+                                        By clicking "Confirm Order", we will open WhatsApp for final confirmation and processing.
+                                    </div>
+
+                                    <button class="btn btn-success w-100 py-3 mt-2 rounded-0" type="submit">
+                                        <i class="fas fa-check-circle me-2"></i> Confirm Order via WhatsApp
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="quote-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6">Get a Custom Quote</h1>
             <ol class="breadcrumb justify-content-center mb-0">
@@ -830,8 +980,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
     <section id="contact-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6">Contact Us</h1>
@@ -1001,8 +1150,7 @@
     <script src="lib/counterup/counterup.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
-
-    <script>
+    <script src="js/cart-manager.js"></script> <script>
     // 🛑 STEP 1: MANDATORY CONFIGURATION 🛑
     const PUBLIC_DATA_URL = 'all_prices.json'; 
     const WHATSAPP_NUMBER = '923006238233'; 
@@ -1018,33 +1166,32 @@
     let currentSelectedVariations = {}; 
     let digitalPrintingPricing = {};
     
-    // 🛑 MODIFIED/NEW: Track Delivery Type 🛑
     let currentShippingZone = 'Within City'; // Default to cheapest zone (JLP)
     let currentDeliveryType = 'HomeDelivery'; // NEW: Default to Home Delivery
+
 
     // --- Shipping Rate Configuration (PostEx with 15% Fuel & 16% GST) ---
     const SHIPPING_RATES = {
         // Within City (JLP) / Same Province / Cross Province
-        'small': { // Up to 0.5 kg: Cards, Prints, Small Stickers
+        'small': { 
             'Within City': 100, // MODIFIED: Flat rate for JLP Home Delivery
             'Same Province': 347,
             'Cross Province': 359
         },
-        'medium': { // 0.5 kg to 1.0 kg: Mugs, T-shirts, Letterpads, Bill Books
+        'medium': { 
             'Within City': 100, // MODIFIED: Flat rate for JLP Home Delivery
             'Same Province': 529,
             'Cross Province': 541
         },
-        'overland': { // Min 3.0 kg: Banners, Large Frames
+        'overland': { 
             'Within City': 150, // MODIFIED: Flat rate for JLP Home Delivery
             'Same Province': 1254,
             'Cross Province': 1254
         }
     };
 
-    // 🛑 REMOVED: Local Free Shipping Threshold and Local Shipping Rates are superseded by the new logic. 🛑
-    // const LOCAL_FREE_SHIPPING_THRESHOLD = 2500; 
-    // const LOCAL_SHIPPING_RATES = { ... };
+    // --- Local Shipping Rates/Thresholds (Removed/Simplified as per request) ---
+    const LOCAL_DELIVERY_COST = 100; // Flat local rate
 
     // --- Zone Mapping Data (JLP is the Origin City) ---
     const CITY_TO_ZONE = {
@@ -1069,8 +1216,8 @@
         "China Frontlit": { is_area_based: true, rate: 35, min_area: 2, category: 'Banners' }, 
         "Star Frontlit": { is_area_based: true, rate: 65, min_area: 2, category: 'Banners' },
         "Panaflex Banner Backlit": { is_area_based: true, rate: 100, min_area: 2, category: 'Banners' }, 
-        "OneVision": { is_area_based: true, rate: 90, min_area: 2, category: 'Banners' }, 
-        "Venyl": { is_area_based: true, rate: 90, min_area: 2, category: 'Banners' },    
+        "One Vision Pasting Sticker": { is_area_based: true, rate: 90, min_area: 2, category: 'Banners' }, // Name adjusted for JSON key
+        "Venyl Pasting Sticker": { is_area_based: true, rate: 90, min_area: 2, category: 'Banners' }, // Name adjusted for JSON key  
         "3D Wallpaper Placeholder": { is_area_based: true, rate: 30, min_area: 20, category: '3D Wallpaper' },
         "Photo Frames": { is_area_based: true, rate: 40, min_area: 1, category: 'Photo Printing' } 
     };
@@ -1164,7 +1311,7 @@
             rawData = await response.json(); 
         } catch (error) {
             console.error("Failed to load shop data:", error);
-            showAlert("Failed to load product data. Check the developer console.", 'error');
+            Cart.showAlert("Failed to load product data. Check the developer console.", 'error');
             return;
         }
         
@@ -1175,11 +1322,9 @@
         document.getElementById('contact-form-whatsapp').addEventListener('submit', handleContactSubmission);
         
         // Initial setup for location display
+        setDeliveryType('HomeDelivery', false); // Initialize UI state and default zone
         document.getElementById('zone-name').textContent = `Jalalpur Jattan (Default)`;
         document.getElementById('zone-name').classList.add('text-success');
-
-        // NEW: Set initial state for delivery selector
-        setDeliveryType('HomeDelivery', false); // Initialize UI state
 
         if (typeof setActiveMobileNav === 'function') setActiveMobileNav('products');
     }
@@ -1240,7 +1385,7 @@
     function getShippingPacketType(productName) {
         if (productName.includes('Card') || productName.includes('Print') || productName.includes('Sticker')) return 'small';
         if (productName.includes('Letterpad') || productName.includes('Bill Book') || productName.includes('T-Shirt') || productName.includes('Mug') || productName.includes('Pen')) return 'medium';
-        if (AREA_BASED_PRODUCT_NAMES.includes(productName) || productName.includes('Frame') || productName.includes('Banner')) return 'overland';
+        if (AREA_BASED_PRODUCT_NAMES.includes(productName) || productName.includes('Frame') || productName.includes('Banner') || productName.includes('Wallpaper') || productName.includes('Vision') || productName.includes('Venyl')) return 'overland';
         return 'small'; 
     }
 
@@ -1275,7 +1420,7 @@
     }
 
 
-    // --- LOCATION DETECTION LOGIC ---
+    // --- LOCATION DETECTION LOGIC (Now mainly for currentShippingZone update) ---
 
     function manualLocationCheck() {
         const cityInput = document.getElementById('input-city').value.trim();
@@ -1285,14 +1430,14 @@
 
     function detectLocation() {
         if (GOOGLE_MAPS_API_KEY === 'YOUR_API_KEY_HERE') {
-            showAlert("API Key not configured. Cannot auto-detect location.", 'error');
+            Cart.showAlert("API Key not configured. Cannot auto-detect location.", 'error');
             return;
         }
         document.getElementById('zone-name').textContent = "Detecting...";
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition, showError);
         } else {
-            showAlert("Geolocation is not supported by this browser.", 'error');
+            Cart.showAlert("Geolocation is not supported by this browser.", 'error');
         }
     }
 
@@ -1320,14 +1465,14 @@
                      document.getElementById('zone-name').textContent = "City not found. Defaulting to JLP.";
                 }
             } else {
-                showAlert(`Geolocation failed: ${status}`, 'error');
+                Cart.showAlert(`Geolocation failed: ${status}`, 'error');
                 document.getElementById('zone-name').textContent = "Detection Failed. Defaulting to JLP.";
             }
         });
     }
 
     function showError(error) {
-        showAlert("Error detecting location: " + error.message, 'error');
+        Cart.showAlert("Error detecting location: " + error.message, 'error');
         document.getElementById('zone-name').textContent = "Detection Failed. Defaulting to JLP.";
     }
 
@@ -1354,25 +1499,33 @@
         updateFinalPrice(); 
     }
 
-    // --- Price Update and Calculation Logic ---
+    // --- Price Calculation Logic (MODIFIED to return item data) ---
     
-    function updateFinalPrice() {
-        if (!currentProduct) return;
+    function calculateItemPrice() {
+        if (!currentProduct) return { error: "No product selected" };
         
         const isAreaBased = currentProduct.isAreaBased;
         const isDigitalTiered = currentProduct.isDigitalTiered;
         let baseProductPrice = 0;
         let requiresManualQuote = false;
+        let quantity = 0;
+        let itemOptions = {};
+        let imageFile = document.getElementById('detail-product-image').src;
 
         // 1. Calculate Base Product Price (Cost before Shipping/Margin)
         if (isAreaBased) {
             const width = parseFloat(document.getElementById('input-width').value) || 0;
             const height = parseFloat(document.getElementById('input-height').value) || 0;
-            const quantity = parseInt(document.getElementById('input-custom-qty').value) || 0;
+            quantity = parseInt(document.getElementById('input-custom-qty').value) || 0;
             const rateMeta = AREA_BASED_META[currentProduct.baseName];
             const baseRate = rateMeta ? rateMeta.rate : 0;
             const minArea = rateMeta ? rateMeta.min_area || 0 : 0;
             const designService = currentSelectedVariations['DesignService'] || 'PrintReady';
+
+            itemOptions['Dimensions'] = `${width} x ${height} ft`;
+            itemOptions['Quantity'] = quantity;
+            itemOptions['Design Service'] = designService;
+
 
             document.getElementById('areaConstraintWarning').style.display = 'none';
             if (width <= 0 || height <= 0 || quantity <= 0 || baseRate === 0) {
@@ -1383,18 +1536,12 @@
                 const totalArea = itemArea * quantity;
                 document.getElementById('areaDisplay').textContent = `Area per piece: ${itemArea.toFixed(2)} sq ft | Total Area: ${totalArea.toFixed(2)} sq ft | Rate: PKR ${baseRate.toFixed(2)}/sq ft`;
                 if (totalArea < minArea) {
-                    document.getElementById('areaConstraintWarning').textContent = `Minimum order area for this product is ${minArea} sq ft. Current total area (${totalArea.toFixed(2)} sq ft) is too small.`;
-                    document.getElementById('areaConstraintWarning').style.display = 'block';
                     requiresManualQuote = true;
                 }
                 const basePrintCost = totalArea * baseRate;
                 let totalDesignFee = 0;
                 if (designService === 'DesignNeeded') {
                     totalDesignFee = calculateDesignFee(itemArea, quantity);
-                    document.getElementById('areaConstraintWarning').classList.remove('alert-danger');
-                    document.getElementById('areaConstraintWarning').classList.add('alert-info');
-                    document.getElementById('areaConstraintWarning').innerHTML = `<i class="fas fa-magic me-2"></i> **Design Fee Applied**: PKR ${totalDesignFee.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
-                    document.getElementById('areaConstraintWarning').style.display = 'block';
                 }
                 const totalCostBeforeProfit = basePrintCost + totalDesignFee;
                 const profitMultiplier = getAreaProfitMultiplier(quantity);
@@ -1402,10 +1549,13 @@
             }
         } 
         else if (isDigitalTiered) {
-             const quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 0;
+             quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 0;
              const size = currentSelectedVariations.Size;
              const colorType = currentSelectedVariations.ColorType;
              const gsm = currentSelectedVariations.GSM;
+             
+             itemOptions = currentSelectedVariations;
+             itemOptions['Quantity'] = quantity;
              
              if (!size || !colorType || !gsm || quantity <= 0) requiresManualQuote = true;
              
@@ -1433,13 +1583,17 @@
              }
         }
         else {
-            const quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 1;
+            quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 1;
             const allCombinations = currentProduct?.combinations || [];
             
             let allSelected = true;
             const requiredKeys = Object.keys(allCombinations[0] || {}).filter(key => key !== 'Price' && key !== 'FullName');
 
-            requiredKeys.forEach(key => { if (!currentSelectedVariations[key]) allSelected = false; });
+            requiredKeys.forEach(key => { 
+                if (!currentSelectedVariations[key]) allSelected = false; 
+                itemOptions[key] = currentSelectedVariations[key];
+            });
+            itemOptions['Quantity'] = quantity;
 
             if (!allSelected) requiresManualQuote = true;
             
@@ -1456,20 +1610,40 @@
             }
         }
 
-        // --- SHIPPING & FINAL PRICE CALCULATION (MODIFIED) ---
         if (requiresManualQuote || baseProductPrice === 0) {
+            return { error: "Requires manual quote or incomplete selection" };
+        }
+
+        // Return core item data (excluding shipping)
+        return {
+            productName: currentProduct.baseName,
+            quantity: quantity,
+            basePrice: baseProductPrice, // This is the total price for the item(s) before shipping/tax
+            options: itemOptions,
+            isAreaBased: isAreaBased,
+            imageFile: imageFile
+        };
+    }
+    
+    // 🛑 NEW: Function to update UI from price calculation
+    function updateFinalPrice() {
+        const itemData = calculateItemPrice();
+        
+        // --- Error/Warning Handling ---
+        if (itemData.error) {
             document.getElementById('finalPriceBox').style.display = 'none';
             document.getElementById('shipping-display-box').style.display = 'none';
-            document.getElementById('selectionWarning').textContent = "Please select all options or contact us for a custom quote.";
+            document.getElementById('selectionWarning').textContent = "Please enter dimensions/quantity or select all options above to see the final price.";
             document.getElementById('selectionWarning').classList.remove('alert-danger');
             document.getElementById('selectionWarning').classList.add('alert-info');
             document.getElementById('selectionWarning').style.display = 'block';
             return;
         }
 
+        // --- SHIPPING & FINAL PRICE CALCULATION ---
         let shippingCost = 0;
         let shippingNote = '';
-        const packetType = getShippingPacketType(currentProduct.baseName);
+        const packetType = getShippingPacketType(itemData.productName);
         
         if (currentDeliveryType === 'SelfPickUp') {
             shippingCost = 0;
@@ -1477,20 +1651,15 @@
         } else { 
             // Home Delivery Logic
             if (currentShippingZone === 'Within City') {
-                // Apply flat rate for local (Jalalpur Jattan) delivery
                 shippingCost = SHIPPING_RATES[packetType]['Within City'];
                 shippingNote = `Local Delivery (Jalalpur Jattan). Flat rate for ${packetType.toUpperCase()} packet.`;
             } else {
-                // Apply PostEx rates for outside JLP
                 shippingCost = getPostExShippingCost(packetType, currentShippingZone);
                 shippingNote = `PostEx Courier (to ${currentShippingZone}). Price includes ${packetType.toUpperCase()} packet charge, fuel surcharge, and GST.`;
             }
         }
 
-        // Total Cost = Base Product Price + Shipping Cost
-        const totalCost = baseProductPrice + shippingCost;
-        
-        // Final Selling Price = Total Cost
+        const totalCost = itemData.basePrice + shippingCost;
         const finalSellingPrice = Math.round(totalCost);
         
         // --- Update UI with Final Selling Price ---
@@ -1502,6 +1671,63 @@
         document.getElementById('shipping-cost-display').textContent = shippingCost === 0 ? "FREE" : `PKR ${shippingCost.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
         document.getElementById('shipping-note-display').textContent = shippingNote;
         document.getElementById('shipping-display-box').style.display = 'block';
+
+        // Update Area Constraint Warning display (for design fee)
+        const areaConstraintWarning = document.getElementById('areaConstraintWarning');
+        if (areaConstraintWarning && itemData.isAreaBased) {
+             const width = parseFloat(document.getElementById('input-width').value) || 0;
+             const height = parseFloat(document.getElementById('input-height').value) || 0;
+             const rateMeta = AREA_BASED_META[currentProduct.baseName];
+             const minArea = rateMeta ? rateMeta.min_area || 0 : 0;
+             const totalArea = width * height * itemData.quantity;
+
+             areaConstraintWarning.classList.remove('alert-danger', 'alert-info');
+             areaConstraintWarning.style.display = 'none';
+
+             if (totalArea < minArea && minArea > 0) {
+                 areaConstraintWarning.textContent = `Minimum order area for this product is ${minArea} sq ft. Current total area (${totalArea.toFixed(2)} sq ft) is too small.`;
+                 areaConstraintWarning.classList.add('alert-danger');
+                 areaConstraintWarning.style.display = 'block';
+             } else if (itemData.options['Design Service'] === 'DesignNeeded') {
+                 const itemArea = width * height;
+                 const designFee = calculateDesignFee(itemArea, itemData.quantity);
+                 areaConstraintWarning.innerHTML = `<i class="fas fa-magic me-2"></i> **Design Fee Applied**: PKR ${designFee.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
+                 areaConstraintWarning.classList.add('alert-info');
+                 areaConstraintWarning.style.display = 'block';
+             }
+        }
+    }
+
+    // 🛑 NEW: Function to Add Item to Cart 🛑
+    function addItemToCart() {
+        if (typeof Cart === 'undefined') {
+            Cart.showAlert('Cart system not loaded.', 'error');
+            return;
+        }
+
+        const itemData = calculateItemPrice();
+        
+        if (itemData.error) {
+            Cart.showAlert('Error adding item: ' + itemData.error, 'error');
+            return;
+        }
+        
+        const finalPriceDisplay = document.getElementById('finalPriceDisplay').textContent;
+        const totalCost = parseFloat(finalPriceDisplay.replace(/PKR|\s|,/g, '')) || 0;
+
+        const cartItem = {
+            id: Date.now(), // Unique ID for this cart item
+            productName: itemData.productName,
+            quantity: itemData.quantity,
+            basePrice: itemData.basePrice, 
+            finalItemPrice: totalCost, // Total item price including calculated shipping (for immediate display coherence)
+            options: itemData.options,
+            isAreaBased: itemData.isAreaBased,
+            imageFile: itemData.imageFile,
+            // Note: Shipping is re-calculated globally on checkout/cart view.
+        };
+
+        Cart.addItem(cartItem);
     }
 
 
@@ -1525,7 +1751,7 @@
         currentSelectedVariations = {}; 
 
         if (!currentProduct) {
-            showAlert(`Product "${cleanName}" details not found in data. Please use the 'Get Custom Quote' option.`, 'error'); 
+            Cart.showAlert(`Product "${cleanName}" details not found in data. Please use the 'Get Custom Quote' option.`, 'error'); 
             return;
         }
 
@@ -1549,9 +1775,9 @@
         document.getElementById('selectionWarning').classList.remove('alert-danger');
         document.getElementById('selectionWarning').classList.add('alert-info');
         document.getElementById('selectionWarning').style.display = 'block';
-        
+
         // Reset Delivery Selection to default Home Delivery
-        setDeliveryType('HomeDelivery', false); 
+        setDeliveryType('HomeDelivery', false); // Initialize UI state and default zone
 
         const isAreaBased = currentProduct.isAreaBased;
         
@@ -1692,7 +1918,7 @@
          currentSelectedVariations = {}; 
          
          if (!currentProduct || !digitalPrintingPricing["Digital Print (Tiered)"]) {
-             showAlert(`Digital Print calculator data not found.`, 'error');
+             Cart.showAlert(`Digital Print calculator data not found.`, 'error');
              return;
          }
 
@@ -1715,7 +1941,7 @@
          document.getElementById('selectionWarning').classList.remove('alert-danger');
          document.getElementById('selectionWarning').classList.add('alert-info');
          document.getElementById('selectionWarning').style.display = 'block';
-         
+
          // Reset Delivery Selection to default Home Delivery
          setDeliveryType('HomeDelivery', false); 
 
@@ -1899,7 +2125,7 @@
         const details = document.getElementById('quote-details').value;
         let whatsappMessage = `*NEW QUOTE REQUEST (WEB - PRODUCTS)*\n*Customer:* ${name}\n*Phone (Contact):* ${phone}\n*Product Type:* ${product}\n*Quantity/Area:* ${quantity}\n*Specifications:* ${details}`;
         window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
-        showAlert('Quote submitted via WhatsApp! We will contact you shortly.', 'success');
+        Cart.showAlert('Quote submitted via WhatsApp! We will contact you shortly.', 'success');
         document.getElementById('quote-form').reset();
     }
     function handleContactSubmission(e) {
@@ -1909,32 +2135,8 @@
         const message = document.getElementById('contact-message').value;
         let whatsappMessage = `*NEW CONTACT MESSAGE (WEB - PRODUCTS)*\n*Sender:* ${name}\n*Subject:* ${subject}\n*Message:* ${message}`;
         window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
-        showAlert('Message sent via WhatsApp!', 'success');
+        Cart.showAlert('Message sent via WhatsApp!', 'success');
         document.getElementById('contact-form-whatsapp').reset();
-    }
-    async function submitOrder(type) {
-          if (document.getElementById('finalPriceBox').style.display === 'none') {
-             showAlert('Please select all options and enter a valid quantity/area before placing an order.', 'error');
-             return;
-          }
-          showAlert(`Order submission initiated for ${currentProduct.baseName}. Redirecting to quote...`, 'info');
-          showSection('quote');
-          document.getElementById('quote-product').value = `${currentProduct.baseName} - Final Price: ${document.getElementById('finalPriceDisplay').textContent}`;
-          document.getElementById('quote-quantity').value = document.getElementById('input-standard-qty')?.value || document.getElementById('input-custom-qty')?.value || 1;
-          
-          let detailsMsg = "Please confirm the order details. Delivery Type: " + currentDeliveryType + ". Shipping Zone: " + (currentDeliveryType === 'HomeDelivery' ? currentShippingZone : 'N/A') + ". Shipping Cost: " + document.getElementById('shipping-cost-display').textContent;
-          if (currentProduct?.isAreaBased) {
-              const width = document.getElementById('input-width').value;
-              const height = document.getElementById('input-height').value;
-              const qty = document.getElementById('input-custom-qty').value;
-              const design = currentSelectedVariations['DesignService'];
-              detailsMsg += `\nArea-Based Order Details:\nDimensions: ${width}x${height} ft\nQuantity: ${qty} pcs\nDesign Service: ${design}`;
-              const designFeeDisplay = document.getElementById('areaConstraintWarning').textContent;
-              if (designFeeDisplay && design !== 'PrintReady') detailsMsg += `\n${designFeeDisplay}`;
-          } else if (currentProduct && currentSelectedVariations) {
-              detailsMsg += "\nSelected options:\n" + Object.entries(currentSelectedVariations).map(([k, v]) => `${k}: ${v}`).join('\n');
-          }
-          document.getElementById('quote-details').value = detailsMsg;
     }
     function showSection(sectionName) {
         document.querySelectorAll('.section').forEach(section => { section.classList.remove('active'); });
@@ -1946,18 +2148,13 @@
         if (desktopLink) desktopLink.classList.add('active');
         if (typeof setActiveMobileNav === 'function') setActiveMobileNav(sectionName === 'shop-catalog' ? 'products' : sectionName);
         window.scrollTo(0, 0);
+
+        // Reload cart display on showing cart section
+        if (sectionName === 'cart' && typeof Cart !== 'undefined') {
+            Cart.updateCartDisplay();
+        }
     }
-    function showAlert(message, type) {
-        const alert = document.createElement('div');
-        alert.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
-        alert.style.top = '20px';
-        alert.style.right = '20px';
-        alert.style.zIndex = '9999';
-        alert.style.minWidth = '300px';
-        alert.innerHTML = `${message}<button type="button" class="btn-close" data-bs-dismiss="alert"></button>`;
-        document.body.appendChild(alert);
-        setTimeout(() => { if (alert.parentNode) alert.parentNode.removeChild(alert); }, 5000);
-    }
+    
     document.addEventListener('DOMContentLoaded', initialAppLoad);
 </script>
 </div>
