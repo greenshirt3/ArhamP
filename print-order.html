@@ -217,8 +217,6 @@
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5 d-none d-lg-block">
         <a href="index.html" class="navbar-brand d-flex align-items-center">
              <img src="img/logo2.webp" alt="Arham Printers Logo" style="height: 40px; margin-right: 1rem;">
-             <span style="font-size: 0.75rem; color: #6c757d; margin-top: 15px;">Arham Printers</span>
-        </a>
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -242,44 +240,24 @@
             <i class="fas fa-home"></i>
             <span>Home</span>
         </a>
-        
-        <div class="nav-item dropup d-flex flex-fill justify-content-center">
-             <a href="#" class="mobile-nav-link dropdown-toggle" data-bs-toggle="dropdown" id="mobile-link-categories">
-                <i class="fas fa-th-large"></i>
-                <span>Categories</span>
-            </a>
-            <div class="dropdown-menu bg-light border-0">
-                 <a href="products.html#business-essentials" class="dropdown-item">Business Essentials</a>
-                 <a href="products.html#office-essentials" class="dropdown-item">Office Essentials</a>
-                 <a href="products.html#marketing-essentials" class="dropdown-item">Marketing Essentials</a>
-                 <a href="products.html#printsing" class="dropdown-item">Digital Printing</a>
-                 <a href="products.html#photo-printing" class="dropdown-item">Photo Printing</a>
-                 <a href="products.html#banners" class="dropdown-item">Panaflex Banners</a>
-                 <a href="products.html#promotional" class="dropdown-item">Promotional Items</a>
-                 <a href="products.html#souvenirs" class="dropdown-item">Souvenirs</a>
-                 <a href="products.html#wedding-cards" class="dropdown-item">Wedding Cards</a>
-                 <a href="products.html#wallpaper" class="dropdown-item">3D Wallpaper</a>
-                 <a href="products.html#shields" class="dropdown-item">Shields</a>
-                 <a href="products.html#flags-fabric" class="dropdown-item">Flags/Fabric</a>
-                 <a href="products.html#box" class="dropdown-item">Box Pkg</a>
-            </div>
-        </div>
-        
+         <a href="products.html" class="mobile-nav-link" id="mobile-link-products">
+            <i class="fas fa-th-list"></i>
+            <span>Products</span>
+        </a>
         <div id="mobile-nav-logo">
              <a href="index.html" class="mobile-nav-link-center">
                 <img src="img/logo.webp" alt="Logo" style="height: 80px;">
             </a>
-        </div>
-        
-        <a href="products.html" class="mobile-nav-link active" id="mobile-link-products">
-            <i class="fas fa-th-list"></i>
-            <span>Products</span>
-        </a>
-        
+        </div>        
         <a href="wedding.html" class="mobile-nav-link" id="mobile-link-wedding">
             <i class="fas fa-gift"></i>
             <span>Wedding Cards</span>
         </a>
+        <a href="#cart-section" class="mobile-nav-link" onclick="showSection('cart')" id="mobile-link-cart">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cart-count" class="position-absolute translate-middle badge rounded-pill bg-primary" style="top: 8px; right: 10px; font-size: 0.7em;">0</span>
+        <span>Cart</span>
+    </a>
     </nav>
     
     <div class="container page-content-wrapper py-5">
@@ -934,3 +912,4 @@
     </script>
 </body>
 </html>
+
