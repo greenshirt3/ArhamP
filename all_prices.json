@@ -127,7 +127,7 @@
                 "imageFile": "img/products/stickers.webp"
             }
         ],
-        "Letterpads": [
+        "Letterpad": [
             {
                 "single_side": "Single Color",
                 "variant_1": "5.75x9",
@@ -554,7 +554,7 @@
         ]
     },
     "Marketing & Promotional Items": {
-        "Ishtihar": [
+        "Pamphlet": [
             {
                 "single_side": "Single Color",
                 "variant_1": "5.75x9",
@@ -668,7 +668,7 @@
                 "imageFile": "img/products/pamphlet.webp"
             }
         ],
-        "Flyers/Ishtihars": [
+        "Ishtihars": [
             {
                 "single_side": "4 Colors",
                 "variant_1": "5.75x9",
@@ -2589,4 +2589,5 @@
         }
     }
 }
+
 
