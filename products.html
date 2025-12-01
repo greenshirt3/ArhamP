@@ -752,7 +752,62 @@
             </div>
         </div>
     </section>
-    
+
+    <section id="custom-print-tnc-upload" style="display:none;" class="container-fluid py-5">
+        <div class="container py-5 pt-0">
+            <div class="row g-4">
+                <div class="col-lg-5">
+                    <div class="bg-light p-4 rounded-0 shadow-sm border border-primary">
+                        <h4 class="mb-3 text-primary"><i class="fas fa-upload me-2"></i> Document Upload (Step 2)</h4>
+                        <p class="text-muted small">After selecting all options above, please upload your file(s). We recommend PDF format.</p>
+                        
+                        <div class="alert alert-info">
+                            <i class="fas fa-exclamation-triangle me-2"></i> **Important:** We use **OneDrive** for secure file transfer. Files will be deleted after 7 days.
+                        </div>
+                        
+                        <a href="https://onedrive.live.com/prev?id=A8E71F1A2C3D4B5F%21102" target="_blank" class="btn btn-dark w-100 py-3" id="file-upload-button">
+                             <i class="fas fa-folder-open me-2"></i> Upload Your File(s) Now (Opens New Tab)
+                        </a>
+                        <p class="small text-danger mt-2">Do not close this page after uploading. You must continue to checkout.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="bg-white p-4 rounded-0 shadow-sm border">
+                        <h4 class="mb-3"><i class="fas fa-file-contract me-2"></i> Print Service Terms & Conditions</h4>
+                        <p class="small fw-bold border-bottom pb-2">By placing an order, you confirm you have read and agree to our Print Service Terms & Conditions.</p>
+                        
+                        <div style="max-height: 400px; overflow-y: auto; padding-right: 10px;">
+                            <h6 class="text-primary mt-3">1. File Submission & Quality</h6>
+                            <ul>
+                                <li>**File Format:** We strongly recommend submitting files in **PDF format** for the highest compatibility and print quality. We also accept JPG, PNG, DOCX, and PPTX.</li>
+                                <li>**Preparation:** All documents must be **unzipped and free of password protection**. The customer is responsible for ensuring the file is correctly sized (e.g., an A4 file for A4 prints).</li>
+                                <li>**Borderless Printing:** We are unable to offer borderless (full bleed) printing via this standard online service. A small white margin will be applied to all prints.</li>
+                            </ul>
+
+                            <h6 class="text-primary">2. Content & Order Restriction</h6>
+                            <ul>
+                                <li>**Inappropriate Content:** We reserve the right to decline any order that, in our sole judgment, contains offensive, inflammatory, discriminatory, illegal, or otherwise inappropriate content.</li>
+                            </ul>
+
+                            <h6 class="text-primary">3. Payment & Refunds</h6>
+                            <ul>
+                                <li>**Non-Refundable:** All print orders are considered **non-refundable** once the printing process has commenced.</li>
+                                <li>**Quality Guarantee:** If you encounter any issues with the print quality due to our error, we are happy to provide a **free reprint** if the issue is reported within **24 hours** of collection or delivery.</li>
+                                <li>**Delivery Charges:** The final price confirmed via WhatsApp will include delivery charges, which will be determined based on the customer's delivery address.</li>
+                            </ul>
+                            
+                            <h6 class="text-primary">4. Data Security (GDPR Compliance)</h6>
+                            <ul>
+                                <li>**Digital File Retention:** To protect your privacy, all digital files uploaded to our OneDrive folder will be automatically deleted from our server/cloud storage after **7 days** from order completion.</li>
+                                <li>**Uncollected Prints:** Physical documents that are uncollected will be securely shredded in accordance with GDPR after **30 days** of the order date. No refund will be issued for uncollected prints.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <section id="cart-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6">Your Shopping Cart</h1>
@@ -916,6 +971,7 @@
                 </div>
             </div>
         </section>
+
         <section id="quote-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6">Get a Custom Quote</h1>
@@ -1595,7 +1651,7 @@
              
              // Normalize selection keys
              const size = currentSelectedVariations.Size;
-             const colorType = currentSelectedVariations.ColorType.replace(' ', '_'); // Convert back to JSON key format (black_white, color)
+             const colorType = currentSelectedVariations.ColorType; // Use original value which is already JSON format
              const gsm = currentSelectedVariations.GSM;
              const sides = currentSelectedVariations.Sides; 
              
@@ -1605,6 +1661,7 @@
              if (!size || !colorType || !gsm || !sides || quantity <= 0) requiresManualQuote = true;
              
              try {
+                // IMPORTANT: JSON keys for ColorType are "black_white" or "color", not user-friendly versions
                 const tiers = customprintspricing[currentProduct.baseName];
                 const gsmData = tiers[size][colorType][gsm];
                 let unitPrice = 0;
@@ -2154,12 +2211,12 @@
             <div class="product-option-group" data-option-key="Sides">
                 <label>Print Sides:</label>
                 <div class="d-flex flex-wrap gap-3" id="choices-Sides">
-                    <label class="choice-card" for="Sides-Single">
-                        <input type="radio" id="Sides-Single" name="option-Sides" value="single" onchange="handleCardSelection('Sides', 'single')">
+                    <label class="choice-card" for="Sides-single">
+                        <input type="radio" id="Sides-single" name="option-Sides" value="single" onchange="handleCardSelection('Sides', 'single')">
                         <span class="label-text">Single Side</span>
                     </label>
-                    <label class="choice-card" for="Sides-Double">
-                        <input type="radio" id="Sides-Double" name="option-Sides" value="double" onchange="handleCardSelection('Sides', 'double')">
+                    <label class="choice-card" for="Sides-double">
+                        <input type="radio" id="Sides-double" name="option-Sides" value="double" onchange="handleCardSelection('Sides', 'double')">
                         <span class="label-text">Double Side (x2 Price)</span>
                     </label>
                 </div>
@@ -2232,6 +2289,9 @@
         });
 
         updateFinalPrice();
+        
+        // 🛑 NEW: Show T&C and Upload section for Custom Prints
+        document.getElementById('custom-print-tnc-upload').style.display = 'block';
 
         showSection('product-detail');
     }
@@ -2391,6 +2451,10 @@
         document.getElementById('contact-form-whatsapp').reset();
     }
     function showSection(sectionName) {
+        // 🛑 NEW: Hide T&C section by default 🛑
+        const tncSection = document.getElementById('custom-print-tnc-upload');
+        if (tncSection) tncSection.style.display = 'none';
+        
         document.querySelectorAll('.section').forEach(section => { section.classList.remove('active'); });
         const sectionElement = document.getElementById(sectionName + '-section');
         if (sectionElement) sectionElement.classList.add('active'); 
