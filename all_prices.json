@@ -852,6 +852,18 @@
                 "imageFile": "img/products/metal.webp"
             }
         ],
+        "Water Bottle": [
+            {
+                "variant_3": "Sublimation",
+                "price": 1.00,
+                "imageFile": "img/products/bottle.webp"
+            },
+            {
+                "variant_3": "Temperature",
+                "price": 1.00,
+                "imageFile": "img/products/temperature.webp"
+            }
+        ],
         "Locket with Picture": [
             {
                 "variant_3": "Small",
@@ -2577,6 +2589,7 @@
         }
     }
 }
+
 
 
 
