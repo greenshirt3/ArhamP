@@ -427,7 +427,7 @@
                 "shape": "Manual Inking",
                 "variant_3": "1.8x0.7",
                 "price": 1.00,
-                "imageFile": "img/products/mps.webp"
+                "imageFile": "img/products/stamps.webp"
             },
             {
                 "shape": "Manual Inking",
@@ -2529,67 +2529,4 @@
                     ],
                     "hasInnerCardOption": true
                 },
-                "Card Design #3030": {
-                    "bulkPrice100": 16000.00,
-                    "description": "High-end luxury design.",
-                    "galleryImages": [
-                        "img/wedding/3030 (1).webp",
-                        "img/wedding/3030 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #3050": {
-                    "bulkPrice100": 12500.00,
-                    "description": "Premium elegant series.",
-                    "galleryImages": [
-                        "img/wedding/3050 (1).webp",
-                        "img/wedding/3050 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #3075": {
-                    "bulkPrice100": 12500.00,
-                    "description": "Luxury high-end collection.",
-                    "galleryImages": [
-                        "img/wedding/3075 (1).webp",
-                        "img/wedding/3075 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #3095": {
-                    "bulkPrice100": 15000.00,
-                    "description": "Premium comprehensive series.",
-                    "galleryImages": [
-                        "img/wedding/3095 (1).webp",
-                        "img/wedding/3095 (2).webp",
-                        "img/wedding/3095 (3).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #5010": {
-                    "bulkPrice100": 40000.00,
-                    "description": "Premium comprehensive series.",
-                    "galleryImages": [
-                        "img/wedding/3095 (1).webp",
-                        "img/wedding/3095 (2).webp",
-                        "img/wedding/3095 (3).webp"
-                    ],
-                    "hasInnerCardOption": false
-                },
-                "Card Design #3110": {
-                    "bulkPrice100": 17500.00,
-                    "description": "High-end luxury options.",
-                    "galleryImages": [
-                        "img/wedding/3110 (1).webp",
-                        "img/wedding/3110 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                }
-            }
-        }
-    }
-}
-
-
-
-
+                "Card Design #3030":
