@@ -2,8 +2,7 @@
 <html lang="en">
 
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9NHW41JTY2"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9NHW41JTY2"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -1076,7 +1075,7 @@
                         <div class="rounded p-2 d-flex flex-column align-items-center">
                             <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto"
                                 style="width: 56px; height: 56px;">
-                                <i class="fas fa-envelope fa-2x text-primary" style="line-height: 1;"></i>
+                                <i class="fas fa-envelope fa-2x text-primary" style="line-height: 1);"></i>
                             </div>
                             <h6 class="text-white mt-1 mb-1">Mail Us</h6>
                             <p class="text-white fw-bold mb-1 small text-center">info@arhamprinters.pk</p>
@@ -1135,8 +1134,6 @@
             </div>
         </div>
         <a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
-
-    // ... (top of products.html remains unchanged)
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -1239,7 +1236,8 @@
     const variantDisplayNames = {
         'variant_1': 'Size', 
         'variant_2': 'Material/Stock', 
-        'variant_3': 'Type/Finish', 
+        // 🛑 MODIFIED: Used for Photo Prints sizing 🛑
+        'variant_3': 'Photo Size', 
         'single_side': 'Print Color (Single Side)',
         'double_side': 'Print Color (Double Side)',
         'finish': 'Finish',
@@ -1248,7 +1246,7 @@
     };
     
     const DISPLAY_ORDER = [
-        'Size', 'Material', 'Type/Finish', 'Finish', 'Print Color (Single Side)', 
+        'Photo Size', 'Pricing Option', 'Size', 'Material', 'Type/Finish', 'Finish', 'Print Color (Single Side)', 
         'Print Color (Double Side)', 'Material/Stock', 'Shape', 'Accessories', 'Inking Mechanism'
     ];
 
@@ -1306,7 +1304,7 @@
             rawData = await response.json(); 
         } catch (error) {
             console.error("Failed to load shop data:", error);
-            Cart.showAlert("Failed to load product data. Check the developer console.", 'error');
+            Cart.showAlert("Failed to load product data:", 'error');
             return;
         }
         
@@ -1358,26 +1356,64 @@
                  
                  if (!productGroups[productKey].isAreaBased && Array.isArray(productCombinations)) {
                      productCombinations.forEach(item => {
-                         // Use 'price' if available, otherwise default to single pricing in 'pricing' object
-                         const itemPrice = parseFloat(item.price) || (item.pricing && item.pricing.single ? parseFloat(item.pricing.single) : 0); 
-
-                         let attributes = { 'Price': itemPrice, 'FullName': productKey };
+                         // Standard price or default single price for initialization
+                         const basePrice = parseFloat(item.price) || (item.pricing && item.pricing.single ? parseFloat(item.pricing.single) : 0); 
                          
-                         // Store the full pricing structure if available (for Photo Printing bundles)
-                         if (item.pricing) {
-                            attributes['PricingStructure'] = item.pricing;
-                         }
-
-                         Object.keys(item).forEach(key => {
-                             if (key !== 'price' && key !== 'imageFile' && key !== 'pricing' && item[key]) {
-                                 const displayKey = variantDisplayNames[key] || key.charAt(0).toUpperCase() + key.slice(1);
-                                 if (key !== 'variant_3' && displayKey === attributes.FullName) return; 
-                                 attributes[displayKey] = item[key];
+                         // Helper function to extract common attributes
+                         const getCommonAttributes = (price, customKey, customValue) => {
+                             let attributes = { 'Price': price, 'FullName': productKey };
+                             
+                             // Add custom variant
+                             if (customKey && customValue) {
+                                attributes[customKey] = customValue;
                              }
-                         });
-                         productGroups[productKey].combinations.push(attributes);
-                         if (attributes.Price > 0 && attributes.Price < productGroups[productKey].minPrice) {
-                             productGroups[productKey].minPrice = attributes.Price;
+
+                             // Store the full pricing structure if available (for Photo Printing bundles)
+                             if (item.pricing) {
+                                attributes['PricingStructure'] = item.pricing;
+                             }
+                             
+                             Object.keys(item).forEach(key => {
+                                 if (key !== 'price' && key !== 'imageFile' && key !== 'pricing' && item[key]) {
+                                     const displayKey = variantDisplayNames[key] || key.charAt(0).toUpperCase() + key.slice(1);
+                                     if (key !== 'variant_3' && displayKey === attributes.FullName) return; 
+                                     
+                                     // Only include attributes not covered by customKey/Value
+                                     if (displayKey !== customKey) {
+                                        attributes[displayKey] = item[key];
+                                     }
+                                 }
+                             });
+                             return attributes;
+                         };
+
+                         // 🛑 Special handling for Photo Printing 🛑
+                         if (productKey === "Photo Printing" && item.pricing) {
+                             const pricing = item.pricing;
+                             
+                             // 1. Add 'Single' option
+                             let singleAttr = getCommonAttributes(pricing.single, 'Pricing Option', 'Single');
+                             singleAttr['Quantity Multiplier'] = 1;
+                             productGroups[productKey].combinations.push(singleAttr);
+                             
+                             // 2. Add Bundle options
+                             Object.keys(pricing.bundles).forEach(qty => {
+                                const quantity = parseInt(qty);
+                                const bundlePrice = pricing.bundles[qty];
+                                let bundleAttr = getCommonAttributes(bundlePrice, 'Pricing Option', `Bundle of ${quantity}`);
+                                bundleAttr['Quantity Multiplier'] = quantity;
+                                productGroups[productKey].combinations.push(bundleAttr);
+                             });
+
+                         } else {
+                             // Standard product logic (including A4 photo print)
+                             let attributes = getCommonAttributes(basePrice);
+                             productGroups[productKey].combinations.push(attributes);
+                         }
+                         
+                         // Update minPrice after combinations are added/flattened
+                         if (basePrice > 0 && basePrice < productGroups[productKey].minPrice) {
+                             productGroups[productKey].minPrice = basePrice;
                          }
                      });
                  }
@@ -1433,7 +1469,7 @@
     }
 
     function detectLocation() {
-        if (GOOGLE_MAPS_API_KEY === 'YOUR_API_KEY_HERE') {
+        if (GOOGLE_MAPS_API_KEY === 'AIzaSyCAz3R9s0BdNnwgEtaC31LJcIqlkoXh05U') {
             Cart.showAlert("API Key not configured. Cannot auto-detect location.", 'error');
             return;
         }
@@ -1593,14 +1629,25 @@
             const allCombinations = currentProduct?.combinations || [];
             
             let allSelected = true;
-            // Filter keys to exclude the custom 'PricingStructure' field
-            const requiredKeys = Object.keys(allCombinations[0] || {}).filter(key => key !== 'Price' && key !== 'FullName' && key !== 'PricingStructure');
+            // Filter keys to exclude the internal fields
+            const requiredKeys = Object.keys(allCombinations[0] || {}).filter(key => 
+                key !== 'Price' && key !== 'FullName' && key !== 'PricingStructure' && key !== 'Quantity Multiplier'
+            );
 
             requiredKeys.forEach(key => { 
                 if (!currentSelectedVariations[key]) allSelected = false; 
                 itemOptions[key] = currentSelectedVariations[key];
             });
-            itemOptions['Quantity'] = quantity;
+            
+            // For Photo Printing, use the Quantity Multiplier stored on the combo if it's a bundle
+            if (currentProduct.baseName === "Photo Printing" && currentSelectedVariations['Pricing Option'] !== 'Single') {
+                 // Quantity is determined by the bundle size, as locked in handleCardSelection
+                 itemOptions['Quantity Option'] = currentSelectedVariations['Pricing Option'];
+            } else {
+                 // For all other products or 'Single' Photo Option, use the user's manual quantity input
+                 itemOptions['Quantity'] = quantity;
+            }
+
 
             if (!allSelected) requiresManualQuote = true;
             
@@ -1610,45 +1657,20 @@
                 );
                 
                 if (finalProductCombination) {
-                    // --- PHOTO PRINTING BUNDLE LOGIC (NEW) ---
-                    if (currentProduct.baseName === "Photo Printing" && finalProductCombination.PricingStructure) {
-                        const pricing = finalProductCombination.PricingStructure;
-                        let bestPrice = pricing.single * quantity; // Start with single price
-                        
-                        let usedBundle = false;
-                        let bundleQty = 0;
-                        let bundlePrice = 0;
+                    
+                    if (currentProduct.baseName === "Photo Printing" && finalProductCombination['Pricing Option']) {
+                        // For Photo Printing, the 'Price' field holds the cost for the option (either single or bundle)
+                        const unitPrice = finalProductCombination['Pricing Option'] === 'Single' ? finalProductCombination.Price : (finalProductCombination.Price / finalProductCombination['Quantity Multiplier']);
+                        const quantityUsed = finalProductCombination['Pricing Option'] === 'Single' ? quantity : finalProductCombination['Quantity Multiplier'];
 
-                        // Check for bundles, prioritizing larger ones
-                        const bundleKeys = Object.keys(pricing.bundles).map(Number).sort((a, b) => b - a);
+                        baseProductPrice = finalProductCombination['Pricing Option'] === 'Single' ? (finalProductCombination.Price * quantity) : finalProductCombination.Price;
+                        itemOptions['Quantity'] = quantityUsed; // Ensure cart shows correct quantity used for pricing
 
-                        for (const bQty of bundleKeys) {
-                            if (quantity >= bQty) {
-                                // Calculate how many bundles can fit
-                                const numBundles = Math.floor(quantity / bQty);
-                                const remainder = quantity % bQty;
-                                
-                                const currentTotal = (numBundles * pricing.bundles[bQty]) + (remainder * pricing.single);
-                                
-                                if (currentTotal < bestPrice) {
-                                    bestPrice = currentTotal;
-                                    usedBundle = true;
-                                    bundleQty = bQty;
-                                    bundlePrice = pricing.bundles[bQty];
-                                    
-                                    // Found the best optimal price using the largest applicable bundle + remainder singles
-                                    break;
-                                }
-                            }
-                        }
-                        
-                        baseProductPrice = Math.round(bestPrice);
-                        if (usedBundle) {
-                             const numBundles = Math.floor(quantity / bundleQty);
-                             const remainder = quantity % bundleQty;
-                             itemOptions['Pricing Breakdown'] = `${numBundles}x Bundle of ${bundleQty} (${bundlePrice} PKR) + ${remainder}x Single (${pricing.single} PKR)`;
+                        if (finalProductCombination['Pricing Option'] !== 'Single') {
+                             itemOptions['Pricing Breakdown'] = `${finalProductCombination['Pricing Option']} (${finalProductCombination.Price} PKR)`;
+                             itemOptions['Effective Unit Price'] = `PKR ${unitPrice.toFixed(2)}`;
                         } else {
-                            itemOptions['Pricing Breakdown'] = `${quantity}x Single Print (${pricing.single} PKR)`;
+                             itemOptions['Pricing Breakdown'] = `${quantity}x Single Print (${finalProductCombination.Price} PKR/ea)`;
                         }
 
                     } else {
@@ -1668,7 +1690,7 @@
         // Return core item data (excluding shipping)
         return {
             productName: currentProduct.baseName,
-            quantity: quantity,
+            quantity: itemOptions['Quantity'] || quantity, // Use derived quantity from itemOptions if present
             basePrice: baseProductPrice, // This is the total price for the item(s) before shipping/tax
             options: itemOptions,
             isAreaBased: isAreaBased,
@@ -1676,7 +1698,41 @@
         };
     }
     
-    // 🛑 NEW: Function to update UI from price calculation
+    // 🛑 NEW: Function to display pricing breakdown for Photo Printing 🛑
+    function updatePhotoBundleAlert(itemData, finalProductCombination) {
+        const bundleAlert = document.getElementById('photo-bundle-alert');
+        if (!bundleAlert || itemData.productName !== "Photo Printing" || !finalProductCombination) {
+            return;
+        }
+        
+        // Get the breakdown generated in calculateItemPrice()
+        const breakdown = itemData.options['Pricing Breakdown'];
+        
+        const effectivePricePerUnit = itemData.basePrice / itemData.quantity;
+
+        let alertHtml = '';
+        
+        if (breakdown) {
+            alertHtml += `
+                <i class="fas fa-tags me-2"></i> **Pricing Breakdown:**
+                <ul class="mt-2 mb-0" style="list-style-type: none; padding-left: 0;">
+                    <li class="small">${breakdown}</li>
+                    <li class="small fw-bold">Effective Price per Unit: PKR ${effectivePricePerUnit.toFixed(2)}</li>
+                </ul>
+            `;
+            bundleAlert.classList.remove('alert-info', 'alert-danger');
+            bundleAlert.classList.add('alert-success');
+        } else {
+            alertHtml = `Please select both a **Photo Size** and **Pricing Option** above.`;
+            bundleAlert.classList.remove('alert-success');
+            bundleAlert.classList.add('alert-info');
+        }
+        
+        bundleAlert.innerHTML = alertHtml;
+    }
+
+
+    // 🛑 NEW: Function to update UI from price calculation (MODIFIED) 🛑
     function updateFinalPrice() {
         const itemData = calculateItemPrice();
         
@@ -1688,6 +1744,14 @@
             document.getElementById('selectionWarning').classList.remove('alert-danger');
             document.getElementById('selectionWarning').classList.add('alert-info');
             document.getElementById('selectionWarning').style.display = 'block';
+            
+            // Clear photo bundle alert on error
+            const bundleAlert = document.getElementById('photo-bundle-alert');
+            if (bundleAlert) {
+                bundleAlert.innerHTML = 'Please select options and quantity above.';
+                bundleAlert.classList.remove('alert-success');
+                bundleAlert.classList.add('alert-info');
+            }
             return;
         }
 
@@ -1717,6 +1781,16 @@
         document.getElementById('finalPriceDisplay').textContent = `PKR ${finalSellingPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
         document.getElementById('finalPriceBox').style.display = 'block';
         document.getElementById('selectionWarning').style.display = 'none';
+
+        // 🛑 NEW: Update the specific photo pricing alert here 🛑
+        if (itemData.productName === "Photo Printing" && currentProduct) {
+            const requiredKeys = Object.keys(currentProduct.combinations[0] || {}).filter(key => key !== 'Price' && key !== 'FullName' && key !== 'PricingStructure' && key !== 'Quantity Multiplier');
+            let finalProductCombination = currentProduct.combinations.find(combo => 
+                requiredKeys.every(key => combo[key] === currentSelectedVariations[key])
+            );
+            updatePhotoBundleAlert(itemData, finalProductCombination);
+        }
+        // 🛑 END NEW INTEGRATION 🛑
 
         // --- Update UI with Shipping Cost Details ---
         document.getElementById('shipping-cost-display').textContent = shippingCost === 0 ? "FREE" : `PKR ${shippingCost.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
@@ -1749,7 +1823,7 @@
         }
     }
 
-    // 🛑 NEW: Function to Add Item to Cart 🛑
+    // 🛑 NEW: Function to Add Item to Cart (UNCHANGED) 🛑
     function addItemToCart() {
         if (typeof Cart === 'undefined') {
             Cart.showAlert('Cart system not loaded.', 'error');
@@ -1781,10 +1855,8 @@
         Cart.addItem(cartItem);
     }
 
-
-    // ... (rest of the existing showProductDetails, handleCardSelection, and other helper functions)
     
-    // 4. Navigate to and Populate Product Detail Page
+    // 4. Navigate to and Populate Product Detail Page (MODIFIED)
     function showProductDetails(productName) {
         
         if (productName.trim() === "Custom Prints") {
@@ -1876,7 +1948,7 @@
             updateFinalPrice();
 
         } else {
-            // --- STANDARD TIERED ITEM SETUP ---
+            // --- STANDARD TIERED ITEM SETUP (INCLUDING PHOTO PRINTING) ---
             areaInputs.style.display = 'none';
             standardOptions.style.display = 'block';
             standardOptions.innerHTML = ''; 
@@ -1887,8 +1959,10 @@
                  return;
             }
 
-            // Exclude the internal PricingStructure field from the attributes loop
-            let attributeKeys = Object.keys(allCombinations[0]).filter(key => key !== 'Price' && key !== 'FullName' && key !== 'PricingStructure');
+            // Exclude internal fields, but keep 'Quantity Multiplier' to manage its value manually
+            let attributeKeys = Object.keys(allCombinations[0]).filter(key => 
+                key !== 'Price' && key !== 'FullName' && key !== 'PricingStructure' && key !== 'Quantity Multiplier'
+            );
             
             // FIX: Sort attribute keys using the defined priority
             attributeKeys = sortAttributeKeys(attributeKeys);
@@ -1933,7 +2007,7 @@
                 standardOptions.innerHTML += groupHTML;
             });
 
-            // Add quantity selector for standard items
+            // Add quantity selector for standard items (now controlled by Pricing Option for Photo Printing)
             standardOptions.innerHTML += `
                  <div class="product-option-group" data-option-key="QuantitySelector">
                     <label>Quantity:</label>
@@ -1943,7 +2017,7 @@
                         <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(1)">+</button>
                     </div>
                  </div>
-                 ${currentProduct.baseName === "Photo Printing" ? '<div class="alert alert-info mt-3" id="photo-bundle-alert">Price will be calculated based on the best available single or bundle rate.</div>' : ''}
+                 <div class="alert alert-info mt-3" id="photo-bundle-alert">Please select options and quantity above.</div>
             `;
             
             document.getElementById('finalPriceBox').style.display = 'none';
@@ -1965,9 +2039,6 @@
 
         showSection('product-detail');
     }
-    
-    // ... (rest of the functions remain unchanged except for the two modified ones above)
-    // ... (omitting the rest of the file for brevity, ensure you replace the entire file content)
     
     function showDigitalPrintingDetails() {
          currentProduct = allProductGroups["Custom Prints"];
@@ -2087,7 +2158,8 @@
         }
 
         if (cascade) {
-            let allAttributeKeys = Object.keys(currentProduct.combinations[0]).filter(k => k !== 'Price' && k !== 'FullName');
+            // Exclude internal fields, but keep 'Quantity Multiplier' to manage its value manually
+            let allAttributeKeys = Object.keys(currentProduct.combinations[0]).filter(k => k !== 'Price' && k !== 'FullName' && k !== 'PricingStructure' && k !== 'Quantity Multiplier');
             allAttributeKeys = sortAttributeKeys(allAttributeKeys);
 
             let startCascade = false;
@@ -2143,6 +2215,32 @@
             }
         }
         
+        // 🛑 NEW LOGIC: Update Quantity Input based on Pricing Option selection 🛑
+        if (currentProduct.baseName === "Photo Printing" && currentSelectedVariations['Pricing Option']) {
+            const selectedOption = currentSelectedVariations['Pricing Option'];
+            
+            // Find the current active combination to get the multiplier
+            const requiredKeysForCombo = Object.keys(currentProduct.combinations[0] || {}).filter(k => k !== 'Price' && k !== 'FullName' && k !== 'PricingStructure' && k !== 'Quantity Multiplier');
+            
+            const combo = currentProduct.combinations.find(c => 
+                requiredKeysForCombo.every(k => c[k] === currentSelectedVariations[k])
+            );
+
+            const qtyInput = document.getElementById('input-standard-qty');
+            
+            if (selectedOption === 'Single') {
+                qtyInput.disabled = false;
+                qtyInput.min = 1;
+                // Ensure Quantity is at least 1 when 'Single' is selected
+                if (parseInt(qtyInput.value) < 1) qtyInput.value = 1; 
+            } else if (combo && combo['Quantity Multiplier']) {
+                // Lock quantity to bundle size
+                const newQuantity = combo['Quantity Multiplier'];
+                qtyInput.value = newQuantity;
+                qtyInput.disabled = true;
+            }
+        }
+
         updateFinalPrice();
     }
     
@@ -2217,14 +2315,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
