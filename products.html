@@ -2,8 +2,7 @@
 <html lang="en">
 
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9NHW41JTY2"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9NHW41JTY2"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -414,15 +413,15 @@
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
                         <img src='img/products/letterpad.webp' onerror="this.onerror=null;this.src='img/products/letterpad.png';" class='w-100' alt='Letterpad'>
                         <div class="product-footer-overlay p-0">
-                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('letterpad')">
-                                <i class="fas fa-search me-2"></i> letterpads
+                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Letterpad')">
+                                <i class="fas fa-search me-2"></i> Letterpad
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <img src='img/products/envelops.webp' onerror="this.onerror=null;this.src='img/products/envelops.png';" class='w-100' alt='envelops'>
+                        <img src='img/products/envelops.webp' onerror="this.onerror=null;this.src='img/products/envelops.png';" class='w-100' alt='Envelops'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Envelops')">
                                 <i class="fas fa-search me-2"></i> Envelops
@@ -497,7 +496,7 @@
                 </div>
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <img src='img/products/mugs.webp' onerror="this.onerror=null;this.src='img/products/Mug.png';" class='w-100' alt='Mug'>
+                        <img src='img/products/mugs.webp' onerror="this.onerror=null;this.src='img/products/mugs.png';" class='w-100' alt='Mug'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Mug')">
                                 <i class="fas fa-search me-2"></i> Mug
@@ -507,7 +506,7 @@
                 </div>
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <img src='img/products/pen.webp' onerror="this.onerror=null;this.src='img/products/pen.png';" class='w-100' alt='Metal Pen'>
+                        <img src='img/products/metal.webp' onerror="this.onerror=null;this.src='img/products/metal.png';" class='w-100' alt='Metal Pen'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Metal Pen')">
                                 <i class="fas fa-search me-2"></i> Metal Pen
@@ -614,7 +613,7 @@
                 </div>
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <img src='img/products/flags.webp' onerror="this.onerror=null;this.src='img/products/flags.png';" class='w-100' alt='Flags & Fabric'>
+                        <img src='img/products/flags.webp' onerror="this.onerror=null;this.src='img/products/flag.png';" class='w-100' alt='Flags & Fabric'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showSection('quote')">
                                 <i class="fas fa-file-invoice me-2"></i> Flags & Fabric
@@ -639,7 +638,7 @@
                 
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <img src='img/products/digital.webp' onerror="this.onerror=null;this.src='img/products/prints.png';" class='w-100' alt='Custom Prints'>
+                        <img src='img/products/digital.webp' onerror="this.onerror=null;this.src='img/products/digital.png';" class='w-100' alt='Custom Prints'>
                         <div class="product-footer-overlay p-0">
                             <a class="btn btn-primary w-100 rounded-0 p-3" href="print-order.html">
                                 <i class="fas fa-print me-2"></i> Custom Prints
@@ -652,12 +651,12 @@
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
                         <img src='img/products/printer.webp' onerror="this.onerror=null;this.src='img/products/printer.png';" class='w-100' alt='Custom Prints'>
                         <div class="product-footer-overlay p-0">
-                            <button class="btn btn-secondary w-100 rounded-0 p-3" onclick="showProductDetails('Custom Prints')">
+                            <button class="btn btn-secondary w-100 rounded-0 p-3" onclick="showDigitalPrintingDetails()">
                                 <i class="fas fa-calculator me-2"></i> View Price Calculator
                             </button>
                         </div>
                     </div>
-                </di>
+                </div>
     </section>
     <section id="product-detail-section" class="section">
         <div class="container-fluid page-header py-5">
@@ -1076,7 +1075,7 @@
                         <div class="rounded p-2 d-flex flex-column align-items-center">
                             <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto"
                                 style="width: 56px; height: 56px;">
-                                <i class="fas fa-envelope fa-2x text-primary" style="line-height: 1;"></i>
+                                <i class="fas fa-envelope fa-2x text-primary" style="line-height: 1);"></i>
                             </div>
                             <h6 class="text-white mt-1 mb-1">Mail Us</h6>
                             <p class="text-white fw-bold mb-1 small text-center">info@arhamprinters.pk</p>
@@ -1159,58 +1158,33 @@
     let currentSelectedVariations = {}; 
     let customprintspricing = {};
     
-    let currentShippingZone = 'Within City'; // Default to cheapest zone (JLP)
-    let currentDeliveryType = 'HomeDelivery'; // NEW: Default to Home Delivery
+    let currentShippingZone = 'Within City'; 
+    let currentDeliveryType = 'HomeDelivery'; 
+    const CUSTOM_PRINTS_PRODUCT_NAME = "Custom Prints"; 
 
 
-    // --- Shipping Rate Configuration (PostEx with 15% Fuel & 16% GST) ---
+    // --- Shipping Rate Configuration (Defined for completeness) ---
     const SHIPPING_RATES = {
-        // Within City (JLP) / Same Province / Cross Province
-        'small': { 
-            'Within City': 100, // MODIFIED: Flat rate for JLP Home Delivery
-            'Same Province': 347,
-            'Cross Province': 359
-        },
-        'medium': { 
-            'Within City': 100, // MODIFIED: Flat rate for JLP Home Delivery
-            'Same Province': 529,
-            'Cross Province': 541
-        },
-        'overland': { 
-            'Within City': 150, // MODIFIED: Flat rate for JLP Home Delivery
-            'Same Province': 1254,
-            'Cross Province': 1254
-        }
+        'small': { 'Within City': 100, 'Same Province': 347, 'Cross Province': 359 },
+        'medium': { 'Within City': 100, 'Same Province': 529, 'Cross Province': 541 },
+        'overland': { 'Within City': 150, 'Same Province': 1254, 'Cross Province': 1254 }
     };
-
-    // --- Local Shipping Rates/Thresholds (Removed/Simplified as per request) ---
-    const LOCAL_DELIVERY_COST = 100; // Flat local rate
-
-    // --- Zone Mapping Data (JLP is the Origin City) ---
+    const LOCAL_DELIVERY_COST = 100; 
     const CITY_TO_ZONE = {
-        "jalalpur jattan": "Within City",
-        "gujrat": "Same Province",
-        "gujranwala": "Same Province",
-        "lahore": "Same Province",
-        "sialkot": "Same Province",
-        "rawalpindi": "Same Province",
-        "multan": "Same Province",
-        "faisalabad": "Same Province",
-        "karachi": "Cross Province",
-        "islamabad": "Cross Province",
-        "peshawar": "Cross Province",
-        "quetta": "Cross Province",
+        "jalalpur jattan": "Within City", "gujrat": "Same Province", "gujranwala": "Same Province", 
+        "lahore": "Same Province", "sialkot": "Same Province", "rawalpindi": "Same Province", 
+        "multan": "Same Province", "faisalabad": "Same Province", "karachi": "Cross Province",
+        "islamabad": "Cross Province", "peshawar": "Cross Province", "quetta": "Cross Province",
         "sukkur": "Cross Province"
     };
 
-    // --- PROFIT & COST CONSTANTS (Derived from previous analysis) ---
-   
+    // --- PROFIT & COST CONSTANTS (Derived) ---
     const AREA_BASED_META = {
         "China": { is_area_based: true, rate: 35, min_area: 2, category: 'Banners' }, 
         "Star": { is_area_based: true, rate: 65, min_area: 2, category: 'Banners' },
         "Backlit": { is_area_based: true, rate: 100, min_area: 2, category: 'Banners' }, 
-        "One Vision": { is_area_based: true, rate: 90, min_area: 2, category: 'Banners' }, // Name adjusted for JSON key
-        "Venyl Sticker": { is_area_based: true, rate: 90, min_area: 2, category: 'Banners' }, // Name adjusted for JSON key  
+        "One Vision": { is_area_based: true, rate: 90, min_area: 2, category: 'Banners' },
+        "Venyl Sticker": { is_area_based: true, rate: 90, min_area: 2, category: 'Banners' }, 
         "3D Wallpaper": { is_area_based: true, rate: 30, min_area: 20, category: '3D Wallpaper' },
         "Photo Frames": { is_area_based: true, rate: 40, min_area: 1, category: 'Photo Papers' } 
     };
@@ -1233,16 +1207,10 @@
         { min_qty: 51, max_qty: Infinity, multiplier: 1.10 },
     ];
 
-    // Map the generic SQL column name to a user-friendly display name
     const variantDisplayNames = {
-        'variant_1': 'Size', 
-        'variant_2': 'Material/Stock', 
-        'variant_3': 'Type/Finish', 
-        'single_side': 'Print Color (Single Side)',
-        'double_side': 'Print Color (Double Side)',
-        'finish': 'Finish',
-        'shape': 'Shape',
-        'material': 'Material',
+        'variant_1': 'Size', 'variant_2': 'Material/Stock', 'variant_3': 'Type/Finish', 
+        'single_side': 'Print Color (Single Side)', 'double_side': 'Print Color (Double Side)',
+        'finish': 'Finish', 'shape': 'Shape', 'material': 'Material',
     };
     
     const DISPLAY_ORDER = [
@@ -1288,92 +1256,6 @@
         }
         return multiplier;
     }
-    
-    // --- CORE FUNCTIONS ---
-
-    async function initialAppLoad() {
-        // Inject Google Maps API script
-        const script = document.createElement('script');
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places`;
-        document.head.appendChild(script);
-
-        let rawData;
-        try {
-            const response = await fetch(PUBLIC_DATA_URL);
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            rawData = await response.json(); 
-        } catch (error) {
-            console.error("Failed to load shop data:", error);
-            Cart.showAlert("Failed to load product data. Check the developer console.", 'error');
-            return;
-        }
-        
-        initialProductSetup(rawData);
-        showSection('shop-catalog'); 
-        
-        document.getElementById('quote-form').addEventListener('submit', handleQuoteSubmission);
-        document.getElementById('contact-form-whatsapp').addEventListener('submit', handleContactSubmission);
-        
-        // Initial setup for location display
-        setDeliveryType('HomeDelivery', false); // Initialize UI state and default zone
-        document.getElementById('zone-name').textContent = `Jalalpur Jattan (Default)`;
-        document.getElementById('zone-name').classList.add('text-success');
-
-        if (typeof setActiveMobileNav === 'function') setActiveMobileNav('products');
-    }
-    
-    function initialProductSetup(flatData) {
-        const productGroups = {};
-        Object.keys(flatData).forEach(categoryKey => {
-            const categoryData = flatData[categoryKey];
-            if (categoryKey === "B/W and Color Prints") {
-                customprintspricing["Custom Prints"] = categoryData;
-                if (Object.keys(categoryData || {}).length > 0) {
-                    productGroups["Custom Prints"] = {
-                         baseName: "Custom Prints", minPrice: 6, imageFile: `digital`, 
-                         isAreaBased: false, mainCategory: categoryKey, isDigitalTiered: true, combinations: [] 
-                    };
-                }
-                return;
-            }
-            if (categoryKey === "Special Occasions (Wedding)") return;
-
-            Object.keys(categoryData).forEach(productKey => {
-                 const productCombinations = categoryData[productKey];
-                 if (!productGroups[productKey]) {
-                     let imageFileBase = productKey.replace(/\s|\/|\(|\)/g, '').replace('Visiting', 'vcard').toLowerCase();
-                     if (productKey === 'Ishtihars') imageFileBase = 'flyers';
-                     if (productKey === 'T-Shirt Cotton' || productKey === 'T-Shirt Multicolor') imageFileBase = 'cottonshirt';
-                     if (productKey === 'File Covers') imageFileBase = 'file';
-                     
-                     const isAreaBased = AREA_BASED_PRODUCT_NAMES.includes(productKey);
-                     
-                     productGroups[productKey] = {
-                         baseName: productKey, minPrice: Infinity, imageFile: imageFileBase, 
-                         isAreaBased: isAreaBased, mainCategory: categoryKey, combinations: [] 
-                     };
-                 }
-                 
-                 if (!productGroups[productKey].isAreaBased && Array.isArray(productCombinations)) {
-                     productCombinations.forEach(item => {
-                         let attributes = { 'Price': parseFloat(item.price) || 0, 'FullName': productKey };
-                         Object.keys(item).forEach(key => {
-                             if (key !== 'price' && key !== 'imageFile' && item[key]) {
-                                 const displayKey = variantDisplayNames[key] || key.charAt(0).toUpperCase() + key.slice(1);
-                                 if (key !== 'variant_3' && displayKey === attributes.FullName) return; 
-                                 attributes[displayKey] = item[key];
-                             }
-                         });
-                         productGroups[productKey].combinations.push(attributes);
-                         if (attributes.Price > 0 && attributes.Price < productGroups[productKey].minPrice) {
-                             productGroups[productKey].minPrice = attributes.Price;
-                         }
-                     });
-                 }
-            });
-        });
-        allProductGroups = productGroups;
-    }
 
     function getShippingPacketType(productName) {
         if (productName.includes('Card') || productName.includes('Print') || productName.includes('Sticker')) return 'small';
@@ -1388,41 +1270,14 @@
         return rates['Cross Province']; 
     }
     
-    // 🛑 NEW: Function to set and update the delivery type 🛑
-    function setDeliveryType(type, triggerPriceUpdate = true) {
-        currentDeliveryType = type;
-        const shippingZoneSelector = document.getElementById('shipping-zone-selector');
-        
-        document.querySelectorAll('input[name="option-DeliveryType"]').forEach(input => {
-            input.closest('.choice-card')?.classList.remove('selected');
-        });
-        
-        const selectedInput = document.querySelector(`input[name="option-DeliveryType"][value="${type}"]`);
-        if (selectedInput) {
-            selectedInput.checked = true;
-            selectedInput.closest('.choice-card')?.classList.add('selected');
-        }
-
-        if (type === 'SelfPickUp') {
-            shippingZoneSelector.style.display = 'none';
-        } else {
-            shippingZoneSelector.style.display = 'block';
-        }
-        
-        if (triggerPriceUpdate) updateFinalPrice();
-    }
-
-
-    // --- LOCATION DETECTION LOGIC (Now mainly for currentShippingZone update) ---
-
+    // --- LOCATION HELPERS (NEEDED GLOBALLY) ---
     function manualLocationCheck() {
         const cityInput = document.getElementById('input-city').value.trim();
         if (cityInput.length < 3) return;
         updateShippingZone(cityInput);
     }
-
     function detectLocation() {
-        if (GOOGLE_MAPS_API_KEY === 'YOUR_API_KEY_HERE') {
+        if (GOOGLE_MAPS_API_KEY === 'AIzaSyCAz3R9s0BdNnwgEtaC31LJcIqlkoXh05U') {
             Cart.showAlert("API Key not configured. Cannot auto-detect location.", 'error');
             return;
         }
@@ -1433,24 +1288,20 @@
             Cart.showAlert("Geolocation is not supported by this browser.", 'error');
         }
     }
-
     function showPosition(position) {
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
         const geocoder = new google.maps.Geocoder();
         const latlng = { lat: parseFloat(lat), lng: parseFloat(lng) };
-
         geocoder.geocode({ location: latlng }, (results, status) => {
             if (status === "OK" && results[0]) {
                 const addressComponents = results[0].address_components;
                 let detectedCity = "";
-
                 addressComponents.forEach(component => {
                     if (component.types.includes("locality")) {
                         detectedCity = component.long_name;
                     }
                 });
-                
                 if (detectedCity) {
                      document.getElementById('input-city').value = detectedCity;
                      updateShippingZone(detectedCity);
@@ -1463,40 +1314,47 @@
             }
         });
     }
-
     function showError(error) {
         Cart.showAlert("Error detecting location: " + error.message, 'error');
         document.getElementById('zone-name').textContent = "Detection Failed. Defaulting to JLP.";
     }
-
     function updateShippingZone(cityName) {
         const normalizedCity = cityName.toLowerCase().replace(/[^a-z0-9]/g, ' ').trim();
         let zone = 'Cross Province'; 
-        
         if (CITY_TO_ZONE[normalizedCity]) {
             zone = CITY_TO_ZONE[normalizedCity];
         } else {
-            // Fallback check for major Punjab cities not explicitly listed
             if (cityName.toLowerCase().includes('lahore') || cityName.toLowerCase().includes('gujrat')) {
                  zone = 'Same Province';
             }
         }
-        
         currentShippingZone = zone;
-        
         const zoneDisplay = document.getElementById('zone-name');
         zoneDisplay.textContent = `${currentShippingZone} (${cityName})`;
         zoneDisplay.classList.remove('text-success', 'text-warning', 'text-danger');
         zoneDisplay.classList.add(zone === 'Within City' ? 'text-success' : (zone === 'Same Province' ? 'text-warning' : 'text-danger'));
-        
         updateFinalPrice(); 
     }
+    function setDeliveryType(type, triggerPriceUpdate = true) {
+        currentDeliveryType = type;
+        const shippingZoneSelector = document.getElementById('shipping-zone-selector');
+        document.querySelectorAll('input[name="option-DeliveryType"]').forEach(input => {
+            input.closest('.choice-card')?.classList.remove('selected');
+        });
+        const selectedInput = document.querySelector(`input[name="option-DeliveryType"][value="${type}"]`);
+        if (selectedInput) {
+            selectedInput.checked = true;
+            selectedInput.closest('.choice-card')?.classList.add('selected');
+        }
+        shippingZoneSelector.style.display = (type === 'SelfPickUp') ? 'none' : 'block';
+        if (triggerPriceUpdate) updateFinalPrice();
+    }
 
-    // --- Price Calculation Logic (MODIFIED to return item data) ---
-    
+
+    // --- CORE LOGIC FUNCTIONS (MUST BE GLOBAL) ---
+
     function calculateItemPrice() {
         if (!currentProduct) return { error: "No product selected" };
-        
         const isAreaBased = currentProduct.isAreaBased;
         const isDigitalTiered = currentProduct.isDigitalTiered;
         let baseProductPrice = 0;
@@ -1505,7 +1363,6 @@
         let itemOptions = {};
         let imageFile = document.getElementById('detail-product-image').src;
 
-        // 1. Calculate Base Product Price (Cost before Shipping/Margin)
         if (isAreaBased) {
             const width = parseFloat(document.getElementById('input-width').value) || 0;
             const height = parseFloat(document.getElementById('input-height').value) || 0;
@@ -1519,40 +1376,30 @@
             itemOptions['Quantity'] = quantity;
             itemOptions['Design Service'] = designService;
 
-
-            document.getElementById('areaConstraintWarning').style.display = 'none';
             if (width <= 0 || height <= 0 || quantity <= 0 || baseRate === 0) {
-                document.getElementById('areaDisplay').textContent = '';
                 requiresManualQuote = true;
             } else {
                 const itemArea = width * height;
                 const totalArea = itemArea * quantity;
-                document.getElementById('areaDisplay').textContent = `Area per piece: ${itemArea.toFixed(2)} sq ft | Total Area: ${totalArea.toFixed(2)} sq ft | Rate: PKR ${baseRate.toFixed(2)}/sq ft`;
-                if (totalArea < minArea) {
-                    requiresManualQuote = true;
-                }
+                if (totalArea < minArea) requiresManualQuote = true;
                 const basePrintCost = totalArea * baseRate;
-                let totalDesignFee = 0;
-                if (designService === 'DesignNeeded') {
-                    totalDesignFee = calculateDesignFee(itemArea, quantity);
-                }
+                let totalDesignFee = (designService === 'DesignNeeded') ? calculateDesignFee(itemArea, quantity) : 0;
                 const totalCostBeforeProfit = basePrintCost + totalDesignFee;
-                const profitMultiplier = getAreaProfitMultiplier(quantity);
-                baseProductPrice = Math.round(totalCostBeforeProfit * profitMultiplier);
+                baseProductPrice = Math.round(totalCostBeforeProfit * getAreaProfitMultiplier(quantity));
             }
         } 
         else if (isDigitalTiered) {
-             quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 0;
-             const size = currentSelectedVariations.Size;
-             const colorType = currentSelectedVariations.ColorType;
-             const gsm = currentSelectedVariations.GSM;
-             
-             itemOptions = currentSelectedVariations;
-             itemOptions['Quantity'] = quantity;
-             
-             if (!size || !colorType || !gsm || quantity <= 0) requiresManualQuote = true;
-             
-             try {
+            quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 0;
+            const size = currentSelectedVariations.Size;
+            const colorType = currentSelectedVariations.ColorType;
+            const gsm = currentSelectedVariations.GSM;
+            
+            itemOptions = currentSelectedVariations;
+            itemOptions['Quantity'] = quantity;
+            
+            if (!size || !colorType || !gsm || quantity <= 0) requiresManualQuote = true;
+            
+            try {
                 const tiers = customprintspricing[currentProduct.baseName];
                 const gsmData = tiers[size][colorType][gsm];
                 let unitPrice = 0;
@@ -1571,9 +1418,9 @@
                 } else {
                     requiresManualQuote = true;
                 }
-             } catch(e) {
+            } catch(e) {
                  requiresManualQuote = true;
-             }
+            }
         }
         else {
             quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 1;
@@ -1607,22 +1454,19 @@
             return { error: "Requires manual quote or incomplete selection" };
         }
 
-        // Return core item data (excluding shipping)
         return {
             productName: currentProduct.baseName,
             quantity: quantity,
-            basePrice: baseProductPrice, // This is the total price for the item(s) before shipping/tax
+            basePrice: baseProductPrice, 
             options: itemOptions,
             isAreaBased: isAreaBased,
             imageFile: imageFile
         };
     }
     
-    // 🛑 NEW: Function to update UI from price calculation
     function updateFinalPrice() {
         const itemData = calculateItemPrice();
         
-        // --- Error/Warning Handling ---
         if (itemData.error) {
             document.getElementById('finalPriceBox').style.display = 'none';
             document.getElementById('shipping-display-box').style.display = 'none';
@@ -1633,7 +1477,6 @@
             return;
         }
 
-        // --- SHIPPING & FINAL PRICE CALCULATION ---
         let shippingCost = 0;
         let shippingNote = '';
         const packetType = getShippingPacketType(itemData.productName);
@@ -1642,7 +1485,6 @@
             shippingCost = 0;
             shippingNote = 'Self Pick Up. No shipping charges applied.';
         } else { 
-            // Home Delivery Logic
             if (currentShippingZone === 'Within City') {
                 shippingCost = SHIPPING_RATES[packetType]['Within City'];
                 shippingNote = `Local Delivery (Jalalpur Jattan). Flat rate for ${packetType.toUpperCase()} packet.`;
@@ -1655,17 +1497,23 @@
         const totalCost = itemData.basePrice + shippingCost;
         const finalSellingPrice = Math.round(totalCost);
         
-        // --- Update UI with Final Selling Price ---
         document.getElementById('finalPriceDisplay').textContent = `PKR ${finalSellingPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
         document.getElementById('finalPriceBox').style.display = 'block';
         document.getElementById('selectionWarning').style.display = 'none';
 
-        // --- Update UI with Shipping Cost Details ---
+        if (itemData.productName === "Photo Papers") {
+            let finalProductCombination = currentProduct.combinations.find(combo => 
+                Object.keys(currentSelectedVariations).every(key => combo[key] === currentSelectedVariations[key])
+            );
+            updatePhotoBundleAlert(itemData, finalProductCombination);
+        } else if (itemData.productName === "Custom Prints") {
+            updateCustomPrintsAlert(itemData);
+        }
+
         document.getElementById('shipping-cost-display').textContent = shippingCost === 0 ? "FREE" : `PKR ${shippingCost.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
         document.getElementById('shipping-note-display').textContent = shippingNote;
         document.getElementById('shipping-display-box').style.display = 'block';
 
-        // Update Area Constraint Warning display (for design fee)
         const areaConstraintWarning = document.getElementById('areaConstraintWarning');
         if (areaConstraintWarning && itemData.isAreaBased) {
              const width = parseFloat(document.getElementById('input-width').value) || 0;
@@ -1691,221 +1539,6 @@
         }
     }
 
-    // 🛑 NEW: Function to Add Item to Cart 🛑
-    function addItemToCart() {
-        if (typeof Cart === 'undefined') {
-            Cart.showAlert('Cart system not loaded.', 'error');
-            return;
-        }
-
-        const itemData = calculateItemPrice();
-        
-        if (itemData.error) {
-            Cart.showAlert('Error adding item: ' + itemData.error, 'error');
-            return;
-        }
-        
-        const finalPriceDisplay = document.getElementById('finalPriceDisplay').textContent;
-        const totalCost = parseFloat(finalPriceDisplay.replace(/PKR|\s|,/g, '')) || 0;
-
-        const cartItem = {
-            id: Date.now(), // Unique ID for this cart item
-            productName: itemData.productName,
-            quantity: itemData.quantity,
-            basePrice: itemData.basePrice, 
-            finalItemPrice: totalCost, // Total item price including calculated shipping (for immediate display coherence)
-            options: itemData.options,
-            isAreaBased: itemData.isAreaBased,
-            imageFile: itemData.imageFile,
-            // Note: Shipping is re-calculated globally on checkout/cart view.
-        };
-
-        Cart.addItem(cartItem);
-    }
-
-
-    // ... (rest of the existing showProductDetails, handleCardSelection, and other helper functions)
-    
-    // 4. Navigate to and Populate Product Detail Page
-    function showProductDetails(productName) {
-        
-        if (productName.trim() === "Custom Prints") {
-             showDigitalPrintingDetails();
-             return;
-        }
-        if (productName.trim() === "PhotoPapers") {
-             productName = "Photo Papers";
-        }
-
-
-        let cleanName = productName.replace(/'/g, '').trim(); 
-        const productData = allProductGroups[cleanName]; 
-        currentProduct = productData;
-        currentSelectedVariations = {}; 
-
-        if (!currentProduct) {
-            Cart.showAlert(`Product "${cleanName}" details not found in data. Please use the 'Get Custom Quote' option.`, 'error'); 
-            return;
-        }
-
-        // Update headers and image
-        document.getElementById('detail-product-name-header').textContent = currentProduct.baseName;
-        document.getElementById('detail-product-name-body').textContent = currentProduct.baseName;
-        
-        const imagePath = currentProduct.imageFile;
-        document.getElementById('detail-product-image-webp').srcset = `img/products/${imagePath}.webp`;
-        document.getElementById('detail-product-image').src = `img/products/${imagePath}.png`; 
-        document.getElementById('detail-product-image').onerror = function() { 
-             this.src = `img/products/placeholder.png`; 
-        };
-
-
-        const areaInputs = document.getElementById('custom-area-inputs');
-        const standardOptions = document.getElementById('standard-options-fields');
-        
-        document.getElementById('finalPriceBox').style.display = 'none';
-        document.getElementById('selectionWarning').textContent = "Please enter dimensions/quantity or select all options above to see the final price.";
-        document.getElementById('selectionWarning').classList.remove('alert-danger');
-        document.getElementById('selectionWarning').classList.add('alert-info');
-        document.getElementById('selectionWarning').style.display = 'block';
-
-        // Reset Delivery Selection to default Home Delivery
-        setDeliveryType('HomeDelivery', false); // Initialize UI state and default zone
-
-        const isAreaBased = currentProduct.isAreaBased;
-        
-        // 🛑 CORE LOGIC: Area-Based vs. Standard 🛑
-        if (isAreaBased) {
-            // --- AREA-BASED SETUP (Panaflex/Wallpaper/Photo Frames) ---
-            areaInputs.style.display = 'block';
-            
-            // Inject Design Service option group before existing standard options
-            standardOptions.style.display = 'block'; 
-            standardOptions.innerHTML = `
-                <div class="product-option-group" data-option-key="DesignService">
-                    <label>Design Service:</label>
-                    <div class="d-flex flex-wrap gap-3">
-                        <label class="choice-card selected" id="design-printready" 
-                               onclick="currentSelectedVariations['DesignService']='PrintReady'; updateFinalPrice()">
-                            <input type="radio" name="option-DesignService" value="PrintReady" checked>
-                            <span class="label-text">Print Ready File</span>
-                        </label>
-                        <label class="choice-card" id="design-needed" 
-                               onclick="currentSelectedVariations['DesignService']='DesignNeeded'; updateFinalPrice()">
-                            <input type="radio" name="option-DesignService" value="DesignNeeded">
-                            <span class="label-text">Design Service Required</span>
-                        </label>
-                    </div>
-                </div>`;
-            
-            // Set initial selection state for the new option
-            currentSelectedVariations['DesignService'] = 'PrintReady';
-
-            // Reset Dimension inputs
-            document.getElementById('input-width').value = 1;
-            document.getElementById('input-height').value = 1;
-            document.getElementById('input-custom-qty').value = 1;
-
-            ['input-width', 'input-height', 'input-custom-qty'].forEach(id => {
-                 const el = document.getElementById(id);
-                 if(el) el.oninput = updateFinalPrice;
-            });
-            
-            document.getElementById('areaConstraintWarning').style.display = 'none';
-            document.getElementById('areaConstraintWarning').classList.remove('alert-info');
-            document.getElementById('areaConstraintWarning').classList.add('alert-danger'); // Default style is error, use info for fee
-
-            updateFinalPrice();
-
-        } else {
-            // --- STANDARD TIERED ITEM SETUP ---
-            areaInputs.style.display = 'none';
-            standardOptions.style.display = 'block';
-            standardOptions.innerHTML = ''; 
-
-            const allCombinations = currentProduct.combinations || [];
-            if (allCombinations.length === 0 || !allCombinations[0]) {
-                 standardOptions.innerHTML = `<p class="alert alert-warning">No price configurations found for this product. Please use the Quote form.</p>`;
-                 return;
-            }
-
-            let attributeKeys = Object.keys(allCombinations[0]).filter(key => key !== 'Price' && key !== 'FullName');
-            
-            // FIX: Sort attribute keys using the defined priority
-            attributeKeys = sortAttributeKeys(attributeKeys);
-
-
-            const availableAttributes = {};
-            attributeKeys.forEach(key => availableAttributes[key] = new Set());
-
-            allCombinations.forEach(c => {
-                attributeKeys.forEach(key => {
-                    if (c[key]) availableAttributes[key].add(c[key]);
-                });
-            });
-            
-            // Render groups of unique values for each attribute
-            attributeKeys.forEach((attrKey) => {
-                const uniqueValues = Array.from(availableAttributes[attrKey]);
-                const sanitizedKey = attrKey;
-
-                let groupHTML = `
-                    <div class="product-option-group" data-option-key="${sanitizedKey}">
-                        <label>${attrKey}:</label>
-                        <div class="d-flex flex-wrap gap-3" id="choices-${sanitizedKey}">
-                `;
-                
-                // Sort values for cleaner UI
-                uniqueValues.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
-
-                uniqueValues.forEach(value => {
-                    const inputId = `${sanitizedKey}-${value.replace(/\s|\/|\\|\(|\)/g, '-')}`;
-                    
-                    groupHTML += `
-                        <label class="choice-card" for="${inputId}">
-                            <input type="radio" id="${inputId}" name="option-${sanitizedKey}" value="${value}" 
-                                   onchange="handleCardSelection('${sanitizedKey}', '${value}')">
-                            <span class="label-text">${value}</span>
-                        </label>
-                    `;
-                });
-
-                groupHTML += `</div></div>`;
-                standardOptions.innerHTML += groupHTML;
-            });
-
-            // Add quantity selector for standard items
-            standardOptions.innerHTML += `
-                 <div class="product-option-group" data-option-key="QuantitySelector">
-                    <label>Quantity:</label>
-                    <div class="input-group">
-                        <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(-1)">-</button>
-                        <input type="number" id="input-standard-qty" min="1" value="1" class="form-control text-center rounded-0" oninput="updateFinalPrice()">
-                        <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(1)">+</button>
-                    </div>
-                </div>
-            `;
-            
-            document.getElementById('finalPriceBox').style.display = 'none';
-            document.getElementById('selectionWarning').style.display = 'block';
-
-            // Initial auto-selection to set defaults and trigger cascading update
-            if (attributeKeys.length > 0) {
-                 const firstKey = attributeKeys[0];
-                 const firstValue = Array.from(availableAttributes[firstKey])[0];
-                 if(firstValue) {
-                    const firstInput = document.querySelector(`input[name="option-${firstKey}"][value="${firstValue}"]`);
-                    if(firstInput) firstInput.checked = true;
-                    handleCardSelection(firstKey, firstValue);
-                 }
-            } else {
-                updateFinalPrice();
-            }
-        }
-
-        showSection('product-detail');
-    }
-    
     function showDigitalPrintingDetails() {
          currentProduct = allProductGroups["Custom Prints"];
          currentSelectedVariations = {}; 
@@ -1918,8 +1551,9 @@
          document.getElementById('detail-product-name-header').textContent = currentProduct.baseName;
          document.getElementById('detail-product-name-body').textContent = currentProduct.baseName;
          
-         document.getElementById('detail-product-image-webp').srcset = `img/products/${currentProduct.imageFile}.webp`;
-         document.getElementById('detail-product-image').src = `img/products/${currentProduct.imageFile}.png`; 
+         const imagePath = currentProduct.imageFile;
+         document.getElementById('detail-product-image-webp').srcset = `img/products/${imagePath}.webp`;
+         document.getElementById('detail-product-image').src = `img/products/${imagePath}.png`; 
          document.getElementById('detail-product-image').onerror = function() { this.src = `img/products/placeholder.png`; };
 
          const areaInputs = document.getElementById('custom-area-inputs');
@@ -1930,15 +1564,16 @@
          standardOptions.innerHTML = '';
          
          document.getElementById('finalPriceBox').style.display = 'none';
+         document.getElementById('shipping-display-box').style.display = 'none';
          document.getElementById('selectionWarning').textContent = "Please select all printing options and enter quantity to see the final price.";
          document.getElementById('selectionWarning').classList.remove('alert-danger');
          document.getElementById('selectionWarning').classList.add('alert-info');
          document.getElementById('selectionWarning').style.display = 'block';
 
-         // Reset Delivery Selection to default Home Delivery
          setDeliveryType('HomeDelivery', false); 
 
-         const sizes = Object.keys(customprintspricing["Custom Prints"]);
+         const pricingData = customprintspricing["Custom Prints"];
+         const sizes = Object.keys(pricingData);
          
          if(sizes.length === 0) {
              standardOptions.innerHTML = `<p class="alert alert-warning">Custom Prints not loaded. Please contact support.</p>`;
@@ -1959,7 +1594,7 @@
             if (key === 'Size') {
                 currentOptions = sizesList;
             } else if (key === 'ColorType' && sizesList.length > 0) {
-                currentOptions = Object.keys(customprintspricing["Custom Prints"][sizesList[0]] || {});
+                currentOptions = Object.keys(customprintspricing["Custom Prints"][sizesList[0]] || {}).map(k => k.replace('_', ' '));
             } else if (key === 'GSM' && sizesList.length > 0) {
                 const firstColorType = Object.keys(customprintspricing["Custom Prints"][sizesList[0]] || {})[0];
                  if (firstColorType) {
@@ -1969,10 +1604,11 @@
 
             currentOptions.forEach(value => {
                  const displayValue = value.replace('_', ' ').toUpperCase();
+                 const storageValue = value.replace(' ', '_');
                  const inputId = `${key}-${value}`;
                  html += `<label class="choice-card" for="${inputId}">
-                             <input type="radio" id="${inputId}" name="option-${key}" value="${value}" 
-                                    onchange="handleCardSelection('${key}', '${value}', true)">
+                             <input type="radio" id="${inputId}" name="option-${key}" value="${storageValue}" 
+                                    onchange="handleCardSelection('${key}', '${storageValue}', true)">
                              <span class="label-text">${displayValue}</span>
                          </label>`;
             });
@@ -2026,55 +1662,29 @@
         if (cascade) {
             let allAttributeKeys = Object.keys(currentProduct.combinations[0]).filter(k => k !== 'Price' && k !== 'FullName');
             allAttributeKeys = sortAttributeKeys(allAttributeKeys);
-
             let startCascade = false;
 
             for (const attrKey of allAttributeKeys) {
-                if (attrKey === key) {
-                    startCascade = true;
-                    continue; 
-                }
-                
+                if (attrKey === key) { startCascade = true; continue; }
                 if (startCascade) {
-                    const targetGroup = document.getElementById(`choices-${attrKey}`);
-                    if (targetGroup) {
-                        const validValues = filterAvailableOptions(
-                            attrKey, currentSelectedVariations, currentProduct.combinations
-                        );
-                        
-                        let newSelectionNeeded = false;
-                        
-                        targetGroup.querySelectorAll('.choice-card').forEach(card => {
-                            const inputEl = card.querySelector('input');
-                            const optionValue = inputEl.value;
-                            
-                            if (!validValues.has(optionValue)) {
-                                card.classList.add('disabled');
-                                card.classList.remove('selected');
-                                
-                                if (currentSelectedVariations[attrKey] === optionValue) {
-                                    delete currentSelectedVariations[attrKey];
-                                    newSelectionNeeded = true;
-                                }
-                            } else {
-                                card.classList.remove('disabled');
-                                if (currentSelectedVariations[attrKey] === optionValue) {
-                                     card.classList.add('selected');
-                                     inputEl.checked = true;
-                                }
-                            }
-                        });
-                        
-                        if (newSelectionNeeded || !currentSelectedVariations[attrKey]) {
-                            const firstValidOption = targetGroup.querySelector('.choice-card:not(.disabled) input');
-                            if (firstValidOption) {
-                                firstValidOption.checked = true; 
-                                handleCardSelection(attrKey, firstValidOption.value);
-                                return; 
-                            } else {
-                                delete currentSelectedVariations[attrKey];
-                            }
+                    const validValues = filterAvailableOptions(attrKey, currentSelectedVariations, currentProduct.combinations);
+                    let newSelectionNeeded = false;
+                    document.querySelectorAll(`#choices-${attrKey} .choice-card`).forEach(card => {
+                        const inputEl = card.querySelector('input');
+                        const optionValue = inputEl.value;
+                        if (!validValues.has(optionValue)) {
+                            card.classList.add('disabled');
+                            card.classList.remove('selected');
+                            if (currentSelectedVariations[attrKey] === optionValue) { delete currentSelectedVariations[attrKey]; newSelectionNeeded = true; }
+                        } else {
+                            card.classList.remove('disabled');
+                            if (currentSelectedVariations[attrKey] === optionValue) { card.classList.add('selected'); inputEl.checked = true; }
                         }
+                    });
+                    if (newSelectionNeeded || !currentSelectedVariations[attrKey]) {
+                        const firstValidOption = document.querySelector(`#choices-${attrKey} .choice-card:not(.disabled) input`);
+                        if (firstValidOption) { firstValidOption.checked = true; handleCardSelection(attrKey, firstValidOption.value); return; } 
+                        else { delete currentSelectedVariations[attrKey]; }
                     }
                 }
             }
@@ -2088,7 +1698,6 @@
         allCombinations.forEach(combo => {
             let isMatch = true;
             const keysToCheck = Object.keys(currentSelections).filter(k => k !== targetKey);
-            
             for (const key of keysToCheck) {
                  if (combo[key] !== currentSelections[key]) {
                     isMatch = false;
@@ -2142,10 +1751,93 @@
         if (typeof setActiveMobileNav === 'function') setActiveMobileNav(sectionName === 'shop-catalog' ? 'products' : sectionName);
         window.scrollTo(0, 0);
 
-        // Reload cart display on showing cart section
         if (sectionName === 'cart' && typeof Cart !== 'undefined') {
             Cart.updateCartDisplay();
         }
+    }
+    
+    // --- INITIALIZATION ---
+    function initialProductSetup(flatData) {
+        const productGroups = {};
+        Object.keys(flatData).forEach(categoryKey => {
+            const categoryData = flatData[categoryKey];
+            if (categoryKey === "B/W and Color Prints") {
+                customprintspricing["Custom Prints"] = categoryData;
+                if (Object.keys(categoryData || {}).length > 0) {
+                    productGroups["Custom Prints"] = {
+                         baseName: "Custom Prints", minPrice: 6, imageFile: `digital`, 
+                         isAreaBased: false, mainCategory: categoryKey, isDigitalTiered: true, combinations: [] 
+                    };
+                }
+                return;
+            }
+            if (categoryKey === "Special Occasions (Wedding)") return;
+
+            Object.keys(categoryData).forEach(productKey => {
+                 const productCombinations = categoryData[productKey];
+                 if (!productGroups[productKey]) {
+                     let imageFileBase = productKey.replace(/\s|\/|\(|\)/g, '').replace('Visiting', 'vcard').toLowerCase();
+                     if (productKey === 'Ishtihars') imageFileBase = 'flyers';
+                     if (productKey === 'T-Shirt Cotton' || productKey === 'T-Shirt Multicolor') imageFileBase = 'cottonshirt';
+                     if (productKey === 'File Covers') imageFileBase = 'file';
+                     
+                     const isAreaBased = AREA_BASED_PRODUCT_NAMES.includes(productKey);
+                     
+                     productGroups[productKey] = {
+                         baseName: productKey, minPrice: Infinity, imageFile: imageFileBase, 
+                         isAreaBased: isAreaBased, mainCategory: categoryKey, combinations: [] 
+                     };
+                 }
+                 
+                 if (!productGroups[productKey].isAreaBased && Array.isArray(productCombinations)) {
+                     productCombinations.forEach(item => {
+                         const basePrice = parseFloat(item.price) || 0; 
+                         let attributes = { 'Price': basePrice, 'FullName': productKey };
+                         Object.keys(item).forEach(key => {
+                             if (key !== 'price' && key !== 'imageFile' && item[key]) {
+                                 const displayKey = variantDisplayNames[key] || key.charAt(0).toUpperCase() + key.slice(1);
+                                 if (key !== 'variant_3' && displayKey === attributes.FullName) return; 
+                                 attributes[displayKey] = item[key];
+                             }
+                         });
+                         productGroups[productKey].combinations.push(attributes);
+                         if (basePrice > 0 && basePrice < productGroups[productKey].minPrice) {
+                             productGroups[productKey].minPrice = basePrice;
+                         }
+                     });
+                 }
+            });
+        });
+        allProductGroups = productGroups;
+    }
+
+    async function initialAppLoad() {
+        const script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places`;
+        document.head.appendChild(script);
+
+        let rawData;
+        try {
+            const response = await fetch(PUBLIC_DATA_URL);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            rawData = await response.json(); 
+        } catch (error) {
+            console.error("Failed to load shop data:", error);
+            Cart.showAlert("Failed to load product data:", 'error');
+            return;
+        }
+        
+        initialProductSetup(rawData);
+        showSection('shop-catalog'); 
+        
+        document.getElementById('quote-form').addEventListener('submit', handleQuoteSubmission);
+        document.getElementById('contact-form-whatsapp').addEventListener('submit', handleContactSubmission);
+        
+        setDeliveryType('HomeDelivery', false); 
+        document.getElementById('zone-name').textContent = `Jalalpur Jattan (Default)`;
+        document.getElementById('zone-name').classList.add('text-success');
+
+        if (typeof setActiveMobileNav === 'function') setActiveMobileNav('products');
     }
     
     document.addEventListener('DOMContentLoaded', initialAppLoad);
@@ -2154,15 +1846,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
