@@ -444,7 +444,7 @@
                         <img src='img/products/stamps.webp' onerror="this.onerror=null;this.src='img/products/stamps.png';" class='w-100' alt='Rubber Stamps'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Rubber Stamp (Rectangular)')">
-                                <i class="fas fa-search me-2"></i> Stamps
+                                <i class="fas fa-search me-2"></i> Rubber Stamps
                             </button>
                         </div>
                     </div>
@@ -468,7 +468,7 @@
                         <img src='img/products/flyers.webp' onerror="this.onerror=null;this.src='img/products/flyers.png';" class='w-100' alt='Flyers/Ishtihars'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Flyers/Ishtihars')">
-                                <i class="fas fa-search me-2"></i> Ishtihars
+                                <i class="fas fa-search me-2"></i> Flyers/Ishtihars
                             </button>
                         </div>
                     </div>
@@ -489,7 +489,7 @@
                         <img src='img/products/shirt.webp' onerror="this.onerror=null;this.src='img/products/shirt.png';" class='w-100' alt='White T-Shirt (Adult Size)'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('White T-Shirt (Adult Size)')">
-                                <i class="fas fa-search me-2"></i> T-Shirt (Adult Size)
+                                <i class="fas fa-search me-2"></i> White T-Shirt (Adult Size)
                             </button>
                         </div>
                     </div>
@@ -585,7 +585,7 @@
                         <img src='img/products/photos.webp' onerror="this.onerror=null;this.src='img/products/photopapers.png';" class='w-100' alt='Photo Papers'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Photo Printing')">
-                                <i class="fas fa-search me-2"></i> Photo Prints
+                                <i class="fas fa-search me-2"></i> Photo Papers
                             </button>
                         </div>
                     </div>
@@ -606,7 +606,7 @@
                         <img src='img/products/shields.webp' onerror="this.onerror=null;this.src='img/products/shields.png';" class='w-100' alt='Shields'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showSection('quote')">
-                                <i class="fas fa-file-invoice me-2"></i> Shields
+                                <i class="fas fa-file-invoice me-2"></i> Shields (Custom Quote)
                             </button>
                         </div>
                     </div>
@@ -623,7 +623,7 @@
                 </div>
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <img src='img/products/box.webp' onerror="this.onerror=null;this.src='img/products/box.png';" class='w-100' alt='Box Packaging'>
+                        <img src='img/products/box.webp' onerror="this.onerror=null;this.src='img/products/placeholder.png';" class='w-100' alt='Box Packaging'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showSection('quote')">
                                 <i class="fas fa-file-invoice me-2"></i> Box Packaging
@@ -645,7 +645,7 @@
                             </button>
                         </div>
                     </div>
-                </di>
+                </div>
     </section>
     <section id="product-detail-section" class="section">
         <div class="container-fluid page-header py-5">
@@ -1187,7 +1187,8 @@
     <script src="lib/counterup/counterup.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/cart-manager.js"></script> <script>
+    <script src="js/cart-manager.js"></script> 
+    <script>
     // 🛑 STEP 1: MANDATORY CONFIGURATION 🛑
     const PUBLIC_DATA_URL = 'all_prices.json'; 
     const WHATSAPP_NUMBER = '923006238233'; 
@@ -1203,59 +1204,33 @@
     let currentSelectedVariations = {}; 
     let customprintspricing = {};
     
-    let currentShippingZone = 'Within City'; // Default to cheapest zone (JLP)
-    let currentDeliveryType = 'HomeDelivery'; // NEW: Default to Home Delivery
-    const CUSTOM_PRINTS_PRODUCT_NAME = "Custom Prints"; // Name of the product group using tiered pricing
+    let currentShippingZone = 'Within City'; 
+    let currentDeliveryType = 'HomeDelivery'; 
+    const CUSTOM_PRINTS_PRODUCT_NAME = "Custom Prints"; 
 
 
-    // --- Shipping Rate Configuration (PostEx with 15% Fuel & 16% GST) ---
+    // --- Shipping Rate Configuration (Defined for completeness) ---
     const SHIPPING_RATES = {
-        // Within City (JLP) / Same Province / Cross Province
-        'small': { 
-            'Within City': 100, // MODIFIED: Flat rate for JLP Home Delivery
-            'Same Province': 347,
-            'Cross Province': 359
-        },
-        'medium': { 
-            'Within City': 100, // MODIFIED: Flat rate for JLP Home Delivery
-            'Same Province': 529,
-            'Cross Province': 541
-        },
-        'overland': { 
-            'Within City': 150, // MODIFIED: Flat rate for JLP Home Delivery
-            'Same Province': 1254,
-            'Cross Province': 1254
-        }
+        'small': { 'Within City': 100, 'Same Province': 347, 'Cross Province': 359 },
+        'medium': { 'Within City': 100, 'Same Province': 529, 'Cross Province': 541 },
+        'overland': { 'Within City': 150, 'Same Province': 1254, 'Cross Province': 1254 }
     };
-
-    // --- Local Shipping Rates/Thresholds (Removed/Simplified as per request) ---
-    const LOCAL_DELIVERY_COST = 100; // Flat local rate
-
-    // --- Zone Mapping Data (JLP is the Origin City) ---
+    const LOCAL_DELIVERY_COST = 100; 
     const CITY_TO_ZONE = {
-        "jalalpur jattan": "Within City",
-        "gujrat": "Same Province",
-        "gujranwala": "Same Province",
-        "lahore": "Same Province",
-        "sialkot": "Same Province",
-        "rawalpindi": "Same Province",
-        "multan": "Same Province",
-        "faisalabad": "Same Province",
-        "karachi": "Cross Province",
-        "islamabad": "Cross Province",
-        "peshawar": "Cross Province",
-        "quetta": "Cross Province",
+        "jalalpur jattan": "Within City", "gujrat": "Same Province", "gujranwala": "Same Province", 
+        "lahore": "Same Province", "sialkot": "Same Province", "rawalpindi": "Same Province", 
+        "multan": "Same Province", "faisalabad": "Same Province", "karachi": "Cross Province",
+        "islamabad": "Cross Province", "peshawar": "Cross Province", "quetta": "Cross Province",
         "sukkur": "Cross Province"
     };
 
-    // --- PROFIT & COST CONSTANTS (Derived from previous analysis) ---
-   
+    // --- PROFIT & COST CONSTANTS (Derived) ---
     const AREA_BASED_META = {
         "China": { is_area_based: true, rate: 35, min_area: 2, category: 'Banners' }, 
         "Star": { is_area_based: true, rate: 65, min_area: 2, category: 'Banners' },
         "Backlit": { is_area_based: true, rate: 100, min_area: 2, category: 'Banners' }, 
-        "One Vision": { is_area_based: true, rate: 90, min_area: 2, category: 'Banners' }, // Name adjusted for JSON key
-        "Venyl Sticker": { is_area_based: true, rate: 90, min_area: 2, category: 'Banners' }, // Name adjusted for JSON key  
+        "One Vision": { is_area_based: true, rate: 90, min_area: 2, category: 'Banners' },
+        "Venyl Sticker": { is_area_based: true, rate: 90, min_area: 2, category: 'Banners' }, 
         "3D Wallpaper": { is_area_based: true, rate: 30, min_area: 20, category: '3D Wallpaper' },
         "Photo Frames": { is_area_based: true, rate: 40, min_area: 1, category: 'Photo Printing' } 
     };
@@ -1278,17 +1253,10 @@
         { min_qty: 51, max_qty: Infinity, multiplier: 1.10 },
     ];
 
-    // Map the generic SQL column name to a user-friendly display name
     const variantDisplayNames = {
-        'variant_1': 'Size', 
-        'variant_2': 'Material/Stock', 
-        // 🛑 MODIFIED: Used for Photo Prints sizing 🛑
-        'variant_3': 'Photo Size', 
-        'single_side': 'Print Color (Single Side)',
-        'double_side': 'Print Color (Double Side)',
-        'finish': 'Finish',
-        'shape': 'Shape',
-        'material': 'Material',
+        'variant_1': 'Size', 'variant_2': 'Material/Stock', 'variant_3': 'Photo Size', 
+        'single_side': 'Print Color (Single Side)', 'double_side': 'Print Color (Double Side)',
+        'finish': 'Finish', 'shape': 'Shape', 'material': 'Material',
     };
     
     const DISPLAY_ORDER = [
@@ -1334,15 +1302,105 @@
         }
         return multiplier;
     }
-    
-    // ====================================================================
-    // 🎯 CRITICAL FIX: Exposed Global Functions (Moved to Top of Script Block)
-    // ====================================================================
 
-    // Core Logic Functions
+    function getShippingPacketType(productName) {
+        if (productName.includes('Card') || productName.includes('Print') || productName.includes('Sticker')) return 'small';
+        if (productName.includes('Letterpad') || productName.includes('Bill Book') || productName.includes('T-Shirt') || productName.includes('Mug') || productName.includes('Pen')) return 'medium';
+        if (AREA_BASED_PRODUCT_NAMES.includes(productName) || productName.includes('Frame') || productName.includes('Banner') || productName.includes('Wallpaper') || productName.includes('Vision') || productName.includes('Venyl')) return 'overland';
+        return 'small'; 
+    }
+
+    function getPostExShippingCost(packetType, zone) {
+        const rates = SHIPPING_RATES[packetType];
+        if (rates && rates[zone]) return rates[zone];
+        return rates['Cross Province']; 
+    }
+    
+    // --- LOCATION HELPERS (NEEDED GLOBALLY) ---
+    function manualLocationCheck() {
+        const cityInput = document.getElementById('input-city').value.trim();
+        if (cityInput.length < 3) return;
+        updateShippingZone(cityInput);
+    }
+    function detectLocation() {
+        if (GOOGLE_MAPS_API_KEY === 'AIzaSyCAz3R9s0BdNnwgEtaC31LJcIqlkoXh05U') {
+            Cart.showAlert("API Key not configured. Cannot auto-detect location.", 'error');
+            return;
+        }
+        document.getElementById('zone-name').textContent = "Detecting...";
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+            Cart.showAlert("Geolocation is not supported by this browser.", 'error');
+        }
+    }
+    function showPosition(position) {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        const geocoder = new google.maps.Geocoder();
+        const latlng = { lat: parseFloat(lat), lng: parseFloat(lng) };
+        geocoder.geocode({ location: latlng }, (results, status) => {
+            if (status === "OK" && results[0]) {
+                const addressComponents = results[0].address_components;
+                let detectedCity = "";
+                addressComponents.forEach(component => {
+                    if (component.types.includes("locality")) {
+                        detectedCity = component.long_name;
+                    }
+                });
+                if (detectedCity) {
+                     document.getElementById('input-city').value = detectedCity;
+                     updateShippingZone(detectedCity);
+                } else {
+                     document.getElementById('zone-name').textContent = "City not found. Defaulting to JLP.";
+                }
+            } else {
+                Cart.showAlert(`Geolocation failed: ${status}`, 'error');
+                document.getElementById('zone-name').textContent = "Detection Failed. Defaulting to JLP.";
+            }
+        });
+    }
+    function showError(error) {
+        Cart.showAlert("Error detecting location: " + error.message, 'error');
+        document.getElementById('zone-name').textContent = "Detection Failed. Defaulting to JLP.";
+    }
+    function updateShippingZone(cityName) {
+        const normalizedCity = cityName.toLowerCase().replace(/[^a-z0-9]/g, ' ').trim();
+        let zone = 'Cross Province'; 
+        if (CITY_TO_ZONE[normalizedCity]) {
+            zone = CITY_TO_ZONE[normalizedCity];
+        } else {
+            if (cityName.toLowerCase().includes('lahore') || cityName.toLowerCase().includes('gujrat')) {
+                 zone = 'Same Province';
+            }
+        }
+        currentShippingZone = zone;
+        const zoneDisplay = document.getElementById('zone-name');
+        zoneDisplay.textContent = `${currentShippingZone} (${cityName})`;
+        zoneDisplay.classList.remove('text-success', 'text-warning', 'text-danger');
+        zoneDisplay.classList.add(zone === 'Within City' ? 'text-success' : (zone === 'Same Province' ? 'text-warning' : 'text-danger'));
+        updateFinalPrice(); 
+    }
+    function setDeliveryType(type, triggerPriceUpdate = true) {
+        currentDeliveryType = type;
+        const shippingZoneSelector = document.getElementById('shipping-zone-selector');
+        document.querySelectorAll('input[name="option-DeliveryType"]').forEach(input => {
+            input.closest('.choice-card')?.classList.remove('selected');
+        });
+        const selectedInput = document.querySelector(`input[name="option-DeliveryType"][value="${type}"]`);
+        if (selectedInput) {
+            selectedInput.checked = true;
+            selectedInput.closest('.choice-card')?.classList.add('selected');
+        }
+        shippingZoneSelector.style.display = (type === 'SelfPickUp') ? 'none' : 'block';
+        if (triggerPriceUpdate) updateFinalPrice();
+    }
+
+
+    // --- CORE LOGIC FUNCTIONS (MUST BE GLOBAL) ---
+
     function calculateItemPrice() {
         if (!currentProduct) return { error: "No product selected" };
-        
         const isAreaBased = currentProduct.isAreaBased;
         const isDigitalTiered = currentProduct.isDigitalTiered;
         let baseProductPrice = 0;
@@ -1351,9 +1409,7 @@
         let itemOptions = {};
         let imageFile = document.getElementById('detail-product-image').src;
 
-        // 1. Calculate Base Product Price (Cost before Shipping/Margin)
         if (isAreaBased) {
-            // ... (Area-based logic remains unchanged)
             const width = parseFloat(document.getElementById('input-width').value) || 0;
             const height = parseFloat(document.getElementById('input-height').value) || 0;
             quantity = parseInt(document.getElementById('input-custom-qty').value) || 0;
@@ -1366,102 +1422,63 @@
             itemOptions['Quantity'] = quantity;
             itemOptions['Design Service'] = designService;
 
-
-            document.getElementById('areaConstraintWarning').style.display = 'none';
             if (width <= 0 || height <= 0 || quantity <= 0 || baseRate === 0) {
-                document.getElementById('areaDisplay').textContent = '';
                 requiresManualQuote = true;
             } else {
                 const itemArea = width * height;
                 const totalArea = itemArea * quantity;
-                document.getElementById('areaDisplay').textContent = `Area per piece: ${itemArea.toFixed(2)} sq ft | Total Area: ${totalArea.toFixed(2)} sq ft | Rate: PKR ${baseRate.toFixed(2)}/sq ft`;
-                if (totalArea < minArea) {
-                    requiresManualQuote = true;
-                }
+                if (totalArea < minArea) requiresManualQuote = true;
                 const basePrintCost = totalArea * baseRate;
-                let totalDesignFee = 0;
-                if (designService === 'DesignNeeded') {
-                    totalDesignFee = calculateDesignFee(itemArea, quantity);
-                }
+                let totalDesignFee = (designService === 'DesignNeeded') ? calculateDesignFee(itemArea, quantity) : 0;
                 const totalCostBeforeProfit = basePrintCost + totalDesignFee;
-                const profitMultiplier = getAreaProfitMultiplier(quantity);
-                baseProductPrice = Math.round(totalCostBeforeProfit * profitMultiplier);
+                baseProductPrice = Math.round(totalCostBeforeProfit * getAreaProfitMultiplier(quantity));
             }
         } 
         else if (isDigitalTiered) {
-             quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 0;
-             
-             // Normalize selection keys
-             const size = currentSelectedVariations.Size;
-             const colorType = currentSelectedVariations.ColorType; // Use original value which is already JSON format
-             const gsm = currentSelectedVariations.GSM;
-             const sides = currentSelectedVariations.Sides; 
-             
-             itemOptions = currentSelectedVariations;
-             itemOptions['Quantity'] = quantity;
-             
-             if (!size || !colorType || !gsm || !sides || quantity <= 0) requiresManualQuote = true;
-             
-             try {
-                // IMPORTANT: JSON keys for ColorType are "black_white" or "color", not user-friendly versions
+            quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 0;
+            const size = currentSelectedVariations.Size;
+            const colorType = currentSelectedVariations.ColorType;
+            const gsm = currentSelectedVariations.GSM;
+            const sides = currentSelectedVariations.Sides; 
+            itemOptions = { ...currentSelectedVariations, 'Quantity': quantity };
+
+            if (!size || !colorType || !gsm || !sides || quantity <= 0) requiresManualQuote = true;
+            
+            try {
                 const tiers = customprintspricing[currentProduct.baseName];
                 const gsmData = tiers[size][colorType][gsm];
                 let unitPrice = 0;
-                let rangeKeyUsed = 'N/A';
                 let foundPrice = false;
                 
-                // 1. Find the base unit price based on quantity tier
                 Object.keys(gsmData).forEach(rangeKey => {
                     const [min, max] = rangeKey.split('-').map(n => parseInt(n));
                     if (quantity >= min && (isNaN(max) || quantity <= max)) { 
                         unitPrice = gsmData[rangeKey];
-                        rangeKeyUsed = rangeKey;
                         foundPrice = true;
                     }
                 });
                 
                 if (foundPrice) {
-                    // 2. Apply double-sided multiplier
                     const multiplier = (sides === 'double' ? 2 : 1);
                     const finalUnitPrice = unitPrice * multiplier;
-                    
                     baseProductPrice = finalUnitPrice * quantity;
-
-                    // 3. Update item options for display
-                    itemOptions['Tier'] = `Pages: ${rangeKeyUsed} (${unitPrice.toFixed(2)} PKR Base)`;
                     itemOptions['Price/Page'] = `${finalUnitPrice.toFixed(2)} PKR`;
-
                 } else {
                     requiresManualQuote = true;
                 }
-             } catch(e) {
+            } catch(e) {
                  requiresManualQuote = true;
-             }
+            }
         }
         else {
             quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 1;
             const allCombinations = currentProduct?.combinations || [];
-            
             let allSelected = true;
-            // Filter keys to exclude the internal fields
             const requiredKeys = Object.keys(allCombinations[0] || {}).filter(key => 
                 key !== 'Price' && key !== 'FullName' && key !== 'PricingStructure' && key !== 'Quantity Multiplier'
             );
-
-            requiredKeys.forEach(key => { 
-                if (!currentSelectedVariations[key]) allSelected = false; 
-                itemOptions[key] = currentSelectedVariations[key];
-            });
-            
-            // For Photo Printing, use the Quantity Multiplier stored on the combo if it's a bundle
-            if (currentProduct.baseName === "Photo Printing" && currentSelectedVariations['Pricing Option'] !== 'Single') {
-                 // Quantity is determined by the bundle size, as locked in handleCardSelection
-                 itemOptions['Quantity Option'] = currentSelectedVariations['Pricing Option'];
-            } else {
-                 // For all other products or 'Single' Photo Option, use the user's manual quantity input
-                 itemOptions['Quantity'] = quantity;
-            }
-
+            requiredKeys.forEach(key => { if (!currentSelectedVariations[key]) allSelected = false; itemOptions[key] = currentSelectedVariations[key]; });
+            itemOptions['Quantity'] = (currentProduct.baseName === "Photo Printing" && currentSelectedVariations['Pricing Option'] !== 'Single') ? itemOptions['Quantity Option'] : quantity;
 
             if (!allSelected) requiresManualQuote = true;
             
@@ -1469,26 +1486,10 @@
                 let finalProductCombination = allCombinations.find(combo => 
                     requiredKeys.every(key => combo[key] === currentSelectedVariations[key])
                 );
-                
                 if (finalProductCombination) {
-                    
                     if (currentProduct.baseName === "Photo Printing" && finalProductCombination['Pricing Option']) {
-                        // For Photo Printing, the 'Price' field holds the cost for the option (either single or bundle)
-                        const unitPrice = finalProductCombination['Pricing Option'] === 'Single' ? finalProductCombination.Price : (finalProductCombination.Price / finalProductCombination['Quantity Multiplier']);
-                        const quantityUsed = finalProductCombination['Pricing Option'] === 'Single' ? quantity : finalProductCombination['Quantity Multiplier'];
-
-                        baseProductPrice = finalProductCombination['Pricing Option'] === 'Single' ? (finalProductCombination.Price * quantity) : finalProductCombination.Price;
-                        itemOptions['Quantity'] = quantityUsed; // Ensure cart shows correct quantity used for pricing
-
-                        if (finalProductCombination['Pricing Option'] !== 'Single') {
-                             itemOptions['Pricing Breakdown'] = `${finalProductCombination['Pricing Option']} (${finalProductCombination.Price} PKR)`;
-                             itemOptions['Effective Unit Price'] = `PKR ${unitPrice.toFixed(2)}`;
-                        } else {
-                             itemOptions['Pricing Breakdown'] = `${quantity}x Single Print (${finalProductCombination.Price} PKR/ea)`;
-                        }
-
+                        baseProductPrice = (finalProductCombination['Pricing Option'] === 'Single') ? (finalProductCombination.Price * quantity) : finalProductCombination.Price;
                     } else {
-                        // --- STANDARD PRODUCT LOGIC (unchanged) ---
                         baseProductPrice = finalProductCombination.Price * quantity;
                     }
                 } else {
@@ -1501,11 +1502,10 @@
             return { error: "Requires manual quote or incomplete selection" };
         }
 
-        // Return core item data (excluding shipping)
         return {
             productName: currentProduct.baseName,
-            quantity: itemOptions['Quantity'] || quantity, // Use derived quantity from itemOptions if present
-            basePrice: baseProductPrice, // This is the total price for the item(s) before shipping/tax
+            quantity: itemOptions['Quantity'] || quantity, 
+            basePrice: baseProductPrice, 
             options: itemOptions,
             isAreaBased: isAreaBased,
             imageFile: imageFile
@@ -1515,32 +1515,13 @@
     function updateFinalPrice() {
         const itemData = calculateItemPrice();
         
-        // --- Error/Warning Handling ---
         if (itemData.error) {
             document.getElementById('finalPriceBox').style.display = 'none';
             document.getElementById('shipping-display-box').style.display = 'none';
-            document.getElementById('selectionWarning').textContent = "Please enter dimensions/quantity or select all options above to see the final price.";
-            document.getElementById('selectionWarning').classList.remove('alert-danger');
-            document.getElementById('selectionWarning').classList.add('alert-info');
             document.getElementById('selectionWarning').style.display = 'block';
-            
-            // Clear specific alerts on error
-            const bundleAlert = document.getElementById('photo-bundle-alert');
-            if (bundleAlert) {
-                bundleAlert.innerHTML = 'Please select options and quantity above.';
-                bundleAlert.classList.remove('alert-success');
-                bundleAlert.classList.add('alert-info');
-            }
-            const printAlert = document.getElementById('print-price-alert');
-            if (printAlert) {
-                printAlert.innerHTML = 'Select all options and enter a valid quantity (1 to 1000+) to view the price per page.';
-                printAlert.classList.remove('alert-success', 'alert-warning');
-                printAlert.classList.add('alert-info');
-            }
             return;
         }
 
-        // --- SHIPPING & FINAL PRICE CALCULATION ---
         let shippingCost = 0;
         let shippingNote = '';
         const packetType = getShippingPacketType(itemData.productName);
@@ -1549,7 +1530,6 @@
             shippingCost = 0;
             shippingNote = 'Self Pick Up. No shipping charges applied.';
         } else { 
-            // Home Delivery Logic
             if (currentShippingZone === 'Within City') {
                 shippingCost = SHIPPING_RATES[packetType]['Within City'];
                 shippingNote = `Local Delivery (Jalalpur Jattan). Flat rate for ${packetType.toUpperCase()} packet.`;
@@ -1562,57 +1542,25 @@
         const totalCost = itemData.basePrice + shippingCost;
         const finalSellingPrice = Math.round(totalCost);
         
-        // --- Update UI with Final Selling Price ---
         document.getElementById('finalPriceDisplay').textContent = `PKR ${finalSellingPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
         document.getElementById('finalPriceBox').style.display = 'block';
         document.getElementById('selectionWarning').style.display = 'none';
 
-        // 🛑 NEW: Update the specific pricing alerts 🛑
         if (itemData.productName === "Photo Printing" && currentProduct) {
-            const requiredKeys = Object.keys(currentProduct.combinations[0] || {}).filter(key => key !== 'Price' && key !== 'FullName' && key !== 'PricingStructure' && key !== 'Quantity Multiplier');
             let finalProductCombination = currentProduct.combinations.find(combo => 
-                requiredKeys.every(key => combo[key] === currentSelectedVariations[key])
+                Object.keys(currentSelectedVariations).every(key => combo[key] === currentSelectedVariations[key])
             );
             updatePhotoBundleAlert(itemData, finalProductCombination);
         } else if (itemData.productName === CUSTOM_PRINTS_PRODUCT_NAME) {
-            // 🛑 Custom Prints Alert Call 🛑
             updateCustomPrintsAlert(itemData);
         }
-        // 🛑 END NEW INTEGRATION 🛑
 
-        // --- Update UI with Shipping Cost Details ---
         document.getElementById('shipping-cost-display').textContent = shippingCost === 0 ? "FREE" : `PKR ${shippingCost.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
         document.getElementById('shipping-note-display').textContent = shippingNote;
         document.getElementById('shipping-display-box').style.display = 'block';
-
-        // Update Area Constraint Warning display (for design fee)
-        const areaConstraintWarning = document.getElementById('areaConstraintWarning');
-        if (areaConstraintWarning && itemData.isAreaBased) {
-             const width = parseFloat(document.getElementById('input-width').value) || 0;
-             const height = parseFloat(document.getElementById('input-height').value) || 0;
-             const rateMeta = AREA_BASED_META[currentProduct.baseName];
-             const minArea = rateMeta ? rateMeta.min_area || 0 : 0;
-             const totalArea = width * height * itemData.quantity;
-
-             areaConstraintWarning.classList.remove('alert-danger', 'alert-info');
-             areaConstraintWarning.style.display = 'none';
-
-             if (totalArea < minArea && minArea > 0) {
-                 areaConstraintWarning.textContent = `Minimum order area for this product is ${minArea} sq ft. Current total area (${totalArea.toFixed(2)} sq ft) is too small.`;
-                 areaConstraintWarning.classList.add('alert-danger');
-                 areaConstraintWarning.style.display = 'block';
-             } else if (itemData.options['Design Service'] === 'DesignNeeded') {
-                 const itemArea = width * height;
-                 const designFee = calculateDesignFee(itemArea, itemData.quantity);
-                 areaConstraintWarning.innerHTML = `<i class="fas fa-magic me-2"></i> **Design Fee Applied**: PKR ${designFee.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
-                 areaConstraintWarning.classList.add('alert-info');
-                 areaConstraintWarning.style.display = 'block';
-             }
-        }
     }
-    
+
     function showDigitalPrintingDetails() {
-        // Ensure the product exists in the derived structure
         currentProduct = allProductGroups[CUSTOM_PRINTS_PRODUCT_NAME];
         currentSelectedVariations = {}; 
         
@@ -1643,7 +1591,6 @@
         document.getElementById('selectionWarning').classList.add('alert-info');
         document.getElementById('selectionWarning').style.display = 'block';
 
-        // Reset Delivery Selection to default Home Delivery
         setDeliveryType('HomeDelivery', false); 
 
         const pricingData = customprintspricing[CUSTOM_PRINTS_PRODUCT_NAME];
@@ -1656,14 +1603,12 @@
         }
         
         let html = '';
-        // Define the required fields and how to extract options from the nested JSON
         const printOptionsStructure = [
             { key: 'Size', label: 'Size', level: 0 },
             { key: 'ColorType', label: 'Print Color', level: 1 },
             { key: 'GSM', label: 'Paper Weight (GSM)', level: 2 }
         ];
         
-        // Add Duplex/Double-sided option (since pricing only accounts for single-sided)
         standardOptions.innerHTML += `
             <div class="product-option-group" data-option-key="Sides">
                 <label>Print Sides:</label>
@@ -1680,7 +1625,6 @@
             </div>
         `;
 
-        // Render other options based on nested pricing data
         printOptionsStructure.forEach(option => {
             html += `<div class="product-option-group" data-option-key="${option.key}">
                     <label>${option.label}:</label>
@@ -1690,7 +1634,6 @@
             if (option.key === 'Size') {
                 currentOptions = sizes;
             } else if (option.key === 'ColorType' && sizes.length > 0) {
-                // Map internal JSON keys to user-friendly names
                 currentOptions = Object.keys(pricingData[sizes[0]] || {}).map(k => k.replace('_', ' '));
             } else if (option.key === 'GSM' && sizes.length > 0) {
                 const firstColorType = Object.keys(pricingData[sizes[0]] || {})[0];
@@ -1701,7 +1644,6 @@
 
             currentOptions.forEach(value => {
                  const displayValue = value.charAt(0).toUpperCase() + value.slice(1);
-                 // Convert display value back to lowercase/underscore for internal storage
                  const storageValue = value.toLowerCase().replace(' ', '_');
                  const inputId = `${option.key}-${storageValue}`;
                  html += `<label class="choice-card" for="${inputId}">
@@ -1715,7 +1657,6 @@
 
         standardOptions.innerHTML += html;
         
-        // Add Quantity Selector
         standardOptions.innerHTML += `
              <div class="product-option-group" data-option-key="QuantitySelector">
                 <label>Number of Pages:</label>
@@ -1728,12 +1669,8 @@
              <div class="alert alert-info mt-3" id="print-price-alert">Select all options and quantity to see the price per page.</div>
         `;
         
-        // Initial auto-selection to set defaults
         const initialSelections = {
-            'Sides': 'single', // Default to single
-            'Size': sizes[0], 
-            'ColorType': Object.keys(pricingData[sizes[0]])[0], 
-            'GSM': Object.keys(pricingData[sizes[0]][Object.keys(pricingData[sizes[0]])[0]])[0]
+            'Sides': 'single', 'Size': sizes[0], 'ColorType': Object.keys(pricingData[sizes[0]])[0], 'GSM': Object.keys(pricingData[sizes[0]][Object.keys(pricingData[sizes[0]])[0]])[0]
         };
 
         Object.keys(initialSelections).forEach(key => {
@@ -1741,14 +1678,13 @@
             const input = document.querySelector(`input[name="option-${key}"][value="${jsonValue}"]`);
             if (input) {
                 input.checked = true;
-                input.closest('.choice-card').classList.add('selected'); // Visually mark as selected
-                currentSelectedVariations[key] = jsonValue; // Manually set global variable
+                input.closest('.choice-card').classList.add('selected'); 
+                currentSelectedVariations[key] = jsonValue; 
             }
         });
 
         updateFinalPrice();
         
-        // 🛑 NEW: Show T&C and Upload section for Custom Prints
         document.getElementById('custom-print-tnc-upload').style.display = 'block';
 
         showSection('product-detail');
@@ -1768,91 +1704,54 @@
         }
 
         if (currentProduct.isDigitalTiered) {
-             // For digital tiered pricing, we just need to update the price. No cascading required.
              updateFinalPrice();
              return;
         }
 
         if (cascade) {
-            // Exclude internal fields, but keep 'Quantity Multiplier' to manage its value manually
             let allAttributeKeys = Object.keys(currentProduct.combinations[0]).filter(k => k !== 'Price' && k !== 'FullName' && k !== 'PricingStructure' && k !== 'Quantity Multiplier');
             allAttributeKeys = sortAttributeKeys(allAttributeKeys);
-
             let startCascade = false;
 
             for (const attrKey of allAttributeKeys) {
-                if (attrKey === key) {
-                    startCascade = true;
-                    continue; 
-                }
-                
+                if (attrKey === key) { startCascade = true; continue; }
                 if (startCascade) {
                     const targetGroup = document.getElementById(`choices-${attrKey}`);
                     if (targetGroup) {
-                        const validValues = filterAvailableOptions(
-                            attrKey, currentSelectedVariations, currentProduct.combinations
-                        );
-                        
+                        const validValues = filterAvailableOptions(attrKey, currentSelectedVariations, currentProduct.combinations);
                         let newSelectionNeeded = false;
-                        
                         targetGroup.querySelectorAll('.choice-card').forEach(card => {
                             const inputEl = card.querySelector('input');
                             const optionValue = inputEl.value;
-                            
                             if (!validValues.has(optionValue)) {
                                 card.classList.add('disabled');
                                 card.classList.remove('selected');
-                                
-                                if (currentSelectedVariations[attrKey] === optionValue) {
-                                    delete currentSelectedVariations[attrKey];
-                                    newSelectionNeeded = true;
-                                }
+                                if (currentSelectedVariations[attrKey] === optionValue) { delete currentSelectedVariations[attrKey]; newSelectionNeeded = true; }
                             } else {
                                 card.classList.remove('disabled');
-                                if (currentSelectedVariations[attrKey] === optionValue) {
-                                     card.classList.add('selected');
-                                     inputEl.checked = true;
-                                }
+                                if (currentSelectedVariations[attrKey] === optionValue) { card.classList.add('selected'); inputEl.checked = true; }
                             }
                         });
-                        
                         if (newSelectionNeeded || !currentSelectedVariations[attrKey]) {
                             const firstValidOption = targetGroup.querySelector('.choice-card:not(.disabled) input');
-                            if (firstValidOption) {
-                                firstValidOption.checked = true; 
-                                handleCardSelection(attrKey, firstValidOption.value);
-                                return; 
-                            } else {
-                                delete currentSelectedVariations[attrKey];
-                            }
+                            if (firstValidOption) { firstValidOption.checked = true; handleCardSelection(attrKey, firstValidOption.value); return; } 
+                            else { delete currentSelectedVariations[attrKey]; }
                         }
                     }
                 }
             }
         }
         
-        // 🛑 PHOTO PRINTING LOGIC: Update Quantity Input based on Pricing Option selection 🛑
         if (currentProduct.baseName === "Photo Printing" && currentSelectedVariations['Pricing Option']) {
             const selectedOption = currentSelectedVariations['Pricing Option'];
-            
-            // Find the current active combination to get the multiplier
             const requiredKeysForCombo = Object.keys(currentProduct.combinations[0] || {}).filter(k => k !== 'Price' && k !== 'FullName' && k !== 'PricingStructure' && k !== 'Quantity Multiplier');
-            
-            const combo = currentProduct.combinations.find(c => 
-                requiredKeysForCombo.every(k => c[k] === currentSelectedVariations[k])
-            );
-
+            const combo = currentProduct.combinations.find(c => requiredKeysForCombo.every(k => c[k] === currentSelectedVariations[k]));
             const qtyInput = document.getElementById('input-standard-qty');
-            
             if (selectedOption === 'Single') {
-                qtyInput.disabled = false;
-                qtyInput.min = 1;
-                // Ensure Quantity is at least 1 when 'Single' is selected
+                qtyInput.disabled = false; qtyInput.min = 1;
                 if (parseInt(qtyInput.value) < 1) qtyInput.value = 1; 
             } else if (combo && combo['Quantity Multiplier']) {
-                // Lock quantity to bundle size
-                const newQuantity = combo['Quantity Multiplier'];
-                qtyInput.value = newQuantity;
+                qtyInput.value = combo['Quantity Multiplier'];
                 qtyInput.disabled = true;
             }
         }
@@ -1865,7 +1764,6 @@
         allCombinations.forEach(combo => {
             let isMatch = true;
             const keysToCheck = Object.keys(currentSelections).filter(k => k !== targetKey);
-            
             for (const key of keysToCheck) {
                  if (combo[key] !== currentSelections[key]) {
                     isMatch = false;
@@ -1902,587 +1800,27 @@
         const totalCost = parseFloat(finalPriceDisplay.replace(/PKR|\s|,/g, '')) || 0;
 
         const cartItem = {
-            id: Date.now(), // Unique ID for this cart item
+            id: Date.now(), 
             productName: itemData.productName,
             quantity: itemData.quantity,
             basePrice: itemData.basePrice, 
-            finalItemPrice: totalCost, // Total item price including calculated shipping (for immediate display coherence)
+            finalItemPrice: totalCost, 
             options: itemData.options,
             isAreaBased: itemData.isAreaBased,
             imageFile: itemData.imageFile,
-            // Note: Shipping is re-calculated globally on checkout/cart view.
         };
 
         Cart.addItem(cartItem);
     }
     
-    // --- Helper UI/Validation Functions (Used by core logic) ---
-
     function updatePhotoBundleAlert(itemData, finalProductCombination) {
         const bundleAlert = document.getElementById('photo-bundle-alert');
-        if (!bundleAlert || itemData.productName !== "Photo Printing" || !finalProductCombination) {
-            return;
-        }
-        
-        // Get the breakdown generated in calculateItemPrice()
-        const breakdown = itemData.options['Pricing Breakdown'];
-        
-        const effectivePricePerUnit = itemData.basePrice / itemData.quantity;
-
-        let alertHtml = '';
-        
-        if (breakdown) {
-            alertHtml += `
-                <i class="fas fa-tags me-2"></i> **Pricing Breakdown:**
-                <ul class="mt-2 mb-0" style="list-style-type: none; padding-left: 0;">
-                    <li class="small">${breakdown}</li>
-                    <li class="small fw-bold">Effective Price per Unit: PKR ${effectivePricePerUnit.toFixed(2)}</li>
-                </ul>
-            `;
-            bundleAlert.classList.remove('alert-info', 'alert-danger');
-            bundleAlert.classList.add('alert-success');
-        } else {
-            alertHtml = `Please select both a **Photo Size** and **Pricing Option** above.`;
-            bundleAlert.classList.remove('alert-success');
-            bundleAlert.classList.add('alert-info');
-        }
-        
-        bundleAlert.innerHTML = alertHtml;
-    }
-
-    function updateCustomPrintsAlert(itemData) {
-        const printAlert = document.getElementById('print-price-alert');
-        if (!printAlert || itemData.productName !== CUSTOM_PRINTS_PRODUCT_NAME) {
-            return;
-        }
-        
-        // Check if the necessary data is present (Tier and Price/Page are set by calculateItemPrice)
-        if (itemData.options.Tier && itemData.options['Price/Page']) {
-            
-            let multiplierInfo = '';
-            if (itemData.options.Sides === 'double') {
-                multiplierInfo = ' (Double Side: x2 Multiplier)';
-                printAlert.classList.remove('alert-info');
-                printAlert.classList.add('alert-warning');
-            } else {
-                printAlert.classList.remove('alert-warning');
-                printAlert.classList.add('alert-info');
-            }
-            
-            printAlert.innerHTML = `
-                <i class="fas fa-calculator me-2"></i> <strong>Pricing Details:</strong>
-                <ul class="mt-2 mb-0" style="list-style-type: none; padding-left: 0;">
-                    <li class="small">Pricing Tier: ${itemData.options.Tier}</li>
-                    <li class="small">Print Sides: ${itemData.options.Sides}${multiplierInfo}</li>
-                    <li class="small fw-bold">Final Price per Page: ${itemData.options['Price/Page']}</li>
-                </ul>
-            `;
-        } else {
-            printAlert.innerHTML = 'Select all options and enter a valid quantity (1 to 1000+) to view the price per page.';
-            printAlert.classList.remove('alert-success');
-            printAlert.classList.add('alert-info');
-        }
-    }
-
-    // --- Location/Shipping Helpers (Used by updateFinalPrice) ---
-    function updateShippingZone(cityName) {
-        const normalizedCity = cityName.toLowerCase().replace(/[^a-z0-9]/g, ' ').trim();
-        let zone = 'Cross Province'; 
-        
-        if (CITY_TO_ZONE[normalizedCity]) {
-            zone = CITY_TO_ZONE[normalizedCity];
-        } else {
-            if (cityName.toLowerCase().includes('lahore') || cityName.toLowerCase().includes('gujrat')) {
-                 zone = 'Same Province';
-            }
-        }
-        
-        currentShippingZone = zone;
-        
-        const zoneDisplay = document.getElementById('zone-name');
-        zoneDisplay.textContent = `${currentShippingZone} (${cityName})`;
-        zoneDisplay.classList.remove('text-success', 'text-warning', 'text-danger');
-        zoneDisplay.classList.add(zone === 'Within City' ? 'text-success' : (zone === 'Same Province' ? 'text-warning' : 'text-danger'));
-        
-        updateFinalPrice(); 
-    }
-
-    function manualLocationCheck() {
-        const cityInput = document.getElementById('input-city').value.trim();
-        if (cityInput.length < 3) return;
-        updateShippingZone(cityInput);
-    }
-
-    function detectLocation() {
-        if (GOOGLE_MAPS_API_KEY === 'AIzaSyCAz3R9s0BdNnwgEtaC31LJcIqlkoXh05U') {
-            Cart.showAlert("API Key not configured. Cannot auto-detect location.", 'error');
-            return;
-        }
-        document.getElementById('zone-name').textContent = "Detecting...";
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition, showError);
-        } else {
-            Cart.showAlert("Geolocation is not supported by this browser.", 'error');
-        }
-    }
-
-    function showPosition(position) {
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
-        const geocoder = new google.maps.Geocoder();
-        const latlng = { lat: parseFloat(lat), lng: parseFloat(lng) };
-
-        geocoder.geocode({ location: latlng }, (results, status) => {
-            if (status === "OK" && results[0]) {
-                const addressComponents = results[0].address_components;
-                let detectedCity = "";
-
-                addressComponents.forEach(component => {
-                    if (component.types.includes("locality")) {
-                        detectedCity = component.long_name;
-                    }
-                });
-                
-                if (detectedCity) {
-                     document.getElementById('input-city').value = detectedCity;
-                     updateShippingZone(detectedCity);
-                } else {
-                     document.getElementById('zone-name').textContent = "City not found. Defaulting to JLP.";
-                }
-            } else {
-                Cart.showAlert(`Geolocation failed: ${status}`, 'error');
-                document.getElementById('zone-name').textContent = "Detection Failed. Defaulting to JLP.";
-            }
-        });
-    }
-
-    function showError(error) {
-        Cart.showAlert("Error detecting location: " + error.message, 'error');
-        document.getElementById('zone-name').textContent = "Detection Failed. Defaulting to JLP.";
-    }
-
-    function setDeliveryType(type, triggerPriceUpdate = true) {
-        currentDeliveryType = type;
-        const shippingZoneSelector = document.getElementById('shipping-zone-selector');
-        
-        document.querySelectorAll('input[name="option-DeliveryType"]').forEach(input => {
-            input.closest('.choice-card')?.classList.remove('selected');
-        });
-        
-        const selectedInput = document.querySelector(`input[name="option-DeliveryType"][value="${type}"]`);
-        if (selectedInput) {
-            selectedInput.checked = true;
-            selectedInput.closest('.choice-card')?.classList.add('selected');
-        }
-
-        if (type === 'SelfPickUp') {
-            shippingZoneSelector.style.display = 'none';
-        } else {
-            shippingZoneSelector.style.display = 'block';
-        }
-        
-        if (triggerPriceUpdate) updateFinalPrice();
-    }
-
-
-    // --- Global Nav & Helper Functions (Used by onclicks) ---
-
-    function handleQuoteSubmission(e) {
-        e.preventDefault();
-        const name = document.getElementById('quote-name').value;
-        const phone = document.getElementById('quote-phone').value;
-        const product = document.getElementById('quote-product').value;
-        const quantity = document.getElementById('quote-quantity').value;
-        const details = document.getElementById('quote-details').value;
-        let whatsappMessage = `*NEW QUOTE REQUEST (WEB - PRODUCTS)*\n*Customer:* ${name}\n*Phone (Contact):* ${phone}\n*Product Type:* ${product}\n*Quantity/Area:* ${quantity}\n*Specifications:* ${details}`;
-        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
-        Cart.showAlert('Quote submitted via WhatsApp! We will contact you shortly.', 'success');
-        document.getElementById('quote-form').reset();
-    }
-    
-    function handleContactSubmission(e) {
-        e.preventDefault();
-        const name = document.getElementById('contact-name').value;
-        const subject = document.getElementById('contact-subject').value;
-        const message = document.getElementById('contact-message').value;
-        let whatsappMessage = `*NEW CONTACT MESSAGE (WEB - PRODUCTS)*\n*Sender:* ${name}\n*Subject:* ${subject}\n*Message:* ${message}`;
-        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
-        Cart.showAlert('Message sent via WhatsApp!', 'success');
-        document.getElementById('contact-form-whatsapp').reset();
-    }
-
-    function showSection(sectionName) {
-        // 🛑 NEW: Hide T&C section by default 🛑
-        const tncSection = document.getElementById('custom-print-tnc-upload');
-        if (tncSection) tncSection.style.display = 'none';
-        
-        document.querySelectorAll('.section').forEach(section => { section.classList.remove('active'); });
-        const sectionElement = document.getElementById(sectionName + '-section');
-        if (sectionElement) sectionElement.classList.add('active'); 
-        else document.getElementById('shop-catalog-section').classList.add('active');
-        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => { link.classList.remove('active'); });
-        const desktopLink = document.querySelector(`.navbar-nav a[onclick="showSection('${sectionName}')"]`);
-        if (desktopLink) desktopLink.classList.add('active');
-        if (typeof setActiveMobileNav === 'function') setActiveMobileNav(sectionName === 'shop-catalog' ? 'products' : sectionName);
-        window.scrollTo(0, 0);
-
-        // Reload cart display on showing cart section
-        if (sectionName === 'cart' && typeof Cart !== 'undefined') {
-            Cart.updateCartDisplay();
-        }
-    }
-
-    function showDigitalPrintingDetails() {
-        // Ensure the product exists in the derived structure
-        currentProduct = allProductGroups[CUSTOM_PRINTS_PRODUCT_NAME];
-        currentSelectedVariations = {}; 
-        
-        if (!currentProduct || !customprintspricing[CUSTOM_PRINTS_PRODUCT_NAME]) {
-            Cart.showAlert(`Custom Prints data not found.`, 'error');
-            return;
-        }
-
-        document.getElementById('detail-product-name-header').textContent = currentProduct.baseName;
-        document.getElementById('detail-product-name-body').textContent = currentProduct.baseName;
-        
-        const imagePath = currentProduct.imageFile;
-        document.getElementById('detail-product-image-webp').srcset = `img/products/${imagePath}.webp`;
-        document.getElementById('detail-product-image').src = `img/products/${imagePath}.png`; 
-        document.getElementById('detail-product-image').onerror = function() { this.src = `img/products/placeholder.png`; };
-
-        const areaInputs = document.getElementById('custom-area-inputs');
-        const standardOptions = document.getElementById('standard-options-fields');
-        
-        areaInputs.style.display = 'none';
-        standardOptions.style.display = 'block';
-        standardOptions.innerHTML = '';
-        
-        document.getElementById('finalPriceBox').style.display = 'none';
-        document.getElementById('shipping-display-box').style.display = 'none';
-        document.getElementById('selectionWarning').textContent = "Please select all printing options and enter quantity to see the final price.";
-        document.getElementById('selectionWarning').classList.remove('alert-danger');
-        document.getElementById('selectionWarning').classList.add('alert-info');
-        document.getElementById('selectionWarning').style.display = 'block';
-
-        // Reset Delivery Selection to default Home Delivery
-        setDeliveryType('HomeDelivery', false); 
-
-        const pricingData = customprintspricing[CUSTOM_PRINTS_PRODUCT_NAME];
-        const sizes = Object.keys(pricingData);
-        
-        if(sizes.length === 0) {
-            standardOptions.innerHTML = `<p class="alert alert-warning">Custom Prints not loaded. Please contact support.</p>`;
-            showSection('product-detail');
-            return;
-        }
-        
-        let html = '';
-        // Define the required fields and how to extract options from the nested JSON
-        const printOptionsStructure = [
-            { key: 'Size', label: 'Size', level: 0 },
-            { key: 'ColorType', label: 'Print Color', level: 1 },
-            { key: 'GSM', label: 'Paper Weight (GSM)', level: 2 }
-        ];
-        
-        // Add Duplex/Double-sided option (since pricing only accounts for single-sided)
-        standardOptions.innerHTML += `
-            <div class="product-option-group" data-option-key="Sides">
-                <label>Print Sides:</label>
-                <div class="d-flex flex-wrap gap-3" id="choices-Sides">
-                    <label class="choice-card" for="Sides-single">
-                        <input type="radio" id="Sides-single" name="option-Sides" value="single" onchange="handleCardSelection('Sides', 'single')">
-                        <span class="label-text">Single Side</span>
-                    </label>
-                    <label class="choice-card" for="Sides-double">
-                        <input type="radio" id="Sides-double" name="option-Sides" value="double" onchange="handleCardSelection('Sides', 'double')">
-                        <span class="label-text">Double Side (x2 Price)</span>
-                    </label>
-                </div>
-            </div>
-        `;
-
-        // Render other options based on nested pricing data
-        printOptionsStructure.forEach(option => {
-            html += `<div class="product-option-group" data-option-key="${option.key}">
-                    <label>${option.label}:</label>
-                    <div class="d-flex flex-wrap gap-3" id="choices-${option.key}">`;
-            
-            let currentOptions = [];
-            if (option.key === 'Size') {
-                currentOptions = sizes;
-            } else if (option.key === 'ColorType' && sizes.length > 0) {
-                // Map internal JSON keys to user-friendly names
-                currentOptions = Object.keys(pricingData[sizes[0]] || {}).map(k => k.replace('_', ' '));
-            } else if (option.key === 'GSM' && sizes.length > 0) {
-                const firstColorType = Object.keys(pricingData[sizes[0]] || {})[0];
-                if (firstColorType) {
-                    currentOptions = Object.keys(pricingData[sizes[0]][firstColorType] || {});
-                }
-            }
-
-            currentOptions.forEach(value => {
-                 const displayValue = value.charAt(0).toUpperCase() + value.slice(1);
-                 // Convert display value back to lowercase/underscore for internal storage
-                 const storageValue = value.toLowerCase().replace(' ', '_');
-                 const inputId = `${option.key}-${storageValue}`;
-                 html += `<label class="choice-card" for="${inputId}">
-                             <input type="radio" id="${inputId}" name="option-${option.key}" value="${storageValue}" 
-                                    onchange="handleCardSelection('${option.key}', '${storageValue}')">
-                             <span class="label-text">${displayValue}</span>
-                         </label>`;
-            });
-            html += `</div></div>`;
-        });
-
-        standardOptions.innerHTML += html;
-        
-        // Add Quantity Selector
-        standardOptions.innerHTML += `
-             <div class="product-option-group" data-option-key="QuantitySelector">
-                <label>Number of Pages:</label>
-                <div class="input-group">
-                    <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(-1)">-</button>
-                    <input type="number" id="input-standard-qty" min="1" value="1" class="form-control text-center rounded-0" oninput="updateFinalPrice()">
-                    <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(1)">+</button>
-                </div>
-             </div>
-             <div class="alert alert-info mt-3" id="print-price-alert">Select all options and quantity to see the price per page.</div>
-        `;
-        
-        // Initial auto-selection to set defaults
-        const initialSelections = {
-            'Sides': 'single', // Default to single
-            'Size': sizes[0], 
-            'ColorType': Object.keys(pricingData[sizes[0]])[0], 
-            'GSM': Object.keys(pricingData[sizes[0]][Object.keys(pricingData[sizes[0]])[0]])[0]
-        };
-
-        Object.keys(initialSelections).forEach(key => {
-            const jsonValue = initialSelections[key];
-            const input = document.querySelector(`input[name="option-${key}"][value="${jsonValue}"]`);
-            if (input) {
-                input.checked = true;
-                input.closest('.choice-card').classList.add('selected'); // Visually mark as selected
-                currentSelectedVariations[key] = jsonValue; // Manually set global variable
-            }
-        });
-
-        updateFinalPrice();
-        
-        // 🛑 NEW: Show T&C and Upload section for Custom Prints
-        document.getElementById('custom-print-tnc-upload').style.display = 'block';
-
-        showSection('product-detail');
-    }
-
-    function showProductDetails(productName) {
-        
-        if (productName.trim() === CUSTOM_PRINTS_PRODUCT_NAME) {
-             showDigitalPrintingDetails();
-             return;
-        }
-        if (productName.trim() === "PhotoPapers") {
-             productName = "Photo Printing";
-        }
-
-
-        let cleanName = productName.replace(/'/g, '').trim(); 
-        const productData = allProductGroups[cleanName]; 
-        currentProduct = productData;
-        currentSelectedVariations = {}; 
-
-        if (!currentProduct) {
-            Cart.showAlert(`Product "${cleanName}" details not found in data. Please use the 'Get Custom Quote' option.`, 'error'); 
-            return;
-        }
-
-        // 🛑 Hide T&C/Upload section for all regular products
-        document.getElementById('custom-print-tnc-upload').style.display = 'none';
-
-        // Update headers and image
-        document.getElementById('detail-product-name-header').textContent = currentProduct.baseName;
-        document.getElementById('detail-product-name-body').textContent = currentProduct.baseName;
-        
-        const imagePath = currentProduct.imageFile;
-        document.getElementById('detail-product-image-webp').srcset = `img/products/${imagePath}.webp`;
-        document.getElementById('detail-product-image').src = `img/products/${imagePath}.png`; 
-        document.getElementById('detail-product-image').onerror = function() { 
-             this.src = `img/products/placeholder.png`; 
-        };
-
-
-        const areaInputs = document.getElementById('custom-area-inputs');
-        const standardOptions = document.getElementById('standard-options-fields');
-        
-        document.getElementById('finalPriceBox').style.display = 'none';
-        document.getElementById('shipping-display-box').style.display = 'none';
-        document.getElementById('selectionWarning').textContent = "Please enter dimensions/quantity or select all options above to see the final price.";
-        document.getElementById('selectionWarning').classList.remove('alert-danger');
-        document.getElementById('selectionWarning').classList.add('alert-info');
-        document.getElementById('selectionWarning').style.display = 'block';
-
-        // Reset Delivery Selection to default Home Delivery
-        setDeliveryType('HomeDelivery', false); // Initialize UI state and default zone
-
-        const isAreaBased = currentProduct.isAreaBased;
-        
-        // 🛑 CORE LOGIC: Area-Based vs. Standard 🛑
-        if (isAreaBased) {
-            // --- AREA-BASED SETUP (Panaflex/Wallpaper/Photo Frames) ---
-            areaInputs.style.display = 'block';
-            
-            // Inject Design Service option group before existing standard options
-            standardOptions.style.display = 'block'; 
-            standardOptions.innerHTML = `
-                <div class="product-option-group" data-option-key="DesignService">
-                    <label>Design Service:</label>
-                    <div class="d-flex flex-wrap gap-3">
-                        <label class="choice-card selected" id="design-printready" 
-                               onclick="currentSelectedVariations['DesignService']='PrintReady'; updateFinalPrice()">
-                            <input type="radio" name="option-DesignService" value="PrintReady" checked>
-                            <span class="label-text">Print Ready File</span>
-                        </label>
-                        <label class="choice-card" id="design-needed" 
-                               onclick="currentSelectedVariations['DesignService']='DesignNeeded'; updateFinalPrice()">
-                            <input type="radio" name="option-DesignService" value="DesignNeeded">
-                            <span class="label-text">Design Service Required</span>
-                        </label>
-                    </div>
-                </div>`;
-            
-            // Set initial selection state for the new option
-            currentSelectedVariations['DesignService'] = 'PrintReady';
-
-            // Reset Dimension inputs
-            document.getElementById('input-width').value = 1;
-            document.getElementById('input-height').value = 1;
-            document.getElementById('input-custom-qty').value = 1;
-
-            ['input-width', 'input-height', 'input-custom-qty'].forEach(id => {
-                 const el = document.getElementById(id);
-                 if(el) el.oninput = updateFinalPrice;
-            });
-            
-            document.getElementById('areaConstraintWarning').style.display = 'none';
-            document.getElementById('areaConstraintWarning').classList.remove('alert-info');
-            document.getElementById('areaConstraintWarning').classList.add('alert-danger'); // Default style is error, use info for fee
-
-            updateFinalPrice();
-
-        } else {
-            // --- STANDARD TIERED ITEM SETUP (INCLUDING PHOTO PRINTING) ---
-            areaInputs.style.display = 'none';
-            standardOptions.style.display = 'block';
-            standardOptions.innerHTML = ''; 
-
-            const allCombinations = currentProduct.combinations || [];
-            if (allCombinations.length === 0 || !allCombinations[0]) {
-                 standardOptions.innerHTML = `<p class="alert alert-warning">No price configurations found for this product. Please use the Quote form.</p>`;
-                 return;
-            }
-
-            // Exclude internal fields, but keep 'Quantity Multiplier' to manage its value manually
-            let attributeKeys = Object.keys(allCombinations[0]).filter(key => 
-                key !== 'Price' && key !== 'FullName' && key !== 'PricingStructure' && key !== 'Quantity Multiplier'
-            );
-            
-            // FIX: Sort attribute keys using the defined priority
-            attributeKeys = sortAttributeKeys(attributeKeys);
-
-
-            const availableAttributes = {};
-            attributeKeys.forEach(key => availableAttributes[key] = new Set());
-
-            allCombinations.forEach(c => {
-                attributeKeys.forEach(key => {
-                    if (c[key]) availableAttributes[key].add(c[key]);
-                });
-            });
-            
-            // Render groups of unique values for each attribute
-            attributeKeys.forEach((attrKey) => {
-                const uniqueValues = Array.from(availableAttributes[attrKey]);
-                const sanitizedKey = attrKey;
-
-                let groupHTML = `
-                    <div class="product-option-group" data-option-key="${sanitizedKey}">
-                        <label>${attrKey}:</label>
-                        <div class="d-flex flex-wrap gap-3" id="choices-${sanitizedKey}">
-                `;
-                
-                // Sort values for cleaner UI
-                uniqueValues.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
-
-                uniqueValues.forEach(value => {
-                    const inputId = `${sanitizedKey}-${value.replace(/\s|\/|\\|\(|\)/g, '-')}`;
-                    
-                    groupHTML += `
-                        <label class="choice-card" for="${inputId}">
-                            <input type="radio" id="${inputId}" name="option-${sanitizedKey}" value="${value}" 
-                                   onchange="handleCardSelection('${sanitizedKey}', '${value}')">
-                            <span class="label-text">${value}</span>
-                        </label>
-                    `;
-                });
-
-                groupHTML += `</div></div>`;
-                standardOptions.innerHTML += groupHTML;
-            });
-
-            // Add quantity selector for standard items (now controlled by Pricing Option for Photo Printing)
-            standardOptions.innerHTML += `
-                 <div class="product-option-group" data-option-key="QuantitySelector">
-                    <label>Quantity:</label>
-                    <div class="input-group">
-                        <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(-1)">-</button>
-                        <input type="number" id="input-standard-qty" min="1" value="1" class="form-control text-center rounded-0" oninput="updateFinalPrice()">
-                        <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(1)">+</button>
-                    </div>
-                 </div>
-                 <div class="alert alert-info mt-3" id="photo-bundle-alert">Please select options and quantity above.</div>
-            `;
-            
-            document.getElementById('finalPriceBox').style.display = 'none';
-            document.getElementById('selectionWarning').style.display = 'block';
-
-            // Initial auto-selection to set defaults and trigger cascading update
-            if (attributeKeys.length > 0) {
-                 const firstKey = attributeKeys[0];
-                 const firstValue = Array.from(availableAttributes[firstKey])[0];
-                 if(firstValue) {
-                    const firstInput = document.querySelector(`input[name="option-${firstKey}"][value="${firstValue}"]`);
-                    if(firstInput) firstInput.checked = true;
-                    handleCardSelection(firstKey, firstValue);
-                 }
-            } else {
-                updateFinalPrice();
-            }
-        }
-
-        showSection('product-detail');
-    }
-
-
-    // --- Core Logic Helpers (Need to be defined in global scope for access by other core functions) ---
-
-    function updatePhotoBundleAlert(itemData, finalProductCombination) {
-        const bundleAlert = document.getElementById('photo-bundle-alert');
-        if (!bundleAlert || itemData.productName !== "Photo Printing" || !finalProductCombination) {
-            return;
-        }
-        // ... (function body remains the same)
+        if (!bundleAlert || itemData.productName !== "Photo Printing" || !finalProductCombination) { return; }
         const breakdown = itemData.options['Pricing Breakdown'];
         const effectivePricePerUnit = itemData.basePrice / itemData.quantity;
         let alertHtml = '';
-        
         if (breakdown) {
-            alertHtml += `
-                <i class="fas fa-tags me-2"></i> **Pricing Breakdown:**
-                <ul class="mt-2 mb-0" style="list-style-type: none; padding-left: 0;">
-                    <li class="small">${breakdown}</li>
-                    <li class="small fw-bold">Effective Price per Unit: PKR ${effectivePricePerUnit.toFixed(2)}</li>
-                </ul>
-            `;
+            alertHtml += `<i class="fas fa-tags me-2"></i> **Pricing Breakdown:**<ul class="mt-2 mb-0" style="list-style-type: none; padding-left: 0;"><li class="small">${breakdown}</li><li class="small fw-bold">Effective Price per Unit: PKR ${effectivePricePerUnit.toFixed(2)}</li></ul>`;
             bundleAlert.classList.remove('alert-info', 'alert-danger');
             bundleAlert.classList.add('alert-success');
         } else {
@@ -2495,29 +1833,13 @@
 
     function updateCustomPrintsAlert(itemData) {
         const printAlert = document.getElementById('print-price-alert');
-        if (!printAlert || itemData.productName !== CUSTOM_PRINTS_PRODUCT_NAME) {
-            return;
-        }
-        // ... (function body remains the same)
+        if (!printAlert || itemData.productName !== CUSTOM_PRINTS_PRODUCT_NAME) { return; }
         if (itemData.options.Tier && itemData.options['Price/Page']) {
             let multiplierInfo = '';
-            if (itemData.options.Sides === 'double') {
-                multiplierInfo = ' (Double Side: x2 Multiplier)';
-                printAlert.classList.remove('alert-info');
-                printAlert.classList.add('alert-warning');
-            } else {
-                printAlert.classList.remove('alert-warning');
-                printAlert.classList.add('alert-info');
-            }
+            if (itemData.options.Sides === 'double') { multiplierInfo = ' (Double Side: x2 Multiplier)'; printAlert.classList.remove('alert-info'); printAlert.classList.add('alert-warning'); } 
+            else { printAlert.classList.remove('alert-warning'); printAlert.classList.add('alert-info'); }
             
-            printAlert.innerHTML = `
-                <i class="fas fa-calculator me-2"></i> <strong>Pricing Details:</strong>
-                <ul class="mt-2 mb-0" style="list-style-type: none; padding-left: 0;">
-                    <li class="small">Pricing Tier: ${itemData.options.Tier}</li>
-                    <li class="small">Print Sides: ${itemData.options.Sides}${multiplierInfo}</li>
-                    <li class="small fw-bold">Final Price per Page: ${itemData.options['Price/Page']}</li>
-                </ul>
-            `;
+            printAlert.innerHTML = `<i class="fas fa-calculator me-2"></i> <strong>Pricing Details:</strong><ul class="mt-2 mb-0" style="list-style-type: none; padding-left: 0;"><li class="small">Pricing Tier: ${itemData.options.Tier}</li><li class="small">Print Sides: ${itemData.options.Sides}${multiplierInfo}</li><li class="small fw-bold">Final Price per Page: ${itemData.options['Price/Page']}</li></ul>`;
         } else {
             printAlert.innerHTML = 'Select all options and enter a valid quantity (1 to 1000+) to view the price per page.';
             printAlert.classList.remove('alert-success');
@@ -2525,10 +1847,8 @@
         }
     }
     
-    // --- Remaining Initialization Logic and Data Setup ---
-
+    // --- INITIALIZATION ---
     function initialProductSetup(flatData) {
-        // ... (function body remains the same)
         const productGroups = {};
         Object.keys(flatData).forEach(categoryKey => {
             const categoryData = flatData[categoryKey];
@@ -2543,7 +1863,7 @@
                 return;
             }
             if (categoryKey === "Special Occasions (Wedding)") return;
-            // ... (rest of function body remains the same, parsing combinations and setting up allProductGroups)
+
             Object.keys(categoryData).forEach(productKey => {
                  const productCombinations = categoryData[productKey];
                  if (!productGroups[productKey]) {
@@ -2563,17 +1883,15 @@
                  if (!productGroups[productKey].isAreaBased && Array.isArray(productCombinations)) {
                      productCombinations.forEach(item => {
                          const basePrice = parseFloat(item.price) || (item.pricing && item.pricing.single ? parseFloat(item.pricing.single) : 0); 
-                         
                          const getCommonAttributes = (price, customKey, customValue) => {
                              let attributes = { 'Price': price, 'FullName': productKey };
                              if (customKey && customValue) attributes[customKey] = customValue;
                              if (item.pricing) attributes['PricingStructure'] = item.pricing;
-                             
                              Object.keys(item).forEach(key => {
                                  if (key !== 'price' && key !== 'imageFile' && key !== 'pricing' && item[key]) {
                                      const displayKey = variantDisplayNames[key] || key.charAt(0).toUpperCase() + key.slice(1);
                                      if (key !== 'variant_3' && displayKey === attributes.FullName) return; 
-                                     if (displayKey !== customKey) attributes[displayKey] = item[key];
+                                     if (displayKey !== customKey) { attributes[displayKey] = item[key]; }
                                  }
                              });
                              return attributes;
@@ -2609,7 +1927,6 @@
     }
     
     async function initialAppLoad() {
-        // Inject Google Maps API script
         const script = document.createElement('script');
         script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places`;
         document.head.appendChild(script);
@@ -2631,8 +1948,7 @@
         document.getElementById('quote-form').addEventListener('submit', handleQuoteSubmission);
         document.getElementById('contact-form-whatsapp').addEventListener('submit', handleContactSubmission);
         
-        // Initial setup for location display
-        setDeliveryType('HomeDelivery', false); // Initialize UI state and default zone
+        setDeliveryType('HomeDelivery', false); 
         document.getElementById('zone-name').textContent = `Jalalpur Jattan (Default)`;
         document.getElementById('zone-name').classList.add('text-success');
 
@@ -2645,3 +1961,4 @@
 </body>
 
 </html>
+
