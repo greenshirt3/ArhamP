@@ -58,7 +58,7 @@
                 "imageFile": "img/products/thickcard.webp"
             }
         ],
-        "Photo Printing": [
+        "Photo Papers": [
             {
                 "variant_3": "7x5",
                 "price": 40.00,
@@ -2589,3 +2589,4 @@
         }
     }
 }
+
