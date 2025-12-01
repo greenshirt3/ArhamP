@@ -117,14 +117,14 @@
             {
                 "variant_3": "Venyl",
                 "price": 1.00,
-                "imageFile": "img/products/stickers.webp"
+                "imageFile": "img/products/venyl.webp"
             }
         ],
         "One Vision": [
             {
                 "variant_3": "One Vision",
                 "price": 1.00,
-                "imageFile": "img/products/stickers.webp"
+                "imageFile": "img/products/vision.webp"
             }
         ],
         "Letterpad": [
@@ -410,7 +410,7 @@
                 "imageFile": "img/products/file.webp"
             }
         ],
-        "Rubber Stamp (Rectangular)": [
+        "Stamps": [
             {
                 "shape": "Manual Inking",
                 "variant_3": "3.5x2",
@@ -427,7 +427,7 @@
                 "shape": "Manual Inking",
                 "variant_3": "1.8x0.7",
                 "price": 1.00,
-                "imageFile": "img/products/stamps.webp"
+                "imageFile": "img/products/mps.webp"
             },
             {
                 "shape": "Manual Inking",
@@ -2589,5 +2589,6 @@
         }
     }
 }
+
 
 
