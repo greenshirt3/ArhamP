@@ -442,9 +442,9 @@
                 </div>
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <img src='img/products/stamps.webp' onerror="this.onerror=null;this.src='img/products/stamps.png';" class='w-100' alt='Rubber Stamps'>
+                        <img src='img/products/stamps.webp' onerror="this.onerror=null;this.src='img/products/stamps.png';" class='w-100' alt='Stamps'>
                         <div class="product-footer-overlay p-0">
-                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Rubber Stamp (Rectangular)')">
+                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Stamps')">
                                 <i class="fas fa-search me-2"></i> Rubber Stamps
                             </button>
                         </div>
@@ -456,9 +456,9 @@
                 
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <img src='img/products/pamphlet.webp' onerror="this.onerror=null;this.src='img/products/pamphlets.png';" class='w-100' alt='pamphlets'>
+                        <img src='img/products/pamphlet.webp' onerror="this.onerror=null;this.src='img/products/pamphlet.png';" class='w-100' alt='Pamphlet'>
                         <div class="product-footer-overlay p-0">
-                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Ishtihar')">
+                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Pamphlet')">
                                 <i class="fas fa-search me-2"></i> Pamphlets
                             </button>
                         </div>
@@ -466,10 +466,10 @@
                 </div>
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <img src='img/products/flyers.webp' onerror="this.onerror=null;this.src='img/products/flyers.png';" class='w-100' alt='Flyers/Ishtihars'>
+                        <img src='img/products/flyers.webp' onerror="this.onerror=null;this.src='img/products/flyers.png';" class='w-100' alt='Ishtihars'>
                         <div class="product-footer-overlay p-0">
-                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Flyers/Ishtihars')">
-                                <i class="fas fa-search me-2"></i> Flyers/Ishtihars
+                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Ishtihars')">
+                                <i class="fas fa-search me-2"></i> Ishtihars
                             </button>
                         </div>
                     </div>
@@ -1342,7 +1342,7 @@
                  const productCombinations = categoryData[productKey];
                  if (!productGroups[productKey]) {
                      let imageFileBase = productKey.replace(/\s|\/|\(|\)/g, '').replace('Visiting', 'vcard').toLowerCase();
-                     if (productKey === 'Ishtihar') imageFileBase = 'pamphlet';
+                     if (productKey === 'Ishtihars') imageFileBase = 'flyers';
                      if (productKey === 'T-Shirt Cotton' || productKey === 'T-Shirt Multicolor') imageFileBase = 'cottonshirt';
                      if (productKey === 'File Covers') imageFileBase = 'file';
                      
@@ -2154,6 +2154,7 @@
 </body>
 
 </html>
+
 
 
 
