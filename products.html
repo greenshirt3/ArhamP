@@ -583,9 +583,9 @@
 
                 <div class='col-lg-3 col-6 mb-4'>
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <img src='img/products/photos.webp' onerror="this.onerror=null;this.src='img/products/photopapers.png';" class='w-100' alt='Photo Papers'>
+                        <img src='img/products/photos.webp' onerror="this.onerror=null;this.src='img/products/photos.png';" class='w-100' alt='Photo Papers'>
                         <div class="product-footer-overlay p-0">
-                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Photo Printing')">
+                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Photo Papers')">
                                 <i class="fas fa-search me-2"></i> Photo Papers
                             </button>
                         </div>
@@ -1212,7 +1212,7 @@
         "One Vision": { is_area_based: true, rate: 90, min_area: 2, category: 'Banners' }, // Name adjusted for JSON key
         "Venyl Sticker": { is_area_based: true, rate: 90, min_area: 2, category: 'Banners' }, // Name adjusted for JSON key  
         "3D Wallpaper": { is_area_based: true, rate: 30, min_area: 20, category: '3D Wallpaper' },
-        "Photo Frames": { is_area_based: true, rate: 40, min_area: 1, category: 'Photo Printing' } 
+        "Photo Frames": { is_area_based: true, rate: 40, min_area: 1, category: 'Photo Papers' } 
     };
     const AREA_BASED_PRODUCT_NAMES = Object.keys(AREA_BASED_META);
 
@@ -1734,7 +1734,7 @@
              return;
         }
         if (productName.trim() === "PhotoPapers") {
-             productName = "Photo Printing";
+             productName = "Photo Papers";
         }
 
 
@@ -2154,6 +2154,7 @@
 </body>
 
 </html>
+
 
 
 
