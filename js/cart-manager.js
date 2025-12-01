@@ -9,8 +9,11 @@ const Cart = (() => {
     let currentShippingZone = 'Within City';
     let currentPaymentMethod = 'CashOnDelivery';
     
+    // 🛑 Configuration (Token and API URL must be defined in products.html/wedding.html and passed if needed) 🛑
+    // We will assume these global constants are available when handleCheckoutSubmission is called.
     const WHATSAPP_NUMBER = '923006238233'; 
-
+    const POSTEX_API_URL = 'https://api.postex.pk/services/integration/api';
+    
     // --- Configuration (Duplicated for standalone manager access) ---
     const LOCAL_FREE_SHIPPING_THRESHOLD = 3000;
     
@@ -44,6 +47,7 @@ const Cart = (() => {
         let totalWeightGroup = 'small'; // Determine the highest cost weight group
         
         cartItems.forEach(item => {
+            // Note: item.finalItemPrice should be item.basePrice (item cost only)
             subtotal += item.finalItemPrice; 
             const itemWeightGroup = getShippingPacketType(item.productName);
             
@@ -117,10 +121,13 @@ const Cart = (() => {
                     .map(([key, value]) => `<li>${key}: ${value}</li>`)
                     .join('');
 
+                // 🌟 FIX: Prepend the correct path to the image file name for display
+                const imagePath = `img/products/${item.imageFile}.webp`;
+
                 return `
                     <div class="list-group-item d-flex align-items-center mb-3 p-3 border-bottom shadow-sm">
                         <div class="flex-shrink-0 me-3">
-                            <img src="${item.imageFile}" alt="${item.productName}" class="img-fluid rounded" style="width: 60px; height: 60px; object-fit: cover;">
+                            <img src="${imagePath}" alt="${item.productName}" class="img-fluid rounded" style="width: 60px; height: 60px; object-fit: cover;">
                         </div>
                         <div class="flex-grow-1">
                             <h5 class="mb-1">${item.productName}</h5>
@@ -226,9 +233,13 @@ const Cart = (() => {
         
         // Re-calculate price for the item with the new quantity
         const item = cartItems[index];
-        const unitPrice = item.finalItemPrice / item.quantity;
+        
+        // FIX: Calculate the ORIGINAL unit price correctly before multiplying by new quantity
+        const originalUnitPerItemPrice = item.basePrice / item.quantity;
+        
         item.quantity = newQuantity;
-        item.finalItemPrice = unitPrice * newQuantity; // Simplistic update assuming fixed unit price per option set
+        item.basePrice = originalUnitPerItemPrice * newQuantity; // Update the base price
+        item.finalItemPrice = item.basePrice; // Set finalItemPrice equal to basePrice (item cost only)
         
         cartItems[index] = item;
         saveCart();
@@ -258,7 +269,6 @@ const Cart = (() => {
         // 2. Control QR visibility and amount
         if (qrBlock) {
             if (method === 'RaastQR') {
-                // Amount update is done inside updateSummaryDisplay, call it to trigger the update
                 updateSummaryDisplay(); 
                 qrBlock.style.display = 'block';
             } else {
@@ -271,7 +281,7 @@ const Cart = (() => {
     const getShippingPacketType = (productName) => {
         if (productName.includes('Card') || productName.includes('Print') || productName.includes('Sticker')) return 'small';
         if (productName.includes('Letterpad') || productName.includes('Bill Book') || productName.includes('T-Shirt') || productName.includes('Mug') || productName.includes('Pen')) return 'medium';
-        if (productName.includes('Banner') || productName.includes('Wallpaper') || productName.includes('Frame')) return 'overland';
+        if (productName.includes('Banner') || productName.includes('Wallpaper') || productName.includes('Frame') || productName.includes('China') || productName.includes('Star') || productName.includes('Backlit') || productName.includes('Vision') || productName.includes('Venyl')) return 'overland';
         return 'small'; 
     };
     
@@ -302,10 +312,67 @@ const Cart = (() => {
     };
 
     // ----------------------------------------------------
+    // 🌟 NEW: POSTEX API INTEGRATION FUNCTION 🌟
+    // ----------------------------------------------------
+    
+    // This function assumes POSTEX_TOKEN is available in the global scope (set in products.html/wedding.html)
+    const createPostExOrder = async (checkoutData) => {
+        if (typeof POSTEX_TOKEN === 'undefined' || POSTEX_TOKEN === 'YOUR_MANDATORY_POSTEX_TOKEN') {
+            return showAlert("PostEx Error: API Token is not configured. Order submission failed.", 'error');
+        }
+        
+        const orderRefNumber = `ARHM-${Date.now().toString().slice(-8)}`;
+        const orderDetailString = cartItems.map(item => 
+             `${item.productName} (x${item.quantity}): ${Object.entries(item.options).map(([k, v]) => `${k}:${v}`).join(', ')}`
+        ).join(' | ');
+
+        const orderPayload = {
+            orderRefNumber: orderRefNumber,
+            invoicePayment: checkoutData.grandTotal, // Transaction Amount (COD)
+            orderDetail: orderDetailString.substring(0, 500), // Detail About Order, max length usually ~500 chars
+            customerName: checkoutData.name,
+            customerPhone: checkoutData.phone.replace(/[^0-9]/g, ''), // Format: 03XXXXXXXXX
+            deliveryAddress: checkoutData.address,
+            cityName: checkoutData.shippingCity,
+            invoiceDivision: 1, // Default to 1
+            items: cartItems.reduce((total, item) => total + item.quantity, 0), // Total number of pieces
+            orderType: 'Normal', 
+            // pickupAddressCode and storeAddressCode are optional/merchant-specific and omitted for general integration
+        };
+        
+        try {
+            const response = await fetch(`${POSTEX_API_URL}/order/v3/create-order`, {
+                method: 'POST',
+                headers: {
+                    'token': POSTEX_TOKEN, 
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderPayload)
+            });
+            
+            const data = await response.json();
+            
+            if (data.statusCode === "200" || data.statusMessage === "ORDER HAS BEEN CREATED") {
+                showAlert(`Success! PostEx Order Created. Tracking: ${data.dist.trackingNumber}`, 'success');
+                return { success: true, trackingNumber: data.dist.trackingNumber };
+            } else {
+                const errorMessage = data.statusMessage || JSON.stringify(data);
+                showAlert(`PostEx Order Failed: ${errorMessage}`, 'error');
+                return { success: false, error: errorMessage };
+            }
+        } catch (error) {
+            console.error("PostEx API Error (Order Creation):", error);
+            showAlert(`PostEx Order Creation Failed! Network error: ${error.message}`, 'error');
+            return { success: false, error: error.message };
+        }
+    }
+
+
+    // ----------------------------------------------------
     // --- CHECKOUT SUBMISSION ---
     // ----------------------------------------------------
     
-    const handleCheckoutSubmission = (e) => {
+    const handleCheckoutSubmission = async (e) => {
         e.preventDefault();
         
         if (cartItems.length === 0) {
@@ -316,44 +383,63 @@ const Cart = (() => {
         const totals = calculateCartTotals();
         const name = document.getElementById('checkout-name').value;
         const phone = document.getElementById('checkout-phone').value;
-        const address = document.getElementById('checkout-address').value || 'N/A (Self Pick Up)';
+        const address = document.getElementById('checkout-address').value || 'Jalalpur Jattan (Self Pick Up)';
         const email = document.getElementById('checkout-email').value || 'N/A';
         
-        // Final WhatsApp message generation
-        let message = `*NEW WEB ORDER - #${Date.now().toString().slice(-6)}*\n\n`;
-        message += `*Customer:* ${name}\n`;
-        message += `*Phone:* ${phone}\n`;
-        message += `*Email:* ${email}\n`;
-        message += `*Delivery Type:* ${currentDeliveryType} (${currentShippingZone})\n`;
-        if (currentDeliveryType === 'HomeDelivery') {
-             message += `*Shipping Address:* ${address}\n`;
-        }
-        message += `*Payment:* ${currentPaymentMethod}\n\n`;
+        const checkoutData = {
+            name, phone, address, email, 
+            grandTotal: totals.grandTotal,
+            shippingCity: currentShippingZone.includes('Within City') ? 'Jalalpur Jattan' : document.getElementById('checkout-input-city').value.trim(),
+            totalItems: cartItems.reduce((total, item) => total + item.quantity, 0),
+            items: cartItems,
+        };
 
-        message += `*--- Order Items (${cartItems.length}) ---*\n`;
-        cartItems.forEach((item, index) => {
-            message += `${index + 1}. *${item.productName}*\n`;
-            message += `   Qty: ${item.quantity} | Total: PKR ${item.finalItemPrice.toLocaleString('en-PK')}\n`;
-            message += `   Options: ${Object.entries(item.options).map(([k, v]) => `${k}:${v}`).join(', ')}\n`;
-        });
-        
-        message += `\n*--- Summary ---*\n`;
-        message += `*Subtotal:* PKR ${totals.subtotal.toLocaleString('en-PK')}\n`;
-        message += `*Delivery:* ${totals.shippingCost === 0 ? 'FREE' : 'PKR ' + totals.shippingCost.toLocaleString('en-PK')}\n`;
-        message += `*Grand Total:* PKR ${totals.grandTotal.toLocaleString('en-PK')}\n\n`;
-        message += `_Please confirm this order, payment method, and final delivery details._`;
-        
-        // Open WhatsApp
-        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
-        
-        // Clear cart after successful redirection/submission initiation
-        cartItems = [];
-        saveCart();
-        
-        showAlert('Order initiated! Please complete your order details on WhatsApp.', 'success');
-        // Assuming 'home' is a valid section/route across all pages
-        if (typeof showSection === 'function') {
-            showSection('home');
+        let submissionMethod = currentDeliveryType === 'HomeDelivery' ? 'PostEx' : 'WhatsApp';
+
+        if (submissionMethod === 'PostEx') {
+             // 1. Attempt PostEx Order Creation
+             const result = await createPostExOrder(checkoutData);
+
+             if (result.success) {
+                 // 2. Clear cart and redirect after successful API call
+                 cartItems = [];
+                 saveCart();
+                 // Redirect back to the catalog/home page
+                 if (typeof showSection === 'function') {
+                    showSection('shop-catalog');
+                 }
+             }
+             // If API fails, function handles alert and does NOT clear the cart.
+             
+        } else {
+            // 3. Fallback/Self-Pickup: WhatsApp Submission
+            let message = `*NEW WEB ORDER (SELF PICKUP) - #${Date.now().toString().slice(-6)}*\n\n`;
+            message += `*Customer:* ${name}\n`;
+            message += `*Phone:* ${phone}\n`;
+            message += `*Email:* ${email}\n`;
+            message += `*Delivery Type:* ${currentDeliveryType} (Jalalpur Jattan)\n`;
+            message += `*Payment:* ${currentPaymentMethod}\n\n`;
+
+            message += `*--- Order Items (${cartItems.length}) ---*\n`;
+            cartItems.forEach((item, index) => {
+                message += `${index + 1}. *${item.productName}*\n`;
+                message += `   Qty: ${item.quantity} | Cost: PKR ${item.finalItemPrice.toLocaleString('en-PK')}\n`;
+                message += `   Options: ${Object.entries(item.options).map(([k, v]) => `${k}:${v}`).join(', ')}\n`;
+            });
+            
+            message += `\n*--- Summary ---*\n`;
+            message += `*Grand Total:* PKR ${totals.grandTotal.toLocaleString('en-PK')}\n\n`;
+            message += `_Please confirm this order and pick-up timing._`;
+            
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+
+            // Clear cart after successful WhatsApp redirection initiation
+            cartItems = [];
+            saveCart();
+            showAlert('Order initiated via WhatsApp! Please complete the confirmation.', 'success');
+            if (typeof showSection === 'function') {
+                showSection('shop-catalog');
+            }
         }
     };
 
@@ -413,5 +499,6 @@ const Cart = (() => {
         handleCheckoutSubmission,
         calculateCartTotals,
         showAlert,
+        updateCartDisplay,
     };
 })();

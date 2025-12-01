@@ -2,15 +2,6 @@
 <html lang="en">
 
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-9NHW41JTY2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-9NHW41JTY2');
-</script>
     <meta charset="utf-8">
     <title>Arham Printers - Custom Wedding Invitation Cards</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -339,18 +330,15 @@
         <i class="fas fa-th-list"></i>
         <span>Products</span>
     </a>
-        <div id="mobile-nav-logo">
-         <a href="index.html" class="mobile-nav-link-center">
-             <img src="img/logo.webp" alt="Logo" style="height: 80px;">
-         </a>
-    </div>
-    <a href="wedding.html" class="mobile-nav-link active" id="mobile-link-wedding">
+        <a href="wedding.html" class="mobile-nav-link active" id="mobile-link-wedding">
             <i class="fas fa-gift"></i>
             <span>Wedding Cards</span>
-        </a>
-    
-    
-    <a href="#cart-section" class="mobile-nav-link" onclick="showSection('cart')" id="mobile-link-cart">
+        </a> 
+        <a href="print-order.html" class="mobile-nav-link" id="mobile-link-wedding">
+            <i class="fas fa-print"></i>
+            <span>Custom Prints</span>
+        </a> 
+   <a href="#cart-section" class="mobile-nav-link" onclick="showSection('cart')" id="mobile-link-cart">
         <i class="fas fa-shopping-cart"></i>
         <span id="cart-count" class="position-absolute translate-middle badge rounded-pill bg-primary" style="top: 8px; right: 10px; font-size: 0.7em;">0</span>
         <span>Cart</span>
@@ -454,13 +442,13 @@
                             
                             <div class="d-flex gap-2 mb-2">
                                 <button class="btn btn-outline-primary w-50 rounded-0" onclick="detectLocation()">
-                                    <i class="fas fa-search-location me-2"></i> Auto-Detect My City
+                                    <i class="fas fa-search-location me-2"></i> Check City
                                 </button>
-                                <input type="text" id="input-city" placeholder="Or Enter Your City Name" class="form-control rounded-0 w-50" oninput="manualLocationCheck()">
+                                <input type="text" id="input-city" placeholder="Enter Your City Name" class="form-control rounded-0 w-50" oninput="manualLocationCheck()">
                             </div>
                             
                             <small class="text-muted d-block mb-2" id="current-location-display">
-                                Current Zone: <span id="zone-name" class="fw-bold text-dark">Not Set (Jalalpur Jattan Default)</span>
+                                Current Zone: <span id="zone-name" class="fw-bold text-dark">Jalalpur Jattan (Default)</span>
                             </small>
                         </div>
                         <div class="final-price-box" id="finalPriceBox">
@@ -615,9 +603,24 @@
                                                 <input type="radio" name="option-PaymentMethod" value="BankTransfer">
                                                 <span class="label-text"><i class="fas fa-university me-2"></i> Bank Transfer (Pre-Payment)</span>
                                             </label>
+                                            <label class="choice-card" id="payment-raast" onclick="Cart.setPaymentMethod('RaastQR')">
+                                                <input type="radio" name="option-PaymentMethod" value="RaastQR">
+                                                <span class="label-text"><i class="fas fa-qrcode me-2"></i> Raast QR (Instant Pay)</span>
+                                            </label>
                                         </div>
                                     </div>
 
+                                    <div id="raast-qr-display" class="product-option-group mt-4 p-4 text-center bg-white border border-success" style="display: none;">
+                                        <h4><i class="fas fa-qrcode me-2 text-success"></i> Instant Payment via Raast</h4>
+                                        <p class="text-muted">Scan the QR code with any Raast-enabled banking app to pay the exact amount instantly. The Grand Total is automatically embedded.</p>
+                                        
+                                        <div class="d-flex justify-content-center">
+                                            <img src="img/qr.webp" id="raast-qr-image" alt="Raast QR Code" style="width: 200px; height: 200px; border: 5px solid #28a745;">
+                                        </div>
+                                        
+                                        <p class="fw-bold mt-3">Grand Total: <span id="raast-qr-amount" class="text-primary">PKR 0</span></p>
+                                        <small class="text-success d-block">This payment method requires instant confirmation via WhatsApp after scanning.</small>
+                                    </div>
                                     <div class="alert alert-info mt-4 rounded-0">
                                         <strong>Order Total:</strong> <span class="fw-bold text-primary" id="checkout-grand-total">PKR 0</span>.
                                         By clicking "Confirm Order", we will open WhatsApp for final confirmation and processing.
@@ -636,47 +639,52 @@
         <section id="quote-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6">Get a Custom Quote</h1>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active text-white">Quote</li>
+            </ol>
         </div>
+
         <div class="container-fluid py-5">
             <div class="container py-5">
                 <div class="row g-4 justify-content-center">
                     <div class="col-lg-8">
-                        <div class="bg-light p-4 rounded-0">
+                        <div class="bg-light p-4 rounded">
                             <form id="quote-form" onsubmit="handleQuoteSubmission(event)">
-                                <h3 class="mb-4">Quick Inquiry for Wedding Cards</h3>
+                                <h3 class="mb-4">Quick Inquiry</h3>
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control border-0 rounded-0" id="quote-name" placeholder="Your Name" required>
+                                            <input type="text" class="form-control border-0" id="quote-name" placeholder="Your Name" required>
                                             <label for="quote-name">Your Name</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="tel" class="form-control border-0 rounded-0" id="quote-phone" placeholder="WhatsApp Phone" required>
-                                            <label for="quote-phone">WhatsApp Phone</label>
+                                            <input type="tel" class="form-control border-0" id="quote-phone" placeholder="Contact Number" required>
+                                            <label for="quote-phone">Contact Number</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control border-0 rounded-0" id="quote-product" value="Wedding Invitation Cards" readonly>
-                                            <label for="quote-product">Product Name / Design ID</label>
+                                            <input type="text" class="form-control border-0" id="quote-product" placeholder="Product Name (e.g., Visiting Cards, 3D Wallpaper)">
+                                            <label for="quote-product">Product Name / Type</label>
+                                        </div>
+                                    </div>
+                                     <div class="col-12">
+                                        <div class="form-floating">
+                                            <input type="number" class="form-control border-0" id="quote-quantity" placeholder="Quantity or Total Area (e.g., 500 cards, 100 sq ft)">
+                                            <label for="quote-quantity">Quantity / Estimated Area</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <input type="number" class="form-control border-0 rounded-0" id="quote-quantity" placeholder="Quantity (e.g., 500 cards)">
-                                            <label for="quote-quantity">Required Quantity</label>
+                                            <textarea class="form-control border-0" placeholder="Details of your inquiry (Size, Finish, Quality, Message)" id="quote-details" style="height: 150px" required></textarea>
+                                            <label for="quote-details">Inquiry Message / Specifications</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <div class="form-floating">
-                                            <textarea class="form-control border-0 rounded-0" placeholder="Details of your inquiry" id="quote-details" style="height: 150px" required></textarea>
-                                            <label for="quote-details">Message</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <button class="btn btn-primary w-100 py-3 rounded-0" type="submit">Submit Quote via WhatsApp</button>
+                                        <button class="btn btn-primary w-100 py-3" type="submit">Submit Quote via WhatsApp</button>
                                     </div>
                                 </div>
                             </form>
@@ -685,23 +693,167 @@
                 </div>
             </div>
         </section>
-    
     <section id="contact-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6">Contact Us</h1>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active text-white">Contact</li>
+            </ol>
         </div>
-        <div class="container py-5 text-center">
-             <h3>Contact us at +92 300 6238233</h3>
+
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div class="row g-4">
+                    <div class="col-lg-4">
+                        <div class="bg-light p-4 rounded">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
+                                    style="width: 60px; height: 60px;">
+                                    <i class="fa fa-map-marker-alt text-primary fs-4"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <h5 class="mb-2">Our Location</h5>
+                                    <p class="mb-0">Domela Chowk,Tanda Road, Jalalpur Jattan</p>
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
+                                    style="width: 60px; height: 60px;">
+                                    <i class="fa fa-phone-alt text-primary fs-4"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <h5 class="mb-2">Call Us</h5>
+                                    <p class="mb-0">+92 300 6238233</p>
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex align-items-center">
+                                <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
+                                    style="width: 60px; height: 60px;">
+                                    <i class="fa fa-envelope text-primary fs-4"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <h5 class="mb-2">Email Us</h5>
+                                    <p class="mb-0">info@arhamprinters.pk</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-8">
+                        <div class="bg-light p-4 rounded">
+                            <form id="contact-form-whatsapp" onsubmit="handleContactSubmission(event)">
+                                <h3 class="mb-4">Send a Direct Message</h3>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border-0" id="contact-name" placeholder="Your Name" required>
+                                            <label for="contact-name">Your Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control border-0" id="contact-subject" placeholder="Subject" required>
+                                            <label for="contact-subject">Subject</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <textarea class="form-control border-0" placeholder="Leave a message here" id="contact-message" style="height: 150px" required></textarea>
+                                            <label for="contact-message">Message</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="btn btn-primary w-100 py-3" type="submit">Send Message via WhatsApp</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
+           <div class="container-fluid footer py-2">
+            <div class="container py-2">
+                <div class="row g-3">
+                    <div class="col-6 col-md-3">
+                        <div class="rounded p-2 d-flex flex-column align-items-center">
+                            <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto"
+                                style="width: 56px; height: 56px;">
+                                <i class="fas fa-map-marker-alt fa-2x text-primary" style="line-height: 1;"></i>
+                            </div>
+                            <h6 class="text-white mt-1 mb-1">Address</h6>
+                            <p class="text-white fw-bold mb-1 small text-center">Domela Chowk, Tanda Road, Jalalpur Jattan
+                            </p>
+                        </div>
+                    </div>
 
-    <div class="container-fluid footer py-2">
-        <div class="container text-center">
-             <p class="text-white">Arham Printers 2025</p>
+                    <div class="col-6 col-md-3">
+                        <div class="rounded p-2 d-flex flex-column align-items-center">
+                            <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto"
+                                style="width: 56px; height: 56px;">
+                                <i class="fas fa-envelope fa-2x text-primary" style="line-height: 1;"></i>
+                            </div>
+                            <h6 class="text-white mt-1 mb-1">Mail Us</h6>
+                            <p class="text-white fw-bold mb-1 small text-center">info@arhamprinters.pk</p>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <div class="rounded p-2 d-flex flex-column align-items-center">
+                            <a href="https://wa.me/923006238233" target="_blank" class="text-decoration-none">
+                                <div class="rounded-circle bg-success d-flex align-items-center justify-content-center mb-2 mx-auto"
+                                    style="width: 56px; height: 56px;">
+                                    <i class="fab fa-whatsapp fa-2x text-white" style="line-height: 1;"></i>
+                                </div>
+                            </a>
+                            <h6 class="text-white mt-1 mb-1">Direct Contact</h6>
+                            <a href="https://wa.me/923006238233" target="_blank"
+                                class="text-white-50 text-decoration-none">
+                                <p class="text-white fw-bold mb-1 small text-center">+92 300 6238233</p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                        <div class="rounded p-2 d-flex flex-column align-items-center">
+                            <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto"
+                                style="width: 56px; height: 56px;">
+                                <i class="fab fa-facebook-f fa-2x text-primary" style="line-height: 1;"></i>
+                            </div>
+                            <h6 class="text-white mt-1 mb-1">Follow Us</h6>
+                            <div class="d-flex justify-content-center gap-1">
+                                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i
+                                        class="fab fa-twitter"></i></a>
+                                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i
+                                        class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i
+                                        class="fab fa-youtube"></i></a>
+                                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i
+                                        class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid copyright py-2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <span class="text-white small">
+                                <i class="fas fa-copyright text-light me-1"></i>
+                                Arham Printers, All rights reserved 2025.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-
-    <a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
+        <a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -710,15 +862,17 @@
     <script src="lib/counterup/counterup.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/cart-manager.js"></script>
-<script>
+    <script src="js/cart-manager.js"></script> 
+    
+    <script>
     // 🛑 STEP 1: MANDATORY CONFIGURATION 🛑
     const PUBLIC_DATA_URL = 'all_prices.json'; 
     const WHATSAPP_NUMBER = '923006238233'; 
-    const API_URL = 'submit_order.php';
-
-    // 🛑 REPLACE THIS WITH YOUR ACTUAL GOOGLE MAPS API KEY 🛑
-    const GOOGLE_MAPS_API_KEY = 'AIzaSyCAz3R9s0BdNnwgEtaC31LJcIqlkoXh05U'; 
+    const SUBMIT_ORDER_URL = 'submit_order.php'; 
+    
+    // 🛑 PostEx API Configuration (New) 🛑
+    const POSTEX_API_URL = 'https://api.postex.pk/services/integration/api';
+    const POSTEX_TOKEN = 'YOUR_MANDATORY_POSTEX_TOKEN'; // Replace with your actual token
 
     // --- Core Data Stores ---
     let allProducts = {}; 
@@ -771,8 +925,6 @@
 
     
     function getShippingPacketType(productName) {
-        // Wedding cards are typically heavy, classifying as small/medium depends on quantity
-        // Assume 'small' for simplicity in single-item calculation here
         return 'small'; 
     }
 
@@ -804,7 +956,7 @@
         if (triggerPriceUpdate) updateQuantityAndPrice(0);
     }
     
-    // --- LOCATION DETECTION LOGIC (Identical to products.html) ---
+    // --- PostEx Integration Logic (Replaces Google Maps Geolocation) ---
 
     function manualLocationCheck() {
         const cityInput = document.getElementById('input-city').value.trim();
@@ -813,51 +965,17 @@
     }
 
     function detectLocation() {
-        if (GOOGLE_MAPS_API_KEY === 'YOUR_API_KEY_HERE') {
-            Cart.showAlert("API Key not configured. Cannot auto-detect location.", 'error');
+        if (POSTEX_TOKEN === 'YOUR_MANDATORY_POSTEX_TOKEN') {
+            if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
+                 Cart.showAlert("PostEx API Token not configured. Please enter your city manually.", 'error');
+            }
             return;
         }
-        document.getElementById('zone-name').textContent = "Detecting...";
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition, showError);
-        } else {
-            Cart.showAlert("Geolocation is not supported by this browser.", 'error');
+        
+        document.getElementById('zone-name').textContent = "Please enter your city name above for zone check.";
+        if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
+             Cart.showAlert("City detection requires PostEx API setup. Please enter your city manually.", 'info');
         }
-    }
-
-    function showPosition(position) {
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
-        const geocoder = new google.maps.Geocoder();
-        const latlng = { lat: parseFloat(lat), lng: parseFloat(lng) };
-
-        geocoder.geocode({ location: latlng }, (results, status) => {
-            if (status === "OK" && results[0]) {
-                const addressComponents = results[0].address_components;
-                let detectedCity = "";
-
-                addressComponents.forEach(component => {
-                    if (component.types.includes("locality")) {
-                        detectedCity = component.long_name;
-                    }
-                });
-                
-                if (detectedCity) {
-                     document.getElementById('input-city').value = detectedCity;
-                     updateShippingZone(detectedCity);
-                } else {
-                     document.getElementById('zone-name').textContent = "City not found. Defaulting to JLP.";
-                }
-            } else {
-                Cart.showAlert(`Geolocation failed: ${status}`, 'error');
-                document.getElementById('zone-name').textContent = "Detection Failed. Defaulting to JLP.";
-            }
-        });
-    }
-
-    function showError(error) {
-        Cart.showAlert("Error detecting location: " + error.message, 'error');
-        document.getElementById('zone-name').textContent = "Detection Failed. Defaulting to JLP.";
     }
 
     function updateShippingZone(cityName) {
@@ -885,10 +1003,7 @@
     // --- INITIALIZATION AND FETCHING ---
 
     async function initialAppLoad() {
-        // Inject Google Maps API script
-        const script = document.createElement('script');
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places`;
-        document.head.appendChild(script);
+        // Removed dynamic Google Maps script injection
         
         let rawData;
         try {
@@ -899,7 +1014,9 @@
             rawData = await response.json(); 
         } catch (error) {
             console.error("Failed to load shop data:", error);
-            Cart.showAlert("Failed to load wedding card data. Check console or network.", 'error');
+            if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
+                 Cart.showAlert("Failed to load wedding card data. Check console or network.", 'error');
+            }
             return;
         }
         
@@ -919,7 +1036,8 @@
     }
 
     function initialCardSetup(flatData) {
-        const tieredWeddingData = flatData['Special Occasions (Wedding)'];
+        // 🌟 FIX: Access the data using the correct key
+        const tieredWeddingData = flatData['Special Occasions (Wedding)']; 
         allProducts = {};
         const BENCHMARK_QTY = 100;
 
@@ -928,8 +1046,11 @@
             return;
         }
 
+        // Iterate through tiers (e.g., "Economical Elegance", "Premium Collection")
         Object.keys(tieredWeddingData).forEach(tierName => {
-            const cardsInTier = tieredWeddingData[tierName].cards || {};
+            // Access the nested 'cards' object
+            const cardsInTier = tieredWeddingData[tierName].cards || {}; 
+            
             Object.keys(cardsInTier).forEach(cardName => {
                 const card = cardsInTier[cardName];
                 const rawMaterialCost100 = card.bulkPrice100 || 0; 
@@ -993,8 +1114,14 @@
         } else {
             // Home Delivery Logic
             if (currentShippingZone === 'Within City') {
-                shippingCost = SHIPPING_RATES[packetType]['Within City'];
-                finalShippingNote = `Local Delivery (Jalalpur Jattan). Flat rate for ${packetType.toUpperCase()} packet.`;
+                 // Using 3000 PKR threshold hardcoded from cart-manager.js logic for consistency
+                if (baseProductPrice > 3000) { 
+                    shippingCost = 0;
+                    finalShippingNote = `FREE Delivery! (Local JLP orders over PKR 3,000)`;
+                } else {
+                    shippingCost = SHIPPING_RATES[packetType]['Within City'];
+                    finalShippingNote = `Local Delivery (Jalalpur Jattan). Flat rate for ${packetType.toUpperCase()} packet.`;
+                }
             } else {
                 // Cross-Province/Same-Province
                 shippingCost = getPostExShippingCost(packetType, currentShippingZone);
@@ -1052,11 +1179,6 @@
             document.getElementById('shipping-note-display').textContent = result.shippingNote;
             document.getElementById('shipping-display-box').style.display = 'block';
 
-            // 🛑 REMOVED COST BREAKDOWN DISPLAY LINES:
-            /*
-            const bulkPriceDisplay = currentCard.bulkPrice100.toFixed(0);
-            document.getElementById('fixed-cost-display').textContent = `**Total Cost (100 pcs: PKR ${bulkPriceDisplay}) used for calculation. Fixed overhead of ${currentCard.fixedCost} PKR applied after profit.**`;
-            */
         } else {
              document.getElementById('finalPriceBox').style.display = 'none';
              document.getElementById('shipping-display-box').style.display = 'none';
@@ -1067,13 +1189,17 @@
     // 🛑 NEW: Function to Add Item to Cart 🛑
     function addItemToCart() {
         if (typeof Cart === 'undefined') {
-            Cart.showAlert('Cart system not loaded.', 'error');
+            if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
+                 Cart.showAlert('Cart system not loaded.', 'error');
+            }
             return;
         }
 
         const quantity = parseInt(document.getElementById('input-card-qty').value) || 0;
         if (quantity < 1 || !currentCard) {
-            Cart.showAlert('Please select a valid quantity (1 or more) before adding to cart.', 'error');
+            if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
+                 Cart.showAlert('Please select a valid quantity (1 or more) before adding to cart.', 'error');
+            }
             return;
         }
         
@@ -1089,10 +1215,11 @@
             productName: currentCard.cardName,
             quantity: quantity,
             basePrice: result.baseProductPrice, 
-            finalItemPrice: result.finalPrice, // Total item price including calculated shipping
+            finalItemPrice: result.baseProductPrice, // NOTE: Passing item cost only to prevent double-shipping calculation in cart-manager.js
             options: result.options,
             isAreaBased: false,
-            imageFile: currentCard.galleryImages ? currentCard.galleryImages[0] : currentCard.imageFile || 'img/wedding/placeholder.webp',
+            // Extracting just the filename for cart-manager.js
+            imageFile: (currentCard.galleryImages ? currentCard.galleryImages[0] : currentCard.imageFile || 'img/wedding/placeholder.webp').match(/[^/]+(?=\.)/)[0], 
         };
 
         Cart.addItem(cartItem);
@@ -1237,19 +1364,11 @@
     document.getElementById('card-description').textContent = currentCard.description; 
     document.getElementById('input-card-qty').value = 100; 
     
-    // 🛑 REMOVED COST BREAKDOWN DISPLAY LOGIC ON SHOW DETAILS:
-    /*
-    const bulkPriceDisplay = currentCard.bulkPrice100.toFixed(0);
-    document.getElementById('fixed-cost-display').textContent = `**Total Cost (100 pcs: PKR ${bulkPriceDisplay}) used for calculation. Fixed overhead of ${currentCard.fixedCost} PKR applied after profit.**`;
-    */
-    
     showSection('product-detail');
     updateQuantityAndPrice(0); 
 }
 
     // --- ORDER SUBMISSION AND ALERT FUNCTIONS (MODIFIED) ---
-    
-    // Removed old submitOrder
     
     function handleQuoteSubmission(e) {
         e.preventDefault();
@@ -1267,7 +1386,9 @@
         whatsappMessage += `*Details:* ${details}`;
         
         window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
-        Cart.showAlert('Quote submitted via WhatsApp! We will contact you shortly.', 'success');
+        if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
+            Cart.showAlert('Quote submitted via WhatsApp! We will contact you shortly.', 'success');
+        }
         document.getElementById('quote-form').reset();
     }
 
@@ -1304,4 +1425,3 @@
 </div>
 </body>
 </html>
-
