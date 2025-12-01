@@ -985,13 +985,13 @@
         "Shields (Custom Quote)": [
             {
                 "price": 1.00,
-                "imageFile": "img/products/placeholder.png"
+                "imageFile": "img/products/shields.webp"
             }
         ],
         "Flags & Fabric": [
             {
                 "price": 1.00,
-                "imageFile": "img/products/placeholder.png"
+                "imageFile": "img/products/flag.webp"
             }
         ],
         "Box Packaging": [
@@ -2589,6 +2589,7 @@
         }
     }
 }
+
 
 
 
