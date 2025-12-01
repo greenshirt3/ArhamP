@@ -313,6 +313,7 @@
                 <a href="index.html" class="nav-item nav-link">Home</a>
                 <a href="#" class="nav-item nav-link active" onclick="showSection('shop-catalog')">Products</a>
                 <a href="wedding.html" class="nav-item nav-link">Wedding Cards</a>
+                <a href="#" class="nav-item nav-link" onclick="showDigitalPrintingDetails('Custom Prints')">Paper Printing</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
                     <div class="dropdown-menu bg-light border-0 m-0">
@@ -348,7 +349,7 @@
             <i class="fas fa-gift"></i>
             <span>Wedding Cards</span>
         </a> 
-        <a href="print-order.html" class="mobile-nav-link" id="mobile-link-wedding">
+        <a href="#" class="mobile-nav-link" id="mobile-link-custom-prints" onclick="showDigitalPrintingDetails('Custom Prints')">
             <i class="fas fa-print"></i>
             <span>Custom Prints</span>
         </a> 
@@ -640,12 +641,12 @@
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
                         <img src='img/products/printer.webp' onerror="this.onerror=null;this.src='img/products/printer.png';" class='w-100' alt='Custom Prints'>
                         <div class="product-footer-overlay p-0">
-                            <button class="btn btn-secondary w-100 rounded-0 p-3" onclick="showProductDetails('Custom Prints')">
+                            <button class="btn btn-secondary w-100 rounded-0 p-3" onclick="showDigitalPrintingDetails('Custom Prints')">
                                 <i class="fas fa-calculator me-2"></i> Paper Prints
                             </button>
                         </div>
                     </div>
-                </di>
+                </div>
     </section>
     <section id="product-detail-section" class="section">
         <div class="container-fluid page-header py-5">
@@ -741,7 +742,7 @@
             </div>
         </div>
     </section>
-
+    
     <section id="custom-print-tnc-upload" style="display:none;" class="container-fluid py-5">
         <div class="container py-5 pt-0">
             <div class="row g-4">
@@ -1366,6 +1367,12 @@
         document.getElementById('zone-name').classList.add('text-success');
 
         if (typeof setActiveMobileNav === 'function') setActiveMobileNav('products');
+
+        // Check URL parameters for direct link to custom prints
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('view') === 'digital') {
+             showDigitalPrintingDetails('Custom Prints');
+        }
     }
     
     function initialProductSetup(flatData) {
@@ -1977,6 +1984,9 @@
         const productData = allProductGroups[cleanName]; 
         currentProduct = productData;
         currentSelectedVariations = {}; 
+        
+        // 🛑 Hide T&C/Upload section for all regular products
+        document.getElementById('custom-print-tnc-upload').style.display = 'none';
 
         if (!currentProduct) {
             Cart.showAlert(`Product "${cleanName}" details not found in data. Please use the 'Get Custom Quote' option.`, 'error'); 
@@ -2154,6 +2164,9 @@
             Cart.showAlert(`Custom Prints data not found.`, 'error');
             return;
         }
+        
+        // 🛑 Show T&C/Upload section for Custom Prints
+        document.getElementById('custom-print-tnc-upload').style.display = 'block';
 
         document.getElementById('detail-product-name-header').textContent = currentProduct.baseName;
         document.getElementById('detail-product-name-body').textContent = currentProduct.baseName;
@@ -2280,9 +2293,6 @@
 
         updateFinalPrice();
         
-        // 🛑 NEW: Show T&C and Upload section for Custom Prints
-        document.getElementById('custom-print-tnc-upload').style.display = 'block';
-
         showSection('product-detail');
     }
 
@@ -2441,7 +2451,7 @@
         document.getElementById('contact-form-whatsapp').reset();
     }
     function showSection(sectionName) {
-        // 🛑 NEW: Hide T&C section by default 🛑
+        // 🛑 NEW: Hide T&C section by default for all sections except digital prints 🛑
         const tncSection = document.getElementById('custom-print-tnc-upload');
         if (tncSection) tncSection.style.display = 'none';
         
