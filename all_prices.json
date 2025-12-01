@@ -58,7 +58,7 @@
                 "imageFile": "img/products/thickcard.webp"
             }
         ],
-        "Photo Papers": [
+        "Photo Printing": [
             {
                 "variant_3": "7x5",
                 "price": 40.00,
@@ -117,17 +117,17 @@
             {
                 "variant_3": "Venyl",
                 "price": 1.00,
-                "imageFile": "img/products/venyl.webp"
+                "imageFile": "img/products/stickers.webp"
             }
         ],
         "One Vision": [
             {
                 "variant_3": "One Vision",
                 "price": 1.00,
-                "imageFile": "img/products/vision.webp"
+                "imageFile": "img/products/stickers.webp"
             }
         ],
-        "Letterpad": [
+        "Letterpads": [
             {
                 "single_side": "Single Color",
                 "variant_1": "5.75x9",
@@ -410,7 +410,7 @@
                 "imageFile": "img/products/file.webp"
             }
         ],
-        "Stamps": [
+        "Rubber Stamp (Rectangular)": [
             {
                 "shape": "Manual Inking",
                 "variant_3": "3.5x2",
@@ -554,7 +554,7 @@
         ]
     },
     "Marketing & Promotional Items": {
-        "Pamphlet": [
+        "Ishtihar": [
             {
                 "single_side": "Single Color",
                 "variant_1": "5.75x9",
@@ -668,7 +668,7 @@
                 "imageFile": "img/products/pamphlet.webp"
             }
         ],
-        "Ishtihars": [
+        "Flyers/Ishtihars": [
             {
                 "single_side": "4 Colors",
                 "variant_1": "5.75x9",
@@ -973,13 +973,13 @@
         "Shields (Custom Quote)": [
             {
                 "price": 1.00,
-                "imageFile": "img/products/shields.webp"
+                "imageFile": "img/products/placeholder.png"
             }
         ],
         "Flags & Fabric": [
             {
                 "price": 1.00,
-                "imageFile": "img/products/flag.webp"
+                "imageFile": "img/products/placeholder.png"
             }
         ],
         "Box Packaging": [
@@ -2625,9 +2625,6 @@
         }
     }
 }
-<<<<<<< Updated upstream
-=======
 
 
 
->>>>>>> Stashed changes

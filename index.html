@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<<<<<<< Updated upstream
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maintenance in Progress</title>
-=======
     <meta charset="utf-8">
     <title>Arham Printers - Printing and Advertising Service</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -27,22 +23,244 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
->>>>>>> Stashed changes
     <style>
-        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; text-align: center; padding: 100px 20px; background-color: #f4f4f4; }
-        .container { background-color: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); max-width: 600px; margin: 0 auto; }
-        h1 { color: #007bff; margin-bottom: 15px; }
-        p { color: #555; line-height: 1.6; }
+        /* General Layout and Utility Styles */
+        :root {
+            --bs-primary: #f28b00; /* Assuming this is your primary color */
+            --bs-secondary: #ff5722; /* Example secondary color */
+            --bs-dark: #212529;
+            --mobile-nav-height: 60px;
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        .final-price-box {
+            background: var(--bs-primary);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            text-align: center;
+            display: none; 
+        }
+        .final-price-box h4 {
+            color: white;
+        }
+        
+        /* ---------------------------------------------------- */
+        /* RESPONSIVE HEADER IMAGE IMPLEMENTATION (NEW LOGIC) */
+        /* ---------------------------------------------------- */
+        .page-header {
+            /* Default: Use Mobile Image (Mobile First Approach) */
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(img/banners/productmobile.webp) center center no-repeat;
+            background-size: cover;
+            min-height: 250px;
+        }
+
+        @media (min-width: 768px) {
+            .page-header {
+                /* Override: Use Desktop Image on larger screens */
+                background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(img/banners/productdesk.webp) center center no-repeat;
+                background-size: cover;
+                min-height: 350px;
+            }
+        }
+        /* ---------------------------------------------------- */
+        
+        /* --- DESKTOP NAV FIX --- */
+        /* Remove margin from h1 inside the desktop navbar brand for alignment */
+        .navbar-brand h1 {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        /* Clickable Card Variations (Standard Items) */
+        .choice-card {
+            cursor: pointer;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 10px 15px;
+            text-align: center;
+            transition: all 0.2s ease;
+            flex-grow: 1;
+            min-width: 120px;
+            opacity: 1; /* Default to visible */
+        }
+        .choice-card:hover {
+            border-color: var(--bs-secondary);
+            background-color: #fff8f8;
+        }
+        .choice-card.selected {
+            border-color: var(--bs-primary);
+            background-color: var(--bs-primary);
+            color: white;
+            box-shadow: 0 0 10px rgba(242, 139, 0, 0.3);
+        }
+        /* Style for visually disabling non-selectable options */
+        .choice-card.disabled {
+            opacity: 0.5;
+            pointer-events: none; /* Disable interaction */
+            border-color: #eee;
+            background-color: #f7f7f7;
+        }
+        .choice-card input[type="radio"] {
+            display: none;
+        }
+        .choice-card .label-text {
+            font-weight: 500;
+            color: var(--bs-dark);
+            display: block;
+        }
+        .choice-card.selected .label-text {
+            color: white;
+        }
+        .product-option-group {
+            margin-bottom: 1.5rem;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .product-option-group label {
+            font-weight: 600;
+            color: var(--bs-dark);
+            margin-bottom: 0.75rem;
+            display: block;
+            font-size: 1.1rem;
+        }
+
+        /* --- MOBILE BOTTOM NAVIGATION STYLES --- */
+
+        /* 1. Mobile Bottom Bar Container */
+        #mobile-bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: var(--mobile-nav-height);
+            background: white;
+            border-top: 1px solid #ddd;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1030;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+        
+        /* **FIX 1: Ensure all 5 top-level elements take equal width** */
+        #mobile-bottom-nav > a, 
+        #mobile-bottom-nav > div {
+            flex: 1 1 0%; /* Equal distribution: 20% width per slot */
+        }
+
+        /* 2. Mobile Link Styling */
+        .mobile-nav-link {
+            flex: 1; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            text-decoration: none;
+            color: var(--bs-dark);
+            font-size: 0.6rem; /* Smaller text for compact look */
+            padding: 5px 0;
+            transition: color 0.2s;
+            position: relative;
+            height: 100%;
+            justify-content: center;
+        }
+        .mobile-nav-link:hover {
+             color: var(--bs-primary);
+        }
+        .mobile-nav-link i {
+            font-size: 1.1rem;
+            margin-bottom: 2px;
+            line-height: 1;
+        }
+        .mobile-nav-link.active {
+            color: var(--bs-primary);
+        }
+        
+
+/* Update the existing #mobile-nav-logo section */
+/* 3. Center Logo Button */
+#mobile-nav-logo {
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative; /* Make it relative for absolute children */
+}
+#mobile-nav-logo a {
+            background-color: var(--bs-primary);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(242, 139, 0, 0.6);
+            position: absolute; 
+            top: -15px; 
+            /* **FIX 2: Center absolutely positioned element within its slot** */
+            left: 50%;
+            transform: translateX(-50%); 
+}
+
+/* NEW RULE: Style the image inside the centered mobile button */
+#mobile-nav-logo a img {
+    /* Ensures the image is centered and prevents vertical alignment issues */
+    vertical-align: middle; 
+    /* Ensures the image doesn't overflow the 45px circle container */
+    max-width: 80%; 
+    max-height: 80%;
+    height: auto !important; /* Overrides inline height if needed, maintaining aspect ratio */
+}
+
+#mobile-nav-logo a i {
+            font-size: 1.5rem;
+}
+        /* 4. Content Padding to clear the fixed bottom nav */
+        #home-section, #quote-section, #contact-section, #cart-section, #checkout-section {
+            padding-bottom: calc(var(--mobile-nav-height) + 15px); /* Add space for the bottom navbar */
+        }
+        
+        /* 5. Compact Category Link Styling (Removed, but keeping class definitions minimal) */
+        .categories-item a {
+            font-size: 0.75rem; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 5px 0;
+            line-height: 1.2;
+        }
+        .categories-item a i {
+            font-size: 1.2rem; 
+            margin-bottom: 5px !important;
+        }
+        
+        /* 6. Mobile Dropdown Specific Styling */
+        #mobile-bottom-nav .dropdown-menu {
+            position: absolute;
+            bottom: var(--mobile-nav-height); /* Position above the nav bar */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.2);
+            border-radius: 8px 8px 0 0;
+            padding: 10px 0;
+        }
+        #mobile-bottom-nav .dropdown-item {
+             font-size: 0.8rem;
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
-<<<<<<< Updated upstream
-        <h1>🔧 Temporary Downtime 🔧</h1>
-        <p>Our website is undergoing scheduled maintenance to bring you a better experience.</p>
-                <p>Thank you for your patience!</p>
-        <p>Follow us on [Social Media Link] for real-time updates.</p>
-=======
         <div class="container-fluid bg-dark text-white-50 py-2 px-0 d-none d-lg-block">
             <div class="row gx-0 align-items-center">
                 <div class="col-lg-7 px-5 text-start">
@@ -736,11 +954,9 @@
                  // Initial active state is handled by main.js after DOMContentLoaded
             });
         </script>
->>>>>>> Stashed changes
     </div>
 </body>
-</html>
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
+
+</html>
+
