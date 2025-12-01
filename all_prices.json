@@ -61,35 +61,17 @@
         "Photo Printing": [
             {
                 "variant_3": "7x5",
-                "pricing": {
-                    "single": 40.00,
-                    "bundles": {
-                        "5": 180.00,
-                        "10": 340.00
-                    }
-                },
+                "price": 40.00,
                 "imageFile": "img/products/photos.webp"
             },
             {
                 "variant_3": "1x1",
-                "pricing": {
-                    "single": 15.00,
-                    "bundles": {
-                        "5": 70.00,
-                        "10": 130.00
-                    }
-                },
+                "price": 15.00,
                 "imageFile": "img/products/photos1x1.webp"
             },
             {
                 "variant_3": "Passport Size",
-                "pricing": {
-                    "single": 10.00,
-                    "bundles": {
-                        "5": 45.00,
-                        "10": 80.00
-                    }
-                },
+                "price": 10.00,
                 "imageFile": "img/products/pasport.webp"
             },
             {
@@ -2607,4 +2589,3 @@
         }
     }
 }
-
