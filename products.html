@@ -1160,6 +1160,7 @@
     
     let currentShippingZone = 'Within City'; // Default to cheapest zone (JLP)
     let currentDeliveryType = 'HomeDelivery'; // NEW: Default to Home Delivery
+    const CUSTOM_PRINTS_PRODUCT_NAME = "Custom Prints"; // Name of the product group using tiered pricing
 
 
     // --- Shipping Rate Configuration (PostEx with 15% Fuel & 16% GST) ---
@@ -1327,10 +1328,10 @@
         Object.keys(flatData).forEach(categoryKey => {
             const categoryData = flatData[categoryKey];
             if (categoryKey === "B/W and Color Prints") {
-                customprintspricing["Custom Prints"] = categoryData;
+                customprintspricing[CUSTOM_PRINTS_PRODUCT_NAME] = categoryData;
                 if (Object.keys(categoryData || {}).length > 0) {
-                    productGroups["Custom Prints"] = {
-                         baseName: "Custom Prints", minPrice: 6, imageFile: `digital`, 
+                    productGroups[CUSTOM_PRINTS_PRODUCT_NAME] = {
+                         baseName: CUSTOM_PRINTS_PRODUCT_NAME, minPrice: 6, imageFile: `digital`, 
                          isAreaBased: false, mainCategory: categoryKey, isDigitalTiered: true, combinations: [] 
                     };
                 }
@@ -1539,7 +1540,7 @@
         updateFinalPrice(); 
     }
 
-    // --- Price Calculation Logic (MODIFIED to support Photo Printing Tiers) ---
+    // --- Price Calculation Logic (MODIFIED to support Photo Printing Tiers and Digital Prints) ---
     
     function calculateItemPrice() {
         if (!currentProduct) return { error: "No product selected" };
@@ -1590,33 +1591,47 @@
             }
         } 
         else if (isDigitalTiered) {
-             // ... (Digital tiered logic remains unchanged)
              quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 0;
+             
+             // Normalize selection keys
              const size = currentSelectedVariations.Size;
-             const colorType = currentSelectedVariations.ColorType;
+             const colorType = currentSelectedVariations.ColorType.replace(' ', '_'); // Convert back to JSON key format (black_white, color)
              const gsm = currentSelectedVariations.GSM;
+             const sides = currentSelectedVariations.Sides; 
              
              itemOptions = currentSelectedVariations;
              itemOptions['Quantity'] = quantity;
              
-             if (!size || !colorType || !gsm || quantity <= 0) requiresManualQuote = true;
+             if (!size || !colorType || !gsm || !sides || quantity <= 0) requiresManualQuote = true;
              
              try {
                 const tiers = customprintspricing[currentProduct.baseName];
                 const gsmData = tiers[size][colorType][gsm];
                 let unitPrice = 0;
+                let rangeKeyUsed = 'N/A';
                 let foundPrice = false;
                 
+                // 1. Find the base unit price based on quantity tier
                 Object.keys(gsmData).forEach(rangeKey => {
                     const [min, max] = rangeKey.split('-').map(n => parseInt(n));
                     if (quantity >= min && (isNaN(max) || quantity <= max)) { 
                         unitPrice = gsmData[rangeKey];
+                        rangeKeyUsed = rangeKey;
                         foundPrice = true;
                     }
                 });
                 
                 if (foundPrice) {
-                    baseProductPrice = unitPrice * quantity;
+                    // 2. Apply double-sided multiplier
+                    const multiplier = (sides === 'double' ? 2 : 1);
+                    const finalUnitPrice = unitPrice * multiplier;
+                    
+                    baseProductPrice = finalUnitPrice * quantity;
+
+                    // 3. Update item options for display
+                    itemOptions['Tier'] = `Pages: ${rangeKeyUsed} (${unitPrice.toFixed(2)} PKR Base)`;
+                    itemOptions['Price/Page'] = `${finalUnitPrice.toFixed(2)} PKR`;
+
                 } else {
                     requiresManualQuote = true;
                 }
@@ -1731,6 +1746,41 @@
         bundleAlert.innerHTML = alertHtml;
     }
 
+    // 🛑 NEW: Function to display pricing breakdown for Custom Prints 🛑
+    function updateCustomPrintsAlert(itemData) {
+        const printAlert = document.getElementById('print-price-alert');
+        if (!printAlert || itemData.productName !== CUSTOM_PRINTS_PRODUCT_NAME) {
+            return;
+        }
+        
+        // Check if the necessary data is present (Tier and Price/Page are set by calculateItemPrice)
+        if (itemData.options.Tier && itemData.options['Price/Page']) {
+            
+            let multiplierInfo = '';
+            if (itemData.options.Sides === 'double') {
+                multiplierInfo = ' (Double Side: x2 Multiplier)';
+                printAlert.classList.remove('alert-info');
+                printAlert.classList.add('alert-warning');
+            } else {
+                printAlert.classList.remove('alert-warning');
+                printAlert.classList.add('alert-info');
+            }
+            
+            printAlert.innerHTML = `
+                <i class="fas fa-calculator me-2"></i> <strong>Pricing Details:</strong>
+                <ul class="mt-2 mb-0" style="list-style-type: none; padding-left: 0;">
+                    <li class="small">Pricing Tier: ${itemData.options.Tier}</li>
+                    <li class="small">Print Sides: ${itemData.options.Sides}${multiplierInfo}</li>
+                    <li class="small fw-bold">Final Price per Page: ${itemData.options['Price/Page']}</li>
+                </ul>
+            `;
+        } else {
+            printAlert.innerHTML = 'Select all options and enter a valid quantity (1 to 1000+) to view the price per page.';
+            printAlert.classList.remove('alert-success');
+            printAlert.classList.add('alert-info');
+        }
+    }
+
 
     // 🛑 NEW: Function to update UI from price calculation (MODIFIED) 🛑
     function updateFinalPrice() {
@@ -1745,12 +1795,18 @@
             document.getElementById('selectionWarning').classList.add('alert-info');
             document.getElementById('selectionWarning').style.display = 'block';
             
-            // Clear photo bundle alert on error
+            // Clear specific alerts on error
             const bundleAlert = document.getElementById('photo-bundle-alert');
             if (bundleAlert) {
                 bundleAlert.innerHTML = 'Please select options and quantity above.';
                 bundleAlert.classList.remove('alert-success');
                 bundleAlert.classList.add('alert-info');
+            }
+            const printAlert = document.getElementById('print-price-alert');
+            if (printAlert) {
+                printAlert.innerHTML = 'Select all options and enter a valid quantity (1 to 1000+) to view the price per page.';
+                printAlert.classList.remove('alert-success', 'alert-warning');
+                printAlert.classList.add('alert-info');
             }
             return;
         }
@@ -1782,13 +1838,16 @@
         document.getElementById('finalPriceBox').style.display = 'block';
         document.getElementById('selectionWarning').style.display = 'none';
 
-        // 🛑 NEW: Update the specific photo pricing alert here 🛑
+        // 🛑 NEW: Update the specific pricing alerts 🛑
         if (itemData.productName === "Photo Printing" && currentProduct) {
             const requiredKeys = Object.keys(currentProduct.combinations[0] || {}).filter(key => key !== 'Price' && key !== 'FullName' && key !== 'PricingStructure' && key !== 'Quantity Multiplier');
             let finalProductCombination = currentProduct.combinations.find(combo => 
                 requiredKeys.every(key => combo[key] === currentSelectedVariations[key])
             );
             updatePhotoBundleAlert(itemData, finalProductCombination);
+        } else if (itemData.productName === CUSTOM_PRINTS_PRODUCT_NAME) {
+            // 🛑 Custom Prints Alert Call 🛑
+            updateCustomPrintsAlert(itemData);
         }
         // 🛑 END NEW INTEGRATION 🛑
 
@@ -1859,7 +1918,7 @@
     // 4. Navigate to and Populate Product Detail Page (MODIFIED)
     function showProductDetails(productName) {
         
-        if (productName.trim() === "Custom Prints") {
+        if (productName.trim() === CUSTOM_PRINTS_PRODUCT_NAME) {
              showDigitalPrintingDetails();
              return;
         }
@@ -2041,102 +2100,140 @@
     }
     
     function showDigitalPrintingDetails() {
-         currentProduct = allProductGroups["Custom Prints"];
-         currentSelectedVariations = {}; 
-         
-         if (!currentProduct || !customprintspricing["Custom Prints"]) {
-             Cart.showAlert(`Custom Prints data not found.`, 'error');
-             return;
-         }
+        // Ensure the product exists in the derived structure
+        currentProduct = allProductGroups[CUSTOM_PRINTS_PRODUCT_NAME];
+        currentSelectedVariations = {}; 
+        
+        if (!currentProduct || !customprintspricing[CUSTOM_PRINTS_PRODUCT_NAME]) {
+            Cart.showAlert(`Custom Prints data not found.`, 'error');
+            return;
+        }
 
-         document.getElementById('detail-product-name-header').textContent = currentProduct.baseName;
-         document.getElementById('detail-product-name-body').textContent = currentProduct.baseName;
-         
-         document.getElementById('detail-product-image-webp').srcset = `img/products/${currentProduct.imageFile}.webp`;
-         document.getElementById('detail-product-image').src = `img/products/${currentProduct.imageFile}.png`; 
-         document.getElementById('detail-product-image').onerror = function() { this.src = `img/products/placeholder.png`; };
+        document.getElementById('detail-product-name-header').textContent = currentProduct.baseName;
+        document.getElementById('detail-product-name-body').textContent = currentProduct.baseName;
+        
+        document.getElementById('detail-product-image-webp').srcset = `img/products/${currentProduct.imageFile}.webp`;
+        document.getElementById('detail-product-image').src = `img/products/${currentProduct.imageFile}.png`; 
+        document.getElementById('detail-product-image').onerror = function() { this.src = `img/products/placeholder.png`; };
 
-         const areaInputs = document.getElementById('custom-area-inputs');
-         const standardOptions = document.getElementById('standard-options-fields');
-         
-         areaInputs.style.display = 'none';
-         standardOptions.style.display = 'block';
-         standardOptions.innerHTML = '';
-         
-         document.getElementById('finalPriceBox').style.display = 'none';
-         document.getElementById('selectionWarning').textContent = "Please select all printing options and enter quantity to see the final price.";
-         document.getElementById('selectionWarning').classList.remove('alert-danger');
-         document.getElementById('selectionWarning').classList.add('alert-info');
-         document.getElementById('selectionWarning').style.display = 'block';
+        const areaInputs = document.getElementById('custom-area-inputs');
+        const standardOptions = document.getElementById('standard-options-fields');
+        
+        areaInputs.style.display = 'none';
+        standardOptions.style.display = 'block';
+        standardOptions.innerHTML = '';
+        
+        document.getElementById('finalPriceBox').style.display = 'none';
+        document.getElementById('selectionWarning').textContent = "Please select all printing options and enter quantity to see the final price.";
+        document.getElementById('selectionWarning').classList.remove('alert-danger');
+        document.getElementById('selectionWarning').classList.add('alert-info');
+        document.getElementById('selectionWarning').style.display = 'block';
 
-         // Reset Delivery Selection to default Home Delivery
-         setDeliveryType('HomeDelivery', false); 
+        // Reset Delivery Selection to default Home Delivery
+        setDeliveryType('HomeDelivery', false); 
 
-         const sizes = Object.keys(customprintspricing["Custom Prints"]);
-         
-         if(sizes.length === 0) {
-             standardOptions.innerHTML = `<p class="alert alert-warning">Custom Prints not loaded. Please contact support.</p>`;
-             showSection('product-detail');
-             return;
-         }
-         
-         let html = '';
-         const keysToRender = ['Size', 'ColorType', 'GSM']; 
-         const sizesList = Object.keys(customprintspricing["Custom Prints"]); 
-         
-         keysToRender.forEach(key => {
-            html += `<div class="product-option-group" data-option-key="${key}">
-                    <label>${key.replace('ColorType', 'Print Color').replace('GSM', 'Paper Weight (GSM)')}:</label>
-                    <div class="d-flex flex-wrap gap-3" id="choices-${key}">`;
+        const pricingData = customprintspricing[CUSTOM_PRINTS_PRODUCT_NAME];
+        const sizes = Object.keys(pricingData);
+        
+        if(sizes.length === 0) {
+            standardOptions.innerHTML = `<p class="alert alert-warning">Custom Prints not loaded. Please contact support.</p>`;
+            showSection('product-detail');
+            return;
+        }
+        
+        let html = '';
+        // Define the required fields and how to extract options from the nested JSON
+        const printOptionsStructure = [
+            { key: 'Size', label: 'Size', level: 0 },
+            { key: 'ColorType', label: 'Print Color', level: 1 },
+            { key: 'GSM', label: 'Paper Weight (GSM)', level: 2 }
+        ];
+        
+        // Add Duplex/Double-sided option (since pricing only accounts for single-sided)
+        standardOptions.innerHTML += `
+            <div class="product-option-group" data-option-key="Sides">
+                <label>Print Sides:</label>
+                <div class="d-flex flex-wrap gap-3" id="choices-Sides">
+                    <label class="choice-card" for="Sides-Single">
+                        <input type="radio" id="Sides-Single" name="option-Sides" value="single" onchange="handleCardSelection('Sides', 'single')">
+                        <span class="label-text">Single Side</span>
+                    </label>
+                    <label class="choice-card" for="Sides-Double">
+                        <input type="radio" id="Sides-Double" name="option-Sides" value="double" onchange="handleCardSelection('Sides', 'double')">
+                        <span class="label-text">Double Side (x2 Price)</span>
+                    </label>
+                </div>
+            </div>
+        `;
+
+        // Render other options based on nested pricing data
+        printOptionsStructure.forEach(option => {
+            html += `<div class="product-option-group" data-option-key="${option.key}">
+                    <label>${option.label}:</label>
+                    <div class="d-flex flex-wrap gap-3" id="choices-${option.key}">`;
             
             let currentOptions = [];
-            if (key === 'Size') {
-                currentOptions = sizesList;
-            } else if (key === 'ColorType' && sizesList.length > 0) {
-                currentOptions = Object.keys(customprintspricing["Custom Prints"][sizesList[0]] || {});
-            } else if (key === 'GSM' && sizesList.length > 0) {
-                const firstColorType = Object.keys(customprintspricing["Custom Prints"][sizesList[0]] || {})[0];
-                 if (firstColorType) {
-                    currentOptions = Object.keys(customprintspricing["Custom Prints"][sizesList[0]][firstColorType] || {});
-                 }
+            if (option.key === 'Size') {
+                currentOptions = sizes;
+            } else if (option.key === 'ColorType' && sizes.length > 0) {
+                // Map internal JSON keys to user-friendly names
+                currentOptions = Object.keys(pricingData[sizes[0]] || {}).map(k => k.replace('_', ' '));
+            } else if (option.key === 'GSM' && sizes.length > 0) {
+                const firstColorType = Object.keys(pricingData[sizes[0]] || {})[0];
+                if (firstColorType) {
+                    currentOptions = Object.keys(pricingData[sizes[0]][firstColorType] || {});
+                }
             }
 
             currentOptions.forEach(value => {
-                 const displayValue = value.replace('_', ' ').toUpperCase();
-                 const inputId = `${key}-${value}`;
+                 const displayValue = value.charAt(0).toUpperCase() + value.slice(1);
+                 // Convert display value back to lowercase/underscore for internal storage
+                 const storageValue = value.toLowerCase().replace(' ', '_');
+                 const inputId = `${option.key}-${storageValue}`;
                  html += `<label class="choice-card" for="${inputId}">
-                             <input type="radio" id="${inputId}" name="option-${key}" value="${value}" 
-                                    onchange="handleCardSelection('${key}', '${value}', true)">
+                             <input type="radio" id="${inputId}" name="option-${option.key}" value="${storageValue}" 
+                                    onchange="handleCardSelection('${option.key}', '${storageValue}')">
                              <span class="label-text">${displayValue}</span>
                          </label>`;
             });
             html += `</div></div>`;
-         });
+        });
 
-         standardOptions.innerHTML += html;
-         
-         standardOptions.innerHTML += `
-              <div class="product-option-group" data-option-key="QuantitySelector">
-                 <label>Number of Pages:</label>
-                 <div class="input-group">
-                     <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(-1)">-</button>
-                     <input type="number" id="input-standard-qty" min="1" value="1" class="form-control text-center rounded-0" oninput="updateFinalPrice()">
-                     <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(1)">+</button>
-                 </div>
+        standardOptions.innerHTML += html;
+        
+        // Add Quantity Selector
+        standardOptions.innerHTML += `
+             <div class="product-option-group" data-option-key="QuantitySelector">
+                <label>Number of Pages:</label>
+                <div class="input-group">
+                    <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(-1)">-</button>
+                    <input type="number" id="input-standard-qty" min="1" value="1" class="form-control text-center rounded-0" oninput="updateFinalPrice()">
+                    <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(1)">+</button>
+                </div>
              </div>
-         `;
-         
-         keysToRender.forEach(key => {
-            const firstInput = document.querySelector(`input[name="option-${key}"]`);
-            if (firstInput) {
-                firstInput.checked = true;
-                handleCardSelection(key, firstInput.value, false); 
-            }
-         });
-         
-         updateFinalPrice();
+             <div class="alert alert-info mt-3" id="print-price-alert">Select all options and quantity to see the price per page.</div>
+        `;
+        
+        // Initial auto-selection to set defaults
+        const initialSelections = {
+            'Sides': 'single', // Default to single
+            'Size': sizes[0].toLowerCase().replace(' ', '_'), // A4 or Legal
+            'ColorType': Object.keys(pricingData[sizes[0]])[0].toLowerCase().replace('_', ' '), // black_white or color
+            'GSM': Object.keys(pricingData[sizes[0]][Object.keys(pricingData[sizes[0]])[0]])[0] // 70g
+        };
 
-         showSection('product-detail');
+        Object.keys(initialSelections).forEach(key => {
+            const value = initialSelections[key];
+            const input = document.querySelector(`input[name="option-${key}"][value="${value}"]`);
+            if (input) {
+                input.checked = true;
+                handleCardSelection(key, value, false); 
+            }
+        });
+
+        updateFinalPrice();
+
+        showSection('product-detail');
     }
 
     function handleCardSelection(key, value, cascade = true) {
@@ -2153,7 +2250,8 @@
         }
 
         if (currentProduct.isDigitalTiered) {
-             if (cascade) updateFinalPrice();
+             // For digital tiered pricing, we just need to update the price. No cascading required.
+             updateFinalPrice();
              return;
         }
 
@@ -2215,7 +2313,7 @@
             }
         }
         
-        // 🛑 NEW LOGIC: Update Quantity Input based on Pricing Option selection 🛑
+        // 🛑 PHOTO PRINTING LOGIC: Update Quantity Input based on Pricing Option selection 🛑
         if (currentProduct.baseName === "Photo Printing" && currentSelectedVariations['Pricing Option']) {
             const selectedOption = currentSelectedVariations['Pricing Option'];
             
