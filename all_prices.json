@@ -87,12 +87,12 @@
         "Photo Frames": [
             {
                 "variant_3": "7x5",
-                "price": 1.00,
+                "price": 800.00,
                 "imageFile": "img/products/frames.webp"
             },
             {
                 "variant_3": "A4",
-                "price": 1.00,
+                "price": 1200.00,
                 "imageFile": "img/products/frames.webp"
             }
         ],
@@ -540,19 +540,19 @@
             {
                 "material": "Plastic",
                 "variant_3": "default",
-                "price": 1.00,
+                "price": 1000.00,
                 "imageFile": "img/products/placeholder.png"
             },
             {
                 "material": "Wood",
                 "variant_3": "default",
-                "price": 1.00,
+                "price": 1500.00,
                 "imageFile": "img/products/placeholder.png"
             },
             {
                 "material": "Engraved Wood",
                 "variant_3": "default",
-                "price": 1.00,
+                "price": 2500.00,
                 "imageFile": "img/products/placeholder.png"
             }
         ]
@@ -758,54 +758,54 @@
         "T-Shirt Cotton": [
             {
                 "variant_3": "Small",
-                "price": 1.00,
+                "price": 1000.00,
                 "imageFile": "img/products/cottonshirt.webp"
             },
             {
                 "variant_3": "Medium",
-                "price": 1.00,
+                "price": 1000.00,
                 "imageFile": "img/products/cottonshirt.webp"
             },
             {
                 "variant_3": "Large",
-                "price": 1.00,
+                "price": 1000.00,
                 "imageFile": "img/products/cottonshirt.webp"
             },
             {
                 "variant_3": "XL",
-                "price": 1.00,
+                "price": 1000.00,
                 "imageFile": "img/products/cottonshirt.webp"
             },
             {
                 "variant_3": "XXL",
-                "price": 1.00,
+                "price": 1000.00,
                 "imageFile": "img/products/cottonshirt.webp"
             }
         ],
         "T-Shirt Multicolor": [
             {
                 "variant_3": "Small",
-                "price": 1.00,
+                "price": 1100.00,
                 "imageFile": "img/products/cottonshirt.webp"
             },
             {
                 "variant_3": "Medium",
-                "price": 1.00,
+                "price": 1100.00,
                 "imageFile": "img/products/cottonshirt.webp"
             },
             {
                 "variant_3": "Large",
-                "price": 1.00,
+                "price": 1100.00,
                 "imageFile": "img/products/cottonshirt.webp"
             },
             {
                 "variant_3": "XL",
-                "price": 1.00,
+                "price": 1100.00,
                 "imageFile": "img/products/cottonshirt.webp"
             },
             {
                 "variant_3": "XXL",
-                "price": 1.00,
+                "price": 1100.00,
                 "imageFile": "img/products/cottonshirt.webp"
             }
         ],
@@ -838,12 +838,12 @@
         "Locket with Picture": [
             {
                 "variant_3": "Small",
-                "price": 1.00,
+                "price": 800.00,
                 "imageFile": "img/products/placeholder.png"
             },
             {
                 "variant_3": "Large",
-                "price": 1.00,
+                "price": 1200.00,
                 "imageFile": "img/products/placeholder.png"
             }
         ]
