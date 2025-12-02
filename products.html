@@ -383,21 +383,7 @@
         <h2 class="text-center display-6">Products and Services</h2>
     </div>
 
-    <div class="container-fluid bg-light py-4 border-bottom">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 col-md-10 px-4">
-                <div class="search-wrapper">
-                    <input type="text" id="search-input" class="search-input form-control" 
-                           placeholder="Search products (e.g., Cards, Mug, Star)"
-                           onkeyup="filterProducts()">
-                    <button class="search-button btn btn-primary" type="button" onclick="filterProducts()">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-                <p class="text-muted mt-2 text-center" id="search-results-message" style="display:none;"></p>
-            </div>
-        </div>
-    </div>
+    
     <div class="container py-5">
         <div class="row g-4" id="main-product-catalog">
             
@@ -443,7 +429,26 @@
                         </div>
                     </div>
                 </div>
-                
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="PVC ID Cards">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
+                        <img src='img/products/pvc.webp' onerror="this.onerror=null;this.src='img/products/pvc.png';" class='w-100' alt='PVC ID Cards'>
+                        <div class="product-footer-overlay p-0">
+                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('PVC ID Cards')">
+                                <i class="fas fa-hand-pointer"></i> PVC ID Cards
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Certificates">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
+                        <img src='img/products/certificates.webp' onerror="this.onerror=null;this.src='img/products/pvc.png';" class='w-100' alt='Certificates'>
+                        <div class="product-footer-overlay p-0">
+                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Certificates')">
+                                <i class="fas fa-hand-pointer"></i> Certificates
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 <div class='col-lg-3 col-6 mb-4 product-item' data-name="Letterpads">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/letterpad.webp' onerror="this.onerror=null;this.src='img/products/letterpad.png';" class='w-100' alt='Letterpad'>
@@ -529,6 +534,56 @@
                         </div>
                     </div>
                 </div>
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Caps">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
+                        <img src='img/products/caps.webp' onerror="this.onerror=null;this.src='img/products/caps.png';" class='w-100' alt='Caps'>
+                        <div class="product-footer-overlay p-0">
+                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Caps')">
+                                <i class="fas fa-hand-pointer"></i> Caps
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Keychains">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
+                        <img src='img/products/keychains.webp' onerror="this.onerror=null;this.src='img/products/keychains.png';" class='w-100' alt='Keychains'>
+                        <div class="product-footer-overlay p-0">
+                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Keychains')">
+                                <i class="fas fa-hand-pointer"></i> Keychains
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Gift Bags">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
+                        <img src='img/products/gbags.webp' onerror="this.onerror=null;this.src='img/products/gbags.png';" class='w-100' alt='Gift Bags'>
+                        <div class="product-footer-overlay p-0">
+                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Gift Bags')">
+                                <i class="fas fa-hand-pointer"></i> Gift bags
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Shopping Bags">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
+                        <img src='img/products/bags.webp' onerror="this.onerror=null;this.src='img/products/bags.png';" class='w-100' alt='Shopping Bags'>
+                        <div class="product-footer-overlay p-0">
+                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Shopping Bags')">
+                                <i class="fas fa-hand-pointer"></i> Shopping Bags
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Non Woven Bags">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
+                        <img src='img/products/nwbags.webp' onerror="this.onerror=null;this.src='img/products/nwbags.png';" class='w-100' alt='Non Woven Bags'>
+                        <div class="product-footer-overlay p-0">
+                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Non Woven Bags')">
+                                <i class="fas fa-hand-pointer"></i> Non Woven Bags
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 <div class='col-lg-3 col-6 mb-4 product-item' data-name="Mug">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/mugs.webp' onerror="this.onerror=null;this.src='img/products/Mug.png';" class='w-100' alt='Mug'>
@@ -607,7 +662,7 @@
 
                 <div class='col-lg-3 col-6 mb-4 product-item' data-name="Photo Printing">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
-                        <img src='img/products/photos.webp' onerror="this.onerror=null;this.src='img/products/photopapers.png';" class='w-100' alt='Photo Papers'>
+                        <img src='img/products/photos.webp' onerror="this.onerror=null;this.src='img/products/photopapers.png';" class='w-100' alt='Photo Printing'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Photo Printing')">
                                 <i class="fas fa-hand-pointer"></i> Photo Papers
@@ -2310,4 +2365,3 @@ function filterProducts() {
 </body>
 
 </html>
-

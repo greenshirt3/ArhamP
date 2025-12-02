@@ -124,6 +124,10 @@
             display: block;
             font-size: 1.1rem;
         }
+        /* Style for hidden cards */
+        .card-hidden {
+             display: none !important;
+        }
 
         /* --- MOBILE BOTTOM NAVIGATION STYLES --- */
 
@@ -268,7 +272,7 @@
                 </div>
                 <div class="h-100 d-inline-flex align-items-center me-4">
                     <small class="far fa-clock me-2"></small>
-                     <small>Sat - Thu : 09 AM - 09 PM</small>
+                    <small>Mon - Fri : 09 AM - 09 PM</small>
                 </div>
             </div>
             <div class="col-lg-5 px-5 text-end">
@@ -667,13 +671,13 @@
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control border-0" id="quote-product" placeholder="Product Name (e.g., Card Design #1234)">
+                                            <input type="text" class="form-control border-0" id="quote-product" placeholder="Product Name (e.g., Visiting Cards, 3D Wallpaper)">
                                             <label for="quote-product">Product Name / Type</label>
                                         </div>
                                     </div>
                                      <div class="col-12">
                                         <div class="form-floating">
-                                            <input type="number" class="form-control border-0" id="quote-quantity" placeholder="Quantity (e.g., 500 cards)">
+                                            <input type="number" class="form-control border-0" id="quote-quantity" placeholder="Quantity or Total Area (e.g., 500 cards, 100 sq ft)">
                                             <label for="quote-quantity">Quantity / Estimated Area</label>
                                         </div>
                                     </div>
@@ -878,6 +882,8 @@
     let allProducts = {}; 
     let currentCard = null;
     let hasInner = false; 
+    let visibleCards = {}; // Store visibility state per category
+    const MAX_INITIAL_CARDS = 6; // Constant for the display limit
     
     // --- WEDDING CARD COST CONSTANTS ---
     const BULK_QTY = 100; 
@@ -1151,6 +1157,17 @@
     }
 
     // --- DISPLAY and UI LOGIC (MODIFIED) ---
+    
+    // NEW function to reveal hidden cards in a category
+    function showAllCards(categoryName) {
+        const safeCategoryName = categoryName.replace(/\s/g, '-');
+        document.querySelectorAll(`.card-category-${safeCategoryName}`).forEach(card => {
+            card.classList.remove('card-hidden');
+        });
+        const button = document.getElementById(`view-all-btn-${safeCategoryName}`);
+        if (button) button.style.display = 'none';
+    }
+
 
     function updateQuantityAndPrice(change = 0) {
         const input = document.getElementById('input-card-qty');
@@ -1245,6 +1262,7 @@
         }
     }
 
+    // 🛑 MODIFIED loadWeddingCards FUNCTION to prioritize featured cards 🛑
     function loadWeddingCards() {
         const categorizedCards = {};
         Object.values(allProducts).forEach(card => {
@@ -1264,14 +1282,36 @@
         }
 
         Object.keys(categorizedCards).forEach(category => {
+            const cards = categorizedCards[category];
+            const safeCategoryName = category.replace(/\s/g, '-');
+            
+            // 1. Separate cards into featured and remaining
+            let featuredCards = [];
+            let remainingCards = [];
+            cards.forEach(card => {
+                if (card.isFeatured === true) {
+                    featuredCards.push(card);
+                } else {
+                    remainingCards.push(card);
+                }
+            });
+            
+            // 2. Combine, prioritizing featured cards, and limit to MAX_INITIAL_CARDS
+            const prioritizedCards = featuredCards.concat(remainingCards);
+            const totalCardCount = prioritizedCards.length;
+
             cardHTML += `<h3 class="w-100 pt-5 border-top">${category}</h3>`; 
 
-            categorizedCards[category].forEach(card => {
+            prioritizedCards.forEach((card, index) => {
                 const cardName = card.cardName;
                 const imagePath = card.galleryImages ? card.galleryImages[0] : card.imageFile || 'img/wedding/placeholder.webp'; 
+                
+                // Determine if the card should be initially hidden
+                const isHidden = index >= MAX_INITIAL_CARDS;
+                const hiddenClass = isHidden ? 'card-hidden' : '';
 
                 cardHTML += `
-                    <div class='col-lg-3 col-6 mb-4'>
+                    <div class='col-lg-3 col-6 mb-4 card-category-${safeCategoryName} ${hiddenClass}'>
                         <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
                             <span class='card-price rounded-0'>${cardName}</span> <img src='${imagePath}' onerror="this.onerror=null;this.src='img/wedding/placeholder.webp';" class='w-100' alt='${cardName}'>
                             <div class="product-footer-overlay p-0">
@@ -1283,11 +1323,34 @@
                     </div>
                     `;
             });
+            
+            // 3. Add 'View All' button if there are more than MAX_INITIAL_CARDS
+            if (totalCardCount > MAX_INITIAL_CARDS) {
+                 cardHTML += `
+                     <div class='col-12 text-center my-4' id="view-all-btn-${safeCategoryName}">
+                         <button class="btn btn-secondary py-3 px-5 rounded-0" onclick="showAllCards('${category}')">
+                             View All ${totalCardCount - MAX_INITIAL_CARDS} Designs in ${category} <i class="fas fa-chevron-down ms-2"></i>
+                         </button>
+                     </div>
+                 `;
+            }
         });
 
         cardGrid.innerHTML = cardHTML;
     }
     
+    // NEW: Function to reveal all cards in a category
+    function showAllCards(categoryName) {
+        const safeCategoryName = categoryName.replace(/\s/g, '-');
+        document.querySelectorAll(`.card-category-${safeCategoryName}`).forEach(card => {
+            // Remove the card-hidden class to make it visible
+            card.classList.remove('card-hidden');
+        });
+        const button = document.getElementById(`view-all-btn-${safeCategoryName}`);
+        if (button) button.style.display = 'none';
+    }
+
+
     function showCardDetails(cardName) {
     const cardData = allProducts[cardName];
     if (!cardData) return;
@@ -1430,5 +1493,4 @@
 </script>
 </div>
 </body>
-
 </html>
