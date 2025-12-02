@@ -1059,873 +1059,6 @@
         }
     },
     "Special Occasions (Wedding)": {
-        "Economical Elegance": {
-            "description": "Affordable, yet classic and traditional designs. Great for budget-conscious couples who still want elegance.",
-            "cards": {
-                "Card Design #105": {
-                    "bulkPrice100": 975.00,
-                    "description": "Elegant traditional design with intricate patterns.",
-                    "imageFile": "img/wedding/105 (1).webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #107": {
-                    "bulkPrice100": 975.00,
-                    "description": "Classic layout with timeless appeal.",
-                    "imageFile": "img/wedding/107 (1).webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #200": {
-                    "bulkPrice100": 975.00,
-                    "description": "Simple and elegant traditional design.",
-                    "imageFile": "img/wedding/200.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #205": {
-                    "bulkPrice100": 975.00,
-                    "description": "Classic pattern with gold accents.",
-                    "imageFile": "img/wedding/205.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #210": {
-                    "bulkPrice100": 975.00,
-                    "description": "Traditional design with rich colors.",
-                    "imageFile": "img/wedding/210.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #215": {
-                    "bulkPrice100": 975.00,
-                    "description": "Elegant classic layout.",
-                    "imageFile": "img/wedding/215.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #220": {
-                    "bulkPrice100": 975.00,
-                    "description": "Timeless traditional design.",
-                    "imageFile": "img/wedding/220.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #251": {
-                    "bulkPrice100": 975.00,
-                    "description": "Classic design with ornate borders.",
-                    "imageFile": "img/wedding/251.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #257": {
-                    "bulkPrice100": 975.00,
-                    "description": "Traditional layout with floral motifs.",
-                    "imageFile": "img/wedding/257.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #259": {
-                    "bulkPrice100": 975.00,
-                    "description": "Elegant classic design.",
-                    "imageFile": "img/wedding/259.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #263": {
-                    "bulkPrice100": 975.00,
-                    "description": "Traditional pattern with gold detailing.",
-                    "imageFile": "img/wedding/263.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #270": {
-                    "bulkPrice100": 975.00,
-                    "description": "Classic design with rich textures.",
-                    "imageFile": "img/wedding/270.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #271": {
-                    "bulkPrice100": 975.00,
-                    "description": "Traditional layout with intricate patterns.",
-                    "imageFile": "img/wedding/271.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #272": {
-                    "bulkPrice100": 975.00,
-                    "description": "Elegant classic design.",
-                    "imageFile": "img/wedding/272.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #274": {
-                    "bulkPrice100": 975.00,
-                    "description": "Traditional design with ornate elements.",
-                    "imageFile": "img/wedding/274.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #275": {
-                    "bulkPrice100": 975.00,
-                    "description": "Classic layout with timeless appeal.",
-                    "imageFile": "img/wedding/275.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #276": {
-                    "bulkPrice100": 975.00,
-                    "description": "Traditional design with rich colors.",
-                    "imageFile": "img/wedding/276.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #277": {
-                    "bulkPrice100": 975.00,
-                    "description": "Elegant classic pattern.",
-                    "imageFile": "img/wedding/277.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #278": {
-                    "bulkPrice100": 975.00,
-                    "description": "Traditional design with intricate details.",
-                    "imageFile": "img/wedding/278.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #279": {
-                    "bulkPrice100": 975.00,
-                    "description": "Classic layout with gold accents.",
-                    "imageFile": "img/wedding/279.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #281": {
-                    "bulkPrice100": 975.00,
-                    "description": "Traditional design with elegant patterns.",
-                    "imageFile": "img/wedding/281.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #419": {
-                    "bulkPrice100": 1850.00,
-                    "description": "Luxury design with premium finishes.",
-                    "galleryImages": [
-                        "img/wedding/419 (1).webp",
-                        "img/wedding/419 (2).webp",
-                        "img/wedding/419 (3).webp",
-                        "img/wedding/419 (4).webp",
-                        "img/wedding/419 (5).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #855": {
-                    "bulkPrice100": 1275.00,
-                    "description": "Default description.",
-                    "galleryImages": [
-                        "img/wedding/855 (1).webp",
-                        "img/wedding/855 (2).webp"
-                    ],
-                    "hasInnerCardOption": false
-                },
-                "Card Design #860": {
-                    "bulkPrice100": 1275.00,
-                    "description": "Default description.",
-                    "galleryImages": [
-                        "img/wedding/860 (1).webp",
-                        "img/wedding/860 (2).webp"
-                    ],
-                    "hasInnerCardOption": false
-                },
-                "Card Design #865": {
-                    "bulkPrice100": 1275.00,
-                    "description": "Simple, elegant design with standard paper stock.",
-                    "galleryImages": [
-                        "img/wedding/865 (1).webp",
-                        "img/wedding/865 (2).webp"
-                    ],
-                    "hasInnerCardOption": false
-                },
-                "Card Design #870": {
-                    "bulkPrice100": 1275.00,
-                    "description": "Contemporary layout with foil accents and heavy matte finish.",
-                    "galleryImages": [
-                        "img/wedding/870 (1).webp",
-                        "img/wedding/870 (2).webp"
-                    ],
-                    "hasInnerCardOption": false
-                },
-                "Card Design #875": {
-                    "bulkPrice100": 1275.00,
-                    "description": "Default description.",
-                    "galleryImages": [
-                        "img/wedding/875 (1).webp",
-                        "img/wedding/875 (2).webp"
-                    ],
-                    "hasInnerCardOption": false
-                },
-                "Card Design #880": {
-                    "bulkPrice100": 1275.00,
-                    "description": "Default description.",
-                    "galleryImages": [
-                        "img/wedding/880 (1).webp",
-                        "img/wedding/880 (2).webp"
-                    ],
-                    "hasInnerCardOption": false
-                },
-                "Card Design #900": {
-                    "bulkPrice100": 1675.00,
-                    "description": "Default description.",
-                    "galleryImages": [
-                        "img/wedding/900 (1).webp",
-                        "img/wedding/900 (2).webp"
-                    ],
-                    "hasInnerCardOption": false
-                },
-                "Card Design #905": {
-                    "bulkPrice100": 1675.00,
-                    "description": "Default description.",
-                    "galleryImages": [
-                        "img/wedding/905 (1).webp",
-                        "img/wedding/905 (2).webp"
-                    ],
-                    "hasInnerCardOption": false
-                },
-                "Card Design #910": {
-                    "bulkPrice100": 1675.00,
-                    "description": "Default description.",
-                    "galleryImages": [
-                        "img/wedding/910 (1).webp",
-                        "img/wedding/910 (2).webp"
-                    ],
-                    "hasInnerCardOption": false
-                },
-                "Card Design #915": {
-                    "bulkPrice100": 1675.00,
-                    "description": "Default description.",
-                    "galleryImages": [
-                        "img/wedding/915 (1).webp",
-                        "img/wedding/915 (2).webp"
-                    ],
-                    "hasInnerCardOption": false
-                },
-                "Card Design #920": {
-                    "bulkPrice100": 1675.00,
-                    "description": "Default description.",
-                    "galleryImages": [
-                        "img/wedding/920 (1).webp",
-                        "img/wedding/920 (2).webp"
-                    ],
-                    "hasInnerCardOption": false
-                },
-                "Card Design #925": {
-                    "bulkPrice100": 1675.00,
-                    "description": "Default description.",
-                    "galleryImages": [
-                        "img/wedding/925 (1).webp",
-                        "img/wedding/925 (2).webp"
-                    ],
-                    "hasInnerCardOption": false
-                },
-                "Card Design #930": {
-                    "bulkPrice100": 1675.00,
-                    "description": "Default description.",
-                    "galleryImages": [
-                        "img/wedding/930 (1).webp",
-                        "img/wedding/930 (2).webp"
-                    ],
-                    "hasInnerCardOption": false
-                },
-                "Card Design #935": {
-                    "bulkPrice100": 1675.00,
-                    "description": "Default description.",
-                    "galleryImages": [
-                        "img/wedding/935 (1).webp",
-                        "img/wedding/935 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1137": {
-                    "bulkPrice100": 1800.00,
-                    "description": "Premium design with luxurious appeal.",
-                    "galleryImages": [
-                        "img/wedding/1137 (1).webp",
-                        "img/wedding/1137 (2).webp",
-                        "img/wedding/1137 (3).webp"
-                    ],
-                    "hasInnerCardOption": false
-                },
-                "Card Design #1200": {
-                    "bulkPrice100": 1350.00,
-                    "description": "Clean contemporary layout.",
-                    "galleryImages": [
-                        "img/wedding/1200 (1).webp",
-                        "img/wedding/1200 (2).webp"
-                    ],
-                    "hasInnerCardOption": false
-                },
-                "Card Design #1205": {
-                    "bulkPrice100": 1350.00,
-                    "description": "High-end design with premium finishes.",
-                    "galleryImages": [
-                        "img/wedding/1205 (1).webp",
-                        "img/wedding/1205 (2).webp"
-                    ],
-                    "hasInnerCardOption": false
-                },
-                "Card Design #1210": {
-                    "bulkPrice100": 1600.00,
-                    "description": "Default description.",
-                    "imageFile": "img/wedding/placeholder.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1215": {
-                    "bulkPrice100": 1600.00,
-                    "description": "Minimalist design with modern appeal.",
-                    "galleryImages": [
-                        "img/wedding/1215 (1).webp",
-                        "img/wedding/1215 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1220": {
-                    "bulkPrice100": 1600.00,
-                    "description": "Comprehensive premium collection.",
-                    "galleryImages": [
-                        "img/wedding/1220 (1).webp",
-                        "img/wedding/1220 (2).webp",
-                        "img/wedding/1220 (3).webp",
-                        "img/wedding/1220 (4).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1225": {
-                    "bulkPrice100": 1600.00,
-                    "description": "Sleek contemporary design.",
-                    "galleryImages": [
-                        "img/wedding/1225 (1).webp",
-                        "img/wedding/1225 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1230": {
-                    "bulkPrice100": 1600.00,
-                    "description": "Premium elegant layout.",
-                    "galleryImages": [
-                        "img/wedding/1230 (1).webp",
-                        "img/wedding/1230 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1235": {
-                    "bulkPrice100": 1600.00,
-                    "description": "Luxury design with premium appeal.",
-                    "galleryImages": [
-                        "img/wedding/1235 (1).webp",
-                        "img/wedding/1235 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1400": {
-                    "bulkPrice100": 1300.00,
-                    "description": "Clean contemporary layout.",
-                    "galleryImages": [
-                        "img/wedding/1400 (1).webp",
-                        "img/wedding/1400 (2).webp"
-                    ],
-                    "hasInnerCardOption": false
-                },
-                "Card Design #1403": {
-                    "bulkPrice100": 1300.00,
-                    "description": "Premium design with elegant appeal.",
-                    "galleryImages": [
-                        "img/wedding/1403 (1).webp",
-                        "img/wedding/1403 (2).webp"
-                    ],
-                    "hasInnerCardOption": false
-                }
-            }
-        },
-        "Premium Collection": {
-            "description": "Mid-range, high-quality designs, often featuring contemporary/modern aesthetics, special paper stocks, gold accents, or rich colors. A popular choice balancing cost and luxury.",
-            "cards": {
-                "Card Design #516": {
-                    "bulkPrice100": 2400.00,
-                    "description": "Classic design with traditional motifs.",
-                    "imageFile": "img/wedding/516.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #521": {
-                    "bulkPrice100": 2400.00,
-                    "description": "Premium design with elegant details.",
-                    "galleryImages": [
-                        "img/wedding/521 (1).webp",
-                        "img/wedding/521 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #533": {
-                    "bulkPrice100": 2200.00,
-                    "description": "Elegant traditional layout.",
-                    "imageFile": "img/wedding/533.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #746": {
-                    "bulkPrice100": 4000.00,
-                    "description": "Premium design with luxurious elements.",
-                    "galleryImages": [
-                        "img/wedding/746 (1).webp",
-                        "img/wedding/746 (2).webp",
-                        "img/wedding/746 (3).webp",
-                        "img/wedding/746 (4).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #770": {
-                    "bulkPrice100": 4400.00,
-                    "description": "Luxury collection with multiple design options.",
-                    "galleryImages": [
-                        "img/wedding/770 (1).webp",
-                        "img/wedding/770 (2).webp",
-                        "img/wedding/770 (3).webp",
-                        "img/wedding/770 (4).webp",
-                        "img/wedding/770 (5).webp",
-                        "img/wedding/770 (6).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #775": {
-                    "bulkPrice100": 2400.00,
-                    "description": "Premium design with elegant finishes.",
-                    "galleryImages": [
-                        "img/wedding/775 (1).webp",
-                        "img/wedding/775 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #786": {
-                    "bulkPrice100": 2600.00,
-                    "description": "High-end design with premium details.",
-                    "galleryImages": [
-                        "img/wedding/786 (1).webp",
-                        "img/wedding/786 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #800": {
-                    "bulkPrice100": 2300.00,
-                    "description": "Default description.",
-                    "galleryImages": [
-                        "img/wedding/800 (1).webp",
-                        "img/wedding/800 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #805": {
-                    "bulkPrice100": 2300.00,
-                    "description": "Default description.",
-                    "galleryImages": [
-                        "img/wedding/805 (1).webp",
-                        "img/wedding/805 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #810": {
-                    "bulkPrice100": 2300.00,
-                    "description": "Default description.",
-                    "galleryImages": [
-                        "img/wedding/810 (1).webp",
-                        "img/wedding/810 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #815": {
-                    "bulkPrice100": 2300.00,
-                    "description": "Default description.",
-                    "galleryImages": [
-                        "img/wedding/815 (1).webp",
-                        "img/wedding/815 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #820": {
-                    "bulkPrice100": 2300.00,
-                    "description": "Default description.",
-                    "galleryImages": [
-                        "img/wedding/820 (1).webp",
-                        "img/wedding/820 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #825": {
-                    "bulkPrice100": 2300.00,
-                    "description": "Default description.",
-                    "galleryImages": [
-                        "img/wedding/825 (1).webp",
-                        "img/wedding/825 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #830": {
-                    "bulkPrice100": 2300.00,
-                    "description": "Default description.",
-                    "galleryImages": [
-                        "img/wedding/830 (1).webp",
-                        "img/wedding/830 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #835": {
-                    "bulkPrice100": 2300.00,
-                    "description": "Default description.",
-                    "galleryImages": [
-                        "img/wedding/835 (1).webp",
-                        "img/wedding/835 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #843": {
-                    "bulkPrice100": 2500.00,
-                    "description": "Default description.",
-                    "galleryImages": [
-                        "img/wedding/843 (1).webp",
-                        "img/wedding/843 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #845": {
-                    "bulkPrice100": 2600.00,
-                    "description": "Default description.",
-                    "galleryImages": [
-                        "img/wedding/845 (1).webp",
-                        "img/wedding/845 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #850": {
-                    "bulkPrice100": 2600.00,
-                    "description": "Default description.",
-                    "galleryImages": [
-                        "img/wedding/850 (1).webp",
-                        "img/wedding/850 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #901": {
-                    "bulkPrice100": 2300.00,
-                    "description": "Default description.",
-                    "galleryImages": [
-                        "img/wedding/901 (1).webp",
-                        "img/wedding/901 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #907": {
-                    "bulkPrice100": 2300.00,
-                    "description": "Default description.",
-                    "galleryImages": [
-                        "img/wedding/907 (1).webp",
-                        "img/wedding/907 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1018": {
-                    "bulkPrice100": 2400.00,
-                    "description": "Clean modern design with minimalist approach.",
-                    "galleryImages": [
-                        "img/wedding/1018 (1).webp",
-                        "img/wedding/1018 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1032": {
-                    "bulkPrice100": 2300.00,
-                    "description": "Sleek contemporary layout.",
-                    "galleryImages": [
-                        "img/wedding/1032 (1).webp",
-                        "img/wedding/1032 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1070": {
-                    "bulkPrice100": 3600.00,
-                    "description": "Modern design with clean lines.",
-                    "galleryImages": [
-                        "img/wedding/1070 (1).webp",
-                        "img/wedding/1070 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1101": {
-                    "bulkPrice100": 2200.00,
-                    "description": "Minimalist contemporary design.",
-                    "galleryImages": [
-                        "img/wedding/1101 1.webp",
-                        "img/wedding/1101.webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1107": {
-                    "bulkPrice100": 2200.00,
-                    "description": "Sleek modern layout.",
-                    "imageFile": "img/wedding/1107.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1122": {
-                    "bulkPrice100": 2800.00,
-                    "description": "Clean minimalist design.",
-                    "imageFile": "img/wedding/1122.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1126": {
-                    "bulkPrice100": 2500.00,
-                    "description": "Contemporary minimalist approach.",
-                    "galleryImages": [
-                        "img/wedding/1126 2.webp",
-                        "img/wedding/1126.webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1141": {
-                    "bulkPrice100": 2300.00,
-                    "description": "Modern design with simple elegance.",
-                    "imageFile": "img/wedding/1141.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1150": {
-                    "bulkPrice100": 4500.00,
-                    "description": "Elegant premium collection.",
-                    "galleryImages": [
-                        "img/wedding/1150 (1).webp",
-                        "img/wedding/1150 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1280": {
-                    "bulkPrice100": 4400.00,
-                    "description": "Modern minimalist layout.",
-                    "galleryImages": [
-                        "img/wedding/1280 (1).webp",
-                        "img/wedding/1280 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1300": {
-                    "bulkPrice100": 2300.00,
-                    "description": "Clean contemporary design.",
-                    "galleryImages": [
-                        "img/wedding/1300 (1).webp",
-                        "img/wedding/1300 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1301": {
-                    "bulkPrice100": 2600.00,
-                    "description": "Luxury elegant design.",
-                    "galleryImages": [
-                        "img/wedding/1301 (1).webp",
-                        "img/wedding/1301 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1305": {
-                    "bulkPrice100": 2300.00,
-                    "description": "High-end premium collection.",
-                    "galleryImages": [
-                        "img/wedding/1305 (1).webp",
-                        "img/wedding/1305 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1310": {
-                    "bulkPrice100": 2300.00,
-                    "description": "Modern approach with simple elegance.",
-                    "galleryImages": [
-                        "img/wedding/1310 (1).webp",
-                        "img/wedding/1310 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1315": {
-                    "bulkPrice100": 2600.00,
-                    "description": "Premium design with luxury finishes.",
-                    "galleryImages": [
-                        "img/wedding/1315 (1).webp",
-                        "img/wedding/1315 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1330": {
-                    "bulkPrice100": 3200.00,
-                    "description": "High-end elegant design.",
-                    "galleryImages": [
-                        "img/wedding/1330 (1).webp",
-                        "img/wedding/1330 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1335": {
-                    "bulkPrice100": 3200.00,
-                    "description": "Premium luxury collection.",
-                    "galleryImages": [
-                        "img/wedding/1335 (1).webp",
-                        "img/wedding/1335 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1340": {
-                    "bulkPrice100": 3200.00,
-                    "description": "Modern minimalist layout.",
-                    "galleryImages": [
-                        "img/wedding/1340 (1).webp",
-                        "img/wedding/1340 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1345": {
-                    "bulkPrice100": 4000.00,
-                    "description": "Luxury design series with multiple options.",
-                    "galleryImages": [
-                        "img/wedding/1345 (1).webp",
-                        "img/wedding/1345 (2).webp",
-                        "img/wedding/1345 (3).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1355": {
-                    "bulkPrice100": 2800.00,
-                    "description": "High-end premium design.",
-                    "galleryImages": [
-                        "img/wedding/1355 (1).webp",
-                        "img/wedding/1355 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1360": {
-                    "bulkPrice100": 4800.00,
-                    "description": "Modern minimalist approach.",
-                    "galleryImages": [
-                        "img/wedding/1360 (1).webp",
-                        "img/wedding/1360 (2).webp",
-                        "img/wedding/1360 (3).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1580": {
-                    "bulkPrice100": 2300.00,
-                    "description": "Modern design with minimalist appeal.",
-                    "imageFile": "img/wedding/1580.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1610": {
-                    "bulkPrice100": 4500.00,
-                    "description": "High-end design with luxury appeal.",
-                    "galleryImages": [
-                        "img/wedding/1610 (1).webp",
-                        "img/wedding/1610 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1710": {
-                    "bulkPrice100": 2500.00,
-                    "description": "High-end elegant collection.",
-                    "galleryImages": [
-                        "img/wedding/1710 (1).webp",
-                        "img/wedding/1710 (2).webp"
-                    ],
-                    "hasInnerCardOption": false
-                },
-                "Card Design #1720": {
-                    "bulkPrice100": 2200.00,
-                    "description": "Premium design with luxury elements.",
-                    "galleryImages": [
-                        "img/wedding/1720 (1).webp",
-                        "img/wedding/1720 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1725": {
-                    "bulkPrice100": 2200.00,
-                    "description": "High-end luxury collection.",
-                    "galleryImages": [
-                        "img/wedding/1725 (1).webp",
-                        "img/wedding/1725 (2).webp"
-                    ],
-                    "hasInnerCardOption": false
-                },
-                "Card Design #1745": {
-                    "bulkPrice100": 2600.00,
-                    "description": "Sleek contemporary design.",
-                    "imageFile": "img/wedding/1745.webp",
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1760": {
-                    "bulkPrice100": 2600.00,
-                    "description": "Luxury high-end design.",
-                    "galleryImages": [
-                        "img/wedding/1760 (1).webp",
-                        "img/wedding/1760 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1780": {
-                    "bulkPrice100": 4000.00,
-                    "description": "Luxury design series.",
-                    "galleryImages": [
-                        "img/wedding/1780 (1).webp",
-                        "img/wedding/1780 (2).webp",
-                        "img/wedding/1780 (3).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1855": {
-                    "bulkPrice100": 4800.00,
-                    "description": "Heavy weight stock with custom laser cutting and bespoke insert envelopes.",
-                    "galleryImages": [
-                        "img/wedding/1855 (1).webp",
-                        "img/wedding/1855 (2).webp",
-                        "img/wedding/1855 (3).webp",
-                        "img/wedding/1855 (4).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1990": {
-                    "bulkPrice100": 2600.00,
-                    "description": "Premium design with elegant appeal.",
-                    "galleryImages": [
-                        "img/wedding/1990 (1).webp",
-                        "img/wedding/1990 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #1995": {
-                    "bulkPrice100": 2600.00,
-                    "description": "Luxury high-end series.",
-                    "galleryImages": [
-                        "img/wedding/1995 (1).webp",
-                        "img/wedding/1995 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #2000": {
-                    "bulkPrice100": 5000.00,
-                    "description": "Premium design collection.",
-                    "galleryImages": [
-                        "img/wedding/2000 (1).webp",
-                        "img/wedding/2000 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #2005": {
-                    "bulkPrice100": 5000.00,
-                    "description": "High-end luxury design.",
-                    "galleryImages": [
-                        "img/wedding/2005 (1).webp",
-                        "img/wedding/2005 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #2010": {
-                    "bulkPrice100": 4600.00,
-                    "description": "Premium elegant series.",
-                    "galleryImages": [
-                        "img/wedding/2010 (1).webp",
-                        "img/wedding/2010 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                },
-                "Card Design #2015": {
-                    "bulkPrice100": 4600.00,
-                    "description": "Luxury design with premium appeal.",
-                    "galleryImages": [
-                        "img/wedding/2015 (1).webp",
-                        "img/wedding/2015 (2).webp"
-                    ],
-                    "hasInnerCardOption": true
-                }
-            }
-        },
         "Ultimate Luxury": {
             "description": "Highest-end options offering comprehensive collections, bespoke finishes, and premium heavy-weight materials. Perfect for couples seeking maximum impact and exclusivity.",
             "cards": {
@@ -2605,6 +1738,874 @@
                     "hasInnerCardOption": true
                 }
             }
+        },
+        "Premium Collection": {
+            "description": "Mid-range, high-quality designs, often featuring contemporary/modern aesthetics, special paper stocks, gold accents, or rich colors. A popular choice balancing cost and luxury.",
+            "cards": {
+                "Card Design #516": {
+                    "bulkPrice100": 2400.00,
+                    "description": "Classic design with traditional motifs.",
+                    "imageFile": "img/wedding/516.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #521": {
+                    "bulkPrice100": 2400.00,
+                    "description": "Premium design with elegant details.",
+                    "galleryImages": [
+                        "img/wedding/521 (1).webp",
+                        "img/wedding/521 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #533": {
+                    "bulkPrice100": 2200.00,
+                    "description": "Elegant traditional layout.",
+                    "imageFile": "img/wedding/533.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #746": {
+                    "bulkPrice100": 4000.00,
+                    "description": "Premium design with luxurious elements.",
+                    "galleryImages": [
+                        "img/wedding/746 (1).webp",
+                        "img/wedding/746 (2).webp",
+                        "img/wedding/746 (3).webp",
+                        "img/wedding/746 (4).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #770": {
+                    "bulkPrice100": 4400.00,
+                    "description": "Luxury collection with multiple design options.",
+                    "galleryImages": [
+                        "img/wedding/770 (1).webp",
+                        "img/wedding/770 (2).webp",
+                        "img/wedding/770 (3).webp",
+                        "img/wedding/770 (4).webp",
+                        "img/wedding/770 (5).webp",
+                        "img/wedding/770 (6).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #775": {
+                    "bulkPrice100": 2400.00,
+                    "description": "Premium design with elegant finishes.",
+                    "galleryImages": [
+                        "img/wedding/775 (1).webp",
+                        "img/wedding/775 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #786": {
+                    "bulkPrice100": 2600.00,
+                    "description": "High-end design with premium details.",
+                    "galleryImages": [
+                        "img/wedding/786 (1).webp",
+                        "img/wedding/786 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #800": {
+                    "bulkPrice100": 2300.00,
+                    "description": "Default description.",
+                    "galleryImages": [
+                        "img/wedding/800 (1).webp",
+                        "img/wedding/800 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #805": {
+                    "bulkPrice100": 2300.00,
+                    "description": "Default description.",
+                    "galleryImages": [
+                        "img/wedding/805 (1).webp",
+                        "img/wedding/805 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #810": {
+                    "bulkPrice100": 2300.00,
+                    "description": "Default description.",
+                    "galleryImages": [
+                        "img/wedding/810 (1).webp",
+                        "img/wedding/810 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #815": {
+                    "bulkPrice100": 2300.00,
+                    "description": "Default description.",
+                    "galleryImages": [
+                        "img/wedding/815 (1).webp",
+                        "img/wedding/815 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #820": {
+                    "bulkPrice100": 2300.00,
+                    "description": "Default description.",
+                    "galleryImages": [
+                        "img/wedding/820 (1).webp",
+                        "img/wedding/820 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #825": {
+                    "bulkPrice100": 2300.00,
+                    "description": "Default description.",
+                    "galleryImages": [
+                        "img/wedding/825 (1).webp",
+                        "img/wedding/825 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #830": {
+                    "bulkPrice100": 2300.00,
+                    "description": "Default description.",
+                    "galleryImages": [
+                        "img/wedding/830 (1).webp",
+                        "img/wedding/830 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #835": {
+                    "bulkPrice100": 2300.00,
+                    "description": "Default description.",
+                    "galleryImages": [
+                        "img/wedding/835 (1).webp",
+                        "img/wedding/835 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #843": {
+                    "bulkPrice100": 2500.00,
+                    "description": "Default description.",
+                    "galleryImages": [
+                        "img/wedding/843 (1).webp",
+                        "img/wedding/843 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #845": {
+                    "bulkPrice100": 2600.00,
+                    "description": "Default description.",
+                    "galleryImages": [
+                        "img/wedding/845 (1).webp",
+                        "img/wedding/845 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #850": {
+                    "bulkPrice100": 2600.00,
+                    "description": "Default description.",
+                    "galleryImages": [
+                        "img/wedding/850 (1).webp",
+                        "img/wedding/850 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #901": {
+                    "bulkPrice100": 2300.00,
+                    "description": "Default description.",
+                    "galleryImages": [
+                        "img/wedding/901 (1).webp",
+                        "img/wedding/901 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #907": {
+                    "bulkPrice100": 2300.00,
+                    "description": "Default description.",
+                    "galleryImages": [
+                        "img/wedding/907 (1).webp",
+                        "img/wedding/907 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1018": {
+                    "bulkPrice100": 2400.00,
+                    "description": "Clean modern design with minimalist approach.",
+                    "galleryImages": [
+                        "img/wedding/1018 (1).webp",
+                        "img/wedding/1018 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1032": {
+                    "bulkPrice100": 2300.00,
+                    "description": "Sleek contemporary layout.",
+                    "galleryImages": [
+                        "img/wedding/1032 (1).webp",
+                        "img/wedding/1032 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1070": {
+                    "bulkPrice100": 3600.00,
+                    "description": "Modern design with clean lines.",
+                    "galleryImages": [
+                        "img/wedding/1070 (1).webp",
+                        "img/wedding/1070 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1101": {
+                    "bulkPrice100": 2200.00,
+                    "description": "Minimalist contemporary design.",
+                    "galleryImages": [
+                        "img/wedding/1101 1.webp",
+                        "img/wedding/1101.webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1107": {
+                    "bulkPrice100": 2200.00,
+                    "description": "Sleek modern layout.",
+                    "imageFile": "img/wedding/1107.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1122": {
+                    "bulkPrice100": 2800.00,
+                    "description": "Clean minimalist design.",
+                    "imageFile": "img/wedding/1122.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1126": {
+                    "bulkPrice100": 2500.00,
+                    "description": "Contemporary minimalist approach.",
+                    "galleryImages": [
+                        "img/wedding/1126 2.webp",
+                        "img/wedding/1126.webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1141": {
+                    "bulkPrice100": 2300.00,
+                    "description": "Modern design with simple elegance.",
+                    "imageFile": "img/wedding/1141.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1150": {
+                    "bulkPrice100": 4500.00,
+                    "description": "Elegant premium collection.",
+                    "galleryImages": [
+                        "img/wedding/1150 (1).webp",
+                        "img/wedding/1150 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1280": {
+                    "bulkPrice100": 4400.00,
+                    "description": "Modern minimalist layout.",
+                    "galleryImages": [
+                        "img/wedding/1280 (1).webp",
+                        "img/wedding/1280 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1300": {
+                    "bulkPrice100": 2300.00,
+                    "description": "Clean contemporary design.",
+                    "galleryImages": [
+                        "img/wedding/1300 (1).webp",
+                        "img/wedding/1300 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1301": {
+                    "bulkPrice100": 2600.00,
+                    "description": "Luxury elegant design.",
+                    "galleryImages": [
+                        "img/wedding/1301 (1).webp",
+                        "img/wedding/1301 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1305": {
+                    "bulkPrice100": 2300.00,
+                    "description": "High-end premium collection.",
+                    "galleryImages": [
+                        "img/wedding/1305 (1).webp",
+                        "img/wedding/1305 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1310": {
+                    "bulkPrice100": 2300.00,
+                    "description": "Modern approach with simple elegance.",
+                    "galleryImages": [
+                        "img/wedding/1310 (1).webp",
+                        "img/wedding/1310 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1315": {
+                    "bulkPrice100": 2600.00,
+                    "description": "Premium design with luxury finishes.",
+                    "galleryImages": [
+                        "img/wedding/1315 (1).webp",
+                        "img/wedding/1315 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1330": {
+                    "bulkPrice100": 3200.00,
+                    "description": "High-end elegant design.",
+                    "galleryImages": [
+                        "img/wedding/1330 (1).webp",
+                        "img/wedding/1330 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1335": {
+                    "bulkPrice100": 3200.00,
+                    "description": "Premium luxury collection.",
+                    "galleryImages": [
+                        "img/wedding/1335 (1).webp",
+                        "img/wedding/1335 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1340": {
+                    "bulkPrice100": 3200.00,
+                    "description": "Modern minimalist layout.",
+                    "galleryImages": [
+                        "img/wedding/1340 (1).webp",
+                        "img/wedding/1340 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1345": {
+                    "bulkPrice100": 4000.00,
+                    "description": "Luxury design series with multiple options.",
+                    "galleryImages": [
+                        "img/wedding/1345 (1).webp",
+                        "img/wedding/1345 (2).webp",
+                        "img/wedding/1345 (3).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1355": {
+                    "bulkPrice100": 2800.00,
+                    "description": "High-end premium design.",
+                    "galleryImages": [
+                        "img/wedding/1355 (1).webp",
+                        "img/wedding/1355 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1360": {
+                    "bulkPrice100": 4800.00,
+                    "description": "Modern minimalist approach.",
+                    "galleryImages": [
+                        "img/wedding/1360 (1).webp",
+                        "img/wedding/1360 (2).webp",
+                        "img/wedding/1360 (3).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1580": {
+                    "bulkPrice100": 2300.00,
+                    "description": "Modern design with minimalist appeal.",
+                    "imageFile": "img/wedding/1580.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1610": {
+                    "bulkPrice100": 4500.00,
+                    "description": "High-end design with luxury appeal.",
+                    "galleryImages": [
+                        "img/wedding/1610 (1).webp",
+                        "img/wedding/1610 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1710": {
+                    "bulkPrice100": 2500.00,
+                    "description": "High-end elegant collection.",
+                    "galleryImages": [
+                        "img/wedding/1710 (1).webp",
+                        "img/wedding/1710 (2).webp"
+                    ],
+                    "hasInnerCardOption": false
+                },
+                "Card Design #1720": {
+                    "bulkPrice100": 2200.00,
+                    "description": "Premium design with luxury elements.",
+                    "galleryImages": [
+                        "img/wedding/1720 (1).webp",
+                        "img/wedding/1720 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1725": {
+                    "bulkPrice100": 2200.00,
+                    "description": "High-end luxury collection.",
+                    "galleryImages": [
+                        "img/wedding/1725 (1).webp",
+                        "img/wedding/1725 (2).webp"
+                    ],
+                    "hasInnerCardOption": false
+                },
+                "Card Design #1745": {
+                    "bulkPrice100": 2600.00,
+                    "description": "Sleek contemporary design.",
+                    "imageFile": "img/wedding/1745.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1760": {
+                    "bulkPrice100": 2600.00,
+                    "description": "Luxury high-end design.",
+                    "galleryImages": [
+                        "img/wedding/1760 (1).webp",
+                        "img/wedding/1760 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1780": {
+                    "bulkPrice100": 4000.00,
+                    "description": "Luxury design series.",
+                    "galleryImages": [
+                        "img/wedding/1780 (1).webp",
+                        "img/wedding/1780 (2).webp",
+                        "img/wedding/1780 (3).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1855": {
+                    "bulkPrice100": 4800.00,
+                    "description": "Heavy weight stock with custom laser cutting and bespoke insert envelopes.",
+                    "galleryImages": [
+                        "img/wedding/1855 (1).webp",
+                        "img/wedding/1855 (2).webp",
+                        "img/wedding/1855 (3).webp",
+                        "img/wedding/1855 (4).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1990": {
+                    "bulkPrice100": 2600.00,
+                    "description": "Premium design with elegant appeal.",
+                    "galleryImages": [
+                        "img/wedding/1990 (1).webp",
+                        "img/wedding/1990 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1995": {
+                    "bulkPrice100": 2600.00,
+                    "description": "Luxury high-end series.",
+                    "galleryImages": [
+                        "img/wedding/1995 (1).webp",
+                        "img/wedding/1995 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #2000": {
+                    "bulkPrice100": 5000.00,
+                    "description": "Premium design collection.",
+                    "galleryImages": [
+                        "img/wedding/2000 (1).webp",
+                        "img/wedding/2000 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #2005": {
+                    "bulkPrice100": 5000.00,
+                    "description": "High-end luxury design.",
+                    "galleryImages": [
+                        "img/wedding/2005 (1).webp",
+                        "img/wedding/2005 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #2010": {
+                    "bulkPrice100": 4600.00,
+                    "description": "Premium elegant series.",
+                    "galleryImages": [
+                        "img/wedding/2010 (1).webp",
+                        "img/wedding/2010 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #2015": {
+                    "bulkPrice100": 4600.00,
+                    "description": "Luxury design with premium appeal.",
+                    "galleryImages": [
+                        "img/wedding/2015 (1).webp",
+                        "img/wedding/2015 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                }
+            }
+        },
+        "Economical Elegance": {
+            "description": "Affordable, yet classic and traditional designs. Great for budget-conscious couples who still want elegance.",
+            "cards": {
+                "Card Design #105": {
+                    "bulkPrice100": 975.00,
+                    "description": "Elegant traditional design with intricate patterns.",
+                    "imageFile": "img/wedding/105 (1).webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #107": {
+                    "bulkPrice100": 975.00,
+                    "description": "Classic layout with timeless appeal.",
+                    "imageFile": "img/wedding/107 (1).webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #200": {
+                    "bulkPrice100": 975.00,
+                    "description": "Simple and elegant traditional design.",
+                    "imageFile": "img/wedding/200.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #205": {
+                    "bulkPrice100": 975.00,
+                    "description": "Classic pattern with gold accents.",
+                    "imageFile": "img/wedding/205.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #210": {
+                    "bulkPrice100": 975.00,
+                    "description": "Traditional design with rich colors.",
+                    "imageFile": "img/wedding/210.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #215": {
+                    "bulkPrice100": 975.00,
+                    "description": "Elegant classic layout.",
+                    "imageFile": "img/wedding/215.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #220": {
+                    "bulkPrice100": 975.00,
+                    "description": "Timeless traditional design.",
+                    "imageFile": "img/wedding/220.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #251": {
+                    "bulkPrice100": 975.00,
+                    "description": "Classic design with ornate borders.",
+                    "imageFile": "img/wedding/251.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #257": {
+                    "bulkPrice100": 975.00,
+                    "description": "Traditional layout with floral motifs.",
+                    "imageFile": "img/wedding/257.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #259": {
+                    "bulkPrice100": 975.00,
+                    "description": "Elegant classic design.",
+                    "imageFile": "img/wedding/259.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #263": {
+                    "bulkPrice100": 975.00,
+                    "description": "Traditional pattern with gold detailing.",
+                    "imageFile": "img/wedding/263.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #270": {
+                    "bulkPrice100": 975.00,
+                    "description": "Classic design with rich textures.",
+                    "imageFile": "img/wedding/270.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #271": {
+                    "bulkPrice100": 975.00,
+                    "description": "Traditional layout with intricate patterns.",
+                    "imageFile": "img/wedding/271.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #272": {
+                    "bulkPrice100": 975.00,
+                    "description": "Elegant classic design.",
+                    "imageFile": "img/wedding/272.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #274": {
+                    "bulkPrice100": 975.00,
+                    "description": "Traditional design with ornate elements.",
+                    "imageFile": "img/wedding/274.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #275": {
+                    "bulkPrice100": 975.00,
+                    "description": "Classic layout with timeless appeal.",
+                    "imageFile": "img/wedding/275.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #276": {
+                    "bulkPrice100": 975.00,
+                    "description": "Traditional design with rich colors.",
+                    "imageFile": "img/wedding/276.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #277": {
+                    "bulkPrice100": 975.00,
+                    "description": "Elegant classic pattern.",
+                    "imageFile": "img/wedding/277.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #278": {
+                    "bulkPrice100": 975.00,
+                    "description": "Traditional design with intricate details.",
+                    "imageFile": "img/wedding/278.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #279": {
+                    "bulkPrice100": 975.00,
+                    "description": "Classic layout with gold accents.",
+                    "imageFile": "img/wedding/279.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #281": {
+                    "bulkPrice100": 975.00,
+                    "description": "Traditional design with elegant patterns.",
+                    "imageFile": "img/wedding/281.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #419": {
+                    "bulkPrice100": 1850.00,
+                    "description": "Luxury design with premium finishes.",
+                    "galleryImages": [
+                        "img/wedding/419 (1).webp",
+                        "img/wedding/419 (2).webp",
+                        "img/wedding/419 (3).webp",
+                        "img/wedding/419 (4).webp",
+                        "img/wedding/419 (5).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #855": {
+                    "bulkPrice100": 1275.00,
+                    "description": "Default description.",
+                    "galleryImages": [
+                        "img/wedding/855 (1).webp",
+                        "img/wedding/855 (2).webp"
+                    ],
+                    "hasInnerCardOption": false
+                },
+                "Card Design #860": {
+                    "bulkPrice100": 1275.00,
+                    "description": "Default description.",
+                    "galleryImages": [
+                        "img/wedding/860 (1).webp",
+                        "img/wedding/860 (2).webp"
+                    ],
+                    "hasInnerCardOption": false
+                },
+                "Card Design #865": {
+                    "bulkPrice100": 1275.00,
+                    "description": "Simple, elegant design with standard paper stock.",
+                    "galleryImages": [
+                        "img/wedding/865 (1).webp",
+                        "img/wedding/865 (2).webp"
+                    ],
+                    "hasInnerCardOption": false
+                },
+                "Card Design #870": {
+                    "bulkPrice100": 1275.00,
+                    "description": "Contemporary layout with foil accents and heavy matte finish.",
+                    "galleryImages": [
+                        "img/wedding/870 (1).webp",
+                        "img/wedding/870 (2).webp"
+                    ],
+                    "hasInnerCardOption": false
+                },
+                "Card Design #875": {
+                    "bulkPrice100": 1275.00,
+                    "description": "Default description.",
+                    "galleryImages": [
+                        "img/wedding/875 (1).webp",
+                        "img/wedding/875 (2).webp"
+                    ],
+                    "hasInnerCardOption": false
+                },
+                "Card Design #880": {
+                    "bulkPrice100": 1275.00,
+                    "description": "Default description.",
+                    "galleryImages": [
+                        "img/wedding/880 (1).webp",
+                        "img/wedding/880 (2).webp"
+                    ],
+                    "hasInnerCardOption": false
+                },
+                "Card Design #900": {
+                    "bulkPrice100": 1675.00,
+                    "description": "Default description.",
+                    "galleryImages": [
+                        "img/wedding/900 (1).webp",
+                        "img/wedding/900 (2).webp"
+                    ],
+                    "hasInnerCardOption": false
+                },
+                "Card Design #905": {
+                    "bulkPrice100": 1675.00,
+                    "description": "Default description.",
+                    "galleryImages": [
+                        "img/wedding/905 (1).webp",
+                        "img/wedding/905 (2).webp"
+                    ],
+                    "hasInnerCardOption": false
+                },
+                "Card Design #910": {
+                    "bulkPrice100": 1675.00,
+                    "description": "Default description.",
+                    "galleryImages": [
+                        "img/wedding/910 (1).webp",
+                        "img/wedding/910 (2).webp"
+                    ],
+                    "hasInnerCardOption": false
+                },
+                "Card Design #915": {
+                    "bulkPrice100": 1675.00,
+                    "description": "Default description.",
+                    "galleryImages": [
+                        "img/wedding/915 (1).webp",
+                        "img/wedding/915 (2).webp"
+                    ],
+                    "hasInnerCardOption": false
+                },
+                "Card Design #920": {
+                    "bulkPrice100": 1675.00,
+                    "description": "Default description.",
+                    "galleryImages": [
+                        "img/wedding/920 (1).webp",
+                        "img/wedding/920 (2).webp"
+                    ],
+                    "hasInnerCardOption": false
+                },
+                "Card Design #925": {
+                    "bulkPrice100": 1675.00,
+                    "description": "Default description.",
+                    "galleryImages": [
+                        "img/wedding/925 (1).webp",
+                        "img/wedding/925 (2).webp"
+                    ],
+                    "hasInnerCardOption": false
+                },
+                "Card Design #930": {
+                    "bulkPrice100": 1675.00,
+                    "description": "Default description.",
+                    "galleryImages": [
+                        "img/wedding/930 (1).webp",
+                        "img/wedding/930 (2).webp"
+                    ],
+                    "hasInnerCardOption": false
+                },
+                "Card Design #935": {
+                    "bulkPrice100": 1675.00,
+                    "description": "Default description.",
+                    "galleryImages": [
+                        "img/wedding/935 (1).webp",
+                        "img/wedding/935 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1137": {
+                    "bulkPrice100": 1800.00,
+                    "description": "Premium design with luxurious appeal.",
+                    "galleryImages": [
+                        "img/wedding/1137 (1).webp",
+                        "img/wedding/1137 (2).webp",
+                        "img/wedding/1137 (3).webp"
+                    ],
+                    "hasInnerCardOption": false
+                },
+                "Card Design #1200": {
+                    "bulkPrice100": 1350.00,
+                    "description": "Clean contemporary layout.",
+                    "galleryImages": [
+                        "img/wedding/1200 (1).webp",
+                        "img/wedding/1200 (2).webp"
+                    ],
+                    "hasInnerCardOption": false
+                },
+                "Card Design #1205": {
+                    "bulkPrice100": 1350.00,
+                    "description": "High-end design with premium finishes.",
+                    "galleryImages": [
+                        "img/wedding/1205 (1).webp",
+                        "img/wedding/1205 (2).webp"
+                    ],
+                    "hasInnerCardOption": false
+                },
+                "Card Design #1210": {
+                    "bulkPrice100": 1600.00,
+                    "description": "Default description.",
+                    "imageFile": "img/wedding/placeholder.webp",
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1215": {
+                    "bulkPrice100": 1600.00,
+                    "description": "Minimalist design with modern appeal.",
+                    "galleryImages": [
+                        "img/wedding/1215 (1).webp",
+                        "img/wedding/1215 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1220": {
+                    "bulkPrice100": 1600.00,
+                    "description": "Comprehensive premium collection.",
+                    "galleryImages": [
+                        "img/wedding/1220 (1).webp",
+                        "img/wedding/1220 (2).webp",
+                        "img/wedding/1220 (3).webp",
+                        "img/wedding/1220 (4).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1225": {
+                    "bulkPrice100": 1600.00,
+                    "description": "Sleek contemporary design.",
+                    "galleryImages": [
+                        "img/wedding/1225 (1).webp",
+                        "img/wedding/1225 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1230": {
+                    "bulkPrice100": 1600.00,
+                    "description": "Premium elegant layout.",
+                    "galleryImages": [
+                        "img/wedding/1230 (1).webp",
+                        "img/wedding/1230 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1235": {
+                    "bulkPrice100": 1600.00,
+                    "description": "Luxury design with premium appeal.",
+                    "galleryImages": [
+                        "img/wedding/1235 (1).webp",
+                        "img/wedding/1235 (2).webp"
+                    ],
+                    "hasInnerCardOption": true
+                },
+                "Card Design #1400": {
+                    "bulkPrice100": 1300.00,
+                    "description": "Clean contemporary layout.",
+                    "galleryImages": [
+                        "img/wedding/1400 (1).webp",
+                        "img/wedding/1400 (2).webp"
+                    ],
+                    "hasInnerCardOption": false
+                },
+                "Card Design #1403": {
+                    "bulkPrice100": 1300.00,
+                    "description": "Premium design with elegant appeal.",
+                    "galleryImages": [
+                        "img/wedding/1403 (1).webp",
+                        "img/wedding/1403 (2).webp"
+                    ],
+                    "hasInnerCardOption": false
+                }
+            }
         }
     }
 }
+
