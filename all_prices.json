@@ -58,28 +58,32 @@
                 "imageFile": "img/products/thickcard.webp"
             }
         ],
-        "Photo Printing": [
-            {
-                "variant_3": "7x5",
-                "price": 40.00,
-                "imageFile": "img/products/photos.webp"
+        "Photo Printing": {
+            "isBundleTiered": true,
+            "bundles": {
+                "3 Prints 4x6 (PKR 77 each)": 230,
+                "3 Prints 5x7 (PKR 93 each)": 280,
+                "6 Prints 4x6 (PKR 75 each)": 450,
+                "6 Prints 5x7 (PKR 90 each)": 540,
+                "9 Prints 4x6 (PKR 69 each)": 620,
+                "9 Prints 5x7 (PKR 84 each)": 760,
+                "12 Prints 4x6 (PKR 67 each)": 800,
+                "12 Prints 5x7 (PKR 82 each)": 980,
+                "15 Prints 4x6 (PKR 65 each)": 980,
+                "15 Prints 5x7 (PKR 79 each)": 1180,
+                "18 Prints 4x6 (PKR 64 each)": 1150,
+                "18 Prints 5x7 (PKR 77 each)": 1380,
+                "24 Prints 4x6 (PKR 62 each)": 1500,
+                "24 Prints 5x7 (PKR 75 each)": 1800,
+                "30 Prints 4x6 (PKR 62 each)": 1850,
+                "30 Prints 5x7 (PKR 75 each)": 2250,
+                "36 Prints 4x6 (PKR 61 each)": 2200,
+                "36 Prints 5x7 (PKR 75 each)": 2700,
+                "48 Prints 4x6 (PKR 58 each)": 2800,
+                "48 Prints 5x7 (PKR 71 each)": 3400
             },
-            {
-                "variant_3": "1x1",
-                "price": 15.00,
-                "imageFile": "img/products/photos1x1.webp"
-            },
-            {
-                "variant_3": "Passport Size",
-                "price": 10.00,
-                "imageFile": "img/products/pasport.webp"
-            },
-            {
-                "variant_3": "A4",
-                "price": 120.00,
-                "imageFile": "img/products/photos.webp"
-            }
-        ],
+            "imageFile": "img/products/photos.webp"
+        },
         "Photo Frames": [
             {
                 "variant_3": "7x5",
@@ -413,122 +417,122 @@
         "Rubber Stamp (Rectangular)": [
             {
                 "shape": "Manual Inking",
-                "variant_3": "3.5x2",
-                "price": 1.00,
-                "imageFile": "img/products/stamps.webp"
-            },
-            {
-                "shape": "Manual Inking",
-                "variant_3": "1x0.39",
-                "price": 1.00,
+                "variant_3": "1.45x0.55",
+                "price": 1100.00,
                 "imageFile": "img/products/stamps.webp"
             },
             {
                 "shape": "Manual Inking",
                 "variant_3": "1.8x0.7",
-                "price": 1.00,
+                "price": 1200.00,
+                "imageFile": "img/products/stamps.webp"
+            },
+            {
+                "shape": "Circular Stamp",
+                "variant_3": "1x1",
+                "price": 1400.00,
                 "imageFile": "img/products/stamps.webp"
             },
             {
                 "shape": "Manual Inking",
                 "variant_3": "2.25x0.85",
-                "price": 1.00,
+                "price": 1350.00,
                 "imageFile": "img/products/stamps.webp"
             },
             {
                 "shape": "Manual Inking",
                 "variant_3": "2.75x0.98",
-                "price": 1.00,
+                "price": 1900.00,
                 "imageFile": "img/products/stamps.webp"
             },
             {
-                "shape": "Self Inking",
+                "shape": "Date Stamp",
                 "variant_3": "3x1.5",
-                "price": 1.00,
+                "price": 3500.00,
                 "imageFile": "img/products/stamps.webp"
             },
             {
                 "shape": "Manual Inking",
                 "variant_3": "2.75x1.18",
-                "price": 1.00,
+                "price": 2200.00,
                 "imageFile": "img/products/stamps.webp"
             },
             {
                 "shape": "Manual Inking",
                 "variant_3": "0.5x0.5",
-                "price": 1.00,
+                "price": 1300.00,
                 "imageFile": "img/products/stamps.webp"
             },
             {
-                "shape": "Manual Inking",
+                "shape": "Date Stamp",
                 "variant_3": "1.6x1.6",
-                "price": 1.00,
+                "price": 3000.00,
                 "imageFile": "img/products/stamps.webp"
             },
             {
-                "shape": "Self Inking",
+                "shape": "Date Stamp",
                 "variant_3": "1.25x1.25",
-                "price": 1.00,
+                "price": 2200.00,
                 "imageFile": "img/products/stamps.webp"
             },
             {
-                "shape": "Self Inking",
+                "shape": "Date Stamp",
                 "variant_3": "2x2",
-                "price": 1.00,
+                "price": 3400.00,
                 "imageFile": "img/products/stamps.webp"
             },
             {
                 "shape": "Self Inking",
                 "variant_3": "1.5x1.5",
-                "price": 1.00,
+                "price": 2300.00,
                 "imageFile": "img/products/stamps.webp"
             },
             {
                 "shape": "Self Inking",
-                "variant_3": "1.6x1.62",
-                "price": 1.00,
+                "variant_3": "1.6x1.6",
+                "price": 2000.00,
                 "imageFile": "img/products/stamps.webp"
             },
             {
-                "shape": "Self Inking",
+                "shape": "Date Stamp",
                 "variant_3": "1.57x0.92",
-                "price": 1.00,
+                "price": 2000.00,
                 "imageFile": "img/products/stamps.webp"
             },
             {
-                "shape": "Self Inking",
+                "shape": "Date Stamp",
                 "variant_3": "1.9x1.15",
-                "price": 1.00,
+                "price": 2300.00,
                 "imageFile": "img/products/stamps.webp"
             },
             {
-                "shape": "Self Inking",
+                "shape": "Date Stamp",
                 "variant_3": "2.2x1.25",
-                "price": 1.00,
+                "price": 2600.00,
                 "imageFile": "img/products/stamps.webp"
             },
             {
-                "shape": "Self Inking",
+                "shape": "Date Stamp",
                 "variant_3": "1.75x1.15",
-                "price": 1.00,
+                "price": 1300.00,
                 "imageFile": "img/products/stamps.webp"
             },
             {
-                "shape": "Self Inking",
+                "shape": "Oval Stamp",
                 "variant_3": "2.15x1.37",
-                "price": 1.00,
+                "price": 2500.00,
                 "imageFile": "img/products/stamps.webp"
             },
             {
-                "shape": "Self Inking",
+                "shape": "Oval Stamp",
                 "variant_3": "1.75x1.152",
-                "price": 1.00,
+                "price": 2300.00,
                 "imageFile": "img/products/stamps.webp"
             },
             {
-                "shape": "Self Inking",
+                "shape": "Simple",
                 "variant_3": "default",
-                "price": 1.00,
+                "price": 700.00,
                 "imageFile": "img/products/stamps.webp"
             }
         ],
@@ -741,33 +745,16 @@
                 "imageFile": "img/products/stickers.webp"
             }
         ],
-        "White T-Shirt (Adult Size)": [
-            {
-                "variant_3": "Small",
-                "price": 1.00,
-                "imageFile": "img/products/shirt.webp"
+        "White T-Shirt (Adult Size)": {
+            "isBundleTiered": true,
+            "bundles": {
+                "1 T-Shirt (PKR 900 each)": 900,
+                "2 T-Shirts (PKR 850 each)": 1700,
+                "5 T-Shirts (PKR 800 each)": 4000,
+                "10 T-Shirts (PKR 750 each)": 7500
             },
-            {
-                "variant_3": "Medium",
-                "price": 1.00,
-                "imageFile": "img/products/shirt.webp"
-            },
-            {
-                "variant_3": "Large",
-                "price": 1.00,
-                "imageFile": "img/products/shirt.webp"
-            },
-            {
-                "variant_3": "XL",
-                "price": 1.00,
-                "imageFile": "img/products/shirt.webp"
-            },
-            {
-                "variant_3": "XXL",
-                "price": 1.00,
-                "imageFile": "img/products/shirt.webp"
-            }
-        ],
+            "imageFile": "img/products/shirt.webp"
+        },
         "T-Shirt Cotton": [
             {
                 "variant_3": "Small",
@@ -824,34 +811,30 @@
         ],
         "Mug": [
             {
-                "shape": "Heart Shape",
-                "accessories": "Spoon Mug",
-                "variant_3": "Mug",
-                "price": 1.00,
+                "shape": "White Mug",
+                "accessories": "",
+                "variant_3": "",
+                "price": 950.00,
                 "imageFile": "img/products/mugs.webp"
             },
             {
-                "shape": "Heart Shape",
-                "accessories": "Mug with Pirch",
-                "variant_3": "Mug",
-                "price": 1.00,
+                "shape": "Magic Mug",
+                "accessories": "",
+                "variant_3": "",
+                "price": 1100.00,
                 "imageFile": "img/products/mugs.webp"
             }
         ],
-        "Metal Pen": [
-            {
-                "finish": "Shine",
-                "variant_3": "Metal Pen",
-                "price": 1.00,
-                "imageFile": "img/products/metal.webp"
+        "Metal Pen": {
+            "isBundleTiered": true,
+            "bundles": {
+                "5 Pens (PKR 300 each)": 1500,
+                "10 Pens (PKR 280 each)": 2800,
+                "25 Pens (PKR 250 each)": 6250,
+                "50 Pens (PKR 220 each)": 11000
             },
-            {
-                "finish": "Mat",
-                "variant_3": "Metal Pen",
-                "price": 1.00,
-                "imageFile": "img/products/metal.webp"
-            }
-        ],
+            "imageFile": "img/products/pen.webp"
+        },
         "Locket with Picture": [
             {
                 "variant_3": "Small",
@@ -993,84 +976,84 @@
         "A4": {
             "black_white": {
                 "70g": {
-                    "1-100": 10.0,
-                    "101-200": 8.0,
-                    "201-400": 7.0,
-                    "401-1000": 6.0
+                    "1-100": 25.0,
+                    "101-200": 23.0,
+                    "201-400": 20.0,
+                    "401-1000": 17.0
                 },
                 "80g": {
-                    "1-100": 15.0,
-                    "101-200": 13.0,
-                    "201-400": 12.0,
-                    "401-1000": 11.0
+                    "1-100": 27.0,
+                    "101-200": 25.0,
+                    "201-400": 24.0,
+                    "401-1000": 20.0
                 },
                 "100g": {
-                    "1-100": 20.0,
-                    "101-200": 18.0,
-                    "201-400": 17.0,
-                    "401-1000": 16.0
+                    "1-100": 35.0,
+                    "101-200": 33.0,
+                    "201-400": 31.0,
+                    "401-1000": 26.0
                 }
             },
             "Color": {
                 "70g": {
-                    "1-100": 20.0,
-                    "101-200": 18.0,
-                    "201-400": 17.0,
-                    "401-1000": 16.0
+                    "1-100": 48.0,
+                    "101-200": 45.0,
+                    "201-400": 40.0,
+                    "401-1000": 30.0
                 },
                 "80g": {
-                    "1-100": 25.0,
-                    "101-200": 23.0,
-                    "201-400": 22.0,
-                    "401-1000": 21.0
+                    "1-100": 53.0,
+                    "101-200": 50.0,
+                    "201-400": 47.0,
+                    "401-1000": 38.0
                 },
                 "100g": {
-                    "1-100": 30.0,
-                    "101-200": 28.0,
-                    "201-400": 27.0,
-                    "401-1000": 26.0
+                    "1-100": 70.0,
+                    "101-200": 65.0,
+                    "201-400": 60.0,
+                    "401-1000": 50.0
                 }
             }
         },
         "Legal": {
             "black_white": {
                 "70g": {
-                    "1-100": 12.0,
-                    "101-200": 10.0,
-                    "201-400": 9.0,
-                    "401-1000": 8.0
+                    "1-100": 28.0,
+                    "101-200": 26.0,
+                    "201-400": 23.0,
+                    "401-1000": 20.0
                 },
                 "80g": {
-                    "1-100": 17.0,
-                    "101-200": 15.0,
-                    "201-400": 14.0,
-                    "401-1000": 13.0
+                    "1-100": 30.0,
+                    "101-200": 28.0,
+                    "201-400": 26.0,
+                    "401-1000": 22.0
                 },
                 "100g": {
-                    "1-100": 22.0,
-                    "101-200": 20.0,
-                    "201-400": 19.0,
-                    "401-1000": 18.0
+                    "1-100": 40.0,
+                    "101-200": 35.0,
+                    "201-400": 33.0,
+                    "401-1000": 30.0
                 }
             },
-            "color": {
+            "Color": {
                 "70g": {
-                    "1-100": 22.0,
-                    "101-200": 20.0,
-                    "201-400": 19.0,
-                    "401-1000": 18.0
+                    "1-100": 50.0,
+                    "101-200": 46.0,
+                    "201-400": 42.0,
+                    "401-1000": 30.0
                 },
                 "80g": {
-                    "1-100": 27.0,
-                    "101-200": 25.0,
-                    "201-400": 24.0,
-                    "401-1000": 23.0
+                    "1-100": 55.0,
+                    "101-200": 50.0,
+                    "201-400": 47.0,
+                    "401-1000": 40.0
                 },
                 "100g": {
-                    "1-100": 32.0,
-                    "101-200": 30.0,
-                    "201-400": 29.0,
-                    "401-1000": 28.0
+                    "1-100": 75.0,
+                    "101-200": 68.0,
+                    "201-400": 65.0,
+                    "401-1000": 58.0
                 }
             }
         }
@@ -2625,6 +2608,3 @@
         }
     }
 }
-
-
-

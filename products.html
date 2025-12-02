@@ -23,10 +23,10 @@
     <link href="css/style.css" rel="stylesheet">
     
     <style>
-        /* General Layout and Utility Styles */
+        /* layout and styling */
         :root {
-            --bs-primary: #f28b00; /* Assuming this is your primary color */
-            --bs-secondary: #ff5722; /* Example secondary color */
+            --bs-primary: #f28b00; /* primary color*/
+            --bs-secondary: #ff5722; /* secondary color */
             --bs-dark: #212529;
             --mobile-nav-height: 60px;
         }
@@ -49,11 +49,11 @@
             color: white;
         }
         
-        /* ---------------------------------------------------- */
-        /* RESPONSIVE HEADER IMAGE IMPLEMENTATION (NEW LOGIC) */
-        /* ---------------------------------------------------- */
+     
+        /* header */
+       
         .page-header {
-            /* Default: Use Mobile Image (Mobile First Approach) */
+            /* mobile image */
             background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url(img/banners/productmobile.webp) center center no-repeat;
             background-size: cover;
             min-height: 250px;
@@ -61,22 +61,20 @@
 
         @media (min-width: 768px) {
             .page-header {
-                /* Override: Use Desktop Image on larger screens */
+                /* desktop image */
                 background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url(img/banners/productdesk.webp) center center no-repeat;
                 background-size: cover;
                 min-height: 350px;
             }
         }
-        /* ---------------------------------------------------- */
-        
-        /* --- DESKTOP NAV FIX --- */
-        /* Remove margin from h1 inside the desktop navbar brand for alignment */
+    /* desktop navigation*/
+      
         .navbar-brand h1 {
             margin-top: 0;
             margin-bottom: 0;
         }
 
-        /* Clickable Card Variations (Standard Items) */
+        /* Clickable Card Variations */
         .choice-card {
             cursor: pointer;
             border: 2px solid #ddd;
@@ -86,7 +84,7 @@
             transition: all 0.2s ease;
             flex-grow: 1;
             min-width: 120px;
-            opacity: 1; /* Default to visible */
+            opacity: 1; 
         }
         .choice-card:hover {
             border-color: var(--bs-secondary);
@@ -98,10 +96,9 @@
             color: white;
             box-shadow: 0 0 10px rgba(242, 139, 0, 0.3);
         }
-        /* Style for visually disabling non-selectable options */
-        .choice-card.disabled {
+            .choice-card.disabled {
             opacity: 0.5;
-            pointer-events: none; /* Disable interaction */
+            pointer-events: none; 
             border-color: #eee;
             background-color: #f7f7f7;
         }
@@ -129,10 +126,48 @@
             display: block;
             font-size: 1.1rem;
         }
+        .search-wrapper {
+            display: flex;
+            border: 2px solid var(--bs-primary);
+            border-radius: 50px; /
+            overflow: hidden; 
+            max-width: 100%;
+            height: 50px; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .search-input {
+            flex-grow: 1;
+            border: none !important; 
+            padding: 0 20px;
+            font-size: 1rem;
+            height: 100%;
+        }
+        .search-input:focus {
+            box-shadow: none !important; 
+        }
+        .search-button {
+            width: 60px; 
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bs-primary);
+            border: none; 
+            border-radius: 0 50px 50px 0; 
+            transition: background-color 0.2s;
+            color: white;
+            padding: 0; 
+        }
+        .search-button:hover {
+            background-color: var(--bs-secondary); 
+        }
+             .search-input::placeholder {
+            color: #aaa;
+        }
 
-        /* --- MOBILE BOTTOM NAVIGATION STYLES --- */
+      
 
-        /* 1. Mobile Bottom Bar Container */
+        /* mobile navigation */
         #mobile-bottom-nav {
             position: fixed;
             bottom: 0;
@@ -148,13 +183,11 @@
             justify-content: space-around;
         }
         
-        /* **FIX 1: Ensure all 5 top-level elements take equal width** */
+     
         #mobile-bottom-nav > a, 
         #mobile-bottom-nav > div {
-            flex: 1 1 0%; /* Equal distribution: 20% width per slot */
+            flex: 1 1 0%; 
         }
-
-        /* 2. Mobile Link Styling */
         .mobile-nav-link {
             flex: 1; 
             display: flex;
@@ -163,7 +196,7 @@
             text-align: center;
             text-decoration: none;
             color: var(--bs-dark);
-            font-size: 0.6rem; /* Smaller text for compact look */
+            font-size: 0.6rem; 
             padding: 5px 0;
             transition: color 0.2s;
             position: relative;
@@ -183,14 +216,12 @@
         }
         
 
-/* Update the existing #mobile-nav-logo section */
-/* 3. Center Logo Button */
 #mobile-nav-logo {
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative; /* Make it relative for absolute children */
+            position: relative; 
 }
 #mobile-nav-logo a {
             background-color: var(--bs-primary);
@@ -204,30 +235,26 @@
             box-shadow: 0 0 10px rgba(242, 139, 0, 0.6);
             position: absolute; 
             top: -15px; 
-            /* **FIX 2: Center absolutely positioned element within its slot** */
             left: 50%;
             transform: translateX(-50%); 
 }
 
-/* NEW RULE: Style the image inside the centered mobile button */
+
 #mobile-nav-logo a img {
-    /* Ensures the image is centered and prevents vertical alignment issues */
-    vertical-align: middle; 
-    /* Ensures the image doesn't overflow the 45px circle container */
+     vertical-align: middle; 
+ 
     max-width: 80%; 
     max-height: 80%;
-    height: auto !important; /* Overrides inline height if needed, maintaining aspect ratio */
+    height: auto !important; 
 }
 
 #mobile-nav-logo a i {
             font-size: 1.5rem;
 }
-        /* 4. Content Padding to clear the fixed bottom nav */
-        #shop-catalog-section, #product-detail-section, #quote-section, #contact-section, #cart-section, #checkout-section {
+            #shop-catalog-section, #product-detail-section, #quote-section, #contact-section, #cart-section, #checkout-section {
             padding-bottom: calc(var(--mobile-nav-height) + 15px); /* Add space for the bottom navbar */
         }
         
-        /* 5. Compact Category Link Styling (Removed, but keeping class definitions minimal) */
         .categories-item a {
             font-size: 0.75rem; 
             display: flex;
@@ -241,10 +268,10 @@
             margin-bottom: 5px !important;
         }
         
-        /* 6. Mobile Dropdown Specific Styling */
+
         #mobile-bottom-nav .dropdown-menu {
             position: absolute;
-            bottom: var(--mobile-nav-height); /* Position above the nav bar */
+            bottom: var(--mobile-nav-height); 
             left: 50%;
             transform: translateX(-50%);
             width: 250px;
@@ -293,7 +320,7 @@
         
         <a href="index.html" class="navbar-brand d-flex align-items-center me-4">
             <img src="img/logo2.webp" alt="Arham Printers Logo" style="height: 40px; margin-right: 1rem;">
-                  </a>
+                </a>
 
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
@@ -342,26 +369,42 @@
         </a> 
         <a href="print-order.html" class="mobile-nav-link" id="mobile-link-wedding">
             <i class="fas fa-print"></i>
-            <span>Custom Prints</span>
+            <span>Paper Prints</span>
         </a> 
    <a href="#cart-section" class="mobile-nav-link" onclick="showSection('cart')" id="mobile-link-cart">
         <i class="fas fa-shopping-cart"></i>
         <span id="cart-count" class="position-absolute translate-middle badge rounded-pill bg-primary" style="top: 8px; right: 10px; font-size: 0.7em;">0</span>
         <span>Cart</span>
     </a>
-</nav>    
-    <section id="shop-catalog-section" class="section active">
-        <div class="container-fluid page-header py-5">
-            <h2 class="text-center display-6">Products and Services</h2>
-        </div>    
-  <div class="container py-5">
+</nav>
+<section id="shop-catalog-section" class="section active">
+    
+    <div class="container-fluid page-header py-5">
+        <h2 class="text-center display-6">Products and Services</h2>
+    </div>
+
+    <div class="container-fluid bg-light py-4 border-bottom">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10 px-4">
+                <div class="search-wrapper">
+                    <input type="text" id="search-input" class="search-input form-control" 
+                           placeholder="Search products (e.g., Cards, Mug, Star)"
+                           onkeyup="filterProducts()">
+                    <button class="search-button btn btn-primary" type="button" onclick="filterProducts()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <p class="text-muted mt-2 text-center" id="search-results-message" style="display:none;"></p>
+            </div>
+        </div>
+    </div>
+    <div class="container py-5">
+        <div class="row g-4" id="main-product-catalog">
             
-            <div class="row g-4" id="main-product-catalog">
+            <h3 class="w-100 pt-3" id="business-essentials">Business & Office Essentials</h3>
                 
-                <h3 class="w-100 pt-3" id="business-essentials">Business & Office Essentials</h3>
-                
-                <div class='col-lg-3 col-6 mb-4'>
-                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Visiting Cards">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/vcard.webp' onerror="this.onerror=null;this.src='img/products/vcard.png';" class='w-100' alt='Visiting Cards'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Visiting Cards')">
@@ -370,8 +413,8 @@
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4'>
-                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Mat Cards">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/matcards.webp' onerror="this.onerror=null;this.src='img/products/matcards.png';" class='w-100' alt='Mat Cards'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Mat Cards')">
@@ -380,8 +423,8 @@
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4'>
-                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="UV Cards">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/uvcard.webp' onerror="this.onerror=null;this.src='img/products/uvcard.png';" class='w-100' alt='UV Cards'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('UV Cards')">
@@ -390,8 +433,8 @@
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4'>
-                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="UV Thick Cards">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/thickcard.webp' onerror="this.onerror=null;this.src='img/products/thickcard.png';" class='w-100' alt='UV Thick Cards'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('UV Thick Cards')">
@@ -401,8 +444,8 @@
                     </div>
                 </div>
                 
-                <div class='col-lg-3 col-6 mb-4'>
-                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Letterpads">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/letterpad.webp' onerror="this.onerror=null;this.src='img/products/letterpad.png';" class='w-100' alt='Letterpad'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Letterpads')">
@@ -411,8 +454,8 @@
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4'>
-                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Envelops">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/envelops.webp' onerror="this.onerror=null;this.src='img/products/envelops.png';" class='w-100' alt='envelops'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Envelops')">
@@ -421,8 +464,8 @@
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4'>
-                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Bill Books">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/billbooks.webp' onerror="this.onerror=null;this.src='img/products/billbooks.png';" class='w-100' alt='Bill Books'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Bill Books')">
@@ -431,8 +474,8 @@
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4'>
-                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Rubber Stamp (Rectangular)">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/stamps.webp' onerror="this.onerror=null;this.src='img/products/stamps.png';" class='w-100' alt='Rubber Stamps'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Rubber Stamp (Rectangular)')">
@@ -445,8 +488,8 @@
 
                 <h3 class="w-100 pt-3" id="marketing-essentials">Marketing & Promotional Items</h3>
                 
-                <div class='col-lg-3 col-6 mb-4'>
-                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Pamphlets">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/pamphlet.webp' onerror="this.onerror=null;this.src='img/products/pamphlet.png';" class='w-100' alt='pamphlet'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Ishtihar')">
@@ -455,8 +498,8 @@
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4'>
-                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Ishtihars">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/ishtihar.webp' onerror="this.onerror=null;this.src='img/products/ishtihar.png';" class='w-100' alt='Ishtihar'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Ishtihar')">
@@ -465,8 +508,8 @@
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4'>
-                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Stickers">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/stickers.webp' onerror="this.onerror=null;this.src='img/products/Stickers.png';" class='w-100' alt='Stickers'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Stickers')">
@@ -476,8 +519,8 @@
                     </div>
                 </div>
                 
-                <div class='col-lg-3 col-6 mb-4'>
-                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="White T-Shirt (Adult Size)">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/shirt.webp' onerror="this.onerror=null;this.src='img/products/shirt.png';" class='w-100' alt='T-Shirt'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('White T-Shirt (Adult Size)')">
@@ -486,8 +529,8 @@
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4'>
-                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Mug">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/mugs.webp' onerror="this.onerror=null;this.src='img/products/Mug.png';" class='w-100' alt='Mug'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Mug')">
@@ -496,8 +539,8 @@
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4'>
-                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Metal Pen">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/pen.webp' onerror="this.onerror=null;this.src='img/products/pen.png';" class='w-100' alt='Metal Pen'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Metal Pen')">
@@ -510,8 +553,8 @@
 
                 <h3 class="w-100 pt-3" id="banners">Custom & Large Format</h3>
                 
-                <div class='col-lg-3 col-6 mb-4'>
-                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="China">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/china.webp' onerror="this.onerror=null;this.src='img/products/china.png';" class='w-100' alt='China'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('China')">
@@ -520,8 +563,8 @@
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4'>
-                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Star">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/star.webp' onerror="this.onerror=null;this.src='img/products/star.png';" class='w-100' alt='Star'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Star')">
@@ -530,8 +573,8 @@
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4'>
-                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Backlit">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/backlit.webp' onerror="this.onerror=null;this.src='img/products/backlit.png';" class='w-100' alt='Backlit'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Backlit')">
@@ -541,8 +584,8 @@
                     </div>
                 </div>
                 
-                <div class='col-lg-3 col-6 mb-4'>
-                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="One Vision">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/vision.webp' onerror="this.onerror=null;this.src='img/products/vision.png';" class='w-100' alt='One'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('One Vision')">
@@ -551,8 +594,8 @@
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4'>
-                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Venyl Sticker">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/venyl.webp' onerror="this.onerror=null;this.src='img/products/venyl.png';" class='w-100' alt='Venyl Sticker'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Venyl Sticker')">
@@ -562,8 +605,8 @@
                     </div>
                 </div>
 
-                <div class='col-lg-3 col-6 mb-4'>
-                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Photo Printing">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/photos.webp' onerror="this.onerror=null;this.src='img/products/photopapers.png';" class='w-100' alt='Photo Papers'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Photo Printing')">
@@ -572,8 +615,8 @@
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4'>
-                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="3D Wallpaper">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/wallpapers.webp' onerror="this.onerror=null;this.src='img/products/wallpapers.png';" class='w-100' alt='3D Wallpaper'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('3D Wallpaper')">
@@ -583,8 +626,8 @@
                     </div>
                 </div>
 
-                <div class='col-lg-3 col-6 mb-4'>
-                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Shields">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/shields.webp' onerror="this.onerror=null;this.src='img/products/shields.png';" class='w-100' alt='Shields'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showSection('quote')">
@@ -593,8 +636,8 @@
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4'>
-                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Flags & Fabric">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/flags.webp' onerror="this.onerror=null;this.src='img/products/flags.png';" class='w-100' alt='Flags & Fabric'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showSection('quote')">
@@ -603,8 +646,8 @@
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4'>
-                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Box Packaging">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/box.webp' onerror="this.onerror=null;this.src='img/products/box.png';" class='w-100' alt='Box Packaging'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showSection('quote')">
@@ -617,11 +660,11 @@
                 <hr class="w-100" />
 
                 <h3 class="w-100 pt-3" id="prints-and-documents">B/W and Color Prints</h3>
-                <div class='col-lg-3 col-6 mb-4'>
-                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'> 
-                        <img src='img/products/printer.webp' onerror="this.onerror=null;this.src='img/products/printer.png';" class='w-100' alt='Custom Prints'>
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Paper Prints">
+                    <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
+                        <img src='img/products/printer.webp' onerror="this.onerror=null;this.src='img/products/printer.png';" class='w-100' alt='Paper Prints'>
                         <div class="product-footer-overlay p-0">
-                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Custom Prints')">
+                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Paper Prints')">
                                 <i class="fas fa-hand-pointer"></i> Paper Prints
                             </button>
                         </div>
@@ -1115,50 +1158,47 @@
     <script src="js/cart-manager.js"></script> 
     
     <script>
-    // 🛑 STEP 1: MANDATORY CONFIGURATION 🛑
-    const PUBLIC_DATA_URL = 'all_prices.json'; 
-    const WHATSAPP_NUMBER = '923006238233'; 
-    const SUBMIT_ORDER_URL = 'submit_order.php'; 
-    
-    // 🛑 PostEx API Configuration (New) 🛑
-    const POSTEX_API_URL = 'https://api.postex.pk/services/integration/api';
-    const POSTEX_TOKEN = 'YOUR_MANDATORY_POSTEX_TOKEN'; // Replace with your actual token
+    // configuaration
+    const PUBLIC_DATA_URL = 'all_prices.json';
+    const WHATSAPP_NUMBER = '923006238233';
+    const SUBMIT_ORDER_URL = 'submit_order.php';
 
-    // --- Core Data Stores ---
-    let allProducts = {}; 
-    let currentProduct = null; 
+    // postex api configuration
+    const POSTEX_API_URL = 'https://api.postex.pk/services/integration/api';
+    const POSTEX_TOKEN = 'POSTEX_TOKEN';
+    let allProducts = {};
+    let currentProduct = null;
     let allProductGroups = {};
-    let currentSelectedVariations = {}; 
+    let currentSelectedVariations = {};
     let customprintspricing = {};
     
-    let currentShippingZone = 'Within City'; // Default to cheapest zone (JLP)
-    let currentDeliveryType = 'HomeDelivery'; // NEW: Default to Home Delivery
+    let currentShippingZone = 'Within City'; // jalalpur jattan is default
+    let currentDeliveryType = 'HomeDelivery'; // home delivery in jpj
 
 
-    // --- Shipping Rate Configuration (PostEx with 15% Fuel & 16% GST) ---
+
     const SHIPPING_RATES = {
         // Within City (JLP) / Same Province / Cross Province
-        'small': { 
-            'Within City': 100, // MODIFIED: Flat rate for JLP Home Delivery
+        'small': {
+            'Within City': 100, // jalalpurjattan
             'Same Province': 347,
             'Cross Province': 359
         },
-        'medium': { 
-            'Within City': 100, // MODIFIED: Flat rate for JLP Home Delivery
+        'medium': {
+            'Within City': 100, // jalalpurjattan
             'Same Province': 529,
             'Cross Province': 541
         },
-        'overland': { 
-            'Within City': 150, // MODIFIED: Flat rate for JLP Home Delivery
+        'overland': {
+            'Within City': 150, // jalalpurjattan
             'Same Province': 1254,
             'Cross Province': 1254
         }
     };
 
-    // --- Local Shipping Rates/Thresholds (Removed/Simplified as per request) ---
-    const LOCAL_DELIVERY_COST = 100; // Flat local rate
+    const LOCAL_DELIVERY_COST = 100; //jalalpur jattan
 
-    // --- Zone Mapping Data (JLP is the Origin City) ---
+    //example zone mapping for refrence
     const CITY_TO_ZONE = {
         "jalalpur jattan": "Within City",
         "gujrat": "Same Province",
@@ -1175,20 +1215,18 @@
         "sukkur": "Cross Province"
     };
 
-    // --- PROFIT & COST CONSTANTS (Derived from previous analysis) ---
-   
+    // profit and costing meta for area based itesms
+    
     const AREA_BASED_META = {
-        "China": { is_area_based: true, rate: 35, min_area: 2, category: 'Banners' }, 
+        "China": { is_area_based: true, rate: 35, min_area: 2, category: 'Banners' },
         "Star": { is_area_based: true, rate: 65, min_area: 2, category: 'Banners' },
-        "Backlit": { is_area_based: true, rate: 100, min_area: 2, category: 'Banners' }, 
-        "One Vision": { is_area_based: true, rate: 90, min_area: 2, category: 'Banners' }, // Name adjusted for JSON key
-        "Venyl Sticker": { is_area_based: true, rate: 90, min_area: 2, category: 'Banners' }, // Name adjusted for JSON key  
-        "3D Wallpaper": { is_area_based: true, rate: 30, min_area: 20, category: '3D Wallpaper' },
-        "Photo Frames": { is_area_based: true, rate: 40, min_area: 1, category: 'Photo Printing' } 
+        "Backlit": { is_area_based: true, rate: 100, min_area: 2, category: 'Banners' },
+        "One Vision": { is_area_based: true, rate: 90, min_area: 2, category: 'Banners' }, 
+        "Venyl Sticker": { is_area_based: true, rate: 90, min_area: 2, category: 'Banners' }, 
+        "3D Wallpaper": { is_area_based: true, rate: 30, min_area: 20, category: '3D Wallpaper' }
     };
     const AREA_BASED_PRODUCT_NAMES = Object.keys(AREA_BASED_META);
-
-    const DESIGN_FEE_TIERS = [
+     const DESIGN_FEE_TIERS = [
         { min_sqft: 1, max_sqft: 10, base_fee: 300 },
         { min_sqft: 11, max_sqft: 24, base_fee: 400 },
         { min_sqft: 25, max_sqft: 50, base_fee: 500 },
@@ -1204,12 +1242,10 @@
         { min_qty: 31, max_qty: 50, multiplier: 1.14 },
         { min_qty: 51, max_qty: Infinity, multiplier: 1.10 },
     ];
-
-    // Map the generic SQL column name to a user-friendly display name
-    const variantDisplayNames = {
-        'variant_1': 'Size', 
-        'variant_2': 'Material/Stock', 
-        'variant_3': 'Type/Finish', 
+     const variantDisplayNames = {
+        'variant_1': 'Size',
+        'variant_2': 'Material/Stock',
+        'variant_3': 'Type/Finish',
         'single_side': 'Print Color (Single Side)',
         'double_side': 'Print Color (Double Side)',
         'finish': 'Finish',
@@ -1218,7 +1254,7 @@
     };
     
     const DISPLAY_ORDER = [
-        'Size', 'Material', 'Type/Finish', 'Finish', 'Print Color (Single Side)', 
+        'Size', 'Material', 'Type/Finish', 'Finish', 'Print Color (Single Side)',
         'Print Color (Double Side)', 'Material/Stock', 'Shape', 'Accessories', 'Inking Mechanism'
     ];
 
@@ -1229,7 +1265,7 @@
             if (indexA !== -1 && indexB !== -1) return indexA - indexB;
             if (indexA !== -1) return -1;
             if (indexB !== -1) return 1;
-            return a.localeCompare(b); 
+            return a.localeCompare(b);
         });
     }
 
@@ -1243,7 +1279,7 @@
         }
         let qtyFee = 0;
         if (quantity > 1) {
-            const additionalPieces = quantity - 1; 
+            const additionalPieces = quantity - 1;
             const additionsCount = Math.floor((additionalPieces + DESIGN_FEE_QTY_THRESHOLD - 1) / DESIGN_FEE_QTY_THRESHOLD);
             qtyFee = additionsCount * DESIGN_FEE_QTY_INCREMENT;
         }
@@ -1261,16 +1297,14 @@
         return multiplier;
     }
     
-    // --- CORE FUNCTIONS ---
+    // functions
 
     async function initialAppLoad() {
-        // NOTE: Dynamic Google Maps script injection removed to resolve console warning.
-        
-        let rawData;
+       let rawData;
         try {
             const response = await fetch(PUBLIC_DATA_URL);
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            rawData = await response.json(); 
+            rawData = await response.json();
         } catch (error) {
             console.error("Failed to load shop data:", error);
             if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
@@ -1282,13 +1316,11 @@
         }
         
         initialProductSetup(rawData);
-        showSection('shop-catalog'); 
+        showSection('shop-catalog');
         
         document.getElementById('quote-form').addEventListener('submit', handleQuoteSubmission);
         document.getElementById('contact-form-whatsapp').addEventListener('submit', handleContactSubmission);
-        
-        // Initial setup for location display
-        setDeliveryType('HomeDelivery', false); // Initialize UI state and default zone
+        setDeliveryType('HomeDelivery', false);
         document.getElementById('zone-name').textContent = `Jalalpur Jattan (Default)`;
         document.getElementById('zone-name').classList.add('text-success');
 
@@ -1300,11 +1332,11 @@
         Object.keys(flatData).forEach(categoryKey => {
             const categoryData = flatData[categoryKey];
             if (categoryKey === "B/W and Color Prints") {
-                customprintspricing["Custom Prints"] = categoryData;
+                customprintspricing["Paper Prints"] = categoryData;
                 if (Object.keys(categoryData || {}).length > 0) {
-                    productGroups["Custom Prints"] = {
-                         baseName: "Custom Prints", minPrice: 6, imageFile: `printer`, 
-                         isAreaBased: false, mainCategory: categoryKey, isDigitalTiered: true, combinations: [] 
+                    productGroups["Paper Prints"] = {
+                                baseName: "Paper Prints", minPrice: 6, imageFile: `printer`,
+                                isAreaBased: false, mainCategory: categoryKey, isDigitalTiered: true, combinations: []
                     };
                 }
                 return;
@@ -1312,82 +1344,106 @@
             if (categoryKey === "Special Occasions (Wedding)") return;
 
             Object.keys(categoryData).forEach(productKey => {
-                 const productCombinations = categoryData[productKey];
-                 if (!productGroups[productKey]) {
-                     
-                     // 🌟 FIX: Extract the image file name from the first valid combination or use fallback 🌟
-                     let genericImageFile = '';
-                     if (Array.isArray(productCombinations) && productCombinations.length > 0) {
-                         const fullPath = productCombinations[0].imageFile;
-                         // Extract file name without path (img/products/) and without extension (.webp)
-                         const match = fullPath ? fullPath.match(/[^/]+(?=\.)/) : null;
-                         genericImageFile = match ? match[0] : 'placeholder'; 
-                     } 
-                     
-                     // Explicit fallbacks for products 
-                     if (productKey === 'UV Thick Cards') genericImageFile = 'thickcard';
-                     if (productKey === 'Photo Printing') genericImageFile = 'photos'; 
-                     if (productKey === 'Photo Frames') genericImageFile = 'frames';
-                     if (productKey === 'China') genericImageFile = 'china';
-                     if (productKey === 'Star') genericImageFile = 'star';
-                     if (productKey === 'Backlit') genericImageFile = 'backlit';
-                     if (productKey === 'Venyl Sticker') genericImageFile = 'stickers';
-                     if (productKey === 'One Vision') genericImageFile = 'vision'; 
-                     if (productKey === 'Letterpads') genericImageFile = 'letterpad'; 
-                     if (productKey === 'Envelops') genericImageFile = 'envelops'; 
-                     if (productKey === 'Bill Books') genericImageFile = 'billbooks'; 
-                     if (productKey === 'Rubber Stamp (Rectangular)') genericImageFile = 'stamps'; 
-                     if (productKey === 'Ishtihar') genericImageFile = 'pamphlet'; 
-                     if (productKey === 'White T-Shirt (Adult Size)') genericImageFile = 'shirt';
-                     if (productKey === 'Mug') genericImageFile = 'mugs';
-                     if (productKey === 'Metal Pen') genericImageFile = 'metal';
-                     if (productKey === '3D Wallpaper') genericImageFile = 'wallpapers';
+                const rawProductData = categoryData[productKey];
+                
+                if (!productGroups[productKey]) {
+                    
+                    let genericImageFile = '';
+                    let productCombinations = [];
+                    let isPhotoPrints = false;
+                    let isBundleTiered = false;
+                    let bundles = null;
 
-                     if (genericImageFile === '') genericImageFile = 'placeholder';
-                     
-                     const isAreaBased = AREA_BASED_PRODUCT_NAMES.includes(productKey);
-                     
-                     productGroups[productKey] = {
-                         baseName: productKey, minPrice: Infinity, imageFile: genericImageFile, 
-                         isAreaBased: isAreaBased, mainCategory: categoryKey, combinations: [] 
-                     };
-                 }
-                 
-                 if (!productGroups[productKey].isAreaBased && Array.isArray(productCombinations)) {
-                     productCombinations.forEach(item => {
-                         let attributes = { 'Price': parseFloat(item.price) || 0, 'FullName': productKey };
-                         Object.keys(item).forEach(key => {
-                             if (key !== 'price' && key !== 'imageFile' && item[key]) {
-                                 const displayKey = variantDisplayNames[key] || key.charAt(0).toUpperCase() + key.slice(1);
-                                 if (key !== 'variant_3' && displayKey === attributes.FullName) return; 
-                                 attributes[displayKey] = item[key];
-                             }
-                         });
-                         productGroups[productKey].combinations.push(attributes);
-                         if (attributes.Price > 0 && attributes.Price < productGroups[productKey].minPrice) {
-                             productGroups[productKey].minPrice = attributes.Price;
-                         }
-                     });
-                 }
+                    if (Array.isArray(rawProductData)) {
+                        productCombinations = rawProductData;
+                        const firstItem = productCombinations.length > 0 ? productCombinations[0] : null;
+                        const fullPath = firstItem ? firstItem.imageFile : null;
+                        const match = fullPath ? fullPath.match(/[^/]+(?=\.)/) : null;
+                        genericImageFile = match ? match[0] : 'placeholder';
+                        isPhotoPrints = (productKey === 'Photo Printing');
+
+                    } else if (typeof rawProductData === 'object' && rawProductData !== null && rawProductData.bundles) {
+                       isBundleTiered = rawProductData.isBundleTiered === true;
+                        bundles = rawProductData.bundles;
+                        genericImageFile = rawProductData.imageFile ? rawProductData.imageFile.match(/[^/]+(?=\.)/)?.[0] : 'placeholder';
+                        isPhotoPrints = (productKey === 'Photo Printing'); 
+                    } else {
+                       productCombinations = Array.isArray(rawProductData) ? rawProductData : [];
+                        const firstItem = productCombinations.length > 0 ? productCombinations[0] : null;
+                        const fullPath = firstItem ? firstItem.imageFile : null;
+                        const match = fullPath ? fullPath.match(/[^/]+(?=\.)/) : null;
+                        genericImageFile = match ? match[0] : 'placeholder';
+                    }
+                    if (productKey === 'UV Thick Cards') genericImageFile = 'thickcard';
+                    if (productKey === 'Photo Printing') genericImageFile = 'photos';
+                    if (productKey === 'Photo Frames') genericImageFile = 'frames';
+                    if (productKey === 'China') genericImageFile = 'china';
+                    if (productKey === 'Star') genericImageFile = 'star';
+                    if (productKey === 'Backlit') genericImageFile = 'backlit';
+                    if (productKey === 'Venyl Sticker') genericImageFile = 'venyl';
+                    if (productKey === 'One Vision') genericImageFile = 'vision';
+                    if (productKey === 'Letterpads') genericImageFile = 'letterpad';
+                    if (productKey === 'Envelops') genericImageFile = 'envelops';
+                    if (productKey === 'Bill Books') genericImageFile = 'billbooks';
+                    if (productKey === 'Rubber Stamp (Rectangular)') genericImageFile = 'stamps';
+                    if (productKey === 'Ishtihar') genericImageFile = 'pamphlet';
+                    if (productKey === 'White T-Shirt (Adult Size)') genericImageFile = 'shirt';
+                    if (productKey === 'Mug') genericImageFile = 'mugs';
+                    if (productKey === 'Metal Pen') genericImageFile = 'pen';
+                    if (productKey === '3D Wallpaper') genericImageFile = 'wallpapers';
+
+                    if (genericImageFile === '') genericImageFile = 'placeholder';
+                    
+                    const isAreaBased = AREA_BASED_PRODUCT_NAMES.includes(productKey);
+                    
+                    let minPrice = Infinity;
+                    if(isBundleTiered && bundles) {
+                         minPrice = Object.values(bundles).reduce((min, price) => Math.min(min, price), Infinity);
+                    } else if (productCombinations.length > 0) {
+                         minPrice = productCombinations.reduce((min, combo) => Math.min(min, combo.price || Infinity), Infinity);
+                    }
+
+                    productGroups[productKey] = {
+                        baseName: productKey, minPrice: minPrice, imageFile: genericImageFile,
+                        isAreaBased: isAreaBased, mainCategory: categoryKey, combinations: [],
+                        isPhotoPrints: isPhotoPrints,
+                        isBundleTiered: isBundleTiered, 
+                        bundles: bundles 
+                    };
+                }
+
+                const currentProductGroup = productGroups[productKey];
+                if (!currentProductGroup.isAreaBased && !currentProductGroup.isPhotoPrints && !currentProductGroup.isDigitalTiered && !currentProductGroup.isBundleTiered && Array.isArray(rawProductData)) {
+                    rawProductData.forEach(item => {
+                        let attributes = { 'Price': parseFloat(item.price) || 0, 'FullName': productKey };
+                        Object.keys(item).forEach(key => {
+                            if (key !== 'price' && key !== 'imageFile' && item[key]) {
+                                const displayKey = variantDisplayNames[key] || key.charAt(0).toUpperCase() + key.slice(1);
+                                if (key !== 'variant_3' && displayKey === attributes.FullName) return;
+                                attributes[displayKey] = item[key];
+                            }
+                        });
+                        currentProductGroup.combinations.push(attributes);
+                    });
+                }
             });
         });
         allProductGroups = productGroups;
     }
 
     function getShippingPacketType(productName) {
-        if (productName.includes('Card') || productName.includes('Print') || productName.includes('Sticker')) return 'small';
+        if (productName.includes('Card') || productName.includes('Print') || productName.includes('Sticker') || productName.includes('Photo')) return 'small';
         if (productName.includes('Letterpad') || productName.includes('Bill Book') || productName.includes('T-Shirt') || productName.includes('Mug') || productName.includes('Pen')) return 'medium';
-        if (AREA_BASED_PRODUCT_NAMES.includes(productName) || productName.includes('Frame') || productName.includes('Banner') || productName.includes('Wallpaper') || productName.includes('Vision') || productName.includes('Venyl')) return 'overland';
-        return 'small'; 
+        if (AREA_BASED_PRODUCT_NAMES.includes(productName) || productName.includes('Banner') || productName.includes('Vision') || productName.includes('Venyl')) return 'overland';
+        return 'small';
     }
 
     function getPostExShippingCost(packetType, zone) {
         const rates = SHIPPING_RATES[packetType];
         if (rates && rates[zone]) return rates[zone];
-        return rates['Cross Province']; 
+        return rates['Cross Province'];
     }
     
-    // 🛑 NEW: Function to set and update the delivery type 🛑
     function setDeliveryType(type, triggerPriceUpdate = true) {
         currentDeliveryType = type;
         const shippingZoneSelector = document.getElementById('shipping-zone-selector');
@@ -1410,10 +1466,7 @@
         
         if (triggerPriceUpdate) updateFinalPrice();
     }
-
-
-    // --- PostEx Integration Logic (Replaces Google Maps Geolocation) ---
-
+    //postex integration functions
     function manualLocationCheck() {
         const cityInput = document.getElementById('input-city').value.trim();
         if (cityInput.length < 3) return;
@@ -1421,14 +1474,12 @@
     }
 
     function detectLocation() {
-        if (POSTEX_TOKEN === 'YOUR_MANDATORY_POSTEX_TOKEN') {
+        if (POSTEX_TOKEN === 'POSTEX_TOKEN') {
             if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
                  Cart.showAlert("PostEx API Token not configured. Please enter your city manually.", 'error');
             }
             return;
         }
-        
-        // PostEx uses manual input and API checks, replacing geolocation flow.
         document.getElementById('zone-name').textContent = "Please enter your city name above for zone check.";
         if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
              Cart.showAlert("City detection via PostEx requires manual city entry.", 'info');
@@ -1437,13 +1488,12 @@
 
     function updateShippingZone(cityName) {
         const normalizedCity = cityName.toLowerCase().replace(/[^a-z0-9]/g, ' ').trim();
-        let zone = 'Cross Province'; 
+        let zone = 'Cross Province';
         
         if (CITY_TO_ZONE[normalizedCity]) {
             zone = CITY_TO_ZONE[normalizedCity];
         } else {
-            // Fallback check for major Punjab cities not explicitly listed
-            if (cityName.toLowerCase().includes('lahore') || cityName.toLowerCase().includes('gujrat')) {
+          if (cityName.toLowerCase().includes('lahore') || cityName.toLowerCase().includes('gujrat')) {
                  zone = 'Same Province';
             }
         }
@@ -1455,25 +1505,39 @@
         zoneDisplay.classList.remove('text-success', 'text-warning', 'text-danger');
         zoneDisplay.classList.add(zone === 'Within City' ? 'text-success' : (zone === 'Same Province' ? 'text-warning' : 'text-danger'));
         
-        updateFinalPrice(); 
+        updateFinalPrice();
     }
-    
-    // --- Price Calculation Logic (MODIFIED to return item data) ---
-    
     function calculateItemPrice() {
         if (!currentProduct) return { error: "No product selected" };
         
         const isAreaBased = currentProduct.isAreaBased;
         const isDigitalTiered = currentProduct.isDigitalTiered;
+        const isPhotoPrints = currentProduct.isPhotoPrints; 
+        const isBundleTiered = currentProduct.isBundleTiered; 
+        
         let baseProductPrice = 0;
         let requiresManualQuote = false;
         let quantity = 0;
         let itemOptions = {};
-        // Use the generic image file name from currentProduct (set in initialProductSetup)
-        let imageFile = currentProduct.imageFile; 
+        let imageFile = currentProduct.imageFile;
+        
+        if (isPhotoPrints || isBundleTiered) { 
+            quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 0;
+            const bundleName = currentSelectedVariations['ProductBundle'];
+            const bundles = currentProduct.bundles;
 
-        // 1. Calculate Base Product Price (Cost before Shipping/Margin)
-        if (isAreaBased) {
+            itemOptions['Bundle'] = bundleName;
+            itemOptions['Quantity'] = quantity;
+
+            if (!bundleName || quantity <= 0 || !bundles) { 
+                return { error: `Bundle selection or quantity for ${currentProduct.baseName} is incomplete` };
+            }
+
+            const unitPrice = bundles[bundleName] || 0;
+            baseProductPrice = unitPrice * quantity;
+        }
+        
+        else if (isAreaBased) {
             const width = parseFloat(document.getElementById('input-width').value) || 0;
             const height = parseFloat(document.getElementById('input-height').value) || 0;
             quantity = parseInt(document.getElementById('input-custom-qty').value) || 0;
@@ -1500,14 +1564,14 @@
                 }
                 const basePrintCost = totalArea * baseRate;
                 let totalDesignFee = 0;
-                if (designService === 'DesignNeeded') {
+                if (designService === 'DesignNeeded' && !['3D Wallpaper', 'Photo Frames'].includes(currentProduct.baseName)) {
                     totalDesignFee = calculateDesignFee(itemArea, quantity);
                 }
                 const totalCostBeforeProfit = basePrintCost + totalDesignFee;
                 const profitMultiplier = getAreaProfitMultiplier(quantity);
                 baseProductPrice = Math.round(totalCostBeforeProfit * profitMultiplier);
             }
-        } 
+        }
         else if (isDigitalTiered) {
              quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 0;
              const size = currentSelectedVariations.Size;
@@ -1520,24 +1584,24 @@
              if (!size || !colorType || !gsm || quantity <= 0) requiresManualQuote = true;
              
              try {
-                const tiers = customprintspricing[currentProduct.baseName];
-                const gsmData = tiers[size][colorType][gsm];
-                let unitPrice = 0;
-                let foundPrice = false;
-                
-                Object.keys(gsmData).forEach(rangeKey => {
-                    const [min, max] = rangeKey.split('-').map(n => parseInt(n));
-                    if (quantity >= min && (isNaN(max) || quantity <= max)) { 
-                        unitPrice = gsmData[rangeKey];
-                        foundPrice = true;
-                    }
-                });
-                
-                if (foundPrice) {
-                    baseProductPrice = unitPrice * quantity;
-                } else {
-                    requiresManualQuote = true;
-                }
+                 const tiers = customprintspricing[currentProduct.baseName];
+                 const gsmData = tiers[size][colorType][gsm];
+                 let unitPrice = 0;
+                 let foundPrice = false;
+                 
+                 Object.keys(gsmData).forEach(rangeKey => {
+                     const [min, max] = rangeKey.split('-').map(n => parseInt(n));
+                     if (quantity >= min && (isNaN(max) || quantity <= max)) {
+                         unitPrice = gsmData[rangeKey];
+                         foundPrice = true;
+                     }
+                 });
+                 
+                 if (foundPrice) {
+                     baseProductPrice = unitPrice * quantity;
+                 } else {
+                     requiresManualQuote = true;
+                 }
              } catch(e) {
                  requiresManualQuote = true;
              }
@@ -1549,8 +1613,8 @@
             let allSelected = true;
             const requiredKeys = Object.keys(allCombinations[0] || {}).filter(key => key !== 'Price' && key !== 'FullName');
 
-            requiredKeys.forEach(key => { 
-                if (!currentSelectedVariations[key]) allSelected = false; 
+            requiredKeys.forEach(key => {
+                if (!currentSelectedVariations[key]) allSelected = false;
                 itemOptions[key] = currentSelectedVariations[key];
             });
             itemOptions['Quantity'] = quantity;
@@ -1558,7 +1622,7 @@
             if (!allSelected) requiresManualQuote = true;
             
             if (!requiresManualQuote) {
-                let finalProductCombination = allCombinations.find(combo => 
+                let finalProductCombination = allCombinations.find(combo =>
                     requiredKeys.every(key => combo[key] === currentSelectedVariations[key])
                 );
                 
@@ -1573,34 +1637,38 @@
         if (requiresManualQuote || baseProductPrice === 0) {
             return { error: "Requires manual quote or incomplete selection" };
         }
-
-        // Return core item data (excluding shipping)
         return {
             productName: currentProduct.baseName,
             quantity: quantity,
-            basePrice: baseProductPrice, // This is the total price for the item(s) before shipping/tax
+            basePrice: baseProductPrice, 
             options: itemOptions,
             isAreaBased: isAreaBased,
-            imageFile: imageFile // Using the generic image file name
+            imageFile: imageFile 
         };
     }
-    
-    // 🛑 NEW: Function to update UI from price calculation
     function updateFinalPrice() {
         const itemData = calculateItemPrice();
-        
-        // --- Error/Warning Handling ---
         if (itemData.error) {
             document.getElementById('finalPriceBox').style.display = 'none';
             document.getElementById('shipping-display-box').style.display = 'none';
-            document.getElementById('selectionWarning').textContent = "Please enter dimensions/quantity or select all options above to see the final price.";
+            
+            let warningText = "Please enter dimensions/quantity or select all options above to see the final price.";
+            if (currentProduct?.isPhotoPrints || currentProduct?.isBundleTiered) { 
+                 warningText = `Please select a bundle and quantity for ${currentProduct.baseName} to see the final price.`;
+            }
+
+            document.getElementById('selectionWarning').textContent = warningText;
             document.getElementById('selectionWarning').classList.remove('alert-danger');
             document.getElementById('selectionWarning').classList.add('alert-info');
             document.getElementById('selectionWarning').style.display = 'block';
+            
+            if (currentProduct?.isPhotoPrints) {
+                 if (document.getElementById('upload-status')) document.getElementById('upload-status').style.display = 'none';
+            }
             return;
         }
 
-        // --- SHIPPING & FINAL PRICE CALCULATION ---
+        //shipping and price calculation
         let shippingCost = 0;
         let shippingNote = '';
         const packetType = getShippingPacketType(itemData.productName);
@@ -1608,17 +1676,16 @@
         if (currentDeliveryType === 'SelfPickUp') {
             shippingCost = 0;
             shippingNote = 'Self Pick Up. No shipping charges applied.';
-        } else { 
-            // Home Delivery Logic (using a simplified simulation of cart-manager logic for the product page view)
+        } else {
             const isLocal = currentShippingZone === 'Within City';
             const costForPacket = SHIPPING_RATES[packetType][currentShippingZone] || SHIPPING_RATES[packetType]['Cross Province'];
 
-            if (isLocal && itemData.basePrice > 3000) { // Using 3000 PKR threshold hardcoded from cart-manager.js
+            if (isLocal && itemData.basePrice > 3000) { // minimum for free local delivery
                  shippingCost = 0;
                  shippingNote = `FREE Delivery! (Local JLP orders over PKR 3,000)`;
             } else {
                 shippingCost = isLocal ? SHIPPING_RATES[packetType]['Within City'] : costForPacket;
-                shippingNote = isLocal 
+                shippingNote = isLocal
                     ? `Local Delivery (Jalalpur Jattan). Flat rate for ${packetType.toUpperCase()} packet.`
                     : `PostEx Courier (to ${currentShippingZone}). Price includes ${packetType.toUpperCase()} packet charge, fuel surcharge, and GST.`;
             }
@@ -1626,18 +1693,12 @@
 
         const totalCost = itemData.basePrice + shippingCost;
         const finalSellingPrice = Math.round(totalCost);
-        
-        // --- Update UI with Final Selling Price ---
         document.getElementById('finalPriceDisplay').textContent = `PKR ${finalSellingPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
         document.getElementById('finalPriceBox').style.display = 'block';
         document.getElementById('selectionWarning').style.display = 'none';
-
-        // --- Update UI with Shipping Cost Details ---
         document.getElementById('shipping-cost-display').textContent = shippingCost === 0 ? "FREE" : `PKR ${shippingCost.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
         document.getElementById('shipping-note-display').textContent = shippingNote;
         document.getElementById('shipping-display-box').style.display = 'block';
-
-        // Update Area Constraint Warning display (for design fee)
         const areaConstraintWarning = document.getElementById('areaConstraintWarning');
         if (areaConstraintWarning && itemData.isAreaBased) {
              const width = parseFloat(document.getElementById('input-width').value) || 0;
@@ -1645,6 +1706,7 @@
              const rateMeta = AREA_BASED_META[currentProduct.baseName];
              const minArea = rateMeta ? rateMeta.min_area || 0 : 0;
              const totalArea = width * height * itemData.quantity;
+             const designService = itemData.options['Design Service'];
 
              areaConstraintWarning.classList.remove('alert-danger', 'alert-info');
              areaConstraintWarning.style.display = 'none';
@@ -1653,7 +1715,7 @@
                  areaConstraintWarning.textContent = `Minimum order area for this product is ${minArea} sq ft. Current total area (${totalArea.toFixed(2)} sq ft) is too small.`;
                  areaConstraintWarning.classList.add('alert-danger');
                  areaConstraintWarning.style.display = 'block';
-             } else if (itemData.options['Design Service'] === 'DesignNeeded') {
+             } else if (designService === 'DesignNeeded' && !['3D Wallpaper', 'Photo Frames'].includes(currentProduct.baseName)) {
                  const itemArea = width * height;
                  const designFee = calculateDesignFee(itemArea, itemData.quantity);
                  areaConstraintWarning.innerHTML = `<i class="fas fa-magic me-2"></i> **Design Fee Applied**: PKR ${designFee.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
@@ -1663,7 +1725,6 @@
         }
     }
 
-    // 🛑 NEW: Function to Add Item to Cart 🛑
     function addItemToCart() {
         if (typeof Cart === 'undefined') {
             if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
@@ -1680,11 +1741,11 @@
         }
         
         const cartItem = {
-            id: Date.now(), // Unique ID for this cart item
+            id: Date.now(), // id for cart item
             productName: itemData.productName,
             quantity: itemData.quantity,
-            basePrice: itemData.basePrice, 
-            finalItemPrice: itemData.basePrice, // NOTE: Passing item cost only to prevent double-shipping calculation in cart-manager.js
+            basePrice: itemData.basePrice,
+            finalItemPrice: itemData.basePrice, 
             options: itemData.options,
             isAreaBased: itemData.isAreaBased,
             imageFile: itemData.imageFile,
@@ -1692,12 +1753,9 @@
 
         Cart.addItem(cartItem);
     }
-
-
-    // 4. Navigate to and Populate Product Detail Page
     function showProductDetails(productName) {
         
-        if (productName.trim() === "Custom Prints") {
+        if (productName.trim() === "Paper Prints") {
              showDigitalPrintingDetails();
              return;
         }
@@ -1705,28 +1763,27 @@
              productName = "Photo Printing";
         }
 
-
-        let cleanName = productName.replace(/'/g, '').trim(); 
-        const productData = allProductGroups[cleanName]; 
-        currentProduct = productData;
-        currentSelectedVariations = {}; 
+        let cleanName = productName.replace(/'/g, '').trim();
+        currentProduct = allProductGroups[cleanName];
 
         if (!currentProduct) {
             if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
-                Cart.showAlert(`Product "${cleanName}" details not found in data. Please use the 'Get Custom Quote' option.`, 'error'); 
+                Cart.showAlert(`Product "${cleanName}" details not found in data. Please use the 'Get Custom Quote' option.`, 'error');
             }
             return;
         }
-
-        // Update headers and image
+        if (currentProduct.isPhotoPrints || currentProduct.isBundleTiered) {
+             showBundleProductDetails(currentProduct.baseName);
+             return;
+        }
         document.getElementById('detail-product-name-header').textContent = currentProduct.baseName;
         document.getElementById('detail-product-name-body').textContent = currentProduct.baseName;
         
-        const imagePath = currentProduct.imageFile; // This is now just the base filename (e.g., 'vcard')
+        const imagePath = currentProduct.imageFile;
         document.getElementById('detail-product-image-webp').srcset = `img/products/${imagePath}.webp`;
-        document.getElementById('detail-product-image').src = `img/products/${imagePath}.png`; 
-        document.getElementById('detail-product-image').onerror = function() { 
-             this.src = `img/products/placeholder.png`; 
+        document.getElementById('detail-product-image').src = `img/products/${imagePath}.png`;
+        document.getElementById('detail-product-image').onerror = function() {
+            this.src = `img/products/placeholder.png`;
         };
 
 
@@ -1739,40 +1796,42 @@
         document.getElementById('selectionWarning').classList.add('alert-info');
         document.getElementById('selectionWarning').style.display = 'block';
 
-        // Reset Delivery Selection to default Home Delivery
-        setDeliveryType('HomeDelivery', false); // Initialize UI state and default zone
+        setDeliveryType('HomeDelivery', false);
 
         const isAreaBased = currentProduct.isAreaBased;
         
-        // 🛑 CORE LOGIC: Area-Based vs. Standard 🛑
         if (isAreaBased) {
-            // --- AREA-BASED SETUP (Panaflex/Wallpaper/Photo Frames) ---
+
             areaInputs.style.display = 'block';
             
-            // Inject Design Service option group before existing standard options
-            standardOptions.style.display = 'block'; 
-            standardOptions.innerHTML = `
-                <div class="product-option-group" data-option-key="DesignService">
-                    <label>Design Service:</label>
-                    <div class="d-flex flex-wrap gap-3">
-                        <label class="choice-card selected" id="design-printready" 
-                               onclick="currentSelectedVariations['DesignService']='PrintReady'; updateFinalPrice()">
-                            <input type="radio" name="option-DesignService" value="PrintReady" checked>
-                            <span class="label-text">Print Ready File</span>
-                        </label>
-                        <label class="choice-card" id="design-needed" 
-                               onclick="currentSelectedVariations['DesignService']='DesignNeeded'; updateFinalPrice()">
-                            <input type="radio" name="option-DesignService" value="DesignNeeded">
-                            <span class="label-text">Design Service Required</span>
-                        </label>
-                    </div>
-                </div>`;
+            const excludeDesign = ['3D Wallpaper', 'Photo Frames'];
             
-            // Set initial selection state for the new option
-            currentSelectedVariations['DesignService'] = 'PrintReady';
+            standardOptions.style.display = 'block';
+            standardOptions.innerHTML = '';
 
-            // Reset Dimension inputs
-            document.getElementById('input-width').value = 1;
+            if (!excludeDesign.includes(currentProduct.baseName)) {
+
+                standardOptions.innerHTML = `
+                    <div class="product-option-group" data-option-key="DesignService">
+                        <label>Design Service:</label>
+                        <div class="d-flex flex-wrap gap-3">
+                            <label class="choice-card selected" id="design-printready"
+                                        onclick="currentSelectedVariations['DesignService']='PrintReady'; updateFinalPrice()">
+                                <input type="radio" name="option-DesignService" value="PrintReady" checked>
+                                <span class="label-text">Print Ready File</span>
+                            </label>
+                            <label class="choice-card" id="design-needed"
+                                        onclick="currentSelectedVariations['DesignService']='DesignNeeded'; updateFinalPrice()">
+                                <input type="radio" name="option-DesignService" value="DesignNeeded">
+                                <span class="label-text">Design Service Required</span>
+                            </label>
+                        </div>
+                    </div>`;
+           currentSelectedVariations['DesignService'] = 'PrintReady';
+            } else {
+                             currentSelectedVariations['DesignService'] = 'PrintReady';
+            }
+                      document.getElementById('input-width').value = 1;
             document.getElementById('input-height').value = 1;
             document.getElementById('input-custom-qty').value = 1;
 
@@ -1783,15 +1842,14 @@
             
             document.getElementById('areaConstraintWarning').style.display = 'none';
             document.getElementById('areaConstraintWarning').classList.remove('alert-info');
-            document.getElementById('areaConstraintWarning').classList.add('alert-danger'); // Default style is error, use info for fee
+            document.getElementById('areaConstraintWarning').classList.add('alert-danger');
 
             updateFinalPrice();
 
         } else {
-            // --- STANDARD TIERED ITEM SETUP ---
             areaInputs.style.display = 'none';
             standardOptions.style.display = 'block';
-            standardOptions.innerHTML = ''; 
+            standardOptions.innerHTML = '';
 
             const allCombinations = currentProduct.combinations || [];
             if (allCombinations.length === 0 || !allCombinations[0]) {
@@ -1801,7 +1859,6 @@
 
             let attributeKeys = Object.keys(allCombinations[0]).filter(key => key !== 'Price' && key !== 'FullName');
             
-            // FIX: Sort attribute keys using the defined priority
             attributeKeys = sortAttributeKeys(attributeKeys);
 
 
@@ -1813,8 +1870,7 @@
                     if (c[key]) availableAttributes[key].add(c[key]);
                 });
             });
-            
-            // Render groups of unique values for each attribute
+        
             attributeKeys.forEach((attrKey) => {
                 const uniqueValues = Array.from(availableAttributes[attrKey]);
                 const sanitizedKey = attrKey;
@@ -1824,8 +1880,6 @@
                         <label>${attrKey}:</label>
                         <div class="d-flex flex-wrap gap-3" id="choices-${sanitizedKey}">
                 `;
-                
-                // Sort values for cleaner UI
                 uniqueValues.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
 
                 uniqueValues.forEach(value => {
@@ -1833,8 +1887,8 @@
                     
                     groupHTML += `
                         <label class="choice-card" for="${inputId}">
-                            <input type="radio" id="${inputId}" name="option-${sanitizedKey}" value="${value}" 
-                                   onchange="handleCardSelection('${sanitizedKey}', '${value}')">
+                            <input type="radio" id="${inputId}" name="option-${sanitizedKey}" value="${value}"
+                                            onchange="handleCardSelection('${sanitizedKey}', '${value}')">
                             <span class="label-text">${value}</span>
                         </label>
                     `;
@@ -1844,29 +1898,26 @@
                 standardOptions.innerHTML += groupHTML;
             });
 
-            // Add quantity selector for standard items
             standardOptions.innerHTML += `
-                 <div class="product-option-group" data-option-key="QuantitySelector">
-                    <label>Quantity:</label>
-                    <div class="input-group">
-                        <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(-1)">-</button>
-                        <input type="number" id="input-standard-qty" min="1" value="1" class="form-control text-center rounded-0" oninput="updateFinalPrice()">
-                        <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(1)">+</button>
+                    <div class="product-option-group" data-option-key="QuantitySelector">
+                        <label>Quantity:</label>
+                        <div class="input-group">
+                            <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(-1)">-</button>
+                            <input type="number" id="input-standard-qty" min="1" value="1" class="form-control text-center rounded-0" oninput="updateFinalPrice()">
+                            <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(1)">+</button>
+                        </div>
                     </div>
-                </div>
             `;
             
             document.getElementById('finalPriceBox').style.display = 'none';
             document.getElementById('selectionWarning').style.display = 'block';
-
-            // Initial auto-selection to set defaults and trigger cascading update
             if (attributeKeys.length > 0) {
                  const firstKey = attributeKeys[0];
                  const firstValue = Array.from(availableAttributes[firstKey])[0];
                  if(firstValue) {
-                    const firstInput = document.querySelector(`input[name="option-${firstKey}"][value="${firstValue}"]`);
-                    if(firstInput) firstInput.checked = true;
-                    handleCardSelection(firstKey, firstValue);
+                      const firstInput = document.querySelector(`input[name="option-${firstKey}"][value="${firstValue}"]`);
+                      if(firstInput) firstInput.checked = true;
+                      handleCardSelection(firstKey, firstValue);
                  }
             } else {
                 updateFinalPrice();
@@ -1877,12 +1928,12 @@
     }
     
     function showDigitalPrintingDetails() {
-         currentProduct = allProductGroups["Custom Prints"];
-         currentSelectedVariations = {}; 
+         currentProduct = allProductGroups["Paper Prints"];
+         currentSelectedVariations = {};
          
-         if (!currentProduct || !customprintspricing["Custom Prints"]) {
+         if (!currentProduct || !customprintspricing["Paper Prints"]) {
              if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
-                Cart.showAlert(`Custom Prints data not found.`, 'error');
+                 Cart.showAlert(`Paper Prints data not found.`, 'error');
              }
              return;
          }
@@ -1892,7 +1943,7 @@
          
          const imagePath = currentProduct.imageFile;
          document.getElementById('detail-product-image-webp').srcset = `img/products/${imagePath}.webp`;
-         document.getElementById('detail-product-image').src = `img/products/${imagePath}.png`; 
+         document.getElementById('detail-product-image').src = `img/products/${imagePath}.png`;
          document.getElementById('detail-product-image').onerror = function() { this.src = `img/products/placeholder.png`; };
 
          const areaInputs = document.getElementById('custom-area-inputs');
@@ -1908,75 +1959,163 @@
          document.getElementById('selectionWarning').classList.add('alert-info');
          document.getElementById('selectionWarning').style.display = 'block';
 
-         // Reset Delivery Selection to default Home Delivery
-         setDeliveryType('HomeDelivery', false); 
-
-         const sizes = Object.keys(customprintspricing["Custom Prints"]);
+         setDeliveryType('HomeDelivery', false);
+         
+         const sizes = Object.keys(customprintspricing["Paper Prints"]);
          
          if(sizes.length === 0) {
-             standardOptions.innerHTML = `<p class="alert alert-warning">Custom Prints not loaded. Please contact support.</p>`;
+             standardOptions.innerHTML = `<p class="alert alert-warning">Paper Prints not loaded. Please contact support.</p>`;
              showSection('product-detail');
              return;
          }
          
          let html = '';
-         const keysToRender = ['Size', 'ColorType', 'GSM']; 
-         const sizesList = Object.keys(customprintspricing["Custom Prints"]); 
+         const keysToRender = ['Size', 'ColorType', 'GSM'];
+         const sizesList = Object.keys(customprintspricing["Paper Prints"]);
          
          keysToRender.forEach(key => {
-            html += `<div class="product-option-group" data-option-key="${key}">
-                    <label>${key.replace('ColorType', 'Print Color').replace('GSM', 'Paper Weight (GSM)')}:</label>
-                    <div class="d-flex flex-wrap gap-3" id="choices-${key}">`;
-            
-            let currentOptions = [];
-            if (key === 'Size') {
-                currentOptions = sizesList;
-            } else if (key === 'ColorType' && sizesList.length > 0) {
-                currentOptions = Object.keys(customprintspricing["Custom Prints"][sizesList[0]] || {});
-            } else if (key === 'GSM' && sizesList.length > 0) {
-                const firstColorType = Object.keys(customprintspricing["Custom Prints"][sizesList[0]] || {})[0];
+             html += `<div class="product-option-group" data-option-key="${key}">
+                         <label>${key.replace('ColorType', 'Print Color').replace('GSM', 'Paper Weight (GSM)')}:</label>
+                         <div class="d-flex flex-wrap gap-3" id="choices-${key}">`;
+             
+             let currentOptions = [];
+             if (key === 'Size') {
+                 currentOptions = sizesList;
+             } else if (key === 'ColorType' && sizesList.length > 0) {
+                 currentOptions = Object.keys(customprintspricing["Paper Prints"][sizesList[0]] || {});
+             } else if (key === 'GSM' && sizesList.length > 0) {
+                 const firstColorType = Object.keys(customprintspricing["Paper Prints"][sizesList[0]] || {})[0];
                  if (firstColorType) {
-                    currentOptions = Object.keys(customprintspricing["Custom Prints"][sizesList[0]][firstColorType] || {});
+                     currentOptions = Object.keys(customprintspricing["Paper Prints"][sizesList[0]][firstColorType] || {});
                  }
-            }
+             }
 
-            currentOptions.forEach(value => {
+             currentOptions.forEach(value => {
                  const displayValue = value.replace('_', ' ').toUpperCase();
                  const inputId = `${key}-${value}`;
                  html += `<label class="choice-card" for="${inputId}">
-                             <input type="radio" id="${inputId}" name="option-${key}" value="${value}" 
-                                    onchange="handleCardSelection('${key}', '${value}', true)">
-                             <span class="label-text">${displayValue}</span>
-                         </label>`;
-            });
-            html += `</div></div>`;
+                                  <input type="radio" id="${inputId}" name="option-${key}" value="${value}"
+                                          onchange="handleCardSelection('${key}', '${value}', true)">
+                                  <span class="label-text">${displayValue}</span>
+                              </label>`;
+             });
+             html += `</div></div>`;
          });
 
          standardOptions.innerHTML += html;
          
          standardOptions.innerHTML += `
               <div class="product-option-group" data-option-key="QuantitySelector">
-                 <label>Number of Pages:</label>
-                 <div class="input-group">
-                     <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(-1)">-</button>
-                     <input type="number" id="input-standard-qty" min="1" value="1" class="form-control text-center rounded-0" oninput="updateFinalPrice()">
-                     <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(1)">+</button>
-                 </div>
-             </div>
+                  <label>Number of Pages:</label>
+                  <div class="input-group">
+                      <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(-1)">-</button>
+                      <input type="number" id="input-standard-qty" min="1" value="1" class="form-control text-center rounded-0" oninput="updateFinalPrice()">
+                      <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(1)">+</button>
+                  </div>
+              </div>
          `;
          
          keysToRender.forEach(key => {
-            const firstInput = document.querySelector(`input[name="option-${key}"]`);
-            if (firstInput) {
-                firstInput.checked = true;
-                handleCardSelection(key, firstInput.value, false); 
-            }
+             const firstInput = document.querySelector(`input[name="option-${key}"]`);
+             if (firstInput) {
+                 firstInput.checked = true;
+                 handleCardSelection(key, firstInput.value, false);
+             }
          });
          
          updateFinalPrice();
 
          showSection('product-detail');
     }
+
+    function showBundleProductDetails(productName) {
+        
+        const bundles = currentProduct.bundles;
+        currentSelectedVariations = {};
+
+        if (!currentProduct || !bundles) {
+            if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
+                Cart.showAlert(`${productName} bundle data not found.`, 'error');
+            }
+            return;
+        }
+
+        document.getElementById('detail-product-name-header').textContent = productName;
+        document.getElementById('detail-product-name-body').textContent = productName;
+
+        const imagePath = currentProduct.imageFile;
+        document.getElementById('detail-product-image-webp').srcset = `img/products/${imagePath}.webp`;
+        document.getElementById('detail-product-image').src = `img/products/${imagePath}.png`;
+        document.getElementById('detail-product-image').onerror = function() { this.src = `img/products/placeholder.png`; };
+
+        document.getElementById('custom-area-inputs').style.display = 'none';
+        const standardOptions = document.getElementById('standard-options-fields');
+        standardOptions.style.display = 'block';
+        standardOptions.innerHTML = '';
+
+        document.getElementById('finalPriceBox').style.display = 'none';
+        
+        let warningMessage = "Please select a bundle and quantity of bundles to see the final price.";
+        if (productName === 'Photo Printing') {
+             warningMessage = "Please select a photo bundle, quantity, and prepare your images to see the final price.";
+        }
+        document.getElementById('selectionWarning').textContent = warningMessage;
+        document.getElementById('selectionWarning').classList.remove('alert-danger');
+        document.getElementById('selectionWarning').classList.add('alert-info');
+        document.getElementById('selectionWarning').style.display = 'block';
+
+        setDeliveryType('HomeDelivery', false); 
+
+        const bundleKeys = Object.keys(bundles);
+        let html = '';
+
+        // bundle
+        html += `<div class="product-option-group" data-option-key="ProductBundle">
+                    <label>Select ${productName} Bundle:</label>
+                    <div class="d-flex flex-wrap gap-3" id="choices-ProductBundle">`;
+
+        bundleKeys.forEach(bundle => {
+            const price = bundles[bundle];
+            const inputId = `bundle-${productName.replace(/\s/g, '-')}-${bundle.replace(/\s/g, '-')}`;
+            
+            // bundle name
+            let displayPrice = '';
+            
+            html += `<label class="choice-card" for="${inputId}">
+                        <input type="radio" id="${inputId}" name="option-ProductBundle" value="${bundle}" 
+                               onchange="handleCardSelection('ProductBundle', '${bundle}', false)">
+                        <span class="label-text">${bundle}</span>
+                    </label>`;
+        });
+        html += `</div></div>`;
+
+        // number of bundles
+        html += `
+            <div class="product-option-group" data-option-key="BundleQuantity">
+                <label>Number of Bundles:</label>
+                <div class="input-group">
+                    <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(-1)">-</button>
+                    <input type="number" id="input-standard-qty" min="1" value="1" class="form-control text-center rounded-0" oninput="updateFinalPrice()">
+                    <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(1)">+</button>
+                </div>
+            </div>`;
+            
+        standardOptions.innerHTML = html;
+
+        const firstBundle = bundleKeys[0];
+        if (firstBundle) {
+            const firstInput = document.querySelector(`input[name="option-ProductBundle"][value="${firstBundle}"]`);
+            if (firstInput) {
+                 firstInput.checked = true;
+                 firstInput.closest('.choice-card').classList.add('selected');
+                 currentSelectedVariations['ProductBundle'] = firstBundle;
+            }
+        }
+        
+        updateFinalPrice();
+        showSection('product-detail');
+    }
+
 
     function handleCardSelection(key, value, cascade = true) {
         const sanitizedKey = key;
@@ -1990,8 +2129,10 @@
         if (selectedInput) {
             selectedInput.closest('.choice-card')?.classList.add('selected');
         }
+        
+        
 
-        if (currentProduct.isDigitalTiered) {
+        if (currentProduct?.isDigitalTiered || currentProduct?.isPhotoPrints || currentProduct?.isBundleTiered) { 
              if (cascade) updateFinalPrice();
              return;
         }
@@ -2005,7 +2146,7 @@
             for (const attrKey of allAttributeKeys) {
                 if (attrKey === key) {
                     startCascade = true;
-                    continue; 
+                    continue;
                 }
                 
                 if (startCascade) {
@@ -2026,8 +2167,8 @@
                                 card.classList.remove('selected');
                                 
                                 if (currentSelectedVariations[attrKey] === optionValue) {
-                                    delete currentSelectedVariations[attrKey];
-                                    newSelectionNeeded = true;
+                                     delete currentSelectedVariations[attrKey];
+                                     newSelectionNeeded = true;
                                 }
                             } else {
                                 card.classList.remove('disabled');
@@ -2041,9 +2182,9 @@
                         if (newSelectionNeeded || !currentSelectedVariations[attrKey]) {
                             const firstValidOption = targetGroup.querySelector('.choice-card:not(.disabled) input');
                             if (firstValidOption) {
-                                firstValidOption.checked = true; 
+                                firstValidOption.checked = true;
                                 handleCardSelection(attrKey, firstValidOption.value);
-                                return; 
+                                return;
                             } else {
                                 delete currentSelectedVariations[attrKey];
                             }
@@ -2064,8 +2205,8 @@
             
             for (const key of keysToCheck) {
                  if (combo[key] !== currentSelections[key]) {
-                    isMatch = false;
-                    break;
+                     isMatch = false;
+                     break;
                  }
             }
             if (isMatch && combo[targetKey]) validValues.add(combo[targetKey]);
@@ -2080,8 +2221,47 @@
         input.value = quantity;
         updateFinalPrice();
     }
+
+function filterProducts() {
+    const input = document.getElementById('search-input');
+    const filter = input.value.toUpperCase();
+    const productItems = document.querySelectorAll('.product-item');
+    const headings = document.querySelectorAll('#main-product-catalog > h3');
+    const resultsMessage = document.getElementById('search-results-message');
     
-    // --- Helper Functions (Remaining) ---
+    let visibleCount = 0;
+    
+    productItems.forEach(item => {
+        const name = item.getAttribute('data-name');
+        if (name.toUpperCase().indexOf(filter) > -1) {
+            item.style.display = '';
+            visibleCount++;
+        } else {
+            item.style.display = 'none';
+        }
+    });
+    
+    headings.forEach(heading => {
+        if (filter.length > 0) {
+            heading.style.display = 'none';
+        } else {
+            heading.style.display = ''; 
+        }
+    });
+
+    if (filter.length > 0) {
+        if (visibleCount > 0) {
+            resultsMessage.innerHTML = `Found **${visibleCount}** matching product(s).`;
+            resultsMessage.style.display = 'block';
+        } else {
+            resultsMessage.innerHTML = `No products found matching "**${filter}**".`;
+            resultsMessage.style.display = 'block';
+        }
+    } else {
+        resultsMessage.style.display = 'none';
+    }
+}
+    // helping funcions for whtsapp forms
     function handleQuoteSubmission(e) {
         e.preventDefault();
         const name = document.getElementById('quote-name').value;
@@ -2111,7 +2291,7 @@
     function showSection(sectionName) {
         document.querySelectorAll('.section').forEach(section => { section.classList.remove('active'); });
         const sectionElement = document.getElementById(sectionName + '-section');
-        if (sectionElement) sectionElement.classList.add('active'); 
+        if (sectionElement) sectionElement.classList.add('active');
         else document.getElementById('shop-catalog-section').classList.add('active');
         document.querySelectorAll('.navbar-nav .nav-link').forEach(link => { link.classList.remove('active'); });
         const desktopLink = document.querySelector(`.navbar-nav a[onclick="showSection('${sectionName}')"]`);
@@ -2119,7 +2299,6 @@
         if (typeof setActiveMobileNav === 'function') setActiveMobileNav(sectionName === 'shop-catalog' ? 'products' : sectionName);
         window.scrollTo(0, 0);
 
-        // Reload cart display on showing cart section
         if (sectionName === 'cart' && typeof Cart !== 'undefined') {
             Cart.updateCartDisplay();
         }

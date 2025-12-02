@@ -667,13 +667,13 @@
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control border-0" id="quote-product" placeholder="Product Name (e.g., Visiting Cards, 3D Wallpaper)">
+                                            <input type="text" class="form-control border-0" id="quote-product" placeholder="Product Name (e.g., Card Design #1234)">
                                             <label for="quote-product">Product Name / Type</label>
                                         </div>
                                     </div>
                                      <div class="col-12">
                                         <div class="form-floating">
-                                            <input type="number" class="form-control border-0" id="quote-quantity" placeholder="Quantity or Total Area (e.g., 500 cards, 100 sq ft)">
+                                            <input type="number" class="form-control border-0" id="quote-quantity" placeholder="Quantity (e.g., 500 cards)">
                                             <label for="quote-quantity">Quantity / Estimated Area</label>
                                         </div>
                                     </div>
@@ -1013,9 +1013,15 @@
             }
             rawData = await response.json(); 
         } catch (error) {
-            console.error("Failed to load shop data:", error);
+            console.error("Failed to load shop data: ", error);
             if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
                  Cart.showAlert("Failed to load wedding card data. Check console or network.", 'error');
+            }
+            // 🛑 IMPROVED ERROR CHECK 🛑
+            const spinner = document.getElementById('loading-spinner');
+            if (spinner) {
+                 spinner.innerHTML = `<p class="alert alert-danger">Error: Failed to load card data from ${PUBLIC_DATA_URL}.</p>`;
+                 spinner.style.display = 'block';
             }
             return;
         }
