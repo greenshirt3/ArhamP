@@ -36,6 +36,24 @@
         .section.active {
             display: block;
         }
+        /* Ensure the product name in the button doesn't wrap on small screens */
+.single-line-card-name {
+    display: inline-block; /* allows span to take width */
+    max-width: 85%; /* Reserve space for the icon and padding */
+    white-space: nowrap; /* Prevents text wrap */
+    overflow: hidden; /* Hides overflowing text */
+    text-overflow: ellipsis; /* Displays '...' */
+    vertical-align: middle;
+}
+.product-footer-overlay button {
+    text-align: center; /* Ensures text aligns left inside the button */
+    padding: 10px 15px !important; /* Adjust padding for better look */
+    line-height: 1.2; /* Ensures vertical alignment is clean */
+    font-size: 0.85rem;
+}
+.product-footer-overlay button i {
+    margin-right: 5px; /* Spacing between icon and text */
+}
         .final-price-box {
             background: var(--bs-primary);
             color: white;
@@ -380,111 +398,115 @@
 <section id="shop-catalog-section" class="section active">
     
     <div class="container-fluid page-header py-5">
-        <h2 class="text-center display-6">Products and Services</h2>
-    </div>
+        
 
-    
+<div class="text-center">
+    <h2 class="bg-white px-1 py-1 d-inline-block rounded-1">
+        Products and Services
+    </h2>
+</div>
+    </div>  
     <div class="container py-5">
         <div class="row g-4" id="main-product-catalog">
             
             <h3 class="w-100 pt-3" id="business-essentials">Business & Office Essentials</h3>
                 
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Visiting Cards">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="Visiting Cards">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/vcard.webp' onerror="this.onerror=null;this.src='img/products/vcard.png';" class='w-100' alt='Visiting Cards'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Visiting Cards')">
-                               <i class="fas fa-hand-pointer"></i> Visiting Cards
+                                <span class="single-line-card-name"> Visiting Cards
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Mat Cards">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="Mat Cards">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/matcards.webp' onerror="this.onerror=null;this.src='img/products/matcards.png';" class='w-100' alt='Mat Cards'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Mat Cards')">
-                                <i class="fas fa-hand-pointer"></i> Mat Cards
+                                 <span class="single-line-card-name"> Mat Cards
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="UV Cards">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="UV Cards">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/uvcard.webp' onerror="this.onerror=null;this.src='img/products/uvcard.png';" class='w-100' alt='UV Cards'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('UV Cards')">
-                                <i class="fas fa-hand-pointer"></i> UV Cards
+                                 <span class="single-line-card-name"> UV Cards
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="UV Thick Cards">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="UV Thick Cards">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/thickcard.webp' onerror="this.onerror=null;this.src='img/products/thickcard.png';" class='w-100' alt='UV Thick Cards'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('UV Thick Cards')">
-                                <i class="fas fa-hand-pointer"></i> UV Thick Cards
+                                 <span class="single-line-card-name"> UV Thick Cards
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="PVC ID Cards">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="PVC ID Cards">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/pvc.webp' onerror="this.onerror=null;this.src='img/products/pvc.png';" class='w-100' alt='PVC ID Cards'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('PVC ID Cards')">
-                                <i class="fas fa-hand-pointer"></i> PVC ID Cards
+                                 <span class="single-line-card-name"> PVC ID Cards
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Certificates">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="Certificates">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/certificates.webp' onerror="this.onerror=null;this.src='img/products/pvc.png';" class='w-100' alt='Certificates'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Certificates')">
-                                <i class="fas fa-hand-pointer"></i> Certificates
+                                 <span class="single-line-card-name"> Certificates
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Letterpads">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="Letterpads">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/letterpad.webp' onerror="this.onerror=null;this.src='img/products/letterpad.png';" class='w-100' alt='Letterpad'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Letterpads')">
-                                <i class="fas fa-hand-pointer"></i> Letterpads
+                                 <span class="single-line-card-name"> Letterpads
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Envelops">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="Envelops">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/envelops.webp' onerror="this.onerror=null;this.src='img/products/envelops.png';" class='w-100' alt='envelops'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Envelops')">
-                                <i class="fas fa-hand-pointer"></i> Envelops
+                                 <span class="single-line-card-name"> Envelops
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Bill Books">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="Bill Books">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/billbooks.webp' onerror="this.onerror=null;this.src='img/products/billbooks.png';" class='w-100' alt='Bill Books'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Bill Books')">
-                                <i class="fas fa-hand-pointer"></i> Bill Books
+                                 <span class="single-line-card-name"> Bill Books
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Rubber Stamp (Rectangular)">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="Rubber Stamp (Rectangular)">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/stamps.webp' onerror="this.onerror=null;this.src='img/products/stamps.png';" class='w-100' alt='Rubber Stamps'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Rubber Stamp (Rectangular)')">
-                                <i class="fas fa-hand-pointer"></i> Rubber Stamps
+                                 <span class="single-line-card-name"> Rubber Stamps
                             </button>
                         </div>
                     </div>
@@ -493,125 +515,125 @@
 
                 <h3 class="w-100 pt-3" id="marketing-essentials">Marketing & Promotional Items</h3>
                 
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Pamphlets & Brochures">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="Pamphlets & Brochures">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/pamphlet.webp' onerror="this.onerror=null;this.src='img/products/pamphlet.png';" class='w-100' alt='Pamphlets & Brochures'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Pamphlets & Brochures')">
-                                <i class="fas fa-hand-pointer"></i> Pamphlets & Brochures 
+                                 <span class="single-line-card-name"> Pamphlets & Brochures 
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="ishtihar">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="ishtihar">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/ishtihar.webp' onerror="this.onerror=null;this.src='img/products/ishtihar.png';" class='w-100' alt='Ishtihar'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Ishtihar')">
-                                <i class="fas fa-hand-pointer"></i> Ishtihars
+                                 <span class="single-line-card-name"> Ishtihars
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Menu Cards">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="Menu Cards">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/menu.webp' onerror="this.onerror=null;this.src='img/products/menu.png';" class='w-100' alt='Menu Cards'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Menu Cards')">
-                                <i class="fas fa-hand-pointer"></i> Menu Cards
+                                 <span class="single-line-card-name"> Menu Cards
                             </button>
                         </div>
                     </div>
                 </div>
 
 
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Stickers">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="Stickers">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/stickers.webp' onerror="this.onerror=null;this.src='img/products/Stickers.png';" class='w-100' alt='Stickers'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Stickers')">
-                                <i class="fas fa-hand-pointer"></i> Stickers
+                                 <span class="single-line-card-name"> Stickers
                             </button>
                         </div>
                     </div>
                 </div>
                 
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="White T-Shirt (Adult Size)">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="White T-Shirt (Adult Size)">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/shirt.webp' onerror="this.onerror=null;this.src='img/products/shirt.png';" class='w-100' alt='T-Shirt'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('White T-Shirt (Adult Size)')">
-                                <i class="fas fa-hand-pointer"></i> T-Shirt
+                                 <span class="single-line-card-name"> T-Shirt
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Caps">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="Caps">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/caps.webp' onerror="this.onerror=null;this.src='img/products/caps.png';" class='w-100' alt='Caps'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Caps')">
-                                <i class="fas fa-hand-pointer"></i> Caps
+                                 <span class="single-line-card-name"> Caps
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Keychains">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="Keychains">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/keychains.webp' onerror="this.onerror=null;this.src='img/products/keychains.png';" class='w-100' alt='Keychains'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Keychains')">
-                                <i class="fas fa-hand-pointer"></i> Keychains
+                                 <span class="single-line-card-name"> Keychains
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Gift Bags">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="Gift Bags">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/gbags.webp' onerror="this.onerror=null;this.src='img/products/gbags.png';" class='w-100' alt='Gift Bags'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Gift Bags')">
-                                <i class="fas fa-hand-pointer"></i> Gift bags
+                                 <span class="single-line-card-name"> Gift bags
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Shopping Bags">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="Shopping Bags">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/bags.webp' onerror="this.onerror=null;this.src='img/products/bags.png';" class='w-100' alt='Shopping Bags'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Shopping Bags')">
-                                <i class="fas fa-hand-pointer"></i> Shopping Bags
+                                 <span class="single-line-card-name"> Shopping Bags
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Non Woven Bags">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="Non Woven Bags">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/nwbags.webp' onerror="this.onerror=null;this.src='img/products/nwbags.png';" class='w-100' alt='Non Woven Bags'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Non Woven Bags')">
-                                <i class="fas fa-hand-pointer"></i> Non Woven Bags
+                                 <span class="single-line-card-name"> Non Woven Bags
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Mug">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="Mug">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/mugs.webp' onerror="this.onerror=null;this.src='img/products/Mug.png';" class='w-100' alt='Mug'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Mug')">
-                                <i class="fas fa-hand-pointer"></i> Mug
+                                 <span class="single-line-card-name"> Mug
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Metal Pen">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="Metal Pen">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/pen.webp' onerror="this.onerror=null;this.src='img/products/pen.png';" class='w-100' alt='Metal Pen'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Metal Pen')">
-                                <i class="fas fa-hand-pointer"></i> Metal Pen
+                                 <span class="single-line-card-name"> Metal Pen
                             </button>
                         </div>
                     </div>
@@ -620,105 +642,105 @@
 
                 <h3 class="w-100 pt-3" id="banners">Custom & Large Format</h3>
                 
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="China">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="China">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/china.webp' onerror="this.onerror=null;this.src='img/products/china.png';" class='w-100' alt='China'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('China')">
-                                <i class="fas fa-hand-pointer"></i> China
+                                 <span class="single-line-card-name"> China
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Star">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="Star">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/star.webp' onerror="this.onerror=null;this.src='img/products/star.png';" class='w-100' alt='Star'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Star')">
-                                <i class="fas fa-hand-pointer"></i> Star
+                                 <span class="single-line-card-name"> Star
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Backlit">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="Backlit">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/backlit.webp' onerror="this.onerror=null;this.src='img/products/backlit.png';" class='w-100' alt='Backlit'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Backlit')">
-                                <i class="fas fa-hand-pointer"></i> Backlit
+                                 <span class="single-line-card-name"> Backlit
                             </button>
                         </div>
                     </div>
                 </div>
                 
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="One Vision">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="One Vision">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/vision.webp' onerror="this.onerror=null;this.src='img/products/vision.png';" class='w-100' alt='One'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('One Vision')">
-                                <i class="fas fa-hand-pointer"></i> One Vision
+                                 <span class="single-line-card-name"> One Vision
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Venyl Sticker">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="Venyl Sticker">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/venyl.webp' onerror="this.onerror=null;this.src='img/products/venyl.png';" class='w-100' alt='Venyl Sticker'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Venyl Sticker')">
-                                <i class="fas fa-hand-pointer"></i> Venyl Sticker
+                                 <span class="single-line-card-name"> Venyl Sticker
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Photo Printing">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="Photo Printing">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/photos.webp' onerror="this.onerror=null;this.src='img/products/photopapers.png';" class='w-100' alt='Photo Printing'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Photo Printing')">
-                                <i class="fas fa-hand-pointer"></i> Photo Papers
+                                 <span class="single-line-card-name"> Photo Papers
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="3D Wallpaper">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="3D Wallpaper">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/wallpapers.webp' onerror="this.onerror=null;this.src='img/products/wallpapers.png';" class='w-100' alt='3D Wallpaper'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('3D Wallpaper')">
-                                <i class="fas fa-hand-pointer"></i> 3D Wallpaper
+                                 <span class="single-line-card-name"> 3D Wallpaper
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Shields">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="Shields">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/shields.webp' onerror="this.onerror=null;this.src='img/products/shields.png';" class='w-100' alt='Shields'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showSection('quote')">
-                                <i class="fas fa-hand-pointer"></i> Shields
+                                 <span class="single-line-card-name"> Shields
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Flags & Fabric">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="Flags & Fabric">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/flags.webp' onerror="this.onerror=null;this.src='img/products/flags.png';" class='w-100' alt='Flags & Fabric'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showSection('quote')">
-                                <i class="fas fa-hand-pointer"></i> Flags & Fabric
+                                 <span class="single-line-card-name"> Flags & Fabric
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Box Packaging">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="Box Packaging">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/box.webp' onerror="this.onerror=null;this.src='img/products/box.png';" class='w-100' alt='Box Packaging'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showSection('quote')">
-                                <i class="fas fa-hand-pointer"></i> Box Packaging
+                                 <span class="single-line-card-name"> Box Packaging
                             </button>
                         </div>
                     </div>
@@ -727,12 +749,12 @@
                 <hr class="w-100" />
 
                 <h3 class="w-100 pt-3" id="prints-and-documents">B/W and Color Prints</h3>
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Paper Prints">
+                <div class='col-lg-3 col-4 mb-4 product-item' data-name="Paper Prints">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/printer.webp' onerror="this.onerror=null;this.src='img/products/printer.png';" class='w-100' alt='Paper Prints'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Paper Prints')">
-                                <i class="fas fa-hand-pointer"></i> Paper Prints
+                                 <span class="single-line-card-name"> Paper Prints
                             </button>
                         </div>
                     </div>
