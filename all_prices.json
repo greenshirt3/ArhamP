@@ -461,6 +461,32 @@
                 "imageFile": "img/products/carbonless.webp"
             }
         ],
+        "Menu Cards": [
+            {
+                "design": "Design and Print",
+                "size & sides": "A4 Single Side Printing",
+                "price": 500.00,
+                "imageFile": "img/products/menu.webp"
+            },
+            {
+                "design": "Only Print",
+                "size & sides": "A4 Single Side Printing",
+                "price": 200.00,
+                "imageFile": "img/products/menu.webp"
+            },
+             {
+                "design": "Design and Print",
+                "size & sides": "A4 Double Side Printing",
+                "price": 700.00,
+                "imageFile": "img/products/menu.webp"
+            },
+             {
+                "design": "Only Print",
+                "size & sides": "A4 Double Side Printing",
+                "price": 300.00,
+                "imageFile": "img/products/menu.webp"
+            }
+        ],
         "File Covers": [
             {
                 "single_side": "4 Colors",
