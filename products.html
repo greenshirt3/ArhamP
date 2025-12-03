@@ -493,17 +493,17 @@
 
                 <h3 class="w-100 pt-3" id="marketing-essentials">Marketing & Promotional Items</h3>
                 
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Pamphlets">
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Pamphlets & Brochures">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
-                        <img src='img/products/pamphlet.webp' onerror="this.onerror=null;this.src='img/products/pamphlet.png';" class='w-100' alt='pamphlet'>
+                        <img src='img/products/pamphlet.webp' onerror="this.onerror=null;this.src='img/products/pamphlet.png';" class='w-100' alt='Pamphlets & Brochures'>
                         <div class="product-footer-overlay p-0">
-                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Ishtihar')">
-                                <i class="fas fa-hand-pointer"></i> Pamphlets
+                            <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Pamphlets & Brochures')">
+                                <i class="fas fa-hand-pointer"></i> Pamphlets & Brochures 
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class='col-lg-3 col-6 mb-4 product-item' data-name="Ishtihars">
+                <div class='col-lg-3 col-6 mb-4 product-item' data-name="ishtihar">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/ishtihar.webp' onerror="this.onerror=null;this.src='img/products/ishtihar.png';" class='w-100' alt='Ishtihar'>
                         <div class="product-footer-overlay p-0">
@@ -1441,7 +1441,6 @@
                     if (productKey === 'Envelops') genericImageFile = 'envelops';
                     if (productKey === 'Bill Books') genericImageFile = 'billbooks';
                     if (productKey === 'Rubber Stamp (Rectangular)') genericImageFile = 'stamps';
-                    if (productKey === 'Ishtihar') genericImageFile = 'pamphlet';
                     if (productKey === 'White T-Shirt (Adult Size)') genericImageFile = 'shirt';
                     if (productKey === 'Mug') genericImageFile = 'mugs';
                     if (productKey === 'Metal Pen') genericImageFile = 'pen';
@@ -1737,7 +1736,7 @@
 
             if (isLocal && itemData.basePrice > 3000) { // minimum for free local delivery
                  shippingCost = 0;
-                 shippingNote = `FREE Delivery! (Local JLP orders over PKR 3,000)`;
+                 shippingNote = `FREE Delivery for Jalalpur Jattan City and Surrounding Villages is applied due to order over PKR 3,000`;
             } else {
                 shippingCost = isLocal ? SHIPPING_RATES[packetType]['Within City'] : costForPacket;
                 shippingNote = isLocal

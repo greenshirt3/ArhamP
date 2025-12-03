@@ -58,6 +58,34 @@
                 "imageFile": "img/products/thickcard.webp"
             }
         ],
+        "PVC ID Cards": [
+            {
+                "finish": "",
+                "variant_3": "Without Lanyard and PVC Sleeve",
+                "price": 140.00,
+                "imageFile": "img/products/pvc.webp"
+            },
+            {
+                "finish": "",
+                "variant_3": "With Lanyard and PVC Sleeve",
+                "price": 170.00,
+                "imageFile": "img/products/pvc.webp"
+            }
+        ],
+        "Certificates": [
+            {
+                "finish": "",
+                "variant_3": "Only Print",
+                "price": 150.00,
+                "imageFile": "img/products/certificates.webp"
+            },
+            {
+                "finish": "",
+                "variant_3": "Design and Print",
+                "price": 300.00,
+                "imageFile": "img/products/certificates.webp"
+            }
+        ],
         "Photo Printing": {
             "isBundleTiered": true,
             "bundles": {
@@ -129,6 +157,35 @@
                 "variant_3": "One Vision",
                 "price": 1.00,
                 "imageFile": "img/products/stickers.webp"
+            }
+        ],
+        "Caps": [
+            {
+                "variant_3": "Single Piece",
+                "price": 300.00,
+                "imageFile": "img/products/caps.webp"
+            },
+             {
+                "variant_3": "Bundle of 3",
+                "price": 850.00,
+                "imageFile": "img/products/caps.webp"
+            },
+            {
+                "variant_3": "Bundle of 5",
+                "price": 1400.00,
+                "imageFile": "img/products/caps.webp"
+            },
+             {
+                "variant_3": "Bundle of 10",
+                "price": 2700.00,
+                "imageFile": "img/products/caps.webp"
+            }
+        ],
+         "Keychains": [
+            {
+                "variant_3": "Single Piece",
+                "price": 300.00,
+                "imageFile": "img/products/keychains.webp"
             }
         ],
         "Letterpads": [
@@ -564,128 +621,128 @@
                 "variant_1": "5.75x9",
                 "variant_3": "68 gms",
                 "price": 2600.00,
-                "imageFile": "img/products/pamphlet.webp"
+                "imageFile": "img/products/ishtihar.webp"
             },
             {
                 "single_side": "Two Colors",
                 "variant_1": "5.75x9",
                 "variant_3": "68 gms",
                 "price": 3400.00,
-                "imageFile": "img/products/pamphlet.webp"
+                "imageFile": "img/products/ishtihar.webp"
             },
             {
                 "single_side": "Single Color",
                 "variant_1": "5.75x9",
                 "variant_3": "80gms",
                 "price": 5500.00,
-                "imageFile": "img/products/pamphlet.webp"
+                "imageFile": "img/products/ishtihar.webp"
             },
             {
                 "single_side": "Two Colors",
                 "variant_1": "5.75x9",
                 "variant_3": "80gms",
                 "price": 3700.00,
-                "imageFile": "img/products/pamphlet.webp"
+                "imageFile": "img/products/ishtihar.webp"
             },
             {
                 "single_side": "4 Colors",
                 "variant_1": "5.75x9",
                 "variant_3": "80gms",
                 "price": 5500.00,
-                "imageFile": "img/products/pamphlet.webp"
+                "imageFile": "img/products/ishtihar.webp"
             },
             {
                 "single_side": "Single Color",
                 "variant_1": "7x10",
                 "variant_3": "68 gms",
                 "price": 2800.00,
-                "imageFile": "img/products/pamphlet.webp"
+                "imageFile": "img/products/ishtihar.webp"
             },
             {
                 "single_side": "Two Colors",
                 "variant_1": "7x10",
                 "variant_3": "68 gms",
                 "price": 3500.00,
-                "imageFile": "img/products/pamphlet.webp"
+                "imageFile": "img/products/ishtihar.webp"
             },
             {
                 "single_side": "Single Color",
                 "variant_1": "7x10",
                 "variant_3": "80gms",
                 "price": 3600.00,
-                "imageFile": "img/products/pamphlet.webp"
+                "imageFile": "img/products/ishtihar.webp"
             },
             {
                 "single_side": "Two Colors",
                 "variant_1": "7x10",
                 "variant_3": "80gms",
                 "price": 4500.00,
-                "imageFile": "img/products/pamphlet.webp"
+                "imageFile": "img/products/ishtihar.webp"
             },
             {
                 "single_side": "4 Colors",
                 "variant_1": "7x10",
                 "variant_3": "80gms",
                 "price": 6200.00,
-                "imageFile": "img/products/pamphlet.webp"
+                "imageFile": "img/products/ishtihar.webp"
             },
             {
                 "single_side": "Single Color",
                 "variant_1": "A4",
                 "variant_3": "68 gms",
                 "price": 3000.00,
-                "imageFile": "img/products/pamphlet.webp"
+                "imageFile": "img/products/ishtihar.webp"
             },
             {
                 "single_side": "Two Colors",
                 "variant_1": "A4",
                 "variant_3": "68 gms",
                 "price": 3800.00,
-                "imageFile": "img/products/pamphlet.webp"
+                "imageFile": "img/products/ishtihar.webp"
             },
             {
                 "single_side": "4 Colors",
                 "variant_1": "A4",
                 "variant_3": "68 gms",
                 "price": 5500.00,
-                "imageFile": "img/products/pamphlet.webp"
+                "imageFile": "img/products/ishtihar.webp"
             },
             {
                 "single_side": "Single Color",
                 "variant_1": "A4",
                 "variant_3": "80gms",
                 "price": 4200.00,
-                "imageFile": "img/products/pamphlet.webp"
+                "imageFile": "img/products/ishtihar.webp"
             },
             {
                 "single_side": "Two Colors",
                 "variant_1": "A4",
                 "variant_3": "80gms",
                 "price": 5000.00,
-                "imageFile": "img/products/pamphlet.webp"
+                "imageFile": "img/products/ishtihar.webp"
             },
             {
                 "single_side": "4 Colors",
                 "variant_1": "A4",
                 "variant_3": "80gms",
                 "price": 6700.00,
-                "imageFile": "img/products/pamphlet.webp"
+                "imageFile": "img/products/ishtihar.webp"
             }
         ],
-        "Flyers/Ishtihars": [
+        "Pamphlets & Brochures": [
             {
                 "single_side": "4 Colors",
                 "variant_1": "5.75x9",
                 "variant_3": "90gms Art Paper",
                 "price": 5800.00,
-                "imageFile": "img/products/flyers.webp"
+                "imageFile": "img/products/pamphlet.webp"
             },
             {
                 "single_side": "4 Colors",
                 "variant_1": "5.75x9",
                 "variant_3": "113 gms Art Paper Single Side",
                 "price": 6500.00,
-                "imageFile": "img/products/flyers.webp"
+                "imageFile": "img/products/pamphlet.webp"
             },
             {
                 "single_side": "4 Colors",
@@ -693,21 +750,21 @@
                 "variant_1": "5.75x9",
                 "variant_3": "113 gms Art Paper Double Side",
                 "price": 7500.00,
-                "imageFile": "img/products/flyers.webp"
+                "imageFile": "img/products/pamphlet.webp"
             },
             {
                 "single_side": "4 Colors",
                 "variant_1": "A4",
                 "variant_3": "90gms Art Paper",
                 "price": 8000.00,
-                "imageFile": "img/products/flyers.webp"
+                "imageFile": "img/products/pamphlet.webp"
             },
             {
                 "single_side": "4 Colors",
                 "variant_1": "A4",
                 "variant_3": "113 gms Art Paper Single Side",
                 "price": 10000.00,
-                "imageFile": "img/products/flyers.webp"
+                "imageFile": "img/products/pamphlet.webp"
             },
             {
                 "single_side": "4 Colors",
@@ -715,7 +772,7 @@
                 "variant_1": "A4",
                 "variant_3": "113 gms Art Paper Double Side",
                 "price": 12000.00,
-                "imageFile": "img/products/flyers.webp"
+                "imageFile": "img/products/pamphlet.webp"
             }
         ],
         "Stickers": [
@@ -849,104 +906,7 @@
         ]
     },
     "Custom & Large Format": {
-        "Print": [
-            {
-                "single_side": "B/W",
-                "double_side": "B/W",
-                "variant_1": "A4",
-                "variant_3": "70 gms",
-                "price": 1.00,
-                "imageFile": "img/products/digital.webp"
-            },
-            {
-                "single_side": "Color",
-                "double_side": "Color",
-                "variant_1": "A4",
-                "variant_3": "70 gms",
-                "price": 1.00,
-                "imageFile": "img/products/digital.webp"
-            },
-            {
-                "single_side": "B/W",
-                "double_side": "B/W",
-                "variant_1": "A4",
-                "variant_3": "80gms",
-                "price": 1.00,
-                "imageFile": "img/products/digital.webp"
-            },
-            {
-                "single_side": "Color",
-                "double_side": "Color",
-                "variant_1": "A4",
-                "variant_3": "80gms",
-                "price": 1.00,
-                "imageFile": "img/products/digital.webp"
-            },
-            {
-                "single_side": "B/W",
-                "double_side": "B/W",
-                "variant_1": "A4",
-                "variant_3": "100 gms",
-                "price": 1.00,
-                "imageFile": "img/products/digital.webp"
-            },
-            {
-                "single_side": "Color",
-                "double_side": "Color",
-                "variant_1": "A4",
-                "variant_3": "100 gms",
-                "price": 1.00,
-                "imageFile": "img/products/digital.webp"
-            },
-            {
-                "single_side": "B/W",
-                "double_side": "B/W",
-                "variant_1": "Legal",
-                "variant_3": "70 gms",
-                "price": 1.00,
-                "imageFile": "img/products/digital.webp"
-            },
-            {
-                "single_side": "Color",
-                "double_side": "Color",
-                "variant_1": "Legal",
-                "variant_3": "70 gms",
-                "price": 1.00,
-                "imageFile": "img/products/digital.webp"
-            },
-            {
-                "single_side": "B/W",
-                "double_side": "B/W",
-                "variant_1": "Legal",
-                "variant_3": "80gms",
-                "price": 1.00,
-                "imageFile": "img/products/digital.webp"
-            },
-            {
-                "single_side": "Color",
-                "double_side": "Color",
-                "variant_1": "Legal",
-                "variant_3": "80gms",
-                "price": 1.00,
-                "imageFile": "img/products/digital.webp"
-            },
-            {
-                "single_side": "B/W",
-                "double_side": "B/W",
-                "variant_1": "Legal",
-                "variant_3": "100 gms",
-                "price": 1.00,
-                "imageFile": "img/products/digital.webp"
-            },
-            {
-                "single_side": "Color",
-                "double_side": "Color",
-                "variant_1": "Legal",
-                "variant_3": "100 gms",
-                "price": 1.00,
-                "imageFile": "img/products/digital.webp"
-            }
-        ],
+        
         "3D Wallpaper": [
             {
                 "price": 1.00,
@@ -976,16 +936,16 @@
         "A4": {
             "black_white": {
                 "70g": {
-                    "1-100": 25.0,
-                    "101-200": 23.0,
-                    "201-400": 20.0,
-                    "401-1000": 17.0
+                    "1-100": 20.0,
+                    "101-200": 19.0,
+                    "201-400": 17.0,
+                    "401-1000": 15.0
                 },
                 "80g": {
-                    "1-100": 27.0,
-                    "101-200": 25.0,
-                    "201-400": 24.0,
-                    "401-1000": 20.0
+                    "1-100": 23.0,
+                    "101-200": 20.0,
+                    "201-400": 18.0,
+                    "401-1000": 16.0
                 },
                 "100g": {
                     "1-100": 35.0,
@@ -996,64 +956,65 @@
             },
             "Color": {
                 "70g": {
-                    "1-100": 48.0,
-                    "101-200": 45.0,
-                    "201-400": 40.0,
-                    "401-1000": 30.0
+                    "1-100": 40.0,
+                    "101-200": 38.0,
+                    "201-400": 35.0,
+                    "401-1000": 28.0
                 },
                 "80g": {
-                    "1-100": 53.0,
-                    "101-200": 50.0,
-                    "201-400": 47.0,
-                    "401-1000": 38.0
+                    "1-100": 45.0,
+                    "101-200": 40.0,
+                    "201-400": 38.0,
+                    "401-1000": 32.0
                 },
                 "100g": {
-                    "1-100": 70.0,
-                    "101-200": 65.0,
-                    "201-400": 60.0,
-                    "401-1000": 50.0
+                    "1-100": 60.0,
+                    "101-200": 58.0,
+                    "201-400": 55.0,
+                    "401-1000": 45.0
                 }
             }
         },
         "Legal": {
             "black_white": {
-                "70g": {
-                    "1-100": 28.0,
-                    "101-200": 26.0,
-                    "201-400": 23.0,
-                    "401-1000": 20.0
+                 "70g": {
+                    "1-100": 22.0,
+                    "101-200": 20.0,
+                    "201-400": 18.0,
+                    "401-1000": 16.0
                 },
                 "80g": {
-                    "1-100": 30.0,
-                    "101-200": 28.0,
-                    "201-400": 26.0,
-                    "401-1000": 22.0
+                    "1-100": 25.0,
+                    "101-200": 22.0,
+                    "201-400": 19.0,
+                    "401-1000": 17.0
                 },
                 "100g": {
-                    "1-100": 40.0,
+                    "1-100": 38.0,
                     "101-200": 35.0,
-                    "201-400": 33.0,
-                    "401-1000": 30.0
+                    "201-400": 32.0,
+                    "401-1000": 27.0
                 }
             },
             "Color": {
                 "70g": {
-                    "1-100": 50.0,
-                    "101-200": 46.0,
-                    "201-400": 42.0,
-                    "401-1000": 30.0
+                    "1-100": 45.0,
+                    "101-200": 38.0,
+                    "201-400": 35.0,
+                    "401-1000": 28.0
                 },
                 "80g": {
-                    "1-100": 55.0,
-                    "101-200": 50.0,
-                    "201-400": 47.0,
-                    "401-1000": 40.0
+                    "1-100": 48.0,
+                    "101-200": 43.0,
+                    "201-400": 40.0,
+                    "401-1000": 38.0
                 },
                 "100g": {
-                    "1-100": 75.0,
-                    "101-200": 68.0,
-                    "201-400": 65.0,
-                    "401-1000": 58.0
+                    "1-100": 62.0,
+                    "101-200": 60.0,
+                    "201-400": 58.0,
+                    "401-1000": 50.0,
+                    "401-1000": 48.0
                 }
             }
         }
