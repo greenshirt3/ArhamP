@@ -1254,7 +1254,7 @@
 
     // postex api configuration
     const POSTEX_API_URL = 'https://api.postex.pk/services/integration/api';
-    const POSTEX_TOKEN = 'POSTEX_TOKEN';
+    const POSTEX_TOKEN = 'NjAwNzU4ZTQyZjQwNDQyMzhlZDhiYzk4MzhhY2M5ODI6MGRhZGIxYzc2MDI2NGFhMWIzNjE3M2I1YWQzNzNiMzU=';
     let allProducts = {};
     let currentProduct = null;
     let allProductGroups = {};
@@ -1562,7 +1562,7 @@
     }
 
     function detectLocation() {
-        if (POSTEX_TOKEN === 'POSTEX_TOKEN') {
+        if (POSTEX_TOKEN === 'NjAwNzU4ZTQyZjQwNDQyMzhlZDhiYzk4MzhhY2M5ODI6MGRhZGIxYzc2MDI2NGFhMWIzNjE3M2I1YWQzNzNiMzU=') {
             if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
                  Cart.showAlert("PostEx API Token not configured. Please enter your city manually.", 'error');
             }
@@ -2396,5 +2396,6 @@ function filterProducts() {
 </script>
 </div>
 </body>
+
 
 </html>
