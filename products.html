@@ -10,9 +10,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -25,35 +23,30 @@
     <style>
         /* layout and styling */
         :root {
-            --bs-primary: #f28b00; /* primary color*/
-            --bs-secondary: #ff5722; /* secondary color */
+            --bs-primary: #f28b00;
+            --bs-secondary: #ff5722;
             --bs-dark: #212529;
             --mobile-nav-height: 60px;
         }
-        .section {
-            display: none;
+        .section { display: none; }
+        .section.active { display: block; }
+
+        .single-line-card-name {
+            display: inline-block;
+            max-width: 85%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: middle;
         }
-        .section.active {
-            display: block;
+        .product-footer-overlay button {
+            text-align: center;
+            padding: 10px 15px !important;
+            line-height: 1.2;
+            font-size: 0.85rem;
         }
-        /* Ensure the product name in the button doesn't wrap on small screens */
-.single-line-card-name {
-    display: inline-block; /* allows span to take width */
-    max-width: 85%; /* Reserve space for the icon and padding */
-    white-space: nowrap; /* Prevents text wrap */
-    overflow: hidden; /* Hides overflowing text */
-    text-overflow: ellipsis; /* Displays '...' */
-    vertical-align: middle;
-}
-.product-footer-overlay button {
-    text-align: center; /* Ensures text aligns left inside the button */
-    padding: 10px 15px !important; /* Adjust padding for better look */
-    line-height: 1.2; /* Ensures vertical alignment is clean */
-    font-size: 0.85rem;
-}
-.product-footer-overlay button i {
-    margin-right: 5px; /* Spacing between icon and text */
-}
+        .product-footer-overlay button i { margin-right: 5px; }
+        
         .final-price-box {
             background: var(--bs-primary);
             color: white;
@@ -63,36 +56,23 @@
             text-align: center;
             display: none; 
         }
-        .final-price-box h4 {
-            color: white;
-        }
+        .final-price-box h4 { color: white; }
         
-     
-        /* header */
-       
         .page-header {
-            /* mobile image */
             background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url(img/banners/productdesk.webp) center center no-repeat;
             background-size: cover;
             min-height: 250px;
         }
-
         @media (min-width: 768px) {
             .page-header {
-                /* desktop image */
                 background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url(img/banners/productdesk.webp) center center no-repeat;
                 background-size: cover;
                 min-height: 350px;
             }
         }
-    /* desktop navigation*/
       
-        .navbar-brand h1 {
-            margin-top: 0;
-            margin-bottom: 0;
-        }
+        .navbar-brand h1 { margin: 0; }
 
-        /* Clickable Card Variations */
         .choice-card {
             cursor: pointer;
             border: 2px solid #ddd;
@@ -114,23 +94,20 @@
             color: white;
             box-shadow: 0 0 10px rgba(242, 139, 0, 0.3);
         }
-            .choice-card.disabled {
+        .choice-card.disabled {
             opacity: 0.5;
             pointer-events: none; 
             border-color: #eee;
             background-color: #f7f7f7;
         }
-        .choice-card input[type="radio"] {
-            display: none;
-        }
+        .choice-card input[type="radio"] { display: none; }
         .choice-card .label-text {
             font-weight: 500;
             color: var(--bs-dark);
             display: block;
         }
-        .choice-card.selected .label-text {
-            color: white;
-        }
+        .choice-card.selected .label-text { color: white; }
+        
         .product-option-group {
             margin-bottom: 1.5rem;
             padding: 0.75rem;
@@ -144,88 +121,34 @@
             display: block;
             font-size: 1.1rem;
         }
-       
-      
 
         /* mobile navigation */
         #mobile-bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: var(--mobile-nav-height);
-            background: white;
-            border-top: 1px solid #ddd;
-            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
-            z-index: 1030;
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
+            position: fixed; bottom: 0; left: 0; right: 0; height: var(--mobile-nav-height);
+            background: white; border-top: 1px solid #ddd; box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1030; display: flex; align-items: center; justify-content: space-around;
         }
+        #mobile-bottom-nav > a, #mobile-bottom-nav > div { flex: 1 1 0%; }
         
-     
-        #mobile-bottom-nav > a, 
-        #mobile-bottom-nav > div {
-            flex: 1 1 0%; 
-        }
         .mobile-nav-link {
-            flex: 1; 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            text-decoration: none;
-            color: var(--bs-dark);
-            font-size: 0.6rem; 
-            padding: 5px 0;
-            transition: color 0.2s;
-            position: relative;
-            height: 100%;
-            justify-content: center;
+            flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center;
+            text-decoration: none; color: var(--bs-dark); font-size: 0.6rem; padding: 5px 0;
+            transition: color 0.2s; position: relative; height: 100%; justify-content: center;
         }
-        .mobile-nav-link:hover {
-             color: var(--bs-primary);
-        }
-        .mobile-nav-link i {
-            font-size: 1.1rem;
-            margin-bottom: 2px;
-            line-height: 1;
-        }
-        .mobile-nav-link.active {
-            color: var(--bs-primary);
-        }
+        .mobile-nav-link:hover { color: var(--bs-primary); }
+        .mobile-nav-link i { font-size: 1.1rem; margin-bottom: 2px; line-height: 1; }
+        .mobile-nav-link.active { color: var(--bs-primary); }
 
-            #shop-catalog-section, #product-detail-section, #quote-section, #contact-section, #cart-section, #checkout-section {
-            padding-bottom: calc(var(--mobile-nav-height) + 15px); /* Add space for the bottom navbar */
+        #shop-catalog-section, #product-detail-section, #quote-section, #contact-section, #cart-section, #checkout-section {
+            padding-bottom: calc(var(--mobile-nav-height) + 15px); 
         }
         
-        .categories-item a {
-            font-size: 0.75rem; 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 5px 0;
-            line-height: 1.2;
-        }
-        .categories-item a i {
-            font-size: 1.2rem; 
-            margin-bottom: 5px !important;
-        }
-        
-
         #mobile-bottom-nav .dropdown-menu {
-            position: absolute;
-            bottom: var(--mobile-nav-height); 
-            left: 50%;
-            transform: translateX(-50%);
-            width: 250px;
-            box-shadow: 0 -5px 15px rgba(0,0,0,0.2);
-            border-radius: 8px 8px 0 0;
-            padding: 10px 0;
+            position: absolute; bottom: var(--mobile-nav-height); left: 50%;
+            transform: translateX(-50%); width: 250px; box-shadow: 0 -5px 15px rgba(0,0,0,0.2);
+            border-radius: 8px 8px 0 0; padding: 10px 0;
         }
-        #mobile-bottom-nav .dropdown-item {
-             font-size: 0.8rem;
-        }
+        .categories-item a i { font-size: 1.2rem; margin-bottom: 5px !important; }
     </style>
 </head>
 
@@ -235,16 +158,13 @@
         <div class="row gx-0 align-items-center">
             <div class="col-lg-7 px-5 text-start">
                 <div class="h-100 d-inline-flex align-items-center me-4">
-                    <small class="fa fa-phone-alt me-2"></small>
-                    <small>+92 300 6238233</small>
+                    <small class="fa fa-phone-alt me-2"></small> <small>+92 300 6238233</small>
                 </div>
                 <div class="h-100 d-inline-flex align-items-center me-4">
-                    <small class="far fa-envelope-open me-2"></small>
-                    <small>info@arhamprinters.pk</small>
+                    <small class="far fa-envelope-open me-2"></small> <small>info@arhamprinters.pk</small>
                 </div>
                 <div class="h-100 d-inline-flex align-items-center me-4">
-                    <small class="far fa-clock me-2"></small>
-                    <small>Sat - Thu : 09 AM - 09 PM</small>
+                    <small class="far fa-clock me-2"></small> <small>Sat - Thu : 09 AM - 09 PM</small>
                 </div>
             </div>
             <div class="col-lg-5 px-5 text-end">
@@ -259,20 +179,15 @@
     </div>
     
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5 d-none d-lg-block">
-    
     <div class="d-flex w-100 justify-content-between align-items-center">
-        
         <a href="index.html" class="navbar-brand d-flex align-items-center me-4">
             <img src="img/logo2.webp" alt="Arham Printers Logo" style="height: 40px; margin-right: 1rem;">
-                </a>
-
+        </a>
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
-    
         <div class="collapse navbar-collapse flex-grow-1" id="navbarCollapse">
             <div class="navbar-nav me-auto bg-light pe-4 py-3 py-lg-0 d-flex align-items-center">
-                
                 <a href="index.html" class="nav-item nav-link">Home</a>
                 <a href="#" class="nav-item nav-link active" onclick="showSection('shop-catalog')">Products</a>
                 <a href="wedding.html" class="nav-item nav-link">Wedding Cards</a>
@@ -285,64 +200,54 @@
                 </div>
                 <a href="#contact-section" class="nav-item nav-link" onclick="showSection('contact')">Contact</a>
             </div>
-            
             <div class="h-100 d-lg-inline-flex align-items-center">
                 <a class="btn-sm-square bg-white text-dark rounded-circle me-4 position-relative" href="#cart-section" onclick="showSection('cart')">
                     <i class="fas fa-shopping-cart"></i>
                     <span id="desktop-cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" style="font-size: 0.6em; padding: 4px;">0</span>
                 </a>
-                <a href="#contact-section" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block" onclick="showSection('quote')">Get a Quote<i
-                        class="fa fa-arrow-right ms-3"></i></a>
+                <a href="#contact-section" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block" onclick="showSection('quote')">Get a Quote<i class="fa fa-arrow-right ms-3"></i></a>
             </div>
         </div>
     </div>
-</nav>
+    </nav>
 
     <nav id="mobile-bottom-nav" class="d-lg-none">
     <a href="index.html" class="mobile-nav-link" id="mobile-link-home">
-        <i class="fas fa-home"></i>
-        <span>Home</span>
+        <i class="fas fa-home"></i> <span>Home</span>
     </a>
     <a href="products.html" class="mobile-nav-link active" id="mobile-link-products">
-        <i class="fas fa-th-list"></i>
-        <span>Products</span>
+        <i class="fas fa-th-list"></i> <span>Products</span>
     </a>
-        <a href="wedding.html" class="mobile-nav-link" id="mobile-link-wedding">
-            <i class="fas fa-gift"></i>
-            <span>Wedding Cards</span>
-        </a> 
-        <a href="print-order.html" class="mobile-nav-link" id="mobile-link-wedding">
-            <i class="fas fa-print"></i>
-            <span>Paper Prints</span>
-        </a> 
-   <a href="#cart-section" class="mobile-nav-link" onclick="showSection('cart')" id="mobile-link-cart">
+    <a href="wedding.html" class="mobile-nav-link" id="mobile-link-wedding">
+        <i class="fas fa-gift"></i> <span>Wedding Cards</span>
+    </a> 
+    <a href="print-order.html" class="mobile-nav-link" id="mobile-link-wedding">
+        <i class="fas fa-print"></i> <span>Paper Prints</span>
+    </a> 
+    <a href="#cart-section" class="mobile-nav-link" onclick="showSection('cart')" id="mobile-link-cart">
         <i class="fas fa-shopping-cart"></i>
         <span id="cart-count" class="position-absolute translate-middle badge rounded-pill bg-primary" style="top: 8px; right: 10px; font-size: 0.7em;">0</span>
         <span>Cart</span>
     </a>
-</nav>
-<section id="shop-catalog-section" class="section active">
-    
-    <div class="container-fluid page-header py-5">
-        
+    </nav>
 
-<div class="text-center">
-    <h2 class="bg-white px-1 py-1 d-inline-block rounded-1">
-        Products and Services
-    </h2>
-</div>
-    </div>  
-    <div class="container py-5">
-        <div class="row g-4" id="main-product-catalog">
-            
-            <h3 class="w-100 pt-3" id="business-essentials">Business & Office Essentials</h3>
+    <section id="shop-catalog-section" class="section active">
+        <div class="container-fluid page-header py-5">
+            <div class="text-center">
+                <h2 class="bg-white px-1 py-1 d-inline-block rounded-1">Products and Services</h2>
+            </div>
+        </div>  
+        <div class="container py-5">
+            <div class="row g-4" id="main-product-catalog">
+                
+                <h3 class="w-100 pt-3" id="business-essentials">Business & Office Essentials</h3>
                 
                 <div class='col-lg-3 col-4 mb-4 product-item' data-name="Visiting Cards">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/vcard.webp' onerror="this.onerror=null;this.src='img/products/vcard.png';" class='w-100' alt='Visiting Cards'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Visiting Cards')">
-                                <span class="single-line-card-name"> Visiting Cards
+                                <span class="single-line-card-name"> Visiting Cards</span>
                             </button>
                         </div>
                     </div>
@@ -352,7 +257,7 @@
                         <img src='img/products/matcards.webp' onerror="this.onerror=null;this.src='img/products/matcards.png';" class='w-100' alt='Mat Cards'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Mat Cards')">
-                                 <span class="single-line-card-name"> Mat Cards
+                                 <span class="single-line-card-name"> Mat Cards</span>
                             </button>
                         </div>
                     </div>
@@ -362,7 +267,7 @@
                         <img src='img/products/uvcard.webp' onerror="this.onerror=null;this.src='img/products/uvcard.png';" class='w-100' alt='UV Cards'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('UV Cards')">
-                                 <span class="single-line-card-name"> UV Cards
+                                 <span class="single-line-card-name"> UV Cards</span>
                             </button>
                         </div>
                     </div>
@@ -372,7 +277,7 @@
                         <img src='img/products/thickcard.webp' onerror="this.onerror=null;this.src='img/products/thickcard.png';" class='w-100' alt='UV Thick Cards'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('UV Thick Cards')">
-                                 <span class="single-line-card-name"> UV Thick Cards
+                                 <span class="single-line-card-name"> UV Thick Cards</span>
                             </button>
                         </div>
                     </div>
@@ -382,7 +287,7 @@
                         <img src='img/products/pvc.webp' onerror="this.onerror=null;this.src='img/products/pvc.png';" class='w-100' alt='PVC ID Cards'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('PVC ID Cards')">
-                                 <span class="single-line-card-name"> PVC ID Cards
+                                 <span class="single-line-card-name"> PVC ID Cards</span>
                             </button>
                         </div>
                     </div>
@@ -392,7 +297,7 @@
                         <img src='img/products/certificates.webp' onerror="this.onerror=null;this.src='img/products/pvc.png';" class='w-100' alt='Certificates'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Certificates')">
-                                 <span class="single-line-card-name"> Certificates
+                                 <span class="single-line-card-name"> Certificates</span>
                             </button>
                         </div>
                     </div>
@@ -402,7 +307,7 @@
                         <img src='img/products/letterpad.webp' onerror="this.onerror=null;this.src='img/products/letterpad.png';" class='w-100' alt='Letterpad'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Letterpads')">
-                                 <span class="single-line-card-name"> Letterpads
+                                 <span class="single-line-card-name"> Letterpads</span>
                             </button>
                         </div>
                     </div>
@@ -412,7 +317,7 @@
                         <img src='img/products/envelops.webp' onerror="this.onerror=null;this.src='img/products/envelops.png';" class='w-100' alt='envelops'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Envelops')">
-                                 <span class="single-line-card-name"> Envelops
+                                 <span class="single-line-card-name"> Envelops</span>
                             </button>
                         </div>
                     </div>
@@ -422,7 +327,7 @@
                         <img src='img/products/billbooks.webp' onerror="this.onerror=null;this.src='img/products/billbooks.png';" class='w-100' alt='Bill Books'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Bill Books')">
-                                 <span class="single-line-card-name"> Bill Books
+                                 <span class="single-line-card-name"> Bill Books</span>
                             </button>
                         </div>
                     </div>
@@ -432,7 +337,7 @@
                         <img src='img/products/stamps.webp' onerror="this.onerror=null;this.src='img/products/stamps.png';" class='w-100' alt='Rubber Stamps'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Rubber Stamp (Rectangular)')">
-                                 <span class="single-line-card-name"> Rubber Stamps
+                                 <span class="single-line-card-name"> Rubber Stamps</span>
                             </button>
                         </div>
                     </div>
@@ -446,7 +351,7 @@
                         <img src='img/products/pamphlet.webp' onerror="this.onerror=null;this.src='img/products/pamphlet.png';" class='w-100' alt='Pamphlets & Brochures'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Pamphlets & Brochures')">
-                                 <span class="single-line-card-name"> Pamphlets & Brochures 
+                                 <span class="single-line-card-name"> Pamphlets & Brochures</span>
                             </button>
                         </div>
                     </div>
@@ -456,7 +361,7 @@
                         <img src='img/products/ishtihar.webp' onerror="this.onerror=null;this.src='img/products/ishtihar.png';" class='w-100' alt='Ishtihar'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Ishtihar')">
-                                 <span class="single-line-card-name"> Ishtihars
+                                 <span class="single-line-card-name"> Ishtihars</span>
                             </button>
                         </div>
                     </div>
@@ -466,19 +371,18 @@
                         <img src='img/products/menu.webp' onerror="this.onerror=null;this.src='img/products/menu.png';" class='w-100' alt='Menu Cards'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Menu Cards')">
-                                 <span class="single-line-card-name"> Menu Cards
+                                 <span class="single-line-card-name"> Menu Cards</span>
                             </button>
                         </div>
                     </div>
                 </div>
-
 
                 <div class='col-lg-3 col-4 mb-4 product-item' data-name="Stickers">
                     <div class='card h-100 shadow-sm product-card-hover-container rounded-0'>   
                         <img src='img/products/stickers.webp' onerror="this.onerror=null;this.src='img/products/Stickers.png';" class='w-100' alt='Stickers'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Stickers')">
-                                 <span class="single-line-card-name"> Stickers
+                                 <span class="single-line-card-name"> Stickers</span>
                             </button>
                         </div>
                     </div>
@@ -489,7 +393,7 @@
                         <img src='img/products/shirt.webp' onerror="this.onerror=null;this.src='img/products/shirt.png';" class='w-100' alt='T-Shirt'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('White T-Shirt (Adult Size)')">
-                                 <span class="single-line-card-name"> T-Shirt
+                                 <span class="single-line-card-name"> T-Shirt</span>
                             </button>
                         </div>
                     </div>
@@ -499,7 +403,7 @@
                         <img src='img/products/caps.webp' onerror="this.onerror=null;this.src='img/products/caps.png';" class='w-100' alt='Caps'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Caps')">
-                                 <span class="single-line-card-name"> Caps
+                                 <span class="single-line-card-name"> Caps</span>
                             </button>
                         </div>
                     </div>
@@ -509,7 +413,7 @@
                         <img src='img/products/keychains.webp' onerror="this.onerror=null;this.src='img/products/keychains.png';" class='w-100' alt='Keychains'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Keychains')">
-                                 <span class="single-line-card-name"> Keychains
+                                 <span class="single-line-card-name"> Keychains</span>
                             </button>
                         </div>
                     </div>
@@ -519,7 +423,7 @@
                         <img src='img/products/gbags.webp' onerror="this.onerror=null;this.src='img/products/gbags.png';" class='w-100' alt='Gift Bags'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Gift Bags')">
-                                 <span class="single-line-card-name"> Gift bags
+                                 <span class="single-line-card-name"> Gift bags</span>
                             </button>
                         </div>
                     </div>
@@ -529,7 +433,7 @@
                         <img src='img/products/bags.webp' onerror="this.onerror=null;this.src='img/products/bags.png';" class='w-100' alt='Shopping Bags'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Shopping Bags')">
-                                 <span class="single-line-card-name"> Shopping Bags
+                                 <span class="single-line-card-name"> Shopping Bags</span>
                             </button>
                         </div>
                     </div>
@@ -539,7 +443,7 @@
                         <img src='img/products/nwbags.webp' onerror="this.onerror=null;this.src='img/products/nwbags.png';" class='w-100' alt='Non Woven Bags'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Non Woven Bags')">
-                                 <span class="single-line-card-name"> Non Woven Bags
+                                 <span class="single-line-card-name"> Non Woven Bags</span>
                             </button>
                         </div>
                     </div>
@@ -549,7 +453,7 @@
                         <img src='img/products/mugs.webp' onerror="this.onerror=null;this.src='img/products/Mug.png';" class='w-100' alt='Mug'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Mug')">
-                                 <span class="single-line-card-name"> Mug
+                                 <span class="single-line-card-name"> Mug</span>
                             </button>
                         </div>
                     </div>
@@ -559,7 +463,7 @@
                         <img src='img/products/pen.webp' onerror="this.onerror=null;this.src='img/products/pen.png';" class='w-100' alt='Metal Pen'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Metal Pen')">
-                                 <span class="single-line-card-name"> Metal Pen
+                                 <span class="single-line-card-name"> Metal Pen</span>
                             </button>
                         </div>
                     </div>
@@ -573,7 +477,7 @@
                         <img src='img/products/china.webp' onerror="this.onerror=null;this.src='img/products/china.png';" class='w-100' alt='China'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('China')">
-                                 <span class="single-line-card-name"> China
+                                 <span class="single-line-card-name"> China</span>
                             </button>
                         </div>
                     </div>
@@ -583,7 +487,7 @@
                         <img src='img/products/star.webp' onerror="this.onerror=null;this.src='img/products/star.png';" class='w-100' alt='Star'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Star')">
-                                 <span class="single-line-card-name"> Star
+                                 <span class="single-line-card-name"> Star</span>
                             </button>
                         </div>
                     </div>
@@ -593,7 +497,7 @@
                         <img src='img/products/backlit.webp' onerror="this.onerror=null;this.src='img/products/backlit.png';" class='w-100' alt='Backlit'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Backlit')">
-                                 <span class="single-line-card-name"> Backlit
+                                 <span class="single-line-card-name"> Backlit</span>
                             </button>
                         </div>
                     </div>
@@ -604,7 +508,7 @@
                         <img src='img/products/vision.webp' onerror="this.onerror=null;this.src='img/products/vision.png';" class='w-100' alt='One'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('One Vision')">
-                                 <span class="single-line-card-name"> One Vision
+                                 <span class="single-line-card-name"> One Vision</span>
                             </button>
                         </div>
                     </div>
@@ -614,7 +518,7 @@
                         <img src='img/products/venyl.webp' onerror="this.onerror=null;this.src='img/products/venyl.png';" class='w-100' alt='Venyl Sticker'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Venyl Sticker')">
-                                 <span class="single-line-card-name"> Venyl Sticker
+                                 <span class="single-line-card-name"> Venyl Sticker</span>
                             </button>
                         </div>
                     </div>
@@ -625,7 +529,7 @@
                         <img src='img/products/photos.webp' onerror="this.onerror=null;this.src='img/products/photopapers.png';" class='w-100' alt='Photo Printing'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Photo Printing')">
-                                 <span class="single-line-card-name"> Photo Papers
+                                 <span class="single-line-card-name"> Photo Papers</span>
                             </button>
                         </div>
                     </div>
@@ -635,7 +539,7 @@
                         <img src='img/products/wallpapers.webp' onerror="this.onerror=null;this.src='img/products/wallpapers.png';" class='w-100' alt='3D Wallpaper'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('3D Wallpaper')">
-                                 <span class="single-line-card-name"> 3D Wallpaper
+                                 <span class="single-line-card-name"> 3D Wallpaper</span>
                             </button>
                         </div>
                     </div>
@@ -646,7 +550,7 @@
                         <img src='img/products/shields.webp' onerror="this.onerror=null;this.src='img/products/shields.png';" class='w-100' alt='Shields'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showSection('quote')">
-                                 <span class="single-line-card-name"> Shields
+                                 <span class="single-line-card-name"> Shields</span>
                             </button>
                         </div>
                     </div>
@@ -656,7 +560,7 @@
                         <img src='img/products/flags.webp' onerror="this.onerror=null;this.src='img/products/flags.png';" class='w-100' alt='Flags & Fabric'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showSection('quote')">
-                                 <span class="single-line-card-name"> Flags & Fabric
+                                 <span class="single-line-card-name"> Flags & Fabric</span>
                             </button>
                         </div>
                     </div>
@@ -666,7 +570,7 @@
                         <img src='img/products/box.webp' onerror="this.onerror=null;this.src='img/products/box.png';" class='w-100' alt='Box Packaging'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showSection('quote')">
-                                 <span class="single-line-card-name"> Box Packaging
+                                 <span class="single-line-card-name"> Box Packaging</span>
                             </button>
                         </div>
                     </div>
@@ -680,13 +584,16 @@
                         <img src='img/products/printer.webp' onerror="this.onerror=null;this.src='img/products/printer.png';" class='w-100' alt='Paper Prints'>
                         <div class="product-footer-overlay p-0">
                             <button class="btn btn-primary w-100 rounded-0 p-3" onclick="showProductDetails('Paper Prints')">
-                                 <span class="single-line-card-name"> Paper Prints
+                                 <span class="single-line-card-name"> Paper Prints</span>
                             </button>
                         </div>
                     </div>
+                </div>
             </div>
-    </section>
-    <section id="product-detail-section" class="section">
+    </div>
+</section>
+
+<section id="product-detail-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-dark display-6" id="detail-product-name-header">Product Details</h1>
             <ol class="breadcrumb justify-content-center mb-0">
@@ -729,8 +636,7 @@
                             <div class="alert alert-danger mt-3" id="areaConstraintWarning" style="display: none;"></div>
                         </div>
 
-                        <div id="standard-options-fields">
-                            </div>
+                        <div id="standard-options-fields"></div>
                         
                         <div class="product-option-group mt-4" data-option-key="DeliveryType">
                             <label><i class="fas fa-truck me-2"></i> <strong>Choose Delivery Method:</strong></label>
@@ -745,6 +651,7 @@
                                 </label>
                             </div>
                         </div>
+                        
                         <div class="product-option-group" id="shipping-zone-selector">
                             <label><i class="fas fa-map-marker-alt me-2"></i> <strong>Check Delivery Charges:</strong></label>
                             
@@ -759,6 +666,7 @@
                                 Current Zone: <span id="zone-name" class="fw-bold text-dark">Jalalpur Jattan (Default)</span>
                             </small>
                         </div>
+
                         <div class="final-price-box" id="finalPriceBox">
                             <h4 class="mb-2">Total Price (PKR)</h4>
                             <h3 class="display-6 fw-bold" id="finalPriceDisplay">PKR 0</h3>
@@ -767,7 +675,7 @@
                                 <h5 class="mb-1 text-success">Shipping: <span id="shipping-cost-display" class="fw-bold text-dark">PKR 0</span></h5>
                                 <small id="shipping-note-display" class="d-block text-dark"></small>
                             </div>
-                            <button class="btn btn-success py-2 px-4 w-100 mt-3" onclick="addItemToCart()">
+                            <button class="btn btn-success py-2 px-4 w-100 mt-3 rounded-0" onclick="addItemToCart()">
                                 <i class="fas fa-cart-plus me-2"></i> Add to Cart
                             </button>
                         </div>
@@ -779,172 +687,163 @@
                 </div>
             </div>
         </div>
-    </section>
+</section>
     
-    <section id="cart-section" class="section">
-        <div class="container-fluid page-header py-5">
-            <h1 class="text-center text-dark display-6">Your Shopping Cart</h1>
-            <ol class="breadcrumb justify-content-center mb-0">
-                <li class="breadcrumb-item"><a href="#" onclick="showSection('shop-catalog')">Products</a></li>
-                <li class="breadcrumb-item active text-dark">Cart</li>
-            </ol>
-        </div>
-
-        <div class="container-fluid py-5">
-            <div class="container py-5">
-                <div class="row g-4">
-                    <div class="col-lg-8">
-                        <div class="bg-light p-4 rounded-0 shadow-sm">
-                            <h3 class="mb-4">Items in Cart (<span id="cart-item-count">0</span>)</h3>
-                            <div id="cart-items-list" class="list-group">
-                                <p class="text-muted text-center p-5" id="empty-cart-message">Your cart is empty.</p>
-                            </div>
+<section id="cart-section" class="section">
+    <div class="container-fluid page-header py-5">
+        <h1 class="text-center text-dark display-6">Your Shopping Cart</h1>
+        <ol class="breadcrumb justify-content-center mb-0">
+            <li class="breadcrumb-item"><a href="#" onclick="showSection('shop-catalog')">Products</a></li>
+            <li class="breadcrumb-item active text-dark">Cart</li>
+        </ol>
+    </div>
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="bg-light p-4 rounded-0 shadow-sm">
+                        <h3 class="mb-4">Items in Cart (<span id="cart-item-count">0</span>)</h3>
+                        <div id="cart-items-list" class="list-group">
+                            <p class="text-muted text-center p-5" id="empty-cart-message">Your cart is empty.</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary w-100 py-3 mt-4 rounded-0" onclick="showSection('shop-catalog')" id="continue-shopping-btn">
+                            <i class="fas fa-arrow-left me-2"></i> Continue Shopping
+                    </button>
+                </div>
+                <div class="col-lg-4">
+                    <div class="bg-white p-4 rounded-0 shadow-lg sticky-top" style="top: 100px;">
+                        <h3 class="mb-4 text-primary">Order Summary</h3>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Subtotal:</span>
+                            <span class="fw-bold" id="cart-subtotal">PKR 0</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-4 border-bottom pb-3">
+                            <span>Delivery:</span>
+                            <span class="fw-bold text-success" id="cart-delivery-cost">PKR 0</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-4">
+                            <h4 class="mb-0">Grand Total:</h4>
+                            <h4 class="mb-0 text-primary" id="cart-grand-total">PKR 0</h4>
                         </div>
                         
-                        <button class="btn btn-secondary w-100 py-3 mt-4 rounded-0" onclick="showSection('shop-catalog')" id="continue-shopping-btn">
-                             <i class="fas fa-arrow-left me-2"></i> Continue Shopping
+                        <div class="product-option-group" data-option-key="CheckoutDeliveryType">
+                            <label><i class="fas fa-truck me-2"></i> Delivery Method:</label>
+                            <div class="d-flex flex-wrap gap-2">
+                                <label class="choice-card selected" id="checkout-delivery-home" onclick="Cart.setDeliveryType('HomeDelivery')">
+                                    <input type="radio" name="option-CheckoutDeliveryType" value="HomeDelivery" checked>
+                                    <span class="label-text">Home Delivery</span>
+                                </label>
+                                <label class="choice-card" id="checkout-delivery-pickup" onclick="Cart.setDeliveryType('SelfPickUp')">
+                                    <input type="radio" name="option-CheckoutDeliveryType" value="SelfPickUp">
+                                    <span class="label-text">Self Pick Up</span>
+                                </label>
+                            </div>
+                        </div>
+
+                            <div class="product-option-group" id="checkout-shipping-zone-selector">
+                            <label><i class="fas fa-map-marker-alt me-2"></i> Shipping Zone:</label>
+                            <input type="text" id="checkout-input-city" placeholder="Enter City for Shipping" class="form-control rounded-0 mb-2" oninput="Cart.manualLocationCheck()">
+                            <small class="text-muted d-block" id="checkout-current-location-display">
+                                Zone: <span id="checkout-zone-name" class="fw-bold text-dark">Jalalpur Jattan (Within City)</span>
+                            </small>
+                        </div>
+
+                        <button class="btn btn-primary w-100 py-3 mt-2 rounded-0" onclick="showSection('checkout')">
+                            <i class="fas fa-money-check-alt me-2"></i> Proceed to Checkout
                         </button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                    <div class="col-lg-4">
-                        <div class="bg-white p-4 rounded-0 shadow-lg sticky-top" style="top: 100px;">
-                            <h3 class="mb-4 text-primary">Order Summary</h3>
-                            <div class="d-flex justify-content-between mb-2">
-                                <span>Subtotal:</span>
-                                <span class="fw-bold" id="cart-subtotal">PKR 0</span>
-                            </div>
-                            <div class="d-flex justify-content-between mb-4 border-bottom pb-3">
-                                <span>Delivery:</span>
-                                <span class="fw-bold text-success" id="cart-delivery-cost">PKR 0</span>
-                            </div>
-                            <div class="d-flex justify-content-between mb-4">
-                                <h4 class="mb-0">Grand Total:</h4>
-                                <h4 class="mb-0 text-primary" id="cart-grand-total">PKR 0</h4>
-                            </div>
-                            
-                            <div class="product-option-group" data-option-key="CheckoutDeliveryType">
-                                <label><i class="fas fa-truck me-2"></i> Delivery Method:</label>
-                                <div class="d-flex flex-wrap gap-2">
-                                    <label class="choice-card selected" id="checkout-delivery-home" onclick="Cart.setDeliveryType('HomeDelivery')">
-                                        <input type="radio" name="option-CheckoutDeliveryType" value="HomeDelivery" checked>
-                                        <span class="label-text">Home Delivery</span>
-                                    </label>
-                                    <label class="choice-card" id="checkout-delivery-pickup" onclick="Cart.setDeliveryType('SelfPickUp')">
-                                        <input type="radio" name="option-CheckoutDeliveryType" value="SelfPickUp">
-                                        <span class="label-text">Self Pick Up</span>
-                                    </label>
+    <section id="checkout-section" class="section">
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-dark display-6">Final Checkout</h1>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="#" onclick="showSection('cart')">Cart</a></li>
+                <li class="breadcrumb-item active text-dark">Checkout</li>
+            </ol>
+        </div>
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div class="row g-4 justify-content-center">
+                    <div class="col-lg-10">
+                        <div class="bg-light p-4 rounded-0 shadow-lg">
+                            <h3 class="mb-4">Contact & Payment</h3>
+                            <form id="checkout-form" onsubmit="Cart.handleCheckoutSubmission(event)">
+                                <div class="product-option-group">
+                                    <h4>1. Customer Information</h4>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control border-0 rounded-0" id="checkout-name" placeholder="Your Name" required>
+                                                <label for="checkout-name">Your Full Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input type="tel" class="form-control border-0 rounded-0" id="checkout-phone" placeholder="WhatsApp Number" required>
+                                                <label for="checkout-phone">WhatsApp/Contact Number</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12" id="checkout-address-group">
+                                            <div class="form-floating">
+                                                <textarea class="form-control border-0 rounded-0" placeholder="Full Address" id="checkout-address" style="height: 80px" required></textarea>
+                                                <label for="checkout-address">Full Shipping/Collection Address</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-floating">
+                                                <input type="email" class="form-control border-0 rounded-0" id="checkout-email" placeholder="Email (Optional)">
+                                                <label for="checkout-email">Email (Optional)</label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-
-                             <div class="product-option-group" id="checkout-shipping-zone-selector">
-                                <label><i class="fas fa-map-marker-alt me-2"></i> Shipping Zone:</label>
-                                <input type="text" id="checkout-input-city" placeholder="Enter City for Shipping" class="form-control rounded-0 mb-2" oninput="Cart.manualLocationCheck()">
-                                <small class="text-muted d-block" id="checkout-current-location-display">
-                                    Zone: <span id="checkout-zone-name" class="fw-bold text-dark">Jalalpur Jattan (Within City)</span>
-                                </small>
-                            </div>
-
-                            <button class="btn btn-primary w-100 py-3 mt-2 rounded-0" onclick="showSection('checkout')">
-                                <i class="fas fa-money-check-alt me-2"></i> Proceed to Checkout
-                            </button>
+                                <div class="product-option-group mt-4">
+                                    <h4>2. Payment Method</h4>
+                                    <div class="d-flex flex-wrap gap-3">
+                                        <label class="choice-card selected" id="payment-cod" onclick="Cart.setPaymentMethod('CashOnDelivery')">
+                                            <input type="radio" name="option-PaymentMethod" value="CashOnDelivery" checked>
+                                            <span class="label-text"><i class="fas fa-hand-holding-usd me-2"></i> Cash on Delivery (COD)</span>
+                                        </label>
+                                        <label class="choice-card" id="payment-bank" onclick="Cart.setPaymentMethod('BankTransfer')">
+                                            <input type="radio" name="option-PaymentMethod" value="BankTransfer">
+                                            <span class="label-text"><i class="fas fa-university me-2"></i> Bank Transfer (Pre-Payment)</span>
+                                        </label>
+                                        <label class="choice-card" id="payment-raast" onclick="Cart.setPaymentMethod('RaastQR')">
+                                            <input type="radio" name="option-PaymentMethod" value="RaastQR">
+                                            <span class="label-text"><i class="fas fa-qrcode me-2"></i> Raast QR (Instant Pay)</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div id="raast-qr-display" class="product-option-group mt-4 p-4 text-center bg-white border border-success" style="display: none;">
+                                    <h4><i class="fas fa-qrcode me-2 text-success"></i> Instant Payment via Raast</h4>
+                                    <p class="text-muted">Scan the QR code with any Raast-enabled banking app to pay the exact amount instantly.</p>
+                                    <div class="d-flex justify-content-center">
+                                        <img src="img/qr.webp" id="raast-qr-image" alt="Raast QR Code" style="width: 200px; height: 200px; border: 5px solid #28a745;">
+                                    </div>
+                                    <p class="fw-bold mt-3">Grand Total: <span id="raast-qr-amount" class="text-primary">PKR 0</span></p>
+                                    <small class="text-success d-block">This payment method requires instant confirmation via WhatsApp after scanning.</small>
+                                </div>
+                                <div class="alert alert-info mt-4 rounded-0">
+                                    <strong>Order Total:</strong> <span class="fw-bold text-primary" id="checkout-grand-total">PKR 0</span>.
+                                    By clicking "Confirm Order", we will open WhatsApp for final confirmation and processing.
+                                </div>
+                                <button class="btn btn-success w-100 py-3 mt-2 rounded-0" type="submit">
+                                    <i class="fas fa-check-circle me-2"></i> Confirm Order via WhatsApp
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <section id="checkout-section" class="section">
-            <div class="container-fluid page-header py-5">
-                <h1 class="text-center text-dark display-6">Final Checkout</h1>
-                <ol class="breadcrumb justify-content-center mb-0">
-                    <li class="breadcrumb-item"><a href="#" onclick="showSection('cart')">Cart</a></li>
-                    <li class="breadcrumb-item active text-dark">Checkout</li>
-                </ol>
-            </div>
-
-            <div class="container-fluid py-5">
-                <div class="container py-5">
-                    <div class="row g-4 justify-content-center">
-                        <div class="col-lg-10">
-                            <div class="bg-light p-4 rounded-0 shadow-lg">
-                                <h3 class="mb-4">Contact & Payment</h3>
-                                <form id="checkout-form" onsubmit="Cart.handleCheckoutSubmission(event)">
-                                    
-                                    <div class="product-option-group">
-                                        <h4>1. Customer Information</h4>
-                                        <div class="row g-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating">
-                                                    <input type="text" class="form-control border-0 rounded-0" id="checkout-name" placeholder="Your Name" required>
-                                                    <label for="checkout-name">Your Full Name</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-floating">
-                                                    <input type="tel" class="form-control border-0 rounded-0" id="checkout-phone" placeholder="WhatsApp Number" required>
-                                                    <label for="checkout-phone">WhatsApp/Contact Number</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-12" id="checkout-address-group">
-                                                <div class="form-floating">
-                                                    <textarea class="form-control border-0 rounded-0" placeholder="Full Address" id="checkout-address" style="height: 80px" required></textarea>
-                                                    <label for="checkout-address">Full Shipping/Collection Address</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="form-floating">
-                                                    <input type="email" class="form-control border-0 rounded-0" id="checkout-email" placeholder="Email (Optional)">
-                                                    <label for="checkout-email">Email (Optional)</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="product-option-group mt-4">
-                                        <h4>2. Payment Method</h4>
-                                        <div class="d-flex flex-wrap gap-3">
-                                            <label class="choice-card selected" id="payment-cod" onclick="Cart.setPaymentMethod('CashOnDelivery')">
-                                                <input type="radio" name="option-PaymentMethod" value="CashOnDelivery" checked>
-                                                <span class="label-text"><i class="fas fa-hand-holding-usd me-2"></i> Cash on Delivery (COD)</span>
-                                            </label>
-                                            <label class="choice-card" id="payment-bank" onclick="Cart.setPaymentMethod('BankTransfer')">
-                                                <input type="radio" name="option-PaymentMethod" value="BankTransfer">
-                                                <span class="label-text"><i class="fas fa-university me-2"></i> Bank Transfer (Pre-Payment)</span>
-                                            </label>
-                                            <label class="choice-card" id="payment-raast" onclick="Cart.setPaymentMethod('RaastQR')">
-                                                <input type="radio" name="option-PaymentMethod" value="RaastQR">
-                                                <span class="label-text"><i class="fas fa-qrcode me-2"></i> Raast QR (Instant Pay)</span>
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <div id="raast-qr-display" class="product-option-group mt-4 p-4 text-center bg-white border border-success" style="display: none;">
-                                        <h4><i class="fas fa-qrcode me-2 text-success"></i> Instant Payment via Raast</h4>
-                                        <p class="text-muted">Scan the QR code with any Raast-enabled banking app to pay the exact amount instantly. The Grand Total is automatically embedded.</p>
-                                        
-                                        <div class="d-flex justify-content-center">
-                                            <img src="img/qr.webp" id="raast-qr-image" alt="Raast QR Code" style="width: 200px; height: 200px; border: 5px solid #28a745;">
-                                        </div>
-                                        
-                                        <p class="fw-bold mt-3">Grand Total: <span id="raast-qr-amount" class="text-primary">PKR 0</span></p>
-                                        <small class="text-success d-block">This payment method requires instant confirmation via WhatsApp after scanning.</small>
-                                    </div>
-                                    <div class="alert alert-info mt-4 rounded-0">
-                                        <strong>Order Total:</strong> <span class="fw-bold text-primary" id="checkout-grand-total">PKR 0</span>.
-                                        By clicking "Confirm Order", we will open WhatsApp for final confirmation and processing.
-                                    </div>
-
-                                    <button class="btn btn-success w-100 py-3 mt-2 rounded-0" type="submit">
-                                        <i class="fas fa-check-circle me-2"></i> Confirm Order via WhatsApp
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section id="quote-section" class="section">
+        </div>
+    </section>
+    
+    <section id="quote-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-dark display-6">Get a Custom Quote</h1>
             <ol class="breadcrumb justify-content-center mb-0">
@@ -952,7 +851,6 @@
                 <li class="breadcrumb-item active text-dark">Quote</li>
             </ol>
         </div>
-
         <div class="container-fluid py-5">
             <div class="container py-5">
                 <div class="row g-4 justify-content-center">
@@ -961,121 +859,12 @@
                             <form id="quote-form" onsubmit="handleQuoteSubmission(event)">
                                 <h3 class="mb-4">Quick Inquiry</h3>
                                 <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control border-0" id="quote-name" placeholder="Your Name" required>
-                                            <label for="quote-name">Your Name</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-floating">
-                                            <input type="tel" class="form-control border-0" id="quote-phone" placeholder="Contact Number" required>
-                                            <label for="quote-phone">Contact Number</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control border-0" id="quote-product" placeholder="Product Name (e.g., Visiting Cards, 3D Wallpaper)">
-                                            <label for="quote-product">Product Name / Type</label>
-                                        </div>
-                                    </div>
-                                     <div class="col-12">
-                                        <div class="form-floating">
-                                            <input type="number" class="form-control border-0" id="quote-quantity" placeholder="Quantity or Total Area (e.g., 500 cards, 100 sq ft)">
-                                            <label for="quote-quantity">Quantity / Estimated Area</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-floating">
-                                            <textarea class="form-control border-0" placeholder="Details of your inquiry (Size, Finish, Quality, Message)" id="quote-details" style="height: 150px" required></textarea>
-                                            <label for="quote-details">Inquiry Message / Specifications</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <button class="btn btn-primary w-100 py-3" type="submit">Submit Quote via WhatsApp</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    <section id="contact-section" class="section">
-        <div class="container-fluid page-header py-5">
-            <h1 class="text-center text-white display-6">Contact Us</h1>
-            <ol class="breadcrumb justify-content-center mb-0">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active text-white">Contact</li>
-            </ol>
-        </div>
-
-        <div class="container-fluid py-5">
-            <div class="container py-5">
-                <div class="row g-4">
-                    <div class="col-lg-4">
-                        <div class="bg-light p-4 rounded">
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
-                                    style="width: 60px; height: 60px;">
-                                    <i class="fa fa-map-marker-alt text-primary fs-4"></i>
-                                </div>
-                                <div class="ms-4">
-                                    <h5 class="mb-2">Our Location</h5>
-                                    <p class="mb-0">Domela Chowk,Tanda Road, Jalalpur Jattan</p>
-                                </div>
-                            </div>
-                            
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
-                                    style="width: 60px; height: 60px;">
-                                    <i class="fa fa-phone-alt text-primary fs-4"></i>
-                                </div>
-                                <div class="ms-4">
-                                    <h5 class="mb-2">Call Us</h5>
-                                    <p class="mb-0">+92 300 6238233</p>
-                                </div>
-                            </div>
-                            
-                            <div class="d-flex align-items-center">
-                                <div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3"
-                                    style="width: 60px; height: 60px;">
-                                    <i class="fa fa-envelope text-primary fs-4"></i>
-                                </div>
-                                <div class="ms-4">
-                                    <h5 class="mb-2">Email Us</h5>
-                                    <p class="mb-0">info@arhamprinters.pk</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-8">
-                        <div class="bg-light p-4 rounded">
-                            <form id="contact-form-whatsapp" onsubmit="handleContactSubmission(event)">
-                                <h3 class="mb-4">Send a Direct Message</h3>
-                                <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control border-0" id="contact-name" placeholder="Your Name" required>
-                                            <label for="contact-name">Your Name</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control border-0" id="contact-subject" placeholder="Subject" required>
-                                            <label for="contact-subject">Subject</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-floating">
-                                            <textarea class="form-control border-0" placeholder="Leave a message here" id="contact-message" style="height: 150px" required></textarea>
-                                            <label for="contact-message">Message</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <button class="btn btn-primary w-100 py-3" type="submit">Send Message via WhatsApp</button>
-                                    </div>
+                                    <div class="col-md-6"><div class="form-floating"><input type="text" class="form-control border-0" id="quote-name" placeholder="Your Name" required><label>Your Name</label></div></div>
+                                    <div class="col-md-6"><div class="form-floating"><input type="tel" class="form-control border-0" id="quote-phone" placeholder="Contact Number" required><label>Contact Number</label></div></div>
+                                    <div class="col-12"><div class="form-floating"><input type="text" class="form-control border-0" id="quote-product" placeholder="Product Name"><label>Product Name / Type</label></div></div>
+                                     <div class="col-12"><div class="form-floating"><input type="number" class="form-control border-0" id="quote-quantity" placeholder="Quantity"><label>Quantity / Estimated Area</label></div></div>
+                                    <div class="col-12"><div class="form-floating"><textarea class="form-control border-0" placeholder="Details" id="quote-details" style="height: 150px" required></textarea><label>Inquiry Message / Specifications</label></div></div>
+                                    <div class="col-12"><button class="btn btn-primary w-100 py-3" type="submit">Submit Quote via WhatsApp</button></div>
                                 </div>
                             </form>
                         </div>
@@ -1084,58 +873,79 @@
             </div>
         </div>
     </section>
-           <div class="container-fluid footer py-2">
-            <div class="container py-2">
-                <div class="row g-3">
-                    <div class="col-6 col-md-3">
-                        <div class="rounded p-2 d-flex flex-column align-items-center">
-                            
-                            <h6 class="text-white mt-1 mb-1">Address</h6>
-                            <p class="text-white mb-1 small text-left">Domela Chowk, Tanda Road, Jalalpur Jattan
-                            </p>
+    
+    <section id="contact-section" class="section">
+        <div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6">Contact Us</h1>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active text-white">Contact</li>
+            </ol>
+        </div>
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div class="row g-4">
+                    <div class="col-lg-4">
+                        <div class="bg-light p-4 rounded">
+                            <div class="d-flex align-items-center mb-4"><div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3" style="width: 60px; height: 60px;"><i class="fa fa-map-marker-alt text-primary fs-4"></i></div><div class="ms-4"><h5 class="mb-2">Our Location</h5><p class="mb-0">Domela Chowk,Tanda Road, Jalalpur Jattan</p></div></div>
+                            <div class="d-flex align-items-center mb-4"><div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3" style="width: 60px; height: 60px;"><i class="fa fa-phone-alt text-primary fs-4"></i></div><div class="ms-4"><h5 class="mb-2">Call Us</h5><p class="mb-0">+92 300 6238233</p></div></div>
+                            <div class="d-flex align-items-center"><div class="d-flex align-items-center justify-content-center border border-primary rounded-circle mb-3" style="width: 60px; height: 60px;"><i class="fa fa-envelope text-primary fs-4"></i></div><div class="ms-4"><h5 class="mb-2">Email Us</h5><p class="mb-0">info@arhamprinters.pk</p></div></div>
                         </div>
                     </div>
-
-                    <div class="col-6 col-md-3">
-                        <div class="rounded p-2 d-flex flex-column align-items-center">
-                            
-                            <h6 class="text-white mt-1 mb-1">Mail Us</h6>
-                            <p class="text-white mb-1 small text-center">info@arhamprinters.pk</p>
-                        </div>
-                    </div>
-
-                    <div class="col-6 col-md-3">
-                        <div class="rounded p-2 d-flex flex-column align-items-center">
-                            <a href="https://wa.me/923006238233" target="_blank" class="text-decoration-none">
-                                
-                            </a>
-                            <h6 class="text-white mt-1 mb-1">Direct Contact</h6>
-                            <a href="https://wa.me/923006238233" target="_blank"
-                                class="text-white-50 text-decoration-none">
-                                <p class="text-white mb-1 small text-center">+92 300 6238233</p>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-6 col-md-3">
-                        <div class="rounded p-2 d-flex flex-column align-items-center">
-                            
-                            <h6 class="text-white mt-1 mb-1">Policies</h6>
-                            
-<div>
-    <ul class="list-unstyled text-left">
-        <li><a class="text-white" href="shipping_policy.html">Shipping Policy</a></li>
-        <li><a class="text-white" href="return_policy.html">Return Policy</a></li>
-        
-        <!-- Add more links as needed -->
-    </ul>
-</div>
-
+                    <div class="col-lg-8">
+                        <div class="bg-light p-4 rounded">
+                            <form id="contact-form-whatsapp" onsubmit="handleContactSubmission(event)">
+                                <h3 class="mb-4">Send a Direct Message</h3>
+                                <div class="row g-3">
+                                    <div class="col-md-6"><div class="form-floating"><input type="text" class="form-control border-0" id="contact-name" placeholder="Your Name" required><label>Your Name</label></div></div>
+                                    <div class="col-md-6"><div class="form-floating"><input type="text" class="form-control border-0" id="contact-subject" placeholder="Subject" required><label>Subject</label></div></div>
+                                    <div class="col-12"><div class="form-floating"><textarea class="form-control border-0" placeholder="Message" id="contact-message" style="height: 150px" required></textarea><label>Message</label></div></div>
+                                    <div class="col-12"><button class="btn btn-primary w-100 py-3" type="submit">Send Message via WhatsApp</button></div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
 
+    <div class="container-fluid footer py-2">
+            <div class="container py-2">
+                <div class="row g-3">
+                    <div class="col-6 col-md-3">
+                        <div class="rounded p-2 d-flex flex-column align-items-center">
+                            <h6 class="text-white mt-1 mb-1">Address</h6>
+                            <p class="text-white mb-1 small text-left">Domela Chowk, Tanda Road, Jalalpur Jattan</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="rounded p-2 d-flex flex-column align-items-center">
+                            <h6 class="text-white mt-1 mb-1">Mail Us</h6>
+                            <p class="text-white mb-1 small text-center">info@arhamprinters.pk</p>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="rounded p-2 d-flex flex-column align-items-center">
+                            <h6 class="text-white mt-1 mb-1">Direct Contact</h6>
+                            <a href="https://wa.me/923006238233" target="_blank" class="text-white-50 text-decoration-none">
+                                <p class="text-white mb-1 small text-center">+92 300 6238233</p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="rounded p-2 d-flex flex-column align-items-center">
+                            <h6 class="text-white mt-1 mb-1">Policies</h6>
+                            <div>
+                                <ul class="list-unstyled text-left">
+                                    <li><a class="text-white" href="shipping_policy.html">Shipping Policy</a></li>
+                                    <li><a class="text-white" href="return_policy.html">Return Policy</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="container-fluid copyright py-2">
                 <div class="container">
                     <div class="row">
@@ -1148,8 +958,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
+    </div>
+    <a href="#" class="btn btn-primary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -1161,65 +971,24 @@
     <script src="js/cart-manager.js"></script> 
     
     <script>
-    // configuaration
+    // CONFIGURATION
     const PUBLIC_DATA_URL = 'all_prices.json';
     const WHATSAPP_NUMBER = '923006238233';
-    const SUBMIT_ORDER_URL = 'submit_order.php';
+    // Backend for any potential file uploads, though simple products go to cart/whatsapp
+    const SUBMIT_ORDER_URL = 'https://arhamprinters.pk/api/upload_and_notify.php';
 
-    // postex api configuration
-    const POSTEX_API_URL = 'https://api.postex.pk/services/integration/api';
-    const POSTEX_TOKEN = 'NjAwNzU4ZTQyZjQwNDQyMzhlZDhiYzk4MzhhY2M5ODI6MGRhZGIxYzc2MDI2NGFhMWIzNjE3M2I1YWQzNzNiMzU=';
+    // DATA VARIABLES
     let allProducts = {};
     let currentProduct = null;
     let allProductGroups = {};
     let currentSelectedVariations = {};
     let customprintspricing = {};
     
-    let currentShippingZone = 'Within City'; // jalalpur jattan is default
-    let currentDeliveryType = 'HomeDelivery'; // home delivery in jpj
+    // SHIPPING STATE
+    let currentShippingZone = 'Within City'; 
+    let currentDeliveryType = 'HomeDelivery'; 
 
-
-
-    const SHIPPING_RATES = {
-        // Within City (JLP) / Same Province / Cross Province
-        'small': {
-            'Within City': 100, // jalalpurjattan
-            'Same Province': 347,
-            'Cross Province': 359
-        },
-        'medium': {
-            'Within City': 100, // jalalpurjattan
-            'Same Province': 529,
-            'Cross Province': 541
-        },
-        'overland': {
-            'Within City': 150, // jalalpurjattan
-            'Same Province': 1254,
-            'Cross Province': 1254
-        }
-    };
-
-    const LOCAL_DELIVERY_COST = 100; //jalalpur jattan
-
-    //example zone mapping for refrence
-    const CITY_TO_ZONE = {
-        "jalalpur jattan": "Within City",
-        "gujrat": "Same Province",
-        "gujranwala": "Same Province",
-        "lahore": "Same Province",
-        "sialkot": "Same Province",
-        "rawalpindi": "Same Province",
-        "multan": "Same Province",
-        "faisalabad": "Same Province",
-        "karachi": "Cross Province",
-        "islamabad": "Cross Province",
-        "peshawar": "Cross Province",
-        "quetta": "Cross Province",
-        "sukkur": "Cross Province"
-    };
-
-    // profit and costing meta for area based itesms
-    
+    // AREA CALCULATION CONSTANTS
     const AREA_BASED_META = {
         "China": { is_area_based: true, rate: 35, min_area: 2, category: 'Banners' },
         "Star": { is_area_based: true, rate: 65, min_area: 2, category: 'Banners' },
@@ -1229,7 +998,7 @@
         "3D Wallpaper": { is_area_based: true, rate: 30, min_area: 20, category: '3D Wallpaper' }
     };
     const AREA_BASED_PRODUCT_NAMES = Object.keys(AREA_BASED_META);
-     const DESIGN_FEE_TIERS = [
+    const DESIGN_FEE_TIERS = [
         { min_sqft: 1, max_sqft: 10, base_fee: 300 },
         { min_sqft: 11, max_sqft: 24, base_fee: 400 },
         { min_sqft: 25, max_sqft: 50, base_fee: 500 },
@@ -1237,7 +1006,6 @@
     ];
     const DESIGN_FEE_QTY_INCREMENT = 50;
     const DESIGN_FEE_QTY_THRESHOLD = 5;
-
     const AREA_PROFIT_TIERS = [
         { min_qty: 1, max_qty: 10, multiplier: 1.20 },
         { min_qty: 11, max_qty: 20, multiplier: 1.18 },
@@ -1245,7 +1013,7 @@
         { min_qty: 31, max_qty: 50, multiplier: 1.14 },
         { min_qty: 51, max_qty: Infinity, multiplier: 1.10 },
     ];
-     const variantDisplayNames = {
+    const variantDisplayNames = {
         'variant_1': 'Size',
         'variant_2': 'Material/Stock',
         'variant_3': 'Type/Finish',
@@ -1255,12 +1023,12 @@
         'shape': 'Shape',
         'material': 'Material',
     };
-    
     const DISPLAY_ORDER = [
         'Size', 'Material', 'Type/Finish', 'Finish', 'Print Color (Single Side)',
         'Print Color (Double Side)', 'Material/Stock', 'Shape', 'Accessories', 'Inking Mechanism'
     ];
 
+    // UTILITY FUNCTIONS
     function sortAttributeKeys(keys) {
         return keys.sort((a, b) => {
             const indexA = DISPLAY_ORDER.indexOf(a);
@@ -1300,8 +1068,7 @@
         return multiplier;
     }
     
-    // functions
-
+    // --- APP LOAD ---
     async function initialAppLoad() {
        let rawData;
         try {
@@ -1311,18 +1078,25 @@
         } catch (error) {
             console.error("Failed to load shop data:", error);
             if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
-                Cart.showAlert("Failed to load product data. Check the developer console.", 'error');
-            } else {
-                 console.warn("Cart system not loaded, cannot display alert.");
+                Cart.showAlert("Failed to load product data.", 'error');
             }
             return;
         }
         
         initialProductSetup(rawData);
+        
+        // Check for specific product request from URL (e.g., from home page categories)
+        const urlParams = new URLSearchParams(window.location.search);
+        const category = urlParams.get('category');
+        if (category) {
+             // You could implement specific category filtering here
+        }
+
         showSection('shop-catalog');
         
         document.getElementById('quote-form').addEventListener('submit', handleQuoteSubmission);
         document.getElementById('contact-form-whatsapp').addEventListener('submit', handleContactSubmission);
+        
         setDeliveryType('HomeDelivery', false);
         document.getElementById('zone-name').textContent = `Jalalpur Jattan (Default)`;
         document.getElementById('zone-name').classList.add('text-success');
@@ -1350,7 +1124,6 @@
                 const rawProductData = categoryData[productKey];
                 
                 if (!productGroups[productKey]) {
-                    
                     let genericImageFile = '';
                     let productCombinations = [];
                     let isPhotoPrints = false;
@@ -1395,7 +1168,6 @@
                     if (productKey === '3D Wallpaper') genericImageFile = 'wallpapers';
 
                     if (genericImageFile === '') genericImageFile = 'placeholder';
-                    
                     const isAreaBased = AREA_BASED_PRODUCT_NAMES.includes(productKey);
                     
                     let minPrice = Infinity;
@@ -1433,19 +1205,7 @@
         allProductGroups = productGroups;
     }
 
-    function getShippingPacketType(productName) {
-        if (productName.includes('Card') || productName.includes('Print') || productName.includes('Sticker') || productName.includes('Photo')) return 'small';
-        if (productName.includes('Letterpad') || productName.includes('Bill Book') || productName.includes('T-Shirt') || productName.includes('Mug') || productName.includes('Pen')) return 'medium';
-        if (AREA_BASED_PRODUCT_NAMES.includes(productName) || productName.includes('Banner') || productName.includes('Vision') || productName.includes('Venyl')) return 'overland';
-        return 'small';
-    }
-
-    function getPostExShippingCost(packetType, zone) {
-        const rates = SHIPPING_RATES[packetType];
-        if (rates && rates[zone]) return rates[zone];
-        return rates['Cross Province'];
-    }
-    
+    // --- SHIPPING LOGIC (NEW SIMPLIFIED) ---
     function setDeliveryType(type, triggerPriceUpdate = true) {
         currentDeliveryType = type;
         const shippingZoneSelector = document.getElementById('shipping-zone-selector');
@@ -1468,7 +1228,7 @@
         
         if (triggerPriceUpdate) updateFinalPrice();
     }
-    //postex integration functions
+
     function manualLocationCheck() {
         const cityInput = document.getElementById('input-city').value.trim();
         if (cityInput.length < 3) return;
@@ -1476,28 +1236,19 @@
     }
 
     function detectLocation() {
-        if (POSTEX_TOKEN === 'NjAwNzU4ZTQyZjQwNDQyMzhlZDhiYzk4MzhhY2M5ODI6MGRhZGIxYzc2MDI2NGFhMWIzNjE3M2I1YWQzNzNiMzU=') {
-            if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
-                 Cart.showAlert("PostEx API Token not configured. Please enter your city manually.", 'error');
-            }
-            return;
-        }
-        document.getElementById('zone-name').textContent = "Please enter your city name above for zone check.";
         if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
-             Cart.showAlert("City detection via PostEx requires manual city entry.", 'info');
+             Cart.showAlert("Please enter your city manually for accurate rates.", 'info');
+        } else {
+             alert("Please enter city manually.");
         }
     }
 
     function updateShippingZone(cityName) {
         const normalizedCity = cityName.toLowerCase().replace(/[^a-z0-9]/g, ' ').trim();
-        let zone = 'Cross Province';
+        let zone = 'Non-Local'; 
         
-        if (CITY_TO_ZONE[normalizedCity]) {
-            zone = CITY_TO_ZONE[normalizedCity];
-        } else {
-          if (cityName.toLowerCase().includes('lahore') || cityName.toLowerCase().includes('gujrat')) {
-                 zone = 'Same Province';
-            }
+        if (normalizedCity.includes('jalalpur') || normalizedCity.includes('jattan') || normalizedCity === 'jlp') {
+            zone = 'Within City';
         }
         
         currentShippingZone = zone;
@@ -1505,10 +1256,12 @@
         const zoneDisplay = document.getElementById('zone-name');
         zoneDisplay.textContent = `${currentShippingZone} (${cityName})`;
         zoneDisplay.classList.remove('text-success', 'text-warning', 'text-danger');
-        zoneDisplay.classList.add(zone === 'Within City' ? 'text-success' : (zone === 'Same Province' ? 'text-warning' : 'text-danger'));
+        zoneDisplay.classList.add(zone === 'Within City' ? 'text-success' : 'text-danger');
         
         updateFinalPrice();
     }
+
+    // --- PRICE CALCULATION ---
     function calculateItemPrice() {
         if (!currentProduct) return { error: "No product selected" };
         
@@ -1538,7 +1291,6 @@
             const unitPrice = bundles[bundleName] || 0;
             baseProductPrice = unitPrice * quantity;
         }
-        
         else if (isAreaBased) {
             const width = parseFloat(document.getElementById('input-width').value) || 0;
             const height = parseFloat(document.getElementById('input-height').value) || 0;
@@ -1551,7 +1303,6 @@
             itemOptions['Dimensions'] = `${width} x ${height} ft`;
             itemOptions['Quantity'] = quantity;
             itemOptions['Design Service'] = designService;
-
 
             document.getElementById('areaConstraintWarning').style.display = 'none';
             if (width <= 0 || height <= 0 || quantity <= 0 || baseRate === 0) {
@@ -1584,13 +1335,11 @@
              itemOptions['Quantity'] = quantity;
              
              if (!size || !colorType || !gsm || quantity <= 0) requiresManualQuote = true;
-             
              try {
                  const tiers = customprintspricing[currentProduct.baseName];
                  const gsmData = tiers[size][colorType][gsm];
                  let unitPrice = 0;
                  let foundPrice = false;
-                 
                  Object.keys(gsmData).forEach(rangeKey => {
                      const [min, max] = rangeKey.split('-').map(n => parseInt(n));
                      if (quantity >= min && (isNaN(max) || quantity <= max)) {
@@ -1598,20 +1347,13 @@
                          foundPrice = true;
                      }
                  });
-                 
-                 if (foundPrice) {
-                     baseProductPrice = unitPrice * quantity;
-                 } else {
-                     requiresManualQuote = true;
-                 }
-             } catch(e) {
-                 requiresManualQuote = true;
-             }
+                 if (foundPrice) baseProductPrice = unitPrice * quantity;
+                 else requiresManualQuote = true;
+             } catch(e) { requiresManualQuote = true; }
         }
         else {
             quantity = parseInt(document.getElementById('input-standard-qty')?.value) || 1;
             const allCombinations = currentProduct?.combinations || [];
-            
             let allSelected = true;
             const requiredKeys = Object.keys(allCombinations[0] || {}).filter(key => key !== 'Price' && key !== 'FullName');
 
@@ -1622,17 +1364,12 @@
             itemOptions['Quantity'] = quantity;
 
             if (!allSelected) requiresManualQuote = true;
-            
             if (!requiresManualQuote) {
                 let finalProductCombination = allCombinations.find(combo =>
                     requiredKeys.every(key => combo[key] === currentSelectedVariations[key])
                 );
-                
-                if (finalProductCombination) {
-                    baseProductPrice = finalProductCombination.Price * quantity;
-                } else {
-                    requiresManualQuote = true;
-                }
+                if (finalProductCombination) baseProductPrice = finalProductCombination.Price * quantity;
+                else requiresManualQuote = true;
             }
         }
 
@@ -1648,59 +1385,68 @@
             imageFile: imageFile 
         };
     }
+
     function updateFinalPrice() {
         const itemData = calculateItemPrice();
         if (itemData.error) {
             document.getElementById('finalPriceBox').style.display = 'none';
             document.getElementById('shipping-display-box').style.display = 'none';
-            
             let warningText = "Please enter dimensions/quantity or select all options above to see the final price.";
             if (currentProduct?.isPhotoPrints || currentProduct?.isBundleTiered) { 
                  warningText = `Please select a bundle and quantity for ${currentProduct.baseName} to see the final price.`;
             }
-
             document.getElementById('selectionWarning').textContent = warningText;
             document.getElementById('selectionWarning').classList.remove('alert-danger');
             document.getElementById('selectionWarning').classList.add('alert-info');
             document.getElementById('selectionWarning').style.display = 'block';
-            
-            if (currentProduct?.isPhotoPrints) {
-                 if (document.getElementById('upload-status')) document.getElementById('upload-status').style.display = 'none';
-            }
             return;
         }
 
-        //shipping and price calculation
+        // --- NEW SHIPPING LOGIC ---
         let shippingCost = 0;
         let shippingNote = '';
-        const packetType = getShippingPacketType(itemData.productName);
-        
-        if (currentDeliveryType === 'SelfPickUp') {
-            shippingCost = 0;
-            shippingNote = 'Self Pick Up. No shipping charges applied.';
-        } else {
-            const isLocal = currentShippingZone === 'Within City';
-            const costForPacket = SHIPPING_RATES[packetType][currentShippingZone] || SHIPPING_RATES[packetType]['Cross Province'];
+        let isShippingPending = false;
 
-            if (isLocal && itemData.basePrice > 3000) { // minimum for free local delivery
-                 shippingCost = 0;
-                 shippingNote = `FREE Delivery for Jalalpur Jattan City and Surrounding Villages is applied due to order over PKR 3,000`;
+        if (currentDeliveryType === 'SelfPickUp') {
+            // Option 1: Free Instore
+            shippingCost = 0;
+            shippingNote = 'Free Instore Pickup (Jalalpur Jattan)';
+        } else {
+            if (currentShippingZone === 'Within City') {
+                // Option 2: Local Fixed 100
+                shippingCost = 100;
+                shippingNote = 'Local Home Delivery (Flat Rate)';
             } else {
-                shippingCost = isLocal ? SHIPPING_RATES[packetType]['Within City'] : costForPacket;
-                shippingNote = isLocal
-                    ? `Local Delivery (Jalalpur Jattan). Flat rate for ${packetType.toUpperCase()} packet.`
-                    : `PostEx Courier (to ${currentShippingZone}). Price includes ${packetType.toUpperCase()} packet charge, fuel surcharge, and GST.`;
+                // Option 3: Non-Local (Added Later)
+                shippingCost = 0;
+                isShippingPending = true;
+                shippingNote = 'Courier charges to be added later (As per actual)';
             }
         }
 
         const totalCost = itemData.basePrice + shippingCost;
         const finalSellingPrice = Math.round(totalCost);
-        document.getElementById('finalPriceDisplay').textContent = `PKR ${finalSellingPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
+        
+        // --- UPDATE UI DISPLAY ---
+        const priceDisplay = document.getElementById('finalPriceDisplay');
+        const shipDisplay = document.getElementById('shipping-cost-display');
+
+        if (isShippingPending) {
+            priceDisplay.innerHTML = `PKR ${itemData.basePrice.toLocaleString()} <span class="fs-6 text-warning">+ Delivery</span>`;
+            shipDisplay.textContent = "Calculated Later";
+            shipDisplay.classList.add('text-warning');
+        } else {
+            priceDisplay.textContent = `PKR ${finalSellingPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
+            shipDisplay.textContent = shippingCost === 0 ? "FREE" : `PKR ${shippingCost}`;
+            shipDisplay.classList.remove('text-warning');
+        }
+
         document.getElementById('finalPriceBox').style.display = 'block';
         document.getElementById('selectionWarning').style.display = 'none';
-        document.getElementById('shipping-cost-display').textContent = shippingCost === 0 ? "FREE" : `PKR ${shippingCost.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
+        
         document.getElementById('shipping-note-display').textContent = shippingNote;
         document.getElementById('shipping-display-box').style.display = 'block';
+
         const areaConstraintWarning = document.getElementById('areaConstraintWarning');
         if (areaConstraintWarning && itemData.isAreaBased) {
              const width = parseFloat(document.getElementById('input-width').value) || 0;
@@ -1736,14 +1482,13 @@
         }
 
         const itemData = calculateItemPrice();
-        
         if (itemData.error) {
             Cart.showAlert('Error adding item: ' + itemData.error, 'error');
             return;
         }
         
         const cartItem = {
-            id: Date.now(), // id for cart item
+            id: Date.now(), 
             productName: itemData.productName,
             quantity: itemData.quantity,
             basePrice: itemData.basePrice,
@@ -1755,8 +1500,9 @@
 
         Cart.addItem(cartItem);
     }
+
+    // --- PRODUCT DETAIL UI ---
     function showProductDetails(productName) {
-        
         if (productName.trim() === "Paper Prints") {
              showDigitalPrintingDetails();
              return;
@@ -1770,7 +1516,7 @@
 
         if (!currentProduct) {
             if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
-                Cart.showAlert(`Product "${cleanName}" details not found in data. Please use the 'Get Custom Quote' option.`, 'error');
+                Cart.showAlert(`Product "${cleanName}" details not found.`, 'error');
             }
             return;
         }
@@ -1788,31 +1534,23 @@
             this.src = `img/products/placeholder.png`;
         };
 
-
         const areaInputs = document.getElementById('custom-area-inputs');
         const standardOptions = document.getElementById('standard-options-fields');
         
         document.getElementById('finalPriceBox').style.display = 'none';
         document.getElementById('selectionWarning').textContent = "Please enter dimensions/quantity or select all options above to see the final price.";
-        document.getElementById('selectionWarning').classList.remove('alert-danger');
-        document.getElementById('selectionWarning').classList.add('alert-info');
         document.getElementById('selectionWarning').style.display = 'block';
 
         setDeliveryType('HomeDelivery', false);
 
         const isAreaBased = currentProduct.isAreaBased;
-        
         if (isAreaBased) {
-
             areaInputs.style.display = 'block';
-            
             const excludeDesign = ['3D Wallpaper', 'Photo Frames'];
-            
             standardOptions.style.display = 'block';
             standardOptions.innerHTML = '';
 
             if (!excludeDesign.includes(currentProduct.baseName)) {
-
                 standardOptions.innerHTML = `
                     <div class="product-option-group" data-option-key="DesignService">
                         <label>Design Service:</label>
@@ -1829,25 +1567,19 @@
                             </label>
                         </div>
                     </div>`;
-           currentSelectedVariations['DesignService'] = 'PrintReady';
+               currentSelectedVariations['DesignService'] = 'PrintReady';
             } else {
-                             currentSelectedVariations['DesignService'] = 'PrintReady';
+                 currentSelectedVariations['DesignService'] = 'PrintReady';
             }
-                      document.getElementById('input-width').value = 1;
+            document.getElementById('input-width').value = 1;
             document.getElementById('input-height').value = 1;
             document.getElementById('input-custom-qty').value = 1;
-
             ['input-width', 'input-height', 'input-custom-qty'].forEach(id => {
                  const el = document.getElementById(id);
                  if(el) el.oninput = updateFinalPrice;
             });
-            
             document.getElementById('areaConstraintWarning').style.display = 'none';
-            document.getElementById('areaConstraintWarning').classList.remove('alert-info');
-            document.getElementById('areaConstraintWarning').classList.add('alert-danger');
-
             updateFinalPrice();
-
         } else {
             areaInputs.style.display = 'none';
             standardOptions.style.display = 'block';
@@ -1860,42 +1592,23 @@
             }
 
             let attributeKeys = Object.keys(allCombinations[0]).filter(key => key !== 'Price' && key !== 'FullName');
-            
             attributeKeys = sortAttributeKeys(attributeKeys);
-
-
             const availableAttributes = {};
             attributeKeys.forEach(key => availableAttributes[key] = new Set());
 
             allCombinations.forEach(c => {
-                attributeKeys.forEach(key => {
-                    if (c[key]) availableAttributes[key].add(c[key]);
-                });
+                attributeKeys.forEach(key => { if (c[key]) availableAttributes[key].add(c[key]); });
             });
         
             attributeKeys.forEach((attrKey) => {
                 const uniqueValues = Array.from(availableAttributes[attrKey]);
                 const sanitizedKey = attrKey;
-
-                let groupHTML = `
-                    <div class="product-option-group" data-option-key="${sanitizedKey}">
-                        <label>${attrKey}:</label>
-                        <div class="d-flex flex-wrap gap-3" id="choices-${sanitizedKey}">
-                `;
+                let groupHTML = `<div class="product-option-group" data-option-key="${sanitizedKey}"><label>${attrKey}:</label><div class="d-flex flex-wrap gap-3" id="choices-${sanitizedKey}">`;
                 uniqueValues.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
-
                 uniqueValues.forEach(value => {
                     const inputId = `${sanitizedKey}-${value.replace(/\s|\/|\\|\(|\)/g, '-')}`;
-                    
-                    groupHTML += `
-                        <label class="choice-card" for="${inputId}">
-                            <input type="radio" id="${inputId}" name="option-${sanitizedKey}" value="${value}"
-                                            onchange="handleCardSelection('${sanitizedKey}', '${value}')">
-                            <span class="label-text">${value}</span>
-                        </label>
-                    `;
+                    groupHTML += `<label class="choice-card" for="${inputId}"><input type="radio" id="${inputId}" name="option-${sanitizedKey}" value="${value}" onchange="handleCardSelection('${sanitizedKey}', '${value}')"><span class="label-text">${value}</span></label>`;
                 });
-
                 groupHTML += `</div></div>`;
                 standardOptions.innerHTML += groupHTML;
             });
@@ -1925,297 +1638,94 @@
                 updateFinalPrice();
             }
         }
-
         showSection('product-detail');
     }
     
     function showDigitalPrintingDetails() {
          currentProduct = allProductGroups["Paper Prints"];
          currentSelectedVariations = {};
-         
-         if (!currentProduct || !customprintspricing["Paper Prints"]) {
-             if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
-                 Cart.showAlert(`Paper Prints data not found.`, 'error');
-             }
-             return;
-         }
+         if (!currentProduct || !customprintspricing["Paper Prints"]) return;
 
          document.getElementById('detail-product-name-header').textContent = currentProduct.baseName;
          document.getElementById('detail-product-name-body').textContent = currentProduct.baseName;
-         
-         const imagePath = currentProduct.imageFile;
-         document.getElementById('detail-product-image-webp').srcset = `img/products/${imagePath}.webp`;
-         document.getElementById('detail-product-image').src = `img/products/${imagePath}.png`;
-         document.getElementById('detail-product-image').onerror = function() { this.src = `img/products/placeholder.png`; };
+         document.getElementById('detail-product-image-webp').srcset = `img/products/${currentProduct.imageFile}.webp`;
+         document.getElementById('detail-product-image').src = `img/products/${currentProduct.imageFile}.png`;
 
          const areaInputs = document.getElementById('custom-area-inputs');
          const standardOptions = document.getElementById('standard-options-fields');
-         
          areaInputs.style.display = 'none';
          standardOptions.style.display = 'block';
          standardOptions.innerHTML = '';
-         
          document.getElementById('finalPriceBox').style.display = 'none';
-         document.getElementById('selectionWarning').textContent = "Please select all printing options and enter quantity to see the final price.";
-         document.getElementById('selectionWarning').classList.remove('alert-danger');
-         document.getElementById('selectionWarning').classList.add('alert-info');
          document.getElementById('selectionWarning').style.display = 'block';
-
          setDeliveryType('HomeDelivery', false);
          
-         const sizes = Object.keys(customprintspricing["Paper Prints"]);
-         
-         if(sizes.length === 0) {
-             standardOptions.innerHTML = `<p class="alert alert-warning">Paper Prints not loaded. Please contact support.</p>`;
-             showSection('product-detail');
-             return;
-         }
-         
-         let html = '';
-         const keysToRender = ['Size', 'ColorType', 'GSM'];
          const sizesList = Object.keys(customprintspricing["Paper Prints"]);
-         
-         keysToRender.forEach(key => {
-             html += `<div class="product-option-group" data-option-key="${key}">
-                         <label>${key.replace('ColorType', 'Print Color').replace('GSM', 'Paper Weight (GSM)')}:</label>
-                         <div class="d-flex flex-wrap gap-3" id="choices-${key}">`;
-             
+         let html = '';
+         ['Size', 'ColorType', 'GSM'].forEach(key => {
+             html += `<div class="product-option-group" data-option-key="${key}"><label>${key}:</label><div class="d-flex flex-wrap gap-3" id="choices-${key}">`;
              let currentOptions = [];
-             if (key === 'Size') {
-                 currentOptions = sizesList;
-             } else if (key === 'ColorType' && sizesList.length > 0) {
-                 currentOptions = Object.keys(customprintspricing["Paper Prints"][sizesList[0]] || {});
-             } else if (key === 'GSM' && sizesList.length > 0) {
-                 const firstColorType = Object.keys(customprintspricing["Paper Prints"][sizesList[0]] || {})[0];
-                 if (firstColorType) {
-                     currentOptions = Object.keys(customprintspricing["Paper Prints"][sizesList[0]][firstColorType] || {});
-                 }
-             }
+             if (key === 'Size') currentOptions = sizesList;
+             else if (key === 'ColorType') currentOptions = Object.keys(customprintspricing["Paper Prints"][sizesList[0]] || {});
+             else if (key === 'GSM') currentOptions = Object.keys(customprintspricing["Paper Prints"][sizesList[0]]['black_white'] || {}); // Assume logic
 
              currentOptions.forEach(value => {
-                 const displayValue = value.replace('_', ' ').toUpperCase();
                  const inputId = `${key}-${value}`;
-                 html += `<label class="choice-card" for="${inputId}">
-                                  <input type="radio" id="${inputId}" name="option-${key}" value="${value}"
-                                          onchange="handleCardSelection('${key}', '${value}', true)">
-                                  <span class="label-text">${displayValue}</span>
-                              </label>`;
+                 html += `<label class="choice-card" for="${inputId}"><input type="radio" id="${inputId}" name="option-${key}" value="${value}" onchange="handleCardSelection('${key}', '${value}', true)"><span class="label-text">${value.replace('_',' ')}</span></label>`;
              });
              html += `</div></div>`;
          });
 
-         standardOptions.innerHTML += html;
-         
-         standardOptions.innerHTML += `
-              <div class="product-option-group" data-option-key="QuantitySelector">
-                  <label>Number of Pages:</label>
-                  <div class="input-group">
-                      <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(-1)">-</button>
-                      <input type="number" id="input-standard-qty" min="1" value="1" class="form-control text-center rounded-0" oninput="updateFinalPrice()">
-                      <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(1)">+</button>
-                  </div>
-              </div>
-         `;
-         
-         keysToRender.forEach(key => {
-             const firstInput = document.querySelector(`input[name="option-${key}"]`);
-             if (firstInput) {
-                 firstInput.checked = true;
-                 handleCardSelection(key, firstInput.value, false);
-             }
-         });
-         
+         standardOptions.innerHTML += html + `<div class="product-option-group"><label>Pages:</label><input type="number" id="input-standard-qty" min="1" value="1" class="form-control" oninput="updateFinalPrice()"></div>`;
          updateFinalPrice();
-
          showSection('product-detail');
     }
 
     function showBundleProductDetails(productName) {
-        
         const bundles = currentProduct.bundles;
         currentSelectedVariations = {};
-
-        if (!currentProduct || !bundles) {
-            if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
-                Cart.showAlert(`${productName} bundle data not found.`, 'error');
-            }
-            return;
-        }
+        if (!currentProduct || !bundles) return;
 
         document.getElementById('detail-product-name-header').textContent = productName;
         document.getElementById('detail-product-name-body').textContent = productName;
-
-        const imagePath = currentProduct.imageFile;
-        document.getElementById('detail-product-image-webp').srcset = `img/products/${imagePath}.webp`;
-        document.getElementById('detail-product-image').src = `img/products/${imagePath}.png`;
-        document.getElementById('detail-product-image').onerror = function() { this.src = `img/products/placeholder.png`; };
+        document.getElementById('detail-product-image-webp').srcset = `img/products/${currentProduct.imageFile}.webp`;
+        document.getElementById('detail-product-image').src = `img/products/${currentProduct.imageFile}.png`;
 
         document.getElementById('custom-area-inputs').style.display = 'none';
         const standardOptions = document.getElementById('standard-options-fields');
         standardOptions.style.display = 'block';
         standardOptions.innerHTML = '';
-
         document.getElementById('finalPriceBox').style.display = 'none';
-        
-        let warningMessage = "Please select a bundle and quantity of bundles to see the final price.";
-        if (productName === 'Photo Printing') {
-             warningMessage = "Please select a photo bundle, quantity, and prepare your images to see the final price.";
-        }
-        document.getElementById('selectionWarning').textContent = warningMessage;
-        document.getElementById('selectionWarning').classList.remove('alert-danger');
-        document.getElementById('selectionWarning').classList.add('alert-info');
         document.getElementById('selectionWarning').style.display = 'block';
-
         setDeliveryType('HomeDelivery', false); 
 
         const bundleKeys = Object.keys(bundles);
-        let html = '';
-
-        // bundle
-        html += `<div class="product-option-group" data-option-key="ProductBundle">
-                    <label>Select ${productName} Bundle:</label>
-                    <div class="d-flex flex-wrap gap-3" id="choices-ProductBundle">`;
-
+        let html = `<div class="product-option-group" data-option-key="ProductBundle"><label>Select Bundle:</label><div class="d-flex flex-wrap gap-3">`;
         bundleKeys.forEach(bundle => {
-            const price = bundles[bundle];
-            const inputId = `bundle-${productName.replace(/\s/g, '-')}-${bundle.replace(/\s/g, '-')}`;
-            
-            // bundle name
-            let displayPrice = '';
-            
-            html += `<label class="choice-card" for="${inputId}">
-                        <input type="radio" id="${inputId}" name="option-ProductBundle" value="${bundle}" 
-                               onchange="handleCardSelection('ProductBundle', '${bundle}', false)">
-                        <span class="label-text">${bundle}</span>
-                    </label>`;
+            const inputId = `bundle-${bundle.replace(/\s/g, '-')}`;
+            html += `<label class="choice-card" for="${inputId}"><input type="radio" id="${inputId}" name="option-ProductBundle" value="${bundle}" onchange="handleCardSelection('ProductBundle', '${bundle}', false)"><span class="label-text">${bundle}</span></label>`;
         });
-        html += `</div></div>`;
-
-        // number of bundles
-        html += `
-            <div class="product-option-group" data-option-key="BundleQuantity">
-                <label>Number of Bundles:</label>
-                <div class="input-group">
-                    <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(-1)">-</button>
-                    <input type="number" id="input-standard-qty" min="1" value="1" class="form-control text-center rounded-0" oninput="updateFinalPrice()">
-                    <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityStandard(1)">+</button>
-                </div>
-            </div>`;
-            
+        html += `</div></div><div class="product-option-group"><label>Quantity:</label><input type="number" id="input-standard-qty" min="1" value="1" class="form-control" oninput="updateFinalPrice()"></div>`;
         standardOptions.innerHTML = html;
-
-        const firstBundle = bundleKeys[0];
-        if (firstBundle) {
-            const firstInput = document.querySelector(`input[name="option-ProductBundle"][value="${firstBundle}"]`);
-            if (firstInput) {
-                 firstInput.checked = true;
-                 firstInput.closest('.choice-card').classList.add('selected');
-                 currentSelectedVariations['ProductBundle'] = firstBundle;
-            }
-        }
-        
         updateFinalPrice();
         showSection('product-detail');
     }
 
-
     function handleCardSelection(key, value, cascade = true) {
-        const sanitizedKey = key;
-        
-        currentSelectedVariations[sanitizedKey] = value;
-        
-        document.querySelectorAll(`input[name="option-${sanitizedKey}"]`).forEach(input => {
+        currentSelectedVariations[key] = value;
+        document.querySelectorAll(`input[name="option-${key}"]`).forEach(input => {
             input.closest('.choice-card')?.classList.remove('selected');
         });
-        const selectedInput = document.querySelector(`input[name="option-${sanitizedKey}"][value="${value}"]`);
-        if (selectedInput) {
-            selectedInput.closest('.choice-card')?.classList.add('selected');
-        }
+        const selectedInput = document.querySelector(`input[name="option-${key}"][value="${value}"]`);
+        if (selectedInput) selectedInput.closest('.choice-card')?.classList.add('selected');
         
-        
-
         if (currentProduct?.isDigitalTiered || currentProduct?.isPhotoPrints || currentProduct?.isBundleTiered) { 
              if (cascade) updateFinalPrice();
              return;
         }
-
-        if (cascade) {
-            let allAttributeKeys = Object.keys(currentProduct.combinations[0]).filter(k => k !== 'Price' && k !== 'FullName');
-            allAttributeKeys = sortAttributeKeys(allAttributeKeys);
-
-            let startCascade = false;
-
-            for (const attrKey of allAttributeKeys) {
-                if (attrKey === key) {
-                    startCascade = true;
-                    continue;
-                }
-                
-                if (startCascade) {
-                    const targetGroup = document.getElementById(`choices-${attrKey}`);
-                    if (targetGroup) {
-                        const validValues = filterAvailableOptions(
-                            attrKey, currentSelectedVariations, currentProduct.combinations
-                        );
-                        
-                        let newSelectionNeeded = false;
-                        
-                        targetGroup.querySelectorAll('.choice-card').forEach(card => {
-                            const inputEl = card.querySelector('input');
-                            const optionValue = inputEl.value;
-                            
-                            if (!validValues.has(optionValue)) {
-                                card.classList.add('disabled');
-                                card.classList.remove('selected');
-                                
-                                if (currentSelectedVariations[attrKey] === optionValue) {
-                                     delete currentSelectedVariations[attrKey];
-                                     newSelectionNeeded = true;
-                                }
-                            } else {
-                                card.classList.remove('disabled');
-                                if (currentSelectedVariations[attrKey] === optionValue) {
-                                     card.classList.add('selected');
-                                     inputEl.checked = true;
-                                }
-                            }
-                        });
-                        
-                        if (newSelectionNeeded || !currentSelectedVariations[attrKey]) {
-                            const firstValidOption = targetGroup.querySelector('.choice-card:not(.disabled) input');
-                            if (firstValidOption) {
-                                firstValidOption.checked = true;
-                                handleCardSelection(attrKey, firstValidOption.value);
-                                return;
-                            } else {
-                                delete currentSelectedVariations[attrKey];
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
         updateFinalPrice();
     }
     
-    function filterAvailableOptions(targetKey, currentSelections, allCombinations) {
-        const validValues = new Set();
-        allCombinations.forEach(combo => {
-            let isMatch = true;
-            const keysToCheck = Object.keys(currentSelections).filter(k => k !== targetKey);
-            
-            for (const key of keysToCheck) {
-                 if (combo[key] !== currentSelections[key]) {
-                     isMatch = false;
-                     break;
-                 }
-            }
-            if (isMatch && combo[targetKey]) validValues.add(combo[targetKey]);
-        });
-        return validValues;
-    }
-
     function updateQuantityStandard(change) {
         const input = document.getElementById('input-standard-qty');
         let quantity = parseInt(input.value) || 1;
@@ -2224,46 +1734,7 @@
         updateFinalPrice();
     }
 
-function filterProducts() {
-    const input = document.getElementById('search-input');
-    const filter = input.value.toUpperCase();
-    const productItems = document.querySelectorAll('.product-item');
-    const headings = document.querySelectorAll('#main-product-catalog > h3');
-    const resultsMessage = document.getElementById('search-results-message');
-    
-    let visibleCount = 0;
-    
-    productItems.forEach(item => {
-        const name = item.getAttribute('data-name');
-        if (name.toUpperCase().indexOf(filter) > -1) {
-            item.style.display = '';
-            visibleCount++;
-        } else {
-            item.style.display = 'none';
-        }
-    });
-    
-    headings.forEach(heading => {
-        if (filter.length > 0) {
-            heading.style.display = 'none';
-        } else {
-            heading.style.display = ''; 
-        }
-    });
-
-    if (filter.length > 0) {
-        if (visibleCount > 0) {
-            resultsMessage.innerHTML = `Found **${visibleCount}** matching product(s).`;
-            resultsMessage.style.display = 'block';
-        } else {
-            resultsMessage.innerHTML = `No products found matching "**${filter}**".`;
-            resultsMessage.style.display = 'block';
-        }
-    } else {
-        resultsMessage.style.display = 'none';
-    }
-}
-    // helping funcions for whtsapp forms
+    // --- WHATSAPP FORMS ---
     function handleQuoteSubmission(e) {
         e.preventDefault();
         const name = document.getElementById('quote-name').value;
@@ -2271,11 +1742,9 @@ function filterProducts() {
         const product = document.getElementById('quote-product').value;
         const quantity = document.getElementById('quote-quantity').value;
         const details = document.getElementById('quote-details').value;
-        let whatsappMessage = `*NEW QUOTE REQUEST (WEB - PRODUCTS)*\n*Customer:* ${name}\n*Phone (Contact):* ${phone}\n*Product Type:* ${product}\n*Quantity/Area:* ${quantity}\n*Specifications:* ${details}`;
+        let whatsappMessage = `*NEW QUOTE REQUEST (WEB)*\n*Customer:* ${name}\n*Phone:* ${phone}\n*Product:* ${product}\n*Quantity:* ${quantity}\n*Details:* ${details}`;
         window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
-        if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
-             Cart.showAlert('Quote submitted via WhatsApp! We will contact you shortly.', 'success');
-        }
+        if (typeof Cart !== 'undefined') Cart.showAlert('Quote submitted via WhatsApp!', 'success');
         document.getElementById('quote-form').reset();
     }
     function handleContactSubmission(e) {
@@ -2283,11 +1752,9 @@ function filterProducts() {
         const name = document.getElementById('contact-name').value;
         const subject = document.getElementById('contact-subject').value;
         const message = document.getElementById('contact-message').value;
-        let whatsappMessage = `*NEW CONTACT MESSAGE (WEB - PRODUCTS)*\n*Sender:* ${name}\n*Subject:* ${subject}\n*Message:* ${message}`;
+        let whatsappMessage = `*CONTACT MESSAGE*\n*Sender:* ${name}\n*Subject:* ${subject}\n*Message:* ${message}`;
         window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
-        if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
-             Cart.showAlert('Message sent via WhatsApp!', 'success');
-        }
+        if (typeof Cart !== 'undefined') Cart.showAlert('Message sent via WhatsApp!', 'success');
         document.getElementById('contact-form-whatsapp').reset();
     }
     function showSection(sectionName) {
@@ -2295,21 +1762,14 @@ function filterProducts() {
         const sectionElement = document.getElementById(sectionName + '-section');
         if (sectionElement) sectionElement.classList.add('active');
         else document.getElementById('shop-catalog-section').classList.add('active');
-        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => { link.classList.remove('active'); });
-        const desktopLink = document.querySelector(`.navbar-nav a[onclick="showSection('${sectionName}')"]`);
-        if (desktopLink) desktopLink.classList.add('active');
+        
         if (typeof setActiveMobileNav === 'function') setActiveMobileNav(sectionName === 'shop-catalog' ? 'products' : sectionName);
         window.scrollTo(0, 0);
-
-        if (sectionName === 'cart' && typeof Cart !== 'undefined') {
-            Cart.updateCartDisplay();
-        }
+        if (sectionName === 'cart' && typeof Cart !== 'undefined') Cart.updateCartDisplay();
     }
     
     document.addEventListener('DOMContentLoaded', initialAppLoad);
 </script>
 </div>
 </body>
-
-
 </html>

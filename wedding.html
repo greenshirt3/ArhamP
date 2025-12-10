@@ -20,17 +20,14 @@
     <style>
         /* General Layout and Utility Styles */
         :root {
-            --bs-primary: #f28b00; /* Assuming this is your primary color */
-            --bs-secondary: #ff5722; /* Example secondary color */
+            --bs-primary: #f28b00;
+            --bs-secondary: #ff5722;
             --bs-dark: #212529;
             --mobile-nav-height: 60px;
         }
-        .section {
-            display: none;
-        }
-        .section.active {
-            display: block;
-        }
+        .section { display: none; }
+        .section.active { display: block; }
+        
         .final-price-box {
             background: var(--bs-primary);
             color: white;
@@ -40,15 +37,9 @@
             text-align: center;
             display: none; 
         }
-        .final-price-box h4 {
-            color: white;
-        }
+        .final-price-box h4 { color: white; }
         
-        /* ---------------------------------------------------- */
-        /* RESPONSIVE HEADER IMAGE IMPLEMENTATION (NEW LOGIC) */
-        /* ---------------------------------------------------- */
         .page-header {
-            /* Default: Use Mobile Image (Mobile First Approach) */
             background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url(img/banners/weddingdesktop.webp) center center no-repeat;
             background-size: cover;
             min-height: 250px;
@@ -56,22 +47,14 @@
 
         @media (min-width: 768px) {
             .page-header {
-                /* Override: Use Desktop Image on larger screens */
                 background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url(img/banners/weddingdesktop.webp) center center no-repeat;
                 background-size: cover;
                 min-height: 350px;
             }
         }
-        /* ---------------------------------------------------- */
         
-        /* --- DESKTOP NAV FIX --- */
-        /* Remove margin from h1 inside the desktop navbar brand for alignment */
-        .navbar-brand h1 {
-            margin-top: 0;
-            margin-bottom: 0;
-        }
+        .navbar-brand h1 { margin-top: 0; margin-bottom: 0; }
 
-        /* Clickable Card Variations (Standard Items) */
         .choice-card {
             cursor: pointer;
             border: 2px solid #ddd;
@@ -81,7 +64,7 @@
             transition: all 0.2s ease;
             flex-grow: 1;
             min-width: 120px;
-            opacity: 1; /* Default to visible */
+            opacity: 1; 
         }
         .choice-card:hover {
             border-color: var(--bs-secondary);
@@ -93,24 +76,20 @@
             color: white;
             box-shadow: 0 0 10px rgba(242, 139, 0, 0.3);
         }
-        /* Style for visually disabling non-selectable options */
         .choice-card.disabled {
             opacity: 0.5;
-            pointer-events: none; /* Disable interaction */
+            pointer-events: none;
             border-color: #eee;
             background-color: #f7f7f7;
         }
-        .choice-card input[type="radio"] {
-            display: none;
-        }
+        .choice-card input[type="radio"] { display: none; }
         .choice-card .label-text {
             font-weight: 500;
             color: var(--bs-dark);
             display: block;
         }
-        .choice-card.selected .label-text {
-            color: white;
-        }
+        .choice-card.selected .label-text { color: white; }
+        
         .product-option-group {
             margin-bottom: 1.5rem;
             padding: 0.75rem;
@@ -124,135 +103,27 @@
             display: block;
             font-size: 1.1rem;
         }
-        /* Style for hidden cards */
-        .card-hidden {
-             display: none !important;
-        }
+        .card-hidden { display: none !important; }
 
-        /* --- MOBILE BOTTOM NAVIGATION STYLES --- */
-
-        /* 1. Mobile Bottom Bar Container */
+        /* Mobile Bottom Navigation */
         #mobile-bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: var(--mobile-nav-height);
-            background: white;
-            border-top: 1px solid #ddd;
-            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
-            z-index: 1030;
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
+            position: fixed; bottom: 0; left: 0; right: 0; height: var(--mobile-nav-height);
+            background: white; border-top: 1px solid #ddd; box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1030; display: flex; align-items: center; justify-content: space-around;
         }
+        #mobile-bottom-nav > a, #mobile-bottom-nav > div { flex: 1 1 0%; }
         
-        /* **FIX 1: Ensure all 5 top-level elements take equal width** */
-        #mobile-bottom-nav > a, 
-        #mobile-bottom-nav > div {
-            flex: 1 1 0%; /* Equal distribution: 20% width per slot */
-        }
-
-        /* 2. Mobile Link Styling */
         .mobile-nav-link {
-            flex: 1; 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            text-decoration: none;
-            color: var(--bs-dark);
-            font-size: 0.6rem; /* Smaller text for compact look */
-            padding: 5px 0;
-            transition: color 0.2s;
-            position: relative;
-            height: 100%;
-            justify-content: center;
+            flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center;
+            text-decoration: none; color: var(--bs-dark); font-size: 0.6rem; padding: 5px 0;
+            transition: color 0.2s; position: relative; height: 100%; justify-content: center;
         }
-        .mobile-nav-link:hover {
-             color: var(--bs-primary);
-        }
-        .mobile-nav-link i {
-            font-size: 1.1rem;
-            margin-bottom: 2px;
-            line-height: 1;
-        }
-        .mobile-nav-link.active {
-            color: var(--bs-primary);
-        }
+        .mobile-nav-link:hover { color: var(--bs-primary); }
+        .mobile-nav-link i { font-size: 1.1rem; margin-bottom: 2px; line-height: 1; }
+        .mobile-nav-link.active { color: var(--bs-primary); }
         
-
-/* Update the existing #mobile-nav-logo section */
-/* 3. Center Logo Button */
-#mobile-nav-logo {
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative; /* Make it relative for absolute children */
-}
-#mobile-nav-logo a {
-            background-color: var(--bs-primary);
-            color: white;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 10px rgba(242, 139, 0, 0.6);
-            position: absolute; 
-            top: -15px; 
-            /* **FIX 2: Center absolutely positioned element within its slot** */
-            left: 50%;
-            transform: translateX(-50%); 
-}
-
-/* NEW RULE: Style the image inside the centered mobile button */
-#mobile-nav-logo a img {
-    /* Ensures the image is centered and prevents vertical alignment issues */
-    vertical-align: middle; 
-    /* Ensures the image doesn't overflow the 45px circle container */
-    max-width: 80%; 
-    max-height: 80%;
-    height: auto !important; /* Overrides inline height if needed, maintaining aspect ratio */
-}
-
-#mobile-nav-logo a i {
-            font-size: 1.5rem;
-}
-        /* 4. Content Padding to clear the fixed bottom nav */
         #shop-catalog-section, #product-detail-section, #quote-section, #contact-section, #cart-section, #checkout-section {
-            padding-bottom: calc(var(--mobile-nav-height) + 15px); /* Add space for the bottom navbar */
-        }
-        
-        /* 5. Compact Category Link Styling (Removed, but keeping class definitions minimal) */
-        .categories-item a {
-            font-size: 0.75rem; 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 5px 0;
-            line-height: 1.2;
-        }
-        .categories-item a i {
-            font-size: 1.2rem; 
-            margin-bottom: 5px !important;
-        }
-        
-        /* 6. Mobile Dropdown Specific Styling */
-        #mobile-bottom-nav .dropdown-menu {
-            position: absolute;
-            bottom: var(--mobile-nav-height); /* Position above the nav bar */
-            left: 50%;
-            transform: translateX(-50%);
-            width: 250px;
-            box-shadow: 0 -5px 15px rgba(0,0,0,0.2);
-            border-radius: 8px 8px 0 0;
-            padding: 10px 0;
-        }
-        #mobile-bottom-nav .dropdown-item {
-             font-size: 0.8rem;
+            padding-bottom: calc(var(--mobile-nav-height) + 15px);
         }
     </style>
 </head>
@@ -287,53 +158,49 @@
     </div>
     
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5 d-none d-lg-block">
-    
-    <div class="d-flex w-100 justify-content-between align-items-center">
+        <div class="d-flex w-100 justify-content-between align-items-center">
+            <a href="index.html" class="navbar-brand d-flex align-items-center me-4">
+                <img src="img/logo2.webp" alt="Arham Printers Logo" style="height: 40px; margin-right: 1rem;">
+            </a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
         
-        <a href="index.html" class="navbar-brand d-flex align-items-center me-4">
-            <img src="img/logo2.webp" alt="Arham Printers Logo" style="height: 40px; margin-right: 1rem;">
-        </a>
-        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    
-        <div class="collapse navbar-collapse flex-grow-1" id="navbarCollapse">
-            <div class="navbar-nav me-auto bg-light pe-4 py-3 py-lg-0 d-flex align-items-center">
-                
-                <a href="index.html" class="nav-item nav-link">Home</a>
-                <a href="products.html" class="nav-item nav-link">Products</a>
-                <a href="wedding.html" class="nav-item nav-link active">Wedding Cards</a>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
-                    <div class="dropdown-menu bg-light border-0 m-0">
-                        <a href="products.html" class="dropdown-item">All Products</a>
-                        <a href="#quote-section" class="dropdown-item" onclick="showSection('quote')">Get Custom Quote</a>
+            <div class="collapse navbar-collapse flex-grow-1" id="navbarCollapse">
+                <div class="navbar-nav me-auto bg-light pe-4 py-3 py-lg-0 d-flex align-items-center">
+                    <a href="index.html" class="nav-item nav-link">Home</a>
+                    <a href="products.html" class="nav-item nav-link">Products</a>
+                    <a href="wedding.html" class="nav-item nav-link active">Wedding Cards</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
+                        <div class="dropdown-menu bg-light border-0 m-0">
+                            <a href="products.html" class="dropdown-item">All Products</a>
+                            <a href="#quote-section" class="dropdown-item" onclick="showSection('quote')">Get Custom Quote</a>
+                        </div>
                     </div>
+                    <a href="#contact-section" class="nav-item nav-link" onclick="showSection('contact')">Contact</a>
                 </div>
-                <a href="#contact-section" class="nav-item nav-link" onclick="showSection('contact')">Contact</a>
-            </div>
-            
-            <div class="h-100 d-lg-inline-flex align-items-center">
-                <a class="btn-sm-square bg-white text-dark rounded-circle me-4 position-relative" href="#cart-section" onclick="showSection('cart')">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span id="desktop-cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" style="font-size: 0.6em; padding: 4px;">0</span>
-                </a>
-                <a href="#contact-section" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block" onclick="showSection('quote')">Get a Quote<i
-                        class="fa fa-arrow-right ms-3"></i></a>
+                
+                <div class="h-100 d-lg-inline-flex align-items-center">
+                    <a class="btn-sm-square bg-white text-dark rounded-circle me-4 position-relative" href="#cart-section" onclick="showSection('cart')">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="desktop-cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" style="font-size: 0.6em; padding: 4px;">0</span>
+                    </a>
+                    <a href="#contact-section" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block" onclick="showSection('quote')">Get a Quote<i class="fa fa-arrow-right ms-3"></i></a>
+                </div>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
     <nav id="mobile-bottom-nav" class="d-lg-none">
-    <a href="index.html" class="mobile-nav-link" id="mobile-link-home">
-        <i class="fas fa-home"></i>
-        <span>Home</span>
-    </a>
+        <a href="index.html" class="mobile-nav-link" id="mobile-link-home">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
         <a href="products.html" class="mobile-nav-link" onclick="showSection('shop-catalog')" id="mobile-link-products">
-        <i class="fas fa-th-list"></i>
-        <span>Products</span>
-    </a>
+            <i class="fas fa-th-list"></i>
+            <span>Products</span>
+        </a>
         <a href="wedding.html" class="mobile-nav-link active" id="mobile-link-wedding">
             <i class="fas fa-gift"></i>
             <span>Wedding Cards</span>
@@ -342,12 +209,12 @@
             <i class="fas fa-print"></i>
             <span>Custom Prints</span>
         </a> 
-   <a href="#cart-section" class="mobile-nav-link" onclick="showSection('cart')" id="mobile-link-cart">
-        <i class="fas fa-shopping-cart"></i>
-        <span id="cart-count" class="position-absolute translate-middle badge rounded-pill bg-primary" style="top: 8px; right: 10px; font-size: 0.7em;">0</span>
-        <span>Cart</span>
-    </a>
-</nav>
+        <a href="#cart-section" class="mobile-nav-link" onclick="showSection('cart')" id="mobile-link-cart">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cart-count" class="position-absolute translate-middle badge rounded-pill bg-primary" style="top: 8px; right: 10px; font-size: 0.7em;">0</span>
+            <span>Cart</span>
+        </a>
+    </nav>
     
     <section id="shop-catalog-section" class="section active">
         <div class="container-fluid page-header py-5">
@@ -382,10 +249,8 @@
                 <div class="row g-5">
                     <div class="col-lg-6">
                         <div id="cardImageGallery" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-indicators-wrapper" id="carousel-indicators">
-                                </div>
-                            <div class="carousel-inner" id="carousel-inner">
-                                </div>
+                            <div class="carousel-indicators-wrapper" id="carousel-indicators"></div>
+                            <div class="carousel-inner" id="carousel-inner"></div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#cardImageGallery" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
@@ -409,7 +274,6 @@
                                     <input type="number" id="input-card-qty" min="1" value="1" step="1" class="form-control text-center rounded-0" oninput="updateQuantityAndPrice(0)">
                                     <button class="btn btn-outline-secondary rounded-0" type="button" onclick="updateQuantityAndPrice(5)">+5</button>
                                 </div>
-                                 <small class="text-muted mt-2 d-block" style="display: none;">Minimum order: 1 piece. <span id="fixed-cost-display">*</span></small>
                             </div>
                             
                             <div class="product-option-group" data-option-key="InnerCard" id="inner-card-option-group">
@@ -439,7 +303,7 @@
                                     </label>
                                 </div>
                             </div>
-                            </div>
+                        </div>
                         
                         <div class="product-option-group mt-4" id="shipping-zone-selector">
                             <label><i class="fas fa-map-marker-alt me-2"></i> <strong>Check Delivery Charges:</strong></label>
@@ -640,6 +504,7 @@
                 </div>
             </div>
         </section>
+        
         <section id="quote-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6">Get a Custom Quote</h1>
@@ -697,6 +562,7 @@
                 </div>
             </div>
         </section>
+        
     <section id="contact-section" class="section">
         <div class="container-fluid page-header py-5">
             <h1 class="text-center text-white display-6">Contact Us</h1>
@@ -823,8 +689,7 @@
         <li><a class="text-white" href="shipping_policy.html">Shipping Policy</a></li>
         <li><a class="text-white" href="return_policy.html">Return Policy</a></li>
         
-        <!-- Add more links as needed -->
-    </ul>
+        </ul>
 </div>
 
                         </div>
@@ -857,32 +722,23 @@
     <script src="js/cart-manager.js"></script> 
     
     <script>
-    // 🛑 STEP 1: MANDATORY CONFIGURATION 🛑
+    // CONFIGURATION
     const PUBLIC_DATA_URL = 'all_prices.json'; 
     const WHATSAPP_NUMBER = '923006238233'; 
-    const SUBMIT_ORDER_URL = 'submit_order.php'; 
-    
-    // 🛑 PostEx API Configuration (New) 🛑
-    const POSTEX_API_URL = 'https://api.postex.pk/services/integration/api';
-    const POSTEX_TOKEN = 'YOUR_MANDATORY_POSTEX_TOKEN'; // Replace with your actual token
 
-    // --- Core Data Stores ---
+    // DATA STORES
     let allProducts = {}; 
     let currentCard = null;
     let hasInner = false; 
     let visibleCards = {}; // Store visibility state per category
-    const MAX_INITIAL_CARDS = 6; // Constant for the display limit
+    const MAX_INITIAL_CARDS = 6; 
     
-    // --- WEDDING CARD COST CONSTANTS ---
+    // COST CONSTANTS
     const BULK_QTY = 100; 
     const INNER_COST_PER_CARD = 10; 
     const FIXED_OVERHEAD = 500;
     
-    // --- PROFIT & COST CONSTANTS (Derived from previous analysis) ---
-    const RECOMMENDED_MARKUP = 1.15; // Base 15% Profit Margin
-    const LOCAL_FREE_SHIPPING_THRESHOLD = 2500; // PKR 2,500
-    
-    // Tiered Profit Multiplier for Wedding Cards based on Quantity
+    // PROFIT TIERS
     const PROFIT_TIERS = [
         { min: 1, max: 50, multiplier: 1.15 },    
         { min: 51, max: 100, multiplier: 1.12 },   
@@ -899,48 +755,21 @@
         return 6; 
     }
 
-    // --- SHIPPING RATE CONFIGURATION ---
-    const SHIPPING_RATES = {
-        'small': { 'Within City': 100, 'Same Province': 347, 'Cross Province': 359 },
-        'medium': { 'Within City': 100, 'Same Province': 529, 'Cross Province': 541 },
-    };
-
-    const LOCAL_SHIPPING_RATES = { // Self-Delivery Rates
-        'small': 150, 
-        'medium': 200, 
-    };
-
-    const CITY_TO_ZONE = {
-        "jalalpur jattan": "Within City", "gujrat": "Same Province", "gujranwala": "Same Province", 
-        "lahore": "Same Province", "sialkot": "Same Province", "karachi": "Cross Province",
-    };
+    // SHIPPING CONFIGURATION
     let currentShippingZone = 'Within City'; 
     let currentDeliveryType = 'HomeDelivery'; 
 
-    
-    function getShippingPacketType(productName) {
-        return 'small'; 
-    }
-
-    function getPostExShippingCost(packetType, zone) {
-        const rates = SHIPPING_RATES[packetType];
-        if (rates && rates[zone]) return rates[zone];
-        return rates['Cross Province']; 
-    }
-    
-    // 🛑 NEW: Function to set and update the delivery type 🛑
+    // UI HELPER: SET DELIVERY TYPE
     function setDeliveryType(type, triggerPriceUpdate = true) {
         currentDeliveryType = type;
         const shippingZoneSelector = document.getElementById('shipping-zone-selector');
         
-        // Update the visual state of the choice cards
         const homeLabel = document.getElementById('delivery-home');
         const pickupLabel = document.getElementById('delivery-pickup');
         
         if (homeLabel) homeLabel.classList.toggle('selected', type === 'HomeDelivery');
         if (pickupLabel) pickupLabel.classList.toggle('selected', type === 'SelfPickUp');
         
-        // Show/hide the shipping zone selector based on delivery type
         if (type === 'SelfPickUp') {
             shippingZoneSelector.style.display = 'none';
         } else {
@@ -950,8 +779,7 @@
         if (triggerPriceUpdate) updateQuantityAndPrice(0);
     }
     
-    // --- PostEx Integration Logic (Replaces Google Maps Geolocation) ---
-
+    // LOCATION MANUAL CHECK
     function manualLocationCheck() {
         const cityInput = document.getElementById('input-city').value.trim();
         if (cityInput.length < 3) return;
@@ -959,29 +787,18 @@
     }
 
     function detectLocation() {
-        if (POSTEX_TOKEN === 'YOUR_MANDATORY_POSTEX_TOKEN') {
-            if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
-                 Cart.showAlert("PostEx API Token not configured. Please enter your city manually.", 'error');
-            }
-            return;
-        }
-        
         document.getElementById('zone-name').textContent = "Please enter your city name above for zone check.";
         if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
-             Cart.showAlert("City detection requires PostEx API setup. Please enter your city manually.", 'info');
+             Cart.showAlert("Please enter your city manually.", 'info');
         }
     }
 
     function updateShippingZone(cityName) {
         const normalizedCity = cityName.toLowerCase().replace(/[^a-z0-9]/g, ' ').trim();
-        let zone = 'Cross Province'; 
+        let zone = 'Non-Local'; 
         
-        if (CITY_TO_ZONE[normalizedCity]) {
-            zone = CITY_TO_ZONE[normalizedCity];
-        } else {
-            if (cityName.toLowerCase().includes('lahore') || cityName.toLowerCase().includes('gujrat')) {
-                 zone = 'Same Province';
-            }
+        if (normalizedCity.includes('jalalpur') || normalizedCity.includes('jattan') || normalizedCity === 'jlp') {
+            zone = 'Within City';
         }
         
         currentShippingZone = zone;
@@ -989,16 +806,13 @@
         const zoneDisplay = document.getElementById('zone-name');
         zoneDisplay.textContent = `${currentShippingZone} (${cityName})`;
         zoneDisplay.classList.remove('text-success', 'text-warning', 'text-danger');
-        zoneDisplay.classList.add(zone === 'Within City' ? 'text-success' : (zone === 'Same Province' ? 'text-warning' : 'text-danger'));
+        zoneDisplay.classList.add(zone === 'Within City' ? 'text-success' : 'text-danger');
         
         updateQuantityAndPrice(0); 
     }
     
-    // --- INITIALIZATION AND FETCHING ---
-
+    // INITIALIZATION
     async function initialAppLoad() {
-       
-        
         let rawData;
         try {
             const response = await fetch(PUBLIC_DATA_URL);
@@ -1008,13 +822,9 @@
             rawData = await response.json(); 
         } catch (error) {
             console.error("Failed to load shop data: ", error);
-            if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
-                 Cart.showAlert("Failed to load wedding card data. Check console or network.", 'error');
-            }
-            // 🛑 IMPROVED ERROR CHECK 🛑
             const spinner = document.getElementById('loading-spinner');
             if (spinner) {
-                 spinner.innerHTML = `<p class="alert alert-danger">Error: Failed to load card data from ${PUBLIC_DATA_URL}.</p>`;
+                 spinner.innerHTML = `<p class="alert alert-danger">Error: Failed to load card data.</p>`;
                  spinner.style.display = 'block';
             }
             return;
@@ -1028,40 +838,31 @@
         
         showSection('shop-catalog'); 
         
-        // Initial setup for delivery/location display
-        setDeliveryType('HomeDelivery', false); // Initialize UI state and default zone
+        setDeliveryType('HomeDelivery', false);
         document.getElementById('zone-name').textContent = `Jalalpur Jattan (Default)`;
         document.getElementById('zone-name').classList.add('text-success');
-
     }
 
     function initialCardSetup(flatData) {
-        // 🌟 FIX: Access the data using the correct key
         const tieredWeddingData = flatData['Special Occasions (Wedding)']; 
         allProducts = {};
         const BENCHMARK_QTY = 100;
 
         if (!tieredWeddingData || Object.keys(tieredWeddingData).length === 0) {
-            document.getElementById('wedding-card-grid').innerHTML = '<p class="alert alert-danger">Error: Wedding card data structure missing from JSON response or empty.</p>';
+            document.getElementById('wedding-card-grid').innerHTML = '<p class="alert alert-danger">Error: Wedding card data structure missing or empty.</p>';
             return;
         }
 
-        // Iterate through tiers (e.g., "Economical Elegance", "Premium Collection")
         Object.keys(tieredWeddingData).forEach(tierName => {
-            // Access the nested 'cards' object
             const cardsInTier = tieredWeddingData[tierName].cards || {}; 
             
             Object.keys(cardsInTier).forEach(cardName => {
                 const card = cardsInTier[cardName];
                 const rawMaterialCost100 = card.bulkPrice100 || 0; 
-
                 const printingChargePerCard = getPrintingChargePerCard(BENCHMARK_QTY);
                 const totalPrintingCharges = printingChargePerCard * BENCHMARK_QTY;
-                
                 const TOTAL_COST_100_PCS = rawMaterialCost100 + FIXED_OVERHEAD + totalPrintingCharges;
-                
                 const VARIABLE_UNIT_COST = (rawMaterialCost100 + totalPrintingCharges) / BENCHMARK_QTY;
-
                 const requiresInner = card.hasInnerCardOption === true;
 
                 allProducts[cardName] = {
@@ -1079,12 +880,10 @@
     }
 
 
-    // --- PRICING CALCULATION LOGIC (CRITICAL UPDATE) ---
-
+    // PRICING LOGIC
     function calculateFinalPrice(quantity) {
         if (quantity < 1 || !currentCard) return { error: "No product selected or invalid quantity" };
         
-        // 1. Calculate Base Product Price (Cost before Shipping/Margin)
         const rawMaterialUnitCost = currentCard.bulkPrice100 / BULK_QTY - currentCard.fixedCost / BULK_QTY - currentCard.printingChargePerCard; 
         const actualPrintingCharge = getPrintingChargePerCard(quantity);
         const unitVariableCost = rawMaterialUnitCost + actualPrintingCharge;
@@ -1103,29 +902,25 @@
         
         const baseProductPrice = Math.round((totalVariableCost * multiplier) + currentCard.fixedCost);
 
-        // 2. Calculate Shipping Cost
-        const packetType = getShippingPacketType(currentCard.cardName);
+        // SHIPPING COST LOGIC (SIMPLIFIED)
         let shippingCost = 0;
         let finalShippingNote = '';
+        let isShippingPending = false;
 
         if (currentDeliveryType === 'SelfPickUp') {
+            // Option 1: Free Instore
             shippingCost = 0;
-            finalShippingNote = 'Self Pick Up. No shipping charges applied.';
+            finalShippingNote = 'Free Instore Pickup (Jalalpur Jattan)';
         } else {
-            // Home Delivery Logic
             if (currentShippingZone === 'Within City') {
-                 // Using 3000 PKR threshold hardcoded from cart-manager.js logic for consistency
-                if (baseProductPrice > 3000) { 
-                    shippingCost = 0;
-                    finalShippingNote = `FREE Delivery! (Local JLP orders over PKR 3,000)`;
-                } else {
-                    shippingCost = SHIPPING_RATES[packetType]['Within City'];
-                    finalShippingNote = `Local Delivery (Jalalpur Jattan). Flat rate for ${packetType.toUpperCase()} packet.`;
-                }
+                // Option 2: Local Fixed 100
+                shippingCost = 100;
+                finalShippingNote = `Local Delivery (Jalalpur Jattan)`;
             } else {
-                // Cross-Province/Same-Province
-                shippingCost = getPostExShippingCost(packetType, currentShippingZone);
-                finalShippingNote = `PostEx Courier (to ${currentShippingZone}). Price includes ${packetType.toUpperCase()} packet charge, fuel surcharge, and GST.`;
+                // Option 3: Non-Local (Added Later)
+                shippingCost = 0;
+                isShippingPending = true;
+                finalShippingNote = `Courier charges will be added to bill later via WhatsApp.`;
             }
         }
 
@@ -1136,7 +931,8 @@
             finalPrice: finalPrice, 
             shippingCost: shippingCost, 
             shippingNote: finalShippingNote, 
-            options: { // Item-specific options for the cart
+            isShippingPending: isShippingPending, 
+            options: { 
                 'Quantity': quantity,
                 'Inner Card': hasInner ? 'Yes' : 'No',
                 'Design ID': currentCard.cardName
@@ -1144,9 +940,7 @@
         };
     }
 
-    // --- DISPLAY and UI LOGIC (MODIFIED) ---
-    
-    // NEW function to reveal hidden cards in a category
+    // UI UPDATES
     function showAllCards(categoryName) {
         const safeCategoryName = categoryName.replace(/\s/g, '-');
         document.querySelectorAll(`.card-category-${safeCategoryName}`).forEach(card => {
@@ -1174,19 +968,30 @@
             const result = calculateFinalPrice(quantity);
             
             if (result.error) {
-                 // Fallback on error
                  document.getElementById('selectionWarning').textContent = result.error;
                  document.getElementById('selectionWarning').style.display = 'block';
                  return;
             }
 
-            // --- Final Price Box Update ---
-            document.getElementById('finalPriceDisplay').textContent = `PKR ${result.finalPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
+            // --- FINAL PRICE BOX UPDATE ---
+            const priceDisplay = document.getElementById('finalPriceDisplay');
+            const shipCostDisplay = document.getElementById('shipping-cost-display');
+
+            if (result.isShippingPending) {
+                // Show "Price + Delivery"
+                priceDisplay.innerHTML = `PKR ${result.baseProductPrice.toLocaleString()} <span class="fs-6 text-warning">+ Delivery</span>`;
+                shipCostDisplay.textContent = "Calculated Later";
+                shipCostDisplay.classList.add('text-warning');
+            } else {
+                // Show Exact Total
+                priceDisplay.textContent = `PKR ${result.finalPrice.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
+                shipCostDisplay.textContent = result.shippingCost === 0 ? "FREE" : `PKR ${result.shippingCost}`;
+                shipCostDisplay.classList.remove('text-warning');
+            }
+
             document.getElementById('finalPriceBox').style.display = 'block';
             document.getElementById('selectionWarning').style.display = 'none';
 
-            // --- Shipping Display Box Update ---
-            document.getElementById('shipping-cost-display').textContent = result.shippingCost === 0 ? "FREE" : `PKR ${result.shippingCost.toLocaleString('en-PK', { minimumFractionDigits: 0 })}`;
             document.getElementById('shipping-note-display').textContent = result.shippingNote;
             document.getElementById('shipping-display-box').style.display = 'block';
 
@@ -1197,7 +1002,7 @@
         }
     }
 
-    // 🛑 NEW: Function to Add Item to Cart 🛑
+    // ADD TO CART
     function addItemToCart() {
         if (typeof Cart === 'undefined') {
             if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
@@ -1222,14 +1027,13 @@
         }
 
         const cartItem = {
-            id: Date.now(), // Unique ID for this cart item
+            id: Date.now(), 
             productName: currentCard.cardName,
             quantity: quantity,
             basePrice: result.baseProductPrice, 
-            finalItemPrice: result.baseProductPrice, // NOTE: Passing item cost only to prevent double-shipping calculation in cart-manager.js
+            finalItemPrice: result.baseProductPrice, 
             options: result.options,
             isAreaBased: false,
-            // Extracting just the filename for cart-manager.js
             imageFile: (currentCard.galleryImages ? currentCard.galleryImages[0] : currentCard.imageFile || 'img/wedding/placeholder.webp').match(/[^/]+(?=\.)/)[0], 
         };
 
@@ -1238,7 +1042,6 @@
     
     function setInnerSelection(selected, updatePrice = true) {
         hasInner = selected;
-
         const yesLabel = document.getElementById('inner-yes');
         const noLabel = document.getElementById('inner-no');
         
@@ -1250,7 +1053,6 @@
         }
     }
 
-    // 🛑 MODIFIED loadWeddingCards FUNCTION to prioritize featured cards 🛑
     function loadWeddingCards() {
         const categorizedCards = {};
         Object.values(allProducts).forEach(card => {
@@ -1265,7 +1067,7 @@
         let cardGrid = document.getElementById('wedding-card-grid');
 
         if (Object.keys(categorizedCards).length === 0) {
-             cardGrid.innerHTML = '<p class="alert alert-warning">No card designs are currently available. Please contact us for a custom quote.</p>';
+             cardGrid.innerHTML = '<p class="alert alert-warning">No card designs available. Please contact us.</p>';
              return;
         }
 
@@ -1273,18 +1075,13 @@
             const cards = categorizedCards[category];
             const safeCategoryName = category.replace(/\s/g, '-');
             
-            // 1. Separate cards into featured and remaining
             let featuredCards = [];
             let remainingCards = [];
             cards.forEach(card => {
-                if (card.isFeatured === true) {
-                    featuredCards.push(card);
-                } else {
-                    remainingCards.push(card);
-                }
+                if (card.isFeatured === true) featuredCards.push(card);
+                else remainingCards.push(card);
             });
             
-            // 2. Combine, prioritizing featured cards, and limit to MAX_INITIAL_CARDS
             const prioritizedCards = featuredCards.concat(remainingCards);
             const totalCardCount = prioritizedCards.length;
 
@@ -1294,7 +1091,6 @@
                 const cardName = card.cardName;
                 const imagePath = card.galleryImages ? card.galleryImages[0] : card.imageFile || 'img/wedding/placeholder.webp'; 
                 
-                // Determine if the card should be initially hidden
                 const isHidden = index >= MAX_INITIAL_CARDS;
                 const hiddenClass = isHidden ? 'card-hidden' : '';
 
@@ -1312,7 +1108,6 @@
                     `;
             });
             
-            // 3. Add 'View All' button if there are more than MAX_INITIAL_CARDS
             if (totalCardCount > MAX_INITIAL_CARDS) {
                  cardHTML += `
                      <div class='col-12 text-center my-4' id="view-all-btn-${safeCategoryName}">
@@ -1326,106 +1121,91 @@
 
         cardGrid.innerHTML = cardHTML;
     }
-    
-    // NEW: Function to reveal all cards in a category
-    function showAllCards(categoryName) {
-        const safeCategoryName = categoryName.replace(/\s/g, '-');
-        document.querySelectorAll(`.card-category-${safeCategoryName}`).forEach(card => {
-            // Remove the card-hidden class to make it visible
-            card.classList.remove('card-hidden');
-        });
-        const button = document.getElementById(`view-all-btn-${safeCategoryName}`);
-        if (button) button.style.display = 'none';
-    }
-
 
     function showCardDetails(cardName) {
-    const cardData = allProducts[cardName];
-    if (!cardData) return;
-
-    currentCard = cardData; 
-    
-    const innerOptionGroup = document.getElementById('inner-card-option-group');
-
-    if (currentCard.requiresInnerOption === true) {
-        innerOptionGroup.style.display = 'block';
-        setInnerSelection(false, false); 
-        document.getElementById('inner-yes').classList.remove('selected');
-        document.getElementById('inner-no').classList.add('selected');
-    } else {
-        innerOptionGroup.style.display = 'none';
-        hasInner = false; 
-    }
-    
-    let images = [];
-    if (Array.isArray(currentCard.galleryImages) && currentCard.galleryImages.length > 0) {
-        images = currentCard.galleryImages;
-    } else if (currentCard.imageFile) {
-        images = [currentCard.imageFile];
-    } else {
-        images = ['img/wedding/placeholder.webp'];
-    }
-
-    const carouselInner = document.getElementById('carousel-inner');
-    const carouselIndicators = document.getElementById('carousel-indicators');
-    const imageGalleryContainer = document.getElementById('cardImageGallery');
-    const carouselPrev = imageGalleryContainer.querySelector('.carousel-control-prev');
-    const carouselNext = imageGalleryContainer.querySelector('.carousel-control-next');
-    
-    carouselInner.innerHTML = '';
-    carouselIndicators.innerHTML = '';
-    
-    imageGalleryContainer.classList.remove('carousel', 'slide');
-    if (images.length > 1) {
-        imageGalleryContainer.classList.add('carousel', 'slide');
-        carouselPrev.style.display = 'flex';
-        carouselNext.style.display = 'flex';
-        carouselIndicators.style.display = 'flex';
-    } else {
-        imageGalleryContainer.classList.remove('carousel', 'slide');
-        carouselPrev.style.display = 'none';
-        carouselNext.style.display = 'none';
-        carouselIndicators.style.display = 'none';
+        const cardData = allProducts[cardName];
+        if (!cardData) return;
+        currentCard = cardData; 
         
-        carouselInner.innerHTML = `
-             <div class="carousel-item active">
-                 <img src="${images[0]}" 
-                      onerror="this.onerror=null;this.src='img/wedding/placeholder.webp';" 
-                      class="d-block w-100 img-fluid rounded-0" 
-                      alt="Card Image" style="max-height: 400px;">
-             </div>`;
-    }
+        const innerOptionGroup = document.getElementById('inner-card-option-group');
 
-    if (images.length > 1) {
-        images.forEach((imagePath, index) => {
-            const isActive = index === 0 ? 'active' : '';
-            const itemHTML = `
-                <div class="carousel-item ${isActive}">
-                    <img src="${imagePath}" 
-                         onerror="this.onerror=null;this.src='img/wedding/placeholder.webp';" 
-                         class="d-block w-100 img-fluid rounded-0" 
-                         alt="Card Image ${index + 1}" style="max-height: 400px;">
-                </div>`;
-            carouselInner.innerHTML += itemHTML;
+        if (currentCard.requiresInnerOption === true) {
+            innerOptionGroup.style.display = 'block';
+            setInnerSelection(false, false); 
+            document.getElementById('inner-yes').classList.remove('selected');
+            document.getElementById('inner-no').classList.add('selected');
+        } else {
+            innerOptionGroup.style.display = 'none';
+            hasInner = false; 
+        }
+        
+        let images = [];
+        if (Array.isArray(currentCard.galleryImages) && currentCard.galleryImages.length > 0) {
+            images = currentCard.galleryImages;
+        } else if (currentCard.imageFile) {
+            images = [currentCard.imageFile];
+        } else {
+            images = ['img/wedding/placeholder.webp'];
+        }
+
+        const carouselInner = document.getElementById('carousel-inner');
+        const carouselIndicators = document.getElementById('carousel-indicators');
+        const imageGalleryContainer = document.getElementById('cardImageGallery');
+        const carouselPrev = imageGalleryContainer.querySelector('.carousel-control-prev');
+        const carouselNext = imageGalleryContainer.querySelector('.carousel-control-next');
+        
+        carouselInner.innerHTML = '';
+        carouselIndicators.innerHTML = '';
+        
+        imageGalleryContainer.classList.remove('carousel', 'slide');
+        if (images.length > 1) {
+            imageGalleryContainer.classList.add('carousel', 'slide');
+            carouselPrev.style.display = 'flex';
+            carouselNext.style.display = 'flex';
+            carouselIndicators.style.display = 'flex';
+        } else {
+            imageGalleryContainer.classList.remove('carousel', 'slide');
+            carouselPrev.style.display = 'none';
+            carouselNext.style.display = 'none';
+            carouselIndicators.style.display = 'none';
             
-            const indicatorHTML = `
-                <button type="button" data-bs-target="#cardImageGallery" data-bs-slide-to="${index}" 
-                        class="btn btn-sm btn-outline-light ${isActive}" aria-current="${isActive ? 'true' : 'false'}" 
-                        aria-label="Slide ${index + 1}"></button>`;
-            carouselIndicators.innerHTML += indicatorHTML;
-        });
+            carouselInner.innerHTML = `
+                 <div class="carousel-item active">
+                     <img src="${images[0]}" 
+                          onerror="this.onerror=null;this.src='img/wedding/placeholder.webp';" 
+                          class="d-block w-100 img-fluid rounded-0" 
+                          alt="Card Image" style="max-height: 400px;">
+                 </div>`;
+        }
+
+        if (images.length > 1) {
+            images.forEach((imagePath, index) => {
+                const isActive = index === 0 ? 'active' : '';
+                const itemHTML = `
+                    <div class="carousel-item ${isActive}">
+                        <img src="${imagePath}" 
+                             onerror="this.onerror=null;this.src='img/wedding/placeholder.webp';" 
+                             class="d-block w-100 img-fluid rounded-0" 
+                             alt="Card Image ${index + 1}" style="max-height: 400px;">
+                    </div>`;
+                carouselInner.innerHTML += itemHTML;
+                
+                const indicatorHTML = `
+                    <button type="button" data-bs-target="#cardImageGallery" data-bs-slide-to="${index}" 
+                            class="btn btn-sm btn-outline-light ${isActive}" aria-current="${isActive ? 'true' : 'false'}" 
+                            aria-label="Slide ${index + 1}"></button>`;
+                carouselIndicators.innerHTML += indicatorHTML;
+            });
+        }
+
+        document.getElementById('detail-product-name-header').textContent = cardName;
+        document.getElementById('detail-product-name-body').textContent = cardName;
+        document.getElementById('card-description').textContent = currentCard.description; 
+        document.getElementById('input-card-qty').value = 100; 
+        
+        showSection('product-detail');
+        updateQuantityAndPrice(0); 
     }
-
-    document.getElementById('detail-product-name-header').textContent = cardName;
-    document.getElementById('detail-product-name-body').textContent = cardName;
-    document.getElementById('card-description').textContent = currentCard.description; 
-    document.getElementById('input-card-qty').value = 100; 
-    
-    showSection('product-detail');
-    updateQuantityAndPrice(0); 
-}
-
-    // --- ORDER SUBMISSION AND ALERT FUNCTIONS (MODIFIED) ---
     
     function handleQuoteSubmission(e) {
         e.preventDefault();
@@ -1448,6 +1228,19 @@
         }
         document.getElementById('quote-form').reset();
     }
+    
+    function handleContactSubmission(e) {
+        e.preventDefault();
+        const name = document.getElementById('contact-name').value;
+        const subject = document.getElementById('contact-subject').value;
+        const message = document.getElementById('contact-message').value;
+        let whatsappMessage = `*NEW CONTACT MESSAGE (WEB - WEDDING)*\n*Sender:* ${name}\n*Subject:* ${subject}\n*Message:* ${message}`;
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+        if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
+             Cart.showAlert('Message sent via WhatsApp!', 'success');
+        }
+        document.getElementById('contact-form-whatsapp').reset();
+    }
 
     function showSection(sectionName) {
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -1462,7 +1255,6 @@
             document.getElementById('quote-details').value = `I am interested in ${currentCard.cardName}. I require approximately 500 pieces.`;
         }
         
-        // Reload cart display on showing cart section
         if (sectionName === 'cart' && typeof Cart !== 'undefined') {
             Cart.updateCartDisplay();
         }
@@ -1470,7 +1262,6 @@
         window.scrollTo(0, 0);
     }
     
-    // Use Cart.showAlert instead of local version
     function showAlert(message, type) {
         if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
             Cart.showAlert(message, type);
