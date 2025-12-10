@@ -53,29 +53,10 @@
         .final-price-box h4 {
             color: white;
         }
-        
-        /* ---------------------------------------------------- */
-        /* RESPONSIVE HEADER IMAGE IMPLEMENTATION (NEW LOGIC) */
-        /* ---------------------------------------------------- */
-        .page-header {
-            /* Default: Use Mobile Image (Mobile First Approach) */
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(img/banners/productmobile.webp) center center no-repeat;
-            background-size: cover;
-            min-height: 250px;
-        }
-
-        @media (min-width: 768px) {
-            .page-header {
-                /* Override: Use Desktop Image on larger screens */
-                background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(img/banners/productdesk.webp) center center no-repeat;
-                background-size: cover;
-                min-height: 350px;
-            }
-        }
-        /* ---------------------------------------------------- */
+      
         
         /* --- DESKTOP NAV FIX --- */
-        /* Remove margin from h1 inside the desktop navbar brand for alignment */
+
         .navbar-brand h1 {
             margin-top: 0;
             margin-bottom: 0;
@@ -134,9 +115,6 @@
             display: block;
             font-size: 1.1rem;
         }
-
-        /* --- MOBILE BOTTOM NAVIGATION STYLES --- */
-
         /* 1. Mobile Bottom Bar Container */
         #mobile-bottom-nav {
             position: fixed;
@@ -188,31 +166,7 @@
         }
         
 
-/* Update the existing #mobile-nav-logo section */
-/* 3. Center Logo Button */
-#mobile-nav-logo {
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative; /* Make it relative for absolute children */
-}
-#mobile-nav-logo a {
-            background-color: var(--bs-primary);
-            color: white;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 10px rgba(242, 139, 0, 0.6);
-            position: absolute; 
-            top: -15px; 
-            /* **FIX 2: Center absolutely positioned element within its slot** */
-            left: 50%;
-            transform: translateX(-50%); 
-}
+
 
 /* NEW RULE: Style the image inside the centered mobile button */
 #mobile-nav-logo a img {
@@ -224,42 +178,6 @@
     height: auto !important; /* Overrides inline height if needed, maintaining aspect ratio */
 }
 
-#mobile-nav-logo a i {
-            font-size: 1.5rem;
-}
-        /* 4. Content Padding to clear the fixed bottom nav */
-        #home-section, #quote-section, #contact-section, #cart-section, #checkout-section {
-            padding-bottom: calc(var(--mobile-nav-height) + 15px); /* Add space for the bottom navbar */
-        }
-        
-        /* 5. Compact Category Link Styling (Removed, but keeping class definitions minimal) */
-        .categories-item a {
-            font-size: 0.75rem; 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 5px 0;
-            line-height: 1.2;
-        }
-        .categories-item a i {
-            font-size: 1.2rem; 
-            margin-bottom: 5px !important;
-        }
-        
-        /* 6. Mobile Dropdown Specific Styling */
-        #mobile-bottom-nav .dropdown-menu {
-            position: absolute;
-            bottom: var(--mobile-nav-height); /* Position above the nav bar */
-            left: 50%;
-            transform: translateX(-50%);
-            width: 250px;
-            box-shadow: 0 -5px 15px rgba(0,0,0,0.2);
-            border-radius: 8px 8px 0 0;
-            padding: 10px 0;
-        }
-        #mobile-bottom-nav .dropdown-item {
-             font-size: 0.8rem;
-        }
     </style>
 </head>
 
@@ -371,7 +289,7 @@
                         <div class="col-lg-6">
                             <div class="owl-carousel header-carousel">
                                 <div class="owl-carousel-item">
-                                    <img class="img-fluid" src="img/head-2.webp" alt="Printing Services">
+                                    <img class="img-fluid" src="img/carousel-1.webp" alt="Printing Services">
                                 </div>
                                </div>
                         </div>
@@ -380,9 +298,9 @@
             </div>
             <div class="container-fluid services-categories py-5" id="services-categories">
                 <div class="container py-5">
-                    <div class="text-center mx-auto mb-5" style="max-width: 600px;">
-                        <h4 class="display-5 mb-3">Printing & Advertising Solutions</h4>
-                        <p class="mb-0">Discover our six primary product and service categories.</p>
+                    <div class="text-center mx-auto mb-5">
+                        <h3 class="display-5 mb-3">Printing & Advertising Solutions</h3>
+                       
                     </div>
                     <div class="row g-4 justify-content-center" id="index-categories-list">
                         
@@ -770,60 +688,48 @@
                 <div class="row g-3">
                     <div class="col-6 col-md-3">
                         <div class="rounded p-2 d-flex flex-column align-items-center">
-                            <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto"
-                                style="width: 56px; height: 56px;">
-                                <i class="fas fa-map-marker-alt fa-2x text-primary" style="line-height: 1;"></i>
-                            </div>
+                            
                             <h6 class="text-white mt-1 mb-1">Address</h6>
-                            <p class="text-white fw-bold mb-1 small text-center">Domela Chowk, Tanda Road, Jalalpur Jattan
+                            <p class="text-white mb-1 small text-left">Domela Chowk, Tanda Road, Jalalpur Jattan
                             </p>
                         </div>
                     </div>
 
                     <div class="col-6 col-md-3">
                         <div class="rounded p-2 d-flex flex-column align-items-center">
-                            <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto"
-                                style="width: 56px; height: 56px;">
-                                <i class="fas fa-envelope fa-2x text-primary" style="line-height: 1;"></i>
-                            </div>
+                            
                             <h6 class="text-white mt-1 mb-1">Mail Us</h6>
-                            <p class="text-white fw-bold mb-1 small text-center">info@arhamprinters.pk</p>
+                            <p class="text-white mb-1 small text-center">info@arhamprinters.pk</p>
                         </div>
                     </div>
 
                     <div class="col-6 col-md-3">
                         <div class="rounded p-2 d-flex flex-column align-items-center">
                             <a href="https://wa.me/923006238233" target="_blank" class="text-decoration-none">
-                                <div class="rounded-circle bg-success d-flex align-items-center justify-content-center mb-2 mx-auto"
-                                    style="width: 56px; height: 56px;">
-                                    <i class="fab fa-whatsapp fa-2x text-white" style="line-height: 1;"></i>
-                                </div>
+                                
                             </a>
                             <h6 class="text-white mt-1 mb-1">Direct Contact</h6>
                             <a href="https://wa.me/923006238233" target="_blank"
                                 class="text-white-50 text-decoration-none">
-                                <p class="text-white fw-bold mb-1 small text-center">+92 300 6238233</p>
+                                <p class="text-white mb-1 small text-center">+92 300 6238233</p>
                             </a>
                         </div>
                     </div>
 
                     <div class="col-6 col-md-3">
                         <div class="rounded p-2 d-flex flex-column align-items-center">
-                            <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-2 mx-auto"
-                                style="width: 56px; height: 56px;">
-                                <i class="fab fa-facebook-f fa-2x text-primary" style="line-height: 1;"></i>
-                            </div>
-                            <h6 class="text-white mt-1 mb-1">Follow Us</h6>
-                            <div class="d-flex justify-content-center gap-1">
-                                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i
-                                        class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i
-                                        class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i
-                                        class="fab fa-youtube"></i></a>
-                                <a class="btn btn-square btn-outline-light rounded-circle" href="#"><i
-                                        class="fab fa-linkedin-in"></i></a>
-                            </div>
+                            
+                            <h6 class="text-white mt-1 mb-1">Policies</h6>
+                            
+<div>
+    <ul class="list-unstyled text-left">
+        <li><a class="text-white" href="shipping_policy.html">Shipping Policy</a></li>
+        <li><a class="text-white" href="return_policy.html">Return Policy</a></li>
+        
+        <!-- Add more links as needed -->
+    </ul>
+</div>
+
                         </div>
                     </div>
                 </div>
