@@ -540,34 +540,44 @@
             const size = document.querySelector('input[name="size"]:checked')?.value;
             const paperGsm = document.querySelector('input[name="paperGsm"]:checked')?.value; 
             const color = document.querySelector('input[name="color"]:checked')?.value;
-            // Siding logic removed - defaulting to single logic for calculations
-            // const siding = document.querySelector('input[name="siding"]:checked')?.value;
-            
             const quantity = parseInt(document.getElementById('quantity').value);
             
-            // Updated validation check (removed !siding)
             if (!size || !paperGsm || !color || quantity <= 0 || isNaN(quantity)) {
                 return;
             }
 
             const sizeKey = size;
-            const colorKey = color === 'Black & White' ? 'black_white' : 'color';
             const gsmKey = paperGsm;
             const totalSheets = quantity;
-            
-            // Updated calculation (removed siding multiplier, 1 sheet = 1 page)
             const totalPages = totalSheets; 
+
+            // --- FIXED: Robust Color Key Detection ---
+            let colorKey = 'black_white';
+            if (color !== 'Black & White') {
+                // Check possible keys in the JSON for color
+                if (pricingData[sizeKey]?.['color']) colorKey = 'color';
+                else if (pricingData[sizeKey]?.['Color']) colorKey = 'Color';
+                else if (pricingData[sizeKey]?.['colour']) colorKey = 'colour';
+                else colorKey = 'color'; // Fallback to lowercase
+            }
 
             let subtotalPrice = 0;
             let pricePerUnit = 0;
 
             try {
                 const gsmPricing = pricingData?.[sizeKey]?.[colorKey]?.[gsmKey];
-                if (!gsmPricing) throw new Error('Price not found');
+                
+                // Extra safety: If exact GSM is not found for color (e.g., 70g color doesn't exist), check if user selected color
+                if (!gsmPricing) {
+                    throw new Error(`Price not found for ${sizeKey} - ${colorKey} - ${gsmKey}`);
+                }
+
                 pricePerUnit = getTierPrice(gsmPricing, totalPages);
                 subtotalPrice = pricePerUnit * totalPages;
             } catch (e) {
-                console.error(e);
+                console.error("Pricing error:", e.message);
+                // If price not found (e.g. 70g Color not available), return early so UI shows 0.00 or handle error
+                // We will let the flow continue so it might show 0.00 which indicates to user something is wrong
             }
             
             // --- SHIPPING MERGE ---
