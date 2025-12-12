@@ -260,17 +260,8 @@
                                             <label class="choice-card-label" for="color-full">Colour</label>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-6">
-                                        <label class="option-label">Print Siding</label>
-                                        <div class="d-flex choice-card-group">
-                                            <input type="radio" name="siding" id="siding-single" value="Single Sided" checked>
-                                            <label class="choice-card-label" for="siding-single">Single Sided</label>
-                                            
-                                            <input type="radio" name="siding" id="siding-double" value="Double Sided">
-                                            <label class="choice-card-label" for="siding-double">Double Sided</label>
-                                        </div>
-                                    </div>
+                                    
+                                    <input type="hidden" name="siding" value="Single Sided">
 
                                     <div class="col-md-6">
                                         <label class="option-label">Paper Size</label>
@@ -549,10 +540,13 @@
             const size = document.querySelector('input[name="size"]:checked')?.value;
             const paperGsm = document.querySelector('input[name="paperGsm"]:checked')?.value; 
             const color = document.querySelector('input[name="color"]:checked')?.value;
-            const siding = document.querySelector('input[name="siding"]:checked')?.value;
+            // Siding logic removed - defaulting to single logic for calculations
+            // const siding = document.querySelector('input[name="siding"]:checked')?.value;
+            
             const quantity = parseInt(document.getElementById('quantity').value);
             
-            if (!size || !paperGsm || !color || !siding || quantity <= 0 || isNaN(quantity)) {
+            // Updated validation check (removed !siding)
+            if (!size || !paperGsm || !color || quantity <= 0 || isNaN(quantity)) {
                 return;
             }
 
@@ -560,7 +554,9 @@
             const colorKey = color === 'Black & White' ? 'black_white' : 'color';
             const gsmKey = paperGsm;
             const totalSheets = quantity;
-            const totalPages = totalSheets * (siding === 'Double Sided' ? 2 : 1); 
+            
+            // Updated calculation (removed siding multiplier, 1 sheet = 1 page)
+            const totalPages = totalSheets; 
 
             let subtotalPrice = 0;
             let pricePerUnit = 0;
