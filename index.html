@@ -213,7 +213,7 @@
         <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5 d-none d-lg-block">
             <div class="d-flex w-100 justify-content-between align-items-center">
                 
-                <a href="index.html" class="navbar-brand d-flex align-items-center me-4">
+                <a href="index.php" class="navbar-brand d-flex align-items-center me-4">
                     <img src="img/logo2.webp" alt="Arham Printers Logo" style="height: 40px; margin-right: 1rem;">
                 </a>
 
@@ -221,53 +221,52 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
             
-                <div class="collapse navbar-collapse flex-grow-1" id="navbarCollapse">
-                    <div class="navbar-nav me-auto bg-light pe-4 py-3 py-lg-0 d-flex align-items-center">
-                        
-                        <a href="index.html" class="nav-item nav-link active" onclick="showSection('home')">Home</a>
-                        <a href="products.html" class="nav-item nav-link" onclick="showSection('shop-catalog')">Products</a>
-                        <a href="wedding.html" class="nav-item nav-link">Wedding Cards</a>
-                        <a href="print-order.html" class="nav-item nav-link">Paper Printing</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
-                            <div class="dropdown-menu bg-light border-0 m-0">
-                                <a href="products.html" class="dropdown-item" onclick="showSection('shop-catalog')">All Products</a>
-                                <a href="#quote-section" class="dropdown-item" onclick="showSection('quote')">Get Custom Quote</a>
+               <div class="collapse navbar-collapse flex-grow-1" id="navbarCollapse">
+    <div class="navbar-nav me-auto bg-light pe-4 py-3 py-lg-0 d-flex align-items-center">
+        <a href="index.html" class="nav-item nav-link active">Home</a>
+
+        <a href="https://shop.arhamprinters.pk/" class="nav-item nav-link">Products</a>
+        <a href="https://wedding.arhamprinters.pk/" class="nav-item nav-link">Wedding Cards</a>
+        <a href="https://prints.arhamprinters.pk/" class="nav-item nav-link">Paper Printing</a>
+
+        <div class="nav-item dropdown">
+                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
+<div class="dropdown-menu bg-light border-0 m-0">
+    <a href="https://shop.arhamprinters.pk/" class="dropdown-item">All Products</a>
+    <a href="#quote-section" class="dropdown-item" onclick="showSection('quote')">Get Custom Quote</a>
+</div>
+</div>
+<a href="#contact-section" class="nav-item nav-link" onclick="showSection('contact')">Contact</a>
                             </div>
                         </div>
                         <a href="#contact-section" class="nav-item nav-link" onclick="showSection('contact')">Contact</a>
                     </div>
                     
                     <div class="h-100 d-lg-inline-flex align-items-center">
-                        <a class="btn-sm-square bg-white text-dark rounded-circle me-4 position-relative" href="#cart-section" onclick="showSection('cart')">
-                             <i class="fas fa-shopping-cart"></i>
-                             <span id="desktop-cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" style="font-size: 0.6em; padding: 4px;">0</span>
-                        </a>
-                        <a href="#contact-section" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block" onclick="showSection('quote')">Get a Quote<i
-                                class="fa fa-arrow-right ms-3"></i></a>
-                    </div>
+    <a class="btn-sm-square bg-white text-dark rounded-circle me-4 position-relative" href="https://shop.arhamprinters.pk/#cart-section">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="desktop-cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" style="font-size: 0.6em; padding: 4px;">0</span>
+    </a>
+    <a href="#quote-section" class="btn btn-primary py-2 px-3 rounded-0 d-none d-lg-block" onclick="showSection('quote')">Get a Quote<i class="fa fa-arrow-right ms-3"></i></a>
+</div>
                 </div>
             </div>
         </nav>
 
     <nav id="mobile-bottom-nav" class="d-lg-none">
     <a href="index.html" class="mobile-nav-link active" id="mobile-link-home">
-        <i class="fas fa-home"></i>
-        <span>Home</span>
+        <i class="fas fa-home"></i> <span>Home</span>
     </a>
-    <a href="products.html" class="mobile-nav-link" id="mobile-link-products">
-        <i class="fas fa-th-list"></i>
-        <span>Products</span>
+    <a href="https://shop.arhamprinters.pk/" class="mobile-nav-link" id="mobile-link-products">
+        <i class="fas fa-th-list"></i> <span>Products</span>
     </a>
-        <a href="wedding.html" class="mobile-nav-link" id="mobile-link-wedding">
-            <i class="fas fa-gift"></i>
-            <span>Wedding Cards</span>
-        </a> 
-        <a href="print-order.html" class="mobile-nav-link" id="mobile-link-wedding">
-            <i class="fas fa-print"></i>
-            <span>Custom Prints</span>
-        </a> 
-   <a href="#cart-section" class="mobile-nav-link" onclick="showSection('cart')" id="mobile-link-cart">
+    <a href="https://wedding.arhamprinters.pk/" class="mobile-nav-link" id="mobile-link-wedding">
+        <i class="fas fa-gift"></i> <span>Wedding Cards</span>
+    </a> 
+    <a href="https://prints.arhamprinters.pk/" class="mobile-nav-link" id="mobile-link-print">
+        <i class="fas fa-print"></i> <span>Custom Prints</span>
+    </a> 
+    <a href="https://shop.arhamprinters.pk/#cart-section" class="mobile-nav-link" id="mobile-link-cart">
         <i class="fas fa-shopping-cart"></i>
         <span id="cart-count" class="position-absolute translate-middle badge rounded-pill bg-primary" style="top: 8px; right: 10px; font-size: 0.7em;">0</span>
         <span>Cart</span>
@@ -283,7 +282,7 @@
                                     class="text-primary">Printing</span> is Here</h2>
                             <p>Premium quality, sharp designs and reliable service—Arham
                                 Printers brings your ideas to life.</p>
-                            <a href="products.html" class="btn btn-primary py-3 px-5">Explore
+                            <a href="https://shop.arhamprinters.pk/" class="btn btn-primary py-3 px-5">Explore
                                 Products</a>
                         </div>
                         <div class="col-lg-6">
@@ -305,7 +304,7 @@
                     <div class="row g-4 justify-content-center" id="index-categories-list">
                         
                         <div class="col-lg-4 col-md-6 mb-4">
-                            <a href="products.html#business-essentials" class="text-decoration-none">
+                            <a href="https://shop.arhamprinters.pk/#business-essentials" class="text-decoration-none">
                                 <div class="card border-0 shadow-sm rounded-0">
                                     <img src="img/banners/office.webp" class="card-img-top" alt="Business & Office Essentials">
                                     <div class="card-footer bg-primary text-white text-center rounded-0">Business & Office Essentials</div>
@@ -314,7 +313,7 @@
                         </div>
                         
                         <div class="col-lg-4 col-md-6 mb-4">
-                            <a href="products.html#marketing-essentials" class="text-decoration-none">
+                            <a href="https://shop.arhamprinters.pk/#marketing-essentials" class="text-decoration-none">
                                 <div class="card border-0 shadow-sm rounded-0">
                                     <img src="img/banners/promotional.webp" class="card-img-top" alt="Marketing & Promotional Items">
                                     <div class="card-footer bg-primary text-white text-center rounded-0">Marketing & Promotional Items</div>
@@ -323,7 +322,7 @@
                         </div>
 
                         <div class="col-lg-4 col-md-6 mb-4">
-                            <a href="products.html#digital-media" class="text-decoration-none">
+                            <a href="https://shop.arhamprinters.pk/#digital-media" class="text-decoration-none">
                                 <div class="card border-0 shadow-sm rounded-0">
                                     <img src="img/banners/digital.webp" class="card-img-top" alt="Digital Media Marketing">
                                     <div class="card-footer bg-primary text-white text-center rounded-0">Digital Media Marketing</div>
@@ -332,7 +331,7 @@
                         </div>
                         
                         <div class="col-lg-4 col-md-6 mb-4">
-                            <a href="products.html#printsing" class="text-decoration-none">
+                            <a href="https://shop.arhamprinters.pk/#printing" class="text-decoration-none">
                                 <div class="card border-0 shadow-sm rounded-0">
                                     <img src="img/banners/print.webp" class="card-img-top" alt="Custom & Large Format">
                                     <div class="card-footer bg-primary text-white text-center rounded-0">Custom & Large Format</div>
@@ -341,7 +340,7 @@
                         </div>
 
                         <div class="col-lg-4 col-md-6 mb-4">
-                            <a href="print-order.html" class="text-decoration-none">
+                            <a href="https://prints.arhamprinters.pk/" class="text-decoration-none">
                                 <div class="card border-0 shadow-sm rounded-0">
                                     <img src="img/banners/prints.webp" class="card-img-top" alt="B/W and Color Prints">
                                     <div class="card-footer bg-primary text-white text-center rounded-0">B/W and Color Prints</div>
@@ -350,7 +349,7 @@
                         </div>
                         
                         <div class="col-lg-4 col-md-6 mb-4">
-                            <a href="wedding.html" class="text-decoration-none">
+                            <a href="https://wedding.arhamprinters.pk/" class="text-decoration-none">
                                 <div class="card border-0 shadow-sm rounded-0">
                                     <img src="img/banners/wedding.webp" class="card-img-top"
                                         alt="Wedding Invitation Cards">
@@ -723,11 +722,10 @@
                             
 <div>
     <ul class="list-unstyled text-left">
-        <li><a class="text-white" href="shipping_policy.html">Shipping Policy</a></li>
-        <li><a class="text-white" href="return_policy.html">Return Policy</a></li>
+        <li><a class="text-white" href="shipping_policy.php">Shipping Policy</a></li>
+<li><a class="text-white" href="return_policy.php">Return Policy</a></li>
         
-        <!-- Add more links as needed -->
-    </ul>
+        </ul>
 </div>
 
                         </div>
@@ -786,7 +784,7 @@
                     desktopLink.classList.add('active');
                 } else if (sectionName === 'home') {
                      // Default home active state
-                     document.querySelector(`.navbar-nav a[href="index.html"]`)?.classList.add('active');
+                     document.querySelector(`.navbar-nav a[href="index.php"]`)?.classList.add('active');
                 } else if (sectionName === 'cart' || sectionName === 'checkout') {
                     // Cart/Checkout sections don't have a direct nav link to be 'active'
                 }
@@ -804,9 +802,9 @@
                 }
             }
             
-            // Function for the Home Page category links that navigate to products.html
+            // Function for the Home Page category links that navigate to products.php
             function handleCategoryLink(category) {
-                 window.location.href = `products.html?category=${encodeURIComponent(category)}`;
+                 window.location.href = `products.php?category=${encodeURIComponent(category)}`;
             }
 
             // Function for the Home Page Contact/Quote Buttons
@@ -814,8 +812,6 @@
                 showSection(sectionName);
             }
 
-            // --- Order Submission (Mock) - REMOVED, now uses Cart.handleCheckoutSubmission ---
-            
             // Replaced custom showAlert with global Cart.showAlert
             function showAlert(message, type) {
                 if (typeof Cart !== 'undefined' && typeof Cart.showAlert === 'function') {
@@ -869,6 +865,3 @@
 
 
 </html>
-
-
-
